@@ -5,6 +5,7 @@ from .providers import YahooIndiaProvider, ProviderError
 from .cache import JsonCache
 from .normalizer import normalize_quarters, derive_financial_metrics, normalize_ownership
 from .india_ownership import CompositeIndiaOwnershipProvider
+from .screener_ownership import ScreenerOwnershipProvider
 
 
 class Auto360Collector:
@@ -17,7 +18,11 @@ class Auto360Collector:
     def __init__(self, provider=None, cache=None, ownership_provider=None):
         self.provider = provider or YahooIndiaProvider()
         self.cache = cache or JsonCache()
-        self.ownership_provider = ownership_provider or CompositeIndiaOwnershipProvider()
+        # Default Indian ownership fallback. Additional official/licensed providers
+        # can be inserted ahead of Screener later without changing downstream code.
+        self.ownership_provider = ownership_provider or CompositeIndiaOwnershipProvider([
+            ScreenerOwnershipProvider()
+        ])
 
     def collect(self, symbol: str, exchange: str = "NSE", force_refresh: bool = False) -> Dict[str, Any]:
         symbol = symbol.strip().upper()
@@ -45,8 +50,6 @@ class Auto360Collector:
             holders_raw={}
             warnings.append(f"holder data unavailable: {e}")
 
-        # Dedicated Indian shareholding-history layer. It is allowed to fail
-        # independently from Yahoo/company holder snapshots.
         try:
             indian_ownership=self.ownership_provider.collect(symbol,exchange,max_quarters=20)
             warnings.extend(indian_ownership.get("warnings",[]) or [])
@@ -58,8 +61,6 @@ class Auto360Collector:
         metrics=derive_financial_metrics(quarters)
         ownership=normalize_ownership(holders_raw)
 
-        # Dedicated quarter history has priority for 360CR ownership scoring.
-        # Yahoo snapshot remains available as auxiliary context.
         ownership_history=indian_ownership.get("history",[]) or []
         ownership["history"] = ownership_history
         ownership["history_source"] = indian_ownership.get("source","NONE")
