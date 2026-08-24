@@ -3,8 +3,8 @@
 symbol -> automatic data collection -> normalized 360CR -> multi-timeframe
 Ghost Trade Pro -> fused conviction -> entry/stop/targets.
 
-No missing fundamental/ownership value is invented. Missing data is surfaced in
-`data_quality` and reduces confidence instead of being silently filled.
+No missing fundamental/ownership/event value is invented. Missing data is
+surfaced in `data_quality` and reduces confidence instead of being silently filled.
 """
 from __future__ import annotations
 
@@ -52,13 +52,24 @@ def _quarters_for_cr360(packet:Mapping[str,Any]):
     return list(reversed(rows[-20:]))
 
 def _shareholding_for_cr360(packet:Mapping[str,Any]):
-    hist=list(packet.get("shareholding_history") or (packet.get("ownership") or {}).get("history") or [])
+    hist=[dict(r) for r in (packet.get("shareholding_history") or (packet.get("ownership") or {}).get("history") or [])]
+    pledge_hist=list(packet.get("pledge_history") or (packet.get("ownership") or {}).get("pledge_history") or [])
+    pledge_map={str(x.get("period")):x.get("pledge_pct") for x in pledge_hist if x.get("period") and x.get("pledge_pct") is not None}
     if hist:
-        return [{"period":r.get("period"),"promoter":_num(r.get("promoter",r.get("promoter_pct"))),"fii":_num(r.get("fii",r.get("fii_pct"))),
+        out=[]
+        for r in hist[-20:]:
+            p=str(r.get("period"))
+            pledge=r.get("pledge",r.get("pledge_pct"))
+            if pledge is None and p in pledge_map:pledge=pledge_map[p]
+            out.append({"period":r.get("period"),"promoter":_num(r.get("promoter",r.get("promoter_pct"))),"fii":_num(r.get("fii",r.get("fii_pct"))),
                  "dii":_num(r.get("dii",r.get("dii_pct"))),"mutual_fund":_num(r.get("mutual_fund",r.get("mutual_fund_pct"))),"public":_num(r.get("public",r.get("public_pct"))),
-                 "pledge":_num(r.get("pledge",r.get("pledge_pct"))),"insider":_num(r.get("insider",r.get("insider_pct")))} for r in hist[-20:]]
+                 "pledge":_num(pledge),"insider":_num(r.get("insider",r.get("insider_pct")))})
+        return out
     own=dict(packet.get("ownership") or {})
-    current={"period":"current","promoter":_num(own.get("promoter_pct")),"fii":_num(own.get("fii_pct")),"dii":_num(own.get("dii_pct")),"mutual_fund":_num(own.get("mutual_fund_pct")),"pledge":_num(own.get("pledge_pct"))}
+    latest_pledge=None
+    vals=[x.get("pledge_pct") for x in pledge_hist if _num(x.get("pledge_pct")) is not None]
+    if vals:latest_pledge=vals[-1]
+    current={"period":"current","promoter":_num(own.get("promoter_pct")),"fii":_num(own.get("fii_pct")),"dii":_num(own.get("dii_pct")),"mutual_fund":_num(own.get("mutual_fund_pct")),"pledge":_num(own.get("pledge_pct"),_num(latest_pledge))}
     return [current] if any(v is not None for k,v in current.items() if k!="period") else []
 
 def _valuation_for_cr360(packet:Mapping[str,Any]):
@@ -66,11 +77,20 @@ def _valuation_for_cr360(packet:Mapping[str,Any]):
     return {"price":_num(m.get("price")),"pe":_num(m.get("trailing_pe")),"pb":_num(m.get("price_to_book")),"ev_ebitda":_num(m.get("ev_to_ebitda")),"eps_ttm":eps_ttm,"sector_pe":None,"historical_median_pe":None,"expected_eps_growth":None}
 
 def _events_for_cr360(packet:Mapping[str,Any]):
-    raw=((packet.get("ownership") or {}).get("raw") or packet.get("raw_holder_snapshot") or {}); events=[]
+    # Prefer normalized explicit Indian events.
+    events=[dict(e) for e in (packet.get("events") or [])]
+    # Add Yahoo insider evidence only if it is not already represented.
+    raw=((packet.get("ownership") or {}).get("raw") or packet.get("raw_holder_snapshot") or {})
     for rec in raw.get("insider_transactions",[]) or []:
         text=" ".join(str(v) for v in rec.values()).lower(); typ="insider_buy" if ("buy" in text or "purchase" in text) else "insider_sell" if ("sell" in text or "sale" in text) else None
-        if typ:events.append({"type":typ,"materiality":1.0,"raw":rec})
-    return events
+        if typ:events.append({"type":typ,"materiality":1.0,"source":"Yahoo","raw":rec})
+    # Stable deduplication so same transaction from two sources does not double-score.
+    dedup=[];seen=set()
+    for e in events:
+        raw=e.get("raw",{})
+        key=(e.get("type"),e.get("direction"),e.get("value"),repr(sorted((str(k),str(v)) for k,v in raw.items())) if isinstance(raw,dict) else str(raw))
+        if key not in seen:seen.add(key);dedup.append(e)
+    return dedup
 
 def _fetch_technical_frames(collector:Auto360Collector,symbol:str,exchange:str):
     frames={}; warnings=[]
@@ -83,11 +103,13 @@ def _fetch_technical_frames(collector:Auto360Collector,symbol:str,exchange:str):
     return frames,warnings
 
 def _data_confidence(packet:Mapping[str,Any],frames:Mapping[str,pd.DataFrame]):
-    q=packet.get("data_quality") or {}; quarter_count=int(q.get("quarter_count") or 0); shq=int(q.get("shareholding_quarter_count") or 0); score=0.0
-    score+=min(quarter_count/20.0,1.0)*38.0
-    score+=12.0 if q.get("has_market_price") else 0.0
-    score+=min(shq/12.0,1.0)*20.0
-    score+=min(len(frames)/4.0,1.0)*30.0
+    q=packet.get("data_quality") or {}; quarter_count=int(q.get("quarter_count") or 0); shq=int(q.get("shareholding_quarter_count") or 0); pledge=int(q.get("pledge_observation_count") or 0); events=int(q.get("event_count") or 0); score=0.0
+    score+=min(quarter_count/20.0,1.0)*34.0
+    score+=10.0 if q.get("has_market_price") else 0.0
+    score+=min(shq/12.0,1.0)*18.0
+    score+=min(pledge/4.0,1.0)*6.0
+    score+=min(events/5.0,1.0)*4.0
+    score+=min(len(frames)/4.0,1.0)*28.0
     return round(min(100.0,score),2)
 
 def run_full_scan(symbol:str,exchange:str="NSE",force_refresh:bool=False,capital:float=100000.0,risk_pct:float=0.5,collector:Auto360Collector|None=None)->Dict[str,Any]:
@@ -101,7 +123,7 @@ def run_full_scan(symbol:str,exchange:str="NSE",force_refresh:bool=False,capital
     summary=FullScanSummary(symbol,exchange,str(fused.get("final_state")),float(fused.get("final_fused_score",0)),float(fused.get("technical_score",0)),float(fused.get("cr360_score",0)),overall_conf,float(fused.get("technical_false_breakout_risk",100)),entry,stop,t1,t2,t3,
         abs(_pct(stop,entry)) if entry is not None and stop is not None else None,_pct(t1,entry) if t1 is not None and entry is not None else None,_pct(t2,entry) if t2 is not None and entry is not None else None,_pct(t3,entry) if t3 is not None and entry is not None else None,
         _num(crd.get("fair_value_low")),_num(crd.get("fair_value_mid")),_num(crd.get("fair_value_high")),_num(crd.get("margin_of_safety_pct")),str(crd.get("fundamental_bias","UNKNOWN")),str(crd.get("ownership_bias","UNKNOWN")),data_conf)
-    return {"status":"OK","summary":asdict(summary),"explanation":decision_explanation(fused),"fused":fused,"technical":technical,"cr360":cr,"data_quality":packet.get("data_quality",{}),"technical_warnings":tech_warnings,"frames_used":{k:len(v) for k,v in frames.items()}}
+    return {"status":"OK","summary":asdict(summary),"explanation":decision_explanation(fused),"fused":fused,"technical":technical,"cr360":cr,"events_used":_events_for_cr360(packet),"data_quality":packet.get("data_quality",{}),"technical_warnings":tech_warnings,"frames_used":{k:len(v) for k,v in frames.items()}}
 
 def compact_report(result:Mapping[str,Any])->str:
     if result.get("status")!="OK":return f"{result.get('symbol')} | PARTIAL | {result.get('error','scan incomplete')}"
