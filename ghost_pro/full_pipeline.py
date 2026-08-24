@@ -1,7 +1,7 @@
 """End-to-end Share_scan pipeline.
 
 symbol -> automatic data collection -> normalized 360CR -> multi-timeframe
-Ghost Trade Pro -> fused conviction -> entry/stop/targets.
+Ghost Trade Pro -> screenshot-trained case fusion -> fused conviction -> entry/stop/targets.
 
 No missing fundamental/ownership/event value is invented. Missing data is
 surfaced in `data_quality` and reduces confidence instead of being silently filled.
@@ -18,6 +18,7 @@ from ghost_pro.cr360_engine import analyse_360cr
 from ghost_pro.cr360_fusion import fuse_technical_360cr, decision_explanation
 from ghost_pro.ultimate_engine import multi_timeframe
 from ghost_pro.timeframe_matrix import fetch_all_timeframes, TIMEFRAME_SPECS
+from ghost_pro.case_training_fusion import fuse_with_technical
 
 @dataclass
 class FullScanSummary:
@@ -106,15 +107,20 @@ def run_full_scan(symbol:str,exchange:str="NSE",force_refresh:bool=False,capital
     cr=analyse_360cr(symbol=symbol,quarters=_quarters_for_cr360(packet),shareholding=_shareholding_for_cr360(packet),valuation=_valuation_for_cr360(packet),events=_events_for_cr360(packet))
     frames,tech_warnings=_fetch_technical_frames(collector,symbol,exchange)
     if not frames:return {"symbol":symbol,"exchange":exchange,"status":"PARTIAL","error":"No usable technical frames","cr360":cr,"collector_packet":packet,"technical_warnings":tech_warnings}
-    technical=multi_timeframe(frames,symbol=symbol,capital=capital,risk_pct=risk_pct); fused=fuse_technical_360cr(technical,cr)
+
+    # Base Ghost Trade Pro analysis first, then screenshot-derived labelled cases.
+    technical_base=multi_timeframe(frames,symbol=symbol,capital=capital,risk_pct=risk_pct)
+    technical=fuse_with_technical(technical_base,frames)
+    fused=fuse_technical_360cr(technical,cr)
+
     entry=_num(fused.get("entry")); stop=_num(fused.get("stop")); t1=_num(fused.get("target1")); t2=_num(fused.get("target2")); t3=_num(fused.get("target3")); crd=cr.get("decision",{})
     confidence=_num(technical.get("confidence"),0.0) or 0.0; data_conf=_data_confidence(packet,frames); overall_conf=round(0.72*confidence+0.28*data_conf,2)
     summary=FullScanSummary(symbol,exchange,str(fused.get("final_state")),float(fused.get("final_fused_score",0)),float(fused.get("technical_score",0)),float(fused.get("cr360_score",0)),overall_conf,float(fused.get("technical_false_breakout_risk",100)),entry,stop,t1,t2,t3,
         abs(_pct(stop,entry)) if entry is not None and stop is not None else None,_pct(t1,entry) if t1 is not None and entry is not None else None,_pct(t2,entry) if t2 is not None and entry is not None else None,_pct(t3,entry) if t3 is not None and entry is not None else None,
         _num(crd.get("fair_value_low")),_num(crd.get("fair_value_mid")),_num(crd.get("fair_value_high")),_num(crd.get("margin_of_safety_pct")),str(crd.get("fundamental_bias","UNKNOWN")),str(crd.get("ownership_bias","UNKNOWN")),data_conf)
-    return {"status":"OK","summary":asdict(summary),"explanation":decision_explanation(fused),"fused":fused,"technical":technical,"cr360":cr,"events_used":_events_for_cr360(packet),"data_quality":packet.get("data_quality",{}),"technical_warnings":tech_warnings,"frames_used":{k:len(v) for k,v in frames.items()},"requested_timeframes":list(TIMEFRAME_SPECS)}
+    return {"status":"OK","summary":asdict(summary),"explanation":decision_explanation(fused),"fused":fused,"technical":technical,"technical_before_case_training":technical_base,"case_training":technical.get("case_training",{}),"cr360":cr,"events_used":_events_for_cr360(packet),"data_quality":packet.get("data_quality",{}),"technical_warnings":tech_warnings,"frames_used":{k:len(v) for k,v in frames.items()},"requested_timeframes":list(TIMEFRAME_SPECS)}
 
 def compact_report(result:Mapping[str,Any])->str:
     if result.get("status")!="OK":return f"{result.get('symbol')} | PARTIAL | {result.get('error','scan incomplete')}"
-    s=result["summary"]
-    return f"{s['symbol']} | {s['state']} | Fused {s['fused_score']:.1f}/100 | Tech {s['technical_score']:.1f} | 360CR {s['cr360_score']:.1f} | Entry {s['entry']} | SL {s['stop']} | T1 {s['target1']} | T2 {s['target2']} | FalseBreak {s['false_breakout_risk']:.1f}% | Data {s['data_confidence']:.1f}%"
+    s=result["summary"]; case=result.get("case_training") or {}
+    return f"{s['symbol']} | {s['state']} | Fused {s['fused_score']:.1f}/100 | Tech {s['technical_score']:.1f} | 360CR {s['cr360_score']:.1f} | Case {case.get('score','NA')} {case.get('state','')} | Entry {s['entry']} | SL {s['stop']} | T1 {s['target1']} | T2 {s['target2']} | FalseBreak {s['false_breakout_risk']:.1f}% | Data {s['data_confidence']:.1f}%"
