@@ -17,8 +17,7 @@ from ghost_pro.data_collector import Auto360Collector
 from ghost_pro.cr360_engine import analyse_360cr
 from ghost_pro.cr360_fusion import fuse_technical_360cr, decision_explanation
 from ghost_pro.ultimate_engine import multi_timeframe
-
-TECH_FETCH={"5m":("30d","5m"),"15m":("60d","15m"),"30m":("60d","30m"),"1h":("1y","60m")}
+from ghost_pro.timeframe_matrix import fetch_all_timeframes, TIMEFRAME_SPECS
 
 @dataclass
 class FullScanSummary:
@@ -77,14 +76,11 @@ def _valuation_for_cr360(packet:Mapping[str,Any]):
     return {"price":_num(m.get("price")),"pe":_num(m.get("trailing_pe")),"pb":_num(m.get("price_to_book")),"ev_ebitda":_num(m.get("ev_to_ebitda")),"eps_ttm":eps_ttm,"sector_pe":None,"historical_median_pe":None,"expected_eps_growth":None}
 
 def _events_for_cr360(packet:Mapping[str,Any]):
-    # Prefer normalized explicit Indian events.
     events=[dict(e) for e in (packet.get("events") or [])]
-    # Add Yahoo insider evidence only if it is not already represented.
     raw=((packet.get("ownership") or {}).get("raw") or packet.get("raw_holder_snapshot") or {})
     for rec in raw.get("insider_transactions",[]) or []:
         text=" ".join(str(v) for v in rec.values()).lower(); typ="insider_buy" if ("buy" in text or "purchase" in text) else "insider_sell" if ("sell" in text or "sale" in text) else None
         if typ:events.append({"type":typ,"materiality":1.0,"source":"Yahoo","raw":rec})
-    # Stable deduplication so same transaction from two sources does not double-score.
     dedup=[];seen=set()
     for e in events:
         raw=e.get("raw",{})
@@ -93,37 +89,30 @@ def _events_for_cr360(packet:Mapping[str,Any]):
     return dedup
 
 def _fetch_technical_frames(collector:Auto360Collector,symbol:str,exchange:str):
-    frames={}; warnings=[]
-    for tf,(period,interval) in TECH_FETCH.items():
-        try:
-            d=collector.collect_price_history(symbol,exchange,period=period,interval=interval)
-            if d is not None and len(d)>=60:frames[tf]=d.tail(1500).reset_index(drop=True)
-            else:warnings.append(f"{tf}: fewer than 60 candles")
-        except Exception as e:warnings.append(f"{tf}: {e}")
-    return frames,warnings
+    return fetch_all_timeframes(collector,symbol,exchange,min_candles=60)
 
 def _data_confidence(packet:Mapping[str,Any],frames:Mapping[str,pd.DataFrame]):
     q=packet.get("data_quality") or {}; quarter_count=int(q.get("quarter_count") or 0); shq=int(q.get("shareholding_quarter_count") or 0); pledge=int(q.get("pledge_observation_count") or 0); events=int(q.get("event_count") or 0); score=0.0
-    score+=min(quarter_count/20.0,1.0)*34.0
+    score+=min(quarter_count/20.0,1.0)*32.0
     score+=10.0 if q.get("has_market_price") else 0.0
-    score+=min(shq/12.0,1.0)*18.0
+    score+=min(shq/12.0,1.0)*17.0
     score+=min(pledge/4.0,1.0)*6.0
     score+=min(events/5.0,1.0)*4.0
-    score+=min(len(frames)/4.0,1.0)*28.0
+    score+=min(len(frames)/max(len(TIMEFRAME_SPECS),1),1.0)*31.0
     return round(min(100.0,score),2)
 
 def run_full_scan(symbol:str,exchange:str="NSE",force_refresh:bool=False,capital:float=100000.0,risk_pct:float=0.5,collector:Auto360Collector|None=None)->Dict[str,Any]:
     collector=collector or Auto360Collector(); symbol=symbol.strip().upper(); exchange=exchange.strip().upper(); packet=collector.collect(symbol,exchange,force_refresh)
     cr=analyse_360cr(symbol=symbol,quarters=_quarters_for_cr360(packet),shareholding=_shareholding_for_cr360(packet),valuation=_valuation_for_cr360(packet),events=_events_for_cr360(packet))
     frames,tech_warnings=_fetch_technical_frames(collector,symbol,exchange)
-    if not frames:return {"symbol":symbol,"exchange":exchange,"status":"PARTIAL","error":"No usable intraday technical frames","cr360":cr,"collector_packet":packet,"technical_warnings":tech_warnings}
+    if not frames:return {"symbol":symbol,"exchange":exchange,"status":"PARTIAL","error":"No usable technical frames","cr360":cr,"collector_packet":packet,"technical_warnings":tech_warnings}
     technical=multi_timeframe(frames,symbol=symbol,capital=capital,risk_pct=risk_pct); fused=fuse_technical_360cr(technical,cr)
     entry=_num(fused.get("entry")); stop=_num(fused.get("stop")); t1=_num(fused.get("target1")); t2=_num(fused.get("target2")); t3=_num(fused.get("target3")); crd=cr.get("decision",{})
     confidence=_num(technical.get("confidence"),0.0) or 0.0; data_conf=_data_confidence(packet,frames); overall_conf=round(0.72*confidence+0.28*data_conf,2)
     summary=FullScanSummary(symbol,exchange,str(fused.get("final_state")),float(fused.get("final_fused_score",0)),float(fused.get("technical_score",0)),float(fused.get("cr360_score",0)),overall_conf,float(fused.get("technical_false_breakout_risk",100)),entry,stop,t1,t2,t3,
         abs(_pct(stop,entry)) if entry is not None and stop is not None else None,_pct(t1,entry) if t1 is not None and entry is not None else None,_pct(t2,entry) if t2 is not None and entry is not None else None,_pct(t3,entry) if t3 is not None and entry is not None else None,
         _num(crd.get("fair_value_low")),_num(crd.get("fair_value_mid")),_num(crd.get("fair_value_high")),_num(crd.get("margin_of_safety_pct")),str(crd.get("fundamental_bias","UNKNOWN")),str(crd.get("ownership_bias","UNKNOWN")),data_conf)
-    return {"status":"OK","summary":asdict(summary),"explanation":decision_explanation(fused),"fused":fused,"technical":technical,"cr360":cr,"events_used":_events_for_cr360(packet),"data_quality":packet.get("data_quality",{}),"technical_warnings":tech_warnings,"frames_used":{k:len(v) for k,v in frames.items()}}
+    return {"status":"OK","summary":asdict(summary),"explanation":decision_explanation(fused),"fused":fused,"technical":technical,"cr360":cr,"events_used":_events_for_cr360(packet),"data_quality":packet.get("data_quality",{}),"technical_warnings":tech_warnings,"frames_used":{k:len(v) for k,v in frames.items()},"requested_timeframes":list(TIMEFRAME_SPECS)}
 
 def compact_report(result:Mapping[str,Any])->str:
     if result.get("status")!="OK":return f"{result.get('symbol')} | PARTIAL | {result.get('error','scan incomplete')}"
