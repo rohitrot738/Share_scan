@@ -7,6 +7,10 @@ on:
         description: 'Number of symbols to scan; 0 = full configured universe'
         required: false
         default: '0'
+  push:
+    branches: [main]
+    paths:
+      - 'scan_trigger.txt'
   schedule:
     # Weekdays: around 10:05 IST and 14:05 IST. UTC cron.
     - cron: '35 4 * * 1-5'
@@ -22,7 +26,7 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
