@@ -1,1 +1,1 @@
-Trigger Share_scan nine-timeframe full-universe run: 2026-08-24 13:05 IST
+Trigger Share_scan nine-timeframe full-universe fresh run: 2026-08-24
