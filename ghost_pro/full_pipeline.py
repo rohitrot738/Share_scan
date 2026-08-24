@@ -18,277 +18,92 @@ from ghost_pro.cr360_engine import analyse_360cr
 from ghost_pro.cr360_fusion import fuse_technical_360cr, decision_explanation
 from ghost_pro.ultimate_engine import multi_timeframe
 
-
-TECH_FETCH = {
-    "5m":  ("30d", "5m"),
-    "15m": ("60d", "15m"),
-    "30m": ("60d", "30m"),
-    "1h":  ("1y", "60m"),
-}
-
+TECH_FETCH={"5m":("30d","5m"),"15m":("60d","15m"),"30m":("60d","30m"),"1h":("1y","60m")}
 
 @dataclass
 class FullScanSummary:
-    symbol: str
-    exchange: str
-    state: str
-    fused_score: float
-    technical_score: float
-    cr360_score: float
-    confidence: float
-    false_breakout_risk: float
-    entry: Optional[float]
-    stop: Optional[float]
-    target1: Optional[float]
-    target2: Optional[float]
-    target3: Optional[float]
-    risk_pct: Optional[float]
-    reward1_pct: Optional[float]
-    reward2_pct: Optional[float]
-    reward3_pct: Optional[float]
-    fair_value_low: Optional[float]
-    fair_value_mid: Optional[float]
-    fair_value_high: Optional[float]
-    margin_of_safety_pct: Optional[float]
-    fundamental_bias: str
-    ownership_bias: str
-    data_confidence: float
+    symbol:str; exchange:str; state:str; fused_score:float; technical_score:float; cr360_score:float; confidence:float; false_breakout_risk:float
+    entry:Optional[float]; stop:Optional[float]; target1:Optional[float]; target2:Optional[float]; target3:Optional[float]
+    risk_pct:Optional[float]; reward1_pct:Optional[float]; reward2_pct:Optional[float]; reward3_pct:Optional[float]
+    fair_value_low:Optional[float]; fair_value_mid:Optional[float]; fair_value_high:Optional[float]; margin_of_safety_pct:Optional[float]
+    fundamental_bias:str; ownership_bias:str; data_confidence:float
 
-
-def _num(v, default=None):
+def _num(v,default=None):
     try:
-        if v is None:
-            return default
-        x=float(v)
-        return default if math.isnan(x) or math.isinf(x) else x
-    except Exception:
-        return default
+        if v is None:return default
+        x=float(v); return default if math.isnan(x) or math.isinf(x) else x
+    except Exception:return default
 
-
-def _pct(a, b):
+def _pct(a,b):
     a=_num(a); b=_num(b)
-    if a is None or b in (None,0):
-        return None
+    if a is None or b in (None,0):return None
     return (a-b)/abs(b)*100.0
 
-
-def _quarters_for_cr360(packet: Mapping[str,Any]):
-    """Convert collector rows to CR360 schema and oldest->newest order."""
-    raw=list(packet.get("quarters") or [])
-    rows=[]
+def _quarters_for_cr360(packet:Mapping[str,Any]):
+    raw=list(packet.get("quarters") or []); rows=[]
     for r in raw:
-        debt=_num(r.get("debt"))
-        cash=_num(r.get("cash"))
-        revenue=_num(r.get("revenue"))
-        pat=_num(r.get("pat"))
-        row={
-            "period":r.get("period"),
-            "revenue":revenue,
-            "ebitda":_num(r.get("ebitda")),
-            "ebit":_num(r.get("ebit")),
-            "pat":pat,
-            "eps":_num(r.get("eps")),
-            "opm":_num(r.get("opm"), _num(r.get("operating_margin_pct"))),
-            "npm":_num(r.get("npm"), (pat/revenue*100 if revenue not in (None,0) and pat is not None else None)),
-            "cfo":_num(r.get("cfo")),
-            "capex":_num(r.get("capex")),
-            "fcf":_num(r.get("fcf")),
-            "debt":debt,
-            "cash":cash,
-            "net_debt":(debt-cash if debt is not None and cash is not None else None),
-            "equity":_num(r.get("equity")),
-            "assets":_num(r.get("assets")),
-            "receivables":_num(r.get("receivables")),
-            "inventory":_num(r.get("inventory")),
-            "payables":_num(r.get("payables")),
-            "depreciation":_num(r.get("depreciation")),
-            "interest":_num(r.get("interest")),
-            "shares":_num(r.get("shares")),
-            "roce":_num(r.get("roce")),
-            "roe":_num(r.get("roe")),
-            "working_capital_days":_num(r.get("working_capital_days")),
-            "debtor_days":_num(r.get("debtor_days")),
-        }
-        rows.append(row)
-    # collector returns newest->oldest; CR360 expects oldest->newest.
+        debt=_num(r.get("debt")); cash=_num(r.get("cash")); revenue=_num(r.get("revenue")); pat=_num(r.get("pat"))
+        rows.append({"period":r.get("period"),"revenue":revenue,"ebitda":_num(r.get("ebitda")),"ebit":_num(r.get("ebit")),"pat":pat,"eps":_num(r.get("eps")),
+        "opm":_num(r.get("opm"),_num(r.get("operating_margin_pct"))),"npm":_num(r.get("npm"),(pat/revenue*100 if revenue not in (None,0) and pat is not None else None)),
+        "cfo":_num(r.get("cfo")),"capex":_num(r.get("capex")),"fcf":_num(r.get("fcf")),"debt":debt,"cash":cash,"net_debt":(debt-cash if debt is not None and cash is not None else None),
+        "equity":_num(r.get("equity")),"assets":_num(r.get("assets")),"receivables":_num(r.get("receivables")),"inventory":_num(r.get("inventory")),"payables":_num(r.get("payables")),
+        "depreciation":_num(r.get("depreciation")),"interest":_num(r.get("interest")),"shares":_num(r.get("shares")),"roce":_num(r.get("roce")),"roe":_num(r.get("roe")),
+        "working_capital_days":_num(r.get("working_capital_days")),"debtor_days":_num(r.get("debtor_days"))})
     return list(reversed(rows[-20:]))
 
-
-def _shareholding_for_cr360(packet: Mapping[str,Any]):
-    own=dict(packet.get("ownership") or {})
-    hist=list(own.get("history") or [])
+def _shareholding_for_cr360(packet:Mapping[str,Any]):
+    hist=list(packet.get("shareholding_history") or (packet.get("ownership") or {}).get("history") or [])
     if hist:
-        out=[]
-        for r in hist[-20:]:
-            out.append({
-                "period":r.get("period"),
-                "promoter":_num(r.get("promoter",r.get("promoter_pct"))),
-                "fii":_num(r.get("fii",r.get("fii_pct"))),
-                "dii":_num(r.get("dii",r.get("dii_pct"))),
-                "mutual_fund":_num(r.get("mutual_fund",r.get("mutual_fund_pct"))),
-                "public":_num(r.get("public",r.get("public_pct"))),
-                "pledge":_num(r.get("pledge",r.get("pledge_pct"))),
-                "insider":_num(r.get("insider",r.get("insider_pct"))),
-            })
-        return out
+        return [{"period":r.get("period"),"promoter":_num(r.get("promoter",r.get("promoter_pct"))),"fii":_num(r.get("fii",r.get("fii_pct"))),
+                 "dii":_num(r.get("dii",r.get("dii_pct"))),"mutual_fund":_num(r.get("mutual_fund",r.get("mutual_fund_pct"))),"public":_num(r.get("public",r.get("public_pct"))),
+                 "pledge":_num(r.get("pledge",r.get("pledge_pct"))),"insider":_num(r.get("insider",r.get("insider_pct")))} for r in hist[-20:]]
+    own=dict(packet.get("ownership") or {})
+    current={"period":"current","promoter":_num(own.get("promoter_pct")),"fii":_num(own.get("fii_pct")),"dii":_num(own.get("dii_pct")),"mutual_fund":_num(own.get("mutual_fund_pct")),"pledge":_num(own.get("pledge_pct"))}
+    return [current] if any(v is not None for k,v in current.items() if k!="period") else []
 
-    # Current snapshot only. Values remain None when provider does not know them.
-    current={
-        "period":"current",
-        "promoter":_num(own.get("promoter_pct")),
-        "fii":_num(own.get("fii_pct")),
-        "dii":_num(own.get("dii_pct")),
-        "mutual_fund":_num(own.get("mutual_fund_pct")),
-        "pledge":_num(own.get("pledge_pct")),
-    }
-    if any(v is not None for k,v in current.items() if k!="period"):
-        return [current]
-    return []
+def _valuation_for_cr360(packet:Mapping[str,Any]):
+    m=dict(packet.get("market") or {}); quarters=_quarters_for_cr360(packet); eps=[_num(r.get("eps")) for r in quarters if _num(r.get("eps")) is not None]; eps_ttm=sum(eps[-4:]) if eps else None
+    return {"price":_num(m.get("price")),"pe":_num(m.get("trailing_pe")),"pb":_num(m.get("price_to_book")),"ev_ebitda":_num(m.get("ev_to_ebitda")),"eps_ttm":eps_ttm,"sector_pe":None,"historical_median_pe":None,"expected_eps_growth":None}
 
-
-def _valuation_for_cr360(packet: Mapping[str,Any]):
-    m=dict(packet.get("market") or {})
-    quarters=_quarters_for_cr360(packet)
-    eps=[_num(r.get("eps")) for r in quarters if _num(r.get("eps")) is not None]
-    eps_ttm=sum(eps[-4:]) if eps else None
-    return {
-        "price":_num(m.get("price")),
-        "pe":_num(m.get("trailing_pe")),
-        "pb":_num(m.get("price_to_book")),
-        "ev_ebitda":_num(m.get("ev_to_ebitda")),
-        "eps_ttm":eps_ttm,
-        # sector/historical anchors are intentionally left missing until a
-        # reliable provider is connected.
-        "sector_pe":None,
-        "historical_median_pe":None,
-        "expected_eps_growth":None,
-    }
-
-
-def _events_for_cr360(packet: Mapping[str,Any]):
-    """Convert only explicit holder/insider events available in raw provider data."""
-    raw=((packet.get("ownership") or {}).get("raw") or {})
-    events=[]
+def _events_for_cr360(packet:Mapping[str,Any]):
+    raw=((packet.get("ownership") or {}).get("raw") or packet.get("raw_holder_snapshot") or {}); events=[]
     for rec in raw.get("insider_transactions",[]) or []:
-        text=" ".join(str(v) for v in rec.values()).lower()
-        if "buy" in text or "purchase" in text:
-            typ="insider_buy"
-        elif "sell" in text or "sale" in text:
-            typ="insider_sell"
-        else:
-            continue
-        events.append({"type":typ,"materiality":1.0,"raw":rec})
+        text=" ".join(str(v) for v in rec.values()).lower(); typ="insider_buy" if ("buy" in text or "purchase" in text) else "insider_sell" if ("sell" in text or "sale" in text) else None
+        if typ:events.append({"type":typ,"materiality":1.0,"raw":rec})
     return events
 
-
-def _fetch_technical_frames(collector: Auto360Collector, symbol: str, exchange: str):
+def _fetch_technical_frames(collector:Auto360Collector,symbol:str,exchange:str):
     frames={}; warnings=[]
     for tf,(period,interval) in TECH_FETCH.items():
         try:
             d=collector.collect_price_history(symbol,exchange,period=period,interval=interval)
-            if d is not None and len(d)>=60:
-                frames[tf]=d.tail(1500).reset_index(drop=True)
-            else:
-                warnings.append(f"{tf}: fewer than 60 candles")
-        except Exception as e:
-            warnings.append(f"{tf}: {e}")
+            if d is not None and len(d)>=60:frames[tf]=d.tail(1500).reset_index(drop=True)
+            else:warnings.append(f"{tf}: fewer than 60 candles")
+        except Exception as e:warnings.append(f"{tf}: {e}")
     return frames,warnings
 
-
-def _data_confidence(packet: Mapping[str,Any], frames: Mapping[str,pd.DataFrame]):
-    q=packet.get("data_quality") or {}
-    quarter_count=int(q.get("quarter_count") or 0)
-    score=0.0
-    score += min(quarter_count/20.0,1.0)*42.0
-    score += 13.0 if q.get("has_market_price") else 0.0
-    score += 15.0 if q.get("has_ownership") else 0.0
-    score += min(len(frames)/4.0,1.0)*30.0
+def _data_confidence(packet:Mapping[str,Any],frames:Mapping[str,pd.DataFrame]):
+    q=packet.get("data_quality") or {}; quarter_count=int(q.get("quarter_count") or 0); shq=int(q.get("shareholding_quarter_count") or 0); score=0.0
+    score+=min(quarter_count/20.0,1.0)*38.0
+    score+=12.0 if q.get("has_market_price") else 0.0
+    score+=min(shq/12.0,1.0)*20.0
+    score+=min(len(frames)/4.0,1.0)*30.0
     return round(min(100.0,score),2)
 
-
-def run_full_scan(symbol: str, exchange: str="NSE", force_refresh: bool=False,
-                  capital: float=100000.0, risk_pct: float=0.5,
-                  collector: Auto360Collector | None=None) -> Dict[str,Any]:
-    collector=collector or Auto360Collector()
-    symbol=symbol.strip().upper(); exchange=exchange.strip().upper()
-
-    packet=collector.collect(symbol,exchange,force_refresh)
-    quarters=_quarters_for_cr360(packet)
-    shareholding=_shareholding_for_cr360(packet)
-    valuation=_valuation_for_cr360(packet)
-    events=_events_for_cr360(packet)
-
-    cr=analyse_360cr(
-        symbol=symbol,
-        quarters=quarters,
-        shareholding=shareholding,
-        valuation=valuation,
-        events=events,
-    )
-
+def run_full_scan(symbol:str,exchange:str="NSE",force_refresh:bool=False,capital:float=100000.0,risk_pct:float=0.5,collector:Auto360Collector|None=None)->Dict[str,Any]:
+    collector=collector or Auto360Collector(); symbol=symbol.strip().upper(); exchange=exchange.strip().upper(); packet=collector.collect(symbol,exchange,force_refresh)
+    cr=analyse_360cr(symbol=symbol,quarters=_quarters_for_cr360(packet),shareholding=_shareholding_for_cr360(packet),valuation=_valuation_for_cr360(packet),events=_events_for_cr360(packet))
     frames,tech_warnings=_fetch_technical_frames(collector,symbol,exchange)
-    if not frames:
-        return {
-            "symbol":symbol,"exchange":exchange,"status":"PARTIAL",
-            "error":"No usable intraday technical frames",
-            "cr360":cr,"collector_packet":packet,
-            "technical_warnings":tech_warnings,
-        }
+    if not frames:return {"symbol":symbol,"exchange":exchange,"status":"PARTIAL","error":"No usable intraday technical frames","cr360":cr,"collector_packet":packet,"technical_warnings":tech_warnings}
+    technical=multi_timeframe(frames,symbol=symbol,capital=capital,risk_pct=risk_pct); fused=fuse_technical_360cr(technical,cr)
+    entry=_num(fused.get("entry")); stop=_num(fused.get("stop")); t1=_num(fused.get("target1")); t2=_num(fused.get("target2")); t3=_num(fused.get("target3")); crd=cr.get("decision",{})
+    confidence=_num(technical.get("confidence"),0.0) or 0.0; data_conf=_data_confidence(packet,frames); overall_conf=round(0.72*confidence+0.28*data_conf,2)
+    summary=FullScanSummary(symbol,exchange,str(fused.get("final_state")),float(fused.get("final_fused_score",0)),float(fused.get("technical_score",0)),float(fused.get("cr360_score",0)),overall_conf,float(fused.get("technical_false_breakout_risk",100)),entry,stop,t1,t2,t3,
+        abs(_pct(stop,entry)) if entry is not None and stop is not None else None,_pct(t1,entry) if t1 is not None and entry is not None else None,_pct(t2,entry) if t2 is not None and entry is not None else None,_pct(t3,entry) if t3 is not None and entry is not None else None,
+        _num(crd.get("fair_value_low")),_num(crd.get("fair_value_mid")),_num(crd.get("fair_value_high")),_num(crd.get("margin_of_safety_pct")),str(crd.get("fundamental_bias","UNKNOWN")),str(crd.get("ownership_bias","UNKNOWN")),data_conf)
+    return {"status":"OK","summary":asdict(summary),"explanation":decision_explanation(fused),"fused":fused,"technical":technical,"cr360":cr,"data_quality":packet.get("data_quality",{}),"technical_warnings":tech_warnings,"frames_used":{k:len(v) for k,v in frames.items()}}
 
-    technical=multi_timeframe(frames,symbol=symbol,capital=capital,risk_pct=risk_pct)
-    fused=fuse_technical_360cr(technical,cr)
-
-    entry=_num(fused.get("entry")); stop=_num(fused.get("stop"))
-    t1=_num(fused.get("target1")); t2=_num(fused.get("target2")); t3=_num(fused.get("target3"))
-    crd=cr.get("decision",{})
-    confidence=_num(technical.get("confidence"),0.0) or 0.0
-    data_conf=_data_confidence(packet,frames)
-    # Overall confidence requires both model agreement and data completeness.
-    overall_conf=round(0.72*confidence+0.28*data_conf,2)
-
-    summary=FullScanSummary(
-        symbol=symbol,
-        exchange=exchange,
-        state=str(fused.get("final_state")),
-        fused_score=float(fused.get("final_fused_score",0)),
-        technical_score=float(fused.get("technical_score",0)),
-        cr360_score=float(fused.get("cr360_score",0)),
-        confidence=overall_conf,
-        false_breakout_risk=float(fused.get("technical_false_breakout_risk",100)),
-        entry=entry,stop=stop,target1=t1,target2=t2,target3=t3,
-        risk_pct=(abs(_pct(stop,entry)) if entry is not None and stop is not None else None),
-        reward1_pct=(_pct(t1,entry) if t1 is not None and entry is not None else None),
-        reward2_pct=(_pct(t2,entry) if t2 is not None and entry is not None else None),
-        reward3_pct=(_pct(t3,entry) if t3 is not None and entry is not None else None),
-        fair_value_low=_num(crd.get("fair_value_low")),
-        fair_value_mid=_num(crd.get("fair_value_mid")),
-        fair_value_high=_num(crd.get("fair_value_high")),
-        margin_of_safety_pct=_num(crd.get("margin_of_safety_pct")),
-        fundamental_bias=str(crd.get("fundamental_bias","UNKNOWN")),
-        ownership_bias=str(crd.get("ownership_bias","UNKNOWN")),
-        data_confidence=data_conf,
-    )
-
-    return {
-        "status":"OK",
-        "summary":asdict(summary),
-        "explanation":decision_explanation(fused),
-        "fused":fused,
-        "technical":technical,
-        "cr360":cr,
-        "data_quality":packet.get("data_quality",{}),
-        "technical_warnings":tech_warnings,
-        "frames_used":{k:len(v) for k,v in frames.items()},
-    }
-
-
-def compact_report(result: Mapping[str,Any]) -> str:
-    if result.get("status")!="OK":
-        return f"{result.get('symbol')} | PARTIAL | {result.get('error','scan incomplete')}"
+def compact_report(result:Mapping[str,Any])->str:
+    if result.get("status")!="OK":return f"{result.get('symbol')} | PARTIAL | {result.get('error','scan incomplete')}"
     s=result["summary"]
-    return (
-        f"{s['symbol']} | {s['state']} | Fused {s['fused_score']:.1f}/100 | "
-        f"Tech {s['technical_score']:.1f} | 360CR {s['cr360_score']:.1f} | "
-        f"Entry {s['entry']} | SL {s['stop']} | T1 {s['target1']} | T2 {s['target2']} | "
-        f"FalseBreak {s['false_breakout_risk']:.1f}% | Data {s['data_confidence']:.1f}%"
-    )
+    return f"{s['symbol']} | {s['state']} | Fused {s['fused_score']:.1f}/100 | Tech {s['technical_score']:.1f} | 360CR {s['cr360_score']:.1f} | Entry {s['entry']} | SL {s['stop']} | T1 {s['target1']} | T2 {s['target2']} | FalseBreak {s['false_breakout_risk']:.1f}% | Data {s['data_confidence']:.1f}%"
