@@ -1,4 +1,4 @@
-name: Share Scan Stage 1
+name: Share Scan Staged
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
     types: [opened]
 
 concurrency:
-  group: share-scan-stage1
+  group: share-scan-staged
   cancel-in-progress: true
 
 jobs:
@@ -27,27 +27,32 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Validate stage-1 code
+      - name: Validate staged code
         run: |
-          python -m py_compile scanner.py false_breakout_filter.py
-          python -c "from false_breakout_filter import false_breakout_risk; import scanner; print('baseline + stage1 imports OK')"
-      - name: Run baseline plus stage-1
+          python -m py_compile scanner.py false_breakout_filter.py demand_supply.py
+          python -c "import scanner; from false_breakout_filter import false_breakout_risk; from demand_supply import detect_zones; print('staged scanner imports OK')"
+      - name: Run staged NSE scanner
         run: |
           LIMIT="${{ github.event.inputs.limit || '20' }}"
           python scanner.py --limit "$LIMIT" --output-dir scan_results
-      - name: Verify stage-1 output
+      - name: Verify staged output
         run: |
           python - <<'PY'
           import json
           p=json.load(open('scan_results/latest.json'))
-          assert p['successful_baseline'] > 0, 'baseline returned zero symbols'
-          assert p['successful_stage1'] == p['successful_baseline'], f"stage1 incomplete: {p['successful_stage1']}/{p['successful_baseline']}"
-          print('STAGE1 VERIFIED:', p['successful_stage1'])
+          base=p['successful_baseline']
+          s1=p['successful_stage1_false_breakout']
+          s2=p['successful_stage2_demand_supply']
+          assert base > 0, 'baseline returned zero symbols'
+          assert s1 == base, f'false-breakout incomplete: {s1}/{base}'
+          assert s2 == base, f'demand-supply incomplete: {s2}/{base}'
+          assert p.get('speed_modes_enabled') is False, 'speed mode unexpectedly enabled'
+          print(f'STAGED VERIFIED: baseline={base}, false_breakout={s1}, demand_supply={s2}')
           PY
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
-          name: share-scan-stage1-results
+          name: share-scan-staged-results
           path: scan_results/
           if-no-files-found: error
           retention-days: 14
