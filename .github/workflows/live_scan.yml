@@ -1,4 +1,4 @@
-name: 30-SECOND Market Scan
+name: 30-SECOND NSE Market Scan
 
 on:
   workflow_dispatch:
@@ -8,13 +8,9 @@ on:
         required: false
         default: "100"
       shortlist:
-        description: Full-market shortlist size
+        description: NSE shortlist size
         required: false
         default: "500"
-      market:
-        description: nse, bse, or both
-        required: false
-        default: "both"
   push:
     branches: [main]
     paths: ["scan_trigger.txt"]
@@ -22,7 +18,7 @@ on:
     types: [opened]
 
 concurrency:
-  group: 30-second-market-scan
+  group: 30-second-nse-market-scan
   cancel-in-progress: true
 
 jobs:
@@ -36,32 +32,36 @@ jobs:
       SCAN_DEEP_LIMIT: "120"
       SCAN_DEPTH_LIMIT: "10"
       SCAN_STAGE1_WORKERS: "4"
+      SCAN_CACHE_DIR: ".scan_cache"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: pip
+      - name: Restore scanner cache
+        uses: actions/cache@v4
+        with:
+          path: .scan_cache
+          key: nse-scan-cache-${{ github.run_id }}
+          restore-keys: |
+            nse-scan-cache-
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Validate 30-second scanner
+      - name: Validate scanner
         run: |
           python -m compileall -q .
-          python -c "import live_scan, market_data; print('30-second mode imports ok')"
-      - name: Run 30-SECOND scanner
+          python -c "import live_scan, market_data; print('NSE scanner imports ok')"
+      - name: Run 30-SECOND NSE scanner
         shell: bash
         run: |
           TOP="${{ github.event.inputs.top || '100' }}"
           SHORTLIST="${{ github.event.inputs.shortlist || '500' }}"
-          MARKET="${{ github.event.inputs.market || 'both' }}"
-          FLAGS=""
-          if [ "$MARKET" = "nse" ]; then FLAGS="--nse-only"; fi
-          if [ "$MARKET" = "bse" ]; then FLAGS="--bse-only"; fi
-          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 1200 $FLAGS
-      - name: Upload 30-SECOND results
+          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 1200
+      - name: Upload results
         uses: actions/upload-artifact@v4
         with:
-          name: 30-second-share-scan-results
+          name: 30-second-nse-share-scan-results
           path: scan_output/
           if-no-files-found: error
           retention-days: 14
