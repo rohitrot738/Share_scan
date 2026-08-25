@@ -24,6 +24,51 @@ Detect the preparation phase before a fast bullish move across NSE/BSE instead o
 
 Important: OHLCV cannot reveal the true exchange order book or actual hidden/bulk orders. The current bulk/order-flow modules are evidence-based proxies. A broker/exchange market-depth feed can later be attached to replace/augment them with real bid/ask depth and trades.
 
+## Live NSE/BSE pipeline
+
+`live_scan.py` now provides a two-stage full-market scan designed for 1–2 week swing candidates.
+
+### Stage 1 — whole market prefilter
+- loads the NSE equity universe from the official NSE equity CSV
+- attempts to load active BSE equity scrips from the BSE API
+- downloads daily OHLCV in batches
+- scores trend, proximity to 20-day resistance, relative volume, 5/20-day momentum, base width and liquidity
+- keeps only the strongest configurable shortlist
+
+### Stage 2 — Ghost ranking
+For the Stage-1 shortlist it downloads 15m, 30m, 1h, 1d and 1w candles and derives 4h candles from 1h data. It then runs the existing multi-timeframe engine plus `ghost_trade_snapshot`, applies a false-breakout penalty and ranks the final candidates.
+
+Outputs are written to:
+- `scan_output/top10.csv`
+- `scan_output/top10.json`
+- `scan_output/stage1_shortlist.csv`
+
+### Run locally
+
+```bash
+pip install -r requirements.txt
+python live_scan.py --top 10 --shortlist 120
+```
+
+NSE only:
+
+```bash
+python live_scan.py --top 10 --shortlist 120 --nse-only
+```
+
+BSE only:
+
+```bash
+python live_scan.py --top 10 --shortlist 120 --bse-only
+```
+
+If BSE blocks its public endpoint, an optional CSV can be supplied through `EXTRA_SYMBOLS_FILE`. The CSV columns are `symbol,exchange,yahoo_symbol,name`; `yahoo_symbol` is optional and defaults to `.NS` for NSE or `.BO` for BSE.
+
+### GitHub Actions
+Run **Actions → Live Market Scan → Run workflow**. Choose `top`, `shortlist` and `market`. The completed run uploads `share-scan-results` containing the CSV/JSON outputs.
+
+The workflow also performs syntax and import checks on pull requests.
+
 ## Ghost Move Pro foundation
 - 5m / 15m / 30m / 1h multi-timeframe analysis
 - impulse detection
@@ -42,9 +87,7 @@ Important: OHLCV cannot reveal the true exchange order book or actual hidden/bul
 This remains the foundation rather than the final calibrated strategy. Thresholds, weights and filters will be refined from 50–100 labelled chart screenshots across multiple timeframes, including both successful moves and failed setups. The purpose is to learn the common pre-move structure, not to hard-code one stock or one exact chart shape.
 
 ## Next layers
-- real NSE/BSE universe data adapter
-- broker/API adapter for live candles and market depth
-- full-market ranking loop
+- broker/exchange market-depth adapter for true bid/ask and trades
 - backtesting and walk-forward validation
 - sector-relative strength and regime filter
 - alerts/dashboard
