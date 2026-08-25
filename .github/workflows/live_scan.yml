@@ -1,4 +1,4 @@
-name: SUPERFAST BULK-FIRST Market Scan
+name: 30-SECOND Market Scan
 
 on:
   workflow_dispatch:
@@ -8,7 +8,7 @@ on:
         required: false
         default: "100"
       shortlist:
-        description: Bulk-first shortlist size
+        description: Full-market shortlist size
         required: false
         default: "500"
       market:
@@ -22,16 +22,20 @@ on:
     types: [opened]
 
 concurrency:
-  group: superfast-bulk-first-scan
+  group: 30-second-market-scan
   cancel-in-progress: true
 
 jobs:
   scan:
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[SCAN]'))
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 3
     env:
       GROWW_ACCESS_TOKEN: ${{ secrets.GROWW_ACCESS_TOKEN }}
+      SCAN_TARGET_SECONDS: "30"
+      SCAN_DEEP_LIMIT: "120"
+      SCAN_DEPTH_LIMIT: "10"
+      SCAN_STAGE1_WORKERS: "4"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -40,11 +44,11 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Validate scanner
+      - name: Validate 30-second scanner
         run: |
           python -m compileall -q .
-          python -c "import live_scan, market_data; print('bulk-first imports ok')"
-      - name: Run SUPERFAST BULK-FIRST scanner
+          python -c "import live_scan, market_data; print('30-second mode imports ok')"
+      - name: Run 30-SECOND scanner
         shell: bash
         run: |
           TOP="${{ github.event.inputs.top || '100' }}"
@@ -53,11 +57,11 @@ jobs:
           FLAGS=""
           if [ "$MARKET" = "nse" ]; then FLAGS="--nse-only"; fi
           if [ "$MARKET" = "bse" ]; then FLAGS="--bse-only"; fi
-          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 700 $FLAGS
-      - name: Upload SUPERFAST BULK-FIRST results
+          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 1200 $FLAGS
+      - name: Upload 30-SECOND results
         uses: actions/upload-artifact@v4
         with:
-          name: superfast-bulk-first-results
+          name: 30-second-share-scan-results
           path: scan_output/
           if-no-files-found: error
           retention-days: 14
