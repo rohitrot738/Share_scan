@@ -6,11 +6,11 @@ on:
       top:
         description: Number of final candidates
         required: false
-        default: "10"
+        default: "100"
       shortlist:
         description: Stage-1 shortlist size
         required: false
-        default: "120"
+        default: "300"
       market:
         description: nse, bse, or both
         required: false
@@ -56,8 +56,8 @@ jobs:
       - name: Run scanner
         shell: bash
         run: |
-          TOP="${{ github.event.inputs.top || '10' }}"
-          SHORTLIST="${{ github.event.inputs.shortlist || '120' }}"
+          TOP="${{ github.event.inputs.top || '100' }}"
+          SHORTLIST="${{ github.event.inputs.shortlist || '300' }}"
           MARKET="${{ github.event.inputs.market || 'both' }}"
           FLAGS=""
           if [ "$MARKET" = "nse" ]; then FLAGS="--nse-only"; fi
