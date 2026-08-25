@@ -4,7 +4,6 @@ import argparse
 import json
 import math
 import os
-from dataclasses import asdict
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, List
@@ -58,8 +57,6 @@ def daily_prefilter_score(df: pd.DataFrame) -> Dict[str, float]:
     range20 = (resistance - support) / max(c, 1e-9) * 100.0
     ret20 = (c / max(_safe_float(close.iloc[-21]), 1e-9) - 1.0) * 100.0
     ret5 = (c / max(_safe_float(close.iloc[-6]), 1e-9) - 1.0) * 100.0
-
-    # Approximate rupee turnover; weeds out many unusable names.
     turnover = c * med_vol20
 
     score = 0.0
@@ -113,6 +110,14 @@ def stage1(universe: List[Instrument], batch_size: int = 150, shortlist: int = 1
     return out.head(shortlist).reset_index(drop=True)
 
 
+def _first_available_frame(tf_data: Dict[str, pd.DataFrame]) -> pd.DataFrame | None:
+    for tf in ("15m", "30m", "1h"):
+        df = tf_data.get(tf)
+        if df is not None and not df.empty:
+            return df
+    return None
+
+
 def stage2(shortlisted: pd.DataFrame, cfg: ScannerConfig, top_n: int = 10) -> pd.DataFrame:
     rows = []
     for _, r in shortlisted.iterrows():
@@ -122,13 +127,11 @@ def stage2(shortlisted: pd.DataFrame, cfg: ScannerConfig, top_n: int = 10) -> pd
             if not tf_data:
                 continue
             mtf = analyse_timeframes(tf_data, cfg)
-            base_df = tf_data.get("15m") or tf_data.get("30m") or tf_data.get("1h")
+            base_df = _first_available_frame(tf_data)
             ghost = ghost_trade_snapshot(base_df) if base_df is not None and len(base_df) >= 60 else {}
             ghost_score = _safe_float(ghost.get("ghost_score", 0.0))
             mtf_score = _safe_float(mtf.get("final_score", 0.0))
             pre_score = _safe_float(r.get("score", 0.0))
-
-            # Swing weighting: higher-timeframe structure is more important than intraday noise.
             final_rank = 0.55 * mtf_score + 0.25 * ghost_score + 0.20 * pre_score
 
             plan = ghost.get("trade_plan", {}) if isinstance(ghost, dict) else {}
@@ -160,7 +163,6 @@ def stage2(shortlisted: pd.DataFrame, cfg: ScannerConfig, top_n: int = 10) -> pd
     if not rows:
         return pd.DataFrame()
     out = pd.DataFrame(rows)
-    # Penalize risky breakouts before sorting.
     out["rank_score"] = (out["rank_score"] - 0.12 * out["false_breakout_risk"].fillna(0)).clip(lower=0)
     return out.sort_values("rank_score", ascending=False).head(top_n).reset_index(drop=True)
 
