@@ -20,7 +20,6 @@ TARGET_SECONDS = float(os.getenv("SCAN_TARGET_SECONDS", "30"))
 DEEP_LIMIT = int(os.getenv("SCAN_DEEP_LIMIT", "120"))
 DEPTH_LIMIT = int(os.getenv("SCAN_DEPTH_LIMIT", "10"))
 STAGE1_WORKERS = int(os.getenv("SCAN_STAGE1_WORKERS", "4"))
-BSE_STAGE1_LIMIT = int(os.getenv("BSE_STAGE1_LIMIT", "800"))
 
 
 def _safe_float(v, default=0.0):
@@ -62,14 +61,10 @@ def _scan_daily_batch(batch, by_symbol):
 
 
 def stage1_bulk(universe: List[Instrument], batch_size=1200, shortlist=500) -> pd.DataFrame:
-    # Yahoo is reliable/fastest for NSE. BSE's large numeric universe contains many Yahoo-no-data
-    # codes, so in latency mode we cap that slow lane instead of letting it block the whole result.
-    nse=[x for x in universe if x.exchange=="NSE"]
-    bse=[x for x in universe if x.exchange=="BSE"][:BSE_STAGE1_LIMIT]
-    selected=nse+bse
+    selected=[x for x in universe if x.exchange=="NSE"]
     by_symbol={x.yahoo_symbol:x for x in selected}; symbols=list(by_symbol); rows=[]
     batches=[symbols[i:i+batch_size] for i in range(0,len(symbols),batch_size)]
-    print(f"Stage-1 latency bulk: NSE={len(nse)}, BSE_yahoo_lane={len(bse)}/{sum(x.exchange=='BSE' for x in universe)}, batches={len(batches)}")
+    print(f"Stage-1 NSE-only bulk: NSE={len(selected)}, batches={len(batches)}")
     with ThreadPoolExecutor(max_workers=max(1,min(STAGE1_WORKERS,len(batches)))) as pool:
         futures=[pool.submit(_scan_daily_batch,b,by_symbol) for b in batches]
         for f in as_completed(futures):
@@ -133,16 +128,16 @@ def stage2_30s(shortlisted,top_n=100,started=None):
 
 def save_results(top,shortlist_df,runtime):
     OUTPUT_DIR.mkdir(parents=True,exist_ok=True); top.to_csv(OUTPUT_DIR/"top100_by_volume.csv",index=False); shortlist_df.to_csv(OUTPUT_DIR/"stage1_shortlist.csv",index=False)
-    payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"30-SECOND MODE","target_seconds":TARGET_SECONDS,"runtime_seconds":round(runtime,2),"shortlist_size":int(len(shortlist_df)),"deep_limit":DEEP_LIMIT,"count":int(len(top)),"sort":"volume_desc","results":top.replace({np.nan:None}).to_dict("records") if not top.empty else []}
+    payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"30-SECOND NSE-ONLY MODE","target_seconds":TARGET_SECONDS,"runtime_seconds":round(runtime,2),"shortlist_size":int(len(shortlist_df)),"deep_limit":DEEP_LIMIT,"count":int(len(top)),"sort":"volume_desc","results":top.replace({np.nan:None}).to_dict("records") if not top.empty else []}
     (OUTPUT_DIR/"top100_by_volume.json").write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding="utf-8")
 
 
 def main():
-    t0=time.perf_counter(); p=argparse.ArgumentParser(); p.add_argument("--top",type=int,default=100); p.add_argument("--shortlist",type=int,default=500); p.add_argument("--batch-size",type=int,default=1200); p.add_argument("--nse-only",action="store_true"); p.add_argument("--bse-only",action="store_true"); a=p.parse_args()
-    universe=build_universe(include_nse=not a.bse_only,include_bse=not a.nse_only); print(f"Universe discovered: {len(universe)} symbols")
-    if not universe:raise SystemExit("No symbols loaded")
+    t0=time.perf_counter(); p=argparse.ArgumentParser(); p.add_argument("--top",type=int,default=100); p.add_argument("--shortlist",type=int,default=500); p.add_argument("--batch-size",type=int,default=1200); a=p.parse_args()
+    universe=build_universe(include_nse=True,include_bse=False); print(f"NSE universe discovered: {len(universe)} symbols")
+    if not universe:raise SystemExit("No NSE symbols loaded")
     s1=stage1_bulk(universe,a.batch_size,max(a.shortlist,a.top)); print(f"Stage-1 shortlist: {len(s1)}")
     if s1.empty:raise SystemExit("No candidates")
-    top=stage2_30s(s1,a.top,t0); runtime=time.perf_counter()-t0; save_results(top,s1,runtime); print(f"30-SECOND MODE complete: {len(top)} candidates in {runtime:.1f}s [{'TARGET_MET' if runtime<=TARGET_SECONDS else 'TARGET_MISSED'}]")
+    top=stage2_30s(s1,a.top,t0); runtime=time.perf_counter()-t0; save_results(top,s1,runtime); print(f"30-SECOND NSE-ONLY MODE complete: {len(top)} candidates in {runtime:.1f}s [{'TARGET_MET' if runtime<=TARGET_SECONDS else 'TARGET_MISSED'}]")
 
 if __name__=="__main__":main()
