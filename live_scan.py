@@ -46,7 +46,8 @@ def daily_prefilter_score(df: pd.DataFrame) -> Dict[str, float]:
     support = _safe_float(low.iloc[-21:-1].min(), c)
     avg_vol20 = _safe_float(volume.iloc[-21:-1].mean(), 0.0)
     med_vol20 = _safe_float(volume.iloc[-21:-1].median(), 0.0)
-    rvol = _safe_float(volume.iloc[-1] / max(avg_vol20, 1.0))
+    current_volume = _safe_float(volume.iloc[-1], 0.0)
+    rvol = _safe_float(current_volume / max(avg_vol20, 1.0))
     distance = max(-10.0, min(30.0, (resistance - c) / max(resistance, 1e-9) * 100.0))
     range20 = (resistance - support) / max(c, 1e-9) * 100.0
     ret20 = (c / max(_safe_float(close.iloc[-21]), 1e-9) - 1.0) * 100.0
@@ -69,6 +70,8 @@ def daily_prefilter_score(df: pd.DataFrame) -> Dict[str, float]:
         "resistance": round(resistance, 2),
         "support": round(support, 2),
         "distance_to_20d_high_pct": round(distance, 2),
+        "current_volume": int(current_volume),
+        "avg_volume20": int(avg_vol20),
         "rvol": round(rvol, 2),
         "ret5_pct": round(ret5, 2),
         "ret20_pct": round(ret20, 2),
@@ -76,7 +79,7 @@ def daily_prefilter_score(df: pd.DataFrame) -> Dict[str, float]:
     }
 
 
-def stage1(universe: List[Instrument], batch_size: int = 150, shortlist: int = 120) -> pd.DataFrame:
+def stage1(universe: List[Instrument], batch_size: int = 150, shortlist: int = 300) -> pd.DataFrame:
     rows = []
     by_symbol = {x.yahoo_symbol: x for x in universe}
     symbols = list(by_symbol)
@@ -139,15 +142,13 @@ def _apply_true_orderbook(out: pd.DataFrame) -> pd.DataFrame:
     has_depth = out["depth_score"].notna()
     out["true_depth_used"] = has_depth
     if has_depth.any():
-        # Real order-book is a confirmation layer, not the whole strategy.
-        # 15% weight prevents one fleeting queue snapshot from overpowering swing structure.
         spread_penalty = out["spread_bps"].fillna(0).clip(lower=0, upper=25) * 0.20
         blended = 0.85 * out["rank_score"] + 0.15 * out["depth_score"].fillna(50) - spread_penalty
         out.loc[has_depth, "rank_score"] = blended.loc[has_depth].clip(lower=0, upper=100).round(2)
     return out
 
 
-def stage2(shortlisted: pd.DataFrame, cfg: ScannerConfig, top_n: int = 10) -> pd.DataFrame:
+def stage2(shortlisted: pd.DataFrame, cfg: ScannerConfig, top_n: int = 100) -> pd.DataFrame:
     rows = []
     for _, r in shortlisted.iterrows():
         sym = str(r["yahoo_symbol"])
@@ -167,6 +168,7 @@ def stage2(shortlisted: pd.DataFrame, cfg: ScannerConfig, top_n: int = 10) -> pd
             fb = ghost.get("false_breakout", {}) if isinstance(ghost, dict) else {}
             rows.append({
                 "symbol": r["symbol"], "exchange": r["exchange"], "name": r.get("name", ""), "price": r.get("close", 0.0),
+                "volume": int(_safe_float(r.get("current_volume", 0))), "avg_volume20": int(_safe_float(r.get("avg_volume20", 0))),
                 "rank_score": round(final_rank, 2), "mtf_score": round(mtf_score, 2), "mtf_state": mtf.get("final_state", ""),
                 "ghost_score": round(ghost_score, 2), "ghost_signal": ghost.get("signal", ""),
                 "false_breakout_risk": _safe_float(fb.get("risk", 0.0)), "daily_support": r.get("support", 0.0),
@@ -182,21 +184,27 @@ def stage2(shortlisted: pd.DataFrame, cfg: ScannerConfig, top_n: int = 10) -> pd
     out = pd.DataFrame(rows)
     out["rank_score"] = (out["rank_score"] - 0.12 * out["false_breakout_risk"].fillna(0)).clip(lower=0)
     out = _apply_true_orderbook(out)
-    return out.sort_values("rank_score", ascending=False).head(top_n).reset_index(drop=True)
+
+    # First keep the strongest scanner candidates, then present those candidates
+    # strictly by descending current volume: rank 1 = highest volume, rank 100 = lowest.
+    qualified = out.sort_values("rank_score", ascending=False).head(top_n).copy()
+    qualified = qualified.sort_values(["volume", "rank_score"], ascending=[False, False]).reset_index(drop=True)
+    qualified.insert(0, "volume_rank", np.arange(1, len(qualified) + 1))
+    return qualified
 
 
 def save_results(top: pd.DataFrame, shortlist_df: pd.DataFrame) -> None:
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    top.to_csv(OUTPUT_DIR / "top10.csv", index=False)
+    top.to_csv(OUTPUT_DIR / "top100_by_volume.csv", index=False)
     shortlist_df.to_csv(OUTPUT_DIR / "stage1_shortlist.csv", index=False)
-    payload = {"generated_at": datetime.now().astimezone().isoformat(), "count": int(len(top)), "results": top.replace({np.nan: None}).to_dict(orient="records") if not top.empty else []}
-    (OUTPUT_DIR / "top10.json").write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+    payload = {"generated_at": datetime.now().astimezone().isoformat(), "count": int(len(top)), "sort": "volume_desc", "results": top.replace({np.nan: None}).to_dict(orient="records") if not top.empty else []}
+    (OUTPUT_DIR / "top100_by_volume.json").write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
 
 
 def main():
     p = argparse.ArgumentParser(description="Share_scan live NSE/BSE two-stage scanner with optional Groww true market depth")
-    p.add_argument("--top", type=int, default=10)
-    p.add_argument("--shortlist", type=int, default=120)
+    p.add_argument("--top", type=int, default=100)
+    p.add_argument("--shortlist", type=int, default=300)
     p.add_argument("--batch-size", type=int, default=150)
     p.add_argument("--nse-only", action="store_true")
     p.add_argument("--bse-only", action="store_true")
@@ -208,7 +216,7 @@ def main():
     print(f"Universe: {len(universe)} symbols (NSE={include_nse}, BSE={include_bse})")
     if not universe:
         raise SystemExit("No symbols loaded. Check network/BSE endpoint or EXTRA_SYMBOLS_FILE.")
-    s1 = stage1(universe, batch_size=args.batch_size, shortlist=args.shortlist)
+    s1 = stage1(universe, batch_size=args.batch_size, shortlist=max(args.shortlist, args.top))
     print(f"Stage-1 shortlist: {len(s1)}")
     if s1.empty:
         raise SystemExit("Stage-1 returned no candidates.")
@@ -217,7 +225,7 @@ def main():
     if top.empty:
         print("No stage-2 candidates.")
     else:
-        cols = ["symbol", "exchange", "price", "rank_score", "mtf_state", "ghost_signal", "false_breakout_risk", "depth_score", "imbalance", "spread_bps", "true_depth_used", "daily_support", "daily_resistance"]
+        cols = ["volume_rank", "symbol", "exchange", "price", "volume", "avg_volume20", "rvol_daily", "rank_score", "mtf_state", "ghost_signal", "false_breakout_risk", "depth_score", "imbalance", "spread_bps", "true_depth_used", "daily_support", "daily_resistance"]
         print(top[cols].to_string(index=False))
 
 
