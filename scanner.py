@@ -9,6 +9,7 @@ import pandas as pd
 import yfinance as yf
 
 from false_breakout_filter import false_breakout_risk
+from demand_supply import detect_zones
 
 DEFAULT_SYMBOLS = [
     "RELIANCE", "HDFCBANK", "ICICIBANK", "SBIN", "INFY",
@@ -60,7 +61,6 @@ def baseline_metrics(df: pd.DataFrame) -> dict | None:
 
 
 def add_false_breakout_stage(df: pd.DataFrame, row: dict) -> dict:
-    """Stage 1: add only false-breakout risk. No other old engine is enabled yet."""
     fb = false_breakout_risk(df, window=20)
     risk = float(fb.get("risk", 100.0))
     row.update({
@@ -70,6 +70,43 @@ def add_false_breakout_stage(df: pd.DataFrame, row: dict) -> dict:
         "upper_wick_ratio": fb.get("upper_wick_ratio"),
         "stage1_status": "OK",
         "score": round(max(0.0, row["baseline_score"] - 0.15 * risk), 2),
+    })
+    return row
+
+
+def add_demand_supply_stage(df: pd.DataFrame, row: dict) -> dict:
+    zones = detect_zones(df, lookback=min(80, len(df)), pivot=3, max_zones=8)
+    demand = [z for z in zones if z.get("type") == "demand"]
+    supply = [z for z in zones if z.get("type") == "supply"]
+    price = float(row["price"])
+
+    nearest_demand = min(demand, key=lambda z: abs(float(z["price"]) - price)) if demand else None
+    nearest_supply = min(supply, key=lambda z: abs(float(z["price"]) - price)) if supply else None
+
+    demand_price = float(nearest_demand["price"]) if nearest_demand else None
+    supply_price = float(nearest_supply["price"]) if nearest_supply else None
+    demand_strength = float(nearest_demand.get("strength", 0.0)) if nearest_demand else None
+    supply_strength = float(nearest_supply.get("strength", 0.0)) if nearest_supply else None
+
+    # Small bounded contribution only; baseline remains the anchor.
+    zone_bonus = 0.0
+    if demand_price is not None and price >= demand_price:
+        dist = (price - demand_price) / max(price, 1e-9) * 100.0
+        if dist <= 3.0:
+            zone_bonus += min(8.0, 2.0 + 2.0 * max(demand_strength or 0.0, 0.0))
+    if supply_price is not None and price <= supply_price:
+        dist = (supply_price - price) / max(price, 1e-9) * 100.0
+        if dist <= 1.0:
+            zone_bonus -= 4.0
+
+    row.update({
+        "nearest_demand": round(demand_price, 2) if demand_price is not None else None,
+        "nearest_supply": round(supply_price, 2) if supply_price is not None else None,
+        "demand_strength": round(demand_strength, 2) if demand_strength is not None else None,
+        "supply_strength": round(supply_strength, 2) if supply_strength is not None else None,
+        "zone_count": len(zones),
+        "stage2_status": "OK",
+        "score": round(max(0.0, min(100.0, float(row["score"]) + zone_bonus)), 2),
     })
     return row
 
@@ -99,10 +136,10 @@ def scan(symbols: list[str]) -> tuple[list[dict], dict]:
                 continue
 
             row = {"symbol": symbol, "exchange": "NSE", **metrics}
+
             try:
                 row = add_false_breakout_stage(df, row)
             except Exception as exc:
-                # Stage failure is isolated: baseline result remains usable.
                 row.update({
                     "false_breakout_risk": None,
                     "failed_up_breakout": None,
@@ -112,6 +149,20 @@ def scan(symbols: list[str]) -> tuple[list[dict], dict]:
                     "score": row["baseline_score"],
                 })
                 errors[f"{symbol}:stage1"] = row["stage1_status"]
+
+            try:
+                row = add_demand_supply_stage(df, row)
+            except Exception as exc:
+                row.update({
+                    "nearest_demand": None,
+                    "nearest_supply": None,
+                    "demand_strength": None,
+                    "supply_strength": None,
+                    "zone_count": 0,
+                    "stage2_status": f"ERROR: {type(exc).__name__}: {exc}",
+                })
+                errors[f"{symbol}:stage2"] = row["stage2_status"]
+
             rows.append(row)
         except Exception as exc:
             errors[symbol] = f"baseline: {type(exc).__name__}: {exc}"
@@ -135,12 +186,15 @@ def main() -> None:
     out = Path(args.output_dir)
     out.mkdir(parents=True, exist_ok=True)
     stage1_ok = sum(1 for r in rows if r.get("stage1_status") == "OK")
+    stage2_ok = sum(1 for r in rows if r.get("stage2_status") == "OK")
     payload = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "mode": "NSE_BASELINE_PLUS_STAGE1_FALSE_BREAKOUT",
+        "mode": "NSE_BASELINE_STAGED",
+        "speed_modes_enabled": False,
         "requested": len(symbols),
         "successful_baseline": len(rows),
-        "successful_stage1": stage1_ok,
+        "successful_stage1_false_breakout": stage1_ok,
+        "successful_stage2_demand_supply": stage2_ok,
         "errors": errors,
         "ranked": rows,
     }
@@ -148,12 +202,13 @@ def main() -> None:
     pd.DataFrame(rows).to_csv(out / "latest.csv", index=False)
 
     print(f"BASELINE complete: {len(rows)}/{len(symbols)}")
-    print(f"STAGE1 false-breakout complete: {stage1_ok}/{len(rows)}")
+    print(f"STAGE1 false-breakout: {stage1_ok}/{len(rows)}")
+    print(f"STAGE2 demand-supply: {stage2_ok}/{len(rows)}")
     for row in rows[:10]:
         print(
             f"#{row['rank']} {row['symbol']} score={row['score']} "
-            f"base={row['baseline_score']} false={row['false_breakout_risk']} "
-            f"stage1={row['stage1_status']}"
+            f"false={row.get('false_breakout_risk')} "
+            f"demand={row.get('nearest_demand')} supply={row.get('nearest_supply')}"
         )
 
 
