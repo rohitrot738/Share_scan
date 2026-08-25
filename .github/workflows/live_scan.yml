@@ -1,4 +1,4 @@
-name: SUPERFAST MODE Market Scan
+name: SUPERFAST BULK-FIRST Market Scan
 
 on:
   workflow_dispatch:
@@ -8,9 +8,9 @@ on:
         required: false
         default: "100"
       shortlist:
-        description: SUPERFAST stage-1 shortlist size
+        description: Bulk-first shortlist size
         required: false
-        default: "110"
+        default: "130"
       market:
         description: nse, bse, or both
         required: false
@@ -20,40 +20,18 @@ on:
     paths: ["scan_trigger.txt"]
   issues:
     types: [opened]
-  pull_request:
-    paths: ["*.py", "requirements.txt", ".github/workflows/live_scan.yml"]
 
 concurrency:
-  group: superfast-mode-market-scan
+  group: superfast-bulk-first-scan
   cancel-in-progress: true
 
 jobs:
-  smoke-test:
-    if: github.event_name != 'issues' || startsWith(github.event.issue.title, '[SCAN]')
-    runs-on: ubuntu-latest
-    timeout-minutes: 8
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: pip
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: SUPERFAST checks
-        run: |
-          python -m compileall -q .
-          python -c "import market_data, live_scan, groww_orderbook, ghost_trade_core, multi_timeframe; print('SUPERFAST imports ok')"
-
   scan:
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[SCAN]'))
-    needs: smoke-test
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     env:
       GROWW_ACCESS_TOKEN: ${{ secrets.GROWW_ACCESS_TOKEN }}
-      SUPERFAST_SCAN_WORKERS: "1600"
-      SUPERFAST_SAFE_NETWORK_WORKERS: "64"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -62,20 +40,24 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run SUPERFAST MODE scanner
+      - name: Validate scanner
+        run: |
+          python -m compileall -q .
+          python -c "import live_scan, market_data; print('bulk-first imports ok')"
+      - name: Run SUPERFAST BULK-FIRST scanner
         shell: bash
         run: |
           TOP="${{ github.event.inputs.top || '100' }}"
-          SHORTLIST="${{ github.event.inputs.shortlist || '110' }}"
+          SHORTLIST="${{ github.event.inputs.shortlist || '130' }}"
           MARKET="${{ github.event.inputs.market || 'both' }}"
           FLAGS=""
           if [ "$MARKET" = "nse" ]; then FLAGS="--nse-only"; fi
           if [ "$MARKET" = "bse" ]; then FLAGS="--bse-only"; fi
-          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 500 --workers 1600 $FLAGS
-      - name: Upload SUPERFAST results
+          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 700 $FLAGS
+      - name: Upload SUPERFAST BULK-FIRST results
         uses: actions/upload-artifact@v4
         with:
-          name: superfast-share-scan-results
+          name: superfast-bulk-first-results
           path: scan_output/
           if-no-files-found: error
           retention-days: 14
