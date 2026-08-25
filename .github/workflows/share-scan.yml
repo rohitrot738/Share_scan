@@ -18,7 +18,9 @@ jobs:
   scan:
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[RUN]'))
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
+    env:
+      PYTHONPATH: ${{ github.workspace }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -27,28 +29,24 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Validate scanner and full Ghost imports
+      - name: Validate scanner Ghost and 360CR imports
         run: |
-          python -m py_compile scanner.py ghost_pro/*.py
+          python -m py_compile scanner.py ghost_pro/*.py cr360/*.py
           python - <<'PY'
-          import scanner
+          import scanner, cr360
           from ghost_pro.ultimate_engine import multi_timeframe
           from ghost_pro.case_training_fusion import fuse_with_technical
-          from ghost_pro.market_structure import market_structure_report
-          from ghost_pro.volume_orderflow import volume_orderflow_report
-          from ghost_pro.smart_money import smart_money_report
-          from ghost_pro.momentum_volatility import momentum_volatility_report
-          from ghost_pro.setup_detectors import detect_all_setups
-          from ghost_pro.risk_engine import risk_report
-          from ghost_pro.false_breakout import false_breakout_report
-          from ghost_pro.advanced_confirmation import advanced_confirmation_report
-          print('single scanner + full Ghost imports OK')
+          from cr360.scan_integration import enrich_file
+          from cr360.nse_public_adapter import NSEPublicAdapter
+          print('scanner + full Ghost + full 360CR imports OK')
           PY
-      - name: Run NSE scanner
+      - name: Run NSE Ghost volume scanner
         run: |
           LIMIT="${{ github.event.inputs.limit || '20' }}"
           python scanner.py --limit "$LIMIT" --output-dir scan_results
-      - name: Verify result
+      - name: Enrich same scan with full 360CR
+        run: python -m cr360.scan_integration
+      - name: Verify integrated result
         run: |
           python - <<'PY'
           import json
@@ -56,10 +54,24 @@ jobs:
           assert p['successful'] == p['requested'], f"incomplete result: {p['successful']}/{p['requested']}"
           assert p['ghost_successful'] == p['successful'], f"Ghost incomplete: {p['ghost_successful']}/{p['successful']}"
           assert p.get('speed_modes_enabled') is False, 'speed mode unexpectedly enabled'
-          states={r.get('ghost_state') for r in p['ranked']}
-          allowed={'CONFIRMED','READY','EARLY','WATCH','IGNORE','AVOID'}
+          assert p.get('cr360_integrated') is True, '360CR not integrated'
+          assert p.get('cr360_successful') == p['successful'], f"360CR collector failures: {p.get('cr360_errors')}"
+          states={r.get('ghost_state') for r in p['ranked']}; allowed={'CONFIRMED','READY','EARLY','WATCH','IGNORE','AVOID'}
           assert states <= allowed, f'unexpected Ghost states: {states-allowed}'
-          print('VERIFIED FULL GHOST:', p['ghost_successful'])
+          for r in p['ranked']:
+            assert 'cr360_state' in r and 'cr360_confidence' in r and 'cr360_complete' in r
+          print('VERIFIED FULL GHOST + VOLUME + 360CR:', p['successful'])
+          PY
+      - name: Export integrated CSV
+        run: |
+          python - <<'PY'
+          import json,pandas as pd
+          p=json.load(open('scan_results/latest.json'))
+          rows=[]
+          for r in p['ranked']:
+            x={k:v for k,v in r.items() if k not in ('ghost_details','cr360_evidence','cr360_sections','cr360_coverage','cr360_risk','cr360_fair_value')}
+            rows.append(x)
+          pd.DataFrame(rows).to_csv('scan_results/latest_integrated.csv',index=False)
           PY
       - name: Upload results
         uses: actions/upload-artifact@v4
