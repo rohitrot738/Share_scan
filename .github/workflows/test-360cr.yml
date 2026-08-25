@@ -1,0 +1,30 @@
+name: Test 360CR
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'cr360/**'
+      - 'tests/test_cr360*'
+      - '.github/workflows/test-360cr.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pytest pandas yfinance
+      - run: pytest -q tests/test_cr360.py tests/test_cr360_collector.py
+      - name: Live collector smoke test
+        run: |
+          python - <<'PY'
+          from cr360.collector import collect_360cr
+          from cr360 import analyse_360cr
+          x=collect_360cr('RELIANCE')
+          assert x.symbol=='RELIANCE'
+          assert len(x.price_history)>500
+          r=analyse_360cr(x)
+          assert r.score is not None
+          print('price',x.price,'price_records',len(x.price_history),'financial_q',len(x.quarterly_financials),'coverage',r.confidence,'missing',r.missing)
+          PY
