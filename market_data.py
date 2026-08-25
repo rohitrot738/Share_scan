@@ -78,9 +78,24 @@ def fetch_bse_universe(session: Optional[requests.Session] = None) -> List[Instr
     except Exception:
         return []
 
-    rows = payload.get("Table", payload if isinstance(payload, list) else [])
+    # BSE may return either a top-level list or a dict containing Table/table/data.
+    # Normalize all supported shapes to a list and fail safely on unexpected payloads.
+    if isinstance(payload, list):
+        rows = payload
+    elif isinstance(payload, dict):
+        rows = payload.get("Table") or payload.get("table") or payload.get("data") or []
+        if isinstance(rows, dict):
+            rows = rows.get("Table") or rows.get("table") or rows.get("data") or []
+    else:
+        rows = []
+
+    if not isinstance(rows, list):
+        rows = []
+
     out: List[Instrument] = []
     for row in rows:
+        if not isinstance(row, dict):
+            continue
         code = str(row.get("SCRIP_CD") or row.get("scrip_cd") or row.get("ScripCode") or "").strip()
         name = str(row.get("SCRIP_NAME") or row.get("scrip_name") or row.get("ScripName") or "").strip()
         if code.isdigit():
