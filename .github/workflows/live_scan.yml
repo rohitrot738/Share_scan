@@ -1,4 +1,4 @@
-name: FAST MODE Market Scan
+name: SUPERFAST MODE Market Scan
 
 on:
   workflow_dispatch:
@@ -8,9 +8,9 @@ on:
         required: false
         default: "100"
       shortlist:
-        description: FAST stage-1 shortlist size
+        description: SUPERFAST stage-1 shortlist size
         required: false
-        default: "140"
+        default: "110"
       market:
         description: nse, bse, or both
         required: false
@@ -24,14 +24,14 @@ on:
     paths: ["*.py", "requirements.txt", ".github/workflows/live_scan.yml"]
 
 concurrency:
-  group: fast-mode-market-scan
+  group: superfast-mode-market-scan
   cancel-in-progress: true
 
 jobs:
   smoke-test:
     if: github.event_name != 'issues' || startsWith(github.event.issue.title, '[SCAN]')
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -40,19 +40,19 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: FAST MODE checks
+      - name: SUPERFAST checks
         run: |
           python -m compileall -q .
-          python -c "import market_data, live_scan, groww_orderbook, ghost_trade_core, multi_timeframe; print('FAST MODE imports ok')"
+          python -c "import market_data, live_scan, groww_orderbook, ghost_trade_core, multi_timeframe; print('SUPERFAST imports ok')"
 
   scan:
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[SCAN]'))
     needs: smoke-test
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 15
     env:
       GROWW_ACCESS_TOKEN: ${{ secrets.GROWW_ACCESS_TOKEN }}
-      FAST_SCAN_WORKERS: "8"
+      SUPERFAST_SCAN_WORKERS: "16"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -61,20 +61,20 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run FAST MODE scanner
+      - name: Run SUPERFAST MODE scanner
         shell: bash
         run: |
           TOP="${{ github.event.inputs.top || '100' }}"
-          SHORTLIST="${{ github.event.inputs.shortlist || '140' }}"
+          SHORTLIST="${{ github.event.inputs.shortlist || '110' }}"
           MARKET="${{ github.event.inputs.market || 'both' }}"
           FLAGS=""
           if [ "$MARKET" = "nse" ]; then FLAGS="--nse-only"; fi
           if [ "$MARKET" = "bse" ]; then FLAGS="--bse-only"; fi
-          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 300 --workers 8 $FLAGS
-      - name: Upload FAST MODE results
+          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 500 --workers 16 $FLAGS
+      - name: Upload SUPERFAST results
         uses: actions/upload-artifact@v4
         with:
-          name: fast-mode-share-scan-results
+          name: superfast-share-scan-results
           path: scan_output/
           if-no-files-found: error
           retention-days: 14
