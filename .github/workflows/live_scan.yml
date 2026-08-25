@@ -52,7 +52,8 @@ jobs:
     timeout-minutes: 15
     env:
       GROWW_ACCESS_TOKEN: ${{ secrets.GROWW_ACCESS_TOKEN }}
-      SUPERFAST_SCAN_WORKERS: "16"
+      SUPERFAST_SCAN_WORKERS: "1600"
+      SUPERFAST_SAFE_NETWORK_WORKERS: "64"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -70,7 +71,7 @@ jobs:
           FLAGS=""
           if [ "$MARKET" = "nse" ]; then FLAGS="--nse-only"; fi
           if [ "$MARKET" = "bse" ]; then FLAGS="--bse-only"; fi
-          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 500 --workers 16 $FLAGS
+          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 500 --workers 1600 $FLAGS
       - name: Upload SUPERFAST results
         uses: actions/upload-artifact@v4
         with:
