@@ -21,31 +21,35 @@ jobs:
       - name: Verify package import
         run: python -c "import cr360; print('cr360 import OK:', cr360.__file__)"
       - run: python -m pytest -q tests/test_cr360.py tests/test_cr360_collector.py tests/test_nse_public_adapter.py
-      - name: Deep-history candidate diagnostic
+      - name: Identity-safe candidate diagnostic
+        continue-on-error: true
+        run: |
+          python - <<'PY'
+          from cr360.identity_safe_collector import collect_identity_safe_360cr
+          from cr360.validator import validate_360cr_input
+          from cr360 import analyse_360cr
+          for sym in ('RELIANCE','HDFCBANK'):
+              x=collect_identity_safe_360cr(sym)
+              r=analyse_360cr(x);v=validate_360cr_input(x)
+              ev=x.metadata.get('identity_safe_evidence') or {}
+              print('IDENTITY_SAFE',sym,'counts=',x.metadata.get('identity_safe_counts'))
+              print('IDENTITY_SAFE',sym,'errors=',x.metadata.get('identity_safe_errors'))
+              print('IDENTITY_SAFE',sym,'quarter_sweep_sources=',ev.get('quarter_sweep_sources'))
+              print('IDENTITY_SAFE',sym,'shareholding_sources=',ev.get('shareholding_sources'))
+              print('IDENTITY_SAFE',sym,'insider_sources=',(ev.get('insider_sources') or [])[:3])
+              print('IDENTITY_SAFE',sym,'deal_sources=',(ev.get('deal_sources') or [])[:3])
+              print('IDENTITY_SAFE',sym,'action_sources=',(ev.get('action_sources') or [])[:3])
+              print('IDENTITY_SAFE',sym,'periods=',[q.get('period') for q in x.quarterly_financials])
+              print('IDENTITY_SAFE',sym,'share_periods=',[q.get('period') for q in x.shareholding_quarters])
+              print('IDENTITY_SAFE',sym,'complete=',v['complete'],'failed=',v['failed'],'score=',r.score,'confidence=',r.confidence)
+              assert len(x.price_history)>500
+          PY
+      - name: Deep-history baseline diagnostic
         continue-on-error: true
         run: |
           python - <<'PY'
           from cr360.deep_history_collector import collect_deep_history_360cr
           from cr360.validator import validate_360cr_input
-          from cr360 import analyse_360cr
-          for sym in ('RELIANCE','HDFCBANK'):
-              x=collect_deep_history_360cr(sym)
-              r=analyse_360cr(x); v=validate_360cr_input(x)
-              print('DEEP_HISTORY',sym,'counts=',x.metadata.get('deep_history_counts'))
-              print('DEEP_HISTORY',sym,'evidence=',x.metadata.get('deep_history_evidence'))
-              print('DEEP_HISTORY',sym,'errors=',x.metadata.get('deep_history_errors'))
-              print('DEEP_HISTORY',sym,'periods=',[q.get('period') for q in x.quarterly_financials])
-              print('DEEP_HISTORY',sym,'share_periods=',[q.get('period') for q in x.shareholding_quarters])
-              print('DEEP_HISTORY',sym,'complete=',v['complete'],'failed=',v['failed'],'score=',r.score,'confidence=',r.confidence)
-              assert len(x.price_history)>500
-          PY
-      - name: Existing search-first candidate diagnostic
-        continue-on-error: true
-        run: |
-          python - <<'PY'
-          from cr360.web_discovery_collector import collect_search_first_360cr
-          from cr360.validator import validate_360cr_input
-          for sym in ('RELIANCE',):
-              x=collect_search_first_360cr(sym);v=validate_360cr_input(x)
-              print('SEARCH_FIRST_BASELINE',sym,x.metadata.get('search_first_counts'),'complete=',v['complete'])
+          x=collect_deep_history_360cr('RELIANCE');v=validate_360cr_input(x)
+          print('DEEP_HISTORY_BASELINE',x.metadata.get('deep_history_counts'),'complete=',v['complete'])
           PY
