@@ -106,16 +106,23 @@ def _apply_true_orderbook(out,depth_limit=40):
     return out
 
 
-def stage2(shortlisted,cfg,top_n=100,workers=16):
+def stage2(shortlisted,cfg,top_n=100,workers=1600):
     rows=[]; records=shortlisted.to_dict("records")
-    with ThreadPoolExecutor(max_workers=max(1,workers)) as pool:
+    # User-requested 100x worker multiplier: 16 x 100 = 1600 logical workers.
+    # Reliability guard prevents a small shortlist from creating thousands of live network threads.
+    safe_cap=max(16,int(os.getenv("SUPERFAST_SAFE_NETWORK_WORKERS","64")))
+    effective_workers=max(1,min(int(workers),len(records),safe_cap))
+    print(f"Worker plan: requested={workers}, effective={effective_workers}, safety_cap={safe_cap}, tasks={len(records)}")
+    with ThreadPoolExecutor(max_workers=effective_workers) as pool:
         futures=[pool.submit(_analyse_one,r,cfg) for r in records]
         for f in as_completed(futures):
-            v=f.result()
-            if v: rows.append(v)
+            try:
+                v=f.result()
+                if v: rows.append(v)
+            except Exception as exc:
+                print(f"[WARN] worker task failed safely: {exc}")
     if not rows:return pd.DataFrame()
     out=pd.DataFrame(rows); out["rank_score"]=(out["rank_score"]-.12*out["false_breakout_risk"].fillna(0)).clip(lower=0)
-    # SUPERFAST MODE: true order-book is restricted to the strongest 40 candidates.
     out=_apply_true_orderbook(out,depth_limit=min(40,len(out)))
     q=out.sort_values("rank_score",ascending=False).head(top_n).copy()
     q=q.sort_values(["volume","rank_score"],ascending=[False,False]).reset_index(drop=True); q.insert(0,"volume_rank",np.arange(1,len(q)+1)); return q
@@ -123,15 +130,15 @@ def stage2(shortlisted,cfg,top_n=100,workers=16):
 
 def save_results(top,shortlist_df):
     OUTPUT_DIR.mkdir(parents=True,exist_ok=True); top.to_csv(OUTPUT_DIR/"top100_by_volume.csv",index=False); shortlist_df.to_csv(OUTPUT_DIR/"stage1_shortlist.csv",index=False)
-    payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"SUPERFAST MODE","count":int(len(top)),"sort":"volume_desc","results":top.replace({np.nan:None}).to_dict("records") if not top.empty else []}
+    payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"SUPERFAST MODE","requested_workers":1600,"count":int(len(top)),"sort":"volume_desc","results":top.replace({np.nan:None}).to_dict("records") if not top.empty else []}
     (OUTPUT_DIR/"top100_by_volume.json").write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding="utf-8")
 
 
 def main():
     p=argparse.ArgumentParser(description="Share_scan SUPERFAST MODE: aggressive latency-first live scan")
     p.add_argument("--top",type=int,default=100); p.add_argument("--shortlist",type=int,default=110); p.add_argument("--batch-size",type=int,default=500)
-    p.add_argument("--workers",type=int,default=int(os.getenv("SUPERFAST_SCAN_WORKERS","16"))); p.add_argument("--nse-only",action="store_true"); p.add_argument("--bse-only",action="store_true")
-    a=p.parse_args(); print(f"SUPERFAST MODE enabled: shortlist={a.shortlist}, batch={a.batch_size}, workers={a.workers}")
+    p.add_argument("--workers",type=int,default=int(os.getenv("SUPERFAST_SCAN_WORKERS","1600"))); p.add_argument("--nse-only",action="store_true"); p.add_argument("--bse-only",action="store_true")
+    a=p.parse_args(); print(f"SUPERFAST MODE enabled: shortlist={a.shortlist}, batch={a.batch_size}, requested_workers={a.workers}")
     universe=build_universe(include_nse=not a.bse_only,include_bse=not a.nse_only); print(f"Universe: {len(universe)} symbols")
     if not universe: raise SystemExit("No symbols loaded")
     s1=stage1(universe,a.batch_size,max(a.shortlist,a.top)); print(f"SUPERFAST stage-1 shortlist: {len(s1)}")
