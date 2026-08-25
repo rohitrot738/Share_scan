@@ -27,10 +27,23 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Validate scanner
+      - name: Validate scanner and full Ghost imports
         run: |
-          python -m py_compile scanner.py false_breakout_filter.py demand_supply.py
-          python -c "import scanner; print('scanner imports OK')"
+          python -m py_compile scanner.py ghost_pro/*.py
+          python - <<'PY'
+          import scanner
+          from ghost_pro.ultimate_engine import multi_timeframe
+          from ghost_pro.case_training_fusion import fuse_with_technical
+          from ghost_pro.market_structure import market_structure_report
+          from ghost_pro.volume_orderflow import volume_orderflow_report
+          from ghost_pro.smart_money import smart_money_report
+          from ghost_pro.momentum_volatility import momentum_volatility_report
+          from ghost_pro.setup_detectors import detect_all_setups
+          from ghost_pro.risk_engine import risk_report
+          from ghost_pro.false_breakout import false_breakout_report
+          from ghost_pro.advanced_confirmation import advanced_confirmation_report
+          print('single scanner + full Ghost imports OK')
+          PY
       - name: Run NSE scanner
         run: |
           LIMIT="${{ github.event.inputs.limit || '20' }}"
@@ -41,7 +54,12 @@ jobs:
           import json
           p=json.load(open('scan_results/latest.json'))
           assert p['successful'] == p['requested'], f"incomplete result: {p['successful']}/{p['requested']}"
-          print('VERIFIED:', p['successful'])
+          assert p['ghost_successful'] == p['successful'], f"Ghost incomplete: {p['ghost_successful']}/{p['successful']}"
+          assert p.get('speed_modes_enabled') is False, 'speed mode unexpectedly enabled'
+          states={r.get('ghost_state') for r in p['ranked']}
+          allowed={'CONFIRMED','READY','EARLY','WATCH','IGNORE','AVOID'}
+          assert states <= allowed, f'unexpected Ghost states: {states-allowed}'
+          print('VERIFIED FULL GHOST:', p['ghost_successful'])
           PY
       - name: Upload results
         uses: actions/upload-artifact@v4
