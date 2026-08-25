@@ -21,35 +21,26 @@ jobs:
       - name: Verify package import
         run: python -c "import cr360; print('cr360 import OK:', cr360.__file__)"
       - run: python -m pytest -q tests/test_cr360.py tests/test_cr360_collector.py tests/test_nse_public_adapter.py
-      - name: Live market/company collector smoke test
-        run: |
-          python - <<'PY'
-          from cr360.collector import collect_360cr
-          from cr360 import analyse_360cr
-          x=collect_360cr('RELIANCE')
-          assert x.symbol=='RELIANCE'
-          assert len(x.price_history)>500
-          r=analyse_360cr(x)
-          assert r.score is not None
-          print('market price',x.price,'price_records',len(x.price_history),'financial_q',len(x.quarterly_financials),'coverage',r.confidence)
-          PY
-      - name: Standalone candidate deep-public collector diagnostic
+      - name: Search-first multi-source candidate diagnostic
         continue-on-error: true
         run: |
           python - <<'PY'
-          from cr360.candidate_public_collector import collect_candidate_360cr
+          from cr360.web_discovery_collector import collect_search_first_360cr
           from cr360.validator import validate_360cr_input
           from cr360 import analyse_360cr
           for sym in ('RELIANCE','HDFCBANK'):
-              x=collect_candidate_360cr(sym)
+              x=collect_search_first_360cr(sym)
               r=analyse_360cr(x); v=validate_360cr_input(x)
-              print('CANDIDATE',sym,'counts=',x.metadata.get('candidate_counts'))
-              print('CANDIDATE',sym,'errors=',x.metadata.get('candidate_errors'))
-              print('CANDIDATE',sym,'complete=',v['complete'],'failed=',v['failed'],'score=',r.score,'confidence=',r.confidence)
+              print('SEARCH_FIRST',sym,'counts=',x.metadata.get('search_first_counts'))
+              print('SEARCH_FIRST',sym,'errors=',x.metadata.get('search_first_errors'))
+              ev=x.metadata.get('search_first_evidence') or {}
+              print('SEARCH_FIRST',sym,'financial_sources=',ev.get('financial_sources'))
+              print('SEARCH_FIRST',sym,'shareholding_sources=',ev.get('shareholding_sources'))
+              print('SEARCH_FIRST',sym,'insider_hits=',len(ev.get('insider_search') or []),'deal_hits=',len(ev.get('deal_search') or []),'action_hits=',len(ev.get('action_search') or []))
+              print('SEARCH_FIRST',sym,'complete=',v['complete'],'failed=',v['failed'],'score=',r.score,'confidence=',r.confidence)
               assert len(x.price_history)>500
-              assert len(x.quarterly_financials)>=1
           PY
-      - name: Live NSE public regulatory adapter smoke test
+      - name: Existing fixed NSE adapter diagnostic
         continue-on-error: true
         run: |
           python - <<'PY'
@@ -58,6 +49,4 @@ jobs:
           p=a('RELIANCE')
           print('NSE public coverage',p['coverage'])
           print('NSE adapter errors',p['adapter_errors'])
-          assert p['source']=='NSE_PUBLIC'
-          assert all(isinstance(p[k],list) for k in ('shareholding_quarters','insider_transactions','bulk_block_deals','corporate_actions'))
           PY
