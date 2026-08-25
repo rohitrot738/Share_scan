@@ -1,17 +1,17 @@
-name: Share Scan Baseline
+name: Share Scan Stage 1
 
 on:
   workflow_dispatch:
     inputs:
       limit:
-        description: Number of baseline NSE symbols to scan
+        description: Number of NSE symbols to scan
         required: false
         default: "20"
   issues:
     types: [opened]
 
 concurrency:
-  group: share-scan-baseline
+  group: share-scan-stage1
   cancel-in-progress: true
 
 jobs:
@@ -27,16 +27,27 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Validate baseline scanner
-        run: python -m py_compile scanner.py
-      - name: Run baseline NSE scanner
+      - name: Validate stage-1 code
+        run: |
+          python -m py_compile scanner.py false_breakout_filter.py
+          python -c "from false_breakout_filter import false_breakout_risk; import scanner; print('baseline + stage1 imports OK')"
+      - name: Run baseline plus stage-1
         run: |
           LIMIT="${{ github.event.inputs.limit || '20' }}"
           python scanner.py --limit "$LIMIT" --output-dir scan_results
-      - name: Upload baseline results
+      - name: Verify stage-1 output
+        run: |
+          python - <<'PY'
+          import json
+          p=json.load(open('scan_results/latest.json'))
+          assert p['successful_baseline'] > 0, 'baseline returned zero symbols'
+          assert p['successful_stage1'] == p['successful_baseline'], f"stage1 incomplete: {p['successful_stage1']}/{p['successful_baseline']}"
+          print('STAGE1 VERIFIED:', p['successful_stage1'])
+          PY
+      - name: Upload results
         uses: actions/upload-artifact@v4
         with:
-          name: share-scan-baseline-results
+          name: share-scan-stage1-results
           path: scan_results/
           if-no-files-found: error
           retention-days: 14
