@@ -5,6 +5,7 @@ on:
     paths:
       - 'cr360/**'
       - 'tests/test_cr360*'
+      - 'tests/test_nse_public_adapter.py'
       - '.github/workflows/test-360cr.yml'
 jobs:
   test:
@@ -14,9 +15,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install pytest pandas yfinance
-      - run: pytest -q tests/test_cr360.py tests/test_cr360_collector.py
-      - name: Live collector smoke test
+      - run: pip install pytest pandas yfinance requests
+      - run: pytest -q tests/test_cr360.py tests/test_cr360_collector.py tests/test_nse_public_adapter.py
+      - name: Live market/company collector smoke test
         run: |
           python - <<'PY'
           from cr360.collector import collect_360cr
@@ -26,5 +27,18 @@ jobs:
           assert len(x.price_history)>500
           r=analyse_360cr(x)
           assert r.score is not None
-          print('price',x.price,'price_records',len(x.price_history),'financial_q',len(x.quarterly_financials),'coverage',r.confidence,'missing',r.missing)
+          print('market price',x.price,'price_records',len(x.price_history),'financial_q',len(x.quarterly_financials),'coverage',r.confidence)
+          PY
+      - name: Live NSE public regulatory adapter smoke test
+        continue-on-error: true
+        run: |
+          python - <<'PY'
+          from cr360.nse_public_adapter import NSEPublicAdapter
+          a=NSEPublicAdapter(timeout=20,retries=2)
+          p=a('RELIANCE')
+          print('NSE public coverage',p['coverage'])
+          print('NSE adapter errors',p['adapter_errors'])
+          assert p['source']=='NSE_PUBLIC'
+          # Public NSE endpoints can throttle CI IPs; absence must stay explicit, never fabricated.
+          assert all(isinstance(p[k],list) for k in ('shareholding_quarters','insider_transactions','bulk_block_deals','corporate_actions'))
           PY
