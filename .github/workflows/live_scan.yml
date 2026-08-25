@@ -10,7 +10,7 @@ on:
       shortlist:
         description: Bulk-first shortlist size
         required: false
-        default: "130"
+        default: "500"
       market:
         description: nse, bse, or both
         required: false
@@ -48,7 +48,7 @@ jobs:
         shell: bash
         run: |
           TOP="${{ github.event.inputs.top || '100' }}"
-          SHORTLIST="${{ github.event.inputs.shortlist || '130' }}"
+          SHORTLIST="${{ github.event.inputs.shortlist || '500' }}"
           MARKET="${{ github.event.inputs.market || 'both' }}"
           FLAGS=""
           if [ "$MARKET" = "nse" ]; then FLAGS="--nse-only"; fi
