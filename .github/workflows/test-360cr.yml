@@ -17,7 +17,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install pytest pandas yfinance requests
+      - run: pip install pytest pandas yfinance requests beautifulsoup4 lxml
       - name: Verify package import
         run: python -c "import cr360; print('cr360 import OK:', cr360.__file__)"
       - run: python -m pytest -q tests/test_cr360.py tests/test_cr360_collector.py tests/test_nse_public_adapter.py
@@ -32,6 +32,22 @@ jobs:
           r=analyse_360cr(x)
           assert r.score is not None
           print('market price',x.price,'price_records',len(x.price_history),'financial_q',len(x.quarterly_financials),'coverage',r.confidence)
+          PY
+      - name: Standalone candidate deep-public collector diagnostic
+        continue-on-error: true
+        run: |
+          python - <<'PY'
+          from cr360.candidate_public_collector import collect_candidate_360cr
+          from cr360.validator import validate_360cr_input
+          from cr360 import analyse_360cr
+          for sym in ('RELIANCE','HDFCBANK'):
+              x=collect_candidate_360cr(sym)
+              r=analyse_360cr(x); v=validate_360cr_input(x)
+              print('CANDIDATE',sym,'counts=',x.metadata.get('candidate_counts'))
+              print('CANDIDATE',sym,'errors=',x.metadata.get('candidate_errors'))
+              print('CANDIDATE',sym,'complete=',v['complete'],'failed=',v['failed'],'score=',r.score,'confidence=',r.confidence)
+              assert len(x.price_history)>500
+              assert len(x.quarterly_financials)>=1
           PY
       - name: Live NSE public regulatory adapter smoke test
         continue-on-error: true
