@@ -8,6 +8,8 @@ from pathlib import Path
 import pandas as pd
 import yfinance as yf
 
+from false_breakout_filter import false_breakout_risk
+
 DEFAULT_SYMBOLS = [
     "RELIANCE", "HDFCBANK", "ICICIBANK", "SBIN", "INFY",
     "TCS", "ITC", "BHARTIARTL", "LT", "AXISBANK",
@@ -27,7 +29,7 @@ def clean_frame(df: pd.DataFrame) -> pd.DataFrame:
     return out[["open", "high", "low", "close", "volume"]].dropna(subset=["close"])
 
 
-def score_symbol(df: pd.DataFrame) -> dict | None:
+def baseline_metrics(df: pd.DataFrame) -> dict | None:
     if len(df) < 25:
         return None
     close = df["close"].astype(float)
@@ -53,8 +55,23 @@ def score_symbol(df: pd.DataFrame) -> dict | None:
         "rvol": round(rvol, 2),
         "change_pct": round(change, 2),
         "distance_to_20d_high_pct": round(distance_high, 2),
-        "score": round(score, 2),
+        "baseline_score": round(score, 2),
     }
+
+
+def add_false_breakout_stage(df: pd.DataFrame, row: dict) -> dict:
+    """Stage 1: add only false-breakout risk. No other old engine is enabled yet."""
+    fb = false_breakout_risk(df, window=20)
+    risk = float(fb.get("risk", 100.0))
+    row.update({
+        "false_breakout_risk": round(risk, 2),
+        "failed_up_breakout": bool(fb.get("failed_up_breakout", False)),
+        "failed_down_breakout": bool(fb.get("failed_down_breakout", False)),
+        "upper_wick_ratio": fb.get("upper_wick_ratio"),
+        "stage1_status": "OK",
+        "score": round(max(0.0, row["baseline_score"] - 0.15 * risk), 2),
+    })
+    return row
 
 
 def scan(symbols: list[str]) -> tuple[list[dict], dict]:
@@ -76,13 +93,28 @@ def scan(symbols: list[str]) -> tuple[list[dict], dict]:
         try:
             part = raw[ticker] if len(tickers) > 1 else raw
             df = clean_frame(part)
-            metrics = score_symbol(df)
+            metrics = baseline_metrics(df)
             if not metrics:
-                errors[symbol] = "insufficient data"
+                errors[symbol] = "baseline: insufficient data"
                 continue
-            rows.append({"symbol": symbol, "exchange": "NSE", **metrics})
+
+            row = {"symbol": symbol, "exchange": "NSE", **metrics}
+            try:
+                row = add_false_breakout_stage(df, row)
+            except Exception as exc:
+                # Stage failure is isolated: baseline result remains usable.
+                row.update({
+                    "false_breakout_risk": None,
+                    "failed_up_breakout": None,
+                    "failed_down_breakout": None,
+                    "upper_wick_ratio": None,
+                    "stage1_status": f"ERROR: {type(exc).__name__}: {exc}",
+                    "score": row["baseline_score"],
+                })
+                errors[f"{symbol}:stage1"] = row["stage1_status"]
+            rows.append(row)
         except Exception as exc:
-            errors[symbol] = f"{type(exc).__name__}: {exc}"
+            errors[symbol] = f"baseline: {type(exc).__name__}: {exc}"
 
     rows.sort(key=lambda x: (x["score"], x["volume"]), reverse=True)
     for i, row in enumerate(rows, 1):
@@ -102,20 +134,27 @@ def main() -> None:
 
     out = Path(args.output_dir)
     out.mkdir(parents=True, exist_ok=True)
+    stage1_ok = sum(1 for r in rows if r.get("stage1_status") == "OK")
     payload = {
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
-        "mode": "BASELINE_NSE",
+        "mode": "NSE_BASELINE_PLUS_STAGE1_FALSE_BREAKOUT",
         "requested": len(symbols),
-        "successful": len(rows),
+        "successful_baseline": len(rows),
+        "successful_stage1": stage1_ok,
         "errors": errors,
         "ranked": rows,
     }
     (out / "latest.json").write_text(json.dumps(payload, indent=2), encoding="utf-8")
     pd.DataFrame(rows).to_csv(out / "latest.csv", index=False)
 
-    print(f"BASELINE_NSE complete: {len(rows)}/{len(symbols)} symbols")
+    print(f"BASELINE complete: {len(rows)}/{len(symbols)}")
+    print(f"STAGE1 false-breakout complete: {stage1_ok}/{len(rows)}")
     for row in rows[:10]:
-        print(f"#{row['rank']} {row['symbol']} score={row['score']} volume={row['volume']} rvol={row['rvol']}")
+        print(
+            f"#{row['rank']} {row['symbol']} score={row['score']} "
+            f"base={row['baseline_score']} false={row['false_breakout_risk']} "
+            f"stage1={row['stage1_status']}"
+        )
 
 
 if __name__ == "__main__":
