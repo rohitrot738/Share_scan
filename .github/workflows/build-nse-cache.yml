@@ -1,0 +1,48 @@
+name: Build NSE Scanner Cache
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 3 * * 1-5'
+  issues:
+    types: [opened]
+
+concurrency:
+  group: build-nse-scanner-cache
+  cancel-in-progress: false
+
+jobs:
+  build-cache:
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[CACHE]'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      SCAN_CACHE_DIR: .scan_cache
+      CACHE_BATCH_SIZE: '300'
+      CACHE_BATCH_SLEEP: '2.0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Restore previous cache
+        uses: actions/cache@v4
+        with:
+          path: .scan_cache
+          key: nse-scan-cache-${{ github.run_id }}
+          restore-keys: |
+            nse-scan-cache-
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Build NSE baseline cache
+        run: python build_nse_cache.py
+      - name: Validate cache
+        run: python -c "import pandas as pd; d=pd.read_csv('.scan_cache/nse_stage1.csv'); print('cache rows',len(d)); assert len(d)>=500"
+      - name: Upload cache artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: nse-stage1-cache
+          path: .scan_cache/nse_stage1.csv
+          if-no-files-found: error
+          retention-days: 7
