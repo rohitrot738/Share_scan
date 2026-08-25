@@ -1,4 +1,4 @@
-name: Live Market Scan
+name: FAST MODE Market Scan
 
 on:
   workflow_dispatch:
@@ -8,31 +8,30 @@ on:
         required: false
         default: "100"
       shortlist:
-        description: Stage-1 shortlist size
+        description: FAST stage-1 shortlist size
         required: false
-        default: "300"
+        default: "140"
       market:
         description: nse, bse, or both
         required: false
         default: "both"
   push:
-    branches:
-      - main
-    paths:
-      - "scan_trigger.txt"
+    branches: [main]
+    paths: ["scan_trigger.txt"]
   issues:
     types: [opened]
   pull_request:
-    paths:
-      - "*.py"
-      - "requirements.txt"
-      - ".github/workflows/live_scan.yml"
+    paths: ["*.py", "requirements.txt", ".github/workflows/live_scan.yml"]
+
+concurrency:
+  group: fast-mode-market-scan
+  cancel-in-progress: true
 
 jobs:
   smoke-test:
     if: github.event_name != 'issues' || startsWith(github.event.issue.title, '[SCAN]')
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -41,18 +40,19 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Syntax check
-        run: python -m compileall -q .
-      - name: Import check
-        run: python -c "import market_data, live_scan, groww_orderbook, ghost_trade_core, multi_timeframe; print('imports ok')"
+      - name: FAST MODE checks
+        run: |
+          python -m compileall -q .
+          python -c "import market_data, live_scan, groww_orderbook, ghost_trade_core, multi_timeframe; print('FAST MODE imports ok')"
 
   scan:
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[SCAN]'))
     needs: smoke-test
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 30
     env:
       GROWW_ACCESS_TOKEN: ${{ secrets.GROWW_ACCESS_TOKEN }}
+      FAST_SCAN_WORKERS: "8"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -61,20 +61,20 @@ jobs:
           cache: pip
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run scanner
+      - name: Run FAST MODE scanner
         shell: bash
         run: |
           TOP="${{ github.event.inputs.top || '100' }}"
-          SHORTLIST="${{ github.event.inputs.shortlist || '300' }}"
+          SHORTLIST="${{ github.event.inputs.shortlist || '140' }}"
           MARKET="${{ github.event.inputs.market || 'both' }}"
           FLAGS=""
           if [ "$MARKET" = "nse" ]; then FLAGS="--nse-only"; fi
           if [ "$MARKET" = "bse" ]; then FLAGS="--bse-only"; fi
-          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" $FLAGS
-      - name: Upload scan results
+          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 300 --workers 8 $FLAGS
+      - name: Upload FAST MODE results
         uses: actions/upload-artifact@v4
         with:
-          name: share-scan-results
+          name: fast-mode-share-scan-results
           path: scan_output/
           if-no-files-found: error
           retention-days: 14
