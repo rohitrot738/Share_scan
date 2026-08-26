@@ -3,10 +3,26 @@ name: Share Scan
 on:
   workflow_dispatch:
     inputs:
-      limit:
-        description: Number of NSE symbols to scan
+      top:
+        description: Final ranked stocks
         required: false
-        default: "20"
+        default: "100"
+      shortlist:
+        description: Stage-1 candidates retained
+        required: false
+        default: "300"
+      deep:
+        description: Candidates receiving full Ghost analysis
+        required: false
+        default: "120"
+      market:
+        description: NSE, BSE or ALL
+        required: false
+        default: "NSE"
+      universe_limit:
+        description: Optional universe cap; 0 means full selected market
+        required: false
+        default: "0"
   issues:
     types: [opened]
 
@@ -18,7 +34,7 @@ jobs:
   scan:
     if: github.event_name == 'workflow_dispatch' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[RUN]'))
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     env:
       PYTHONPATH: ${{ github.workspace }}
     steps:
@@ -40,10 +56,14 @@ jobs:
           from cr360.nse_public_adapter import NSEPublicAdapter
           print('scanner + full Ghost + full 360CR imports OK')
           PY
-      - name: Run NSE Ghost volume scanner
+      - name: Run full-market Ghost volume scanner
         run: |
-          LIMIT="${{ github.event.inputs.limit || '20' }}"
-          python scanner.py --limit "$LIMIT" --output-dir scan_results
+          TOP="${{ github.event.inputs.top || '100' }}"
+          SHORTLIST="${{ github.event.inputs.shortlist || '300' }}"
+          DEEP="${{ github.event.inputs.deep || '120' }}"
+          MARKET="${{ github.event.inputs.market || 'NSE' }}"
+          LIMIT="${{ github.event.inputs.universe_limit || '0' }}"
+          python scanner.py --market "$MARKET" --top "$TOP" --shortlist "$SHORTLIST" --deep "$DEEP" --limit "$LIMIT" --output-dir scan_results
       - name: Enrich same scan with full 360CR
         run: python -m cr360.scan_integration
       - name: Verify integrated result
@@ -60,7 +80,7 @@ jobs:
           assert states <= allowed, f'unexpected Ghost states: {states-allowed}'
           for r in p['ranked']:
             assert 'cr360_state' in r and 'cr360_confidence' in r and 'cr360_complete' in r
-          print('VERIFIED FULL GHOST + VOLUME + 360CR:', p['successful'])
+          print('VERIFIED FULL-MARKET GHOST + VOLUME + 360CR:', p['successful'])
           PY
       - name: Export integrated CSV
         run: |
