@@ -7,12 +7,26 @@ def clamp(x, lo=0.0, hi=1.0):
     return max(lo, min(hi, x))
 
 
+def rsi_score(rsi_value: float) -> float:
+    """RSI branch: reward constructive momentum, avoid chasing extremes."""
+    if rsi_value < 45:
+        return max(0.0, rsi_value / 45.0 * 55.0)
+    if rsi_value <= 60:
+        return 55.0 + (rsi_value - 45.0) * (25.0 / 15.0)
+    if rsi_value <= 70:
+        return 80.0 + (rsi_value - 60.0) * 1.5
+    if rsi_value <= 75:
+        return 95.0 - (rsi_value - 70.0) * 3.0
+    return max(50.0, 80.0 - (rsi_value - 75.0) * 4.0)
+
+
 def score_features(f: PatternFeatures, cfg: ScannerConfig):
     impulse = clamp(f.impulse_pct / max(cfg.impulse_min_pct * 2.0, 0.1))
     tight_base = clamp(1.0 - f.consolidation_range_pct / max(cfg.consolidation_max_range_pct, 0.1))
     volume_dryup = clamp((1.15 - f.volume_dryup_ratio) / 0.65)
     proximity = clamp(1.0 - f.breakout_distance_pct / max(cfg.breakout_proximity_pct, 0.1))
     rvol = clamp(f.rvol_now / 2.5)
+    rsi = rsi_score(f.rsi14)
 
     components = {
         'impulse_strength': 100 * impulse,
@@ -23,9 +37,12 @@ def score_features(f: PatternFeatures, cfg: ScannerConfig):
         'support_hold': 100 * f.support_hold_strength,
         'supply_exhaustion': 100 * f.supply_exhaustion,
         'breakout_proximity': 100 * proximity,
+        'rsi_momentum': rsi,
     }
 
-    weights = {
+    # Add RSI without overpowering the existing model: 8% new weight,
+    # remaining components scaled proportionally to 92%.
+    base_weights = {
         'impulse_strength': 0.12,
         'base_quality': 0.18,
         'volume_structure': 0.18,
@@ -35,6 +52,8 @@ def score_features(f: PatternFeatures, cfg: ScannerConfig):
         'supply_exhaustion': 0.10,
         'breakout_proximity': 0.12,
     }
+    weights = {k: v * 0.92 for k, v in base_weights.items()}
+    weights['rsi_momentum'] = 0.08
 
     total = sum(components[k] * weights[k] for k in components)
 
