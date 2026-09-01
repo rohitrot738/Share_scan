@@ -29,8 +29,9 @@ def trade_plan(df: pd.DataFrame, resistance: float, support: float, atr_value: f
         'risk_per_share': round(risk,2),
         'support': round(support,2),
         'resistance': round(resistance,2),
-        # Stable aliases consumed by live_scan output.
-        'entry': round(confirmation_entry,2),
+        # Stable aliases consumed by live_scan output. Targets and stop are built from
+        # early_entry, so expose the same reference entry to keep the plan internally coherent.
+        'entry': round(early_entry,2),
         'stop': round(stop,2),
         'target1': round(t1,2),
         'target2': round(t2,2)
