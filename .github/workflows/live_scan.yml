@@ -23,7 +23,10 @@ on:
       - 'scoring_engine.py'
       - 'multi_timeframe.py'
       - 'live_scan.py'
-      - 'cumulative_gate.py'
+      - 'fundamental_enrichment.py'
+      - 'news_enrichment.py'
+      - 'shareholding_enrichment.py'
+      - 'promoter_enrichment.py'
       - '.github/workflows/live_scan.yml'
   issues:
     types: [opened]
@@ -41,7 +44,7 @@ jobs:
       GROWW_ACCESS_TOKEN: ${{ secrets.GROWW_ACCESS_TOKEN }}
       SCAN_TARGET_SECONDS: "30"
       SCAN_DEEP_LIMIT: "120"
-      SCAN_DEPTH_LIMIT: "10"
+      SCAN_DEPTH_LIMIT: "25"
       SCAN_STAGE1_WORKERS: "4"
       SCAN_CACHE_DIR: ".scan_cache"
       CACHE_BATCH_SIZE: "300"
@@ -70,23 +73,28 @@ jobs:
         run: |
           mkdir -p .scan_cache
           if [ ! -f .scan_cache/nse_stage1.csv ]; then
-            echo "No reusable NSE cache found; building it now..."
             python build_nse_cache.py
-          else
-            echo "Reusable NSE cache found."
           fi
           test -s .scan_cache/nse_stage1.csv
           python -c "import pandas as pd; d=pd.read_csv('.scan_cache/nse_stage1.csv'); print('cache rows',len(d)); assert len(d)>=500"
-      - name: Run cumulative technical gate
-        if: github.ref_name == 'indicator/cumulative'
-        run: python cumulative_gate.py
       - name: Run NSE scanner
-        if: github.ref_name != 'indicator/cumulative'
         shell: bash
         run: |
           TOP="${{ github.event.inputs.top || '100' }}"
           SHORTLIST="${{ github.event.inputs.shortlist || '500' }}"
           python live_scan.py --top "$TOP" --shortlist "$SHORTLIST"
+      - name: Enrich fundamentals
+        if: hashFiles('fundamental_enrichment.py') != ''
+        run: python fundamental_enrichment.py scan_output/top100_by_volume.csv
+      - name: Enrich news sentiment
+        if: hashFiles('news_enrichment.py') != ''
+        run: python news_enrichment.py scan_output/top100_by_volume.csv
+      - name: Enrich FII-DII shareholding
+        if: hashFiles('shareholding_enrichment.py') != ''
+        run: python shareholding_enrichment.py scan_output/top100_by_volume.csv
+      - name: Enrich promoter shareholding
+        if: hashFiles('promoter_enrichment.py') != ''
+        run: python promoter_enrichment.py scan_output/top100_by_volume.csv
       - name: Upload NSE results
         uses: actions/upload-artifact@v4
         with:
