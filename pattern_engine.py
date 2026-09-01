@@ -16,7 +16,8 @@ def extract_features(df,cfg):
     d=d.dropna(subset=['open','high','low','close','volume'])
     if len(d)<60: raise ValueError('Need at least 60 valid OHLCV candles.')
     # Degenerate/flat series can make oscillators undefined (0/0). Treat those indicators as
-    # neutral rather than dropping the entire stock from deep analysis.
+    # neutral rather than dropping the entire stock from deep analysis. This keeps deep scan
+    # deterministic for low-variance symbols while preserving normal values when available.
     neutral={'rvol20':1.0,'rsi14':50.0,'macd_hist':0.0,'stoch_k':50.0,'adx14':0.0,'cci20':0.0,'mfi14':50.0,'roc12':0.0,'supertrend_dir':0.0}
     for c,v in neutral.items():
         if c in d.columns:d[c]=d[c].fillna(v)
