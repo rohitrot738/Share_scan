@@ -23,6 +23,7 @@ on:
       - 'scoring_engine.py'
       - 'multi_timeframe.py'
       - 'live_scan.py'
+      - 'cumulative_gate.py'
       - '.github/workflows/live_scan.yml'
   issues:
     types: [opened]
@@ -76,7 +77,11 @@ jobs:
           fi
           test -s .scan_cache/nse_stage1.csv
           python -c "import pandas as pd; d=pd.read_csv('.scan_cache/nse_stage1.csv'); print('cache rows',len(d)); assert len(d)>=500"
+      - name: Run cumulative technical gate
+        if: github.ref_name == 'indicator/cumulative'
+        run: python cumulative_gate.py
       - name: Run NSE scanner
+        if: github.ref_name != 'indicator/cumulative'
         shell: bash
         run: |
           TOP="${{ github.event.inputs.top || '100' }}"
