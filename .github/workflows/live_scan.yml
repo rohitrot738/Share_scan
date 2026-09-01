@@ -17,6 +17,7 @@ on:
       - 'indicator/**'
     paths:
       - 'scan_trigger.txt'
+      - 'promoter_enrichment.py'
       - 'active_indicator.txt'
       - 'indicators.py'
       - 'pattern_engine.py'
@@ -63,17 +64,12 @@ jobs:
       - name: Validate scanner
         run: |
           python -m compileall -q .
-          python -c "import live_scan, market_data; from scoring_engine import active_indicator; print('NSE scanner imports ok; active=', active_indicator())"
+          python -c "import live_scan, market_data, promoter_enrichment; print('NSE promoter branch imports ok')"
       - name: Build NSE cache when missing
         shell: bash
         run: |
           mkdir -p .scan_cache
-          if [ ! -f .scan_cache/nse_stage1.csv ]; then
-            echo "No reusable NSE cache found; building it now..."
-            python build_nse_cache.py
-          else
-            echo "Reusable NSE cache found."
-          fi
+          if [ ! -f .scan_cache/nse_stage1.csv ]; then python build_nse_cache.py; fi
           test -s .scan_cache/nse_stage1.csv
           python -c "import pandas as pd; d=pd.read_csv('.scan_cache/nse_stage1.csv'); print('cache rows',len(d)); assert len(d)>=500"
       - name: Run NSE scanner
@@ -82,6 +78,8 @@ jobs:
           TOP="${{ github.event.inputs.top || '100' }}"
           SHORTLIST="${{ github.event.inputs.shortlist || '500' }}"
           python live_scan.py --top "$TOP" --shortlist "$SHORTLIST"
+      - name: Enrich promoter shareholding
+        run: python promoter_enrichment.py scan_output/top100_by_volume.csv
       - name: Upload NSE results
         uses: actions/upload-artifact@v4
         with:
