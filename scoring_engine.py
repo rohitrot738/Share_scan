@@ -15,10 +15,20 @@ def rsi_score(v: float) -> float:
     if v <= 75: return 95.0 - (v-70.0)*3.0
     return max(50.0, 80.0 - (v-75.0)*4.0)
 
+def active_indicators() -> list[str]:
+    if not ACTIVE_FILE.exists():
+        return []
+    raw=ACTIVE_FILE.read_text(encoding='utf-8').replace('\n', ',')
+    names=[]
+    for part in raw.split(','):
+        name=part.strip().lower()
+        if name and name != 'none' and name not in names:
+            names.append(name)
+    return names
+
 def active_indicator() -> str:
-    if ACTIVE_FILE.exists():
-        return ACTIVE_FILE.read_text(encoding='utf-8').strip().lower()
-    return 'none'
+    names=active_indicators()
+    return ','.join(names) if names else 'none'
 
 def branch_score(name: str, f: PatternFeatures) -> float:
     if name == 'macd': return 88.0 if f.macd_hist > 0 else 32.0
@@ -74,11 +84,17 @@ def score_features(f: PatternFeatures, cfg: ScannerConfig):
         'rsi_momentum': rsi_score(f.rsi14),
     }
     base_weights={'impulse_strength':.12,'base_quality':.18,'volume_structure':.18,'higher_low_strength':.10,'trend_alignment':.10,'support_hold':.10,'supply_exhaustion':.10,'breakout_proximity':.12}
-    name=active_indicator()
-    indicator_component=branch_score(name,f)
-    if name != 'none':
-        components[f'branch_{name}']=indicator_component
-        weights={k:v*.84 for k,v in base_weights.items()}; weights['rsi_momentum']=.08; weights[f'branch_{name}']=.08
+    names=active_indicators()
+    if names:
+        pool=min(0.24, 0.08 + 0.02*(len(names)-1))
+        base_pool=0.92-pool
+        weights={k:v*base_pool for k,v in base_weights.items()}
+        weights['rsi_momentum']=.08
+        per=pool/len(names)
+        for name in names:
+            key=f'branch_{name}'
+            components[key]=branch_score(name,f)
+            weights[key]=per
     else:
         weights={k:v*.92 for k,v in base_weights.items()}; weights['rsi_momentum']=.08
     total=sum(components[k]*weights[k] for k in weights)
@@ -87,4 +103,4 @@ def score_features(f: PatternFeatures, cfg: ScannerConfig):
     elif total>=cfg.min_score_watch: state='EARLY'
     else: state='IGNORE'
     false_break_risk=100-(.30*components['support_hold']+.25*components['supply_exhaustion']+.25*components['trend_alignment']+.20*components['base_quality'])
-    return {'score':round(total,2),'state':state,'false_breakout_risk':round(max(0.0,min(100.0,false_break_risk)),2),'active_indicator':name,'components':{k:round(v,2) for k,v in components.items()},'raw_features':asdict(f)}
+    return {'score':round(total,2),'state':state,'false_breakout_risk':round(max(0.0,min(100.0,false_break_risk)),2),'active_indicator':active_indicator(),'components':{k:round(v,2) for k,v in components.items()},'raw_features':asdict(f)}
