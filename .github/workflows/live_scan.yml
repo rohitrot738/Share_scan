@@ -27,6 +27,9 @@ on:
       - 'news_enrichment.py'
       - 'shareholding_enrichment.py'
       - 'promoter_enrichment.py'
+      - 'live_chart_server.py'
+      - 'live_chart/**'
+      - 'tests/test_live_chart.py'
       - '.github/workflows/live_scan.yml'
   issues:
     types: [opened]
@@ -68,6 +71,7 @@ jobs:
         run: |
           python -m compileall -q .
           python -c "import live_scan, market_data; from scoring_engine import active_indicator; print('NSE scanner imports ok; active=', active_indicator())"
+          python -m unittest -v tests.test_live_chart
       - name: Build NSE cache when missing
         shell: bash
         run: |
