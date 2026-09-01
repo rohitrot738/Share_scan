@@ -12,7 +12,20 @@ def _pct(a,b): return 0.0 if b==0 or np.isnan(b) else (a/b)*100.0
 
 def extract_features(df,cfg):
     if len(df)<60: raise ValueError('Need at least 60 candles.')
-    d=add_basic_indicators(df,cfg.atr_window).dropna().copy(); recent=d.iloc[-cfg.consolidation_lookback:]; pre=d.iloc[-(cfg.impulse_lookback+cfg.consolidation_lookback):-cfg.consolidation_lookback]
+    d=add_basic_indicators(df,cfg.atr_window).replace([np.inf,-np.inf],np.nan).copy()
+    d=d.dropna(subset=['open','high','low','close','volume'])
+    if len(d)<60: raise ValueError('Need at least 60 valid OHLCV candles.')
+    # Degenerate/flat series can make oscillators undefined (0/0). Treat those indicators as
+    # neutral rather than dropping the entire stock from deep analysis.
+    neutral={'rvol20':1.0,'rsi14':50.0,'macd_hist':0.0,'stoch_k':50.0,'adx14':0.0,'cci20':0.0,'mfi14':50.0,'roc12':0.0,'supertrend_dir':0.0}
+    for c,v in neutral.items():
+        if c in d.columns:d[c]=d[c].fillna(v)
+    for c in ['ema9','ema20','ema50','vwap','bb_mid','bb_upper','bb_lower','ichimoku_a','ichimoku_b','pivot']:
+        if c in d.columns:d[c]=d[c].fillna(d['close'])
+    if 'atr' in d.columns:d['atr']=d['atr'].fillna((d['high']-d['low']).abs()).fillna(0.0)
+    if 'obv' in d.columns:d['obv']=d['obv'].ffill().fillna(0.0)
+    recent=d.iloc[-cfg.consolidation_lookback:]; pre=d.iloc[-(cfg.impulse_lookback+cfg.consolidation_lookback):-cfg.consolidation_lookback]
+    if pre.empty or recent.empty: raise ValueError('Insufficient candles for impulse/consolidation windows.')
     il,ih=float(pre.low.min()),float(pre.high.max()); impulse_pct=_pct(ih-il,il); bh,bl=float(recent.high.max()),float(recent.low.min()); mid=(bh+bl)/2; consolidation_range_pct=_pct(bh-bl,mid)
     sv=float(recent.volume.tail(cfg.volume_short_window).mean()); lv=float(d.volume.tail(cfg.volume_long_window).mean()); volume_dryup_ratio=1.0 if lv==0 else sv/lv; close=float(d.close.iloc[-1]); breakout_distance_pct=max(0.0,_pct(bh-close,close)); lows=recent.low.tail(5).values; higher_low_strength=float((np.diff(lows)>=0).mean()) if len(lows)>=4 else 0.0
     e9,e20,e50=map(float,[d.ema9.iloc[-1],d.ema20.iloc[-1],d.ema50.iloc[-1]]); trend_alignment=sum([close>e9,e9>e20,e20>e50])/3; rvol_now=float(d.rvol20.iloc[-1]); rsi14=float(d.rsi14.iloc[-1]); macd_hist=float(d.macd_hist.iloc[-1]); vwap_gap_pct=_pct(close-float(d.vwap.iloc[-1]),float(d.vwap.iloc[-1])); bb_range=float(d.bb_upper.iloc[-1]-d.bb_lower.iloc[-1]); bb_position=0.5 if bb_range==0 else (close-float(d.bb_lower.iloc[-1]))/bb_range; stoch_k=float(d.stoch_k.iloc[-1]); adx14=float(d.adx14.iloc[-1]); cci20=float(d.cci20.iloc[-1]); mfi14=float(d.mfi14.iloc[-1]); obv_slope=float(d.obv.iloc[-1]-d.obv.iloc[-6]); roc12=float(d.roc12.iloc[-1]); atr_pct=_pct(float(d.atr.iloc[-1]),close); supertrend_dir=float(d.supertrend_dir.iloc[-1]); ia=float(d.ichimoku_a.iloc[-1]); ib=float(d.ichimoku_b.iloc[-1]); ichimoku_bull=float(close>max(ia,ib)); pivot=float(d['pivot'].iloc[-1]); pivot_gap_pct=_pct(close-pivot,pivot)
