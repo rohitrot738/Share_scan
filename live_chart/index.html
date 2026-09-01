@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Share Scan Live Chart</title>
+  <script src="https://unpkg.com/lightweight-charts@4.2.2/dist/lightweight-charts.standalone.production.js"></script>
+  <style>
+    :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0b0e11;color:#e8edf2;font-family:system-ui,-apple-system,Segoe UI,sans-serif}.top{display:flex;gap:10px;align-items:center;padding:10px;border-bottom:1px solid #252a31;flex-wrap:wrap}.brand{font-weight:700;margin-right:8px}.symbol{background:#151a20;border:1px solid #303741;color:#fff;border-radius:7px;padding:9px 10px;font-size:15px;width:160px}.btn{border:1px solid #303741;background:#151a20;color:#d7dde5;border-radius:7px;padding:8px 10px;cursor:pointer}.btn.active{background:#263241;color:#fff;border-color:#596a7e}.status{margin-left:auto;font-size:13px;color:#aeb7c2}.live{color:#56d364}.off{color:#f0a34a}.quote{font-size:20px;font-weight:700;min-width:90px}.wrap{display:grid;grid-template-columns:minmax(0,1fr) 230px;height:calc(100vh - 58px)}#chart{height:100%;min-height:520px}.side{border-left:1px solid #252a31;padding:12px;overflow:auto}.side h3{font-size:13px;margin:0 0 10px;color:#9fa9b5}.stock{display:block;width:100%;text-align:left;margin:4px 0;padding:8px;border:0;border-radius:6px;background:transparent;color:#dce3ea;cursor:pointer}.stock:hover{background:#171d24}.foot{font-size:11px;color:#78828e;margin-top:12px;line-height:1.4}@media(max-width:800px){.wrap{grid-template-columns:1fr}.side{display:none}.status{width:100%;margin-left:0}.top{padding:8px}.btn{padding:7px 8px;font-size:12px}.symbol{width:135px}.quote{font-size:17px}}
+  </style>
+</head>
+<body>
+  <div class="top">
+    <div class="brand">Share Scan Live</div>
+    <input id="symbol" class="symbol" value="RELIANCE" autocomplete="off" />
+    <button id="load" class="btn">Load</button>
+    <span id="quote" class="quote">—</span>
+    <div id="tfs"></div>
+    <div id="status" class="status">Connecting…</div>
+  </div>
+  <div class="wrap">
+    <div id="chart"></div>
+    <aside class="side"><h3>Scanner symbols</h3><div id="symbols"></div><div class="foot">Historical candles are loaded first. When GROWW_ACCESS_TOKEN is configured on the server, Groww LTP updates the current candle live.</div></aside>
+  </div>
+<script>
+const TFS=['1m','2m','3m','5m','10m','15m','30m','1h','4h','1d','1w'];
+let tf='5m', symbol='RELIANCE', candles=[], timer=null;
+const el=id=>document.getElementById(id);
+const chart=LightweightCharts.createChart(el('chart'),{layout:{background:{color:'#0b0e11'},textColor:'#b9c2cc'},grid:{vertLines:{color:'#171b20'},horzLines:{color:'#171b20'}},rightPriceScale:{borderColor:'#2b3037'},timeScale:{borderColor:'#2b3037',timeVisible:true,secondsVisible:false},crosshair:{mode:LightweightCharts.CrosshairMode.Normal}});
+const series=chart.addCandlestickSeries({upColor:'#26a69a',downColor:'#ef5350',borderVisible:false,wickUpColor:'#26a69a',wickDownColor:'#ef5350'});
+new ResizeObserver(()=>chart.applyOptions({width:el('chart').clientWidth,height:el('chart').clientHeight})).observe(el('chart'));
+function tfSeconds(x){if(x.endsWith('m'))return parseInt(x)*60;if(x==='1h')return 3600;if(x==='4h')return 14400;if(x==='1d')return 86400;if(x==='1w')return 604800;return 300}
+function renderTf(){el('tfs').innerHTML=TFS.map(x=>`<button class="btn ${x===tf?'active':''}" data-tf="${x}">${x}</button>`).join(' ');document.querySelectorAll('[data-tf]').forEach(b=>b.onclick=()=>{tf=b.dataset.tf;renderTf();loadHistory()})}
+async function loadHistory(){symbol=el('symbol').value.trim().toUpperCase().replace('NSE:','').replace('.NS','');if(!symbol)return;el('status').textContent='Loading '+symbol+' '+tf+'…';const r=await fetch(`/api/history?symbol=${encodeURIComponent(symbol)}&tf=${encodeURIComponent(tf)}`,{cache:'no-store'});const j=await r.json();if(!r.ok){el('status').textContent=j.message||j.error||'History error';return}candles=j.candles||[];series.setData(candles);chart.timeScale().fitContent();el('status').textContent=`${symbol} · ${tf} · ${candles.length} candles`;startLive()}
+function mergeLtp(ltp,ts){if(!candles.length)return;const sec=tfSeconds(tf);let bucket=Math.floor(ts/sec)*sec;const last=candles[candles.length-1];if(tf==='1d'||tf==='1w')bucket=last.time;if(bucket>last.time){const c={time:bucket,open:last.close,high:Math.max(last.close,ltp),low:Math.min(last.close,ltp),close:ltp};candles.push(c);series.update(c)}else{const c={...last,high:Math.max(last.high,ltp),low:Math.min(last.low,ltp),close:ltp};candles[candles.length-1]=c;series.update(c)}}
+async function tick(){try{const r=await fetch(`/api/ltp?symbol=${encodeURIComponent(symbol)}`,{cache:'no-store'});const j=await r.json();if(j.live&&Number.isFinite(j.ltp)){el('quote').textContent='₹'+Number(j.ltp).toFixed(2);el('status').innerHTML=`<span class="live">● LIVE</span> · Groww · ${symbol} · ${tf}`;mergeLtp(Number(j.ltp),Number(j.time||Math.floor(Date.now()/1000)))}else{el('status').innerHTML=`<span class="off">● LIVE OFF</span> · ${j.reason||'Groww feed unavailable'}`}}catch(e){el('status').textContent='Live feed error'}}
+function startLive(){if(timer)clearInterval(timer);tick();timer=setInterval(tick,1500)}
+el('load').onclick=loadHistory;el('symbol').addEventListener('keydown',e=>{if(e.key==='Enter')loadHistory()});
+async function loadSymbols(){try{const j=await (await fetch('/api/symbols')).json();el('symbols').innerHTML=(j.symbols||[]).map(s=>`<button class="stock" data-s="${s}">${s}</button>`).join('');document.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>{el('symbol').value=b.dataset.s;loadHistory()})}catch(e){}}
+renderTf();loadSymbols();loadHistory();
+</script>
+</body>
+</html>
