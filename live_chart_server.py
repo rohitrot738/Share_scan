@@ -6,9 +6,10 @@ import threading
 import time
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import parse_qs, unquote, urlparse
+from urllib.parse import parse_qs, quote, unquote, urlparse
 
 import pandas as pd
+import requests
 
 from market_data import fetch_history
 
@@ -32,6 +33,12 @@ _HISTORY = {
     "1w": ("10y", "1wk", None),
 }
 
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124 Safari/537.36",
+    "Accept": "application/json,text/plain,*/*",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
 
 def _symbol(raw: str) -> str:
     s = str(raw or "").upper().strip().replace("NSE:", "")
@@ -43,13 +50,11 @@ def _symbol(raw: str) -> str:
 def _jsonable_frame(df: pd.DataFrame, limit: int = 1200) -> list[dict]:
     if df is None or df.empty:
         return []
-    x = df.tail(limit).copy()
     rows = []
-    for idx, r in x.iterrows():
+    for idx, r in df.tail(limit).iterrows():
         try:
-            ts = int(pd.Timestamp(idx).timestamp())
             rows.append({
-                "time": ts,
+                "time": int(pd.Timestamp(idx).timestamp()),
                 "open": float(r["open"]),
                 "high": float(r["high"]),
                 "low": float(r["low"]),
@@ -62,12 +67,6 @@ def _jsonable_frame(df: pd.DataFrame, limit: int = 1200) -> list[dict]:
 
 
 def _resample_for_chart(df: pd.DataFrame, rule: str) -> pd.DataFrame:
-    """Build synthetic candles from the exchange session's first bar.
-
-    Pandas' default midnight alignment splits a 09:15 NSE open across the
-    wrong 2m/10m bucket. Anchoring to the first source bar preserves the
-    exchange candle boundaries.
-    """
     if df is None or df.empty or not isinstance(df.index, pd.DatetimeIndex):
         return pd.DataFrame()
     return (
@@ -81,61 +80,114 @@ def history(symbol: str, timeframe: str) -> dict:
     if timeframe not in _HISTORY:
         raise ValueError(f"Unsupported timeframe: {timeframe}")
     period, source_interval, rule = _HISTORY[timeframe]
-    yahoo_symbol = f"{symbol}.NS"
-    df = fetch_history(yahoo_symbol, period, source_interval, retries=1)
+    df = fetch_history(f"{symbol}.NS", period, source_interval, retries=1)
     if rule:
         df = _resample_for_chart(df, rule)
     if df is None or df.empty:
         raise LookupError(f"No market candles available for {symbol} at {timeframe}")
-    return {"symbol": symbol, "timeframe": timeframe, "source": "Yahoo OHLC + Groww live LTP when token is configured", "candles": _jsonable_frame(df)}
+    return {
+        "symbol": symbol,
+        "timeframe": timeframe,
+        "source": "Auto public feed: Yahoo OHLC history + NSE/Yahoo live quote fallback",
+        "candles": _jsonable_frame(df),
+    }
 
 
-class GrowwLiveFeed:
-    """Small live-LTP bridge. Token stays server-side; browser never receives credentials."""
+class AutoPublicLiveFeed:
+    """No-key live/near-live quote feed with automatic provider fallback."""
 
     def __init__(self):
-        self.token = os.getenv("GROWW_ACCESS_TOKEN", "").strip()
         self._lock = threading.Lock()
-        self._feed = None
-        self._api = None
-        self._subscribed: set[str] = set()
+        self._nse = requests.Session()
+        self._nse.headers.update({**HEADERS, "Referer": "https://www.nseindia.com/"})
+        self._web = requests.Session()
+        self._web.headers.update(HEADERS)
+        self._nse_ready = False
+        self._cache: dict[str, tuple[float, dict]] = {}
+        self.cache_seconds = float(os.getenv("PUBLIC_LTP_CACHE_SECONDS", "2.0"))
 
-    @property
-    def enabled(self) -> bool:
-        return bool(self.token)
+    def _nse_quote(self, symbol: str) -> dict:
+        if not self._nse_ready:
+            r = self._nse.get("https://www.nseindia.com/", timeout=(4, 7))
+            r.raise_for_status()
+            self._nse_ready = True
+        url = "https://www.nseindia.com/api/quote-equity?symbol=" + quote(symbol, safe="")
+        r = self._nse.get(url, timeout=(4, 7))
+        if r.status_code in (401, 403):
+            self._nse_ready = False
+            raise RuntimeError(f"NSE HTTP {r.status_code}")
+        r.raise_for_status()
+        data = r.json()
+        price = (data.get("priceInfo") or {}).get("lastPrice")
+        if price is None:
+            raise LookupError("NSE lastPrice missing")
+        return {
+            "live": True,
+            "symbol": symbol,
+            "ltp": float(price),
+            "time": int(time.time()),
+            "provider": "NSE Public",
+            "mode": "AUTO_PUBLIC",
+        }
 
-    def _ensure(self):
-        if self._feed is not None:
-            return
-        from growwapi import GrowwAPI, GrowwFeed
-        self._api = GrowwAPI(self.token)
-        try:
-            self._feed = GrowwFeed(self._api)
-        except Exception:
-            self._feed = GrowwFeed(self.token)
+    def _yahoo_quote(self, symbol: str) -> dict:
+        ticker = f"{symbol}.NS"
+        url = f"https://query1.finance.yahoo.com/v8/finance/chart/{quote(ticker, safe='')}?interval=1m&range=1d"
+        r = self._web.get(url, timeout=(4, 7))
+        r.raise_for_status()
+        root = r.json().get("chart", {})
+        if root.get("error"):
+            raise LookupError(str(root["error"])[:160])
+        result = (root.get("result") or [None])[0]
+        if not result:
+            raise LookupError("Yahoo quote result missing")
+        meta = result.get("meta") or {}
+        price = meta.get("regularMarketPrice")
+        ts = meta.get("regularMarketTime")
+        if price is None:
+            quote_rows = (((result.get("indicators") or {}).get("quote") or [{}])[0]).get("close") or []
+            prices = [x for x in quote_rows if x is not None]
+            if prices:
+                price = prices[-1]
+        if price is None:
+            raise LookupError("Yahoo price missing")
+        return {
+            "live": True,
+            "symbol": symbol,
+            "ltp": float(price),
+            "time": int(ts or time.time()),
+            "provider": "Yahoo Public",
+            "mode": "AUTO_PUBLIC_FALLBACK",
+            "market_state": str(meta.get("marketState") or ""),
+        }
 
     def ltp(self, symbol: str) -> dict:
-        if not self.enabled:
-            return {"live": False, "reason": "GROWW_ACCESS_TOKEN missing"}
+        now = time.time()
+        cached = self._cache.get(symbol)
+        if cached and now - cached[0] < self.cache_seconds:
+            return dict(cached[1])
+        errors = []
         with self._lock:
-            try:
-                self._ensure()
-                if symbol not in self._subscribed:
-                    self._feed.subscribe_live_data(self._api.SEGMENT_CASH, symbol)
-                    self._subscribed.add(symbol)
-                    time.sleep(0.15)
-                value = self._feed.get_stocks_ltp(symbol, timeout=2)
-                if isinstance(value, dict):
-                    for key in ("ltp", "last_price", "lastPrice", "price"):
-                        if key in value:
-                            value = value[key]
-                            break
-                return {"live": True, "symbol": symbol, "ltp": float(value), "time": int(time.time()), "provider": "Groww"}
-            except Exception as exc:
-                return {"live": False, "reason": str(exc)[:180]}
+            cached = self._cache.get(symbol)
+            if cached and now - cached[0] < self.cache_seconds:
+                return dict(cached[1])
+            for name, fn in (("NSE Public", self._nse_quote), ("Yahoo Public", self._yahoo_quote)):
+                try:
+                    payload = fn(symbol)
+                    self._cache[symbol] = (time.time(), payload)
+                    return payload
+                except Exception as exc:
+                    errors.append(f"{name}: {type(exc).__name__}: {str(exc)[:90]}")
+            return {
+                "live": False,
+                "symbol": symbol,
+                "provider": "none",
+                "mode": "AUTO_PUBLIC",
+                "reason": " | ".join(errors)[:300] or "No public quote provider available",
+            }
 
 
-LIVE = GrowwLiveFeed()
+LIVE = AutoPublicLiveFeed()
 
 
 def scanner_symbols() -> list[str]:
@@ -182,6 +234,8 @@ class Handler(SimpleHTTPRequestHandler):
                 return self._send_json({"timeframes": SUPPORTED})
             if parsed.path == "/api/symbols":
                 return self._send_json({"symbols": scanner_symbols()})
+            if parsed.path == "/api/feed-status":
+                return self._send_json({"mode": "AUTO_PUBLIC", "providers": ["NSE Public", "Yahoo Public"], "credentials_required": False})
             if parsed.path == "/api/history":
                 symbol = _symbol(q.get("symbol", [""])[0])
                 timeframe = q.get("tf", ["5m"])[0]
@@ -205,5 +259,5 @@ class Handler(SimpleHTTPRequestHandler):
 if __name__ == "__main__":
     PUBLIC.mkdir(parents=True, exist_ok=True)
     print(f"Live chart: http://127.0.0.1:{PORT}")
-    print("Groww live feed:", "enabled" if LIVE.enabled else "disabled (set GROWW_ACCESS_TOKEN)")
+    print("Live quote mode: AUTO_PUBLIC (NSE -> Yahoo fallback); no API key required")
     ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
