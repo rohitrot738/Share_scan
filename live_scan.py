@@ -15,7 +15,7 @@ CACHE_DIR=Path(os.getenv("SCAN_CACHE_DIR",".scan_cache"))
 CACHE_FILE=CACHE_DIR/"nse_stage1.csv"
 TARGET_SECONDS=float(os.getenv("SCAN_TARGET_SECONDS","30"))
 DEEP_LIMIT=int(os.getenv("SCAN_DEEP_LIMIT","120"))
-DEPTH_LIMIT=int(os.getenv("SCAN_DEPTH_LIMIT","25"))
+DEPTH_LIMIT=max(25,int(os.getenv("SCAN_DEPTH_LIMIT","25")))
 CACHE_MAX_AGE_HOURS=float(os.getenv("SCAN_CACHE_MAX_AGE_HOURS","18"))
 
 def _safe_float(v,default=0.0):
@@ -24,8 +24,7 @@ def _safe_float(v,default=0.0):
     except Exception:return default
 
 def daily_prefilter_score(df: pd.DataFrame) -> dict:
-    if df is None or df.empty or len(df) < 20:
-        return {"score":0.0,"turnover_proxy":0.0,"current_volume":0,"avg_volume20":0,"rvol":0.0,"support":0.0,"resistance":0.0,"close":0.0}
+    if df is None or df.empty or len(df) < 20:return {"score":0.0,"turnover_proxy":0.0,"current_volume":0,"avg_volume20":0,"rvol":0.0,"support":0.0,"resistance":0.0,"close":0.0}
     x=df.copy(); close=pd.to_numeric(x["close"],errors="coerce").dropna(); vol=pd.to_numeric(x.get("volume",0),errors="coerce").fillna(0)
     if close.empty:return {"score":0.0,"turnover_proxy":0.0,"current_volume":0,"avg_volume20":0,"rvol":0.0,"support":0.0,"resistance":0.0,"close":0.0}
     c=float(close.iloc[-1]); v=float(vol.iloc[-1]); av=float(vol.tail(20).mean()) if len(vol) else 0.0; rvol=v/av if av>0 else 0.0
@@ -72,8 +71,7 @@ def apply_longterm(out, shortlisted):
     for idx,row in out.iterrows():
         m=_longterm_metrics(data.get(ymap.get(str(row.symbol),''),pd.DataFrame()))
         for k,v in m.items():out.at[idx,k]=v
-    out['rank_score']=(.90*out['rank_score']+.10*out['longterm_score']).clip(lower=0,upper=100)
-    return out
+    out['rank_score']=(.90*out['rank_score']+.10*out['longterm_score']).clip(lower=0,upper=100); return out
 
 def apply_depth(out,limit):
     for c,d in {"depth_score":np.nan,"bid_qty_5":np.nan,"ask_qty_5":np.nan,"imbalance":np.nan,"best_bid":np.nan,"best_ask":np.nan,"spread_bps":np.nan,"depth_source":"OHLCV_FALLBACK"}.items():out[c]=d
@@ -85,6 +83,15 @@ def apply_depth(out,limit):
         if info:
             for k,v in info.items():out.at[idx,k]=v
     out["true_depth_used"]=out.depth_score.notna(); return out
+
+def _blend_orderbook(out):
+    out['orderbook_adjustment']=0.0
+    mask=out['depth_score'].notna()
+    if not mask.any():return out
+    spread_penalty=(pd.to_numeric(out.loc[mask,'spread_bps'],errors='coerce').fillna(0)/25.0).clip(0,8)
+    base=out.loc[mask,'rank_score'].astype(float); depth=out.loc[mask,'depth_score'].astype(float)
+    blended=.88*base+.12*depth-spread_penalty
+    out.loc[mask,'orderbook_adjustment']=(blended-base).round(2); out.loc[mask,'rank_score']=blended.clip(0,100); return out
 
 def stage2(shortlisted,top_n,started):
     deep=shortlisted.head(min(DEEP_LIMIT,len(shortlisted))); syms=deep.yahoo_symbol.astype(str).tolist(); d15={}; d1h={}
@@ -101,11 +108,11 @@ def stage2(shortlisted,top_n,started):
             if x:analysed.append(x)
         except Exception:pass
     done={x["symbol"] for x in analysed}; rows=analysed+_prefilter_rows(shortlisted[~shortlisted.symbol.isin(done)])
-    out=pd.DataFrame(rows); out["rank_score"]=(out.rank_score-.12*out.false_breakout_risk.fillna(0)).clip(lower=0); out=apply_longterm(out,shortlisted); depth_n=min(DEPTH_LIMIT,len(out)) if TARGET_SECONDS-(time.perf_counter()-started)>5 else 0; out=apply_depth(out,depth_n); q=out.sort_values("rank_score",ascending=False).head(top_n).sort_values(["volume","rank_score"],ascending=[False,False]).reset_index(drop=True); q.insert(0,"volume_rank",np.arange(1,len(q)+1)); return q
+    out=pd.DataFrame(rows); out["rank_score"]=(out.rank_score-.12*out.false_breakout_risk.fillna(0)).clip(lower=0); out=apply_longterm(out,shortlisted); out=apply_depth(out,min(DEPTH_LIMIT,len(out))); out=_blend_orderbook(out); q=out.sort_values("rank_score",ascending=False).head(top_n).sort_values(["volume","rank_score"],ascending=[False,False]).reset_index(drop=True); q.insert(0,"volume_rank",np.arange(1,len(q)+1)); return q
 
 def save_results(top,s1,runtime):
-    OUTPUT_DIR.mkdir(parents=True,exist_ok=True); top.to_csv(OUTPUT_DIR/"top100_by_volume.csv",index=False); s1.to_csv(OUTPUT_DIR/"stage1_shortlist.csv",index=False); payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"NSE CUMULATIVE + 52W+156W","target_seconds":TARGET_SECONDS,"runtime_seconds":round(runtime,2),"cache_used":True,"shortlist_size":len(s1),"count":len(top),"results":top.replace({np.nan:None}).to_dict("records")}; (OUTPUT_DIR/"top100_by_volume.json").write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding="utf-8")
+    OUTPUT_DIR.mkdir(parents=True,exist_ok=True); top.to_csv(OUTPUT_DIR/"top100_by_volume.csv",index=False); s1.to_csv(OUTPUT_DIR/"stage1_shortlist.csv",index=False); payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"NSE CUMULATIVE + LONGTERM + ORDERBOOK","target_seconds":TARGET_SECONDS,"runtime_seconds":round(runtime,2),"cache_used":True,"shortlist_size":len(s1),"count":len(top),"results":top.replace({np.nan:None}).to_dict("records")}; (OUTPUT_DIR/"top100_by_volume.json").write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding="utf-8")
 
 def main():
-    t0=time.perf_counter(); p=argparse.ArgumentParser(); p.add_argument("--top",type=int,default=100); p.add_argument("--shortlist",type=int,default=500); a=p.parse_args(); s1=load_stage1_cache(max(a.shortlist,a.top)); print(f"Stage-1 shortlist: {len(s1)}"); top=stage2(s1,a.top,t0); runtime=time.perf_counter()-t0; save_results(top,s1,runtime); print(f"NSE cumulative + 52/156-week scan complete: {len(top)} in {runtime:.1f}s")
+    t0=time.perf_counter(); p=argparse.ArgumentParser(); p.add_argument("--top",type=int,default=100); p.add_argument("--shortlist",type=int,default=500); a=p.parse_args(); s1=load_stage1_cache(max(a.shortlist,a.top)); print(f"Stage-1 shortlist: {len(s1)}"); top=stage2(s1,a.top,t0); runtime=time.perf_counter()-t0; save_results(top,s1,runtime); print(f"NSE cumulative integrated scan complete: {len(top)} in {runtime:.1f}s")
 if __name__=="__main__":main()
