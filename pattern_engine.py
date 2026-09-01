@@ -13,6 +13,7 @@ class PatternFeatures:
     higher_low_strength: float
     trend_alignment: float
     rvol_now: float
+    rsi14: float
     support_hold_strength: float
     supply_exhaustion: float
     base_quality: float
@@ -54,6 +55,7 @@ def extract_features(df: pd.DataFrame, cfg: ScannerConfig) -> PatternFeatures:
     ema9, ema20, ema50 = map(float, [d['ema9'].iloc[-1], d['ema20'].iloc[-1], d['ema50'].iloc[-1]])
     trend_alignment = sum([close_now > ema9, ema9 > ema20, ema20 > ema50]) / 3.0
     rvol_now = float(d['rvol20'].iloc[-1]) if not np.isnan(d['rvol20'].iloc[-1]) else 0.0
+    rsi14 = float(d['rsi14'].iloc[-1]) if not np.isnan(d['rsi14'].iloc[-1]) else 50.0
 
     support_hold_strength = float((recent['close'] >= base_low + 0.5 * (base_high - base_low)).mean())
 
@@ -72,6 +74,6 @@ def extract_features(df: pd.DataFrame, cfg: ScannerConfig) -> PatternFeatures:
     return PatternFeatures(
         impulse_pct, consolidation_range_pct, volume_dryup_ratio,
         breakout_distance_pct, higher_low_strength, trend_alignment,
-        rvol_now, support_hold_strength, supply_exhaustion, base_quality,
-        base_high, base_low
+        rvol_now, rsi14, support_hold_strength, supply_exhaustion,
+        base_quality, base_high, base_low
     )
