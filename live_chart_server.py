@@ -6,11 +6,11 @@ import threading
 import time
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import parse_qs, urlparse
+from urllib.parse import parse_qs, unquote, urlparse
 
 import pandas as pd
 
-from market_data import fetch_history, resample_ohlcv
+from market_data import fetch_history
 
 HOST = os.getenv("LIVE_CHART_HOST", "0.0.0.0")
 PORT = int(os.getenv("LIVE_CHART_PORT", "8787"))
@@ -61,6 +61,22 @@ def _jsonable_frame(df: pd.DataFrame, limit: int = 1200) -> list[dict]:
     return rows
 
 
+def _resample_for_chart(df: pd.DataFrame, rule: str) -> pd.DataFrame:
+    """Build synthetic candles from the exchange session's first bar.
+
+    Pandas' default midnight alignment splits a 09:15 NSE open across the
+    wrong 2m/10m bucket. Anchoring to the first source bar preserves the
+    exchange candle boundaries.
+    """
+    if df is None or df.empty or not isinstance(df.index, pd.DatetimeIndex):
+        return pd.DataFrame()
+    return (
+        df.resample(rule, origin=df.index[0])
+        .agg({"open": "first", "high": "max", "low": "min", "close": "last", "volume": "sum"})
+        .dropna(subset=["open", "high", "low", "close"])
+    )
+
+
 def history(symbol: str, timeframe: str) -> dict:
     if timeframe not in _HISTORY:
         raise ValueError(f"Unsupported timeframe: {timeframe}")
@@ -68,7 +84,9 @@ def history(symbol: str, timeframe: str) -> dict:
     yahoo_symbol = f"{symbol}.NS"
     df = fetch_history(yahoo_symbol, period, source_interval, retries=1)
     if rule:
-        df = resample_ohlcv(df, rule)
+        df = _resample_for_chart(df, rule)
+    if df is None or df.empty:
+        raise LookupError(f"No market candles available for {symbol} at {timeframe}")
     return {"symbol": symbol, "timeframe": timeframe, "source": "Yahoo OHLC + Groww live LTP when token is configured", "candles": _jsonable_frame(df)}
 
 
@@ -121,7 +139,11 @@ LIVE = GrowwLiveFeed()
 
 
 def scanner_symbols() -> list[str]:
-    paths = [ROOT / "scan_output" / "top100_by_volume.csv", ROOT / ".scan_cache" / "nse_stage1.csv"]
+    paths = [
+        ROOT / "scan_output" / "top100_by_volume.csv",
+        ROOT / "scan_results" / "latest.csv",
+        ROOT / ".scan_cache" / "nse_stage1.csv",
+    ]
     for path in paths:
         try:
             if path.exists():
@@ -135,8 +157,13 @@ def scanner_symbols() -> list[str]:
 
 class Handler(SimpleHTTPRequestHandler):
     def translate_path(self, path):
-        rel = urlparse(path).path.lstrip("/") or "index.html"
-        return str((PUBLIC / rel).resolve())
+        rel = unquote(urlparse(path).path).lstrip("/") or "index.html"
+        candidate = (PUBLIC / rel).resolve()
+        try:
+            candidate.relative_to(PUBLIC.resolve())
+        except ValueError:
+            return str(PUBLIC / "__not_found__")
+        return str(candidate)
 
     def _send_json(self, payload, status=200):
         raw = json.dumps(payload, ensure_ascii=False).encode("utf-8")
@@ -166,6 +193,10 @@ class Handler(SimpleHTTPRequestHandler):
                 if not symbol:
                     return self._send_json({"error": "symbol required"}, 400)
                 return self._send_json(LIVE.ltp(symbol))
+        except ValueError as exc:
+            return self._send_json({"error": type(exc).__name__, "message": str(exc)[:300]}, 400)
+        except LookupError as exc:
+            return self._send_json({"error": type(exc).__name__, "message": str(exc)[:300]}, 502)
         except Exception as exc:
             return self._send_json({"error": type(exc).__name__, "message": str(exc)[:300]}, 500)
         return super().do_GET()
