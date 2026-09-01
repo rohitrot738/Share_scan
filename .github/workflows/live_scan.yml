@@ -85,7 +85,7 @@ jobs:
       - name: Upload NSE results
         uses: actions/upload-artifact@v4
         with:
-          name: nse-scanner-results-${{ github.ref_name }}
+          name: nse-scanner-results-${{ github.run_id }}
           path: scan_output/
           if-no-files-found: error
           retention-days: 14
