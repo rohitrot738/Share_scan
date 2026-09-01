@@ -17,6 +17,7 @@ on:
       - 'indicator/**'
     paths:
       - 'scan_trigger.txt'
+      - 'active_indicator.txt'
       - 'indicators.py'
       - 'pattern_engine.py'
       - 'scoring_engine.py'
@@ -62,7 +63,7 @@ jobs:
       - name: Validate scanner
         run: |
           python -m compileall -q .
-          python -c "import live_scan, market_data; print('NSE scanner imports ok')"
+          python -c "import live_scan, market_data; from scoring_engine import active_indicator; print('NSE scanner imports ok; active=', active_indicator())"
       - name: Build NSE cache when missing
         shell: bash
         run: |
