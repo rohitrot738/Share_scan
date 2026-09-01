@@ -12,13 +12,22 @@ on:
         required: false
         default: "500"
   push:
-    branches: [main]
-    paths: ["scan_trigger.txt"]
+    branches:
+      - main
+      - 'indicator/**'
+    paths:
+      - 'scan_trigger.txt'
+      - 'indicators.py'
+      - 'pattern_engine.py'
+      - 'scoring_engine.py'
+      - 'multi_timeframe.py'
+      - 'live_scan.py'
+      - '.github/workflows/live_scan.yml'
   issues:
     types: [opened]
 
 concurrency:
-  group: nse-scanner
+  group: nse-scanner-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -75,7 +84,7 @@ jobs:
       - name: Upload NSE results
         uses: actions/upload-artifact@v4
         with:
-          name: nse-scanner-results
+          name: nse-scanner-results-${{ github.ref_name }}
           path: scan_output/
           if-no-files-found: error
           retention-days: 14
