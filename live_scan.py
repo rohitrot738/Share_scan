@@ -94,25 +94,28 @@ def _blend_orderbook(out):
     out.loc[mask,'orderbook_adjustment']=(blended-base).round(2); out.loc[mask,'rank_score']=blended.clip(0,100); return out
 
 def stage2(shortlisted,top_n,started):
+    # Fetch intraday frames first. The previous time-budget guard ran after Python startup/cache
+    # overhead, so both downloads could be skipped and every row stayed PREFILTER.
     deep=shortlisted.head(min(DEEP_LIMIT,len(shortlisted))); syms=deep.yahoo_symbol.astype(str).tolist(); d15={}; d1h={}
-    if TARGET_SECONDS-(time.perf_counter()-started)>10:
-        try:d15=download_batch(syms,"10d","15m",retries=0)
-        except Exception as e:print(f"[WARN] 15m skipped: {e}")
-    if TARGET_SECONDS-(time.perf_counter()-started)>8:
-        try:d1h=download_batch(syms,"60d","60m",retries=0)
-        except Exception as e:print(f"[WARN] 1h skipped: {e}")
+    try:d15=download_batch(syms,"10d","15m",retries=0)
+    except Exception as e:print(f"[WARN] 15m skipped: {e}")
+    try:d1h=download_batch(syms,"60d","60m",retries=0)
+    except Exception as e:print(f"[WARN] 1h skipped: {e}")
+    print(f"Deep data coverage: 15m={sum(len(x)>=60 for x in d15.values())}/{len(syms)}, 1h={sum(len(x)>=60 for x in d1h.values())}/{len(syms)}")
     cfg=ScannerConfig(); analysed=[]
     for r in deep.to_dict("records"):
         try:
             x=_analyse(r,d15,d1h,cfg)
             if x:analysed.append(x)
-        except Exception:pass
+        except Exception as e:
+            print(f"[WARN] deep analysis failed {r.get('symbol','')}: {type(e).__name__}: {e}")
+    print(f"Deep analysed rows: {len(analysed)}/{len(deep)}")
     done={x["symbol"] for x in analysed}; rows=analysed+_prefilter_rows(shortlisted[~shortlisted.symbol.isin(done)])
     out=pd.DataFrame(rows); out["rank_score"]=(out.rank_score-.12*out.false_breakout_risk.fillna(0)).clip(lower=0); out=apply_longterm(out,shortlisted); out=apply_depth(out,min(DEPTH_LIMIT,len(out))); out=_blend_orderbook(out); q=out.sort_values("rank_score",ascending=False).head(top_n).sort_values(["volume","rank_score"],ascending=[False,False]).reset_index(drop=True); q.insert(0,"volume_rank",np.arange(1,len(q)+1)); return q
 
 def save_results(top,s1,runtime):
-    OUTPUT_DIR.mkdir(parents=True,exist_ok=True); top.to_csv(OUTPUT_DIR/"top100_by_volume.csv",index=False); s1.to_csv(OUTPUT_DIR/"stage1_shortlist.csv",index=False); payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"NSE CUMULATIVE + LONGTERM + ORDERBOOK","target_seconds":TARGET_SECONDS,"runtime_seconds":round(runtime,2),"cache_used":True,"shortlist_size":len(s1),"count":len(top),"results":top.replace({np.nan:None}).to_dict("records")}; (OUTPUT_DIR/"top100_by_volume.json").write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding="utf-8")
+    OUTPUT_DIR.mkdir(parents=True,exist_ok=True); top.to_csv(OUTPUT_DIR/"top100_by_volume.csv",index=False); s1.to_csv(OUTPUT_DIR/"stage1_shortlist.csv",index=False); payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"NSE CUMULATIVE + LONGTERM + ORDERBOOK","target_seconds":TARGET_SECONDS,"runtime_seconds":round(runtime,2),"cache_used":True,"shortlist_size":len(s1),"count":len(top),"deep_count":int((top.get('analysis_tier',pd.Series(dtype=str))=='DEEP').sum()),"results":top.replace({np.nan:None}).to_dict("records")}; (OUTPUT_DIR/"top100_by_volume.json").write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding="utf-8")
 
 def main():
-    t0=time.perf_counter(); p=argparse.ArgumentParser(); p.add_argument("--top",type=int,default=100); p.add_argument("--shortlist",type=int,default=500); a=p.parse_args(); s1=load_stage1_cache(max(a.shortlist,a.top)); print(f"Stage-1 shortlist: {len(s1)}"); top=stage2(s1,a.top,t0); runtime=time.perf_counter()-t0; save_results(top,s1,runtime); print(f"NSE cumulative integrated scan complete: {len(top)} in {runtime:.1f}s")
+    t0=time.perf_counter(); p=argparse.ArgumentParser(); p.add_argument("--top",type=int,default=100); p.add_argument("--shortlist",type=int,default=500); a=p.parse_args(); s1=load_stage1_cache(max(a.shortlist,a.top)); print(f"Stage-1 shortlist: {len(s1)}"); top=stage2(s1,a.top,t0); runtime=time.perf_counter()-t0; save_results(top,s1,runtime); print(f"NSE cumulative integrated scan complete: {len(top)} in {runtime:.1f}s; deep={(top.analysis_tier=='DEEP').sum()}")
 if __name__=="__main__":main()
