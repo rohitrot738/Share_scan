@@ -57,7 +57,7 @@ jobs:
         run: |
           TOP="${{ github.event.inputs.top || '100' }}"
           SHORTLIST="${{ github.event.inputs.shortlist || '500' }}"
-          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 1200
+          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST"
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
