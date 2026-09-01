@@ -1,1 +1,1 @@
-macd,vwap
+macd,vwap,bollinger,stochastic,adx-dmi,cci,mfi,obv,roc,atr,supertrend,ichimoku,pivots,support-resistance
