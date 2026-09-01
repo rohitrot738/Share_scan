@@ -1,4 +1,4 @@
-name: 30-SECOND NSE Market Scan
+name: NSE Scanner
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ on:
     types: [opened]
 
 concurrency:
-  group: 30-second-nse-market-scan
+  group: nse-scanner
   cancel-in-progress: true
 
 jobs:
@@ -66,16 +66,16 @@ jobs:
           fi
           test -s .scan_cache/nse_stage1.csv
           python -c "import pandas as pd; d=pd.read_csv('.scan_cache/nse_stage1.csv'); print('cache rows',len(d)); assert len(d)>=500"
-      - name: Run 30-SECOND NSE scanner
+      - name: Run NSE scanner
         shell: bash
         run: |
           TOP="${{ github.event.inputs.top || '100' }}"
           SHORTLIST="${{ github.event.inputs.shortlist || '500' }}"
           python live_scan.py --top "$TOP" --shortlist "$SHORTLIST"
-      - name: Upload results
+      - name: Upload NSE results
         uses: actions/upload-artifact@v4
         with:
-          name: 30-second-nse-share-scan-results
+          name: nse-scanner-results
           path: scan_output/
           if-no-files-found: error
           retention-days: 14
