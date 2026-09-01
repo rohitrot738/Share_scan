@@ -23,6 +23,24 @@ def _safe_float(v,default=0.0):
         x=float(v); return x if math.isfinite(x) else default
     except Exception:return default
 
+def daily_prefilter_score(df: pd.DataFrame) -> dict:
+    """Fast 1-day ranking metrics used to build the NSE stage-1 cache."""
+    if df is None or df.empty or len(df) < 20:
+        return {"score":0.0,"turnover_proxy":0.0,"current_volume":0,"avg_volume20":0,"rvol":0.0,"support":0.0,"resistance":0.0,"close":0.0}
+    x=df.copy()
+    close=pd.to_numeric(x["close"],errors="coerce").dropna()
+    vol=pd.to_numeric(x.get("volume",0),errors="coerce").fillna(0)
+    if close.empty: return {"score":0.0,"turnover_proxy":0.0,"current_volume":0,"avg_volume20":0,"rvol":0.0,"support":0.0,"resistance":0.0,"close":0.0}
+    c=float(close.iloc[-1]); v=float(vol.iloc[-1]); av=float(vol.tail(20).mean()) if len(vol) else 0.0
+    rvol=v/av if av>0 else 0.0
+    ret5=(c/float(close.iloc[-6])-1.0)*100 if len(close)>=6 and float(close.iloc[-6]) else 0.0
+    ret20=(c/float(close.iloc[-21])-1.0)*100 if len(close)>=21 and float(close.iloc[-21]) else 0.0
+    momentum=max(0.0,min(100.0,50.0+ret5*4.0+ret20*1.5))
+    liquidity=max(0.0,min(100.0,20.0+math.log10(max(v*c,1.0))*4.0))
+    volume_score=max(0.0,min(100.0,rvol*25.0))
+    score=0.45*liquidity+0.30*volume_score+0.25*momentum
+    return {"score":round(score,4),"turnover_proxy":round(v*c,2),"current_volume":int(v),"avg_volume20":int(av),"rvol":round(rvol,4),"support":float(pd.to_numeric(x["low"],errors="coerce").tail(20).min()),"resistance":float(pd.to_numeric(x["high"],errors="coerce").tail(20).max()),"close":c}
+
 def _cache_fresh():
     return CACHE_FILE.exists() and (time.time()-CACHE_FILE.stat().st_mtime)<CACHE_MAX_AGE_HOURS*3600
 
@@ -31,10 +49,8 @@ def load_stage1_cache(shortlist:int)->pd.DataFrame:
         raise SystemExit("NSE stage1 cache missing/stale. Run cache builder first; live scan will not cold-build history.")
     df=pd.read_csv(CACHE_FILE)
     need={"symbol","exchange","yahoo_symbol","score","turnover_proxy","current_volume"}
-    if not need.issubset(df.columns):
-        raise SystemExit("NSE stage1 cache invalid. Run cache builder first.")
-    if len(df)<shortlist:
-        raise SystemExit(f"NSE stage1 cache too small ({len(df)} rows); need at least {shortlist}.")
+    if not need.issubset(df.columns): raise SystemExit("NSE stage1 cache invalid. Run cache builder first.")
+    if len(df)<shortlist: raise SystemExit(f"NSE stage1 cache too small ({len(df)} rows); need at least {shortlist}.")
     print(f"Stage-1 CACHE HIT: {len(df)} rows")
     return df.sort_values(["score","turnover_proxy"],ascending=[False,False]).head(shortlist).reset_index(drop=True)
 
