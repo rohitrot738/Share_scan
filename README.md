@@ -92,3 +92,18 @@ This remains the foundation rather than the final calibrated strategy. Threshold
 - sector-relative strength and regime filter
 - alerts/dashboard
 - screenshot-derived feature calibration
+
+## Live candlestick chart
+
+The scanner includes a mobile-friendly live chart for NSE symbols. It supports
+`1m`, `2m`, `3m`, `5m`, `10m`, `15m`, `30m`, `1h`, `4h`, `1d`, and `1w`.
+The symbol list first uses the current `scan_output/top100_by_volume.csv`, then
+the saved `scan_results/latest.csv`. Historical candles come from Yahoo; live
+LTP updates come from Groww when `GROWW_ACCESS_TOKEN` is configured server-side.
+
+```bash
+pip install -r requirements.txt
+python live_chart_server.py
+```
+
+Open `http://127.0.0.1:8787`. The Groww token is never sent to the browser.
