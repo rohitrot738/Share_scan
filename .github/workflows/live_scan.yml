@@ -1,4 +1,5 @@
 name: NSE Scanner
+# Live chart validation trigger
 
 on:
   workflow_dispatch:
