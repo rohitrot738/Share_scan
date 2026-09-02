@@ -20,6 +20,8 @@ on:
         type: boolean
         default: true
         required: false
+  issues:
+    types: [opened]
 
 concurrency:
   group: ordered-1000-stock-scan
@@ -27,6 +29,7 @@ concurrency:
 
 jobs:
   scan:
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[ORDERED]'))
     runs-on: ubuntu-latest
     timeout-minutes: 90
     env:
