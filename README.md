@@ -69,6 +69,26 @@ Run **Actions → Live Market Scan → Run workflow**. Choose `top`, `shortlist`
 
 The workflow also performs syntax and import checks on pull requests.
 
+## Offline dashboard and XML report
+
+Every active scanner now writes an offline dashboard into its result folder.
+After downloading and extracting the GitHub Actions artifact, open
+`dashboard.html`; it works without a server or internet connection. The page
+supports stock search, state filtering, ranking choices, light/dark colours,
+pipeline counts, error inspection and CSV export of the visible rows.
+
+Each result folder also contains `scan_report.xml` for tools that need a
+machine-readable XML report. JSON and CSV remain the canonical full-detail
+outputs.
+
+## CPU-native acceleration
+
+The scanner keeps Python as its orchestration layer and uses a small optional
+C/C++ library only for measured CPU hotspots: rolling mean deviation (CCI) and
+the candle-by-candle Supertrend loop. GitHub Actions builds the library with
+`python native/build_native.py`. If a compiler or native library is unavailable,
+the original Python/Pandas implementation is used automatically.
+
 ## Ghost Move Pro foundation
 - 5m / 15m / 30m / 1h multi-timeframe analysis
 - impulse detection
