@@ -21,6 +21,7 @@ from execution.resource_controller import choose_resources
 from execution.result_aggregator import aggregate_results
 from execution.worker_pool import run_workers
 from market_cap import apply_market_cap_filter, fetch_nse_issued_capital
+from reporting import write_scan_bundle
 from scanner import (
     analyse_symbol,
     download_all_frames,
@@ -427,6 +428,12 @@ def run_ordered_scan(
     _write_rows(destination, "stage4_ready_confirmed", stage4)
     _write_rows(destination, "stage5_ghost_score", stage5)
     _write_rows(destination, "final_all_pass", final_pass)
+    write_scan_bundle(
+        destination,
+        payload,
+        rows=final_pass,
+        title="Ordered NSE Top-100 स्कैन",
+    )
     return payload
 
 
