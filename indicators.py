@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from native_acceleration import rolling_mad_native, supertrend_native
 
 def true_range(df):
     prev=df['close'].shift(1); return pd.concat([df['high']-df['low'],(df['high']-prev).abs(),(df['low']-prev).abs()],axis=1).max(axis=1)
@@ -19,16 +20,21 @@ def stochastic(df,window=14,smooth=3):
 def adx(df,window=14):
     up=df['high'].diff(); dn=-df['low'].diff(); plus=up.where((up>dn)&(up>0),0.0); minus=dn.where((dn>up)&(dn>0),0.0); tr=true_range(df); atrv=tr.rolling(window).mean(); p=100*plus.rolling(window).mean()/atrv.replace(0,np.nan); m=100*minus.rolling(window).mean()/atrv.replace(0,np.nan); dx=100*(p-m).abs()/(p+m).replace(0,np.nan); return dx.rolling(window).mean(),p,m
 def cci(df,window=20):
-    tp=(df['high']+df['low']+df['close'])/3; ma=tp.rolling(window).mean(); md=tp.rolling(window).apply(lambda x: np.mean(np.abs(x-np.mean(x))),raw=True); return (tp-ma)/(0.015*md.replace(0,np.nan))
+    tp=(df['high']+df['low']+df['close'])/3; ma=tp.rolling(window).mean(); md=rolling_mad_native(tp,window)
+    if md is None:md=tp.rolling(window).apply(lambda x: np.mean(np.abs(x-np.mean(x))),raw=True)
+    return (tp-ma)/(0.015*md.replace(0,np.nan))
 def mfi(df,window=14):
     tp=(df['high']+df['low']+df['close'])/3; flow=tp*df['volume']; pos=flow.where(tp.diff()>0,0.0).rolling(window).sum(); neg=flow.where(tp.diff()<0,0.0).rolling(window).sum(); return 100-100/(1+pos/neg.replace(0,np.nan))
 def obv(df): return (np.sign(df['close'].diff()).fillna(0)*df['volume']).cumsum()
 def roc(s,window=12): return s.pct_change(window)*100
-def supertrend(df,window=10,mult=3.0):
+def supertrend_python(df,window=10,mult=3.0):
     a=atr(df,window); mid=(df['high']+df['low'])/2; upper=mid+mult*a; lower=mid-mult*a; st=pd.Series(index=df.index,dtype=float); direction=pd.Series(index=df.index,dtype=float); direction.iloc[0]=1; st.iloc[0]=lower.iloc[0]
     for i in range(1,len(df)):
         direction.iloc[i]=1 if df['close'].iloc[i]>upper.iloc[i-1] else (-1 if df['close'].iloc[i]<lower.iloc[i-1] else direction.iloc[i-1]); st.iloc[i]=lower.iloc[i] if direction.iloc[i]>0 else upper.iloc[i]
     return st,direction
+def supertrend(df,window=10,mult=3.0):
+    accelerated=supertrend_native(df,window,mult)
+    return accelerated if accelerated is not None else supertrend_python(df,window,mult)
 def ichimoku(df):
     tenkan=(df['high'].rolling(9).max()+df['low'].rolling(9).min())/2; kijun=(df['high'].rolling(26).max()+df['low'].rolling(26).min())/2; span_a=(tenkan+kijun)/2; span_b=(df['high'].rolling(52).max()+df['low'].rolling(52).min())/2; return tenkan,kijun,span_a,span_b
 def pivot_levels(df):
