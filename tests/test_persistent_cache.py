@@ -37,3 +37,24 @@ def test_empty_cache_fetches_and_persists(tmp_path, monkeypatch):
     monkeypatch.setattr("cr360.collector.collect_market_and_company",lambda _s:sample())
     assert collect_360cr("TEST",cache=cache).metadata["cache_status"]=="MISS_FETCHED"
     assert collect_360cr("TEST",cache=cache).metadata["cache_status"]=="HIT"
+
+
+def test_stale_regulatory_refreshes_without_market_fetch(tmp_path, monkeypatch):
+    cache=PersistentResearchCache(str(tmp_path/"research.sqlite3")); cache.store_research(sample())
+    old=time.time()-2*24*60*60
+    for section in ("shareholding","regulatory"):
+        cache.put("TEST",section,cache.get("TEST",section)["payload"],saved_at=old)
+    monkeypatch.setattr("cr360.collector.collect_market_and_company", lambda _s: (_ for _ in ()).throw(AssertionError("market provider called")))
+    result=collect_360cr("TEST",cache=cache,regulatory_adapter=lambda _s:{"shareholding_quarters":[{"period":"2026Q2","promoter":55}],"source":"NSE"})
+    assert result.metadata["cache_status"]=="REGULATORY_REFRESHED"
+    assert result.shareholding_quarters[-1]["promoter"]==55
+
+
+def test_market_refresh_preserves_cached_regulatory_data(tmp_path, monkeypatch):
+    cache=PersistentResearchCache(str(tmp_path/"research.sqlite3")); value=sample()
+    value.shareholding_quarters=[{"period":"2026Q1","promoter":54}]; cache.store_research(value)
+    old=time.time()-30*24*60*60
+    cache.put("TEST","market",cache.get("TEST","market")["payload"],saved_at=old)
+    monkeypatch.setattr("cr360.collector.collect_market_and_company",lambda _s:sample())
+    result=collect_360cr("TEST",cache=cache)
+    assert result.shareholding_quarters[-1]["promoter"]==54
