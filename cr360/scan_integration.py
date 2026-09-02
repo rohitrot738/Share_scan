@@ -1,11 +1,12 @@
 from __future__ import annotations
 import json
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from .collector import collect_360cr
 from .engine import analyse_360cr
 from .validator import validate_360cr_input
 from .nse_public_adapter import NSEPublicAdapter
+from execution.batch_engine import run_batches
+from execution.worker_pool import run_workers
 
 
 def _one(symbol:str)->dict:
@@ -30,14 +31,17 @@ def _one(symbol:str)->dict:
     }
 
 
-def enrich_payload(payload:dict,max_workers:int=4)->dict:
-    rows=payload.get("ranked",[]); errors={}; enriched={}
-    with ThreadPoolExecutor(max_workers=max(1,min(max_workers,8))) as ex:
-        futures={ex.submit(_one,r["symbol"]):r["symbol"] for r in rows}
-        for f in as_completed(futures):
-            s=futures[f]
-            try:enriched[s]=f.result()
-            except Exception as e:errors[s]=f"{type(e).__name__}: {e}"
+def _enrich_batch(rows:list[dict],max_workers:int)->tuple[list[dict],dict[str,str]]:
+    report=run_workers(rows,lambda row:{"symbol":row["symbol"],"research":_one(row["symbol"])},
+        max_workers=max_workers,hard_limit=8,item_key=lambda row:row["symbol"])
+    return report.results,report.errors
+
+
+def enrich_payload(payload:dict,max_workers:int=4,batch_size:int=50)->dict:
+    rows=payload.get("ranked",[]); enriched={}
+    report=run_batches(rows,lambda batch:_enrich_batch(batch,max_workers),batch_size=batch_size,item_key=lambda r:r["symbol"])
+    for item in report.results:enriched[item["symbol"]]=item["research"]
+    errors=report.errors
     for r in rows:
         s=r["symbol"]
         if s in enriched:r.update(enriched[s])
@@ -47,12 +51,13 @@ def enrich_payload(payload:dict,max_workers:int=4)->dict:
     payload["cr360_successful"]=len(enriched)
     payload["cr360_complete_count"]=sum(bool(r.get("cr360_complete")) for r in rows)
     payload["cr360_errors"]=errors
+    payload["batch_engine"]={"batch_size":batch_size,"completed_batches":report.completed_batches,"total_items":report.total_items,"successful_items":report.successful_items,"failed_items":report.failed_items,"runtime_seconds":round(report.runtime_seconds,3)}
     # Preserve the user's volume-first ordering; 360CR is research confirmation, not a silent ranking replacement.
     return payload
 
 
-def enrich_file(path="scan_results/latest.json",max_workers=4):
-    p=Path(path); payload=json.loads(p.read_text(encoding="utf-8")); payload=enrich_payload(payload,max_workers=max_workers)
+def enrich_file(path="scan_results/latest.json",max_workers=4,batch_size=50):
+    p=Path(path); payload=json.loads(p.read_text(encoding="utf-8")); payload=enrich_payload(payload,max_workers=max_workers,batch_size=batch_size)
     p.write_text(json.dumps(payload,indent=2,default=str),encoding="utf-8")
     return payload
 

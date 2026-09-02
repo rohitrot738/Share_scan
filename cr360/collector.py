@@ -4,6 +4,7 @@ from typing import Any
 import pandas as pd
 import yfinance as yf
 from .models import ResearchInput
+from .persistent_cache import PersistentResearchCache
 
 # Collector policy: never fabricate unavailable regulatory data. Public market/company
 # data is collected where available; NSE regulatory datasets can be injected by an
@@ -64,9 +65,41 @@ def merge_regulatory(base:ResearchInput, *, shareholding=None, insiders=None, de
     base.metadata["regulatory_source"]=source
     return base
 
-def collect_360cr(symbol:str, regulatory_adapter=None)->ResearchInput:
-    base=collect_market_and_company(symbol)
-    if regulatory_adapter is not None:
-        payload=regulatory_adapter(symbol) or {}
-        merge_regulatory(base,shareholding=payload.get("shareholding_quarters"),insiders=payload.get("insider_transactions"),deals=payload.get("bulk_block_deals"),actions=payload.get("corporate_actions"),valuation=payload.get("valuation"),source=payload.get("source","regulatory_adapter"))
-    return base
+def collect_360cr(symbol:str, regulatory_adapter=None, cache:PersistentResearchCache|None=None, force_refresh:bool=False)->ResearchInput:
+    cache = cache or PersistentResearchCache()
+    cached, states = cache.load_research(symbol, allow_stale=True)
+    market_fresh = cached is not None and all(states.get(x) == "HIT" for x in ("market", "financials"))
+    regulatory_fresh = cached is not None and all(states.get(x) == "HIT" for x in ("shareholding", "regulatory"))
+    if market_fresh and not force_refresh:
+        if regulatory_adapter is None or regulatory_fresh:
+            cached.metadata["cache_status"] = "HIT"
+            return cached
+        try:
+            payload=regulatory_adapter(symbol) or {}
+            merge_regulatory(cached,shareholding=payload.get("shareholding_quarters"),insiders=payload.get("insider_transactions"),deals=payload.get("bulk_block_deals"),actions=payload.get("corporate_actions"),valuation=payload.get("valuation"),source=payload.get("source","regulatory_adapter"))
+            cached.metadata["cache_status"] = "REGULATORY_REFRESHED"
+            cache.store_regulatory(cached)
+            return cached
+        except Exception as exc:
+            cached.metadata["cache_status"] = "STALE_FALLBACK"
+            cached.metadata["cache_refresh_error"] = f"{type(exc).__name__}: {exc}"
+            return cached
+    try:
+        base=collect_market_and_company(symbol)
+        if cached is not None:
+            merge_regulatory(base,shareholding=cached.shareholding_quarters,
+                insiders=cached.insider_transactions,deals=cached.bulk_block_deals,
+                actions=cached.corporate_actions,valuation=cached.valuation,
+                source=cached.metadata.get("regulatory_source","cache"))
+        if regulatory_adapter is not None and (force_refresh or not regulatory_fresh):
+            payload=regulatory_adapter(symbol) or {}
+            merge_regulatory(base,shareholding=payload.get("shareholding_quarters"),insiders=payload.get("insider_transactions"),deals=payload.get("bulk_block_deals"),actions=payload.get("corporate_actions"),valuation=payload.get("valuation"),source=payload.get("source","regulatory_adapter"))
+        base.metadata["cache_status"] = "REFRESHED" if cached is not None else "MISS_FETCHED"
+        cache.store_research(base)
+        return base
+    except Exception as exc:
+        if cached is None:
+            raise
+        cached.metadata["cache_status"] = "STALE_FALLBACK"
+        cached.metadata["cache_refresh_error"] = f"{type(exc).__name__}: {exc}"
+        return cached
