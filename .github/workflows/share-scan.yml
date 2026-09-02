@@ -23,6 +23,11 @@ on:
         description: Optional universe cap; 0 means full selected market
         required: false
         default: "0"
+  push:
+    branches:
+      - 'filter/**'
+    paths:
+      - '.github/workflows/share-scan.yml'
   issues:
     types: [opened]
 
@@ -32,7 +37,7 @@ concurrency:
 
 jobs:
   scan:
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[RUN]'))
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[RUN]'))
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
