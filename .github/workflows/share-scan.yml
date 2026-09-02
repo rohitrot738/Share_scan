@@ -3,24 +3,32 @@ name: Share Scan
 on:
   workflow_dispatch:
     inputs:
-      top:
-        description: Final ranked stocks
+      min_market_cap_cr:
+        description: Strict minimum market cap in crore
         required: false
-        default: "100"
-      shortlist:
-        description: Stage-1 candidates retained
+        default: "1000"
+      min_cr360_score:
+        description: Minimum 360CR score
         required: false
-        default: "300"
-      deep:
-        description: Candidates receiving full Ghost analysis
+        default: "62"
+      min_rvol20:
+        description: Minimum 20-day relative volume
         required: false
-        default: "120"
-      market:
-        description: NSE, BSE or ALL
+        default: "1.5"
+      min_ghost_score:
+        description: Minimum Ghost score after READY or CONFIRMED
         required: false
-        default: "NSE"
-      universe_limit:
-        description: Optional universe cap; 0 means full selected market
+        default: "80"
+      max_false_breakout_risk:
+        description: Maximum false-breakout risk
+        required: false
+        default: "35"
+      cr360_workers:
+        description: Parallel 360CR collectors
+        required: false
+        default: "8"
+      ghost_limit:
+        description: Stage-3 Ghost cap; 0 means every volume pass
         required: false
         default: "0"
   push:
@@ -28,18 +36,25 @@ on:
       - 'filter/**'
     paths:
       - '.github/workflows/share-scan.yml'
+      - 'ordered_scan.py'
+      - 'market_cap.py'
+      - 'scanner.py'
+      - 'cr360/**'
+      - 'ghost_pro/**'
+      - 'tests/test_ordered_scan.py'
+      - 'tests/test_market_cap_filter.py'
   issues:
     types: [opened]
 
 concurrency:
-  group: share-scan
+  group: share-scan-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   scan:
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[RUN]'))
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 120
     env:
       PYTHONPATH: ${{ github.workspace }}
     steps:
@@ -49,59 +64,55 @@ jobs:
           python-version: "3.11"
           cache: pip
       - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Validate scanner Ghost and 360CR imports
+        run: pip install -r requirements.txt pytest
+      - name: Validate ordered scanner imports and gates
         run: |
-          python -m py_compile scanner.py ghost_pro/*.py cr360/*.py
+          python -m py_compile ordered_scan.py scanner.py market_cap.py ghost_pro/*.py cr360/*.py
           python - <<'PY'
-          import scanner, cr360
-          from ghost_pro.ultimate_engine import multi_timeframe
-          from ghost_pro.case_training_fusion import fuse_with_technical
-          from cr360.scan_integration import enrich_file
-          from cr360.nse_public_adapter import NSEPublicAdapter
-          print('scanner + full Ghost + full 360CR imports OK')
+          from ordered_scan import PROCESS_ORDER
+          assert PROCESS_ORDER == [
+              'market_cap', 'cr360', 'volume', 'ghost_ready_confirmed',
+              'ghost_score', 'timeframes', 'false_breakout', 'valid_entry',
+              'zero_advanced_veto',
+          ]
+          print('ordered scanner imports OK:', ' -> '.join(PROCESS_ORDER))
           PY
-      - name: Run full-market Ghost volume scanner
+          python -m pytest -q tests/test_ordered_scan.py tests/test_market_cap_filter.py
+      - name: Run ordered full-market scanner
         run: |
-          TOP="${{ github.event.inputs.top || '100' }}"
-          SHORTLIST="${{ github.event.inputs.shortlist || '300' }}"
-          DEEP="${{ github.event.inputs.deep || '120' }}"
-          MARKET="${{ github.event.inputs.market || 'NSE' }}"
-          LIMIT="${{ github.event.inputs.universe_limit || '0' }}"
-          python scanner.py --market "$MARKET" --top "$TOP" --shortlist "$SHORTLIST" --deep "$DEEP" --limit "$LIMIT" --output-dir scan_results
-      - name: Enrich same scan with full 360CR
-        run: python -m cr360.scan_integration
-      - name: Verify integrated result
-        run: |
-          python - <<'PY'
-          import json
-          p=json.load(open('scan_results/latest.json'))
-          assert p['successful'] == p['requested'], f"incomplete result: {p['successful']}/{p['requested']}"
-          assert p['ghost_successful'] == p['successful'], f"Ghost incomplete: {p['ghost_successful']}/{p['successful']}"
-          assert p.get('speed_modes_enabled') is False, 'speed mode unexpectedly enabled'
-          assert p.get('cr360_integrated') is True, '360CR not integrated'
-          assert p.get('cr360_successful') == p['successful'], f"360CR collector failures: {p.get('cr360_errors')}"
-          states={r.get('ghost_state') for r in p['ranked']}; allowed={'CONFIRMED','READY','EARLY','WATCH','IGNORE','AVOID'}
-          assert states <= allowed, f'unexpected Ghost states: {states-allowed}'
-          for r in p['ranked']:
-            assert 'cr360_state' in r and 'cr360_confidence' in r and 'cr360_complete' in r
-          print('VERIFIED FULL-MARKET GHOST + VOLUME + 360CR:', p['successful'])
-          PY
-      - name: Export integrated CSV
+          python ordered_scan.py \
+            --min-market-cap-cr "${{ github.event.inputs.min_market_cap_cr || '1000' }}" \
+            --min-cr360-score "${{ github.event.inputs.min_cr360_score || '62' }}" \
+            --min-rvol20 "${{ github.event.inputs.min_rvol20 || '1.5' }}" \
+            --min-ghost-score "${{ github.event.inputs.min_ghost_score || '80' }}" \
+            --max-false-breakout-risk "${{ github.event.inputs.max_false_breakout_risk || '35' }}" \
+            --cr360-workers "${{ github.event.inputs.cr360_workers || '8' }}" \
+            --ghost-limit "${{ github.event.inputs.ghost_limit || '0' }}" \
+            --output-dir ordered_scan_results
+      - name: Verify ordered results
         run: |
           python - <<'PY'
-          import json,pandas as pd
-          p=json.load(open('scan_results/latest.json'))
-          rows=[]
-          for r in p['ranked']:
-            x={k:v for k,v in r.items() if k not in ('ghost_details','cr360_evidence','cr360_sections','cr360_coverage','cr360_risk','cr360_fair_value')}
-            rows.append(x)
-          pd.DataFrame(rows).to_csv('scan_results/latest_integrated.csv',index=False)
+          import json, math
+          p=json.load(open('ordered_scan_results/ordered_scan_summary.json'))
+          assert p['process_order'] == [
+              'market_cap', 'cr360', 'volume', 'ghost_ready_confirmed',
+              'ghost_score', 'timeframes', 'false_breakout', 'valid_entry',
+              'zero_advanced_veto',
+          ]
+          assert all(r['ghost_state'] in {'READY','CONFIRMED'} for r in p['stage4_ready_confirmed'])
+          assert all(float(r['ghost_score']) >= float(p['thresholds']['min_ghost_score']) for r in p['stage5_ghost_score'])
+          for r in p['final_pass']:
+              used=set(str(r['timeframes_used']).split(','))
+              assert {'15m','1h','1d'} <= used
+              assert float(r['false_breakout_risk']) <= float(p['thresholds']['max_false_breakout_risk'])
+              assert float(r['stop']) < float(r['entry']) < float(r['target1']) <= float(r['target2'])
+              assert int(r['advanced_veto_count']) == 0
+          print('ORDERED SCAN VERIFIED:', p['counts'])
           PY
       - name: Upload results
         uses: actions/upload-artifact@v4
         with:
-          name: share-scan-results
-          path: scan_results/
+          name: ordered-share-scan-results
+          path: ordered_scan_results/
           if-no-files-found: error
           retention-days: 14
