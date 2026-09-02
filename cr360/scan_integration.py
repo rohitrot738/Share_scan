@@ -1,12 +1,12 @@
 from __future__ import annotations
 import json
 from pathlib import Path
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from .collector import collect_360cr
 from .engine import analyse_360cr
 from .validator import validate_360cr_input
 from .nse_public_adapter import NSEPublicAdapter
 from execution.batch_engine import run_batches
+from execution.worker_pool import run_workers
 
 
 def _one(symbol:str)->dict:
@@ -32,14 +32,9 @@ def _one(symbol:str)->dict:
 
 
 def _enrich_batch(rows:list[dict],max_workers:int)->tuple[list[dict],dict[str,str]]:
-    errors={}; enriched=[]
-    with ThreadPoolExecutor(max_workers=max(1,min(max_workers,8,len(rows)))) as ex:
-        futures={ex.submit(_one,r["symbol"]):r["symbol"] for r in rows}
-        for f in as_completed(futures):
-            s=futures[f]
-            try:enriched.append({"symbol":s,"research":f.result()})
-            except Exception as e:errors[s]=f"{type(e).__name__}: {e}"
-    return enriched,errors
+    report=run_workers(rows,lambda row:{"symbol":row["symbol"],"research":_one(row["symbol"])},
+        max_workers=max_workers,hard_limit=8,item_key=lambda row:row["symbol"])
+    return report.results,report.errors
 
 
 def enrich_payload(payload:dict,max_workers:int=4,batch_size:int=50)->dict:
