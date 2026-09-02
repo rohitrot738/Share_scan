@@ -18,6 +18,7 @@ jobs:
       SCAN_CACHE_DIR: .scan_cache
       CACHE_BATCH_SIZE: '300'
       CACHE_BATCH_SLEEP: '2.0'
+      MIN_MARKET_CAP_CR: '1000'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,15 +29,15 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .scan_cache
-          key: nse-scan-cache-${{ github.run_id }}
+          key: nse-scan-cache-mcap1000-${{ github.run_id }}
           restore-keys: |
-            nse-scan-cache-
+            nse-scan-cache-mcap1000-
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Build NSE baseline cache
         run: python build_nse_cache.py
       - name: Validate cache
-        run: python -c "import pandas as pd; d=pd.read_csv('.scan_cache/nse_stage1.csv'); print('cache rows',len(d)); assert len(d)>=500"
+        run: python -c "import live_scan; assert live_scan.cache_is_valid(500); print('market-cap-filtered cache valid')"
       - name: Upload cache artifact
         uses: actions/upload-artifact@v4
         with:

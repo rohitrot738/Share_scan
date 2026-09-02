@@ -13,6 +13,11 @@ from demand_supply import detect_zones
 from false_breakout_filter import false_breakout_risk
 from ghost_pro.case_training_fusion import fuse_with_technical
 from ghost_pro.ultimate_engine import multi_timeframe
+from market_cap import (
+    DEFAULT_MIN_MARKET_CAP_CR,
+    apply_market_cap_filter,
+    fetch_nse_issued_capital,
+)
 from market_data import Instrument, build_universe, download_batch, resample_ohlcv
 
 
@@ -315,7 +320,13 @@ def analyse_symbol(inst: Instrument, frames: Dict[str, pd.DataFrame], stage1: di
     }
 
 
-def scan_full_market(market: str, shortlist: int, deep: int, universe_limit: int = 0) -> tuple[list[dict], list[dict], dict, dict]:
+def scan_full_market(
+    market: str,
+    shortlist: int,
+    deep: int,
+    universe_limit: int = 0,
+    min_market_cap_cr: float = DEFAULT_MIN_MARKET_CAP_CR,
+) -> tuple[list[dict], list[dict], dict, dict]:
     universe = load_market(market)
     if universe_limit > 0:
         universe = universe[:universe_limit]
@@ -326,6 +337,26 @@ def scan_full_market(market: str, shortlist: int, deep: int, universe_limit: int
     stage1_rows, stage1_errors = stage1_full_market(universe)
     if not stage1_rows:
         raise RuntimeError("stage-1 produced no usable candidates")
+
+    capital_snapshot = fetch_nse_issued_capital()
+    stage1_rows, market_cap_stats = apply_market_cap_filter(
+        stage1_rows,
+        capital_snapshot,
+        min_market_cap_cr=min_market_cap_cr,
+    )
+    print(
+        "Market-cap filter: "
+        f"> Rs {min_market_cap_cr:.2f} crore, "
+        f"eligible={market_cap_stats['eligible_rows']}/"
+        f"{market_cap_stats['input_rows']}, "
+        f"source_date={capital_snapshot.as_of.isoformat()}, "
+        f"missing={market_cap_stats['missing_market_cap']}",
+        flush=True,
+    )
+    if not stage1_rows:
+        raise RuntimeError(
+            f"no NSE equities strictly above Rs {min_market_cap_cr:.2f} crore market cap"
+        )
 
     shortlist_rows = stage1_rows[:max(1, min(shortlist, len(stage1_rows)))]
     deep_rows = shortlist_rows[:max(1, min(deep, len(shortlist_rows)))]
@@ -366,6 +397,12 @@ def main() -> None:
     ap.add_argument("--shortlist", type=int, default=300, help="Stage-1 candidates retained")
     ap.add_argument("--deep", type=int, default=120, help="candidates receiving full Ghost multi-timeframe analysis")
     ap.add_argument("--limit", type=int, default=0, help="optional universe cap; 0 scans the whole selected market")
+    ap.add_argument(
+        "--min-market-cap-cr",
+        type=float,
+        default=DEFAULT_MIN_MARKET_CAP_CR,
+        help="strict minimum NSE market cap in crore; default requires >1000",
+    )
     ap.add_argument("--output-dir", default="scan_results")
     args = ap.parse_args()
 
@@ -374,6 +411,7 @@ def main() -> None:
         shortlist=max(args.shortlist, args.top),
         deep=max(args.deep, args.top),
         universe_limit=max(0, args.limit),
+        min_market_cap_cr=args.min_market_cap_cr,
     )
     rows = rows[:max(1, args.top)]
 
@@ -386,6 +424,14 @@ def main() -> None:
         "market": args.market,
         "speed_modes_enabled": False,
         "ranking": "volume_flow_score,rvol20,ghost_score,false_breakout_risk ASC,volume DESC",
+        "market_cap_filter": {
+            "minimum_cr_exclusive": args.min_market_cap_cr,
+            "fail_closed": True,
+            "source": "NSE_MII_SECURITY_FILE",
+            "source_dates": sorted(
+                {r.get("market_cap_source_date") for r in stage1 if r.get("market_cap_source_date")}
+            ),
+        },
         "universe_cap": args.limit,
         "stage1_successful": len(stage1),
         "requested": len(rows),
@@ -412,6 +458,7 @@ def main() -> None:
             f"#{r['rank']} {r['exchange']}:{r['symbol']} {r.get('action')} "
             f"volflow={r.get('volume_flow_score')} rvol20={r.get('rvol20')} "
             f"ghost={r.get('ghost_score')} false={r.get('false_breakout_risk')} "
+            f"mcap_cr={r.get('market_cap_cr')} "
             f"entry={r.get('entry')} sl={r.get('stop')} t1={r.get('target1')}"
         )
 

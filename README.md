@@ -30,6 +30,8 @@ Important: OHLCV cannot reveal the true exchange order book or actual hidden/bul
 
 ### Stage 1 — whole market prefilter
 - loads the NSE equity universe from the official NSE equity CSV
+- loads issued share capital from the official daily NSE MII Security File
+- calculates current market capitalisation and fails closed unless it is strictly above ₹1,000 crore
 - attempts to load active BSE equity scrips from the BSE API
 - downloads daily OHLCV in batches
 - scores trend, proximity to 20-day resistance, relative volume, 5/20-day momentum, base width and liquidity

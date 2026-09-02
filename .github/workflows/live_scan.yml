@@ -15,6 +15,7 @@ on:
     branches:
       - main
       - 'indicator/**'
+      - 'filter/**'
     paths:
       - 'scan_trigger.txt'
       - 'active_indicator.txt'
@@ -23,6 +24,9 @@ on:
       - 'scoring_engine.py'
       - 'multi_timeframe.py'
       - 'live_scan.py'
+      - 'build_nse_cache.py'
+      - 'market_cap.py'
+      - 'tests/test_market_cap_filter.py'
       - '.github/workflows/live_scan.yml'
   issues:
     types: [opened]
@@ -45,6 +49,7 @@ jobs:
       SCAN_CACHE_DIR: ".scan_cache"
       CACHE_BATCH_SIZE: "300"
       CACHE_BATCH_SLEEP: "2.0"
+      MIN_MARKET_CAP_CR: "1000"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -55,27 +60,27 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .scan_cache
-          key: nse-scan-cache-${{ github.run_id }}
+          key: nse-scan-cache-mcap1000-${{ github.run_id }}
           restore-keys: |
-            nse-scan-cache-
+            nse-scan-cache-mcap1000-
       - name: Install dependencies
         run: pip install -r requirements.txt
       - name: Validate scanner
         run: |
           python -m compileall -q .
           python -c "import live_scan, market_data; from scoring_engine import active_indicator; print('NSE scanner imports ok; active=', active_indicator())"
-      - name: Build NSE cache when missing
+      - name: Build NSE cache when missing stale or invalid
         shell: bash
         run: |
           mkdir -p .scan_cache
-          if [ ! -f .scan_cache/nse_stage1.csv ]; then
-            echo "No reusable NSE cache found; building it now..."
-            python build_nse_cache.py
+          if python -c "import live_scan; assert live_scan.cache_is_valid(500)"; then
+            echo "Reusable market-cap-filtered NSE cache found."
           else
-            echo "Reusable NSE cache found."
+            echo "Cache missing, stale, or lacks the >1000 crore filter; rebuilding..."
+            python build_nse_cache.py
           fi
           test -s .scan_cache/nse_stage1.csv
-          python -c "import pandas as pd; d=pd.read_csv('.scan_cache/nse_stage1.csv'); print('cache rows',len(d)); assert len(d)>=500"
+          python -c "import live_scan; assert live_scan.cache_is_valid(500); print('market-cap-filtered cache valid')"
       - name: Run NSE scanner
         shell: bash
         run: |

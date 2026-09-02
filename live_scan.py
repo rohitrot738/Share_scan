@@ -7,6 +7,7 @@ import pandas as pd
 from config import ScannerConfig
 from ghost_trade_core import ghost_trade_snapshot
 from groww_orderbook import fetch_depth_scores
+from market_cap import DEFAULT_MIN_MARKET_CAP_CR
 from market_data import download_batch
 from multi_timeframe import analyse_timeframes
 
@@ -17,6 +18,8 @@ TARGET_SECONDS=float(os.getenv("SCAN_TARGET_SECONDS","30"))
 DEEP_LIMIT=int(os.getenv("SCAN_DEEP_LIMIT","120"))
 DEPTH_LIMIT=int(os.getenv("SCAN_DEPTH_LIMIT","10"))
 CACHE_MAX_AGE_HOURS=float(os.getenv("SCAN_CACHE_MAX_AGE_HOURS","18"))
+MIN_MARKET_CAP_CR=float(os.getenv("MIN_MARKET_CAP_CR",str(DEFAULT_MIN_MARKET_CAP_CR)))
+REQUIRED_CACHE_COLUMNS={"symbol","exchange","yahoo_symbol","score","turnover_proxy","current_volume","market_cap_cr","issued_shares","market_cap_source_date"}
 
 def _safe_float(v,default=0.0):
     try:
@@ -44,18 +47,29 @@ def daily_prefilter_score(df: pd.DataFrame) -> dict:
 def _cache_fresh():
     return CACHE_FILE.exists() and (time.time()-CACHE_FILE.stat().st_mtime)<CACHE_MAX_AGE_HOURS*3600
 
+def _eligible_cache_rows(df:pd.DataFrame)->pd.DataFrame:
+    out=df.copy(); out["market_cap_cr"]=pd.to_numeric(out["market_cap_cr"],errors="coerce")
+    return out[out.market_cap_cr>MIN_MARKET_CAP_CR].copy()
+
+def cache_is_valid(min_rows:int=500)->bool:
+    if not _cache_fresh():return False
+    try:df=pd.read_csv(CACHE_FILE)
+    except Exception:return False
+    if not REQUIRED_CACHE_COLUMNS.issubset(df.columns):return False
+    return len(_eligible_cache_rows(df))>=min_rows
+
 def load_stage1_cache(shortlist:int)->pd.DataFrame:
     if not _cache_fresh():
         raise SystemExit("NSE stage1 cache missing/stale. Run cache builder first; live scan will not cold-build history.")
     df=pd.read_csv(CACHE_FILE)
-    need={"symbol","exchange","yahoo_symbol","score","turnover_proxy","current_volume"}
-    if not need.issubset(df.columns): raise SystemExit("NSE stage1 cache invalid. Run cache builder first.")
+    if not REQUIRED_CACHE_COLUMNS.issubset(df.columns): raise SystemExit("NSE stage1 cache lacks the mandatory market-cap fields. Rebuild the cache.")
+    df=_eligible_cache_rows(df)
     if len(df)<shortlist: raise SystemExit(f"NSE stage1 cache too small ({len(df)} rows); need at least {shortlist}.")
-    print(f"Stage-1 CACHE HIT: {len(df)} rows")
+    print(f"Stage-1 CACHE HIT: {len(df)} rows strictly above Rs {MIN_MARKET_CAP_CR:.2f} crore")
     return df.sort_values(["score","turnover_proxy"],ascending=[False,False]).head(shortlist).reset_index(drop=True)
 
 def _prefilter_rows(df):
-    return [{"symbol":r.symbol,"exchange":"NSE","name":getattr(r,"name",""),"price":getattr(r,"close",0),"volume":int(_safe_float(getattr(r,"current_volume",0))),"avg_volume20":int(_safe_float(getattr(r,"avg_volume20",0))),"rvol_daily":getattr(r,"rvol",0),"rank_score":_safe_float(getattr(r,"score",0)),"mtf_score":np.nan,"mtf_state":"PREFILTER","ghost_score":np.nan,"ghost_signal":"","false_breakout_risk":0.0,"daily_support":getattr(r,"support",0),"daily_resistance":getattr(r,"resistance",0),"entry":None,"stop":None,"target1":None,"target2":None,"timeframes_used":"cached-1d","analysis_tier":"PREFILTER"} for r in df.itertuples(index=False)]
+    return [{"symbol":r.symbol,"exchange":"NSE","name":getattr(r,"name",""),"price":getattr(r,"close",0),"volume":int(_safe_float(getattr(r,"current_volume",0))),"avg_volume20":int(_safe_float(getattr(r,"avg_volume20",0))),"rvol_daily":getattr(r,"rvol",0),"market_cap_cr":getattr(r,"market_cap_cr",np.nan),"issued_shares":getattr(r,"issued_shares",np.nan),"market_cap_source":getattr(r,"market_cap_source","NSE_MII_SECURITY_FILE"),"market_cap_source_date":getattr(r,"market_cap_source_date",""),"rank_score":_safe_float(getattr(r,"score",0)),"mtf_score":np.nan,"mtf_state":"PREFILTER","ghost_score":np.nan,"ghost_signal":"","false_breakout_risk":0.0,"daily_support":getattr(r,"support",0),"daily_resistance":getattr(r,"resistance",0),"entry":None,"stop":None,"target1":None,"target2":None,"timeframes_used":"cached-1d","analysis_tier":"PREFILTER"} for r in df.itertuples(index=False)]
 
 def _analyse(r,d15,d1h,cfg):
     sym=str(r["yahoo_symbol"]); tf={}; a=d15.get(sym,pd.DataFrame()); b=d1h.get(sym,pd.DataFrame())
@@ -63,7 +77,7 @@ def _analyse(r,d15,d1h,cfg):
     if len(b)>=60:tf["1h"]=b
     if not tf:return None
     mtf=analyse_timeframes(tf,cfg); base=tf.get("15m",tf.get("1h")); ghost=ghost_trade_snapshot(base); gs=_safe_float(ghost.get("ghost_score",0)); ms=_safe_float(mtf.get("final_score",0)); plan=ghost.get("trade_plan",{}); fb=ghost.get("false_breakout",{})
-    return {"symbol":r["symbol"],"exchange":"NSE","name":r.get("name",""),"price":r.get("close",0),"volume":int(_safe_float(r.get("current_volume",0))),"avg_volume20":int(_safe_float(r.get("avg_volume20",0))),"rvol_daily":r.get("rvol",0),"rank_score":round(.55*ms+.25*gs+.20*_safe_float(r.get("score",0)),2),"mtf_score":round(ms,2),"mtf_state":mtf.get("final_state",""),"ghost_score":round(gs,2),"ghost_signal":ghost.get("signal",""),"false_breakout_risk":_safe_float(fb.get("risk",0)),"daily_support":r.get("support",0),"daily_resistance":r.get("resistance",0),"entry":plan.get("entry"),"stop":plan.get("stop"),"target1":plan.get("target1"),"target2":plan.get("target2"),"timeframes_used":",".join(sorted(tf)),"analysis_tier":"DEEP"}
+    return {"symbol":r["symbol"],"exchange":"NSE","name":r.get("name",""),"price":r.get("close",0),"volume":int(_safe_float(r.get("current_volume",0))),"avg_volume20":int(_safe_float(r.get("avg_volume20",0))),"rvol_daily":r.get("rvol",0),"market_cap_cr":r.get("market_cap_cr"),"issued_shares":r.get("issued_shares"),"market_cap_source":r.get("market_cap_source","NSE_MII_SECURITY_FILE"),"market_cap_source_date":r.get("market_cap_source_date",""),"rank_score":round(.55*ms+.25*gs+.20*_safe_float(r.get("score",0)),2),"mtf_score":round(ms,2),"mtf_state":mtf.get("final_state",""),"ghost_score":round(gs,2),"ghost_signal":ghost.get("signal",""),"false_breakout_risk":_safe_float(fb.get("risk",0)),"daily_support":r.get("support",0),"daily_resistance":r.get("resistance",0),"entry":plan.get("entry"),"stop":plan.get("stop"),"target1":plan.get("target1"),"target2":plan.get("target2"),"timeframes_used":",".join(sorted(tf)),"analysis_tier":"DEEP"}
 
 def apply_depth(out,limit):
     for c,d in {"depth_score":np.nan,"bid_qty_5":np.nan,"ask_qty_5":np.nan,"imbalance":np.nan,"best_bid":np.nan,"best_ask":np.nan,"spread_bps":np.nan,"depth_source":"OHLCV_FALLBACK"}.items():out[c]=d
@@ -94,7 +108,7 @@ def stage2(shortlisted,top_n,started):
     out=pd.DataFrame(rows); out["rank_score"]=(out.rank_score-.12*out.false_breakout_risk.fillna(0)).clip(lower=0); depth_n=min(DEPTH_LIMIT,len(out)) if TARGET_SECONDS-(time.perf_counter()-started)>5 else 0; out=apply_depth(out,depth_n); q=out.sort_values("rank_score",ascending=False).head(top_n).sort_values(["volume","rank_score"],ascending=[False,False]).reset_index(drop=True); q.insert(0,"volume_rank",np.arange(1,len(q)+1)); return q
 
 def save_results(top,s1,runtime):
-    OUTPUT_DIR.mkdir(parents=True,exist_ok=True); top.to_csv(OUTPUT_DIR/"top100_by_volume.csv",index=False); s1.to_csv(OUTPUT_DIR/"stage1_shortlist.csv",index=False); payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"30-SECOND NSE CACHE-ONLY MODE","target_seconds":TARGET_SECONDS,"runtime_seconds":round(runtime,2),"cache_used":True,"shortlist_size":len(s1),"count":len(top),"results":top.replace({np.nan:None}).to_dict("records")}; (OUTPUT_DIR/"top100_by_volume.json").write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding="utf-8")
+    OUTPUT_DIR.mkdir(parents=True,exist_ok=True); top.to_csv(OUTPUT_DIR/"top100_by_volume.csv",index=False); s1.to_csv(OUTPUT_DIR/"stage1_shortlist.csv",index=False); payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"30-SECOND NSE CACHE-ONLY MODE","target_seconds":TARGET_SECONDS,"runtime_seconds":round(runtime,2),"cache_used":True,"market_cap_filter":{"minimum_cr_exclusive":MIN_MARKET_CAP_CR,"fail_closed":True,"source":"NSE_MII_SECURITY_FILE"},"shortlist_size":len(s1),"count":len(top),"results":top.replace({np.nan:None}).to_dict("records")}; (OUTPUT_DIR/"top100_by_volume.json").write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding="utf-8")
 
 def main():
     t0=time.perf_counter(); p=argparse.ArgumentParser(); p.add_argument("--top",type=int,default=100); p.add_argument("--shortlist",type=int,default=500); a=p.parse_args(); s1=load_stage1_cache(max(a.shortlist,a.top)); print(f"Stage-1 shortlist: {len(s1)}"); top=stage2(s1,a.top,t0); runtime=time.perf_counter()-t0; save_results(top,s1,runtime); print(f"NSE cache-only scan complete: {len(top)} in {runtime:.1f}s [{'TARGET_MET' if runtime<=TARGET_SECONDS else 'TARGET_MISSED'}]")
