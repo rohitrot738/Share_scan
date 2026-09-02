@@ -41,6 +41,10 @@ PROCESS_ORDER = [
     "zero_advanced_veto",
 ]
 
+# 360CR contains live market inputs. A successful same-day checkpoint must not
+# bypass their 15-minute freshness policy.
+CHECKPOINT_MARKET_TTL_SECONDS = 15 * 60
+
 
 @dataclass(frozen=True)
 class OrderedThresholds:
@@ -160,31 +164,72 @@ def evaluate_ordered_results(
     return output
 
 
-def _enrich_360cr(rows: list[dict], workers: int, batch_size: int, checkpoint: CheckpointStore, run_id: str) -> tuple[list[dict], dict[str, str], dict]:
-    completed: dict[str, dict] = checkpoint.completed(run_id)
-    pending=[row for row in rows if str(row["symbol"]) not in completed]
-    queue=JobQueue(pending,key=lambda row:str(row["symbol"]))
+def _enrich_360cr(
+    rows: list[dict],
+    workers: int,
+    batch_size: int,
+    checkpoint: CheckpointStore,
+    run_id: str,
+    checkpoint_ttl_seconds: float = CHECKPOINT_MARKET_TTL_SECONDS,
+) -> tuple[list[dict], dict[str, str], dict]:
+    completed: dict[str, dict] = checkpoint.completed(
+        run_id, max_age_seconds=checkpoint_ttl_seconds
+    )
+    pending = [row for row in rows if str(row["symbol"]) not in completed]
+    queue = JobQueue(pending, key=lambda row: str(row["symbol"]))
+
     def queued_items():
         while len(queue):
             yield from queue.take(batch_size)
-    limiter=TokenBucketRateLimiter(rate_per_second=4,burst=max(1,min(workers,4)))
-    policy=RetryPolicy(attempts=3,timeout_seconds=35,base_delay_seconds=.5,max_delay_seconds=3)
+
+    limiter = TokenBucketRateLimiter(rate_per_second=4, burst=max(1, min(workers, 4)))
+    policy = RetryPolicy(
+        attempts=3, timeout_seconds=35, base_delay_seconds=.5, max_delay_seconds=3
+    )
+
     def process(batch):
-        report=run_workers(batch,lambda row:{"symbol":str(row["symbol"]),"research":call_with_retry(lambda:analyse_360cr_symbol(str(row["symbol"])),policy=policy,limiter=limiter)},max_workers=workers,hard_limit=12,item_key=lambda row:str(row["symbol"]))
+        report = run_workers(
+            batch,
+            lambda row: {
+                "symbol": str(row["symbol"]),
+                "research": call_with_retry(
+                    lambda: analyse_360cr_symbol(str(row["symbol"])),
+                    policy=policy,
+                    limiter=limiter,
+                ),
+            },
+            max_workers=workers,
+            hard_limit=12,
+            item_key=lambda row: str(row["symbol"]),
+        )
         for item in report.results:
-            completed[item["symbol"]]=item["research"];checkpoint.success(run_id,item["symbol"],item["research"])
-        for symbol,error in report.errors.items():checkpoint.failure(run_id,symbol,error)
-        return report.results,report.errors
-    batch_report=run_batches(queued_items(),process,batch_size=batch_size,item_key=lambda row:str(row["symbol"]))
-    errors=batch_report.errors
-    enriched=[]
+            completed[item["symbol"]] = item["research"]
+            checkpoint.success(run_id, item["symbol"], item["research"])
+        for symbol, error in report.errors.items():
+            checkpoint.failure(run_id, symbol, error)
+        return report.results, report.errors
+
+    batch_report = run_batches(
+        queued_items(), process, batch_size=batch_size, item_key=lambda row: str(row["symbol"])
+    )
+    errors = batch_report.errors
+    enriched = []
     for row in rows:
         symbol = str(row["symbol"])
         result = completed.get(symbol)
         if result is None:
             continue
         enriched.append({**row, **result})
-    stats={"batch_size":batch_size,"workers":workers,"checkpoint_hits":len(rows)-len(pending),"attempted":len(pending),"completed_batches":batch_report.completed_batches,"successful":len(completed),"failed":len(errors)}
+    stats = {
+        "batch_size": batch_size,
+        "workers": workers,
+        "checkpoint_ttl_seconds": checkpoint_ttl_seconds,
+        "checkpoint_hits": len(rows) - len(pending),
+        "attempted": len(pending),
+        "completed_batches": batch_report.completed_batches,
+        "successful": len(completed),
+        "failed": len(errors),
+    }
     return enriched, errors, stats
 
 
@@ -242,11 +287,18 @@ def run_ordered_scan(
     top_n: int = 100,
     resume: bool = True,
 ) -> dict:
-    metrics=ScanMetrics(); resources=choose_resources(requested_workers=cr360_workers,requested_batch_size=50)
-    threshold_key=json.dumps(asdict(thresholds),sort_keys=True,default=str)
-    run_id="ordered-"+datetime.now(timezone.utc).strftime("%Y%m%d")+"-"+hashlib.sha256(threshold_key.encode()).hexdigest()[:12]
-    checkpoint=CheckpointStore()
-    if not resume:run_id += "-fresh-"+datetime.now(timezone.utc).strftime("%H%M%S%f")
+    metrics = ScanMetrics()
+    resources = choose_resources(requested_workers=cr360_workers, requested_batch_size=50)
+    threshold_key = json.dumps(asdict(thresholds), sort_keys=True, default=str)
+    run_id = (
+        "ordered-"
+        + datetime.now(timezone.utc).strftime("%Y%m%d")
+        + "-"
+        + hashlib.sha256(threshold_key.encode()).hexdigest()[:12]
+    )
+    checkpoint = CheckpointStore()
+    if not resume:
+        run_id += "-fresh-" + datetime.now(timezone.utc).strftime("%H%M%S%f")
     universe = load_market("NSE")
     print(f"Stage 1 — NSE universe: {len(universe)}", flush=True)
     with metrics.timer("daily_data"):
@@ -267,7 +319,13 @@ def run_ordered_scan(
     )
 
     with metrics.timer("cr360"):
-        cr360_rows, cr360_errors, execution_stats = _enrich_360cr(market_cap_rows, resources.workers, resources.batch_size, checkpoint, run_id)
+        cr360_rows, cr360_errors, execution_stats = _enrich_360cr(
+            market_cap_rows,
+            resources.workers,
+            resources.batch_size,
+            checkpoint,
+            run_id,
+        )
     cr360_pass = [
         row
         for row in cr360_rows
@@ -277,7 +335,14 @@ def run_ordered_scan(
 
     with metrics.timer("volume"):
         volume_pass = [row for row in cr360_pass if _gate_functions(thresholds)[2][2](row)]
-        volume_pass.sort(key=lambda row:(_number(row.get("rvol20"),0.0),_number(row.get("volume"),0.0),_number(row.get("turnover"),0.0)),reverse=True)
+        volume_pass.sort(
+            key=lambda row: (
+                _number(row.get("rvol20"), 0.0),
+                _number(row.get("volume"), 0.0),
+                _number(row.get("turnover"), 0.0),
+            ),
+            reverse=True,
+        )
     print(f"Stage 3 — volume pass: {len(volume_pass)}/{len(cr360_pass)}", flush=True)
 
     ghost_input = volume_pass[:ghost_limit] if ghost_limit > 0 else volume_pass
@@ -292,15 +357,22 @@ def run_ordered_scan(
         ghost_rows: list[dict] = []
         ghost_errors: dict[str, str] = {}
         for row in ghost_input:
-            key = (row["exchange"], row["symbol"]); instrument = instrument_map.get(key)
-            if instrument is None:ghost_errors[str(row["symbol"])] = "instrument metadata missing";continue
-            try:ghost_rows.append(analyse_symbol(instrument,frames.get(instrument.yahoo_symbol, {}),row))
-            except Exception as exc:ghost_errors[str(row["symbol"])] = f"{type(exc).__name__}: {exc}"
+            key = (row["exchange"], row["symbol"])
+            instrument = instrument_map.get(key)
+            if instrument is None:
+                ghost_errors[str(row["symbol"])] = "instrument metadata missing"
+                continue
+            try:
+                ghost_rows.append(
+                    analyse_symbol(instrument, frames.get(instrument.yahoo_symbol, {}), row)
+                )
+            except Exception as exc:
+                ghost_errors[str(row["symbol"])] = f"{type(exc).__name__}: {exc}"
 
     evaluated = evaluate_ordered_results(ghost_rows, thresholds)
     stage4 = list(evaluated["stage4_ready_confirmed"])
     stage5 = list(evaluated["stage5_ghost_score"])
-    final_pass = aggregate_results(evaluated["final_pass"],top_n=top_n)
+    final_pass = aggregate_results(evaluated["final_pass"], top_n=top_n)
     print(f"Stage 4 — READY/CONFIRMED: {len(stage4)}", flush=True)
     print(f"Stage 5 — Ghost score pass: {len(stage5)}", flush=True)
     print(f"Final — all later gates pass: {len(final_pass)}", flush=True)
@@ -334,7 +406,13 @@ def run_ordered_scan(
             "feeds": feed_errors,
             "ghost": ghost_errors,
         },
-        "execution": {"run_id":run_id,"resume_enabled":resume,"resources":asdict(resources),"cr360":execution_stats,"metrics":metrics.snapshot()},
+        "execution": {
+            "run_id": run_id,
+            "resume_enabled": resume,
+            "resources": asdict(resources),
+            "cr360": execution_stats,
+            "metrics": metrics.snapshot(),
+        },
         "stage4_ready_confirmed": [_compact(row) for row in stage4],
         "stage5_ghost_score": [_compact(row) for row in stage5],
         "final_pass": [_compact(row) for row in final_pass],
@@ -384,7 +462,7 @@ def main() -> None:
         cr360_workers=args.cr360_workers,
         ghost_limit=max(0, args.ghost_limit),
         output_dir=args.output_dir,
-        top_n=max(1,args.top),
+        top_n=max(1, args.top),
         resume=not args.no_resume,
     )
 
