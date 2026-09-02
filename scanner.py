@@ -14,6 +14,7 @@ from false_breakout_filter import false_breakout_risk
 from ghost_pro.case_training_fusion import fuse_with_technical
 from ghost_pro.ultimate_engine import multi_timeframe
 from market_data import Instrument, build_universe, download_batch, resample_ohlcv
+from execution.async_fetch import fetch_concurrently
 
 
 BASE_FEEDS = {
@@ -193,18 +194,17 @@ def download_all_frames(instruments: list[Instrument], batch_size: int = 60) -> 
     errors = {}
     tickers = list(by)
 
-    for tf, (period, interval) in BASE_FEEDS.items():
-        for start in range(0, len(tickers), batch_size):
-            batch = tickers[start:start + batch_size]
-            try:
-                data = download_batch(batch, period, interval, retries=1)
-            except Exception as exc:
-                errors[f"{tf}:{start // batch_size + 1}"] = f"{type(exc).__name__}: {exc}"
-                continue
-            for ticker in batch:
-                df = clean_frame(data.get(ticker, pd.DataFrame()))
-                if len(df) >= 60:
-                    by[ticker][tf] = df.tail(2000)
+    jobs=[]
+    for tf,(period,interval) in BASE_FEEDS.items():
+        for start in range(0,len(tickers),batch_size):
+            jobs.append((tf,period,interval,start//batch_size+1,tickers[start:start+batch_size]))
+    fetched=fetch_concurrently(jobs,lambda job:(job,download_batch(job[4],job[1],job[2],retries=1)),max_workers=3,rate_per_second=1.5,timeout_seconds=120,item_key=lambda job:f"{job[0]}:{job[3]}")
+    errors.update(fetched.errors)
+    for job,data in fetched.results:
+        tf,_,_,_,batch=job
+        for ticker in batch:
+            df=clean_frame(data.get(ticker,pd.DataFrame()))
+            if len(df)>=60:by[ticker][tf]=df.tail(2000)
 
     for ticker in tickers:
         f = by[ticker]
