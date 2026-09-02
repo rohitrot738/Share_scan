@@ -79,6 +79,15 @@ class PersistentResearchCache:
         for section, payload in sections.items():
             self.put(value.symbol, section, payload)
 
+    def store_regulatory(self, value: ResearchInput) -> None:
+        self.put(value.symbol, "shareholding", {"shareholding_quarters": value.shareholding_quarters})
+        self.put(value.symbol, "regulatory", {
+            "insider_transactions": value.insider_transactions,
+            "bulk_block_deals": value.bulk_block_deals,
+            "corporate_actions": value.corporate_actions,
+        })
+        self.put(value.symbol, "metadata", {"metadata": value.metadata})
+
     def load_research(self, symbol: str, allow_stale: bool = True) -> tuple[ResearchInput | None, dict[str, str]]:
         names = ("market", "financials", "shareholding", "regulatory", "metadata")
         found = {name: self.get(symbol, name) for name in names}
