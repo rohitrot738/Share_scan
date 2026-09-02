@@ -30,6 +30,16 @@ def test_checkpoint_resumes_only_unfinished():
         assert c.pending("run",["A","B"])==["B"] and c.completed("run")["A"]["score"]==1
 
 
+def test_checkpoint_freshness_expires_market_sensitive_resume():
+    with tempfile.TemporaryDirectory() as d:
+        c=CheckpointStore(str(Path(d)/"c.sqlite3"));c.success("run","A",{"score":1})
+        assert c.pending("run",["A","B"],max_age_seconds=60)==["B"]
+        with c._connect() as con:
+            con.execute("UPDATE jobs SET updated_at=? WHERE run_id=? AND item_key=?",(time.time()-61,"run","A"))
+        assert c.completed("run",max_age_seconds=60)=={}
+        assert c.pending("run",["A","B"],max_age_seconds=60)==["A","B"]
+
+
 def test_resource_plan_is_bounded_and_aggregator_is_stable():
     p=choose_resources(requested_workers=1000,requested_batch_size=1000);assert 1<=p.workers<=32 and 10<=p.batch_size<=200
     out=aggregate_results([{"symbol":"A","volume":5,"ghost_score":80},{"symbol":"A","volume":4,"ghost_score":90},{"symbol":"B","volume":6,"ghost_score":70}],top_n=2)
