@@ -224,10 +224,23 @@ def download_all_frames(instruments: list[Instrument], batch_size: int = 60) -> 
 
 
 def analyse_symbol(inst: Instrument, frames: Dict[str, pd.DataFrame], stage1: dict) -> dict:
+    # Keep the full-market scan alive when Yahoo omits one or more timeframes.
     if "1d" not in frames:
-        raise ValueError("1d frame unavailable")
+        return {
+            **stage1,
+            "symbol": inst.symbol,
+            "exchange": inst.exchange,
+            "ghost_status": "MISSING_FRAMES",
+            "error": "1d frame unavailable",
+        }
     if len(frames) < 2:
-        raise ValueError("not enough Ghost timeframes")
+        return {
+            **stage1,
+            "symbol": inst.symbol,
+            "exchange": inst.exchange,
+            "ghost_status": "MISSING_FRAMES",
+            "error": "not enough Ghost timeframes",
+        }
 
     technical = multi_timeframe(frames, symbol=inst.symbol, capital=100000, risk_pct=.5)
     ghost = fuse_with_technical(technical, frames)
