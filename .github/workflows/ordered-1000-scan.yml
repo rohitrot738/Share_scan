@@ -1,0 +1,73 @@
+name: Ordered 1000 Stock Scanner
+
+on:
+  workflow_dispatch:
+    inputs:
+      top:
+        description: Final ranked results
+        default: "100"
+        required: false
+      workers:
+        description: Requested workers (resource controller may lower it)
+        default: "8"
+        required: false
+      ghost_limit:
+        description: Ghost-stage cap; 0 means every volume pass
+        default: "0"
+        required: false
+      resume:
+        description: Resume same-day 360CR checkpoint
+        type: boolean
+        default: true
+        required: false
+  issues:
+    types: [opened]
+
+concurrency:
+  group: ordered-1000-stock-scan
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[ORDERED]'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - name: Restore historical cache and checkpoints
+        uses: actions/cache@v4
+        with:
+          path: .scan_cache
+          key: ordered-scan-cache-${{ github.run_id }}
+          restore-keys: |
+            ordered-scan-cache-
+      - name: Install dependencies
+        run: pip install -r requirements.txt pytest
+      - name: Validate execution layers
+        run: |
+          python -m compileall -q .
+          pytest -q tests/test_persistent_cache.py tests/test_batch_engine.py tests/test_worker_pool.py tests/test_execution_layers.py tests/test_market_cap_filter.py tests/test_ordered_scan.py
+      - name: Run requested ordered scan
+        shell: bash
+        run: |
+          EXTRA=""
+          if [ "${{ inputs.resume }}" != "true" ]; then EXTRA="--no-resume"; fi
+          python ordered_scan.py \
+            --top "${{ inputs.top }}" \
+            --cr360-workers "${{ inputs.workers }}" \
+            --ghost-limit "${{ inputs.ghost_limit }}" \
+            --output-dir ordered_scan_results \
+            $EXTRA
+      - name: Upload stage 4 stage 5 and final results
+        uses: actions/upload-artifact@v4
+        with:
+          name: ordered-1000-stock-results-${{ github.run_id }}
+          path: ordered_scan_results/
+          if-no-files-found: error
+          retention-days: 14

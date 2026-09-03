@@ -1,4 +1,4 @@
-name: 30-SECOND NSE Market Scan
+name: NSE Scanner
 
 on:
   workflow_dispatch:
@@ -12,20 +12,30 @@ on:
         required: false
         default: "500"
   push:
-    branches: [main]
-    paths: ["scan_trigger.txt"]
+    branches:
+      - main
+      - 'indicator/**'
+    paths:
+      - 'scan_trigger.txt'
+      - 'active_indicator.txt'
+      - 'indicators.py'
+      - 'pattern_engine.py'
+      - 'scoring_engine.py'
+      - 'multi_timeframe.py'
+      - 'live_scan.py'
+      - '.github/workflows/live_scan.yml'
   issues:
     types: [opened]
 
 concurrency:
-  group: 30-second-nse-market-scan
+  group: nse-scanner-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   scan:
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'push' || (github.event_name == 'issues' && startsWith(github.event.issue.title, '[SCAN]'))
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 30
     env:
       GROWW_ACCESS_TOKEN: ${{ secrets.GROWW_ACCESS_TOKEN }}
       SCAN_TARGET_SECONDS: "30"
@@ -33,6 +43,8 @@ jobs:
       SCAN_DEPTH_LIMIT: "10"
       SCAN_STAGE1_WORKERS: "4"
       SCAN_CACHE_DIR: ".scan_cache"
+      CACHE_BATCH_SIZE: "300"
+      CACHE_BATCH_SLEEP: "2.0"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -51,17 +63,29 @@ jobs:
       - name: Validate scanner
         run: |
           python -m compileall -q .
-          python -c "import live_scan, market_data; print('NSE scanner imports ok')"
-      - name: Run 30-SECOND NSE scanner
+          python -c "import live_scan, market_data; from scoring_engine import active_indicator; print('NSE scanner imports ok; active=', active_indicator())"
+      - name: Build NSE cache when missing
+        shell: bash
+        run: |
+          mkdir -p .scan_cache
+          if [ ! -f .scan_cache/nse_stage1.csv ]; then
+            echo "No reusable NSE cache found; building it now..."
+            python build_nse_cache.py
+          else
+            echo "Reusable NSE cache found."
+          fi
+          test -s .scan_cache/nse_stage1.csv
+          python -c "import pandas as pd; d=pd.read_csv('.scan_cache/nse_stage1.csv'); print('cache rows',len(d)); assert len(d)>=500"
+      - name: Run NSE scanner
         shell: bash
         run: |
           TOP="${{ github.event.inputs.top || '100' }}"
           SHORTLIST="${{ github.event.inputs.shortlist || '500' }}"
-          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST" --batch-size 1200
-      - name: Upload results
+          python live_scan.py --top "$TOP" --shortlist "$SHORTLIST"
+      - name: Upload NSE results
         uses: actions/upload-artifact@v4
         with:
-          name: 30-second-nse-share-scan-results
+          name: nse-scanner-results-${{ github.run_id }}
           path: scan_output/
           if-no-files-found: error
           retention-days: 14

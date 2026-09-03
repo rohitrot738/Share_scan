@@ -1,0 +1,6 @@
+.scan_cache/
+.cache/
+scan_output/
+scan_results/
+__pycache__/
+*.pyc
