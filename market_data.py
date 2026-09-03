@@ -148,12 +148,8 @@ def download_batch(symbols: Iterable[str], period: str, interval: str, retries: 
                 try: result[sym] = _clean_ohlcv(raw[sym])
                 except Exception: pass
     missing=[s for s,df in result.items() if df.empty]
-    if missing:
-        for sym in missing:
-            try:
-                result[sym]=fetch_history(sym, period, interval, retries=1)
-            except Exception:
-                result[sym]=pd.DataFrame()
+    if missing and len(missing)<=20:
+        for sym in missing: result[sym]=fetch_history(sym, period, interval, retries=1)
     return result
 
 
