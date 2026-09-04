@@ -98,10 +98,8 @@ def _merge_cached(base:ResearchInput, cached:ResearchInput) -> ResearchInput:
 
 def _persist_refreshed_sections(cache:PersistentResearchCache, value:ResearchInput, *, market=False, financials=False, regulatory=False):
     sections={}
-    if market:
-        sections["market"]={"symbol":value.symbol,"price":value.price,"price_history":value.price_history,"valuation":value.valuation}
-    if financials:
-        sections["financials"]={"quarterly_financials":value.quarterly_financials,"balance_sheet_quarters":value.balance_sheet_quarters,"cashflow_quarters":value.cashflow_quarters}
+    if market:sections["market"]={"symbol":value.symbol,"price":value.price,"price_history":value.price_history,"valuation":value.valuation}
+    if financials:sections["financials"]={"quarterly_financials":value.quarterly_financials,"balance_sheet_quarters":value.balance_sheet_quarters,"cashflow_quarters":value.cashflow_quarters}
     if regulatory:
         sections["shareholding"]={"shareholding_quarters":value.shareholding_quarters}
         sections["regulatory"]={"insider_transactions":value.insider_transactions,"bulk_block_deals":value.bulk_block_deals,"corporate_actions":value.corporate_actions}
@@ -121,14 +119,17 @@ def collect_360cr(symbol:str, regulatory_adapter=None, cache:PersistentResearchC
             base=ResearchInput(symbol=symbol.replace(".NS",""))
             market_refresh=not market_fresh
             financial_refresh=not financials_fresh
-            if market_refresh:
-                refreshed=_refresh_market(symbol)
-                base.price,base.price_history,base.valuation=refreshed.price,refreshed.price_history,refreshed.valuation
-            if financial_refresh:
-                refreshed=_refresh_financials(symbol)
-                base.quarterly_financials=refreshed.quarterly_financials
-                base.balance_sheet_quarters=refreshed.balance_sheet_quarters
-                base.cashflow_quarters=refreshed.cashflow_quarters
+            if market_refresh and financial_refresh:
+                base=collect_market_and_company(symbol)
+            else:
+                if market_refresh:
+                    refreshed=_refresh_market(symbol)
+                    base.price,base.price_history,base.valuation=refreshed.price,refreshed.price_history,refreshed.valuation
+                if financial_refresh:
+                    refreshed=_refresh_financials(symbol)
+                    base.quarterly_financials=refreshed.quarterly_financials
+                    base.balance_sheet_quarters=refreshed.balance_sheet_quarters
+                    base.cashflow_quarters=refreshed.cashflow_quarters
             _merge_cached(base,cached)
             regulatory_refresh=False
             if regulatory_adapter is not None and not regulatory_fresh:
