@@ -43,15 +43,33 @@ class PersistentResearchCache:
                 )"""
             )
 
+    def _put_many_locked(
+        self, con: sqlite3.Connection, symbol: str,
+        sections: dict[str, Any], saved_at: float | None = None,
+    ) -> None:
+        timestamp = saved_at if saved_at is not None else time.time()
+        normalized = symbol.replace(".NS", "").upper()
+        rows = [
+            (normalized, section, json.dumps(payload, default=str, separators=(",", ":")), timestamp)
+            for section, payload in sections.items()
+        ]
+        con.executemany(
+            """INSERT INTO research_sections(symbol, section, payload, saved_at)
+               VALUES(?, ?, ?, ?) ON CONFLICT(symbol, section) DO UPDATE SET
+               payload=excluded.payload, saved_at=excluded.saved_at""",
+            rows,
+        )
+
     def put(self, symbol: str, section: str, payload: Any, saved_at: float | None = None) -> None:
-        body = json.dumps(payload, default=str, separators=(",", ":"))
         with self._lock, self._connect() as con:
-            con.execute(
-                """INSERT INTO research_sections(symbol, section, payload, saved_at)
-                   VALUES(?, ?, ?, ?) ON CONFLICT(symbol, section) DO UPDATE SET
-                   payload=excluded.payload, saved_at=excluded.saved_at""",
-                (symbol.replace(".NS", "").upper(), section, body, saved_at or time.time()),
-            )
+            self._put_many_locked(con, symbol, {section: payload}, saved_at)
+
+    def put_many(self, symbol: str, sections: dict[str, Any], saved_at: float | None = None) -> None:
+        """Persist multiple sections in one SQLite transaction."""
+        if not sections:
+            return
+        with self._lock, self._connect() as con:
+            self._put_many_locked(con, symbol, sections, saved_at)
 
     def get(self, symbol: str, section: str, max_age_seconds: int | None = None) -> dict:
         with self._lock, self._connect() as con:
@@ -76,17 +94,18 @@ class PersistentResearchCache:
             "regulatory": {k: data[k] for k in ("insider_transactions", "bulk_block_deals", "corporate_actions")},
             "metadata": {"metadata": data.get("metadata", {})},
         }
-        for section, payload in sections.items():
-            self.put(value.symbol, section, payload)
+        self.put_many(value.symbol, sections)
 
     def store_regulatory(self, value: ResearchInput) -> None:
-        self.put(value.symbol, "shareholding", {"shareholding_quarters": value.shareholding_quarters})
-        self.put(value.symbol, "regulatory", {
-            "insider_transactions": value.insider_transactions,
-            "bulk_block_deals": value.bulk_block_deals,
-            "corporate_actions": value.corporate_actions,
+        self.put_many(value.symbol, {
+            "shareholding": {"shareholding_quarters": value.shareholding_quarters},
+            "regulatory": {
+                "insider_transactions": value.insider_transactions,
+                "bulk_block_deals": value.bulk_block_deals,
+                "corporate_actions": value.corporate_actions,
+            },
+            "metadata": {"metadata": value.metadata},
         })
-        self.put(value.symbol, "metadata", {"metadata": value.metadata})
 
     def load_research(self, symbol: str, allow_stale: bool = True) -> tuple[ResearchInput | None, dict[str, str]]:
         names = ("market", "financials", "shareholding", "regulatory", "metadata")
