@@ -58,3 +58,13 @@ def test_market_refresh_preserves_cached_regulatory_data(tmp_path, monkeypatch):
     monkeypatch.setattr("cr360.collector.collect_market_and_company",lambda _s:sample())
     result=collect_360cr("TEST",cache=cache)
     assert result.shareholding_quarters[-1]["promoter"]==54
+
+
+def test_put_many_writes_all_sections_with_one_timestamp(tmp_path):
+    cache=PersistentResearchCache(str(tmp_path/"research.sqlite3"))
+    saved_at=time.time()-10
+    cache.put_many("TEST", {"market":{"price":123}, "financials":{"revenue":100}}, saved_at=saved_at)
+    market=cache.get("TEST","market"); financials=cache.get("TEST","financials")
+    assert market["payload"]=={"price":123}
+    assert financials["payload"]=={"revenue":100}
+    assert market["saved_at"]==financials["saved_at"]==saved_at
