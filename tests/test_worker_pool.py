@@ -26,7 +26,8 @@ def test_hard_limit_caps_requested_workers():
 
 def test_empty_input_is_a_noop():
     report=run_workers([], lambda value:value)
-    assert report.results==[] and report.errors==[] if False else report.errors=={}
+    assert report.results==[]
+    assert report.errors=={}
     assert report.submitted==0 and report.max_workers==0
 
 
