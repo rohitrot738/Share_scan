@@ -7,8 +7,8 @@ from .models import ResearchInput
 from .persistent_cache import PersistentResearchCache
 
 # Collector policy: never fabricate unavailable regulatory data. Public market/company
-data is collected where available; NSE regulatory datasets can be injected by an
-adapter or JSON cache after download from official filings/reports.
+# data is collected where available; NSE regulatory datasets can be injected by an
+# adapter or JSON cache after download from official filings/reports.
 
 def _n(v):
     try:
@@ -83,8 +83,7 @@ def merge_regulatory(base:ResearchInput, *, shareholding=None, insiders=None, de
     return base
 
 def _merge_cached(base:ResearchInput, cached:ResearchInput) -> ResearchInput:
-    # Cache is authoritative for sections that were not refreshed in this pass.
-    if not base.price and cached.price is not None:base.price=cached.price
+    if base.price is None and cached.price is not None:base.price=cached.price
     if not base.price_history:base.price_history=cached.price_history
     if not base.quarterly_financials:base.quarterly_financials=cached.quarterly_financials
     if not base.balance_sheet_quarters:base.balance_sheet_quarters=cached.balance_sheet_quarters
@@ -97,6 +96,17 @@ def _merge_cached(base:ResearchInput, cached:ResearchInput) -> ResearchInput:
     base.metadata={**cached.metadata, **base.metadata}
     return base
 
+def _persist_refreshed_sections(cache:PersistentResearchCache, value:ResearchInput, *, market=False, financials=False, regulatory=False):
+    sections={}
+    if market:
+        sections["market"]={"symbol":value.symbol,"price":value.price,"price_history":value.price_history,"valuation":value.valuation}
+    if financials:
+        sections["financials"]={"quarterly_financials":value.quarterly_financials,"balance_sheet_quarters":value.balance_sheet_quarters,"cashflow_quarters":value.cashflow_quarters}
+    if regulatory:
+        sections["shareholding"]={"shareholding_quarters":value.shareholding_quarters}
+        sections["regulatory"]={"insider_transactions":value.insider_transactions,"bulk_block_deals":value.bulk_block_deals,"corporate_actions":value.corporate_actions}
+    if sections:cache.put_many(value.symbol,sections)
+
 def collect_360cr(symbol:str, regulatory_adapter=None, cache:PersistentResearchCache|None=None, force_refresh:bool=False)->ResearchInput:
     cache = cache or PersistentResearchCache()
     cached, states = cache.load_research(symbol, allow_stale=True)
@@ -108,23 +118,25 @@ def collect_360cr(symbol:str, regulatory_adapter=None, cache:PersistentResearchC
             cached.metadata["cache_status"]="HIT"
             return cached
         try:
-            base=ResearchInput(symbol=symbol.replace(".NS","") )
-            if not market_fresh:
+            base=ResearchInput(symbol=symbol.replace(".NS",""))
+            market_refresh=not market_fresh
+            financial_refresh=not financials_fresh
+            if market_refresh:
                 refreshed=_refresh_market(symbol)
                 base.price,base.price_history,base.valuation=refreshed.price,refreshed.price_history,refreshed.valuation
-            if not financials_fresh:
+            if financial_refresh:
                 refreshed=_refresh_financials(symbol)
                 base.quarterly_financials=refreshed.quarterly_financials
                 base.balance_sheet_quarters=refreshed.balance_sheet_quarters
                 base.cashflow_quarters=refreshed.cashflow_quarters
             _merge_cached(base,cached)
+            regulatory_refresh=False
             if regulatory_adapter is not None and not regulatory_fresh:
                 payload=regulatory_adapter(symbol) or {}
                 merge_regulatory(base,shareholding=payload.get("shareholding_quarters"),insiders=payload.get("insider_transactions"),deals=payload.get("bulk_block_deals"),actions=payload.get("corporate_actions"),valuation=payload.get("valuation"),source=payload.get("source","regulatory_adapter"))
-                base.metadata["cache_status"]="REGULATORY_REFRESHED"
-            else:
-                base.metadata["cache_status"]="SECTION_REFRESHED"
-            cache.store_research(base)
+                regulatory_refresh=True
+            base.metadata["cache_status"]="REGULATORY_REFRESHED" if regulatory_refresh else "SECTION_REFRESHED"
+            _persist_refreshed_sections(cache,base,market=market_refresh,financials=financial_refresh,regulatory=regulatory_refresh)
             return base
         except Exception as exc:
             cached.metadata["cache_status"]="STALE_FALLBACK"
@@ -132,8 +144,7 @@ def collect_360cr(symbol:str, regulatory_adapter=None, cache:PersistentResearchC
             return cached
     try:
         base=collect_market_and_company(symbol)
-        if cached is not None:
-            _merge_cached(base,cached)
+        if cached is not None:_merge_cached(base,cached)
         if regulatory_adapter is not None and (force_refresh or not regulatory_fresh):
             payload=regulatory_adapter(symbol) or {}
             merge_regulatory(base,shareholding=payload.get("shareholding_quarters"),insiders=payload.get("insider_transactions"),deals=payload.get("bulk_block_deals"),actions=payload.get("corporate_actions"),valuation=payload.get("valuation"),source=payload.get("source","regulatory_adapter"))
