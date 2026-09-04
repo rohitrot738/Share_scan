@@ -68,3 +68,26 @@ def test_put_many_writes_all_sections_with_one_timestamp(tmp_path):
     assert market["payload"]=={"price":123}
     assert financials["payload"]=={"revenue":100}
     assert market["saved_at"]==financials["saved_at"]==saved_at
+
+
+def test_stale_market_refresh_does_not_refetch_fresh_financials(tmp_path, monkeypatch):
+    cache=PersistentResearchCache(str(tmp_path/"research.sqlite3")); value=sample(); cache.store_research(value)
+    old=time.time()-2*60*60
+    cache.put("TEST","market",cache.get("TEST","market")["payload"],saved_at=old)
+    calls=[]
+    monkeypatch.setattr("cr360.collector._refresh_market", lambda _s: (calls.append("market") or ResearchInput(symbol="TEST",price=130.0,price_history=[{"close":130}],valuation={})))
+    monkeypatch.setattr("cr360.collector._refresh_financials", lambda _s: (_ for _ in ()).throw(AssertionError("fresh financials refetched")))
+    result=collect_360cr("TEST",cache=cache)
+    assert calls==["market"] and result.price==130.0
+    assert result.quarterly_financials==value.quarterly_financials
+
+
+def test_stale_financials_refresh_does_not_refetch_fresh_market(tmp_path, monkeypatch):
+    cache=PersistentResearchCache(str(tmp_path/"research.sqlite3")); value=sample(); cache.store_research(value)
+    old=time.time()-8*24*60*60
+    cache.put("TEST","financials",cache.get("TEST","financials")["payload"],saved_at=old)
+    monkeypatch.setattr("cr360.collector._refresh_market", lambda _s: (_ for _ in ()).throw(AssertionError("fresh market refetched")))
+    monkeypatch.setattr("cr360.collector._refresh_financials", lambda _s: ResearchInput(symbol="TEST",quarterly_financials=[{"period":"2026Q2","revenue":200}],balance_sheet_quarters=[],cashflow_quarters=[]))
+    result=collect_360cr("TEST",cache=cache)
+    assert result.price==value.price
+    assert result.quarterly_financials==[{"period":"2026Q2","revenue":200}]
