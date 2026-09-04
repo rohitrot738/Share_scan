@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Share_scan परिणाम</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">NSE स्कैन रिपोर्ट</p>
+      <h1 id="report-title">Share_scan परिणाम</h1>
+      <p id="report-meta" class="meta">डेटा लोड हो रहा है…</p>
+    </div>
+    <div class="header-actions">
+      <button id="theme-toggle" type="button" aria-label="रंग बदलें">हल्का रंग</button>
+      <button id="csv-download" type="button">दिख रहे परिणाम CSV में लें</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="summary-cards" class="summary-grid" aria-label="स्कैन सारांश"></section>
+
+    <section class="panel pipeline-panel" aria-labelledby="pipeline-title">
+      <div class="panel-heading">
+        <div>
+          <p class="eyebrow">क्रमवार छनाई</p>
+          <h2 id="pipeline-title">हर चरण में बचे शेयर</h2>
+        </div>
+        <span id="error-badge" class="status-pill">0 त्रुटियाँ</span>
+      </div>
+      <div id="pipeline" class="pipeline"></div>
+    </section>
+
+    <section class="panel results-panel" aria-labelledby="results-title">
+      <div class="panel-heading result-heading">
+        <div>
+          <p class="eyebrow">अंतिम सूची</p>
+          <h2 id="results-title">चुने गए शेयर</h2>
+        </div>
+        <p id="visible-count" class="meta"></p>
+      </div>
+
+      <div class="controls">
+        <label>
+          <span>शेयर खोजें</span>
+          <input id="search" type="search" placeholder="जैसे RELIANCE" autocomplete="off">
+        </label>
+        <label>
+          <span>स्थिति</span>
+          <select id="state-filter"><option value="">सभी स्थितियाँ</option></select>
+        </label>
+        <label>
+          <span>क्रम</span>
+          <select id="sort-by">
+            <option value="rank">मूल क्रम</option>
+            <option value="volume">वॉल्यूम: अधिक से कम</option>
+            <option value="ghost_score">Ghost स्कोर: अधिक से कम</option>
+            <option value="cr360_score">360CR: अधिक से कम</option>
+            <option value="false_breakout_risk">False breakout: कम से अधिक</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="table-wrap" tabindex="0">
+        <table>
+          <thead>
+            <tr>
+              <th>रैंक</th><th>शेयर</th><th>मूल्य</th><th>Market cap</th>
+              <th>वॉल्यूम</th><th>RVOL</th><th>360CR</th><th>Ghost</th>
+              <th>स्थिति</th><th>False risk</th><th>Entry</th><th>Stop</th><th>Target 1</th>
+            </tr>
+          </thead>
+          <tbody id="results-body"></tbody>
+        </table>
+      </div>
+      <div id="empty-state" class="empty" hidden>इन विकल्पों में कोई शेयर नहीं मिला।</div>
+    </section>
+
+    <details id="errors-panel" class="panel errors-panel">
+      <summary>स्कैन त्रुटियों का विवरण</summary>
+      <div id="errors-list"></div>
+    </details>
+  </main>
+
+  <footer>यह रिपोर्ट निर्णय में सहायता के लिए है; निवेश सलाह नहीं। मूल JSON, CSV और XML इसी फ़ोल्डर में हैं।</footer>
+  <script src="dashboard_data.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

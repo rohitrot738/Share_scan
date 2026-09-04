@@ -48,11 +48,13 @@ jobs:
           restore-keys: |
             ordered-scan-cache-
       - name: Install dependencies
-        run: pip install -r requirements.txt pytest
+        run: |
+          pip install -r requirements.txt pytest
+          python native/build_native.py
       - name: Validate execution layers
         run: |
           python -m compileall -q .
-          pytest -q tests/test_persistent_cache.py tests/test_batch_engine.py tests/test_worker_pool.py tests/test_execution_layers.py tests/test_market_cap_filter.py tests/test_ordered_scan.py
+          pytest -q tests/test_persistent_cache.py tests/test_batch_engine.py tests/test_worker_pool.py tests/test_execution_layers.py tests/test_market_cap_filter.py tests/test_ordered_scan.py tests/test_reporting.py tests/test_native_acceleration.py
       - name: Run requested ordered scan
         shell: bash
         run: |

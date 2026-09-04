@@ -9,6 +9,9 @@ from typing import Dict
 
 import pandas as pd
 
+from reporting import write_scan_bundle
+from market_cap import apply_market_cap_filter, fetch_nse_issued_capital
+
 from demand_supply import detect_zones
 from false_breakout_filter import false_breakout_risk
 from ghost_pro.case_training_fusion import fuse_with_technical
@@ -340,6 +343,15 @@ def scan_full_market(market: str, shortlist: int, deep: int, universe_limit: int
     if not stage1_rows:
         raise RuntimeError("stage-1 produced no usable candidates")
 
+    snapshot = fetch_nse_issued_capital()
+    stage1_rows, _ = apply_market_cap_filter(
+        stage1_rows,
+        snapshot,
+        min_market_cap_cr=1000.0,
+    )
+    if not stage1_rows:
+        raise RuntimeError("no NSE stocks passed the strict >1000 crore market-cap filter")
+
     shortlist_rows = stage1_rows[:max(1, min(shortlist, len(stage1_rows)))]
     deep_rows = shortlist_rows[:max(1, min(deep, len(shortlist_rows)))]
     inst_map = {(x.exchange, x.symbol): x for x in universe}
@@ -418,6 +430,7 @@ def main() -> None:
         csv_rows.append(flat)
     pd.DataFrame(csv_rows).to_csv(out / "latest.csv", index=False)
     pd.DataFrame(stage1).to_csv(out / "stage1_shortlist.csv", index=False)
+    write_scan_bundle(out, payload, title="Full-market Ghost स्कैन")
 
     print(f"Full-market scanner complete: stage1={len(stage1)} deep_ok={len(rows)} ghost={ghost_ok}")
     for r in rows:

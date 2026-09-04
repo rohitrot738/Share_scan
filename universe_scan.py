@@ -16,6 +16,7 @@ from typing import Iterable
 import pandas as pd
 
 from ghost_pro.full_pipeline import run_full_scan
+from reporting import write_scan_bundle
 
 # Liquid NSE universe starter set. This can be replaced/expanded by an exchange
 # master-file collector later without changing the ranking/output contract.
@@ -107,6 +108,7 @@ def main():
     payload={"generated_at_utc":stamp,"universe_size":len(symbols),"successful":len(rows),"errors":errors,"ranked":rows,"details":details}
     (out/"latest.json").write_text(json.dumps(payload,indent=2,default=str),encoding="utf-8")
     pd.DataFrame(rows).to_csv(out/"latest.csv",index=False)
+    write_scan_bundle(out,payload,title="NSE Universe स्कैन")
     print("\nTOP RESULTS")
     for r in rows[:10]:
         print(f"#{r['rank']} {r['symbol']} {r['state']} fused={r['fused_score']} false={r['false_breakout_risk']} entry={r['entry']} sl={r['stop']} t1={r['target1']}")

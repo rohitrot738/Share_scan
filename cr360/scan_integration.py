@@ -7,6 +7,7 @@ from .validator import validate_360cr_input
 from .nse_public_adapter import NSEPublicAdapter
 from execution.batch_engine import run_batches
 from execution.worker_pool import run_workers
+from reporting import write_scan_bundle
 
 
 def _one(symbol:str)->dict:
@@ -59,6 +60,7 @@ def enrich_payload(payload:dict,max_workers:int=4,batch_size:int=50)->dict:
 def enrich_file(path="scan_results/latest.json",max_workers=4,batch_size=50):
     p=Path(path); payload=json.loads(p.read_text(encoding="utf-8")); payload=enrich_payload(payload,max_workers=max_workers,batch_size=batch_size)
     p.write_text(json.dumps(payload,indent=2,default=str),encoding="utf-8")
+    write_scan_bundle(p.parent,payload,title="Ghost + 360CR स्कैन परिणाम")
     return payload
 
 if __name__=="__main__":

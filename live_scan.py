@@ -9,6 +9,7 @@ from ghost_trade_core import ghost_trade_snapshot
 from groww_orderbook import fetch_depth_scores
 from market_data import download_batch
 from multi_timeframe import analyse_timeframes
+from reporting import write_scan_bundle
 
 OUTPUT_DIR=Path(os.getenv("SCAN_OUTPUT_DIR","scan_output"))
 CACHE_DIR=Path(os.getenv("SCAN_CACHE_DIR",".scan_cache"))
@@ -44,12 +45,20 @@ def daily_prefilter_score(df: pd.DataFrame) -> dict:
 def _cache_fresh():
     return CACHE_FILE.exists() and (time.time()-CACHE_FILE.stat().st_mtime)<CACHE_MAX_AGE_HOURS*3600
 
+def cache_is_valid(max_age_hours=CACHE_MAX_AGE_HOURS):
+    if not CACHE_FILE.exists() or (time.time()-CACHE_FILE.stat().st_mtime)>=max_age_hours*3600:return False
+    try:
+        columns=set(pd.read_csv(CACHE_FILE,nrows=2).columns)
+    except Exception:return False
+    return {"symbol","exchange","yahoo_symbol","score","turnover_proxy","current_volume","market_cap_cr"}.issubset(columns)
+
 def load_stage1_cache(shortlist:int)->pd.DataFrame:
-    if not _cache_fresh():
+    if not cache_is_valid(CACHE_MAX_AGE_HOURS):
         raise SystemExit("NSE stage1 cache missing/stale. Run cache builder first; live scan will not cold-build history.")
     df=pd.read_csv(CACHE_FILE)
-    need={"symbol","exchange","yahoo_symbol","score","turnover_proxy","current_volume"}
+    need={"symbol","exchange","yahoo_symbol","score","turnover_proxy","current_volume","market_cap_cr"}
     if not need.issubset(df.columns): raise SystemExit("NSE stage1 cache invalid. Run cache builder first.")
+    df=df[pd.to_numeric(df["market_cap_cr"],errors="coerce")>1000.0].copy()
     if len(df)<shortlist: raise SystemExit(f"NSE stage1 cache too small ({len(df)} rows); need at least {shortlist}.")
     print(f"Stage-1 CACHE HIT: {len(df)} rows")
     return df.sort_values(["score","turnover_proxy"],ascending=[False,False]).head(shortlist).reset_index(drop=True)
@@ -94,7 +103,12 @@ def stage2(shortlisted,top_n,started):
     out=pd.DataFrame(rows); out["rank_score"]=(out.rank_score-.12*out.false_breakout_risk.fillna(0)).clip(lower=0); depth_n=min(DEPTH_LIMIT,len(out)) if TARGET_SECONDS-(time.perf_counter()-started)>5 else 0; out=apply_depth(out,depth_n); q=out.sort_values("rank_score",ascending=False).head(top_n).sort_values(["volume","rank_score"],ascending=[False,False]).reset_index(drop=True); q.insert(0,"volume_rank",np.arange(1,len(q)+1)); return q
 
 def save_results(top,s1,runtime):
-    OUTPUT_DIR.mkdir(parents=True,exist_ok=True); top.to_csv(OUTPUT_DIR/"top100_by_volume.csv",index=False); s1.to_csv(OUTPUT_DIR/"stage1_shortlist.csv",index=False); payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"30-SECOND NSE CACHE-ONLY MODE","target_seconds":TARGET_SECONDS,"runtime_seconds":round(runtime,2),"cache_used":True,"shortlist_size":len(s1),"count":len(top),"results":top.replace({np.nan:None}).to_dict("records")}; (OUTPUT_DIR/"top100_by_volume.json").write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding="utf-8")
+    OUTPUT_DIR.mkdir(parents=True,exist_ok=True)
+    top.to_csv(OUTPUT_DIR/"top100_by_volume.csv",index=False)
+    s1.to_csv(OUTPUT_DIR/"stage1_shortlist.csv",index=False)
+    payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"30-SECOND NSE CACHE-ONLY MODE","target_seconds":TARGET_SECONDS,"runtime_seconds":round(runtime,2),"cache_used":True,"shortlist_size":len(s1),"count":len(top),"results":top.replace({np.nan:None}).to_dict("records")}
+    (OUTPUT_DIR/"top100_by_volume.json").write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding="utf-8")
+    write_scan_bundle(OUTPUT_DIR,payload,title="NSE स्कैन परिणाम")
 
 def main():
     t0=time.perf_counter(); p=argparse.ArgumentParser(); p.add_argument("--top",type=int,default=100); p.add_argument("--shortlist",type=int,default=500); a=p.parse_args(); s1=load_stage1_cache(max(a.shortlist,a.top)); print(f"Stage-1 shortlist: {len(s1)}"); top=stage2(s1,a.top,t0); runtime=time.perf_counter()-t0; save_results(top,s1,runtime); print(f"NSE cache-only scan complete: {len(top)} in {runtime:.1f}s [{'TARGET_MET' if runtime<=TARGET_SECONDS else 'TARGET_MISSED'}]")

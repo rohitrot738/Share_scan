@@ -44,7 +44,9 @@ jobs:
           python-version: "3.11"
           cache: pip
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: |
+          pip install -r requirements.txt
+          python native/build_native.py
       - name: Validate scanner Ghost and 360CR imports
         run: |
           python -m py_compile scanner.py ghost_pro/*.py cr360/*.py

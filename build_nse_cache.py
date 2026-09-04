@@ -3,6 +3,7 @@ import os, time
 from pathlib import Path
 import pandas as pd
 from market_data import build_universe, download_batch
+from market_cap import apply_market_cap_filter, fetch_nse_issued_capital
 from live_scan import daily_prefilter_score
 
 CACHE_DIR=Path(os.getenv("SCAN_CACHE_DIR",".scan_cache")); CACHE_FILE=CACHE_DIR/"nse_stage1.csv"
@@ -24,6 +25,10 @@ def main():
                 inst=by[sym]; rows.append({"symbol":inst.symbol,"exchange":"NSE","yahoo_symbol":sym,"name":inst.name,**m})
         if i+BATCH_SIZE<len(syms):time.sleep(SLEEP)
     if not rows:raise SystemExit("Cache build produced no usable rows")
+    snapshot=fetch_nse_issued_capital()
+    rows,stats=apply_market_cap_filter(rows,snapshot,min_market_cap_cr=1000.0)
+    if not rows:raise SystemExit("Cache build produced no stocks above 1000 crore market cap")
+    print(f"Market-cap pass: {stats['eligible_rows']}/{stats['input_rows']}")
     df=pd.DataFrame(rows).sort_values(["score","turnover_proxy"],ascending=[False,False]).reset_index(drop=True)
     CACHE_DIR.mkdir(parents=True,exist_ok=True); df.to_csv(CACHE_FILE,index=False)
     print(f"Saved {len(df)} NSE cache rows to {CACHE_FILE}")
