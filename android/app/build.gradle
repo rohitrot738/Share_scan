@@ -16,12 +16,14 @@ android {
     }
 }
 
-python {
-    version '3.11'
-    pip {
-        install 'numpy>=1.26'
-        install 'pandas>=2.2'
-        install 'requests>=2.32'
-        install 'yfinance>=0.2.54'
+chaquopy {
+    defaultConfig {
+        version = '3.11'
+        pip {
+            install 'numpy>=1.26,<3'
+            install 'pandas>=2.2,<3'
+            install 'requests>=2.32,<3'
+            install 'yfinance>=0.2.54,<2'
+        }
     }
 }
