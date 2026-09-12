@@ -1,0 +1,47 @@
+name: Package Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'android/**'
+      - '*.py'
+      - 'cr360/**'
+      - 'execution/**'
+      - 'dashboard/**'
+      - 'requirements.txt'
+      - '.github/workflows/package-android.yml'
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare scanner sources for Chaquopy
+        shell: bash
+        run: |
+          mkdir -p android/app/src/main/python
+          find . -maxdepth 1 -type f -name '*.py' -exec cp {} android/app/src/main/python/ \;
+          for d in cr360 execution dashboard; do
+            if [ -d "$d" ]; then cp -r "$d" android/app/src/main/python/; fi
+          done
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+      - name: Build debug APK
+        working-directory: android
+        run: gradle --no-daemon assembleDebug
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ShareScan-Android
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 30
