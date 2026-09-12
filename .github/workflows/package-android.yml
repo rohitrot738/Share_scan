@@ -1,0 +1,63 @@
+name: Package Android APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'android/**'
+      - '*.py'
+      - 'cr360/**'
+      - 'execution/**'
+      - 'dashboard/**'
+      - 'requirements.txt'
+      - '.github/workflows/package-android.yml'
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare scanner sources for Chaquopy
+        shell: bash
+        run: |
+          mkdir -p android/app/src/main/python
+          find . -maxdepth 1 -type f -name '*.py' -exec cp {} android/app/src/main/python/ \;
+          for d in cr360 execution dashboard; do
+            if [ -d "$d" ]; then cp -r "$d" android/app/src/main/python/; fi
+          done
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - name: Build debug APK
+        working-directory: android
+        run: gradle --no-daemon --stacktrace assembleDebug
+      - name: Verify APK installability metadata and signature
+        shell: bash
+        run: |
+          APK="android/app/build/outputs/apk/debug/app-debug.apk"
+          SDK_BUILD_TOOLS="${ANDROID_HOME}/build-tools/35.0.0"
+          echo "=== APK badging ==="
+          "${SDK_BUILD_TOOLS}/aapt2" dump badging "$APK"
+          echo "=== APK v2/v3 signature verification ==="
+          "${SDK_BUILD_TOOLS}/apksigner" verify --verbose --print-certs "$APK"
+          echo "=== APK zip integrity ==="
+          unzip -t "$APK" >/dev/null
+          sha256sum "$APK"
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: ShareScan-Android
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 30

@@ -1,0 +1,42 @@
+name: Package Windows EXE
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'packaging/share_scan.spec'
+      - 'live_scan.py'
+      - 'requirements.txt'
+      - '.github/workflows/package-windows.yml'
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install dependencies
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install pyinstaller
+      - name: Validate imports
+        shell: pwsh
+        run: |
+          python -m compileall -q .
+          python -c "import live_scan, market_data; print('scanner import OK')"
+      - name: Build EXE
+        shell: pwsh
+        run: pyinstaller --clean --noconfirm packaging/share_scan.spec
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: ShareScan-Windows
+          path: dist/ShareScan.exe
+          if-no-files-found: error
+          retention-days: 30
