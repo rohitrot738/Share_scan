@@ -42,6 +42,18 @@ jobs:
       - name: Build debug APK
         working-directory: android
         run: gradle --no-daemon --stacktrace assembleDebug
+      - name: Verify APK installability metadata and signature
+        shell: bash
+        run: |
+          APK="android/app/build/outputs/apk/debug/app-debug.apk"
+          SDK_BUILD_TOOLS="${ANDROID_HOME}/build-tools/35.0.0"
+          echo "=== APK badging ==="
+          "${SDK_BUILD_TOOLS}/aapt2" dump badging "$APK"
+          echo "=== APK v2/v3 signature verification ==="
+          "${SDK_BUILD_TOOLS}/apksigner" verify --verbose --print-certs "$APK"
+          echo "=== APK zip integrity ==="
+          unzip -t "$APK" >/dev/null
+          sha256sum "$APK"
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
