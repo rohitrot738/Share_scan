@@ -31,10 +31,10 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Set up Python 3.11
+      - name: Set up Python 3.13
         uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: '3.13'
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
@@ -42,7 +42,7 @@ jobs:
       - name: Build debug APK
         working-directory: android
         run: gradle --no-daemon --stacktrace assembleDebug
-      - name: Verify APK installability metadata and signature
+      - name: Verify APK installability and 16 KB compatibility
         shell: bash
         run: |
           APK="android/app/build/outputs/apk/debug/app-debug.apk"
@@ -53,6 +53,21 @@ jobs:
           "${SDK_BUILD_TOOLS}/apksigner" verify --verbose --print-certs "$APK"
           echo "=== APK zip integrity ==="
           unzip -t "$APK" >/dev/null
+          echo "=== Native library ZIP alignment (16 KB) ==="
+          python - "$APK" <<'PY'
+          import sys, zipfile
+          apk = sys.argv[1]
+          bad = []
+          with zipfile.ZipFile(apk) as z:
+              for i in z.infolist():
+                  if i.filename.startswith('lib/') and i.filename.endswith('.so'):
+                      if i.header_offset % 16384 != 0:
+                          bad.append((i.filename, i.header_offset))
+          if bad:
+              print('Misaligned native libraries:', bad[:20])
+              raise SystemExit(1)
+          print('All native libraries are 16 KB ZIP aligned.')
+          PY
           sha256sum "$APK"
       - name: Upload APK
         uses: actions/upload-artifact@v4
