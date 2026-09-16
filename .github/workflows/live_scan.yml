@@ -12,18 +12,8 @@ on:
         required: false
         default: "500"
   push:
-    branches:
-      - main
-      - 'indicator/**'
-    paths:
-      - 'scan_trigger.txt'
-      - 'active_indicator.txt'
-      - 'indicators.py'
-      - 'pattern_engine.py'
-      - 'scoring_engine.py'
-      - 'multi_timeframe.py'
-      - 'live_scan.py'
-      - '.github/workflows/live_scan.yml'
+    branches: [main, 'indicator/**']
+    paths: ['scan_trigger.txt','active_indicator.txt','indicators.py','pattern_engine.py','scoring_engine.py','multi_timeframe.py','live_scan.py','.github/workflows/live_scan.yml']
   issues:
     types: [opened]
 
@@ -56,8 +46,7 @@ jobs:
         with:
           path: .scan_cache
           key: nse-scan-cache-${{ github.run_id }}
-          restore-keys: |
-            nse-scan-cache-
+          restore-keys: nse-scan-cache-
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
@@ -84,7 +73,7 @@ jobs:
           TOP="${{ github.event.inputs.top || '100' }}"
           SHORTLIST="${{ github.event.inputs.shortlist || '500' }}"
           python live_scan.py --top "$TOP" --shortlist "$SHORTLIST"
-      - name: Upload NSE results
+      - name: Upload NSE results and status
         uses: actions/upload-artifact@v4
         with:
           name: nse-scanner-results-${{ github.run_id }}
