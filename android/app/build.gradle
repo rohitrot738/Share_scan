@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.chaquo.python'
 }
 
 android {
@@ -11,8 +12,11 @@ android {
         applicationId 'com.rohitrot738.sharescan'
         minSdk 26
         targetSdk 35
-        versionCode 1
-        versionName '1.0'
+        versionCode 2
+        versionName '2.0'
+        ndk {
+            abiFilters 'arm64-v8a', 'x86_64'
+        }
     }
 
     buildTypes {
@@ -44,6 +48,45 @@ android {
 
     lint {
         abortOnError false
+    }
+}
+
+def pythonSourceDir = layout.buildDirectory.dir('generated/python/main')
+
+tasks.register('preparePythonSources', Sync) {
+    from(rootProject.projectDir.parent) {
+        include('*.py')
+        include('cr360/**/*.py')
+        include('execution/**/*.py')
+        include('ghost_pro/**/*.py')
+        include('native/*.py')
+        exclude('tests/**')
+        exclude('training_cases/**')
+        exclude('android/**')
+    }
+    into(pythonSourceDir)
+}
+
+tasks.named('preBuild').configure {
+    dependsOn('preparePythonSources')
+}
+
+chaquopy {
+    defaultConfig {
+        version = '3.11'
+        buildPython('python3.11')
+        pip {
+            install('numpy==1.26.2')
+            install('pandas==2.1.3')
+            install('requests==2.32.5')
+            options('--extra-index-url', 'https://chaquo.com/pypi-extra')
+            install('lxml==5.2.2')
+        }
+    }
+    sourceSets {
+        getByName('main') {
+            srcDir(pythonSourceDir)
+        }
     }
 }
 
