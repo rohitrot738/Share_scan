@@ -43,6 +43,19 @@ jobs:
           unzip -q /tmp/gradle.zip -d /opt
           echo "/opt/gradle-8.10.2/bin" >> "$GITHUB_PATH"
 
+      - name: Create CI signing key
+        shell: bash
+        run: |
+          keytool -genkeypair -v \
+            -keystore "$RUNNER_TEMP/sharescan-release.jks" \
+            -storepass sharescan-ci \
+            -keypass sharescan-ci \
+            -alias sharescan \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -dname "CN=Share Scan, OU=Mobile, O=Share Scan, L=India, ST=UP, C=IN"
+
       - name: Verify build toolchain
         working-directory: android
         run: |
@@ -50,14 +63,28 @@ jobs:
           gradle --version
           gradle tasks --no-daemon
 
-      - name: Build standalone Share Scan APK
+      - name: Build signed standalone Share Scan APK
         working-directory: android
-        run: gradle :app:assembleDebug --no-daemon --stacktrace
+        run: |
+          gradle :app:assembleRelease --no-daemon --stacktrace \
+            -PSHARESCAN_KEYSTORE="$RUNNER_TEMP/sharescan-release.jks" \
+            -PSHARESCAN_STORE_PASSWORD=sharescan-ci \
+            -PSHARESCAN_KEY_PASSWORD=sharescan-ci
 
-      - name: Upload standalone APK
+      - name: Verify APK signature and package
+        shell: bash
+        run: |
+          APK="android/app/build/outputs/apk/release/app-release.apk"
+          test -s "$APK"
+          SDK_APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort -V | tail -1)
+          "$SDK_APKSIGNER" verify --verbose "$APK"
+          echo "APK_SIZE=$(stat -c%s "$APK")" >> "$GITHUB_STEP_SUMMARY"
+          echo "APK_SHA256=$(sha256sum "$APK" | cut -d' ' -f1)" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload signed standalone APK
         uses: actions/upload-artifact@v4
         with:
-          name: ShareScan-standalone-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: ShareScan-standalone-apk-signed
+          path: android/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error
           retention-days: 14
