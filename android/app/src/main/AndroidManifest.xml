@@ -3,11 +3,10 @@
     <application
         android:theme="@style/AppTheme"
         android:label="Share Scan"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher"
+        android:icon="@android:drawable/sym_def_app_icon"
+        android:roundIcon="@android:drawable/sym_def_app_icon"
         android:allowBackup="false"
-        android:supportsRtl="true"
-        android:extractNativeLibs="true">
+        android:supportsRtl="true">
         <activity android:name=".MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
