@@ -6,6 +6,11 @@ on:
     branches: [main]
     paths:
       - 'android/**'
+      - '*.py'
+      - 'cr360/**'
+      - 'execution/**'
+      - 'ghost_pro/**'
+      - 'requirements.txt'
       - '.github/workflows/build-android.yml'
 
 permissions:
@@ -14,7 +19,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 60
 
     steps:
       - name: Checkout
@@ -26,6 +31,11 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
       - name: Install Gradle 8.10.2
         shell: bash
         run: |
@@ -33,20 +43,21 @@ jobs:
           unzip -q /tmp/gradle.zip -d /opt
           echo "/opt/gradle-8.10.2/bin" >> "$GITHUB_PATH"
 
-      - name: Verify Gradle and Android project
+      - name: Verify build toolchain
         working-directory: android
         run: |
+          python3.11 --version
           gradle --version
           gradle tasks --no-daemon
 
-      - name: Build debug APK
+      - name: Build standalone Share Scan APK
         working-directory: android
-        run: gradle :app:assembleDebug --no-daemon
+        run: gradle :app:assembleDebug --no-daemon --stacktrace
 
-      - name: Upload debug APK
+      - name: Upload standalone APK
         uses: actions/upload-artifact@v4
         with:
-          name: ShareScan-debug-apk
+          name: ShareScan-standalone-apk
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 14
