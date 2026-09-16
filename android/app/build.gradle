@@ -71,6 +71,10 @@ tasks.named('preBuild').configure {
     dependsOn('preparePythonSources')
 }
 
+tasks.matching { it.name in ['mergeDebugPythonSources', 'mergeReleasePythonSources'] }.configureEach {
+    dependsOn('preparePythonSources')
+}
+
 chaquopy {
     defaultConfig {
         version = '3.11'
