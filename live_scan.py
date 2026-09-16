@@ -14,7 +14,6 @@ from reporting import write_scan_bundle
 OUTPUT_DIR=Path(os.getenv("SCAN_OUTPUT_DIR","scan_output"))
 CACHE_DIR=Path(os.getenv("SCAN_CACHE_DIR",".scan_cache"))
 CACHE_FILE=CACHE_DIR/"nse_stage1.csv"
-TARGET_SECONDS=float(os.getenv("SCAN_TARGET_SECONDS","30"))
 DEEP_LIMIT=int(os.getenv("SCAN_DEEP_LIMIT","120"))
 DEPTH_LIMIT=int(os.getenv("SCAN_DEPTH_LIMIT","10"))
 CACHE_MAX_AGE_HOURS=float(os.getenv("SCAN_CACHE_MAX_AGE_HOURS","18"))
@@ -38,8 +37,7 @@ def daily_prefilter_score(df: pd.DataFrame) -> dict:
     x=df.copy(); close=pd.to_numeric(x["close"],errors="coerce").dropna(); vol=pd.to_numeric(x.get("volume",0),errors="coerce").fillna(0)
     if close.empty:return {"score":0.0,"turnover_proxy":0.0,"current_volume":0,"avg_volume20":0,"rvol":0.0,"support":0.0,"resistance":0.0,"close":0.0}
     c=float(close.iloc[-1]); v=float(vol.iloc[-1]); av=float(vol.tail(20).mean()) if len(vol) else 0.0; rvol=v/av if av>0 else 0.0
-    ret5=(c/float(close.iloc[-6])-1.0)*100 if len(close)>=6 and float(close.iloc[-6]) else 0.0; ret20=(c/float(close.iloc[-21])-1.0)*100 if len(close)>=21 and float(close.iloc[-21]) else 0.0
-    momentum=max(0.0,min(100.0,50.0+ret5*4.0+ret20*1.5)); liquidity=max(0.0,min(100.0,20.0+math.log10(max(v*c,1.0))*4.0)); volume_score=max(0.0,min(100.0,rvol*25.0)); score=0.45*liquidity+0.30*volume_score+0.25*momentum
+    ret5=(c/float(close.iloc[-6])-1.0)*100 if len(close)>=6 and float(close.iloc[-6]) else 0.0; ret20=(c/float(close.iloc[-21])-1.0)*100 if len(close)>=21 and float(close.iloc[-21]) else 0.0; momentum=max(0.0,min(100.0,50.0+ret5*4.0+ret20*1.5)); liquidity=max(0.0,min(100.0,20.0+math.log10(max(v*c,1.0))*4.0)); volume_score=max(0.0,min(100.0,rvol*25.0)); score=0.45*liquidity+0.30*volume_score+0.25*momentum
     return {"score":round(score,4),"turnover_proxy":round(v*c,2),"current_volume":int(v),"avg_volume20":int(av),"rvol":round(rvol,4),"support":float(pd.to_numeric(x["low"],errors="coerce").tail(20).min()),"resistance":float(pd.to_numeric(x["high"],errors="coerce").tail(20).max()),"close":c}
 
 
@@ -87,13 +85,11 @@ def apply_depth(out,limit):
 def stage2(shortlisted,top_n,started):
     deep=shortlisted.head(min(DEEP_LIMIT,len(shortlisted))); syms=deep.yahoo_symbol.astype(str).tolist(); d15={}; d1h={}
     _write_status("RUNNING","Stage 2: 15m data डाउनलोड हो रहा है",25,stage="15m",shortlist=len(shortlisted))
-    if TARGET_SECONDS-(time.perf_counter()-started)>10:
-        try:d15=download_batch(syms,"10d","15m",retries=0)
-        except Exception as e:print(f"[WARN] 15m skipped: {e}")
+    try:d15=download_batch(syms,"10d","15m",retries=1)
+    except Exception as e:print(f"[WARN] 15m failed: {e}")
     _write_status("RUNNING","Stage 2: 1h data डाउनलोड हो रहा है",40,stage="1h",shortlist=len(shortlisted))
-    if TARGET_SECONDS-(time.perf_counter()-started)>8:
-        try:d1h=download_batch(syms,"60d","60m",retries=0)
-        except Exception as e:print(f"[WARN] 1h skipped: {e}")
+    try:d1h=download_batch(syms,"60d","60m",retries=1)
+    except Exception as e:print(f"[WARN] 1h failed: {e}")
     cfg=ScannerConfig(); analysed=[]
     for i,r in enumerate(deep.to_dict("records"),1):
         try:
@@ -102,14 +98,14 @@ def stage2(shortlisted,top_n,started):
         except Exception:pass
         if i%10==0 or i==len(deep):_write_status("RUNNING",f"Deep analysis: {i}/{len(deep)}",40+int(35*i/max(len(deep),1)),stage="deep",processed=i,total=len(deep))
     done={x["symbol"] for x in analysed}; rows=analysed+_prefilter_rows(shortlisted[~shortlisted.symbol.isin(done)])
-    out=pd.DataFrame(rows); out["rank_score"]=(out.rank_score-.12*out.false_breakout_risk.fillna(0)).clip(lower=0); depth_n=min(DEPTH_LIMIT,len(out)) if TARGET_SECONDS-(time.perf_counter()-started)>5 else 0
+    out=pd.DataFrame(rows); out["rank_score"]=(out.rank_score-.12*out.false_breakout_risk.fillna(0)).clip(lower=0)
     _write_status("RUNNING","Order-book/depth stage",78,stage="depth")
-    out=apply_depth(out,depth_n); q=out.sort_values("rank_score",ascending=False).head(top_n).sort_values(["volume","rank_score"],ascending=[False,False]).reset_index(drop=True); q.insert(0,"volume_rank",np.arange(1,len(q)+1)); return q
+    out=apply_depth(out,min(DEPTH_LIMIT,len(out))); q=out.sort_values("rank_score",ascending=False).head(top_n).sort_values(["volume","rank_score"],ascending=[False,False]).reset_index(drop=True); q.insert(0,"volume_rank",np.arange(1,len(q)+1)); return q
 
 
 def save_results(top,s1,runtime):
     OUTPUT_DIR.mkdir(parents=True,exist_ok=True); top.to_csv(OUTPUT_DIR/"top100_by_volume.csv",index=False); s1.to_csv(OUTPUT_DIR/"stage1_shortlist.csv",index=False)
-    payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"NSE CACHE-ONLY MODE","target_seconds":TARGET_SECONDS,"runtime_seconds":round(runtime,2),"cache_used":True,"shortlist_size":len(s1),"count":len(top),"results":top.replace({np.nan:None}).to_dict("records")}
+    payload={"generated_at":datetime.now().astimezone().isoformat(),"mode":"NSE SCAN","runtime_seconds":round(runtime,2),"cache_used":True,"shortlist_size":len(s1),"count":len(top),"results":top.replace({np.nan:None}).to_dict("records")}
     (OUTPUT_DIR/"top100_by_volume.json").write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding="utf-8"); write_scan_bundle(OUTPUT_DIR,payload,title="NSE स्कैन परिणाम")
     _write_status("COMPLETED","NSE scan पूरा हुआ",100,count=len(top),runtime_seconds=round(runtime,2),result_file="top100_by_volume.json")
 
@@ -117,6 +113,6 @@ def save_results(top,s1,runtime):
 def main():
     t0=time.perf_counter(); p=argparse.ArgumentParser(); p.add_argument("--top",type=int,default=100); p.add_argument("--shortlist",type=int,default=500); a=p.parse_args()
     _write_status("STARTING","NSE scanner शुरू हो रहा है",5,stage="cache")
-    s1=load_stage1_cache(max(a.shortlist,a.top)); print(f"Stage-1 shortlist: {len(s1)}"); _write_status("RUNNING",f"Stage-1 cache: {len(s1)} stocks",20,stage="stage1",shortlist=len(s1)); top=stage2(s1,a.top,t0); runtime=time.perf_counter()-t0; save_results(top,s1,runtime); print(f"NSE cache-only scan complete: {len(top)} in {runtime:.1f}s [{'TARGET_MET' if runtime<=TARGET_SECONDS else 'TARGET_MISSED'}]")
+    s1=load_stage1_cache(max(a.shortlist,a.top)); print(f"Stage-1 shortlist: {len(s1)}"); _write_status("RUNNING",f"Stage-1 cache: {len(s1)} stocks",20,stage="stage1",shortlist=len(s1)); top=stage2(s1,a.top,t0); runtime=time.perf_counter()-t0; save_results(top,s1,runtime); print(f"NSE scan complete: {len(top)} in {runtime:.1f}s")
 
 if __name__=="__main__":main()
