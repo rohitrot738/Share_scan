@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 def run_scan(top: int = 100, shortlist: int = 500) -> str:
-    """Run the real Share_scan engine inside the Android app process."""
+    """Run the real Share_scan engine locally inside the Android app."""
     home = Path(os.environ.get("HOME", "."))
     output = home / "scan_output"
     cache = home / "scan_cache"
@@ -15,7 +15,13 @@ def run_scan(top: int = 100, shortlist: int = 500) -> str:
 
     os.environ["SCAN_OUTPUT_DIR"] = str(output)
     os.environ["SCAN_CACHE_DIR"] = str(cache)
-    os.environ.pop("SCAN_TARGET_SECONDS", None)
+    os.environ["CACHE_BATCH_SIZE"] = "120"
+    os.environ["CACHE_BATCH_SLEEP"] = "1.0"
+
+    cache_file = cache / "nse_stage1.csv"
+    if not cache_file.exists():
+        import build_nse_cache
+        build_nse_cache.main()
 
     import sys
     import live_scan
