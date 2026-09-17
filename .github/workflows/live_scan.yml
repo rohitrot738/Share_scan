@@ -27,10 +27,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      GROWW_ACCESS_TOKEN: ${{ secrets.GROWW_ACCESS_TOKEN }}
       SCAN_TARGET_SECONDS: "30"
       SCAN_DEEP_LIMIT: "120"
-      SCAN_DEPTH_LIMIT: "10"
       SCAN_STAGE1_WORKERS: "4"
       SCAN_CACHE_DIR: ".scan_cache"
       CACHE_BATCH_SIZE: "300"
