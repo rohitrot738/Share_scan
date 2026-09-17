@@ -6,7 +6,6 @@ import numpy as np
 import pandas as pd
 from config import ScannerConfig
 from ghost_trade_core import ghost_trade_snapshot
-from groww_orderbook import fetch_depth_scores
 from market_data import download_batch
 from multi_timeframe import analyse_timeframes
 from reporting import write_scan_bundle
@@ -15,7 +14,6 @@ OUTPUT_DIR=Path(os.getenv("SCAN_OUTPUT_DIR","scan_output"))
 CACHE_DIR=Path(os.getenv("SCAN_CACHE_DIR",".scan_cache"))
 CACHE_FILE=CACHE_DIR/"nse_stage1.csv"
 DEEP_LIMIT=int(os.getenv("SCAN_DEEP_LIMIT","120"))
-DEPTH_LIMIT=int(os.getenv("SCAN_DEPTH_LIMIT","10"))
 CACHE_MAX_AGE_HOURS=float(os.getenv("SCAN_CACHE_MAX_AGE_HOURS","18"))
 
 
@@ -70,18 +68,6 @@ def _analyse(r,d15,d1h,cfg):
     return {"symbol":r["symbol"],"exchange":"NSE","name":r.get("name",""),"price":r.get("close",0),"volume":int(_safe_float(r.get("current_volume",0))),"avg_volume20":int(_safe_float(r.get("avg_volume20",0))),"rvol_daily":r.get("rvol",0),"rank_score":round(.55*ms+.25*gs+.20*_safe_float(r.get("score",0)),2),"mtf_score":round(ms,2),"mtf_state":mtf.get("final_state",""),"ghost_score":round(gs,2),"ghost_signal":ghost.get("signal",""),"false_breakout_risk":_safe_float(fb.get("risk",0)),"daily_support":r.get("support",0),"daily_resistance":r.get("resistance",0),"entry":plan.get("entry"),"stop":plan.get("stop"),"target1":plan.get("target1"),"target2":plan.get("target2"),"timeframes_used":",".join(sorted(tf)),"analysis_tier":"DEEP"}
 
 
-def apply_depth(out,limit):
-    for c,d in {"depth_score":np.nan,"bid_qty_5":np.nan,"ask_qty_5":np.nan,"imbalance":np.nan,"best_bid":np.nan,"best_ask":np.nan,"spread_bps":np.nan,"depth_source":"OHLCV_FALLBACK"}.items():out[c]=d
-    if not os.getenv("GROWW_ACCESS_TOKEN") or limit<=0:out["true_depth_used"]=False; return out
-    try:depth=fetch_depth_scores([("NSE",str(r.symbol)) for r in out.sort_values("rank_score",ascending=False).head(limit).itertuples()])
-    except Exception as e:print(f"[WARN] depth fallback: {e}"); depth={}
-    for idx,row in out.iterrows():
-        info=depth.get(("NSE",str(row.symbol)))
-        if info:
-            for k,v in info.items():out.at[idx,k]=v
-    out["true_depth_used"]=out.depth_score.notna(); return out
-
-
 def stage2(shortlisted,top_n,started):
     deep=shortlisted.head(min(DEEP_LIMIT,len(shortlisted))); syms=deep.yahoo_symbol.astype(str).tolist(); d15={}; d1h={}
     _write_status("RUNNING","Stage 2: 15m data डाउनलोड हो रहा है",25,stage="15m",shortlist=len(shortlisted))
@@ -99,8 +85,7 @@ def stage2(shortlisted,top_n,started):
         if i%10==0 or i==len(deep):_write_status("RUNNING",f"Deep analysis: {i}/{len(deep)}",40+int(35*i/max(len(deep),1)),stage="deep",processed=i,total=len(deep))
     done={x["symbol"] for x in analysed}; rows=analysed+_prefilter_rows(shortlisted[~shortlisted.symbol.isin(done)])
     out=pd.DataFrame(rows); out["rank_score"]=(out.rank_score-.12*out.false_breakout_risk.fillna(0)).clip(lower=0)
-    _write_status("RUNNING","Order-book/depth stage",78,stage="depth")
-    out=apply_depth(out,min(DEPTH_LIMIT,len(out))); q=out.sort_values("rank_score",ascending=False).head(top_n).sort_values(["volume","rank_score"],ascending=[False,False]).reset_index(drop=True); q.insert(0,"volume_rank",np.arange(1,len(q)+1)); return q
+    q=out.sort_values("rank_score",ascending=False).head(top_n).sort_values(["volume","rank_score"],ascending=[False,False]).reset_index(drop=True); q.insert(0,"volume_rank",np.arange(1,len(q)+1)); return q
 
 
 def save_results(top,s1,runtime):
