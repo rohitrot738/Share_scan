@@ -3,7 +3,8 @@ import pandas as pd
 from config import ScannerConfig
 from pattern_engine import extract_features
 from advanced_scoring import score_features_advanced
-from training_cases.yatharth_case_003 import CASE_ID as YATHARTH_CASE_ID, GENERIC_RULES as YATHARTH_RULES
+YATHARTH_CASE_ID = 'YATHARTH_PRE_BREAKOUT_2026_08_24'
+YATHARTH_RULES = {'extension_limit_pct': {'1m': 3.0, '5m': 3.0, 'default': 5.0}, 'resistance_proximity_pct': {'strong': 1.5, 'moderate': 3.0}, 'volume_ratio': {'strong': 2.0, 'moderate': 1.35}, 'base_width_pct': {'strong': 8.0, 'moderate': 12.0}}
 TF_WEIGHTS={'1m':.05,'5m':.15,'15m':.15,'30m':.10,'1h':.15,'4h':.10,'1d':.20,'1w':.10}
 def _pre_breakout_bonus(tf,df):
     if df is None or len(df)<25:return 0.0
