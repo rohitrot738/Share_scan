@@ -22,7 +22,7 @@ Detect the preparation phase before a fast bullish move across NSE/BSE instead o
 - relative-strength module for benchmark comparison
 - integrated `ghost_trade_core.py` snapshot engine
 
-Important: OHLCV cannot reveal the true exchange order book or actual hidden/bulk orders. The current bulk/order-flow modules are evidence-based proxies. A broker/exchange market-depth feed can later be attached to replace/augment them with real bid/ask depth and trades.
+Important: OHLCV cannot reveal the true exchange order book or actual hidden/bulk orders. The current bulk/order-flow modules are evidence-based proxies. This version deliberately uses no broker credentials or live market-depth connection; it runs entirely from public market-data sources.
 
 ## Live NSE/BSE pipeline
 
@@ -50,24 +50,12 @@ pip install -r requirements.txt
 python live_scan.py --top 10 --shortlist 120
 ```
 
-NSE only:
-
-```bash
-python live_scan.py --top 10 --shortlist 120 --nse-only
-```
-
-BSE only:
-
-```bash
-python live_scan.py --top 10 --shortlist 120 --bse-only
-```
-
 If BSE blocks its public endpoint, an optional CSV can be supplied through `EXTRA_SYMBOLS_FILE`. The CSV columns are `symbol,exchange,yahoo_symbol,name`; `yahoo_symbol` is optional and defaults to `.NS` for NSE or `.BO` for BSE.
 
 ### GitHub Actions
-Run **Actions → Live Market Scan → Run workflow**. Choose `top`, `shortlist` and `market`. The completed run uploads `share-scan-results` containing the CSV/JSON outputs.
+Run **Actions → NSE Scanner → Run workflow**. Choose `top` and `shortlist`. The completed run uploads an `nse-scanner-results-*` artifact containing the CSV/JSON outputs.
 
-The workflow also performs syntax and import checks on pull requests.
+The workflow validates syntax and imports before it runs the scanner. It requires no broker token or other repository secret.
 
 ## Offline dashboard and XML report
 
