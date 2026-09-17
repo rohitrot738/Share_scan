@@ -12,11 +12,11 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
-      - name: Build debug APK
+      - name: Verify, test, and build debug APK
         run: |
           curl -sSL https://services.gradle.org/distributions/gradle-8.10.2-bin.zip -o gradle.zip
           unzip -q gradle.zip -d "$RUNNER_TEMP"
-          "$RUNNER_TEMP/gradle-8.10.2/bin/gradle" :app:assembleDebug
+          "$RUNNER_TEMP/gradle-8.10.2/bin/gradle" :app:lintDebug :app:testDebugUnitTest :app:assembleDebug
       - uses: actions/upload-artifact@v4
         with:
           name: share-scan-debug-apk
