@@ -7,3 +7,6 @@ __pycache__/
 native/*.o
 native/*.so
 native/*.dylib
+.gradle/
+build/
+local.properties

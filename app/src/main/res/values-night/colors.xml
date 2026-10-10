@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="brand_primary">#A5B4FC</color>
+    <color name="on_primary">#1E1B4B</color>
+    <color name="primary_container">#2E2A6E</color>
+    <color name="on_primary_container">#E0E7FF</color>
+    <color name="bg">#070B14</color>
+    <color name="card">#0F1626</color>
+    <color name="surface_container">#0F1626</color>
+    <color name="track">#1E293B</color>
+    <color name="outline">#1E2A40</color>
+    <color name="text_primary">#E6EBF5</color>
+    <color name="text_secondary">#8B9AB4</color>
+    <color name="bull">#4ADE80</color>
+    <color name="bull_container">#0E2A1B</color>
+    <color name="warn">#FBBF24</color>
+    <color name="warn_container">#2E2108</color>
+    <color name="bear">#F87171</color>
+    <color name="bear_container">#2F1215</color>
+    <color name="neutral">#A3B1C6</color>
+    <color name="neutral_container">#1A2336</color>
+</resources>

@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.max
 import kotlin.math.min
 
-data class ScanResult(val symbol: String, val price: Double, val score: Double, val rvol: Double)
+data class ScanResult(val symbol: String, val price: Double, val score: Double, val rvol: Double, val change5d: Double)
 
 object NseScanner {
     private const val NSE_CSV = "https://archives.nseindia.com/content/equities/EQUITY_L.csv"
@@ -17,6 +17,7 @@ object NseScanner {
 
     fun scan(onProgress: (Int, Int) -> Unit): List<ScanResult> {
         val symbols = loadSymbols()
+        onProgress(0, symbols.size)
         val done = AtomicInteger(0)
         val pool = Executors.newFixedThreadPool(4)
         try {
@@ -57,7 +58,7 @@ object NseScanner {
         val momentum = if (oldClose > 0) ((close / oldClose) - 1.0) * 100.0 else 0.0
         val liquidity = min(100.0, max(0.0, 20.0 + kotlin.math.log10(max(volume * close, 1.0)) * 4.0))
         val score = min(100.0, max(0.0, 0.45 * liquidity + 0.30 * min(100.0, rvol * 25.0) + 0.25 * (50.0 + momentum * 4.0)))
-        return ScanResult(symbol, close, score, rvol)
+        return ScanResult(symbol, close, score, rvol, momentum)
     }
 
     private fun get(address: String): String {

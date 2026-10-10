@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light palette; values-night/colors.xml overrides these for dark mode. -->
+    <color name="brand_primary">#4338CA</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="primary_container">#E0E7FF</color>
+    <color name="on_primary_container">#1E1B4B</color>
+    <color name="bg">#F4F6FB</color>
+    <color name="card">#FFFFFF</color>
+    <color name="surface_container">#FFFFFF</color>
+    <color name="track">#E8ECF4</color>
+    <color name="outline">#E2E7F0</color>
+    <color name="text_primary">#0F172A</color>
+    <color name="text_secondary">#64748B</color>
+    <color name="bull">#15803D</color>
+    <color name="bull_container">#DCFCE7</color>
+    <color name="warn">#B45309</color>
+    <color name="warn_container">#FEF3C7</color>
+    <color name="bear">#B91C1C</color>
+    <color name="bear_container">#FEE2E2</color>
+    <color name="neutral">#475569</color>
+    <color name="neutral_container">#EEF2F7</color>
+
+    <!-- Brand gradient, identical in both themes. -->
+    <color name="hero_start">#312E81</color>
+    <color name="hero_mid">#4F46E5</color>
+    <color name="hero_end">#0891B2</color>
+    <color name="hero_text_soft">#D9FFFFFF</color>
+    <color name="hero_text_muted">#B3FFFFFF</color>
+    <color name="hero_track">#33FFFFFF</color>
+    <color name="icon_mint">#6EE7B7</color>
+</resources>
