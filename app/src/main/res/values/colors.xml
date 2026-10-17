@@ -11,7 +11,7 @@
     <!-- Top of the deep-space gradient; also the opaque status-bar strip. -->
     <color name="bg">#020108</color>
     <!-- Glass: ~80% opaque dark violet so the starfield faintly shows through cards. -->
-    <color name="card">#CC170E3F</color>
+    <color name="card">#E6170E3F</color>
     <color name="surface_container">#150D3A</color>
     <color name="track">#2A1E5E</color>
     <color name="outline">#3B2F7A</color>
@@ -44,7 +44,7 @@
     <color name="galaxy_star">#F5F3FF</color>
     <color name="galaxy_card_stroke">#66A78BFA</color>
     <color name="galaxy_chip_fill">#14A78BFA</color>
-    <color name="galaxy_sheet">#F2120A33</color>
+    <color name="galaxy_sheet">#FF120A33</color>
     <color name="galaxy_surface_lowest">#010005</color>
     <color name="galaxy_surface_low">#0E0829</color>
     <color name="galaxy_surface_high">#1D1347</color>
