@@ -6,10 +6,10 @@ import org.junit.Test
 class StockFormatTest {
     @Test
     fun tiersFollowScoreThresholds() {
-        assertEquals(StockFormat.Tier.STRONG, StockFormat.tier(65.0))
-        assertEquals(StockFormat.Tier.WATCH, StockFormat.tier(64.9))
-        assertEquals(StockFormat.Tier.WATCH, StockFormat.tier(52.0))
-        assertEquals(StockFormat.Tier.WEAK, StockFormat.tier(51.9))
+        assertEquals(StockFormat.Tier.STRONG, StockFormat.tier(75.0))
+        assertEquals(StockFormat.Tier.WATCH, StockFormat.tier(74.9))
+        assertEquals(StockFormat.Tier.WATCH, StockFormat.tier(62.0))
+        assertEquals(StockFormat.Tier.WEAK, StockFormat.tier(61.9))
     }
 
     @Test
@@ -74,5 +74,9 @@ class StockFormatTest {
         assertEquals("≤ 3×", StockFormat.range(Metric.RVOL, Bound(max = 3.0), "सभी"))
         assertEquals("-5% – +10%", StockFormat.range(Metric.CHANGE, Bound(-5.0, 10.0), "सभी"))
         assertEquals("₹50 – ₹1,000", StockFormat.range(Metric.PRICE, Bound(50.0, 1_000.0), "सभी"))
+        assertEquals("-2% – 5%", StockFormat.range(Metric.FROM_HIGH, Bound(-2.0, 5.0), "सभी"))
+        assertEquals("≤ 8%", StockFormat.range(Metric.BASE_RANGE, Bound(max = 8.0), "सभी"))
+        assertEquals("≥ 0%", StockFormat.range(Metric.VS_SMA50, Bound(min = 0.0), "सभी"))
+        assertEquals("-10% – +20%", StockFormat.range(Metric.VS_SMA50, Bound(-10.0, 20.0), "सभी"))
     }
 }

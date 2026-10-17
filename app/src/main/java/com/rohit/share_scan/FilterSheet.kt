@@ -174,6 +174,9 @@ class FilterSheet(
         Metric.TURNOVER -> R.string.metric_turnover
         Metric.RVOL -> R.string.metric_rvol
         Metric.CHANGE -> R.string.metric_change
+        Metric.FROM_HIGH -> R.string.metric_from_high
+        Metric.BASE_RANGE -> R.string.metric_base_range
+        Metric.VS_SMA50 -> R.string.metric_vs_sma50
         Metric.SCORE -> R.string.metric_score
     }
 
@@ -189,6 +192,14 @@ class FilterSheet(
         Metric.VOLUME -> activity.getString(R.string.hint_volume)
         Metric.TURNOVER -> activity.getString(R.string.hint_turnover)
         Metric.RVOL -> activity.getString(R.string.hint_rvol)
+        Metric.FROM_HIGH -> activity.getString(R.string.hint_from_high)
+        Metric.BASE_RANGE -> activity.getString(R.string.hint_base_range)
+        Metric.VS_SMA50 -> activity.getString(R.string.hint_vs_sma50)
+        Metric.SCORE -> activity.getString(
+            R.string.hint_score_mix,
+            StockFormat.metricValue(Metric.SCORE, StockFormat.STRONG_SCORE),
+            StockFormat.metricValue(Metric.SCORE, StockFormat.WATCH_SCORE),
+        )
         else -> null
     }
 

@@ -8,6 +8,15 @@ enum class Metric(val key: String, val stops: List<Double>) {
     TURNOVER("turnover", listOf(0.5, 1.0, 5.0, 10.0, 25.0, 50.0, 100.0, 500.0)),
     RVOL("rvol", listOf(0.5, 1.0, 1.5, 2.0, 3.0, 5.0, 10.0)),
     CHANGE("change", listOf(-20.0, -10.0, -5.0, 0.0, 5.0, 10.0, 20.0, 50.0)),
+
+    /** Percent below the 20-day high; negative values are breakouts above it. "≤ 3%" keeps stocks near resistance. */
+    FROM_HIGH("high20", listOf(-10.0, -5.0, -2.0, 0.0, 1.0, 2.0, 3.0, 5.0, 8.0, 10.0, 15.0, 25.0)),
+
+    /** Width of the latest 10-session base in percent; "≤ 8%" keeps tight consolidations. */
+    BASE_RANGE("base", listOf(2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0, 12.0, 15.0, 20.0, 30.0)),
+
+    /** Percent above (+) or below (-) the 50-day average; "≥ 0%" keeps stocks in an uptrend. */
+    VS_SMA50("sma50", listOf(-20.0, -10.0, -5.0, 0.0, 5.0, 10.0, 20.0, 30.0, 50.0)),
     SCORE("score", listOf(20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0));
 
     fun read(stock: ScanResult): Double? = when (this) {
@@ -17,6 +26,9 @@ enum class Metric(val key: String, val stops: List<Double>) {
         TURNOVER -> stock.turnoverCr
         RVOL -> stock.rvol
         CHANGE -> stock.change5d
+        FROM_HIGH -> stock.belowHigh20Pct
+        BASE_RANGE -> stock.baseRangePct
+        VS_SMA50 -> stock.vsSma50Pct
         SCORE -> stock.score
     }
 

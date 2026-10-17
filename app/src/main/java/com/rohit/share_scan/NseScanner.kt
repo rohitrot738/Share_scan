@@ -12,8 +12,6 @@ import java.util.concurrent.Callable
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.zip.GZIPInputStream
-import kotlin.math.max
-import kotlin.math.min
 
 const val CRORE = 10_000_000.0
 
@@ -42,6 +40,8 @@ data class PriceStructure(
     val sma20: Double,
     /** Null when fewer than 50 sessions are available. */
     val sma50: Double?,
+    /** Highest high of the latest 10 sessions, the top of the base that [low10] bottoms; null when not recorded. */
+    val high10: Double? = null,
 )
 
 data class ScanResult(
@@ -61,6 +61,18 @@ data class ScanResult(
 ) {
     /** Rupee value traded in the latest session, in crore. */
     val turnoverCr: Double get() = price * volume / CRORE
+
+    /** Percent below the 20-day high ([PriceStructure.high20]); negative once price has broken above it. */
+    val belowHigh20Pct: Double?
+        get() = structure?.high20?.takeIf { it > 0.0 }?.let { (it - price) / it * 100.0 }
+
+    /** Width of the latest 10-session base, highest high to lowest low, as a percent of its midpoint; small = tight. */
+    val baseRangePct: Double?
+        get() = structure?.let { s -> s.high10?.let { high -> BreakoutSignals.rangePct(high, s.low10) } }
+
+    /** Percent above (+) or below (-) the 50-day simple moving average. */
+    val vsSma50Pct: Double?
+        get() = structure?.sma50?.takeIf { it > 0.0 }?.let { (price / it - 1.0) * 100.0 }
 }
 
 /** Every stock one scan could score, best score first. [marketCapDate] is null when market caps are missing. */
@@ -106,25 +118,33 @@ object NseScanner {
         }.distinct().toList()
     }
 
+    /** One chart request per symbol: about 62 daily sessions, enough for the 50-day average. */
     private fun score(symbol: String): ScanResult? {
         val url = "https://query1.finance.yahoo.com/v8/finance/chart/$symbol.NS?range=3mo&interval=1d"
-        val result = JSONObject(get(url)).getJSONObject("chart").optJSONArray("result")?.optJSONObject(0) ?: return null
-        val quote = result.getJSONObject("indicators").getJSONArray("quote").getJSONObject(0)
-        val closes = quote.getJSONArray("close")
-        val volumes = quote.getJSONArray("volume")
-        if (closes.length() < 21 || volumes.length() < 21) return null
-        val close = closes.optDouble(closes.length() - 1, 0.0)
-        val volume = volumes.optDouble(volumes.length() - 1, 0.0)
-        if (close <= 0.0 || volume < 0.0) return null
-        var average = 0.0
-        for (i in closes.length() - 21 until closes.length() - 1) average += volumes.optDouble(i, 0.0)
-        average /= 20.0
-        val rvol = if (average > 0) volume / average else 0.0
-        val oldClose = closes.optDouble(closes.length() - 6, close)
-        val momentum = if (oldClose > 0) ((close / oldClose) - 1.0) * 100.0 else 0.0
-        val liquidity = min(100.0, max(0.0, 20.0 + kotlin.math.log10(max(volume * close, 1.0)) * 4.0))
-        val score = min(100.0, max(0.0, 0.45 * liquidity + 0.30 * min(100.0, rvol * 25.0) + 0.25 * (50.0 + momentum * 4.0)))
-        return ScanResult(symbol, close, score, rvol, momentum, volume)
+        val chart = JSONObject(get(url)).getJSONObject("chart").optJSONArray("result")?.optJSONObject(0) ?: return null
+        val quote = chart.optJSONObject("indicators")?.optJSONArray("quote")?.optJSONObject(0) ?: return null
+        val signals = BreakoutSignals.analyse(
+            closes = quote.series("close"),
+            highs = quote.series("high"),
+            lows = quote.series("low"),
+            volumes = quote.series("volume"),
+        ) ?: return null
+        return ScanResult(
+            symbol = symbol,
+            price = signals.price,
+            score = signals.score,
+            rvol = signals.rvol,
+            change5d = signals.change5d,
+            volume = signals.volume,
+            structure = signals.structure,
+            parts = signals.parts,
+        )
+    }
+
+    /** One of Yahoo's daily arrays; JSON nulls (holidays, a session still forming) stay null for [BreakoutSignals]. */
+    private fun JSONObject.series(name: String): List<Double?> {
+        val values = optJSONArray(name) ?: return emptyList()
+        return List(values.length()) { i -> if (values.isNull(i)) null else values.optDouble(i, Double.NaN) }
     }
 
     /**
