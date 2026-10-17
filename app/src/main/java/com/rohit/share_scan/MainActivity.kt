@@ -216,11 +216,8 @@ class MainActivity : AppCompatActivity() {
         val listBottom = ui.results.paddingBottom
         val emptyBottom = ui.emptyState.paddingBottom
         val bars = WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
-        ViewCompat.setOnApplyWindowInsetsListener(ui.appBar) { view, insets ->
-            val inset = insets.getInsets(bars)
-            view.updatePadding(left = inset.left, top = inset.top, right = inset.right)
-            insets
-        }
+        // The app bar handles the status bar itself (fitsSystemWindows + statusBarForeground in the layout),
+        // so content scrolled under the status bar stays hidden.
         ViewCompat.setOnApplyWindowInsetsListener(ui.listContainer) { _, insets ->
             val inset = insets.getInsets(bars)
             ui.results.updatePadding(left = inset.left, right = inset.right, bottom = listBottom + inset.bottom)
