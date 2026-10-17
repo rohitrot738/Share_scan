@@ -57,11 +57,16 @@ close_sheet() { if find_node id settingBse > /dev/null; then adb shell input key
 type_query() { adb shell input text "$1"; sleep 2; }
 clear_query() { for i in $(seq 1 20); do adb shell input keyevent KEYCODE_DEL; done; sleep 1; }
 
-# Java heap use of the app, from meminfo.
-heap() { adb shell dumpsys meminfo "$PKG" | grep -E "Dalvik Heap|Java Heap" | tr -s ' ' | tr '\n' ' '; echo; }
+# Allocated Java heap in KB and open TLS sockets of the app, from meminfo.
+heap() {
+  adb shell dumpsys meminfo "$PKG" | awk '/Dalvik Heap/ {alloc=$9}
+    match($0, /OpenSSL Sockets: *[0-9]+/) {s=substr($0, RSTART, RLENGTH); sub(/.*: */, "", s); sockets=s}
+    END {print alloc + 0, sockets + 0}'
+}
 # Dumps the app heap after a GC and writes its class histogram to ui-screens/heap-$1.txt.
 heap_dump() {
   local file=/data/local/tmp/$1.hprof last=-1 size=0
+  if [ -z "$(adb shell pidof $PKG)" ]; then echo "heap dump $1: app is not running"; return; fi
   adb shell rm -f "$file"
   adb shell am dumpheap -g "$PKG" "$file"
   for i in $(seq 1 60); do
@@ -75,14 +80,17 @@ heap_dump() {
   adb shell rm -f "$file"
 }
 
-# Waits up to 15 minutes, with a progress screenshot every 2 minutes; $1 names them, $2 is the poll to dump the heap at.
+# Waits up to 15 minutes, with a progress screenshot every 2 minutes; $1 names them. Logs heap use every minute
+# and dumps the heap once if it passes 80 MB.
 wait_scan() {
+  local spiked=""
   for i in $(seq 1 60); do
     flags=$(adb shell dumpsys activity top | grep 'id/startButton' | head -1 | awk '{print $2}')
-    case "$flags" in ??E*) echo "scan finished after about $((i * 15)) seconds"; return 0 ;; esac
-    if [ $((i % 4)) -eq 0 ]; then echo "heap $1 $i (pid $(adb shell pidof $PKG)): $(heap)"; fi
+    case "$flags" in ??E*) echo "scan finished after about $((i * 15)) seconds; heap KB, sockets: $(heap)"; return 0 ;; esac
+    read -r alloc sockets <<< "$(heap)"
+    if [ $((i % 4)) -eq 0 ]; then echo "heap $1 $i (pid $(adb shell pidof $PKG)): ${alloc} KB, ${sockets} TLS sockets"; fi
+    if [ -z "$spiked" ] && [ "${alloc:-0}" -gt 80000 ]; then spiked=1; echo "heap spike ${alloc} KB"; heap_dump "$1-spike"; fi
     if [ $((i % 8)) -eq 0 ]; then adb exec-out screencap -p > "$OUT/$1-progress-$i.png"; fi
-    if [ "$i" = "${2:-0}" ]; then heap_dump "$1-during"; fi
     sleep 15
   done
   echo "scan $1 did not finish"
@@ -102,7 +110,7 @@ shot 01-settings-all-markets 2
 close_sheet
 tap startButton
 sleep 20
-wait_scan scan1 12
+wait_scan scan1
 shot 02-results-with-badges 3
 heap_dump after-scan1
 search "globus"
@@ -126,8 +134,9 @@ shot 05-settings-nse-off-guard 1
 close_sheet
 tap startButton
 sleep 20
-wait_scan scan2 6
+wait_scan scan2
 shot 06-results-bse-only 3
+heap_dump after-scan2
 search "reliance"
 shot 07-search-reliance-on-bse 2
 adb shell input keyevent KEYCODE_BACK

@@ -114,29 +114,27 @@ def name_of(class_id):
     return strings.get(load_name.get(class_id), '0x%x' % class_id).replace('/', '.')
 
 
-obj_key = {}
+obj_key, obj_size = {}, {}
 count, size = Counter(), Counter()
 
 
-def instance(oid, cid, at, n):
-    key = name_of(cid)
+def record(oid, key, n):
     obj_key[oid] = key
+    obj_size[oid] = n
     count[key] += 1
-    size[key] += n + 8
+    size[key] += n
+
+
+def instance(oid, cid, at, n):
+    record(oid, name_of(cid), n + 8)
 
 
 def obj_array(oid, cid, at, n):
-    key = name_of(cid)
-    obj_key[oid] = key
-    count[key] += 1
-    size[key] += n * ID + 12
+    record(oid, name_of(cid), n * ID + 12)
 
 
 def prim_array(oid, kind, n):
-    key = PRIM_NAME[kind]
-    obj_key[oid] = key
-    count[key] += 1
-    size[key] += n * PRIM_SIZE[kind] + 12
+    record(oid, PRIM_NAME[kind], n * PRIM_SIZE[kind] + 12)
 
 
 sub_records(instance, obj_array, prim_array)
@@ -170,25 +168,41 @@ def ref_offsets(cid):
 
 
 referrers = defaultdict(Counter)
+referrer_bytes = defaultdict(Counter)
+largest = sorted(obj_size, key=obj_size.get, reverse=True)[:15]
+largest_from = defaultdict(list)
+
+
+def note(src, target_id):
+    target = obj_key.get(target_id)
+    if target in top:
+        referrers[target][src] += 1
+        referrer_bytes[target][src] += obj_size[target_id]
+    if target_id in largest_set:
+        largest_from[target_id].append(src)
+
+
+largest_set = set(largest)
 
 
 def instance_refs(oid, cid, at, n):
     src = name_of(cid)
     for off in ref_offsets(cid):
-        target = obj_key.get(rid(at + off))
-        if target in top:
-            referrers[target][src] += 1
+        note(src, rid(at + off))
 
 
 def array_refs(oid, cid, at, n):
     src = name_of(cid)
     for i in range(n):
-        target = obj_key.get(rid(at + i * ID))
-        if target in top:
-            referrers[target][src] += 1
+        note(src, rid(at + i * ID))
 
 
 sub_records(instance_refs, array_refs, lambda *a: None)
 print()
 for key, _ in size.most_common(8):
     print('referrers of %s: %s' % (key, ', '.join('%s=%d' % kv for kv in referrers[key].most_common(6))))
+    print('  bytes by referrer: %s' % ', '.join('%s=%d' % kv for kv in referrer_bytes[key].most_common(6)))
+print()
+print('largest objects:')
+for oid in largest:
+    print('%10d  %s  <- %s' % (obj_size[oid], obj_key[oid], ', '.join(largest_from[oid][:3]) or 'root'))

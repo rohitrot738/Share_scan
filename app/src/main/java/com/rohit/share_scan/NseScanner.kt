@@ -1,6 +1,7 @@
 package com.rohit.share_scan
 
 import org.json.JSONObject
+import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
@@ -403,9 +404,21 @@ object NseScanner {
                 setRequestProperty("Accept", "application/json,text/plain,*/*")
             }
         }
-        return try {
-            if (connection.responseCode !in 200..299) error("HTTP ${connection.responseCode}")
-            connection.inputStream.use(read)
-        } finally { connection.disconnect() }
+        try {
+            val status = connection.responseCode
+            if (status !in 200..299) {
+                // Read the short error body too, so its connection can be reused like any other.
+                connection.errorStream?.use { it.readBytes() }
+                error("HTTP $status")
+            }
+            // No disconnect(): a fully read response hands its connection back to the system's pool, so a scan's
+            // thousands of chart requests share a few connections. A new TLS connection per request left thousands
+            // of closed sockets waiting to be freed, and the heap ran out during the BSE part of a long scan.
+            return connection.inputStream.use(read)
+        } catch (failure: IOException) {
+            // A timed-out or broken connection must not go back to the pool.
+            connection.disconnect()
+            throw failure
+        }
     }
 }
