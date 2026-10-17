@@ -5,7 +5,7 @@
     <string name="hero_label">NSE • EQUITY SCANNER</string>
 
     <string name="status_ready_title">स्कैन के लिए तैयार</string>
-    <string name="status_ready_body">पूरे NSE को volume, momentum और liquidity पर rank करके top 100 candidates निकालता है।</string>
+    <string name="status_ready_body">पूरे NSE को breakout setup, trend, volume, momentum और liquidity पर rank करके top candidates निकालता है।</string>
     <string name="status_loading_title">Stock list ला रहे हैं…</string>
     <string name="status_loading_body">NSE equity list डाउनलोड हो रही है • %1$s</string>
     <string name="status_scanning_title">स्कैन हो रहा है</string>
