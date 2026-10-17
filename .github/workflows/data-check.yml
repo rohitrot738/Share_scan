@@ -10,8 +10,11 @@ jobs:
     steps:
       - name: Probe Yahoo ticker forms for SME stocks
         run: |
+          set +e
           UA="Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Mobile Safari/537.36"
-          curl -sSL -m 30 -A "$UA" -o sme.csv https://nsearchives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv
+          curl -sSL -m 30 -A "$UA" -o sme.csv -w "sme list %{http_code}\n" https://nsearchives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv
+          [ -s sme.csv ] || curl -sSL -m 30 -A "$UA" -o sme.csv -w "sme list (archives) %{http_code}\n" https://archives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv
+          echo "sme rows: $(($(wc -l < sme.csv) - 1))"
           closes() {
             curl -s -m 15 -A "ShareScan/1.0 (Android)" -o y.json "https://query1.finance.yahoo.com/v8/finance/chart/$1?range=3mo&interval=1d"
             python3 -c "import json;d=json.load(open('y.json'));r=(d.get('chart') or {}).get('result') or [];q=r[0]['indicators']['quote'][0] if r else {};print(sum(1 for c in (q.get('close') or []) if c is not None))" 2>/dev/null || echo 0
