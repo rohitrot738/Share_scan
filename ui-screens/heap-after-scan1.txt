@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/runner/work/Share_scan/Share_scan/.github/heap-histogram.py", line 11, in <module>
+    header_end = bytes(data[:64]).index(b'\0')
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: subsection not found
