@@ -83,6 +83,8 @@ class ScanFiltersTest {
         """.trimIndent()
         val shares = NseScanner.parseIssuedShares(ByteArrayInputStream(csv.toByteArray()))
         assertEquals(mapOf("BIG" to 20_000_000.0), shares)
+        val withByteOrderMark = Char(0xFEFF) + csv
+        assertEquals(shares, NseScanner.parseIssuedShares(ByteArrayInputStream(withByteOrderMark.toByteArray())))
     }
 
     @Test

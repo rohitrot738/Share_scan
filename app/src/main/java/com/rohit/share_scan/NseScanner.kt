@@ -39,6 +39,7 @@ object NseScanner {
     private const val NSE_CSV = "https://archives.nseindia.com/content/equities/EQUITY_L.csv"
     private const val SECURITY_FILE = "https://nsearchives.nseindia.com/content/cm/NSE_CM_security_%s.csv.gz"
     private const val USER_AGENT = "ShareScan/1.0 (Android)"
+    private val BYTE_ORDER_MARK = Char(0xFEFF)
     private const val BROWSER_AGENT =
         "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Mobile Safari/537.36"
 
@@ -116,7 +117,7 @@ object NseScanner {
     internal fun parseIssuedShares(input: InputStream): Map<String, Double> {
         val lines = input.bufferedReader().lineSequence().iterator()
         if (!lines.hasNext()) return emptyMap()
-        val header = splitCsv(lines.next().removePrefix("﻿")).map { it.trim() }
+        val header = splitCsv(lines.next().trimStart(BYTE_ORDER_MARK)).map { it.trim() }
         val symbolAt = header.indexOf("TckrSymb")
         val seriesAt = header.indexOf("SctySrs")
         val issuedAt = header.indexOf("IssdCptl")
