@@ -1,6 +1,7 @@
 package com.rohit.share_scan
 
 import android.content.res.ColorStateList
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.annotation.ColorRes
@@ -15,6 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.materialswitch.MaterialSwitch
 import com.rohit.share_scan.databinding.ItemHelpBinding
 import com.rohit.share_scan.databinding.ItemMenuBinding
 import com.rohit.share_scan.databinding.ItemThemeBinding
@@ -146,12 +148,9 @@ class SettingsSheet(
             actions.keepScreenOnChanged(on)
         }
         ui.settingScreenRow.setOnClickListener { ui.settingScreen.toggle() }
-        ui.settingSme.isChecked = settings.includeSme
-        ui.settingSme.setOnCheckedChangeListener { _, on -> settings.includeSme = on }
-        ui.settingSmeRow.setOnClickListener { ui.settingSme.toggle() }
-        ui.settingBse.isChecked = settings.includeBse
-        ui.settingBse.setOnCheckedChangeListener { _, on -> settings.includeBse = on }
-        ui.settingBseRow.setOnClickListener { ui.settingBse.toggle() }
+        bindMarket(ui.settingNse, ui.settingNseRow, settings.includeNse) { settings.includeNse = it }
+        bindMarket(ui.settingSme, ui.settingSmeRow, settings.includeSme) { settings.includeSme = it }
+        bindMarket(ui.settingBse, ui.settingBseRow, settings.includeBse) { settings.includeBse = it }
 
         val current = settings.chartSite
         ChartSite.entries.forEach { site ->
@@ -183,6 +182,21 @@ class SettingsSheet(
         // Closing the sheet (or the screen being re-created) takes an open "पक्का?" dialog with it.
         sheet.setOnDismissListener { confirmDialog?.dismiss() }
         return sheet
+    }
+
+    /** A market switch; turning off the last market still on is refused, since the scan would have nothing to scan. */
+    private fun bindMarket(switch: MaterialSwitch, row: View, on: Boolean, save: (Boolean) -> Unit) {
+        switch.isChecked = on
+        switch.setOnCheckedChangeListener { _, checked ->
+            val anyOn = listOf(ui.settingNse, ui.settingSme, ui.settingBse).any { it.isChecked }
+            if (!checked && !anyOn) {
+                switch.isChecked = true
+                android.widget.Toast.makeText(activity, R.string.settings_market_needed, android.widget.Toast.LENGTH_SHORT).show()
+            } else {
+                save(checked)
+            }
+        }
+        row.setOnClickListener { switch.toggle() }
     }
 
     private fun confirm(message: String, action: () -> Unit) {

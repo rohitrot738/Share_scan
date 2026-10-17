@@ -22,9 +22,10 @@ object Prefs {
     /** [ChartSite.key] the detail sheet's chart button opens. */
     const val CHART_SITE = "chart_site"
 
-    /** Booleans from the Settings sheet; the first two are on by default, the SME and BSE scans off. */
+    /** Booleans from the Settings sheet; the first three are on by default, the SME and BSE scans off. */
     const val CHECK_UPDATES = "check_updates"
     const val KEEP_SCREEN_ON = "keep_screen_on"
+    const val INCLUDE_NSE = "include_nse"
     const val INCLUDE_SME = "include_sme"
     const val INCLUDE_BSE = "include_bse"
 }

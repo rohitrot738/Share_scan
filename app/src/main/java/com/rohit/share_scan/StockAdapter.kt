@@ -54,13 +54,12 @@ class StockAdapter(
 
         ui.symbol.text = stock.symbol
         val name = StockSearch.shortName(stock.name)
-        val market = when (stock.market) {
-            Market.NSE -> null
-            Market.NSE_SME -> R.string.item_market_sme
-            Market.BSE -> R.string.item_market_bse
-        }
-        ui.companyName.isVisible = name.isNotEmpty() || market != null
-        ui.companyName.text = market?.let { context.getString(it, name) } ?: name
+        ui.companyName.isVisible = name.isNotEmpty()
+        ui.companyName.text = name
+        val exchange = MarketStyle.of(stock.market)
+        ui.exchange.setText(exchange.label)
+        ui.exchange.setTextColor(color(exchange.text))
+        ui.exchange.backgroundTintList = ColorStateList.valueOf(color(exchange.container))
         bindRankBadge(ui.rankBadge, item.badge)
         ui.change.text = context.getString(R.string.item_change, StockFormat.change(stock.change5d))
         ui.change.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
@@ -96,6 +95,7 @@ class StockAdapter(
 
         ui.root.contentDescription = listOfNotNull(
             context.getString(R.string.item_description, item.rank, stock.symbol, score),
+            context.getString(exchange.description),
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,
         ).joinToString(", ")

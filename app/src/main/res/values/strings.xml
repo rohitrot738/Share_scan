@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Share Scan</string>
-    <string name="app_tagline">NSE pre-breakout scanner</string>
+    <string name="app_tagline">NSE • BSE pre-breakout scanner</string>
     <string name="hero_label">NSE • EQUITY SCANNER</string>
 
     <string name="status_ready_title">स्कैन के लिए तैयार</string>
