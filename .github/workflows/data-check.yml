@@ -19,12 +19,12 @@ jobs:
             -o bse.json -w "http %{http_code} %{size_download} bytes\n" \
             "https://api.bseindia.com/BseIndiaAPI/api/ListofScripData/w?Group=&Scripcode=&industry=&segment=Equity&status=Active"
           head -c 600 bse.json; echo
-          for d in 0 1 2 3 4 5 6; do
+          for d in 0 1 2 3 4 5 6 7 8; do
             day=$(date -u -d "-$d day" +%Y%m%d)
             url="https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_${day}_F_0000.CSV"
-            code=$(curl -sS -m 30 -A "$UA" -H "Referer: https://www.bseindia.com/" -o bhav.csv -w "%{http_code}" "$url")
-            echo "bhavcopy $day -> $code $(wc -c < bhav.csv) bytes"
-            [ "$code" = "200" ] && [ "$(wc -c < bhav.csv)" -gt 10000 ] && break
+            code=$(curl -sS -m 30 -A "$UA" -H "Referer: https://www.bseindia.com/" -o bhav.csv -w "%{http_code} %{content_type}" "$url")
+            echo "bhavcopy $day -> $code $(wc -c < bhav.csv) bytes: $(head -c 60 bhav.csv | tr -d '\r\n')"
+            head -1 bhav.csv | grep -q TckrSymb && break
           done
           head -3 bhav.csv
           python3 - <<'PY'
