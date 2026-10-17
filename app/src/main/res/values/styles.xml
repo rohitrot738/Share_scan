@@ -157,6 +157,14 @@
         <item name="scanLogoBackground">@drawable/bg_logo_midnight</item>
     </style>
 
+    <!--
+        The system draws the launch window from the manifest theme before MainActivity can apply the
+        picked one, so it gets a plain near-black that suits all four themes instead of Galaxy's sky.
+    -->
+    <style name="Theme.ShareScan.Launch">
+        <item name="android:windowBackground">@color/galaxy_bg</item>
+    </style>
+
     <!-- Lets the filter sheet draw behind the navigation bar instead of leaving a black strip under it. -->
     <style name="ThemeOverlay.ShareScan.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="android:navigationBarColor">@android:color/transparent</item>

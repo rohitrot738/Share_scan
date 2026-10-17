@@ -3,13 +3,13 @@
     <!-- Raw palettes of the Nebula, Aurora and Midnight themes (values/styles.xml); Galaxy's is in colors.xml. -->
 
     <!-- Nebula -->
-    <color name="nebula_accent">#F472B6</color>
-    <color name="nebula_on_accent">#3B0A24</color>
-    <color name="nebula_accent_container">#5E1742</color>
-    <color name="nebula_on_accent_container">#FCE7F3</color>
-    <color name="nebula_primary_inverse">#BE185D</color>
+    <color name="nebula_accent">#E879F9</color>
+    <color name="nebula_on_accent">#3B0A3F</color>
+    <color name="nebula_accent_container">#581C5C</color>
+    <color name="nebula_on_accent_container">#FAE8FF</color>
+    <color name="nebula_primary_inverse">#A21CAF</color>
     <color name="nebula_secondary">#C084FC</color>
-    <color name="nebula_tertiary">#FB7185</color>
+    <color name="nebula_tertiary">#F9A8D4</color>
     <color name="nebula_bg">#07020A</color>
     <color name="nebula_space_mid">#0A030D</color>
     <color name="nebula_space_bottom">#140517</color>
@@ -22,21 +22,21 @@
     <color name="nebula_text_soft">#D9A9C4</color>
     <color name="nebula_outline">#5C2350</color>
     <color name="nebula_card">#E6240C2E</color>
-    <color name="nebula_card_stroke">#66F472B6</color>
+    <color name="nebula_card_stroke">#66E879F9</color>
     <color name="nebula_sheet">#FF1B0A21</color>
     <color name="nebula_track">#3F1735</color>
-    <color name="nebula_chip_fill">#14F472B6</color>
+    <color name="nebula_chip_fill">#14E879F9</color>
     <color name="nebula_hero_start">#2D0A2E</color>
     <color name="nebula_hero_mid">#9D1C6A</color>
     <color name="nebula_hero_end">#6D28D9</color>
 
     <!-- Aurora -->
-    <color name="aurora_accent">#5EEAD4</color>
-    <color name="aurora_on_accent">#042F2E</color>
-    <color name="aurora_accent_container">#115E59</color>
-    <color name="aurora_on_accent_container">#CCFBF1</color>
-    <color name="aurora_primary_inverse">#0F766E</color>
-    <color name="aurora_secondary">#86EFAC</color>
+    <color name="aurora_accent">#67E8F9</color>
+    <color name="aurora_on_accent">#083344</color>
+    <color name="aurora_accent_container">#155E75</color>
+    <color name="aurora_on_accent_container">#CFFAFE</color>
+    <color name="aurora_primary_inverse">#0E7490</color>
+    <color name="aurora_secondary">#7DD3FC</color>
     <color name="aurora_tertiary">#93C5FD</color>
     <color name="aurora_bg">#010508</color>
     <color name="aurora_space_mid">#02080B</color>
@@ -50,12 +50,12 @@
     <color name="aurora_text_soft">#9BC7C4</color>
     <color name="aurora_outline">#1E5052</color>
     <color name="aurora_card">#E6082226</color>
-    <color name="aurora_card_stroke">#665EEAD4</color>
+    <color name="aurora_card_stroke">#6667E8F9</color>
     <color name="aurora_sheet">#FF061A1E</color>
     <color name="aurora_track">#10393A</color>
-    <color name="aurora_chip_fill">#145EEAD4</color>
+    <color name="aurora_chip_fill">#1467E8F9</color>
     <color name="aurora_hero_start">#042A2E</color>
-    <color name="aurora_hero_mid">#0E7C6B</color>
+    <color name="aurora_hero_mid">#0B6B5D</color>
     <color name="aurora_hero_end">#1E40AF</color>
 
     <!-- Midnight -->
