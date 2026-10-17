@@ -41,6 +41,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # The debug APK rides along so it can be handed over without the (blocked) artifact storage.
+          cp app/build/outputs/apk/debug/app-debug.apk ui-screens/share-scan-debug.apk
           git add ui-screens
           git commit -m "Add emulator UI screenshots for review" || exit 0
           # Another push may have landed while the emulator ran; replay the screenshots on top of it.
