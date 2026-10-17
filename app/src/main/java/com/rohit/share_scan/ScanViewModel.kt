@@ -74,9 +74,17 @@ data class ScanUiState(
         if (watchlistOnly) matching.filter { it.starred } else visible
     }
 
-    /** [listed] narrowed by the search; ranks keep their numbers. */
+    /**
+     * [listed] narrowed by the search; ranks keep their numbers. A search looks past the Top limit, through every
+     * stock inside the filters, so any scanned stock can be found by its symbol or name.
+     */
     val shown: List<RankedStock> by lazy {
-        if (query.isBlank()) listed else listed.filter { StockSearch.matches(it.stock, query) }
+        if (query.isBlank()) {
+            listed
+        } else {
+            val pool = if (watchlistOnly) matching.filter { it.starred } else matching
+            pool.filter { StockSearch.matches(it.stock, query) }
+        }
     }
 
     val volumeSpikes: Int get() = visible.count { it.stock.rvol >= StockFormat.SPIKE_RVOL }
@@ -125,7 +133,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         )
         worker.execute {
             val outcome = runCatching {
-                NseScanner.scan(includeSme = settings.includeSme) { finished, total ->
+                NseScanner.scan(includeSme = settings.includeSme, includeBse = settings.includeBse) { finished, total ->
                     // Progress arrives from several pool threads, so keep the highest count seen.
                     state.update { it.copy(phase = ScanPhase.SCANNING, done = maxOf(it.done, finished), total = total) }
                 }

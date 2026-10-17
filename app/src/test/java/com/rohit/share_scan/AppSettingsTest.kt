@@ -27,6 +27,18 @@ class AppSettingsTest {
     }
 
     @Test
+    fun bseOnlyStocksUseBseAddresses() {
+        val bse = Market.BSE
+        assertEquals(StockFormat.chartUrl("MUZALI", "BSE"), ChartSite.TRADINGVIEW.url("MUZALI", bse, "539410"))
+        // Chartink has no BSE pages, so it falls back to TradingView.
+        assertEquals(ChartSite.TRADINGVIEW, ChartSite.CHARTINK.forMarket(bse))
+        assertEquals(ChartSite.CHARTINK, ChartSite.CHARTINK.forMarket(Market.NSE_SME))
+        assertEquals(StockFormat.chartUrl("MUZALI", "BSE"), ChartSite.CHARTINK.url("MUZALI", bse, "539410"))
+        assertEquals("https://www.google.com/finance/quote/539410:BOM", ChartSite.GOOGLE_FINANCE.url("MUZALI", bse, "539410"))
+        assertEquals("https://www.screener.in/company/539410/", ChartSite.SCREENER.url("MUZALI", bse, "539410"))
+    }
+
+    @Test
     fun symbolsWithAmpersandAreEscaped() {
         assertEquals("https://chartink.com/stocks/m%26m.html", ChartSite.CHARTINK.url("M&M"))
         assertEquals("https://www.screener.in/company/M%26M/", ChartSite.SCREENER.url("M&M"))

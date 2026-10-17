@@ -49,18 +49,19 @@ class StockSearchTest {
             "20MICRONS,Duplicate,EQ,06-OCT-2008\n\n"
         assertEquals(
             listOf(
-                Listing("20MICRONS", "20 Microns Limited", sme = true),
-                Listing("M&M", "Mahindra & Mahindra, Limited", sme = true),
+                Listing("20MICRONS", "20 Microns Limited", Market.NSE_SME),
+                Listing("M&M", "Mahindra & Mahindra, Limited", Market.NSE_SME),
             ),
-            NseScanner.parseListings(csv, sme = true),
+            NseScanner.parseListings(csv, Market.NSE_SME),
         )
-        assertTrue(NseScanner.parseListings("", sme = false).isEmpty())
+        assertTrue(NseScanner.parseListings("", Market.NSE).isEmpty())
 
         // The SME file names its columns with underscores and a trailing comma.
-        val smeCsv = "SYMBOL,NAME_OF_COMPANY,SERIES,DATE_OF_LISTING,\nRKFAL,R.K. Fashion Accessories Limited,ST,12-Oct-26,\n"
+        val smeCsv = "SYMBOL,NAME_OF_COMPANY,SERIES,DATE_OF_LISTING,PAID_UP_VALUE,ISIN_NUMBER,FACE_VALUE,\n" +
+            "RKFAL,R.K. Fashion Accessories Limited,ST,12-Oct-26,10,INE2O2Y01016,10,\n"
         assertEquals(
-            listOf(Listing("RKFAL", "R.K. Fashion Accessories Limited", sme = true)),
-            NseScanner.parseListings(smeCsv, sme = true),
+            listOf(Listing("RKFAL", "R.K. Fashion Accessories Limited", Market.NSE_SME, "INE2O2Y01016")),
+            NseScanner.parseListings(smeCsv, Market.NSE_SME),
         )
     }
 }

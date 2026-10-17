@@ -87,7 +87,7 @@ object StockFormat {
         return String.format(Locale.US, "%02d:%02d", seconds / 60, seconds % 60)
     }
 
-    /** TradingView spells NSE symbols such as M&M and BAJAJ-AUTO as M_M and BAJAJ_AUTO. */
-    fun chartUrl(symbol: String): String =
-        "https://www.tradingview.com/chart/?symbol=NSE:" + symbol.replace('&', '_').replace('-', '_')
+    /** TradingView spells symbols such as M&M and BAJAJ-AUTO as M_M and BAJAJ_AUTO; [exchange] is NSE or BSE. */
+    fun chartUrl(symbol: String, exchange: String = "NSE"): String =
+        "https://www.tradingview.com/chart/?symbol=$exchange:" + symbol.replace('&', '_').replace('-', '_')
 }

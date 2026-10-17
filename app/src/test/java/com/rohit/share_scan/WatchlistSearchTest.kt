@@ -37,6 +37,16 @@ class WatchlistSearchTest {
     }
 
     @Test
+    fun searchLooksPastTheTopLimit() {
+        val state = ScanUiState(results = results, filters = ScanFilters(limit = 2), query = "infy")
+        assertEquals(listOf("TECHM" to 1, "TCS" to 2), ranks(state.visible))
+        assertEquals(listOf("INFY" to 5), ranks(state.sortedResults))
+        // Filters still apply: INFY is under the price floor here.
+        val priced = state.copy(filters = ScanFilters(limit = 2).with(Metric.PRICE, Bound(min = 2_000.0)))
+        assertTrue(priced.sortedResults.isEmpty())
+    }
+
+    @Test
     fun watchlistShowsStarredStocksInsideTheFilters() {
         val filters = ScanFilters(limit = 2).with(Metric.PRICE, Bound(min = 1_000.0))
         val state = ScanUiState(

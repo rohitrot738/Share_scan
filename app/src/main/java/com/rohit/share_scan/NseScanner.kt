@@ -60,8 +60,10 @@ data class ScanResult(
     val parts: List<ScorePart> = emptyList(),
     /** Company name from NSE's listing, e.g. "Tata Consultancy Services Limited"; empty when unknown. */
     val name: String = "",
-    /** Listed on NSE's SME platform (Emerge) rather than the main board. */
-    val sme: Boolean = false,
+    /** Where it is listed: NSE's main board, NSE's SME platform (Emerge) or only on BSE. */
+    val market: Market = Market.NSE,
+    /** BSE's numeric scrip code, for BSE-only stocks; empty otherwise. */
+    val bseCode: String = "",
 ) {
     /** Rupee value traded in the latest session, in crore. */
     val turnoverCr: Double get() = price * volume / CRORE
@@ -82,8 +84,17 @@ data class ScanResult(
 /** Every stock one scan could score, best score first. [marketCapDate] is null when market caps are missing. */
 data class ScanOutput(val results: List<ScanResult>, val marketCapDate: LocalDate?)
 
-/** One row of an NSE listing file. */
-data class Listing(val symbol: String, val name: String, val sme: Boolean = false)
+/** Where a stock is listed; decides its Yahoo ticker, chart links and label. */
+enum class Market { NSE, NSE_SME, BSE }
+
+/** One row of an exchange's listing file; [isin] lets BSE stocks that also trade on NSE be skipped. */
+data class Listing(
+    val symbol: String,
+    val name: String,
+    val market: Market = Market.NSE,
+    val isin: String = "",
+    val bseCode: String = "",
+)
 
 object NseScanner {
     private const val NSE_CSV = "https://archives.nseindia.com/content/equities/EQUITY_L.csv"
@@ -93,16 +104,24 @@ object NseScanner {
         "https://archives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv",
     )
     private const val SECURITY_FILE = "https://nsearchives.nseindia.com/content/cm/NSE_CM_security_%s.csv.gz"
+    /** BSE's daily equity bhavcopy: every scrip traded that day, with its ISIN; the source of BSE-only stocks. */
+    private const val BSE_BHAVCOPY = "https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_%s_F_0000.CSV"
+    private val INDIA = ZoneId.of("Asia/Kolkata")
     private const val USER_AGENT = "ShareScan/1.0 (Android)"
     private val BYTE_ORDER_MARK = Char(0xFEFF)
     private const val BROWSER_AGENT =
         "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Mobile Safari/537.36"
 
-    /** Scans every main-board stock, plus the SME platform's when [includeSme] is on and its list loads. */
-    fun scan(includeSme: Boolean = false, onProgress: (Int, Int) -> Unit): ScanOutput {
-        val main = parseListings(get(NSE_CSV), sme = false)
+    /**
+     * Scans every NSE main-board stock, plus NSE's SME platform when [includeSme] is on and the stocks listed only
+     * on BSE when [includeBse] is on. An extra list that does not load is skipped and the rest of the scan runs.
+     */
+    fun scan(includeSme: Boolean = false, includeBse: Boolean = false, onProgress: (Int, Int) -> Unit): ScanOutput {
+        val main = parseListings(get(NSE_CSV), Market.NSE)
         val sme = if (includeSme) loadSmeListings() else emptyList()
-        val symbols = (main + sme).distinctBy { it.symbol }
+        val nse = main + sme
+        val bse = if (includeBse) bseOnly(loadBseListings(), nse) else emptyList()
+        val symbols = (nse + bse).distinctBy { it.symbol }
         onProgress(0, symbols.size)
         val done = AtomicInteger(0)
         val pool = Executors.newFixedThreadPool(4)
@@ -125,10 +144,72 @@ object NseScanner {
         }
     }
 
+    /**
+     * BSE stocks that do not also trade on NSE: matched by ISIN, and by symbol so an unrelated BSE scrip never takes
+     * an NSE stock's place in the watchlist or rank history.
+     */
+    internal fun bseOnly(bse: List<Listing>, nse: List<Listing>): List<Listing> {
+        val isins = nse.mapTo(HashSet()) { it.isin }.apply { remove("") }
+        val symbols = nse.mapTo(HashSet()) { it.symbol }
+        return bse.filter { it.isin !in isins && it.symbol !in symbols }
+    }
+
+    /** The latest BSE bhavcopy from the last week; on holidays BSE serves a web page instead, which parses to nothing. */
+    private fun loadBseListings(): List<Listing> {
+        val today = LocalDate.now(INDIA)
+        val format = DateTimeFormatter.ofPattern("yyyyMMdd", Locale.US)
+        for (daysBack in 0L until 8L) {
+            val address = BSE_BHAVCOPY.format(today.minusDays(daysBack).format(format))
+            val listings = runCatching {
+                parseBseBhavcopy(open(address, browser = true, referer = "https://www.bseindia.com/") {
+                    it.bufferedReader().readText()
+                })
+            }.getOrNull()
+            if (listings != null && listings.size >= 500) return listings
+        }
+        return emptyList()
+    }
+
+    /**
+     * Shares from a BSE bhavcopy (UDiFF format). ETFs, debt and government securities are left out by their BSE
+     * group (SctySrs) and, for ETFs filed under ordinary groups, by name.
+     */
+    internal fun parseBseBhavcopy(csv: String): List<Listing> {
+        val lines = csv.trimStart(BYTE_ORDER_MARK).lineSequence().filter { it.isNotBlank() }.iterator()
+        if (!lines.hasNext()) return emptyList()
+        val header = splitCsv(lines.next()).map { it.trim() }
+        val symbolAt = header.indexOf("TckrSymb")
+        val codeAt = header.indexOf("FinInstrmId")
+        val isinAt = header.indexOf("ISIN")
+        val groupAt = header.indexOf("SctySrs")
+        val nameAt = header.indexOf("FinInstrmNm")
+        if (symbolAt < 0 || codeAt < 0 || isinAt < 0) return emptyList()
+        val listings = ArrayList<Listing>()
+        for (line in lines) {
+            val cells = splitCsv(line)
+            fun cell(index: Int) = cells.getOrNull(index)?.trim().orEmpty()
+            val symbol = cell(symbolAt).uppercase(Locale.US)
+            if (!symbol.matches(SYMBOL) || cell(groupAt).uppercase(Locale.US) in BSE_NON_EQUITY_GROUPS) continue
+            val name = cell(nameAt)
+            if (ETF_NAME.containsMatchIn(name)) continue
+            listings += Listing(symbol, titleCase(name), Market.BSE, cell(isinAt), cell(codeAt))
+        }
+        return listings.distinctBy { it.symbol }
+    }
+
+    /** BSE groups that are not company shares: ETFs, debt and government securities. */
+    private val BSE_NON_EQUITY_GROUPS = setOf("E", "F", "G", "GS", "IF", "IT", "DT")
+    private val ETF_NAME = Regex("""\bETF\b|\bBEES\b""", RegexOption.IGNORE_CASE)
+
+    /** BSE writes names in capitals ("AEGIS LOGISTICS LTD."); NSE's style reads better on the cards. */
+    internal fun titleCase(name: String): String =
+        if (name.any { it.isLowerCase() }) name
+        else name.lowercase(Locale.ROOT).split(' ').joinToString(" ") { word -> word.replaceFirstChar { it.titlecase(Locale.ROOT) } }
+
     /** The SME list from whichever NSE host answers; empty when none does, so the main-board scan still runs. */
     private fun loadSmeListings(): List<Listing> {
         for (address in SME_CSVS) {
-            val listings = runCatching { parseListings(open(address, browser = true) { it.bufferedReader().readText() }, sme = true) }
+            val listings = runCatching { parseListings(open(address, browser = true) { it.bufferedReader().readText() }, Market.NSE_SME) }
                 .getOrNull()
             if (!listings.isNullOrEmpty()) return listings
         }
@@ -139,37 +220,38 @@ object NseScanner {
      * Symbols and company names from an NSE listing file (EQUITY_L.csv or SME_EQUITY_L.csv), whose first two
      * columns are SYMBOL and NAME OF COMPANY. Rows with a malformed symbol are skipped.
      */
-    internal fun parseListings(csv: String, sme: Boolean): List<Listing> {
+    internal fun parseListings(csv: String, market: Market): List<Listing> {
         val lines = csv.trimStart(BYTE_ORDER_MARK).lineSequence().filter { it.isNotBlank() }.iterator()
         if (!lines.hasNext()) return emptyList()
         // EQUITY_L.csv says "NAME OF COMPANY", SME_EQUITY_L.csv "NAME_OF_COMPANY".
         val header = splitCsv(lines.next()).map { it.trim().uppercase(Locale.US).replace('_', ' ') }
         val symbolAt = header.indexOf("SYMBOL").takeIf { it >= 0 } ?: 0
         val nameAt = header.indexOf("NAME OF COMPANY").takeIf { it >= 0 } ?: 1
+        val isinAt = header.indexOf("ISIN NUMBER")
         val listings = ArrayList<Listing>()
         for (line in lines) {
             val cells = splitCsv(line)
             val symbol = cells.getOrNull(symbolAt)?.trim().orEmpty()
             if (!symbol.matches(SYMBOL)) continue
-            listings += Listing(symbol, cells.getOrNull(nameAt)?.trim().orEmpty(), sme)
+            val isin = if (isinAt >= 0) cells.getOrNull(isinAt)?.trim().orEmpty() else ""
+            listings += Listing(symbol, cells.getOrNull(nameAt)?.trim().orEmpty(), market, isin)
         }
         return listings.distinctBy { it.symbol }
     }
 
     private val SYMBOL = Regex("[A-Z0-9&-]+")
 
-    /** One chart request per symbol: about 62 daily sessions, enough for the 50-day average. */
+    /** Yahoo tickers to try for a listing, best first: BSE stocks by symbol, then by scrip code. */
+    internal fun yahooTickers(listing: Listing): List<String> = when (listing.market) {
+        Market.NSE, Market.NSE_SME -> listOf("${listing.symbol}.NS")
+        Market.BSE -> listOfNotNull("${listing.symbol}.BO", listing.bseCode.takeIf { it.isNotEmpty() }?.let { "$it.BO" })
+    }
+
+    /** One chart request per ticker: about 62 daily sessions, enough for the 50-day average. */
     private fun score(listing: Listing): ScanResult? {
         val symbol = listing.symbol
-        val url = "https://query1.finance.yahoo.com/v8/finance/chart/$symbol.NS?range=3mo&interval=1d"
-        val chart = JSONObject(get(url)).getJSONObject("chart").optJSONArray("result")?.optJSONObject(0) ?: return null
-        val quote = chart.optJSONObject("indicators")?.optJSONArray("quote")?.optJSONObject(0) ?: return null
-        val signals = BreakoutSignals.analyse(
-            closes = quote.series("close"),
-            highs = quote.series("high"),
-            lows = quote.series("low"),
-            volumes = quote.series("volume"),
-        ) ?: return null
+        val signals = yahooTickers(listing).firstNotNullOfOrNull { ticker -> runCatching { signalsFor(ticker) }.getOrNull() }
+            ?: return null
         return ScanResult(
             symbol = symbol,
             price = signals.price,
@@ -180,11 +262,24 @@ object NseScanner {
             structure = signals.structure,
             parts = signals.parts,
             name = listing.name,
-            sme = listing.sme,
+            market = listing.market,
+            bseCode = listing.bseCode,
         )
     }
 
     /** One of Yahoo's daily arrays; JSON nulls (holidays, a session still forming) stay null for [BreakoutSignals]. */
+    private fun signalsFor(ticker: String): BreakoutSignals.Signals? {
+        val url = "https://query1.finance.yahoo.com/v8/finance/chart/$ticker?range=3mo&interval=1d"
+        val chart = JSONObject(get(url)).getJSONObject("chart").optJSONArray("result")?.optJSONObject(0) ?: return null
+        val quote = chart.optJSONObject("indicators")?.optJSONArray("quote")?.optJSONObject(0) ?: return null
+        return BreakoutSignals.analyse(
+            closes = quote.series("close"),
+            highs = quote.series("high"),
+            lows = quote.series("low"),
+            volumes = quote.series("volume"),
+        )
+    }
+
     private fun JSONObject.series(name: String): List<Double?> {
         val values = optJSONArray(name) ?: return emptyList()
         return List(values.length()) { i -> if (values.isNull(i)) null else values.optDouble(i, Double.NaN) }
@@ -207,7 +302,10 @@ object NseScanner {
         return null
     }
 
-    /** Keeps live `EQ` rows only: `IssdCptl` is the number of issued shares. */
+    /**
+     * Keeps live share rows: `IssdCptl` is the number of issued shares. Besides `EQ` that covers trade-for-trade
+     * (`BE`, `BZ`) and SME (`SM`, `ST`, `SZ`) series; `EQ` wins when a symbol is listed in more than one.
+     */
     internal fun parseIssuedShares(input: InputStream): Map<String, Double> {
         val lines = input.bufferedReader().lineSequence().iterator()
         if (!lines.hasNext()) return emptyMap()
@@ -223,13 +321,17 @@ object NseScanner {
             fun cell(index: Int) = cells.getOrNull(index)?.trim().orEmpty()
             val issued = cell(issuedAt).toDoubleOrNull() ?: continue
             if (!issued.isFinite() || issued <= 0.0) continue
-            if (!cell(seriesAt).equals("EQ", ignoreCase = true)) continue
+            val series = cell(seriesAt).uppercase(Locale.US)
+            if (series !in SHARE_SERIES) continue
             if (deletedAt >= 0 && cell(deletedAt).equals("Y", ignoreCase = true)) continue
             val symbol = cell(symbolAt).uppercase(Locale.US)
-            if (symbol.isNotEmpty()) shares[symbol] = issued
+            if (symbol.isEmpty() || (symbol in shares && series != "EQ")) continue
+            shares[symbol] = issued
         }
         return shares
     }
+
+    private val SHARE_SERIES = setOf("EQ", "BE", "BZ", "SM", "ST", "SZ")
 
     /** Splits one CSV line, honouring quoted cells that contain commas or doubled quotes. */
     internal fun splitCsv(line: String): List<String> {
@@ -253,14 +355,19 @@ object NseScanner {
 
     private fun get(address: String): String = open(address) { it.bufferedReader().use { reader -> reader.readText() } }
 
-    private fun <T> open(address: String, browser: Boolean = false, read: (InputStream) -> T): T {
+    private fun <T> open(
+        address: String,
+        browser: Boolean = false,
+        referer: String = "https://www.nseindia.com/all-reports",
+        read: (InputStream) -> T,
+    ): T {
         val connection = (URL(address).openConnection() as HttpURLConnection).apply {
             connectTimeout = 15_000
             readTimeout = 25_000
             if (browser) {
-                // nsearchives serves its report files to browser-like requests only.
+                // nsearchives and BSE's downloads serve report files to browser-like requests only.
                 setRequestProperty("User-Agent", BROWSER_AGENT)
-                setRequestProperty("Referer", "https://www.nseindia.com/all-reports")
+                setRequestProperty("Referer", referer)
                 setRequestProperty("Accept", "text/csv,application/gzip,application/octet-stream,*/*")
             } else {
                 setRequestProperty("User-Agent", USER_AGENT)

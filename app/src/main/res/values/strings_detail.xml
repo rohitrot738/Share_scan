@@ -3,6 +3,7 @@
     <!-- Stock detail bottom sheet: StockDetailSheet.kt, PriceChartView.kt and sheet_stock_detail.xml. -->
     <string name="detail_exchange">NSE · EQUITY</string>
     <string name="detail_exchange_sme">NSE · SME (EMERGE)</string>
+    <string name="detail_exchange_bse">BSE · EQUITY</string>
     <string name="detail_score">%1$s / 100</string>
     <string name="detail_no_structure">इस stock का चार्ट, trade plan और technical आँकड़े इस स्कैन में नहीं मिले — दोबारा स्कैन करें।</string>
 

@@ -18,20 +18,26 @@ enum class ThemeChoice(val key: String) {
 
 /** Where the detail sheet's chart button opens a stock; [key] is what the settings store. */
 enum class ChartSite(val key: String) {
-    TRADINGVIEW("tradingview") {
-        override fun url(symbol: String) = StockFormat.chartUrl(symbol)
-    },
-    CHARTINK("chartink") {
-        override fun url(symbol: String) = "https://chartink.com/stocks/${encode(symbol.lowercase())}.html"
-    },
-    GOOGLE_FINANCE("google") {
-        override fun url(symbol: String) = "https://www.google.com/finance/quote/${encode(symbol)}:NSE"
-    },
-    SCREENER("screener") {
-        override fun url(symbol: String) = "https://www.screener.in/company/${encode(symbol)}/"
-    };
+    TRADINGVIEW("tradingview"),
+    CHARTINK("chartink"),
+    GOOGLE_FINANCE("google"),
+    SCREENER("screener");
 
-    abstract fun url(symbol: String): String
+    /** Chartink only covers NSE, so BSE-only stocks open on TradingView instead. */
+    fun forMarket(market: Market): ChartSite = if (this == CHARTINK && market == Market.BSE) TRADINGVIEW else this
+
+    /** The page for a stock; BSE-only stocks are addressed by their BSE scrip code where the site expects one. */
+    fun url(symbol: String, market: Market = Market.NSE, bseCode: String = ""): String {
+        val bse = market == Market.BSE
+        return when (forMarket(market)) {
+            TRADINGVIEW -> StockFormat.chartUrl(symbol, if (bse) "BSE" else "NSE")
+            CHARTINK -> "https://chartink.com/stocks/${encode(symbol.lowercase())}.html"
+            GOOGLE_FINANCE ->
+                if (bse) "https://www.google.com/finance/quote/${encode(bseCode.ifEmpty { symbol })}:BOM"
+                else "https://www.google.com/finance/quote/${encode(symbol)}:NSE"
+            SCREENER -> "https://www.screener.in/company/${encode(if (bse) bseCode.ifEmpty { symbol } else symbol)}/"
+        }
+    }
 
     companion object {
         fun fromKey(key: String?): ChartSite = entries.firstOrNull { it.key == key } ?: TRADINGVIEW
@@ -62,6 +68,11 @@ class AppSettings(context: Context) {
     var includeSme: Boolean
         get() = prefs.getBoolean(Prefs.INCLUDE_SME, false)
         set(value) = prefs.edit { putBoolean(Prefs.INCLUDE_SME, value) }
+
+    /** Also scan stocks listed only on BSE; off by default since it nearly doubles the scan. */
+    var includeBse: Boolean
+        get() = prefs.getBoolean(Prefs.INCLUDE_BSE, false)
+        set(value) = prefs.edit { putBoolean(Prefs.INCLUDE_BSE, value) }
 
     /** Keep the screen awake while a scan runs. */
     var keepScreenOn: Boolean
