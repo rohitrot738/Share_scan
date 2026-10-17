@@ -112,7 +112,7 @@
     <string name="about_open_failed">Browser नहीं खुल पाया</string>
 
     <!-- Share app -->
-    <string name="share_app_subject">Share Scan — NSE pre-breakout scanner</string>
-    <string name="share_app_text">Share Scan — पूरे NSE को breakout setup, trend और volume पर rank करने वाला Android app।\nDownload: %1$s</string>
+    <string name="share_app_subject">Share Scan — NSE • BSE pre-breakout scanner</string>
+    <string name="share_app_text">Share Scan — NSE और BSE के stocks को breakout setup, trend और volume पर rank करने वाला Android app।\nDownload: %1$s</string>
     <string name="share_app_open">App शेयर करें</string>
 </resources>
