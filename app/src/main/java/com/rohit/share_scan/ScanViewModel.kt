@@ -45,7 +45,7 @@ data class ScanUiState(
     /** Show only starred stocks. */
     val watchlistOnly: Boolean = false,
     val searchOpen: Boolean = false,
-    /** Symbol search text, matched case-insensitively anywhere in the symbol. */
+    /** Search text, matched against the symbol and the company name ([StockSearch]). */
     val query: String = "",
     /** Rank moves since the previous completed scan, by symbol; empty on the first scan. */
     val rankBadges: Map<String, RankBadge> = emptyMap(),
@@ -74,10 +74,9 @@ data class ScanUiState(
         if (watchlistOnly) matching.filter { it.starred } else visible
     }
 
-    /** [listed] narrowed by the symbol search; ranks keep their numbers. */
+    /** [listed] narrowed by the search; ranks keep their numbers. */
     val shown: List<RankedStock> by lazy {
-        val needle = query.trim()
-        if (needle.isEmpty()) listed else listed.filter { it.stock.symbol.contains(needle, ignoreCase = true) }
+        if (query.isBlank()) listed else listed.filter { StockSearch.matches(it.stock, query) }
     }
 
     val volumeSpikes: Int get() = visible.count { it.stock.rvol >= StockFormat.SPIKE_RVOL }
@@ -101,6 +100,7 @@ data class ScanUiState(
 /** Owns the running scan so it survives rotation and theme changes, and remembers the user's filters. */
 class ScanViewModel(application: Application) : AndroidViewModel(application) {
     private val prefs = application.getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE)
+    private val settings = AppSettings(application)
     private val worker = Executors.newSingleThreadExecutor()
     private val state = MutableStateFlow(
         ScanUiState(
@@ -125,7 +125,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         )
         worker.execute {
             val outcome = runCatching {
-                NseScanner.scan { finished, total ->
+                NseScanner.scan(includeSme = settings.includeSme) { finished, total ->
                     // Progress arrives from several pool threads, so keep the highest count seen.
                     state.update { it.copy(phase = ScanPhase.SCANNING, done = maxOf(it.done, finished), total = total) }
                 }

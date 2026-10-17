@@ -58,6 +58,11 @@ class AppSettings(context: Context) {
         get() = prefs.getBoolean(Prefs.CHECK_UPDATES, true)
         set(value) = prefs.edit { putBoolean(Prefs.CHECK_UPDATES, value) }
 
+    /** Also scan NSE's SME platform (Emerge); off by default since those stocks trade thinly. */
+    var includeSme: Boolean
+        get() = prefs.getBoolean(Prefs.INCLUDE_SME, false)
+        set(value) = prefs.edit { putBoolean(Prefs.INCLUDE_SME, value) }
+
     /** Keep the screen awake while a scan runs. */
     var keepScreenOn: Boolean
         get() = prefs.getBoolean(Prefs.KEEP_SCREEN_ON, true)

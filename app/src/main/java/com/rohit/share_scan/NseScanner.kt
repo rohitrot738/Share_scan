@@ -58,6 +58,10 @@ data class ScanResult(
     val structure: PriceStructure? = null,
     /** How [score] was built; empty when the scanner did not record it. */
     val parts: List<ScorePart> = emptyList(),
+    /** Company name from NSE's listing, e.g. "Tata Consultancy Services Limited"; empty when unknown. */
+    val name: String = "",
+    /** Listed on NSE's SME platform (Emerge) rather than the main board. */
+    val sme: Boolean = false,
 ) {
     /** Rupee value traded in the latest session, in crore. */
     val turnoverCr: Double get() = price * volume / CRORE
@@ -78,23 +82,34 @@ data class ScanResult(
 /** Every stock one scan could score, best score first. [marketCapDate] is null when market caps are missing. */
 data class ScanOutput(val results: List<ScanResult>, val marketCapDate: LocalDate?)
 
+/** One row of an NSE listing file. */
+data class Listing(val symbol: String, val name: String, val sme: Boolean = false)
+
 object NseScanner {
     private const val NSE_CSV = "https://archives.nseindia.com/content/equities/EQUITY_L.csv"
+    /** NSE Emerge (SME platform) listings; scanned only when the user turns them on in Settings. */
+    private val SME_CSVS = listOf(
+        "https://nsearchives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv",
+        "https://archives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv",
+    )
     private const val SECURITY_FILE = "https://nsearchives.nseindia.com/content/cm/NSE_CM_security_%s.csv.gz"
     private const val USER_AGENT = "ShareScan/1.0 (Android)"
     private val BYTE_ORDER_MARK = Char(0xFEFF)
     private const val BROWSER_AGENT =
         "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Mobile Safari/537.36"
 
-    fun scan(onProgress: (Int, Int) -> Unit): ScanOutput {
-        val symbols = loadSymbols()
+    /** Scans every main-board stock, plus the SME platform's when [includeSme] is on and its list loads. */
+    fun scan(includeSme: Boolean = false, onProgress: (Int, Int) -> Unit): ScanOutput {
+        val main = parseListings(get(NSE_CSV), sme = false)
+        val sme = if (includeSme) loadSmeListings() else emptyList()
+        val symbols = (main + sme).distinctBy { it.symbol }
         onProgress(0, symbols.size)
         val done = AtomicInteger(0)
         val pool = Executors.newFixedThreadPool(4)
         try {
             val issuedShares = pool.submit(Callable { runCatching { loadIssuedShares() }.getOrNull() })
-            val tasks = symbols.map { symbol -> Callable {
-                try { score(symbol) } finally { onProgress(done.incrementAndGet(), symbols.size) }
+            val tasks = symbols.map { listing -> Callable {
+                try { score(listing) } finally { onProgress(done.incrementAndGet(), symbols.size) }
             }}
             val scored = pool.invokeAll(tasks).mapNotNull { future ->
                 runCatching { future.get() }.getOrNull()
@@ -110,16 +125,42 @@ object NseScanner {
         }
     }
 
-    private fun loadSymbols(): List<String> {
-        val rows = get(NSE_CSV).lineSequence().drop(1)
-        return rows.mapNotNull { row ->
-            val symbol = row.substringBefore(',').trim().trim('"')
-            symbol.takeIf { it.matches(Regex("[A-Z0-9&-]+")) }
-        }.distinct().toList()
+    /** The SME list from whichever NSE host answers; empty when none does, so the main-board scan still runs. */
+    private fun loadSmeListings(): List<Listing> {
+        for (address in SME_CSVS) {
+            val listings = runCatching { parseListings(open(address, browser = true) { it.bufferedReader().readText() }, sme = true) }
+                .getOrNull()
+            if (!listings.isNullOrEmpty()) return listings
+        }
+        return emptyList()
     }
 
+    /**
+     * Symbols and company names from an NSE listing file (EQUITY_L.csv or SME_EQUITY_L.csv), whose first two
+     * columns are SYMBOL and NAME OF COMPANY. Rows with a malformed symbol are skipped.
+     */
+    internal fun parseListings(csv: String, sme: Boolean): List<Listing> {
+        val lines = csv.trimStart(BYTE_ORDER_MARK).lineSequence().filter { it.isNotBlank() }.iterator()
+        if (!lines.hasNext()) return emptyList()
+        // EQUITY_L.csv says "NAME OF COMPANY", SME_EQUITY_L.csv "NAME_OF_COMPANY".
+        val header = splitCsv(lines.next()).map { it.trim().uppercase(Locale.US).replace('_', ' ') }
+        val symbolAt = header.indexOf("SYMBOL").takeIf { it >= 0 } ?: 0
+        val nameAt = header.indexOf("NAME OF COMPANY").takeIf { it >= 0 } ?: 1
+        val listings = ArrayList<Listing>()
+        for (line in lines) {
+            val cells = splitCsv(line)
+            val symbol = cells.getOrNull(symbolAt)?.trim().orEmpty()
+            if (!symbol.matches(SYMBOL)) continue
+            listings += Listing(symbol, cells.getOrNull(nameAt)?.trim().orEmpty(), sme)
+        }
+        return listings.distinctBy { it.symbol }
+    }
+
+    private val SYMBOL = Regex("[A-Z0-9&-]+")
+
     /** One chart request per symbol: about 62 daily sessions, enough for the 50-day average. */
-    private fun score(symbol: String): ScanResult? {
+    private fun score(listing: Listing): ScanResult? {
+        val symbol = listing.symbol
         val url = "https://query1.finance.yahoo.com/v8/finance/chart/$symbol.NS?range=3mo&interval=1d"
         val chart = JSONObject(get(url)).getJSONObject("chart").optJSONArray("result")?.optJSONObject(0) ?: return null
         val quote = chart.optJSONObject("indicators")?.optJSONArray("quote")?.optJSONObject(0) ?: return null
@@ -138,6 +179,8 @@ object NseScanner {
             volume = signals.volume,
             structure = signals.structure,
             parts = signals.parts,
+            name = listing.name,
+            sme = listing.sme,
         )
     }
 

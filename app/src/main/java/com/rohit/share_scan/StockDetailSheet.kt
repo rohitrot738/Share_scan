@@ -68,6 +68,9 @@ class StockDetailSheet(
             StockFormat.Tier.WEAK -> Triple(R.string.tier_weak, R.color.neutral, R.color.neutral_container)
         }
         ui.detailSymbol.text = stock.symbol
+        ui.detailExchange.setText(if (stock.sme) R.string.detail_exchange_sme else R.string.detail_exchange)
+        ui.detailName.isVisible = stock.name.isNotBlank()
+        ui.detailName.text = StockSearch.shortName(stock.name)
         ui.detailPrice.text = rupees(stock.price)
         ui.detailChange.text = activity.getString(R.string.item_change, StockFormat.change(stock.change5d))
         ui.detailChange.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))

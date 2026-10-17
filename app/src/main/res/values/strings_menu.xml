@@ -31,6 +31,8 @@
     <string name="settings_updates_body">नया version आते ही ऊपर banner दिखेगा</string>
     <string name="settings_screen">स्कैन के दौरान स्क्रीन ऑन रखें</string>
     <string name="settings_screen_body">बंद करने पर स्क्रीन बंद हो सकती है और स्कैन रुक सकता है</string>
+    <string name="settings_sme">SME stocks भी स्कैन करें</string>
+    <string name="settings_sme_body">NSE Emerge के छोटे stocks भी जुड़ेंगे • कम liquidity, स्कैन थोड़ा लंबा • अगले स्कैन से लागू</string>
     <string name="settings_section_chart">चार्ट</string>
     <string name="settings_chart_body">Stock detail का चार्ट बटन कहाँ खुले</string>
     <string name="settings_section_data">डेटा</string>
@@ -86,6 +88,7 @@
     <string name="help_plan_title">Trade plan</string>
     <string name="help_plan_body">Entry = 20 दिन का high + 0.1 ATR (breakout की पुष्टि)। Stop = 10 दिन का low, जिसे 1–2 ATR के बीच रखा जाता है। Targets = risk का 1.5, 2.5 और 4 गुना (1.5R / 2.5R / 4R)।</string>
     <string name="help_badges_title">Badges</string>
+    <string name="item_sme_name">SME · %1$s</string>
     <string name="help_badges_body">NEW = पिछले स्कैन के बाद top list में नया • ▲ / ▼ = पिछले स्कैन से rank कितना ऊपर/नीचे • ★ = आपकी watchlist।</string>
     <string name="help_disclaimer">यह app सिर्फ़ जानकारी और सीखने के लिए है, निवेश सलाह नहीं। हर trade से पहले खुद research करें और risk संभालें।</string>
 

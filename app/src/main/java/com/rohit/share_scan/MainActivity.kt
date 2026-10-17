@@ -368,6 +368,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun openSearch() {
         scan.openSearch()
+        // Slide the header, hero and stats away so the search bar sits at the top, clear of the keyboard.
+        ui.appBar.setExpanded(false, true)
         ui.searchBar.isVisible = true
         ui.searchField.requestFocus()
         keyboard().show(WindowInsetsCompat.Type.ime())

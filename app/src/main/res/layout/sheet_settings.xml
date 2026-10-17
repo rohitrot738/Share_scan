@@ -103,6 +103,39 @@
                     android:contentDescription="@string/settings_screen" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/settingSmeRow"
+                style="@style/SettingsRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/SettingsRowTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_sme" />
+
+                    <TextView
+                        style="@style/SettingsRowBody"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_sme_body" />
+                </LinearLayout>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/settingSme"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/settings_sme" />
+            </LinearLayout>
+
             <TextView
                 style="@style/SettingsSection"
                 android:layout_width="wrap_content"
