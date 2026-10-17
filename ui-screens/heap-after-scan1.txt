@@ -1,0 +1,175 @@
+app heap: 14.6 MB in 438727 objects
+     count        bytes  class
+    292292      7015008  java.lang.Double
+     16181      1506442  byte[]
+     11647      1436404  java.lang.Object[]
+     23805       856980  com.rohit.share_scan.ScorePart
+      4761       399924  com.rohit.share_scan.ScanResult
+     13927       389956  java.lang.String
+      4761       285660  com.rohit.share_scan.PriceStructure
+      6445       180460  java.util.ArrayList
+      5811       171276  int[]
+      4761       152352  com.rohit.share_scan.ScorePart[]
+      4761       138069  com.rohit.share_scan.RankedStock
+      1902       130504  long[]
+      2934       129096  sun.misc.Cleaner
+      4319       125251  android.util.SparseArray
+      4988       119712  java.util.Arrays$ArrayList
+      3717       104076  androidx.emoji2.text.TypefaceEmojiRasterizer
+      4235       101640  androidx.emoji2.text.MetadataRepo$Node
+        92        98440  com.google.android.material.textview.MaterialTextView
+      2928        81984  libcore.util.NativeAllocationRegistry$CleanerThunk
+       576        67392  android.graphics.Paint
+        62        49352  android.widget.LinearLayout
+      1429        45728  android.graphics.Rect
+       866        38104  java.lang.ref.FinalizerReference
+       242        35090  android.text.TextPaint
+      1306        31344  android.graphics.Matrix
+       829        26528  java.lang.ref.WeakReference
+       162        24624  android.animation.ObjectAnimator
+       144        24082  char[]
+       496        15872  java.util.HashMap$Node
+       172        14588  float[]
+       299        14352  java.util.HashMap
+       188        14288  android.animation.PropertyValuesHolder$FloatPropertyValuesHolder
+       376        12784  android.animation.Keyframe$FloatKeyframe
+       129        12771  android.graphics.drawable.VectorDrawable$VectorDrawableState
+       219        12264  android.graphics.drawable.VectorDrawable$VFullPath
+       308        12136  java.util.HashMap$Node[]
+        95        11495  android.view.View$ListenerInfo
+        10        11480  com.google.android.material.chip.Chip
+       186        11346  android.widget.LinearLayout$LayoutParams
+       314        11304  android.graphics.RenderNode
+
+         2           40  com.rohit.share_scan.AppSettings
+         1           16  com.rohit.share_scan.BreakoutSignals
+         4          112  com.rohit.share_scan.ChartSite
+         1           16  com.rohit.share_scan.ChartSite$Companion
+         1           28  com.rohit.share_scan.ChartSite[]
+         1          455  com.rohit.share_scan.MainActivity
+         1           20  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda1
+         1           20  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda15
+         1           20  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda16
+         1           20  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda17
+         1           20  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda18
+         1           20  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda2
+         1           32  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda3
+         1           20  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda4
+         1           20  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda5
+         1           20  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda6
+         1           20  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda7
+         1           20  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda8
+         1           20  com.rohit.share_scan.MainActivity$$ExternalSyntheticLambda9
+         1           45  com.rohit.share_scan.MainActivity$adapter$1
+         1           29  com.rohit.share_scan.MainActivity$closeSearchOnBack$1
+         1           40  com.rohit.share_scan.MainActivity$onCreate$7
+         1           44  com.rohit.share_scan.MainActivity$onCreate$7$1
+         1           40  com.rohit.share_scan.MainActivity$onCreate$7$1$1
+         1           20  com.rohit.share_scan.MainActivity$onCreate$7$1$1$1
+         1           40  com.rohit.share_scan.MainActivity$onCreate$7$1$2
+         1           20  com.rohit.share_scan.MainActivity$onCreate$7$1$2$1
+         1           40  com.rohit.share_scan.MainActivity$onCreate$7$1$3
+         1           20  com.rohit.share_scan.MainActivity$onCreate$7$1$3$1
+         1           40  com.rohit.share_scan.MainActivity$onCreate$7$1$4
+         1           20  com.rohit.share_scan.MainActivity$onCreate$7$1$4$1
+         1           40  com.rohit.share_scan.MainActivity$onCreate$7$1$5
+         1           20  com.rohit.share_scan.MainActivity$setUpListTools$$inlined$doAfterTextChanged$1
+         1           20  com.rohit.share_scan.MainActivity$settingsActions$1
+         1           24  com.rohit.share_scan.MainActivity$special$$inlined$viewModels$default$1
+         1           24  com.rohit.share_scan.MainActivity$special$$inlined$viewModels$default$2
+         1           28  com.rohit.share_scan.MainActivity$special$$inlined$viewModels$default$3
+         1           24  com.rohit.share_scan.MainActivity$special$$inlined$viewModels$default$4
+         1           24  com.rohit.share_scan.MainActivity$special$$inlined$viewModels$default$5
+         1           28  com.rohit.share_scan.MainActivity$special$$inlined$viewModels$default$6
+         3           72  com.rohit.share_scan.Market
+         1           16  com.rohit.share_scan.MarketStyle$Companion
+         1           24  com.rohit.share_scan.Market[]
+         6          144  com.rohit.share_scan.MenuSheet$Entry
+         1           36  com.rohit.share_scan.MenuSheet$Entry[]
+         1           16  com.rohit.share_scan.NseScanner
+      4761       285660  com.rohit.share_scan.PriceStructure
+         1           16  com.rohit.share_scan.RankHistory
+      4761       138069  com.rohit.share_scan.RankedStock
+         1           52  com.rohit.share_scan.RateGate
+         1           16  com.rohit.share_scan.RateGate$$ExternalSyntheticLambda0
+         1           45  com.rohit.share_scan.RateGate$2
+         1           24  com.rohit.share_scan.ScanFilters
+         1           16  com.rohit.share_scan.ScanFilters$Companion
+         5          120  com.rohit.share_scan.ScanPhase
+         1           32  com.rohit.share_scan.ScanPhase[]
+      4761       399924  com.rohit.share_scan.ScanResult
+         1           94  com.rohit.share_scan.ScanUiState
+         1           44  com.rohit.share_scan.ScanViewModel
+     23805       856980  com.rohit.share_scan.ScorePart
+      4761       152352  com.rohit.share_scan.ScorePart[]
+         1           40  com.rohit.share_scan.SettingsSheet
+         1           20  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda1
+         3           84  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda10
+         3           60  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda11
+         1           20  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda14
+         1           20  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda15
+         1           20  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda16
+         1           20  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda17
+         1           20  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda2
+         1           20  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda3
+         1           20  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda4
+         1           20  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda5
+         4           96  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda6
+         1           20  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda7
+         1           20  com.rohit.share_scan.SettingsSheet$$ExternalSyntheticLambda8
+         1           44  com.rohit.share_scan.ShareScanApp
+         4           96  com.rohit.share_scan.SortMode
+         1           28  com.rohit.share_scan.SortMode[]
+         1           41  com.rohit.share_scan.StockAdapter
+         5          120  com.rohit.share_scan.StockAdapter$$ExternalSyntheticLambda1
+         5          120  com.rohit.share_scan.StockAdapter$$ExternalSyntheticLambda2
+         1           16  com.rohit.share_scan.StockAdapter$Diff
+         5          485  com.rohit.share_scan.StockAdapter$Holder
+         1           16  com.rohit.share_scan.StockFormat
+         3           72  com.rohit.share_scan.StockFormat$Tier
+         1           24  com.rohit.share_scan.StockFormat$Tier[]
+         1           16  com.rohit.share_scan.StockSearch
+         4          112  com.rohit.share_scan.ThemeChoice
+         1           16  com.rohit.share_scan.ThemeChoice$Companion
+         1           28  com.rohit.share_scan.ThemeChoice[]
+         4           96  com.rohit.share_scan.UpdateStep
+         1           28  com.rohit.share_scan.UpdateStep[]
+         1           77  com.rohit.share_scan.UpdateViewModel
+         1           16  com.rohit.share_scan.UpdateViewModel$Companion
+         1          184  com.rohit.share_scan.databinding.ActivityMainBinding
+         5          360  com.rohit.share_scan.databinding.ItemStockBinding
+         1           76  com.rohit.share_scan.databinding.SheetSettingsBinding
+
+referrers of java.lang.Double: java.lang.Object[]=280161, com.rohit.share_scan.PriceStructure=9249, com.rohit.share_scan.ScanResult=2878, java.util.LinkedHashMap$LinkedHashMapEntry=5
+  bytes by referrer: java.lang.Object[]=6723864, com.rohit.share_scan.PriceStructure=221976, com.rohit.share_scan.ScanResult=69072, java.util.LinkedHashMap$LinkedHashMapEntry=120
+referrers of byte[]: java.lang.String=13816, sun.security.util.DerInputBuffer=73, sun.security.util.ObjectIdentifier=55, com.android.org.conscrypt.CertBlocklistImpl$ByteString=25, sun.security.x509.X509CertImpl=14, sun.security.x509.KeyIdentifier=14
+  bytes by referrer: java.lang.String=393394, java.nio.HeapByteBuffer=133780, java.nio.DirectByteBuffer=132524, java.nio.DirectByteBuffer$MemoryRef=132524, com.android.okhttp.okio.Segment=24612, sun.security.x509.X509CertImpl=15066
+referrers of java.lang.Object[]: java.util.ArrayList=5869, android.util.SparseArray=4263, android.animation.PropertyValuesHolder$FloatPropertyValuesHolder=188, android.util.ArrayMap=149, android.util.LongSparseArray=63, android.animation.ObjectAnimator=47
+  bytes by referrer: java.util.ArrayList=1240924, android.util.SparseArray=100800, java.util.Arrays$ArrayList=19056, dalvik.system.PathClassLoader=11796, java.lang.DexCache=8640, android.util.ArrayMap=5748
+referrers of com.rohit.share_scan.ScorePart: com.rohit.share_scan.ScorePart[]=23805
+  bytes by referrer: com.rohit.share_scan.ScorePart[]=856980
+referrers of com.rohit.share_scan.ScanResult: com.rohit.share_scan.RankedStock=4761, java.lang.Object[]=4761
+  bytes by referrer: com.rohit.share_scan.RankedStock=399924, java.lang.Object[]=399924
+referrers of java.lang.String: com.rohit.share_scan.ScorePart=19044, com.rohit.share_scan.ScanResult=11405, java.lang.Object[]=1028, java.util.HashMap$Node=354, sun.security.x509.DNSName=223, android.text.BoringLayout=169
+  bytes by referrer: com.rohit.share_scan.ScorePart=533232, com.rohit.share_scan.ScanResult=319340, java.lang.Object[]=28784, java.util.HashMap$Node=9912, sun.security.x509.DNSName=6244, android.text.BoringLayout=4732
+referrers of com.rohit.share_scan.PriceStructure: com.rohit.share_scan.ScanResult=4761
+  bytes by referrer: com.rohit.share_scan.ScanResult=285660
+referrers of java.util.ArrayList: com.rohit.share_scan.PriceStructure=4761, com.google.android.material.shape.ShapePath$1=296, com.google.android.material.textview.MaterialTextView=260, android.graphics.drawable.VectorDrawable$VGroup=193, android.animation.ObjectAnimator=114, android.animation.AnimatorSet=57
+  bytes by referrer: com.rohit.share_scan.PriceStructure=133308, com.google.android.material.shape.ShapePath$1=8288, com.google.android.material.textview.MaterialTextView=7280, android.graphics.drawable.VectorDrawable$VGroup=5404, android.animation.ObjectAnimator=3192, android.animation.AnimatorSet=1596
+
+largest objects:
+     19056  java.lang.Object[]  <- java.util.ArrayList
+     19056  java.lang.Object[]  <- java.util.Arrays$ArrayList
+     16728  byte[]  <- java.nio.DirectByteBuffer, java.nio.DirectByteBuffer$MemoryRef
+     16728  byte[]  <- java.nio.DirectByteBuffer, java.nio.DirectByteBuffer$MemoryRef
+     16728  byte[]  <- java.nio.DirectByteBuffer, java.nio.DirectByteBuffer$MemoryRef
+     16728  byte[]  <- java.nio.DirectByteBuffer, java.nio.DirectByteBuffer$MemoryRef
+     16721  byte[]  <- java.nio.HeapByteBuffer
+     16721  byte[]  <- java.nio.HeapByteBuffer
+     16721  byte[]  <- java.nio.HeapByteBuffer
+     16721  byte[]  <- java.nio.HeapByteBuffer
+     16721  byte[]  <- java.nio.HeapByteBuffer
+     16721  byte[]  <- java.nio.HeapByteBuffer
+     16721  byte[]  <- java.nio.HeapByteBuffer
+     16721  byte[]  <- java.nio.HeapByteBuffer
+     16403  byte[]  <- java.nio.DirectByteBuffer, java.nio.DirectByteBuffer$MemoryRef
