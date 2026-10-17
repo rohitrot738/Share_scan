@@ -99,7 +99,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/outline" />
+        android:background="?attr/colorOutline" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/filterApply"

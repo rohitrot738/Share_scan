@@ -32,6 +32,7 @@ import kotlin.math.roundToInt
 class StockDetailSheet(
     private val activity: AppCompatActivity,
     private val stock: ScanResult,
+    private val chartSite: ChartSite = ChartSite.TRADINGVIEW,
 ) {
     private val dialog = BottomSheetDialog(activity)
     private val ui = SheetStockDetailBinding.inflate(activity.layoutInflater)
@@ -45,7 +46,12 @@ class StockDetailSheet(
         bindScore()
         bindStats()
         ui.detailNoStructure.isVisible = structure == null
-        ui.detailOpenChart.setOnClickListener { openTradingView() }
+        ui.detailOpenChart.text = if (chartSite == ChartSite.SCREENER) {
+            activity.getString(R.string.detail_open_screener)
+        } else {
+            activity.getString(R.string.detail_open_chart_on, activity.getString(chartSite.label))
+        }
+        ui.detailOpenChart.setOnClickListener { openChart() }
 
         val height = (activity.resources.displayMetrics.heightPixels * 0.9f).toInt()
         dialog.setContentView(ui.root, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height))
@@ -358,9 +364,9 @@ class StockDetailSheet(
         tile.root.contentDescription = listOfNotNull(stat.label, stat.value, stat.note).joinToString(", ")
     }
 
-    private fun openTradingView() {
+    private fun openChart() {
         try {
-            activity.startActivity(Intent(Intent.ACTION_VIEW, StockFormat.chartUrl(stock.symbol).toUri()))
+            activity.startActivity(Intent(Intent.ACTION_VIEW, chartSite.url(stock.symbol).toUri()))
         } catch (error: ActivityNotFoundException) {
             Toast.makeText(activity, R.string.open_chart_failed, Toast.LENGTH_SHORT).show()
         }

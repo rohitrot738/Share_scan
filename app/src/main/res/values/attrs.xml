@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Per-theme values beyond Material's colour roles; every Theme.ShareScan* style sets them. -->
+    <attr name="scanCard" format="color" />
+    <attr name="scanCardStroke" format="color" />
+    <attr name="scanSheet" format="color" />
+    <attr name="scanTrack" format="color" />
+    <attr name="scanChipFill" format="color" />
+    <attr name="scanHeroBackground" format="reference" />
+    <attr name="scanLogoBackground" format="reference" />
+</resources>

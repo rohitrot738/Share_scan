@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     Window background: near-black space gradient, four faint nebula tints and a layered starfield.
-    The top stays plain @color/bg so it meets the opaque status-bar strip without a seam; every
+    The top stays plain @color/galaxy_bg so it meets the opaque status-bar strip without a seam; every
     glow fades out before the top 24dp, in portrait and in landscape.
     Glows are sized layers (not full-screen) to keep overdraw low; nothing here animates.
 -->
@@ -12,7 +12,7 @@
                 android:angle="270"
                 android:centerColor="@color/galaxy_space_mid"
                 android:endColor="@color/galaxy_space_bottom"
-                android:startColor="@color/bg"
+                android:startColor="@color/galaxy_bg"
                 android:type="linear" />
         </shape>
     </item>

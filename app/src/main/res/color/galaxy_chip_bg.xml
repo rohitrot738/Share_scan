@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Filter chips: faint violet glass, violet container when checked. -->
+<!-- Filter chips: faint accent glass, accent container when checked. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:alpha="0.12" android:color="@color/text_primary" android:state_checked="true" android:state_enabled="false" />
+    <item android:alpha="0.12" android:color="?attr/colorOnSurface" android:state_checked="true" android:state_enabled="false" />
     <item android:color="@android:color/transparent" android:state_enabled="false" />
-    <item android:color="@color/primary_container" android:state_checked="true" />
-    <item android:color="@color/galaxy_chip_fill" />
+    <item android:color="?attr/colorPrimaryContainer" android:state_checked="true" />
+    <item android:color="?attr/scanChipFill" />
 </selector>

@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--
-        Galaxy palette. The app is always dark (ShareScanApp forces night mode), and
-        values-night/colors.xml carries the same values, so nothing renders with light colours.
+        Galaxy palette, the default theme's raw colours (ShareScanApp forces night mode).
+        Layouts and code use the theme-driven names in res/color (brand_primary, text_primary, card, ...),
+        which follow whichever theme is picked; the other themes' palettes are in colors_themes.xml.
     -->
-    <color name="brand_primary">#A78BFA</color>
-    <color name="on_primary">#1B0B45</color>
-    <color name="primary_container">#3B2381</color>
-    <color name="on_primary_container">#EDE9FE</color>
+    <color name="galaxy_accent">#A78BFA</color>
+    <color name="galaxy_on_accent">#1B0B45</color>
+    <color name="galaxy_accent_container">#3B2381</color>
+    <color name="galaxy_on_accent_container">#EDE9FE</color>
     <!-- Top of the deep-space gradient; also the opaque status-bar strip. -->
-    <color name="bg">#020108</color>
+    <color name="galaxy_bg">#020108</color>
     <!-- Glass: ~80% opaque dark violet so the starfield faintly shows through cards. -->
-    <color name="card">#E6170E3F</color>
-    <color name="surface_container">#150D3A</color>
-    <color name="track">#2A1E5E</color>
-    <color name="outline">#3B2F7A</color>
-    <color name="text_primary">#EDE9FE</color>
-    <color name="text_secondary">#A9A1D4</color>
+    <color name="galaxy_card">#E6170E3F</color>
+    <color name="galaxy_surface">#150D3A</color>
+    <color name="galaxy_track">#2A1E5E</color>
+    <color name="galaxy_outline">#3B2F7A</color>
+    <color name="galaxy_text">#EDE9FE</color>
+    <color name="galaxy_text_soft">#A9A1D4</color>
     <color name="bull">#52F2A0</color>
     <color name="bull_container">#0F3B2E</color>
     <color name="warn">#FBBF24</color>
@@ -39,7 +40,6 @@
     <color name="galaxy_space_mid">#05030F</color>
     <color name="galaxy_space_bottom">#07041A</color>
     <color name="galaxy_cyan">#22D3EE</color>
-    <color name="galaxy_violet">#A78BFA</color>
     <color name="galaxy_magenta">#F472B6</color>
     <color name="galaxy_star">#F5F3FF</color>
     <color name="galaxy_card_stroke">#66A78BFA</color>

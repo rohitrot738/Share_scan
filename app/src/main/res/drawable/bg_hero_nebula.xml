@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Hero card for the Nebula theme: bg_hero.xml with this theme's colours. The first layer is the rounded
+    rectangle, so the card's outline (clipToOutline) keeps its 28dp corners.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <corners android:radius="28dp" />
+            <gradient
+                android:angle="45"
+                android:centerColor="@color/nebula_hero_mid"
+                android:endColor="@color/nebula_hero_end"
+                android:startColor="@color/nebula_hero_start"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <corners android:radius="28dp" />
+            <gradient
+                android:centerX="0.2"
+                android:centerY="0.85"
+                android:endColor="#00FB7185"
+                android:gradientRadius="85%"
+                android:startColor="#59FB7185"
+                android:type="radial" />
+        </shape>
+    </item>
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <corners android:radius="28dp" />
+            <gradient
+                android:centerX="0.92"
+                android:centerY="0.12"
+                android:endColor="#00C084FC"
+                android:gradientRadius="80%"
+                android:startColor="#4DC084FC"
+                android:type="radial" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/galaxy_hero_stars" />
+</layer-list>

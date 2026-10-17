@@ -28,6 +28,15 @@ import kotlin.coroutines.coroutineContext
 
 enum class UpdateStep { AVAILABLE, DOWNLOADING, READY, FAILED }
 
+/** What a check the user asked for found; automatic checks on launch stay silent. */
+sealed interface UpdateCheck {
+    data object Found : UpdateCheck
+    data class UpToDate(val version: String) : UpdateCheck
+    data object Failed : UpdateCheck
+    /** Debug builds carry a different key, so they never look for releases. */
+    data object Disabled : UpdateCheck
+}
+
 /** A newer release the banner offers; [apk] is set once it is downloaded and checked. */
 data class UpdateOffer(
     val release: ReleaseInfo,
@@ -39,14 +48,18 @@ data class UpdateOffer(
 
 /**
  * Looks for a newer signed release on launch and, when the user asks, downloads its APK into the cache
- * so the system installer can put it over this one. Debug builds never check: they carry a different key.
+ * so the system installer can put it over this one. The launch check can be switched off in Settings; the menu
+ * checks on demand. Debug builds never check: they carry a different key.
  */
 class UpdateViewModel(application: Application) : AndroidViewModel(application) {
     private val prefs = application.getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE)
     private val folder = File(application.cacheDir, UPDATE_FOLDER)
     private val state = MutableStateFlow<UpdateOffer?>(null)
     private val installs = Channel<File>(Channel.CONFLATED)
+    private val checks = Channel<UpdateCheck>(Channel.BUFFERED)
+    private val debuggable = (application.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
     private var downloadJob: Job? = null
+    private var checkJob: Job? = null
 
     /** The banner's content; null hides it. */
     val offer: StateFlow<UpdateOffer?> = state.asStateFlow()
@@ -54,24 +67,48 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
     /** APKs ready for the system installer, sent once right after a download finishes. */
     val installRequests: Flow<File> = installs.receiveAsFlow()
 
+    /** Outcomes of [checkNow], one per tap. */
+    val checkResults: Flow<UpdateCheck> = checks.receiveAsFlow()
+
+    /** This build's version name and code, for the menu and About. */
+    val installedName: String
+    val installedCode: Long
+
     init {
-        val debuggable = (application.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0
-        if (!debuggable) viewModelScope.launch { check() }
+        val installed = packageInfo()
+        installedName = installed?.versionName.orEmpty()
+        installedCode = installed?.let(PackageInfoCompat::getLongVersionCode) ?: 0L
+        if (!debuggable && AppSettings(application).checkUpdates) {
+            checkJob = viewModelScope.launch { check(manual = false) }
+        }
     }
 
-    private suspend fun check() {
-        val installed = packageInfo() ?: return
-        val installedCode = PackageInfoCompat.getLongVersionCode(installed)
-        val release = withContext(Dispatchers.IO) { runCatching { fetchLatest() }.getOrNull() }
-            ?.takeIf { AppUpdate.isNewer(it, installedCode) }
+    /** The menu's "Update देखें": checks even when launch checks are off or this release was put off. */
+    fun checkNow() {
+        if (debuggable) {
+            checks.trySend(UpdateCheck.Disabled)
+            return
+        }
+        val running = checkJob
+        checkJob = viewModelScope.launch {
+            running?.join()
+            checks.send(if (state.value != null) UpdateCheck.Found else check(manual = true))
+        }
+    }
+
+    private suspend fun check(manual: Boolean): UpdateCheck {
+        val latest = withContext(Dispatchers.IO) { runCatching { fetchLatest() }.getOrNull() } ?: return UpdateCheck.Failed
+        val release = latest.takeIf { AppUpdate.isNewer(it, installedCode) }
         val apk = withContext(Dispatchers.IO) { keepOnly(release) }
-        if (release == null || prefs.getInt(Prefs.UPDATE_DISMISSED, 0) == release.versionCode) return
+        if (release == null) return UpdateCheck.UpToDate(installedName)
+        if (!manual && prefs.getInt(Prefs.UPDATE_DISMISSED, 0) == release.versionCode) return UpdateCheck.Found
         state.value = UpdateOffer(
             release = release,
-            installedName = installed.versionName.orEmpty(),
+            installedName = installedName,
             step = if (apk != null) UpdateStep.READY else UpdateStep.AVAILABLE,
             apk = apk,
         )
+        return UpdateCheck.Found
     }
 
     /** The banner's main button: downloads the APK, or hands it to the installer again once downloaded. */

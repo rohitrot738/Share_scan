@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Window background for the Nebula theme: bg_galaxy.xml with this theme's sky and nebula tints. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:centerColor="@color/nebula_space_mid"
+                android:endColor="@color/nebula_space_bottom"
+                android:startColor="@color/nebula_bg"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- Pink nebula behind the hero and stats, upper right. -->
+    <item
+        android:width="480dp"
+        android:height="480dp"
+        android:end="-200dp"
+        android:gravity="top|end"
+        android:top="90dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#06F472B6"
+                android:endColor="#00F472B6"
+                android:gradientRadius="50%"
+                android:startColor="#12F472B6"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Purple haze, middle left. -->
+    <item
+        android:width="360dp"
+        android:height="360dp"
+        android:gravity="top|start"
+        android:start="-130dp"
+        android:top="300dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#06A855F7"
+                android:endColor="#00A855F7"
+                android:gradientRadius="50%"
+                android:startColor="#12A855F7"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Rose nebula, lower left. -->
+    <item
+        android:width="420dp"
+        android:height="420dp"
+        android:bottom="-40dp"
+        android:gravity="bottom|start"
+        android:start="-190dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#06FB7185"
+                android:endColor="#00FB7185"
+                android:gradientRadius="50%"
+                android:startColor="#12FB7185"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Fuchsia haze, bottom right. -->
+    <item
+        android:width="380dp"
+        android:height="380dp"
+        android:bottom="-150dp"
+        android:end="-110dp"
+        android:gravity="bottom|end">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#05C026D3"
+                android:endColor="#00C026D3"
+                android:gradientRadius="50%"
+                android:startColor="#10C026D3"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/galaxy_stars" />
+</layer-list>

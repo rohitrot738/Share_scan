@@ -280,7 +280,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginHorizontal="16dp"
-                            android:background="@color/outline" />
+                            android:background="?attr/colorOutline" />
 
                         <LinearLayout
                             android:id="@+id/detailLevels"
@@ -293,7 +293,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_marginHorizontal="16dp"
-                            android:background="@color/outline" />
+                            android:background="?attr/colorOutline" />
 
                         <TextView
                             android:id="@+id/detailPlanRisk"
@@ -391,7 +391,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/outline" />
+        android:background="?attr/colorOutline" />
 
     <TextView
         android:layout_width="match_parent"

@@ -18,6 +18,7 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -39,6 +40,7 @@ import java.time.LocalDate
 class MainActivity : AppCompatActivity() {
     private val scan: ScanViewModel by viewModels()
     private val updates: UpdateViewModel by viewModels()
+    private lateinit var settings: AppSettings
     private lateinit var ui: ActivityMainBinding
     private val adapter = StockAdapter(::openChart) { stock -> scan.toggleStar(stock.symbol) }
     private var shownResults: List<ScanResult>? = null
@@ -52,10 +54,15 @@ class MainActivity : AppCompatActivity() {
     }
     private var filterSheet: BottomSheetDialog? = null
     private var detailSheet: BottomSheetDialog? = null
+    /** The menu or whichever of its sheets is open; only one shows at a time. */
+    private var menuSheet: BottomSheetDialog? = null
     private var shownRing = -1
     private var radarSpin: ObjectAnimator? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // The picked theme has to be in place before any view (or the window background) is created.
+        settings = AppSettings(this)
+        setTheme(settings.theme.style)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         ui = ActivityMainBinding.inflate(layoutInflater)
@@ -66,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         setUpListTools()
         ui.updateAction.setOnClickListener { updates.proceed() }
         ui.updateLater.setOnClickListener { updates.dismiss() }
+        ui.menuButton.setOnClickListener { openMenu() }
 
         ui.startButton.setOnClickListener {
             ui.appBar.setExpanded(true, true)
@@ -91,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                 launch { scan.uiState.collect { render(it) } }
                 launch { updates.offer.collect { renderUpdate(it) } }
                 launch { updates.installRequests.collect { install(it) } }
+                launch { updates.checkResults.collect { showUpdateCheck(it) } }
                 launch {
                     // Keeps the elapsed-time clock in the hero card ticking during a scan.
                     while (true) {
@@ -107,6 +116,7 @@ class MainActivity : AppCompatActivity() {
         radarSpin?.cancel()
         filterSheet?.dismiss()
         detailSheet?.dismiss()
+        menuSheet?.dismiss()
         super.onDestroy()
     }
 
@@ -114,7 +124,7 @@ class MainActivity : AppCompatActivity() {
         renderHero(state)
         renderStats(state)
         renderResults(state)
-        ui.root.keepScreenOn = state.isRunning
+        ui.root.keepScreenOn = state.isRunning && settings.keepScreenOn
     }
 
     private fun renderHero(state: ScanUiState) {
@@ -239,7 +249,11 @@ class MainActivity : AppCompatActivity() {
             }
         } else {
             val (title, body, icon) = when {
-                state.isRunning -> Triple(R.string.empty_scanning_title, R.string.empty_scanning_body, R.drawable.ic_radar)
+                state.isRunning -> Triple(
+                    R.string.empty_scanning_title,
+                    if (settings.keepScreenOn) R.string.empty_scanning_body else R.string.empty_scanning_body_screen_off,
+                    R.drawable.ic_radar,
+                )
                 state.phase == ScanPhase.IDLE -> Triple(R.string.empty_title, R.string.empty_body, R.drawable.ic_trending_up)
                 else -> Triple(R.string.empty_failed_title, R.string.empty_failed_body, R.drawable.ic_error)
             }
@@ -432,9 +446,88 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /** Opens the stock's detail sheet; its button leads on to the TradingView chart. */
+    /** Opens the stock's detail sheet; its button leads on to the chart site picked in Settings. */
     private fun openChart(stock: ScanResult) {
         detailSheet?.dismiss()
-        detailSheet = StockDetailSheet(this, stock).show()
+        detailSheet = StockDetailSheet(this, stock, settings.chartSite).show()
+    }
+
+    private fun openMenu() {
+        showMenuSheet { MenuSheet(this, updates.installedName, settings.theme, ::onMenuPick).show() }
+    }
+
+    private fun onMenuPick(entry: MenuSheet.Entry) {
+        when (entry) {
+            MenuSheet.Entry.SETTINGS -> showMenuSheet {
+                SettingsSheet(this, settings, scan.uiState.value.watchlist.size, settingsActions).show()
+            }
+            MenuSheet.Entry.THEME -> showMenuSheet { ThemeSheet(this, settings.theme, ::applyTheme).show() }
+            MenuSheet.Entry.UPDATE -> {
+                Toast.makeText(this, R.string.update_checking, Toast.LENGTH_SHORT).show()
+                updates.checkNow()
+            }
+            MenuSheet.Entry.HELP -> showMenuSheet { HelpSheet(this).show() }
+            MenuSheet.Entry.SHARE -> shareApp()
+            MenuSheet.Entry.ABOUT -> showMenuSheet {
+                AboutSheet(this, updates.installedName, updates.installedCode, ::shareApp, ::openReleases).show()
+            }
+        }
+    }
+
+    private fun showMenuSheet(open: () -> BottomSheetDialog) {
+        menuSheet?.dismiss()
+        menuSheet = open()
+    }
+
+    private val settingsActions = object : SettingsSheet.Actions {
+        override fun keepScreenOnChanged(on: Boolean) {
+            ui.root.keepScreenOn = scan.uiState.value.isRunning && on
+            renderEmpty(scan.uiState.value)
+        }
+
+        override fun clearWatchlist() = scan.clearWatchlist()
+
+        override fun resetFilters() = scan.setFilters(ScanFilters())
+
+        override fun clearRankHistory() = scan.clearRankHistory()
+    }
+
+    /** Saves the theme and rebuilds the screen in it; the scan and its results live on in the view model. */
+    private fun applyTheme(theme: ThemeChoice) {
+        settings.theme = theme
+        recreate()
+    }
+
+    private fun showUpdateCheck(result: UpdateCheck) {
+        val message = when (result) {
+            UpdateCheck.Found -> {
+                ui.appBar.setExpanded(true, true)
+                getString(R.string.update_found)
+            }
+            is UpdateCheck.UpToDate -> getString(R.string.update_latest, result.version)
+            UpdateCheck.Failed -> getString(R.string.update_check_failed)
+            UpdateCheck.Disabled -> getString(R.string.update_check_debug)
+        }
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun shareApp() {
+        val send = Intent(Intent.ACTION_SEND)
+            .setType("text/plain")
+            .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_app_subject))
+            .putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app_text, AppUpdate.DOWNLOAD_LINK))
+        try {
+            startActivity(Intent.createChooser(send, getString(R.string.share_app_open)))
+        } catch (error: ActivityNotFoundException) {
+            Toast.makeText(this, R.string.list_share_failed, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun openReleases() {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, AppUpdate.RELEASES_PAGE.toUri()))
+        } catch (error: ActivityNotFoundException) {
+            Toast.makeText(this, R.string.about_open_failed, Toast.LENGTH_SHORT).show()
+        }
     }
 }
