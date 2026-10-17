@@ -9,11 +9,15 @@
     android:clickable="true"
     android:focusable="true">
 
+    <!-- Less bottom padding: the star button's own padding already spaces the last row from the edge. -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingStart="16dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,16 +43,39 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/symbol"
+                <!-- wrap_content row + weighted symbol: a long symbol ellipsizes while the badge stays beside it. -->
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:letterSpacing="0.02"
-                    android:maxLines="1"
-                    android:textColor="@color/text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/symbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:letterSpacing="0.02"
+                        android:maxLines="1"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/rankBadge"
+                        style="@style/Pill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:maxLines="1"
+                        android:paddingStart="6dp"
+                        android:paddingTop="1dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="1dp"
+                        android:textSize="10sp"
+                        android:visibility="gone" />
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/change"
@@ -97,7 +124,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="6dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -131,6 +158,21 @@
                 android:minWidth="36dp"
                 android:textSize="15sp"
                 android:textStyle="bold" />
+
+            <!-- Padding sits on the start side so the star lines up with the price above. -->
+            <ImageButton
+                android:id="@+id/star"
+                android:layout_width="40dp"
+                android:layout_height="36dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/list_watchlist"
+                android:paddingStart="18dp"
+                android:paddingTop="7dp"
+                android:paddingEnd="0dp"
+                android:paddingBottom="7dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_star_outline"
+                app:tint="@color/text_secondary" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

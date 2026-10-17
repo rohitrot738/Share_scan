@@ -28,7 +28,7 @@
     <string name="stat_empty">—</string>
 
     <string name="results_title">Top candidates</string>
-    <string name="results_hint">टैप करें → चार्ट</string>
+    <string name="results_hint">टैप करें → details</string>
     <string name="sort_score">Score</string>
     <string name="sort_rvol">RVOL</string>
     <string name="sort_change">5D बदलाव</string>
