@@ -53,33 +53,40 @@ clear_query() { for i in $(seq 1 20); do adb shell input keyevent KEYCODE_DEL; d
 
 launch
 sleep 3
-tap startButton
-for i in $(seq 1 80); do
-  flags=$(adb shell dumpsys activity top | grep 'id/startButton' | head -1 | awk '{print $2}')
-  case "$flags" in ??E*) echo "scan finished after about $((i * 15)) seconds"; break ;; esac
-  sleep 15
-done
-shot 01-results-with-names 3
-
-tap searchButton
-shot 02-search-open-at-top 2
-type_query "reliance"
-shot 03-search-reliance 2
-clear_query
-type_query "tata%smotors"
-shot 04-search-tata-motors 2
-clear_query
-type_query "bank"
-shot 05-search-bank 2
-adb shell input keyevent KEYCODE_BACK
-sleep 1
-tap searchClose
-sleep 2
-tap symbol
-shot 06-detail-with-name 4
-adb shell input keyevent KEYCODE_BACK
-sleep 2
+# Turn on NSE SME and BSE-only stocks before scanning.
 menu
 tap_text "सेटिंग्स"
-shot 07-settings-sme 2
+sleep 2
+tap settingSme
+tap settingBse
+shot 01-settings-sme-bse 2
+adb shell input keyevent KEYCODE_BACK
+sleep 2
+tap startButton
+shot 02-scanning 40
+for i in $(seq 1 120); do
+  flags=$(adb shell dumpsys activity top | grep 'id/startButton' | head -1 | awk '{print $2}')
+  case "$flags" in ??E*) echo "scan finished after about $((i * 15)) more seconds"; break ;; esac
+  sleep 15
+done
+shot 03-results 3
+
+tap searchButton
+shot 04-search-open-at-top 2
+type_query "reliance"
+shot 05-search-reliance 2
+clear_query
+type_query "tata%smotors"
+shot 06-search-tata-motors 2
+clear_query
+type_query "globus"
+shot 07-search-bse-globus 2
+adb shell input keyevent KEYCODE_BACK
+sleep 1
+tap symbol
+shot 08-detail-bse 4
+adb shell input keyevent KEYCODE_BACK
+sleep 2
+tap searchClose
+sleep 2
 adb logcat -d | grep -E "AndroidRuntime|FATAL" | tail -60 > "$OUT/crash-log.txt"
