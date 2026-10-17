@@ -1,38 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Decorative radar rings drawn behind the hero progress ring. -->
+<!--
+    Planetary orbits drawn behind the hero progress ring: a soft halo, a moon on the inner orbit,
+    a small ringed planet on the tilted outer orbit and a few stars. Orbits fade towards the
+    lower left, where the hero text sits. Only the left and lower part of this 220dp square is
+    on screen (the view hangs off the card's top-right corner), so the details live there.
+-->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
     android:width="220dp"
     android:height="220dp"
     android:viewportWidth="220"
     android:viewportHeight="220">
+
+    <!-- Halo -->
+    <path android:pathData="M46,110a64,64 0,1 0,128 0a64,64 0,1 0,-128 0z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="110"
+                android:centerY="110"
+                android:gradientRadius="64"
+                android:type="radial">
+                <item android:color="#24E0F2FE" android:offset="0" />
+                <item android:color="#12A5F3FC" android:offset="0.6" />
+                <item android:color="#00A5F3FC" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner orbit hugging the progress ring -->
     <path
-        android:fillAlpha="0.06"
-        android:fillColor="@android:color/white"
-        android:pathData="M70,110a40,40 0,1 0,80 0a40,40 0,1 0,-80 0z" />
-    <path
-        android:fillColor="#00000000"
+        android:fillAlpha="0.05"
+        android:fillColor="@color/galaxy_star"
         android:pathData="M70,110a40,40 0,1 0,80 0a40,40 0,1 0,-80 0z"
         android:strokeWidth="1.5"
-        android:strokeAlpha="0.14"
-        android:strokeColor="@android:color/white" />
+        android:strokeAlpha="0.16"
+        android:strokeColor="@color/galaxy_star" />
+
+    <!-- Moon orbit, lit towards the upper right -->
     <path
         android:fillColor="#00000000"
-        android:pathData="M40,110a70,70 0,1 0,140 0a70,70 0,1 0,-140 0z"
-        android:strokeWidth="1.5"
-        android:strokeAlpha="0.10"
-        android:strokeColor="@android:color/white" />
+        android:pathData="M36,110a74,74 0,1 0,148 0a74,74 0,1 0,-148 0z"
+        android:strokeWidth="1.4">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:endX="180"
+                android:endY="40"
+                android:startX="40"
+                android:startY="180"
+                android:type="linear">
+                <item android:color="#0FE9D5FF" android:offset="0" />
+                <item android:color="#33E9D5FF" android:offset="0.5" />
+                <item android:color="#7067E8F9" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Tilted outer orbit -->
+    <group
+        android:pivotX="110"
+        android:pivotY="110"
+        android:rotation="-28">
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M6,110a104,46 0,1 0,208 0a104,46 0,1 0,-208 0z"
+            android:strokeWidth="1.3">
+            <aapt:attr name="android:strokeColor">
+                <gradient
+                    android:endX="214"
+                    android:endY="110"
+                    android:startX="6"
+                    android:startY="110"
+                    android:type="linear">
+                    <item android:color="#00F0ABFC" android:offset="0" />
+                    <item android:color="#2EF0ABFC" android:offset="0.4" />
+                    <item android:color="#6622D3EE" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+    </group>
+
+    <!-- Faint outermost orbit -->
     <path
         android:fillColor="#00000000"
-        android:pathData="M10,110a100,100 0,1 0,200 0a100,100 0,1 0,-200 0z"
-        android:strokeWidth="1.5"
-        android:strokeAlpha="0.07"
-        android:strokeColor="@android:color/white" />
+        android:pathData="M6,110a104,104 0,1 0,208 0a104,104 0,1 0,-208 0z"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.06"
+        android:strokeColor="@color/galaxy_star" />
+
+    <!-- Moon on the inner orbit -->
+    <path android:pathData="M137.2,172.8a12,12 0,1 0,24 0a12,12 0,1 0,-24 0z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="149.2"
+                android:centerY="172.8"
+                android:gradientRadius="12"
+                android:type="radial">
+                <item android:color="#80F9A8D4" android:offset="0" />
+                <item android:color="#26F472B6" android:offset="0.45" />
+                <item android:color="#00F472B6" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path
+        android:fillColor="#FDF2F8"
+        android:pathData="M145.6,172.8a3.6,3.6 0,1 0,7.2 0a3.6,3.6 0,1 0,-7.2 0z" />
+
+    <!-- Ringed planet on the tilted orbit: back of the ring, glow, planet, front of the ring -->
+    <path android:pathData="M62,78.5a11,11 0,1 0,22 0a11,11 0,1 0,-22 0z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="73"
+                android:centerY="78.5"
+                android:gradientRadius="11"
+                android:type="radial">
+                <item android:color="#47C084FC" android:offset="0" />
+                <item android:color="#00C084FC" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <group
+        android:pivotX="73"
+        android:pivotY="78.5"
+        android:rotation="-22">
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M63.5,78.5a9.5,2.6 0,1 1,19 0"
+            android:strokeWidth="1.1"
+            android:strokeAlpha="0.55"
+            android:strokeColor="#67E8F9" />
+        <path android:pathData="M67.8,78.5a5.2,5.2 0,1 0,10.4 0a5.2,5.2 0,1 0,-10.4 0z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:centerX="71.4"
+                    android:centerY="76.2"
+                    android:gradientRadius="7.2"
+                    android:type="radial">
+                    <item android:color="#FFF5D0FE" android:offset="0" />
+                    <item android:color="#FFC084FC" android:offset="0.5" />
+                    <item android:color="#FF6D28D9" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M63.5,78.5a9.5,2.6 0,0 0,19 0"
+            android:strokeWidth="1.1"
+            android:strokeAlpha="0.95"
+            android:strokeColor="#67E8F9"
+            android:strokeLineCap="round" />
+    </group>
+
+    <!-- Stars -->
+    <path
+        android:fillAlpha="0.85"
+        android:fillColor="@color/galaxy_star"
+        android:pathData="M140,67.6L140.55,71.45L144.4,72L140.55,72.55L140,76.4L139.45,72.55L135.6,72L139.45,71.45z" />
+    <path
+        android:fillAlpha="0.7"
+        android:fillColor="@color/icon_mint"
+        android:pathData="M161,89a2,2 0,1 0,4 0a2,2 0,1 0,-4 0z" />
     <path
         android:fillAlpha="0.55"
-        android:fillColor="@color/icon_mint"
-        android:pathData="M158,84a5,5 0,1 0,10 0a5,5 0,1 0,-10 0z" />
+        android:fillColor="@color/galaxy_star"
+        android:pathData="M99.1,66a0.9,0.9 0,1 0,1.8 0a0.9,0.9 0,1 0,-1.8 0zM157.2,100a0.8,0.8 0,1 0,1.6 0a0.8,0.8 0,1 0,-1.6 0zM121.2,188a0.8,0.8 0,1 0,1.6 0a0.8,0.8 0,1 0,-1.6 0zM59.3,178a0.7,0.7 0,1 0,1.4 0a0.7,0.7 0,1 0,-1.4 0zM149.3,82a0.7,0.7 0,1 0,1.4 0a0.7,0.7 0,1 0,-1.4 0z" />
     <path
-        android:fillAlpha="0.35"
-        android:fillColor="@android:color/white"
-        android:pathData="M42,150a3.5,3.5 0,1 0,7 0a3.5,3.5 0,1 0,-7 0z" />
+        android:fillAlpha="0.4"
+        android:fillColor="@color/galaxy_star"
+        android:pathData="M59.4,140a0.6,0.6 0,1 0,1.2 0a0.6,0.6 0,1 0,-1.2 0zM81.4,186a0.6,0.6 0,1 0,1.2 0a0.6,0.6 0,1 0,-1.2 0zM165.4,152a0.6,0.6 0,1 0,1.2 0a0.6,0.6 0,1 0,-1.2 0zM120.5,70a0.5,0.5 0,1 0,1 0a0.5,0.5 0,1 0,-1 0zM138.5,160a0.5,0.5 0,1 0,1 0a0.5,0.5 0,1 0,-1 0z" />
 </vector>
