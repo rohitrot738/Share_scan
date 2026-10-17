@@ -463,7 +463,7 @@ class MainActivity : AppCompatActivity() {
             }
             MenuSheet.Entry.THEME -> showMenuSheet { ThemeSheet(this, settings.theme, ::applyTheme).show() }
             MenuSheet.Entry.UPDATE -> {
-                Toast.makeText(this, R.string.update_checking, Toast.LENGTH_SHORT).show()
+                if (updates.canCheck) Toast.makeText(this, R.string.update_checking, Toast.LENGTH_SHORT).show()
                 updates.checkNow()
             }
             MenuSheet.Entry.HELP -> showMenuSheet { HelpSheet(this).show() }

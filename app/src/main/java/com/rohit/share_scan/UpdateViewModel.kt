@@ -70,6 +70,9 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
     /** Outcomes of [checkNow], one per tap. */
     val checkResults: Flow<UpdateCheck> = checks.receiveAsFlow()
 
+    /** False for debug builds, which never look for releases. */
+    val canCheck: Boolean get() = !debuggable
+
     /** This build's version name and code, for the menu and About. */
     val installedName: String
     val installedCode: Long
@@ -97,6 +100,8 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
     }
 
     private suspend fun check(manual: Boolean): UpdateCheck {
+        // Without our own version every release would look newer.
+        if (installedCode <= 0L) return UpdateCheck.Failed
         val latest = withContext(Dispatchers.IO) { runCatching { fetchLatest() }.getOrNull() } ?: return UpdateCheck.Failed
         val release = latest.takeIf { AppUpdate.isNewer(it, installedCode) }
         val apk = withContext(Dispatchers.IO) { keepOnly(release) }

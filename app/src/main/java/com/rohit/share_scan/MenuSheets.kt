@@ -7,6 +7,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -22,6 +23,7 @@ import com.rohit.share_scan.databinding.SheetHelpBinding
 import com.rohit.share_scan.databinding.SheetMenuBinding
 import com.rohit.share_scan.databinding.SheetSettingsBinding
 import com.rohit.share_scan.databinding.SheetThemeBinding
+import kotlin.math.roundToInt
 
 @get:StyleRes
 val ThemeChoice.style: Int
@@ -132,6 +134,7 @@ class SettingsSheet(
     }
 
     private val ui = SheetSettingsBinding.inflate(activity.layoutInflater)
+    private var confirmDialog: AlertDialog? = null
 
     fun show(): BottomSheetDialog {
         ui.settingUpdates.isChecked = settings.checkUpdates
@@ -170,11 +173,15 @@ class SettingsSheet(
         ui.settingClearRanks.setOnClickListener {
             confirm(activity.getString(R.string.settings_confirm_ranks)) { actions.clearRankHistory() }
         }
-        return activity.showSheet(ui.root)
+        val sheet = activity.showSheet(ui.root)
+        // Closing the sheet (or the screen being re-created) takes an open "पक्का?" dialog with it.
+        sheet.setOnDismissListener { confirmDialog?.dismiss() }
+        return sheet
     }
 
     private fun confirm(message: String, action: () -> Unit) {
-        MaterialAlertDialogBuilder(activity)
+        confirmDialog?.dismiss()
+        confirmDialog = MaterialAlertDialogBuilder(activity)
             .setTitle(R.string.settings_confirm_title)
             .setMessage(message)
             .setNegativeButton(R.string.settings_confirm_no, null)
@@ -212,7 +219,7 @@ class ThemeSheet(
                 card.root.strokeWidth = activity.resources.getDimensionPixelSize(
                     if (selected) R.dimen.theme_card_stroke_selected else R.dimen.theme_card_stroke,
                 )
-                if (selected) card.root.strokeColor = color(accent)
+                if (selected) card.root.setStrokeColor(ColorStateList.valueOf(color(accent)))
                 card.root.contentDescription = activity.getString(choice.title) + ", " + activity.getString(choice.body)
                 card.root.setOnClickListener {
                     dialog.dismiss()
@@ -246,7 +253,7 @@ class HelpSheet(private val activity: AppCompatActivity) {
             Triple(R.string.help_part_momentum, R.string.help_part_momentum_body, ScoreKeys.MOMENTUM),
         )
         parts.forEach { (title, body, key) ->
-            val weight = ((BreakoutSignals.WEIGHTS[key] ?: 0.0) * 100).toInt()
+            val weight = ((BreakoutSignals.WEIGHTS[key] ?: 0.0) * 100).roundToInt()
             add(activity.getString(title), activity.getString(body), weight)
         }
         add(
