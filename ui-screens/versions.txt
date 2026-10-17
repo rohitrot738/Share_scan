@@ -1,6 +1,0 @@
-before:
-    versionCode=1 minSdk=26 targetSdk=35
-    versionName=1.2.1
-after:
-    versionCode=103 minSdk=26 targetSdk=35
-    versionName=1.2.103
