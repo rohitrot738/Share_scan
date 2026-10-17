@@ -16,6 +16,13 @@
         <item name="colorError">@color/bear</item>
         <item name="android:colorBackground">@color/bg</item>
         <item name="android:windowBackground">@color/bg</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.ShareScan.BottomSheetDialog</item>
+    </style>
+
+    <!-- Lets the filter sheet draw behind the navigation bar instead of leaving a black strip under it. -->
+    <style name="ThemeOverlay.ShareScan.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="enableEdgeToEdge">true</item>
     </style>
 
     <style name="ShareScanCard" parent="Widget.Material3.CardView.Outlined">

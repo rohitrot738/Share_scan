@@ -85,7 +85,7 @@ class FilterSheet(
     }
 
     private fun addMarketCapPresets(row: ItemFilterMetricBinding) {
-        row.metricPresetsScroll.isVisible = true
+        row.metricPresets.isVisible = true
         for ((label, bound) in MARKET_CAP_PRESETS) {
             val chip = ChipChoiceBinding.inflate(activity.layoutInflater, row.metricPresets, true).root
             chip.setText(label)

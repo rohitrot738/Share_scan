@@ -79,9 +79,11 @@ tap filterChip
 shot 10-filters-sheet-light 3
 tap_text "Large"
 shot 11-filters-large-cap-light 2
+adb shell input swipe 540 1900 540 900 400
+shot 12-filters-sheet-scrolled-light 2
 tap filterApply
-shot 12-filtered-results-light 4
+shot 13-filtered-results-light 4
 adb shell cmd uimode night yes
 sleep 4
 tap filterChip
-shot 13-filters-sheet-dark 3
+shot 14-filters-sheet-dark 3

@@ -43,26 +43,21 @@
         android:textSize="12sp"
         android:visibility="gone" />
 
-    <HorizontalScrollView
-        android:id="@+id/metricPresetsScroll"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/metricPresets"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:clipToPadding="false"
         android:paddingHorizontal="16dp"
-        android:scrollbars="none"
-        android:visibility="gone">
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/metricPresets"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:singleLine="true" />
-    </HorizontalScrollView>
+        android:visibility="gone"
+        app:chipSpacingVertical="0dp" />
 
     <com.google.android.material.slider.RangeSlider
         android:id="@+id/metricSlider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="6dp" />
+        android:layout_marginHorizontal="6dp"
+        app:thumbHeight="28dp"
+        app:tickColor="@android:color/transparent"
+        app:trackHeight="8dp" />
 </LinearLayout>

@@ -78,10 +78,10 @@
     <string name="hint_volume">पिछले session में trade हुए shares</string>
     <string name="hint_turnover">पिछले session में trade हुई कुल रकम</string>
     <string name="hint_rvol">पिछले session का volume ÷ 20 दिन का औसत</string>
-    <string name="cap_micro">Micro ≤ ₹500 Cr</string>
-    <string name="cap_small">Small ₹500–5,000 Cr</string>
-    <string name="cap_mid">Mid ₹5,000–20,000 Cr</string>
-    <string name="cap_large">Large ≥ ₹20,000 Cr</string>
+    <string name="cap_micro">Micro ≤₹500 Cr</string>
+    <string name="cap_small">Small ₹500–5K Cr</string>
+    <string name="cap_mid">Mid ₹5K–20K Cr</string>
+    <string name="cap_large">Large ≥₹20K Cr</string>
 
     <string name="open_chart_failed">चार्ट खोलने के लिए कोई browser नहीं मिला</string>
 </resources>
