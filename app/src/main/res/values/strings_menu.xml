@@ -24,6 +24,8 @@
     <string name="update_check_debug">यह debug build है — update सिर्फ़ release APK में आते हैं</string>
 
     <!-- Settings -->
+    <string name="sheet_back">वापस मेन्यू पर</string>
+    <string name="sheet_close">बंद करें</string>
     <string name="settings_title">सेटिंग्स</string>
     <string name="settings_subtitle">बदलाव तुरंत लागू होते हैं</string>
     <string name="settings_section_app">App</string>
