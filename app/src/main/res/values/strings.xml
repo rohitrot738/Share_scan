@@ -38,6 +38,7 @@
     <string name="empty_body">ऊपर का बटन दबाएँ — स्कैन पूरा होते ही top candidates score के हिसाब से यहाँ दिखेंगे।</string>
     <string name="empty_scanning_title">बाज़ार स्कैन हो रहा है</string>
     <string name="empty_scanning_body">हर stock का score निकाला जा रहा है। इसमें कुछ मिनट लग सकते हैं — app खुला रखें, स्क्रीन अपने-आप ऑन रहेगी।</string>
+    <string name="empty_scanning_body_screen_off">हर stock का score निकाला जा रहा है। इसमें कुछ मिनट लग सकते हैं — app खुला और स्क्रीन ऑन रखें।</string>
     <string name="empty_failed_title">नतीजे नहीं मिले</string>
     <string name="empty_failed_body">ऊपर दिए बटन से स्कैन दोबारा चलाएँ।</string>
 

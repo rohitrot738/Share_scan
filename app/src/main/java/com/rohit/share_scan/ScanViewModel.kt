@@ -169,6 +169,17 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         prefs.edit { putStringSet(Prefs.WATCHLIST, HashSet(updated.watchlist)) }
     }
 
+    fun clearWatchlist() {
+        state.update { it.copy(watchlist = emptySet()) }
+        prefs.edit { remove(Prefs.WATCHLIST) }
+    }
+
+    /** Forgets the previous scan's ranks, so the next scan starts fresh without NEW or ▲▼ badges. */
+    fun clearRankHistory() {
+        state.update { it.copy(rankBadges = emptyMap()) }
+        prefs.edit { remove(Prefs.LAST_RANKS) }
+    }
+
     fun setWatchlistOnly(only: Boolean) {
         state.update { it.copy(watchlistOnly = only) }
     }

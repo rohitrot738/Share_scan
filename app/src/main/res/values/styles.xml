@@ -1,36 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Always-dark galaxy theme (ShareScanApp forces night mode); the window shows the space background. -->
+    <!--
+        Always-dark galaxy theme (ShareScanApp forces night mode); the window shows the space background.
+        It is the default; MainActivity swaps in the picked AppTheme before inflating its views.
+    -->
     <style name="Theme.ShareScan" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="colorPrimary">@color/brand_primary</item>
-        <item name="colorOnPrimary">@color/on_primary</item>
-        <item name="colorPrimaryContainer">@color/primary_container</item>
-        <item name="colorOnPrimaryContainer">@color/on_primary_container</item>
+        <item name="colorPrimary">@color/galaxy_accent</item>
+        <item name="colorOnPrimary">@color/galaxy_on_accent</item>
+        <item name="colorPrimaryContainer">@color/galaxy_accent_container</item>
+        <item name="colorOnPrimaryContainer">@color/galaxy_on_accent_container</item>
         <item name="colorPrimaryInverse">@color/galaxy_primary_inverse</item>
         <item name="colorSecondary">@color/galaxy_cyan</item>
-        <item name="colorOnSecondary">@color/on_primary</item>
-        <item name="colorSecondaryContainer">@color/primary_container</item>
-        <item name="colorOnSecondaryContainer">@color/on_primary_container</item>
+        <item name="colorOnSecondary">@color/galaxy_on_accent</item>
+        <item name="colorSecondaryContainer">@color/galaxy_accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/galaxy_on_accent_container</item>
         <item name="colorTertiary">@color/galaxy_magenta</item>
-        <item name="colorOnTertiary">@color/on_primary</item>
-        <item name="colorSurface">@color/bg</item>
+        <item name="colorOnTertiary">@color/galaxy_on_accent</item>
+        <item name="colorSurface">@color/galaxy_bg</item>
         <item name="colorSurfaceVariant">@color/galaxy_surface_high</item>
         <item name="colorSurfaceContainerLowest">@color/galaxy_surface_lowest</item>
         <item name="colorSurfaceContainerLow">@color/galaxy_surface_low</item>
-        <item name="colorSurfaceContainer">@color/surface_container</item>
+        <item name="colorSurfaceContainer">@color/galaxy_surface</item>
         <item name="colorSurfaceContainerHigh">@color/galaxy_surface_high</item>
         <item name="colorSurfaceContainerHighest">@color/galaxy_surface_highest</item>
-        <item name="colorSurfaceInverse">@color/text_primary</item>
-        <item name="colorOnSurfaceInverse">@color/on_primary</item>
-        <item name="colorOnSurface">@color/text_primary</item>
-        <item name="colorOnSurfaceVariant">@color/text_secondary</item>
-        <item name="colorOnBackground">@color/text_primary</item>
-        <item name="colorOutline">@color/outline</item>
-        <item name="colorOutlineVariant">@color/outline</item>
+        <item name="colorSurfaceInverse">@color/galaxy_text</item>
+        <item name="colorOnSurfaceInverse">@color/galaxy_on_accent</item>
+        <item name="colorOnSurface">@color/galaxy_text</item>
+        <item name="colorOnSurfaceVariant">@color/galaxy_text_soft</item>
+        <item name="colorOnBackground">@color/galaxy_text</item>
+        <item name="colorOutline">@color/galaxy_outline</item>
+        <item name="colorOutlineVariant">@color/galaxy_outline</item>
         <item name="colorError">@color/bear</item>
-        <item name="android:colorBackground">@color/bg</item>
+        <item name="android:colorBackground">@color/galaxy_bg</item>
         <item name="android:windowBackground">@drawable/bg_galaxy</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.ShareScan.BottomSheetDialog</item>
+        <item name="scanCard">@color/galaxy_card</item>
+        <item name="scanCardStroke">@color/galaxy_card_stroke</item>
+        <item name="scanSheet">@color/galaxy_sheet</item>
+        <item name="scanTrack">@color/galaxy_track</item>
+        <item name="scanChipFill">@color/galaxy_chip_fill</item>
+        <item name="scanHeroBackground">@drawable/bg_hero</item>
+        <item name="scanLogoBackground">@drawable/bg_logo</item>
+    </style>
+
+    <!-- Nebula: rose and magenta clouds with a pink accent. -->
+    <style name="Theme.ShareScan.Nebula">
+        <item name="colorPrimary">@color/nebula_accent</item>
+        <item name="colorOnPrimary">@color/nebula_on_accent</item>
+        <item name="colorPrimaryContainer">@color/nebula_accent_container</item>
+        <item name="colorOnPrimaryContainer">@color/nebula_on_accent_container</item>
+        <item name="colorPrimaryInverse">@color/nebula_primary_inverse</item>
+        <item name="colorSecondary">@color/nebula_secondary</item>
+        <item name="colorOnSecondary">@color/nebula_on_accent</item>
+        <item name="colorSecondaryContainer">@color/nebula_accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/nebula_on_accent_container</item>
+        <item name="colorTertiary">@color/nebula_tertiary</item>
+        <item name="colorOnTertiary">@color/nebula_on_accent</item>
+        <item name="colorSurface">@color/nebula_bg</item>
+        <item name="colorSurfaceVariant">@color/nebula_surface_high</item>
+        <item name="colorSurfaceContainerLowest">@color/nebula_surface_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/nebula_surface_low</item>
+        <item name="colorSurfaceContainer">@color/nebula_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/nebula_surface_high</item>
+        <item name="colorSurfaceContainerHighest">@color/nebula_surface_highest</item>
+        <item name="colorSurfaceInverse">@color/nebula_text</item>
+        <item name="colorOnSurfaceInverse">@color/nebula_on_accent</item>
+        <item name="colorOnSurface">@color/nebula_text</item>
+        <item name="colorOnSurfaceVariant">@color/nebula_text_soft</item>
+        <item name="colorOnBackground">@color/nebula_text</item>
+        <item name="colorOutline">@color/nebula_outline</item>
+        <item name="colorOutlineVariant">@color/nebula_outline</item>
+        <item name="android:colorBackground">@color/nebula_bg</item>
+        <item name="android:windowBackground">@drawable/bg_nebula</item>
+        <item name="scanCard">@color/nebula_card</item>
+        <item name="scanCardStroke">@color/nebula_card_stroke</item>
+        <item name="scanSheet">@color/nebula_sheet</item>
+        <item name="scanTrack">@color/nebula_track</item>
+        <item name="scanChipFill">@color/nebula_chip_fill</item>
+        <item name="scanHeroBackground">@drawable/bg_hero_nebula</item>
+        <item name="scanLogoBackground">@drawable/bg_logo_nebula</item>
+    </style>
+
+    <!-- Aurora: teal and green northern lights with a teal accent. -->
+    <style name="Theme.ShareScan.Aurora">
+        <item name="colorPrimary">@color/aurora_accent</item>
+        <item name="colorOnPrimary">@color/aurora_on_accent</item>
+        <item name="colorPrimaryContainer">@color/aurora_accent_container</item>
+        <item name="colorOnPrimaryContainer">@color/aurora_on_accent_container</item>
+        <item name="colorPrimaryInverse">@color/aurora_primary_inverse</item>
+        <item name="colorSecondary">@color/aurora_secondary</item>
+        <item name="colorOnSecondary">@color/aurora_on_accent</item>
+        <item name="colorSecondaryContainer">@color/aurora_accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/aurora_on_accent_container</item>
+        <item name="colorTertiary">@color/aurora_tertiary</item>
+        <item name="colorOnTertiary">@color/aurora_on_accent</item>
+        <item name="colorSurface">@color/aurora_bg</item>
+        <item name="colorSurfaceVariant">@color/aurora_surface_high</item>
+        <item name="colorSurfaceContainerLowest">@color/aurora_surface_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/aurora_surface_low</item>
+        <item name="colorSurfaceContainer">@color/aurora_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/aurora_surface_high</item>
+        <item name="colorSurfaceContainerHighest">@color/aurora_surface_highest</item>
+        <item name="colorSurfaceInverse">@color/aurora_text</item>
+        <item name="colorOnSurfaceInverse">@color/aurora_on_accent</item>
+        <item name="colorOnSurface">@color/aurora_text</item>
+        <item name="colorOnSurfaceVariant">@color/aurora_text_soft</item>
+        <item name="colorOnBackground">@color/aurora_text</item>
+        <item name="colorOutline">@color/aurora_outline</item>
+        <item name="colorOutlineVariant">@color/aurora_outline</item>
+        <item name="android:colorBackground">@color/aurora_bg</item>
+        <item name="android:windowBackground">@drawable/bg_aurora</item>
+        <item name="scanCard">@color/aurora_card</item>
+        <item name="scanCardStroke">@color/aurora_card_stroke</item>
+        <item name="scanSheet">@color/aurora_sheet</item>
+        <item name="scanTrack">@color/aurora_track</item>
+        <item name="scanChipFill">@color/aurora_chip_fill</item>
+        <item name="scanHeroBackground">@drawable/bg_hero_aurora</item>
+        <item name="scanLogoBackground">@drawable/bg_logo_aurora</item>
+    </style>
+
+    <!-- Midnight: pure black for AMOLED screens, no stars, ice-blue accent. -->
+    <style name="Theme.ShareScan.Midnight">
+        <item name="colorPrimary">@color/midnight_accent</item>
+        <item name="colorOnPrimary">@color/midnight_on_accent</item>
+        <item name="colorPrimaryContainer">@color/midnight_accent_container</item>
+        <item name="colorOnPrimaryContainer">@color/midnight_on_accent_container</item>
+        <item name="colorPrimaryInverse">@color/midnight_primary_inverse</item>
+        <item name="colorSecondary">@color/midnight_secondary</item>
+        <item name="colorOnSecondary">@color/midnight_on_accent</item>
+        <item name="colorSecondaryContainer">@color/midnight_accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/midnight_on_accent_container</item>
+        <item name="colorTertiary">@color/midnight_tertiary</item>
+        <item name="colorOnTertiary">@color/midnight_on_accent</item>
+        <item name="colorSurface">@color/midnight_bg</item>
+        <item name="colorSurfaceVariant">@color/midnight_surface_high</item>
+        <item name="colorSurfaceContainerLowest">@color/midnight_surface_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/midnight_surface_low</item>
+        <item name="colorSurfaceContainer">@color/midnight_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/midnight_surface_high</item>
+        <item name="colorSurfaceContainerHighest">@color/midnight_surface_highest</item>
+        <item name="colorSurfaceInverse">@color/midnight_text</item>
+        <item name="colorOnSurfaceInverse">@color/midnight_on_accent</item>
+        <item name="colorOnSurface">@color/midnight_text</item>
+        <item name="colorOnSurfaceVariant">@color/midnight_text_soft</item>
+        <item name="colorOnBackground">@color/midnight_text</item>
+        <item name="colorOutline">@color/midnight_outline</item>
+        <item name="colorOutlineVariant">@color/midnight_outline</item>
+        <item name="android:colorBackground">@color/midnight_bg</item>
+        <item name="android:windowBackground">@color/midnight_bg</item>
+        <item name="scanCard">@color/midnight_card</item>
+        <item name="scanCardStroke">@color/midnight_card_stroke</item>
+        <item name="scanSheet">@color/midnight_sheet</item>
+        <item name="scanTrack">@color/midnight_track</item>
+        <item name="scanChipFill">@color/midnight_chip_fill</item>
+        <item name="scanHeroBackground">@drawable/bg_hero_midnight</item>
+        <item name="scanLogoBackground">@drawable/bg_logo_midnight</item>
+    </style>
+
+    <!--
+        The system draws the launch window from the manifest theme before MainActivity can apply the
+        picked one, so it gets a plain near-black that suits all four themes instead of Galaxy's sky.
+    -->
+    <style name="Theme.ShareScan.Launch">
+        <item name="android:windowBackground">@color/galaxy_bg</item>
     </style>
 
     <!-- Lets the filter sheet draw behind the navigation bar instead of leaving a black strip under it. -->
@@ -40,17 +172,17 @@
         <item name="bottomSheetStyle">@style/Widget.ShareScan.BottomSheet</item>
     </style>
 
-    <!-- Dark glass sheet: mostly opaque violet, so the dimmed galaxy only just shows through. -->
+    <!-- Dark glass sheet: mostly opaque, so the dimmed sky only just shows through. -->
     <style name="Widget.ShareScan.BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
-        <item name="backgroundTint">@color/galaxy_sheet</item>
+        <item name="backgroundTint">?attr/scanSheet</item>
     </style>
 
-    <!-- Glass card: translucent violet with a soft glowing violet edge. -->
+    <!-- Glass card: translucent fill with a soft glowing accent edge. -->
     <style name="ShareScanCard" parent="Widget.Material3.CardView.Outlined">
-        <item name="cardBackgroundColor">@color/card</item>
+        <item name="cardBackgroundColor">?attr/scanCard</item>
         <item name="cardCornerRadius">20dp</item>
         <item name="cardElevation">0dp</item>
-        <item name="strokeColor">@color/galaxy_card_stroke</item>
+        <item name="strokeColor">?attr/scanCardStroke</item>
         <item name="strokeWidth">1dp</item>
     </style>
 
@@ -97,5 +229,67 @@
         <item name="android:paddingBottom">3dp</item>
         <item name="android:textSize">11sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- Menu sheets (MenuSheets.kt): title block under the drag handle. -->
+    <style name="SheetTitle">
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SheetSubtitle">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="SettingsSection">
+        <item name="android:layout_marginTop">18dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/brand_primary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- A whole settings row is tappable and flips its switch. -->
+    <style name="SettingsRow">
+        <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:minHeight">64dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:paddingVertical">8dp</item>
+    </style>
+
+    <style name="SettingsRowTitle">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SettingsRowBody">
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:lineSpacingExtra">2dp</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="SettingsAction" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:minHeight">52dp</item>
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+        <item name="iconPadding">14dp</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Material3.Corner.None</item>
     </style>
 </resources>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Theme picker cards: the picked theme gets a thicker outline in its own accent. -->
+    <dimen name="theme_card_stroke">1dp</dimen>
+    <dimen name="theme_card_stroke_selected">2dp</dimen>
+</resources>

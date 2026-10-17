@@ -12,6 +12,10 @@ object AppUpdate {
     const val APK_MIME = "application/vnd.android.package-archive"
     private const val DOWNLOAD_PREFIX = "https://github.com/rohitrot738/Share_scan/releases/download/"
 
+    /** Always the newest APK; what "App शेयर करें" sends. */
+    const val DOWNLOAD_LINK = "https://github.com/rohitrot738/Share_scan/releases/latest/download/ShareScan.apk"
+    const val RELEASES_PAGE = "https://github.com/rohitrot738/Share_scan/releases"
+
     /** Release tags look like "v1.2.102"; the last number is the version code that release was built with. */
     fun versionCodeFromTag(tag: String): Int? = tag.trim().removePrefix("v").substringAfterLast('.').toIntOrNull()
 
