@@ -2,15 +2,11 @@ package com.rohit.share_scan
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.content.res.ColorStateList
-import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
 import android.view.animation.LinearInterpolator
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
@@ -36,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     private var shownFilters: ScanFilters? = null
     private var shownSort: SortMode? = null
     private var filterSheet: BottomSheetDialog? = null
+    private var detailSheet: BottomSheetDialog? = null
     private var shownRing = -1
     private var radarSpin: ObjectAnimator? = null
 
@@ -85,6 +82,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         radarSpin?.cancel()
         filterSheet?.dismiss()
+        detailSheet?.dismiss()
         super.onDestroy()
     }
 
@@ -253,11 +251,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /** Opens the stock's detail sheet; its button leads on to the TradingView chart. */
     private fun openChart(stock: ScanResult) {
-        try {
-            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(StockFormat.chartUrl(stock.symbol))))
-        } catch (error: ActivityNotFoundException) {
-            Toast.makeText(this, R.string.open_chart_failed, Toast.LENGTH_SHORT).show()
-        }
+        detailSheet?.dismiss()
+        detailSheet = StockDetailSheet(this, stock).show()
     }
 }
