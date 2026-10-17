@@ -57,18 +57,39 @@ close_sheet() { if find_node id settingBse > /dev/null; then adb shell input key
 type_query() { adb shell input text "$1"; sleep 2; }
 clear_query() { for i in $(seq 1 20); do adb shell input keyevent KEYCODE_DEL; done; sleep 1; }
 
-# Waits up to 15 minutes, with a progress screenshot every 2 minutes; $1 names them.
+# Java heap use of the app, from meminfo.
+heap() { adb shell dumpsys meminfo "$PKG" | grep -E "Dalvik Heap|Java Heap" | tr -s ' ' | tr '\n' ' '; echo; }
+# Dumps the app heap after a GC and writes its class histogram to ui-screens/heap-$1.txt.
+heap_dump() {
+  local file=/data/local/tmp/$1.hprof last=-1 size=0
+  adb shell rm -f "$file"
+  adb shell am dumpheap -g "$PKG" "$file"
+  for i in $(seq 1 60); do
+    sleep 3
+    size=$(adb shell stat -c %s "$file" 2>/dev/null | tr -d '\r')
+    if [ -n "$size" ] && [ "$size" = "$last" ] && [ "$size" -gt 0 ]; then break; fi
+    last=$size
+  done
+  adb pull "$file" "/tmp/$1.hprof" > /dev/null && python3 .github/heap-histogram.py "/tmp/$1.hprof" > "$OUT/heap-$1.txt" 2>&1
+  echo "heap dump $1: $size bytes"; head -12 "$OUT/heap-$1.txt"
+  adb shell rm -f "$file"
+}
+
+# Waits up to 15 minutes, with a progress screenshot every 2 minutes; $1 names them, $2 is the poll to dump the heap at.
 wait_scan() {
   for i in $(seq 1 60); do
     flags=$(adb shell dumpsys activity top | grep 'id/startButton' | head -1 | awk '{print $2}')
     case "$flags" in ??E*) echo "scan finished after about $((i * 15)) seconds"; return 0 ;; esac
-    if [ $((i % 8)) -eq 0 ]; then adb exec-out screencap -p > "$OUT/$1-progress-$i.png"; echo "progress $1 $i: $(adb shell pidof com.rohit.share_scan)"; fi
+    if [ $((i % 4)) -eq 0 ]; then echo "heap $1 $i (pid $(adb shell pidof $PKG)): $(heap)"; fi
+    if [ $((i % 8)) -eq 0 ]; then adb exec-out screencap -p > "$OUT/$1-progress-$i.png"; fi
+    if [ "$i" = "${2:-0}" ]; then heap_dump "$1-during"; fi
     sleep 15
   done
   echo "scan $1 did not finish"
 }
 search() { tap searchButton; sleep 1; clear_query; type_query "$1"; }
 
+echo "heap limits: growth $(adb shell getprop dalvik.vm.heapgrowthlimit) max $(adb shell getprop dalvik.vm.heapsize)"
 launch
 sleep 3
 # Scan 1: NSE (default on) plus SME and BSE.
@@ -81,8 +102,9 @@ shot 01-settings-all-markets 2
 close_sheet
 tap startButton
 sleep 20
-wait_scan scan1
+wait_scan scan1 12
 shot 02-results-with-badges 3
+heap_dump after-scan1
 search "globus"
 shot 03-search-globus-nse-bse 2
 clear_query
@@ -104,7 +126,7 @@ shot 05-settings-nse-off-guard 1
 close_sheet
 tap startButton
 sleep 20
-wait_scan scan2
+wait_scan scan2 6
 shot 06-results-bse-only 3
 search "reliance"
 shot 07-search-reliance-on-bse 2
