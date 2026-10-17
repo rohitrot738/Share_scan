@@ -1,6 +1,7 @@
 package com.rohit.share_scan
 
 import org.json.JSONObject
+import java.io.IOException
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
@@ -107,21 +108,41 @@ object NseScanner {
     /** BSE's daily equity bhavcopy: every scrip traded that day, with its ISIN; the source of BSE-only stocks. */
     private const val BSE_BHAVCOPY = "https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_%s_F_0000.CSV"
     private val INDIA = ZoneId.of("Asia/Kolkata")
+    /**
+     * Yahoo let about 3,250 chart requests through at full speed, then refused every one for about 85 seconds; a
+     * steady 10 a second went through, 20 a second did not. A little under both keeps a full scan clear of the limit.
+     */
+    private val yahoo = RateGate(burst = 2_400, perSecond = 7.5)
+    private const val HTTP_TOO_MANY_REQUESTS = 429
+    private const val RATE_LIMIT_TRIES = 6
+    private const val RATE_LIMIT_PAUSE_MS = 45_000L
     private const val USER_AGENT = "ShareScan/1.0 (Android)"
     private val BYTE_ORDER_MARK = Char(0xFEFF)
     private const val BROWSER_AGENT =
         "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Mobile Safari/537.36"
 
     /**
-     * Scans every NSE main-board stock, plus NSE's SME platform when [includeSme] is on and the stocks listed only
-     * on BSE when [includeBse] is on. An extra list that does not load is skipped and the rest of the scan runs.
+     * Scans the markets switched on in Settings: NSE's main board ([includeNse]), NSE's SME platform ([includeSme])
+     * and BSE ([includeBse]). The NSE list is still read when its stocks are off, to give BSE shares their NSE market
+     * cap; an optional list that does not load is skipped and the rest of the scan runs.
      */
-    fun scan(includeSme: Boolean = false, includeBse: Boolean = false, onProgress: (Int, Int) -> Unit): ScanOutput {
-        val main = parseListings(get(NSE_CSV), Market.NSE)
+    fun scan(
+        includeNse: Boolean = true,
+        includeSme: Boolean = false,
+        includeBse: Boolean = false,
+        onProgress: (Int, Int) -> Unit,
+    ): ScanOutput {
+        val main = if (includeNse) {
+            parseListings(get(NSE_CSV), Market.NSE)
+        } else {
+            runCatching { parseListings(get(NSE_CSV), Market.NSE) }.getOrDefault(emptyList())
+        }
         val sme = if (includeSme) loadSmeListings() else emptyList()
-        val nse = main + sme
-        val bse = if (includeBse) bseOnly(loadBseListings(), nse) else emptyList()
-        val symbols = (nse + bse).distinctBy { it.symbol }
+        val bse = if (includeBse) loadBseListings() else emptyList()
+        val symbols = combine(if (includeNse) main else emptyList(), sme, bse)
+        if (symbols.isEmpty()) error("कोई stock list नहीं मिली")
+        val nseSymbolByIsin = main.filter { it.isin.isNotEmpty() }.associate { it.isin to it.symbol }
+        val isinBySymbol = symbols.associate { it.symbol to it.isin }
         onProgress(0, symbols.size)
         val done = AtomicInteger(0)
         val pool = Executors.newFixedThreadPool(4)
@@ -135,7 +156,8 @@ object NseScanner {
             }
             val shares = runCatching { issuedShares.get() }.getOrNull()
             val results = scored.map { row ->
-                val issued = shares?.second?.get(row.symbol) ?: return@map row
+                val key = sharesKey(row, isinBySymbol[row.symbol].orEmpty(), nseSymbolByIsin) ?: return@map row
+                val issued = shares?.second?.get(key) ?: return@map row
                 row.copy(marketCapCr = row.price * issued / CRORE)
             }
             return ScanOutput(results.sortedByDescending { it.score }, shares?.first)
@@ -143,6 +165,22 @@ object NseScanner {
             pool.shutdownNow()
         }
     }
+
+    /**
+     * One list to scan from the chosen markets. BSE adds only the shares not already in [main] or [sme], so a stock
+     * listed on both exchanges is scanned once, as NSE; with NSE's main board off, BSE brings its dual-listed shares.
+     */
+    internal fun combine(main: List<Listing>, sme: List<Listing>, bse: List<Listing>): List<Listing> {
+        val nse = main + sme
+        return (nse + bseOnly(bse, nse)).distinctBy { it.symbol }
+    }
+
+    /**
+     * Symbol under which NSE's security file lists [row]'s issued shares: its own for NSE and SME stocks, and for a
+     * BSE share the NSE symbol of the same ISIN, so dual-listed BSE shares get a market cap and BSE-only ones none.
+     */
+    internal fun sharesKey(row: ScanResult, isin: String, nseSymbolByIsin: Map<String, String>): String? =
+        if (row.market == Market.BSE) nseSymbolByIsin[isin] else row.symbol
 
     /**
      * BSE stocks that do not also trade on NSE: matched by ISIN, and by symbol so an unrelated BSE scrip never takes
@@ -250,7 +288,7 @@ object NseScanner {
     /** One chart request per ticker: about 62 daily sessions, enough for the 50-day average. */
     private fun score(listing: Listing): ScanResult? {
         val symbol = listing.symbol
-        val signals = yahooTickers(listing).firstNotNullOfOrNull { ticker -> runCatching { signalsFor(ticker) }.getOrNull() }
+        val signals = yahooTickers(listing).firstNotNullOfOrNull { ticker -> runCatching { chart(ticker) }.getOrNull() }
             ?: return null
         return ScanResult(
             symbol = symbol,
@@ -265,6 +303,23 @@ object NseScanner {
             market = listing.market,
             bseCode = listing.bseCode,
         )
+    }
+
+    /**
+     * [signalsFor] paced by [yahoo]. On a 429 every thread waits [RATE_LIMIT_PAUSE_MS] and this ticker is asked again,
+     * so a scan that runs into Yahoo's limit slows down instead of losing the rest of its stocks.
+     */
+    private fun chart(ticker: String): BreakoutSignals.Signals? {
+        repeat(RATE_LIMIT_TRIES) {
+            yahoo.acquire()
+            try {
+                return signalsFor(ticker)
+            } catch (limited: HttpStatusException) {
+                if (limited.status != HTTP_TOO_MANY_REQUESTS) throw limited
+                yahoo.pause(RATE_LIMIT_PAUSE_MS)
+            }
+        }
+        return null
     }
 
     /** One of Yahoo's daily arrays; JSON nulls (holidays, a session still forming) stay null for [BreakoutSignals]. */
@@ -374,9 +429,21 @@ object NseScanner {
                 setRequestProperty("Accept", "application/json,text/plain,*/*")
             }
         }
-        return try {
-            if (connection.responseCode !in 200..299) error("HTTP ${connection.responseCode}")
-            connection.inputStream.use(read)
-        } finally { connection.disconnect() }
+        try {
+            val status = connection.responseCode
+            if (status !in 200..299) {
+                // Read the short error body too, so its connection can be reused like any other.
+                connection.errorStream?.use { it.readBytes() }
+                throw HttpStatusException(status)
+            }
+            // No disconnect(): a fully read response hands its connection back to the system's pool, so a scan's
+            // thousands of chart requests share a few connections. A new TLS connection per request left thousands
+            // of closed sockets waiting to be freed, and the heap ran out during the BSE part of a long scan.
+            return connection.inputStream.use(read)
+        } catch (failure: IOException) {
+            // A timed-out or broken connection must not go back to the pool.
+            connection.disconnect()
+            throw failure
+        }
     }
 }

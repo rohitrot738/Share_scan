@@ -64,6 +64,11 @@ class AppSettings(context: Context) {
         get() = prefs.getBoolean(Prefs.CHECK_UPDATES, true)
         set(value) = prefs.edit { putBoolean(Prefs.CHECK_UPDATES, value) }
 
+    /** Scan NSE's main board; on by default. Settings keeps at least one of the three markets on. */
+    var includeNse: Boolean
+        get() = prefs.getBoolean(Prefs.INCLUDE_NSE, true)
+        set(value) = prefs.edit { putBoolean(Prefs.INCLUDE_NSE, value) }
+
     /** Also scan NSE's SME platform (Emerge); off by default since those stocks trade thinly. */
     var includeSme: Boolean
         get() = prefs.getBoolean(Prefs.INCLUDE_SME, false)

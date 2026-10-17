@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Share Scan</string>
-    <string name="app_tagline">NSE pre-breakout scanner</string>
-    <string name="hero_label">NSE • EQUITY SCANNER</string>
+    <string name="app_tagline">NSE • BSE pre-breakout scanner</string>
+    <string name="hero_label">EQUITY SCANNER</string>
 
     <string name="status_ready_title">स्कैन के लिए तैयार</string>
-    <string name="status_ready_body">पूरे NSE को breakout setup, trend, volume, momentum और liquidity पर rank करके top candidates निकालता है।</string>
+    <string name="status_ready_body">Settings में चुने exchanges (NSE, SME, BSE) के सभी stocks को breakout setup, trend, volume, momentum और liquidity पर rank करके top candidates निकालता है।</string>
     <string name="status_loading_title">Stock list ला रहे हैं…</string>
-    <string name="status_loading_body">NSE equity list डाउनलोड हो रही है • %1$s</string>
+    <string name="status_loading_body">Stock lists डाउनलोड हो रही हैं • %1$s</string>
     <string name="status_scanning_title">स्कैन हो रहा है</string>
     <string name="status_scanning_body">%1$s / %2$s stocks • %3$s</string>
     <string name="status_done_title">स्कैन पूरा</string>
@@ -17,7 +17,7 @@
     <string name="status_failed_detail">%1$s — इंटरनेट कनेक्शन जाँचें और दोबारा कोशिश करें।</string>
     <string name="percent">%1$d%%</string>
 
-    <string name="action_start">पूरा NSE स्कैन शुरू करें</string>
+    <string name="action_start">SCAN</string>
     <string name="action_scanning">स्कैन चल रहा है…</string>
     <string name="action_rescan">दोबारा स्कैन करें</string>
     <string name="action_retry">फिर से कोशिश करें</string>

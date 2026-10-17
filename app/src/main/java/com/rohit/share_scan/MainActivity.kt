@@ -380,6 +380,8 @@ class MainActivity : AppCompatActivity() {
         // Hiding the bar also drops the field's focus, so it cannot pull the keyboard back.
         ui.searchBar.isVisible = false
         scan.closeSearch()
+        // Bring back the header that opening search slid away, with its menu and SCAN button.
+        ui.appBar.setExpanded(true, true)
     }
 
     private fun keyboard() = WindowCompat.getInsetsController(window, ui.searchField)

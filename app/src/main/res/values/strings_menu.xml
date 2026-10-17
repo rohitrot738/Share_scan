@@ -32,10 +32,13 @@
     <string name="settings_screen">स्कैन के दौरान स्क्रीन ऑन रखें</string>
     <string name="settings_screen_body">बंद करने पर स्क्रीन बंद हो सकती है और स्कैन रुक सकता है</string>
     <string name="settings_section_scan">स्कैन में क्या शामिल हो</string>
+    <string name="settings_nse">NSE stocks स्कैन करें</string>
+    <string name="settings_nse_body">NSE main board के ~2,600 stocks • बंद करने पर सिर्फ़ SME और/या BSE स्कैन होंगे</string>
+    <string name="settings_market_needed">कम से कम एक exchange चालू रखें</string>
     <string name="settings_sme">NSE SME stocks भी स्कैन करें</string>
     <string name="settings_sme_body">NSE Emerge के ~580 छोटे stocks; जिनका price data मिलता है (लगभग आधे) वही जुड़ेंगे • कम liquidity • अगले स्कैन से</string>
     <string name="settings_bse">BSE stocks भी स्कैन करें</string>
-    <string name="settings_bse_body">जो ~2,000 stocks सिर्फ़ BSE पर हैं, वो भी जुड़ेंगे • स्कैन लगभग दोगुना लंबा • इनका market cap नहीं दिखता • अगले स्कैन से</string>
+    <string name="settings_bse_body">NSE चालू हो तो सिर्फ़ BSE वाले ~2,000 stocks जुड़ते हैं, NSE बंद हो तो BSE के सभी ~4,400 • स्कैन लंबा होगा • सिर्फ़ BSE वाले stocks का market cap नहीं दिखता • अगले स्कैन से</string>
     <string name="settings_section_chart">चार्ट</string>
     <string name="settings_chart_body">Stock detail का चार्ट बटन कहाँ खुले</string>
     <string name="settings_section_data">डेटा</string>
@@ -91,8 +94,12 @@
     <string name="help_plan_title">Trade plan</string>
     <string name="help_plan_body">Entry = 20 दिन का high + 0.1 ATR (breakout की पुष्टि)। Stop = 10 दिन का low, जिसे 1–2 ATR के बीच रखा जाता है। Targets = risk का 1.5, 2.5 और 4 गुना (1.5R / 2.5R / 4R)।</string>
     <string name="help_badges_title">Badges</string>
-    <string name="item_market_sme">SME · %1$s</string>
-    <string name="item_market_bse">BSE · %1$s</string>
+    <string name="market_nse">NSE</string>
+    <string name="market_sme">SME</string>
+    <string name="market_bse">BSE</string>
+    <string name="market_nse_description">NSE पर listed</string>
+    <string name="market_sme_description">NSE SME (Emerge) पर listed</string>
+    <string name="market_bse_description">BSE पर listed</string>
     <string name="help_badges_body">NEW = पिछले स्कैन के बाद top list में नया • ▲ / ▼ = पिछले स्कैन से rank कितना ऊपर/नीचे • ★ = आपकी watchlist।</string>
     <string name="help_disclaimer">यह app सिर्फ़ जानकारी और सीखने के लिए है, निवेश सलाह नहीं। हर trade से पहले खुद research करें और risk संभालें।</string>
 
@@ -105,7 +112,7 @@
     <string name="about_open_failed">Browser नहीं खुल पाया</string>
 
     <!-- Share app -->
-    <string name="share_app_subject">Share Scan — NSE pre-breakout scanner</string>
-    <string name="share_app_text">Share Scan — पूरे NSE को breakout setup, trend और volume पर rank करने वाला Android app।\nDownload: %1$s</string>
+    <string name="share_app_subject">Share Scan — NSE • BSE pre-breakout scanner</string>
+    <string name="share_app_text">Share Scan — NSE और BSE के stocks को breakout setup, trend और volume पर rank करने वाला Android app।\nDownload: %1$s</string>
     <string name="share_app_open">App शेयर करें</string>
 </resources>

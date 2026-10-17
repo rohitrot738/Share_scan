@@ -133,7 +133,11 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         )
         worker.execute {
             val outcome = runCatching {
-                NseScanner.scan(includeSme = settings.includeSme, includeBse = settings.includeBse) { finished, total ->
+                NseScanner.scan(
+                    includeNse = settings.includeNse,
+                    includeSme = settings.includeSme,
+                    includeBse = settings.includeBse,
+                ) { finished, total ->
                     // Progress arrives from several pool threads, so keep the highest count seen.
                     state.update { it.copy(phase = ScanPhase.SCANNING, done = maxOf(it.done, finished), total = total) }
                 }
