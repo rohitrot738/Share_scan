@@ -116,12 +116,15 @@ class ScanFiltersTest {
         val csv = """
             TckrSymb,SctyNm,SctySrs,IssdCptl,DelFlg
             BIG,"Big Industries, Ltd",EQ,20000000,N
-            BIG2,Big Bond,BE,99999999,N
+            BIG,"Big Industries, Ltd",BE,1,N
+            T2T,Trade For Trade Ltd,BE,5000000,N
+            SMALL,Small Emerge Ltd,SM,1000000,N
+            BOND,Big Bond 2030,N1,99999999,N
             GONE,Gone Ltd,EQ,30000000,Y
             BROKEN,Broken Ltd,EQ,not-a-number,N
         """.trimIndent()
         val shares = NseScanner.parseIssuedShares(ByteArrayInputStream(csv.toByteArray()))
-        assertEquals(mapOf("BIG" to 20_000_000.0), shares)
+        assertEquals(mapOf("BIG" to 20_000_000.0, "T2T" to 5_000_000.0, "SMALL" to 1_000_000.0), shares)
         val withByteOrderMark = Char(0xFEFF) + csv
         assertEquals(shares, NseScanner.parseIssuedShares(ByteArrayInputStream(withByteOrderMark.toByteArray())))
     }

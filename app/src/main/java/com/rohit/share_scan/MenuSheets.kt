@@ -146,6 +146,12 @@ class SettingsSheet(
             actions.keepScreenOnChanged(on)
         }
         ui.settingScreenRow.setOnClickListener { ui.settingScreen.toggle() }
+        ui.settingSme.isChecked = settings.includeSme
+        ui.settingSme.setOnCheckedChangeListener { _, on -> settings.includeSme = on }
+        ui.settingSmeRow.setOnClickListener { ui.settingSme.toggle() }
+        ui.settingBse.isChecked = settings.includeBse
+        ui.settingBse.setOnCheckedChangeListener { _, on -> settings.includeBse = on }
+        ui.settingBseRow.setOnClickListener { ui.settingBse.toggle() }
 
         val current = settings.chartSite
         ChartSite.entries.forEach { site ->

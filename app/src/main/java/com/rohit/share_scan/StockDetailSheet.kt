@@ -46,10 +46,11 @@ class StockDetailSheet(
         bindScore()
         bindStats()
         ui.detailNoStructure.isVisible = structure == null
-        ui.detailOpenChart.text = if (chartSite == ChartSite.SCREENER) {
+        val site = chartSite.forMarket(stock.market)
+        ui.detailOpenChart.text = if (site == ChartSite.SCREENER) {
             activity.getString(R.string.detail_open_screener)
         } else {
-            activity.getString(R.string.detail_open_chart_on, activity.getString(chartSite.label))
+            activity.getString(R.string.detail_open_chart_on, activity.getString(site.label))
         }
         ui.detailOpenChart.setOnClickListener { openChart() }
 
@@ -68,6 +69,15 @@ class StockDetailSheet(
             StockFormat.Tier.WEAK -> Triple(R.string.tier_weak, R.color.neutral, R.color.neutral_container)
         }
         ui.detailSymbol.text = stock.symbol
+        ui.detailExchange.setText(
+            when (stock.market) {
+                Market.NSE -> R.string.detail_exchange
+                Market.NSE_SME -> R.string.detail_exchange_sme
+                Market.BSE -> R.string.detail_exchange_bse
+            },
+        )
+        ui.detailName.isVisible = stock.name.isNotBlank()
+        ui.detailName.text = StockSearch.shortName(stock.name)
         ui.detailPrice.text = rupees(stock.price)
         ui.detailChange.text = activity.getString(R.string.item_change, StockFormat.change(stock.change5d))
         ui.detailChange.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
@@ -366,7 +376,7 @@ class StockDetailSheet(
 
     private fun openChart() {
         try {
-            activity.startActivity(Intent(Intent.ACTION_VIEW, chartSite.url(stock.symbol).toUri()))
+            activity.startActivity(Intent(Intent.ACTION_VIEW, chartSite.url(stock.symbol, stock.market, stock.bseCode).toUri()))
         } catch (error: ActivityNotFoundException) {
             Toast.makeText(activity, R.string.open_chart_failed, Toast.LENGTH_SHORT).show()
         }

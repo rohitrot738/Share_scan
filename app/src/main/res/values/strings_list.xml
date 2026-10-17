@@ -21,10 +21,10 @@
 
     <!-- Symbol search -->
     <string name="list_search_open">Symbol खोजें</string>
-    <string name="list_search_hint">Symbol खोजें — जैसे TCS</string>
+    <string name="list_search_hint">Symbol या नाम — जैसे TCS, Reliance</string>
     <string name="list_search_close">खोज बंद करें</string>
-    <string name="list_empty_search_title">कोई symbol match नहीं हुआ</string>
-    <string name="list_empty_search_body">“%1$s” दिखाए गए किसी stock में नहीं मिला — spelling जाँचें या Filters ढीले करें।</string>
+    <string name="list_empty_search_title">कोई stock match नहीं हुआ</string>
+    <string name="list_empty_search_body">“%1$s” किसी स्कैन हुए stock के symbol या नाम में नहीं मिला — spelling जाँचें या Filters ढीले करें।</string>
 
     <!-- Share -->
     <string name="list_share_open">Top 10 शेयर करें</string>
