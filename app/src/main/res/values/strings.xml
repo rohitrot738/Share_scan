@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Share Scan</string>
+    <string name="app_tagline">NSE pre-breakout scanner</string>
+    <string name="hero_label">NSE • EQUITY SCANNER</string>
+
+    <string name="status_ready_title">स्कैन के लिए तैयार</string>
+    <string name="status_ready_body">पूरे NSE को breakout setup, trend, volume, momentum और liquidity पर rank करके top candidates निकालता है।</string>
+    <string name="status_loading_title">Stock list ला रहे हैं…</string>
+    <string name="status_loading_body">NSE equity list डाउनलोड हो रही है • %1$s</string>
+    <string name="status_scanning_title">स्कैन हो रहा है</string>
+    <string name="status_scanning_body">%1$s / %2$s stocks • %3$s</string>
+    <string name="status_done_title">स्कैन पूरा</string>
+    <string name="status_done_body">%1$d top candidates • %2$s में</string>
+    <string name="status_failed_title">स्कैन असफल</string>
+    <string name="status_failed_body">इंटरनेट कनेक्शन जाँचें और दोबारा कोशिश करें।</string>
+    <string name="status_failed_detail">%1$s — इंटरनेट कनेक्शन जाँचें और दोबारा कोशिश करें।</string>
+    <string name="percent">%1$d%%</string>
+
+    <string name="action_start">पूरा NSE स्कैन शुरू करें</string>
+    <string name="action_scanning">स्कैन चल रहा है…</string>
+    <string name="action_rescan">दोबारा स्कैन करें</string>
+    <string name="action_retry">फिर से कोशिश करें</string>
+
+    <string name="stat_scanned">स्कैन हुए</string>
+    <string name="stat_top_score">Top score</string>
+    <string name="stat_spikes">Volume spikes</string>
+    <string name="stat_empty">—</string>
+
+    <string name="results_title">Top candidates</string>
+    <string name="results_hint">टैप करें → details</string>
+    <string name="sort_score">Score</string>
+    <string name="sort_rvol">RVOL</string>
+    <string name="sort_change">5D बदलाव</string>
+    <string name="sort_price">Price</string>
+
+    <string name="empty_title">अभी कोई नतीजा नहीं</string>
+    <string name="empty_body">ऊपर का बटन दबाएँ — स्कैन पूरा होते ही top candidates score के हिसाब से यहाँ दिखेंगे।</string>
+    <string name="empty_scanning_title">बाज़ार स्कैन हो रहा है</string>
+    <string name="empty_scanning_body">हर stock का score निकाला जा रहा है। इसमें कुछ मिनट लग सकते हैं — app खुला रखें, स्क्रीन अपने-आप ऑन रहेगी।</string>
+    <string name="empty_failed_title">नतीजे नहीं मिले</string>
+    <string name="empty_failed_body">ऊपर दिए बटन से स्कैन दोबारा चलाएँ।</string>
+
+    <string name="item_price">₹%1$s</string>
+    <string name="item_change">%1$s · 5D</string>
+    <string name="item_rvol">RVOL %1$s×</string>
+    <string name="item_description">रैंक %1$d, %2$s, score %3$s</string>
+    <string name="tier_strong">STRONG</string>
+    <string name="tier_watch">WATCH</string>
+    <string name="tier_weak">WEAK</string>
+    <string name="item_meta">MCap %1$s · Vol %2$s</string>
+    <string name="empty_filtered_title">कोई stock match नहीं हुआ</string>
+    <string name="empty_filtered_body">Filters थोड़े ढीले करें या Reset करें — %1$s stocks स्कैन हुए हैं।</string>
+
+    <string name="filters">Filters</string>
+    <string name="filters_active">Filters · %1$d</string>
+    <string name="filters_reset">Reset</string>
+    <string name="filters_apply">लागू करें</string>
+    <string name="filters_apply_count">लागू करें • %1$s stocks</string>
+    <string name="filters_summary">%2$s में से %1$s stocks match</string>
+    <string name="filters_summary_idle">Limits अभी set करें — अगले स्कैन के नतीजों पर लगेंगी।</string>
+    <string name="filters_any">सभी</string>
+    <string name="filters_limit">कितने stocks दिखाएँ (score के हिसाब से top)</string>
+    <string name="filters_limit_all">सभी</string>
+    <string name="slider_no_min">कोई min नहीं</string>
+    <string name="slider_no_max">कोई max नहीं</string>
+
+    <string name="metric_market_cap">Market cap</string>
+    <string name="metric_price">Price</string>
+    <string name="metric_volume">Volume (shares)</string>
+    <string name="metric_turnover">Turnover (₹ traded)</string>
+    <string name="metric_rvol">RVOL</string>
+    <string name="metric_change">5D बदलाव</string>
+    <string name="metric_score">Score</string>
+    <string name="hint_market_cap">Price × NSE issued shares</string>
+    <string name="hint_market_cap_date">Price × NSE issued shares (NSE data: %1$s)</string>
+    <string name="hint_market_cap_missing">इस स्कैन में NSE से market cap नहीं मिला — यह limit लगाने पर कोई stock नहीं दिखेगा।</string>
+    <string name="hint_volume">पिछले session में trade हुए shares</string>
+    <string name="hint_turnover">पिछले session में trade हुई कुल रकम</string>
+    <string name="hint_rvol">पिछले session का volume ÷ 20 दिन का औसत</string>
+    <string name="cap_micro">Micro ≤₹500 Cr</string>
+    <string name="cap_small">Small ₹500–5K Cr</string>
+    <string name="cap_mid">Mid ₹5K–20K Cr</string>
+    <string name="cap_large">Large ≥₹20K Cr</string>
+
+    <string name="open_chart_failed">चार्ट खोलने के लिए कोई browser नहीं मिला</string>
+</resources>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Stock detail bottom sheet: StockDetailSheet.kt, PriceChartView.kt and sheet_stock_detail.xml. -->
+    <string name="detail_exchange">NSE · EQUITY</string>
+    <string name="detail_score">%1$s / 100</string>
+    <string name="detail_no_structure">इस stock का चार्ट, trade plan और technical आँकड़े इस स्कैन में नहीं मिले — दोबारा स्कैन करें।</string>
+
+    <string name="detail_section_chart">चार्ट</string>
+    <string name="detail_chart_period">पिछले %1$d सत्र · %2$s</string>
+    <string name="detail_chart_empty">चार्ट के लिए पर्याप्त data नहीं</string>
+    <string name="detail_chart_description">%1$s का पिछले %2$d सत्र का closing चार्ट: ₹%3$s से ₹%4$s के बीच, आख़िरी भाव ₹%5$s</string>
+    <string name="detail_chart_high20">20D high %1$s</string>
+    <string name="detail_chart_entry">Entry %1$s</string>
+    <string name="detail_chart_stop">SL %1$s</string>
+    <string name="detail_chart_target">T%1$d %2$s</string>
+
+    <string name="detail_section_plan">Trade plan</string>
+    <string name="detail_plan_rule_breakout">20 दिन के high के ऊपर breakout होने पर ही entry — तब तक इंतज़ार करें।</string>
+    <string name="detail_plan_rule_market">भाव पहले से 20 दिन के high के ऊपर है — entry अभी के भाव पर।</string>
+    <string name="detail_plan_head_level">LEVEL</string>
+    <string name="detail_plan_head_price">भाव · अभी से</string>
+    <string name="detail_plan_head_r">R</string>
+    <string name="detail_plan_entry">Entry</string>
+    <string name="detail_plan_entry_breakout">20D high + 0.1 ATR पर breakout</string>
+    <string name="detail_plan_entry_market">अभी का भाव</string>
+    <string name="detail_plan_stop">Stop-loss</string>
+    <string name="detail_plan_stop_structure">10 दिन के low के ठीक नीचे</string>
+    <string name="detail_plan_stop_max_atr">Entry से 2 ATR नीचे (10D low बहुत दूर)</string>
+    <string name="detail_plan_stop_min_atr">Entry से 1 ATR नीचे (10D low बहुत पास)</string>
+    <string name="detail_plan_target">Target %1$d</string>
+    <string name="detail_plan_target_note">मुनाफ़ा ₹%1$s प्रति share</string>
+    <string name="detail_plan_risk">1R (risk) = ₹%1$s प्रति share · entry का %2$s</string>
+    <string name="detail_plan_extended">भाव 20D high से %1$s ATR ऊपर निकल चुका है — इस भाव पर chase करना जोखिम भरा है।</string>
+    <string name="detail_plan_level_description">%1$s: ₹%2$s, अभी के भाव से %3$s, %4$s</string>
+
+    <string name="detail_section_score">Score कैसे बना</string>
+    <string name="detail_score_subtitle">हर हिस्सा 0 से 100 · वज़न = कुल score में हिस्सा</string>
+    <string name="detail_part_liquidity">Liquidity (तरलता)</string>
+    <string name="detail_part_volume">Volume उछाल</string>
+    <string name="detail_part_momentum">Momentum (तेज़ी)</string>
+    <string name="detail_part_breakout">Breakout के क़रीब</string>
+    <string name="detail_part_trend">Trend (रुझान)</string>
+    <string name="detail_part_weight">वज़न %1$d%%</string>
+    <string name="detail_part_description">%1$s: %2$s / 100, वज़न %3$d%%</string>
+
+    <string name="detail_section_stats">मुख्य आँकड़े</string>
+    <string name="detail_stat_market_cap">Market cap</string>
+    <string name="detail_stat_volume">Volume</string>
+    <string name="detail_stat_volume_note">पिछले session में shares</string>
+    <string name="detail_stat_turnover">Turnover</string>
+    <string name="detail_stat_turnover_note">पिछले session में ₹ traded</string>
+    <string name="detail_stat_rvol">RVOL</string>
+    <string name="detail_stat_rvol_value">%1$s×</string>
+    <string name="detail_stat_rvol_note">20 दिन के औसत volume से</string>
+    <string name="detail_stat_high20">20D high</string>
+    <string name="detail_stat_high20_above">High से %1$s ऊपर</string>
+    <string name="detail_stat_high20_below">High से %1$s नीचे</string>
+    <string name="detail_stat_atr">ATR (14)</string>
+    <string name="detail_stat_atr_note">रोज़ाना range, भाव का %1$s</string>
+    <string name="detail_stat_sma20">SMA 20</string>
+    <string name="detail_stat_sma50">SMA 50</string>
+    <string name="detail_stat_sma_above">भाव ऊपर ▲ %1$s</string>
+    <string name="detail_stat_sma_below">भाव नीचे ▼ %1$s</string>
+
+    <string name="detail_open_chart">TradingView पर चार्ट</string>
+    <string name="detail_disclaimer">ये सिर्फ़ price-volume पर आधारित अनुमान हैं — निवेश सलाह नहीं।</string>
+</resources>

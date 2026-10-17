@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_from_high">20D high से दूरी</string>
+    <string name="metric_base_range">Base range (10D)</string>
+    <string name="metric_vs_sma50">50 DMA से दूरी</string>
+    <string name="hint_from_high">20 दिन के high (resistance) से price कितना नीचे है • minus = high के ऊपर breakout</string>
+    <string name="hint_base_range">पिछले 10 sessions का high–low दायरा • कम = tight base, breakout की तैयारी</string>
+    <string name="hint_vs_sma50">50 दिन के औसत से ऊपर (+) या नीचे (-) • plus = uptrend</string>
+    <string name="hint_score_mix">Breakout setup, trend, volume, liquidity और momentum का मिश्रण • %1$s+ STRONG, %2$s+ WATCH</string>
+</resources>

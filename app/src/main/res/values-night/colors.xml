@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Galaxy palette. The app is always dark (ShareScanApp forces night mode), and
+        values-night/colors.xml carries the same values, so nothing renders with light colours.
+    -->
+    <color name="brand_primary">#A78BFA</color>
+    <color name="on_primary">#1B0B45</color>
+    <color name="primary_container">#3B2381</color>
+    <color name="on_primary_container">#EDE9FE</color>
+    <!-- Top of the deep-space gradient; also the opaque status-bar strip. -->
+    <color name="bg">#020108</color>
+    <!-- Glass: ~80% opaque dark violet so the starfield faintly shows through cards. -->
+    <color name="card">#E6170E3F</color>
+    <color name="surface_container">#150D3A</color>
+    <color name="track">#2A1E5E</color>
+    <color name="outline">#3B2F7A</color>
+    <color name="text_primary">#EDE9FE</color>
+    <color name="text_secondary">#A9A1D4</color>
+    <color name="bull">#52F2A0</color>
+    <color name="bull_container">#0F3B2E</color>
+    <color name="warn">#FBBF24</color>
+    <color name="warn_container">#3D2A0B</color>
+    <color name="bear">#FB7185</color>
+    <color name="bear_container">#4A1530</color>
+    <color name="neutral">#B4ACDB</color>
+    <color name="neutral_container">#251B52</color>
+
+    <!-- Hero nebula: deep violet, magenta-violet, cyan. -->
+    <color name="hero_start">#22104E</color>
+    <color name="hero_mid">#6A22B5</color>
+    <color name="hero_end">#08718F</color>
+    <color name="hero_text_soft">#DEF5F3FF</color>
+    <color name="hero_text_muted">#B8EDE9FE</color>
+    <color name="hero_track">#33FFFFFF</color>
+    <color name="icon_mint">#6EF7C8</color>
+
+    <!-- Galaxy extras. -->
+    <color name="galaxy_space_mid">#05030F</color>
+    <color name="galaxy_space_bottom">#07041A</color>
+    <color name="galaxy_cyan">#22D3EE</color>
+    <color name="galaxy_violet">#A78BFA</color>
+    <color name="galaxy_magenta">#F472B6</color>
+    <color name="galaxy_star">#F5F3FF</color>
+    <color name="galaxy_card_stroke">#66A78BFA</color>
+    <color name="galaxy_chip_fill">#14A78BFA</color>
+    <color name="galaxy_sheet">#FF120A33</color>
+    <color name="galaxy_surface_lowest">#010005</color>
+    <color name="galaxy_surface_low">#0E0829</color>
+    <color name="galaxy_surface_high">#1D1347</color>
+    <color name="galaxy_surface_highest">#271A58</color>
+    <color name="galaxy_primary_inverse">#5B3FD0</color>
+    <color name="galaxy_hero_button">#F3EFFF</color>
+    <color name="galaxy_hero_button_text">#22104E</color>
+</resources>

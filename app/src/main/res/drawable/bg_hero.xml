@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Hero nebula: deep violet to magenta-violet to cyan, with a magenta glow low on the left,
+    a cyan glow behind the progress ring and faint stars. The first layer is the rounded
+    rectangle, so the card's outline (clipToOutline) keeps its 28dp corners.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <corners android:radius="28dp" />
+            <gradient
+                android:angle="45"
+                android:centerColor="@color/hero_mid"
+                android:endColor="@color/hero_end"
+                android:startColor="@color/hero_start"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <corners android:radius="28dp" />
+            <gradient
+                android:centerX="0.2"
+                android:centerY="0.85"
+                android:endColor="#00EC4899"
+                android:gradientRadius="85%"
+                android:startColor="#59EC4899"
+                android:type="radial" />
+        </shape>
+    </item>
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <corners android:radius="28dp" />
+            <gradient
+                android:centerX="0.92"
+                android:centerY="0.12"
+                android:endColor="#0022D3EE"
+                android:gradientRadius="80%"
+                android:startColor="#4D22D3EE"
+                android:type="radial" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/galaxy_hero_stars" />
+</layer-list>

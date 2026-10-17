@@ -2,6 +2,15 @@
 
 CPU-first multi-stock pre-breakout scanner inspired by Ghost Trade Pro.
 
+## Android app
+
+Install the latest signed APK on a phone:
+https://github.com/rohitrot738/Share_scan/releases/latest/download/ShareScan.apk
+
+The *Release Android APK* workflow builds `app/` on every push to `main` and publishes it as a GitHub
+release. Every release is signed with the same key (`app/sharescan-release.p12`, encrypted; its password
+is the `SHARESCAN_KEY_PASSWORD` repository secret), so a new version installs over the old one.
+
 ## Goal
 Detect the preparation phase before a fast bullish move across NSE/BSE instead of waiting for a late breakout signal.
 
