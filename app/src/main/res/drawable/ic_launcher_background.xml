@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Adaptive-icon background: deep-space gradient, nebula glows, a soft galactic band, stars and a small ringed planet. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
@@ -13,10 +14,107 @@
                 android:startX="0"
                 android:startY="108"
                 android:type="linear">
-                <item android:color="@color/hero_start" android:offset="0" />
-                <item android:color="@color/hero_mid" android:offset="0.55" />
-                <item android:color="@color/hero_end" android:offset="1" />
+                <item android:color="#140A3D" android:offset="0" />
+                <item android:color="#3B1785" android:offset="0.55" />
+                <item android:color="#0B5571" android:offset="1" />
             </gradient>
         </aapt:attr>
     </path>
+
+    <!-- Nebula glows -->
+    <path android:pathData="M-20,84a46,46 0,1 0,92 0a46,46 0,1 0,-92 0z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="26"
+                android:centerY="84"
+                android:gradientRadius="46"
+                android:type="radial">
+                <item android:color="#8CDB2777" android:offset="0" />
+                <item android:color="#00DB2777" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <path android:pathData="M46,24a40,40 0,1 0,80 0a40,40 0,1 0,-80 0z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="86"
+                android:centerY="24"
+                android:gradientRadius="40"
+                android:type="radial">
+                <item android:color="#7322D3EE" android:offset="0" />
+                <item android:color="#0022D3EE" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Galactic band: a radial glow squashed into a tilted ellipse -->
+    <group
+        android:pivotX="54"
+        android:pivotY="54"
+        android:rotation="-38"
+        android:scaleY="0.3">
+        <path android:pathData="M-6,54a60,60 0,1 0,120 0a60,60 0,1 0,-120 0z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:centerX="54"
+                    android:centerY="54"
+                    android:gradientRadius="60"
+                    android:type="radial">
+                    <item android:color="#61E9D5FF" android:offset="0" />
+                    <item android:color="#21C4B5FD" android:offset="0.5" />
+                    <item android:color="#00C4B5FD" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+    </group>
+
+    <!-- Stars -->
+    <path
+        android:fillAlpha="0.95"
+        android:fillColor="#F5F3FF"
+        android:pathData="M28.8,30a1.2,1.2 0,1 0,2.4 0a1.2,1.2 0,1 0,-2.4 0zM80,70a1,1 0,1 0,2 0a1,1 0,1 0,-2 0zM36.1,80a0.9,0.9 0,1 0,1.8 0a0.9,0.9 0,1 0,-1.8 0z" />
+    <path
+        android:fillAlpha="0.6"
+        android:fillColor="#F5F3FF"
+        android:pathData="M22.3,52a0.7,0.7 0,1 0,1.4 0a0.7,0.7 0,1 0,-1.4 0zM56.3,24a0.7,0.7 0,1 0,1.4 0a0.7,0.7 0,1 0,-1.4 0zM84.3,48a0.7,0.7 0,1 0,1.4 0a0.7,0.7 0,1 0,-1.4 0zM64.3,86a0.7,0.7 0,1 0,1.4 0a0.7,0.7 0,1 0,-1.4 0zM43.4,40a0.6,0.6 0,1 0,1.2 0a0.6,0.6 0,1 0,-1.2 0zM48.4,63a0.6,0.6 0,1 0,1.2 0a0.6,0.6 0,1 0,-1.2 0zM26.4,68a0.6,0.6 0,1 0,1.2 0a0.6,0.6 0,1 0,-1.2 0zM74.4,82a0.6,0.6 0,1 0,1.2 0a0.6,0.6 0,1 0,-1.2 0z" />
+    <path
+        android:fillAlpha="0.8"
+        android:fillColor="#A5F3FC"
+        android:pathData="M40.3,24a0.7,0.7 0,1 0,1.4 0a0.7,0.7 0,1 0,-1.4 0zM86.2,60a0.8,0.8 0,1 0,1.6 0a0.8,0.8 0,1 0,-1.6 0z" />
+    <path
+        android:fillAlpha="0.9"
+        android:fillColor="#F5F3FF"
+        android:pathData="M24,36.8L24.45,40.55L28.2,41L24.45,41.45L24,45.2L23.55,41.45L19.8,41L23.55,40.55zM82,76.6L82.4,79.6L85.4,80L82.4,80.4L82,83.4L81.6,80.4L78.6,80L81.6,79.6z" />
+
+    <!-- Ringed planet -->
+    <group
+        android:pivotX="72"
+        android:pivotY="33"
+        android:rotation="-25">
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M65.5,33a6.5,2.2 0,1 1,13 0"
+            android:strokeWidth="0.9"
+            android:strokeAlpha="0.6"
+            android:strokeColor="#A5F3FC" />
+        <path android:pathData="M68.4,33a3.6,3.6 0,1 0,7.2 0a3.6,3.6 0,1 0,-7.2 0z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:centerX="70.8"
+                    android:centerY="31.4"
+                    android:gradientRadius="5"
+                    android:type="radial">
+                    <item android:color="#FFF5D0FE" android:offset="0" />
+                    <item android:color="#FFC084FC" android:offset="0.5" />
+                    <item android:color="#FF6D28D9" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <path
+            android:fillColor="#00000000"
+            android:pathData="M65.5,33a6.5,2.2 0,0 0,13 0"
+            android:strokeWidth="0.9"
+            android:strokeColor="#A5F3FC"
+            android:strokeLineCap="round" />
+    </group>
 </vector>
