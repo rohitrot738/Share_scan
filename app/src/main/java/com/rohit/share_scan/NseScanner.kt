@@ -17,6 +17,33 @@ import kotlin.math.min
 
 const val CRORE = 10_000_000.0
 
+/** Keys of the score ingredients in [ScanResult.parts]. */
+object ScoreKeys {
+    const val LIQUIDITY = "liquidity"
+    const val VOLUME = "volume"
+    const val MOMENTUM = "momentum"
+    const val BREAKOUT = "breakout"
+    const val TREND = "trend"
+}
+
+/** One ingredient of the score: its 0–100 value and its weight in the total. */
+data class ScorePart(val key: String, val value: Double, val weight: Double)
+
+/** Price structure derived from the recent daily candles, for breakout signals and the detail screen. */
+data class PriceStructure(
+    /** Up to the last 60 daily closes, oldest first. */
+    val closes: List<Double>,
+    /** Highest high of the 20 sessions before the latest one. */
+    val high20: Double,
+    /** Lowest low of the latest 10 sessions. */
+    val low10: Double,
+    /** 14-session average true range. */
+    val atr14: Double,
+    val sma20: Double,
+    /** Null when fewer than 50 sessions are available. */
+    val sma50: Double?,
+)
+
 data class ScanResult(
     val symbol: String,
     val price: Double,
@@ -27,6 +54,10 @@ data class ScanResult(
     val volume: Double = 0.0,
     /** Null when NSE's share-count file was unavailable or did not list the symbol. */
     val marketCapCr: Double? = null,
+    /** Null until the scanner has computed it for this stock. */
+    val structure: PriceStructure? = null,
+    /** How [score] was built; empty when the scanner did not record it. */
+    val parts: List<ScorePart> = emptyList(),
 ) {
     /** Rupee value traded in the latest session, in crore. */
     val turnoverCr: Double get() = price * volume / CRORE

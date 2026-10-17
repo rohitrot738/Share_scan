@@ -61,9 +61,9 @@ data class ScanUiState(
 
 /** Owns the running scan so it survives rotation and theme changes, and remembers the user's filters. */
 class ScanViewModel(application: Application) : AndroidViewModel(application) {
-    private val prefs = application.getSharedPreferences("scan", Context.MODE_PRIVATE)
+    private val prefs = application.getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE)
     private val worker = Executors.newSingleThreadExecutor()
-    private val state = MutableStateFlow(ScanUiState(filters = ScanFilters.decode(prefs.getString(KEY_FILTERS, null))))
+    private val state = MutableStateFlow(ScanUiState(filters = ScanFilters.decode(prefs.getString(Prefs.FILTERS, null))))
     val uiState: StateFlow<ScanUiState> = state.asStateFlow()
 
     fun startScan() {
@@ -107,14 +107,10 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setFilters(filters: ScanFilters) {
         state.update { it.copy(filters = filters) }
-        prefs.edit { putString(KEY_FILTERS, filters.encode()) }
+        prefs.edit { putString(Prefs.FILTERS, filters.encode()) }
     }
 
     override fun onCleared() {
         worker.shutdownNow()
-    }
-
-    private companion object {
-        const val KEY_FILTERS = "filters"
     }
 }
