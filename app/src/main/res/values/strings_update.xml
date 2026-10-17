@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- In-app update banner -->
+    <string name="update_title">नया version उपलब्ध</string>
+    <string name="update_title_ready">Update download हो गया</string>
+    <string name="update_versions">%1$s • अभी %2$s</string>
+    <string name="update_available_body">एक टैप में download करके पुराने app के ऊपर install करें — watchlist और filters वैसे ही रहेंगे।</string>
+    <string name="update_downloading_body">Download हो रहा है… %1$d%%</string>
+    <string name="update_ready_body">Install दबाएँ — नया version पुराने के ऊपर install हो जाएगा।</string>
+    <string name="update_ready_permission_body">Install दबाएँ। पहली बार Android “इस source से install” की अनुमति माँगेगा — उसे चालू करके back दबाएँ, install वहीं से आगे चलेगा।</string>
+    <string name="update_failed_body">Download नहीं हो पाया। इंटरनेट कनेक्शन जाँचें और दोबारा कोशिश करें।</string>
+    <string name="update_action_download">Update करें</string>
+    <string name="update_action_install">Install करें</string>
+    <string name="update_action_retry">फिर से कोशिश करें</string>
+    <string name="update_action_later">बाद में</string>
+    <string name="update_install_failed">Installer नहीं खुल पाया</string>
+</resources>

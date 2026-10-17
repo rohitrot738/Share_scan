@@ -17,6 +17,7 @@ import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -32,10 +33,12 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.rohit.share_scan.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.io.File
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     private val scan: ScanViewModel by viewModels()
+    private val updates: UpdateViewModel by viewModels()
     private lateinit var ui: ActivityMainBinding
     private val adapter = StockAdapter(::openChart) { stock -> scan.toggleStar(stock.symbol) }
     private var shownResults: List<ScanResult>? = null
@@ -61,6 +64,8 @@ class MainActivity : AppCompatActivity() {
         ui.results.adapter = adapter
         applyWindowInsets()
         setUpListTools()
+        ui.updateAction.setOnClickListener { updates.proceed() }
+        ui.updateLater.setOnClickListener { updates.dismiss() }
 
         ui.startButton.setOnClickListener {
             ui.appBar.setExpanded(true, true)
@@ -84,6 +89,8 @@ class MainActivity : AppCompatActivity() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch { scan.uiState.collect { render(it) } }
+                launch { updates.offer.collect { renderUpdate(it) } }
+                launch { updates.installRequests.collect { install(it) } }
                 launch {
                     // Keeps the elapsed-time clock in the hero card ticking during a scan.
                     while (true) {
@@ -378,6 +385,50 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent.createChooser(send, getString(R.string.list_share_open)))
         } catch (error: ActivityNotFoundException) {
             Toast.makeText(this, R.string.list_share_failed, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun renderUpdate(offer: UpdateOffer?) {
+        ui.updateBanner.isVisible = offer != null
+        if (offer == null) return
+        val ready = offer.step == UpdateStep.READY
+        ui.updateTitle.setText(if (ready) R.string.update_title_ready else R.string.update_title)
+        ui.updateVersions.text = getString(R.string.update_versions, offer.release.versionName, offer.installedName)
+        ui.updateBody.text = when (offer.step) {
+            UpdateStep.AVAILABLE -> getString(R.string.update_available_body)
+            UpdateStep.DOWNLOADING -> getString(R.string.update_downloading_body, offer.percent)
+            UpdateStep.READY -> getString(
+                if (packageManager.canRequestPackageInstalls()) R.string.update_ready_body
+                else R.string.update_ready_permission_body,
+            )
+            UpdateStep.FAILED -> getString(R.string.update_failed_body)
+        }
+        val downloading = offer.step == UpdateStep.DOWNLOADING
+        ui.updateProgress.isVisible = downloading
+        if (downloading) ui.updateProgress.setProgressCompat(offer.percent, true)
+        ui.updateActions.isVisible = !downloading
+        ui.updateAction.setText(
+            when (offer.step) {
+                UpdateStep.READY -> R.string.update_action_install
+                UpdateStep.FAILED -> R.string.update_action_retry
+                else -> R.string.update_action_download
+            },
+        )
+    }
+
+    /**
+     * Hands a downloaded release to the system installer. Without the "install unknown apps" permission the
+     * installer itself offers the setting and carries on with the install when the user comes back.
+     */
+    private fun install(apk: File) {
+        val uri = FileProvider.getUriForFile(this, "$packageName.${UpdateViewModel.UPDATE_FOLDER}", apk)
+        val view = Intent(Intent.ACTION_VIEW)
+            .setDataAndType(uri, AppUpdate.APK_MIME)
+            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+        try {
+            startActivity(view)
+        } catch (error: ActivityNotFoundException) {
+            Toast.makeText(this, R.string.update_install_failed, Toast.LENGTH_SHORT).show()
         }
     }
 

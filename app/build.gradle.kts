@@ -49,4 +49,6 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     testImplementation("junit:junit:4.13.2")
+    // Real org.json for AppUpdateTest; the android.jar used by local unit tests only has stubs.
+    testImplementation("org.json:json:20240303")
 }
