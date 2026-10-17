@@ -301,20 +301,23 @@
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
-        <!-- Results heading and sort chips stay pinned while the list scrolls. -->
+        <!-- Results heading, search and chips stay pinned while the list scrolls. -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="20dp"
+            android:paddingTop="12dp"
             android:paddingBottom="6dp">
 
+            <!-- minHeight matches the icon buttons, so the row keeps its height before they appear. -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:minHeight="40dp"
                 android:orientation="horizontal"
-                android:paddingHorizontal="20dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -334,25 +337,108 @@
                     android:textColor="@color/on_primary_container"
                     android:visibility="gone" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
+                <!-- Takes the free space and ellipsizes on narrow screens, keeping the buttons at the end. -->
                 <TextView
                     android:id="@+id/resultsHint"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="end"
+                    android:maxLines="1"
                     android:text="@string/results_hint"
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp"
-                    android:visibility="gone" />
+                    android:visibility="invisible" />
+
+                <ImageButton
+                    android:id="@+id/searchButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="4dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/list_search_open"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_search"
+                    android:visibility="gone"
+                    app:tint="@color/brand_primary" />
+
+                <ImageButton
+                    android:id="@+id/shareButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/list_share_open"
+                    android:padding="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_share"
+                    android:visibility="gone"
+                    app:tint="@color/brand_primary" />
             </LinearLayout>
+
+            <!-- Symbol search, shown only while searching. -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/searchBar"
+                style="@style/ShareScanCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="2dp"
+                android:visibility="gone"
+                app:cardCornerRadius="21dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="14dp"
+                    android:paddingEnd="0dp">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_search"
+                        app:tint="@color/text_secondary" />
+
+                    <EditText
+                        android:id="@+id/searchField"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/list_search_hint"
+                        android:imeOptions="actionSearch|flagNoExtractUi"
+                        android:importantForAutofill="no"
+                        android:inputType="textCapCharacters|textNoSuggestions"
+                        android:maxLines="1"
+                        android:saveEnabled="false"
+                        android:textColor="@color/text_primary"
+                        android:textColorHint="@color/text_secondary"
+                        android:textSize="14sp" />
+
+                    <ImageButton
+                        android:id="@+id/searchClose"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="@string/list_search_close"
+                        android:padding="12dp"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_close"
+                        app:tint="@color/text_secondary" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
                 android:clipToPadding="false"
                 android:paddingHorizontal="16dp"
                 android:scrollbars="none">
@@ -370,6 +456,15 @@
                         android:layout_height="wrap_content"
                         android:text="@string/filters"
                         app:chipIcon="@drawable/ic_tune" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/watchlistChip"
+                        style="@style/ShareScanChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/list_watchlist"
+                        app:checkedIconVisible="false" />
 
                     <View
                         android:layout_width="1dp"

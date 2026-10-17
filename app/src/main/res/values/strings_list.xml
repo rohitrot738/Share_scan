@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Watchlist -->
+    <string name="list_watchlist">★ Watchlist</string>
+    <string name="list_watchlist_count">★ Watchlist · %1$d</string>
+    <string name="list_star_add">%1$s को watchlist में जोड़ें</string>
+    <string name="list_star_remove">%1$s को watchlist से हटाएँ</string>
+    <string name="list_starred_description">Watchlist में</string>
+    <string name="list_empty_watchlist_title">Watchlist खाली है</string>
+    <string name="list_empty_watchlist_body">किसी भी card पर ☆ दबाएँ — वह stock यहाँ दिखेगा।</string>
+    <string name="list_empty_watchlist_filtered_title">कोई starred stock match नहीं हुआ</string>
+    <string name="list_empty_watchlist_filtered_body">आपका कोई भी starred stock इन filters में नहीं आता — Filters ढीले करें या ★ Watchlist बंद करें।</string>
+
+    <!-- Rank change since the previous scan -->
+    <string name="list_rank_new">NEW</string>
+    <string name="list_rank_up">▲%1$d</string>
+    <string name="list_rank_down">▼%1$d</string>
+    <string name="list_rank_new_description">पिछले स्कैन के बाद top %1$d में नया</string>
+    <string name="list_rank_up_description">पिछले स्कैन से %1$d रैंक ऊपर</string>
+    <string name="list_rank_down_description">पिछले स्कैन से %1$d रैंक नीचे</string>
+
+    <!-- Symbol search -->
+    <string name="list_search_open">Symbol खोजें</string>
+    <string name="list_search_hint">Symbol खोजें — जैसे TCS</string>
+    <string name="list_search_close">खोज बंद करें</string>
+    <string name="list_empty_search_title">कोई symbol match नहीं हुआ</string>
+    <string name="list_empty_search_body">“%1$s” दिखाए गए किसी stock में नहीं मिला — spelling जाँचें या Filters ढीले करें।</string>
+
+    <!-- Share -->
+    <string name="list_share_open">Top 10 शेयर करें</string>
+    <string name="list_share_filters">%1$d filter लागू</string>
+    <string name="list_share_no_filters">कोई filter नहीं</string>
+    <!-- %1$d position, %2$s symbol, %3$s price, %4$s score, %5$s RVOL; ShareTextTest reads this line. -->
+    <string name="list_share_line">%1$d. %2$s ₹%3$s • score %4$s • RVOL %5$s×</string>
+    <string name="list_share_failed">शेयर करने के लिए कोई app नहीं मिला</string>
+</resources>
