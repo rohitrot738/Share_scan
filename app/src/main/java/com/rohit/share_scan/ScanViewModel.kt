@@ -1,11 +1,15 @@
 package com.rohit.share_scan
 
+import android.app.Application
+import android.content.Context
 import android.os.SystemClock
-import androidx.lifecycle.ViewModel
+import androidx.core.content.edit
+import androidx.lifecycle.AndroidViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import java.time.LocalDate
 import java.util.concurrent.Executors
 
 enum class ScanPhase { IDLE, LOADING, SCANNING, DONE, FAILED }
@@ -20,22 +24,32 @@ data class ScanUiState(
     val total: Int = 0,
     val startedAt: Long = 0L,
     val finishedAt: Long = 0L,
-    val results: List<RankedStock> = emptyList(),
+    /** Every stock the scan could score, best score first. */
+    val results: List<ScanResult> = emptyList(),
+    val marketCapDate: LocalDate? = null,
     val error: String? = null,
     val sort: SortMode = SortMode.SCORE,
+    val filters: ScanFilters = ScanFilters(),
 ) {
     val isRunning: Boolean get() = phase == ScanPhase.LOADING || phase == ScanPhase.SCANNING
 
     val percent: Int get() = if (total > 0) (done * 100 / total).coerceIn(0, 100) else 0
 
-    val volumeSpikes: Int get() = results.count { it.stock.rvol >= StockFormat.SPIKE_RVOL }
+    /** Stocks inside the filters, ranked by score and cut to the chosen limit. */
+    val visible: List<RankedStock> by lazy {
+        val matching = results.filter(filters::accepts)
+        val limited = if (filters.limit > 0) matching.take(filters.limit) else matching
+        limited.mapIndexed { index, stock -> RankedStock(index + 1, stock) }
+    }
+
+    val volumeSpikes: Int get() = visible.count { it.stock.rvol >= StockFormat.SPIKE_RVOL }
 
     val sortedResults: List<RankedStock>
         get() = when (sort) {
-            SortMode.SCORE -> results
-            SortMode.RVOL -> results.sortedByDescending { it.stock.rvol }
-            SortMode.CHANGE -> results.sortedByDescending { it.stock.change5d }
-            SortMode.PRICE -> results.sortedByDescending { it.stock.price }
+            SortMode.SCORE -> visible
+            SortMode.RVOL -> visible.sortedByDescending { it.stock.rvol }
+            SortMode.CHANGE -> visible.sortedByDescending { it.stock.change5d }
+            SortMode.PRICE -> visible.sortedByDescending { it.stock.price }
         }
 
     fun elapsedAt(now: Long): Long = when {
@@ -45,10 +59,11 @@ data class ScanUiState(
     }
 }
 
-/** Owns the running scan so it survives rotation and theme changes. */
-class ScanViewModel : ViewModel() {
+/** Owns the running scan so it survives rotation and theme changes, and remembers the user's filters. */
+class ScanViewModel(application: Application) : AndroidViewModel(application) {
+    private val prefs = application.getSharedPreferences("scan", Context.MODE_PRIVATE)
     private val worker = Executors.newSingleThreadExecutor()
-    private val state = MutableStateFlow(ScanUiState())
+    private val state = MutableStateFlow(ScanUiState(filters = ScanFilters.decode(prefs.getString(KEY_FILTERS, null))))
     val uiState: StateFlow<ScanUiState> = state.asStateFlow()
 
     fun startScan() {
@@ -58,6 +73,7 @@ class ScanViewModel : ViewModel() {
             phase = ScanPhase.LOADING,
             startedAt = SystemClock.elapsedRealtime(),
             sort = previous.sort,
+            filters = previous.filters,
         )
         worker.execute {
             val outcome = runCatching {
@@ -69,12 +85,12 @@ class ScanViewModel : ViewModel() {
             val finishedAt = SystemClock.elapsedRealtime()
             state.update { current ->
                 outcome.fold(
-                    onSuccess = { rows ->
+                    onSuccess = { output ->
                         current.copy(
                             phase = ScanPhase.DONE,
                             finishedAt = finishedAt,
-                            results = rows.sortedByDescending { it.score }
-                                .mapIndexed { index, row -> RankedStock(index + 1, row) },
+                            results = output.results.sortedByDescending { it.score },
+                            marketCapDate = output.marketCapDate,
                         )
                     },
                     onFailure = { error ->
@@ -89,7 +105,16 @@ class ScanViewModel : ViewModel() {
         state.update { it.copy(sort = mode) }
     }
 
+    fun setFilters(filters: ScanFilters) {
+        state.update { it.copy(filters = filters) }
+        prefs.edit { putString(KEY_FILTERS, filters.encode()) }
+    }
+
     override fun onCleared() {
         worker.shutdownNow()
+    }
+
+    private companion object {
+        const val KEY_FILTERS = "filters"
     }
 }

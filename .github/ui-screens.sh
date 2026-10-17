@@ -28,6 +28,21 @@ print((x1 + x2) // 2, (y1 + y2) // 2)
 PY
 }
 tap() { local xy; xy=$(center "$1") && adb shell input tap $xy || echo "could not find $1"; }
+tap_text() {
+  adb shell uiautomator dump /sdcard/ui.xml > /dev/null 2>&1
+  adb exec-out cat /sdcard/ui.xml > /tmp/ui.xml
+  local xy
+  xy=$(python3 - "$1" <<'PY'
+import re, sys
+xml = open('/tmp/ui.xml', encoding='utf-8').read()
+m = re.search(r'text="%s[^"]*"[^>]*?bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"' % re.escape(sys.argv[1]), xml)
+if not m:
+    sys.exit(1)
+x1, y1, x2, y2 = map(int, m.groups())
+print((x1 + x2) // 2, (y1 + y2) // 2)
+PY
+) && adb shell input tap $xy || echo "could not find text $1"
+}
 
 adb shell cmd uimode night no
 launch; shot 01-idle-light 4
@@ -59,3 +74,14 @@ adb shell cmd uimode night no
 shot 08-results-light 5
 tap sortRvol
 shot 09-sorted-rvol-light 3
+
+tap filterChip
+shot 10-filters-sheet-light 3
+tap_text "Large"
+shot 11-filters-large-cap-light 2
+tap filterApply
+shot 12-filtered-results-light 4
+adb shell cmd uimode night yes
+sleep 4
+tap filterChip
+shot 13-filters-sheet-dark 3

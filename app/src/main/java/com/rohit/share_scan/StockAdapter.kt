@@ -46,6 +46,11 @@ class StockAdapter(
         ui.symbol.text = stock.symbol
         ui.change.text = context.getString(R.string.item_change, StockFormat.change(stock.change5d))
         ui.change.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
+        ui.meta.text = context.getString(
+            R.string.item_meta,
+            stock.marketCapCr?.let(StockFormat::crore) ?: context.getString(R.string.stat_empty),
+            StockFormat.shares(stock.volume),
+        )
         ui.price.text = context.getString(R.string.item_price, StockFormat.price(stock.price))
 
         val spike = stock.rvol >= StockFormat.SPIKE_RVOL

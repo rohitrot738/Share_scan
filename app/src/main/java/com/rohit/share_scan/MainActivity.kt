@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
 import android.os.SystemClock
@@ -14,6 +15,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -21,6 +23,7 @@ import androidx.core.view.updatePadding
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.rohit.share_scan.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -29,8 +32,10 @@ class MainActivity : AppCompatActivity() {
     private val scan: ScanViewModel by viewModels()
     private lateinit var ui: ActivityMainBinding
     private val adapter = StockAdapter(::openChart)
-    private var shownResults: List<RankedStock>? = null
+    private var shownResults: List<ScanResult>? = null
+    private var shownFilters: ScanFilters? = null
     private var shownSort: SortMode? = null
+    private var filterSheet: BottomSheetDialog? = null
     private var shownRing = -1
     private var radarSpin: ObjectAnimator? = null
 
@@ -46,6 +51,10 @@ class MainActivity : AppCompatActivity() {
         ui.startButton.setOnClickListener {
             ui.appBar.setExpanded(true, true)
             scan.startScan()
+        }
+        ui.filterChip.setOnClickListener {
+            filterSheet?.dismiss()
+            filterSheet = FilterSheet(this, scan.uiState.value, scan::setFilters).show()
         }
         ui.sortChips.setOnCheckedStateChangeListener { _, checked ->
             scan.setSort(
@@ -75,6 +84,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         radarSpin?.cancel()
+        filterSheet?.dismiss()
         super.onDestroy()
     }
 
@@ -113,7 +123,7 @@ class MainActivity : AppCompatActivity() {
             )
             ScanPhase.DONE -> showStatus(
                 getString(R.string.status_done_title),
-                getString(R.string.status_done_body, state.results.size, clock),
+                getString(R.string.status_done_body, state.visible.size, clock),
                 R.drawable.ic_check,
                 100,
             )
@@ -154,14 +164,15 @@ class MainActivity : AppCompatActivity() {
     private fun renderStats(state: ScanUiState) {
         val empty = getString(R.string.stat_empty)
         ui.statScannedValue.text = if (state.total > 0) StockFormat.count(state.done) else empty
-        ui.statTopValue.text = state.results.firstOrNull()?.let { StockFormat.score(it.stock.score) } ?: empty
-        ui.statSpikesValue.text = if (state.results.isEmpty()) empty else state.volumeSpikes.toString()
+        ui.statTopValue.text = state.visible.firstOrNull()?.let { StockFormat.score(it.stock.score) } ?: empty
+        ui.statSpikesValue.text = if (state.visible.isEmpty()) empty else state.volumeSpikes.toString()
     }
 
     private fun renderResults(state: ScanUiState) {
-        val hasResults = state.results.isNotEmpty()
+        val hasResults = state.visible.isNotEmpty()
         ui.resultCount.isVisible = hasResults
-        ui.resultCount.text = state.results.size.toString()
+        ui.resultCount.text = StockFormat.count(state.visible.size)
+        renderFilterChip(state.filters)
         ui.resultsHint.isVisible = hasResults
         for (index in 0 until ui.sortChips.childCount) ui.sortChips.getChildAt(index).isEnabled = hasResults
         val sortChip = when (state.sort) {
@@ -176,9 +187,10 @@ class MainActivity : AppCompatActivity() {
         ui.emptyScroll.isVisible = !hasResults
         renderEmpty(state)
 
-        if (state.results !== shownResults || state.sort != shownSort) {
+        if (state.results !== shownResults || state.filters != shownFilters || state.sort != shownSort) {
             val freshResults = state.results !== shownResults
             shownResults = state.results
+            shownFilters = state.filters
             shownSort = state.sort
             adapter.submitList(state.sortedResults) {
                 ui.results.scrollToPosition(0)
@@ -188,14 +200,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderEmpty(state: ScanUiState) {
-        val (title, body, icon) = when {
-            state.isRunning -> Triple(R.string.empty_scanning_title, R.string.empty_scanning_body, R.drawable.ic_radar)
-            state.phase == ScanPhase.IDLE -> Triple(R.string.empty_title, R.string.empty_body, R.drawable.ic_trending_up)
-            else -> Triple(R.string.empty_failed_title, R.string.empty_failed_body, R.drawable.ic_error)
+        if (state.phase == ScanPhase.DONE && state.results.isNotEmpty()) {
+            ui.emptyTitle.setText(R.string.empty_filtered_title)
+            ui.emptyBody.text = getString(R.string.empty_filtered_body, StockFormat.count(state.results.size))
+            ui.emptyIcon.setImageResource(R.drawable.ic_tune)
+        } else {
+            val (title, body, icon) = when {
+                state.isRunning -> Triple(R.string.empty_scanning_title, R.string.empty_scanning_body, R.drawable.ic_radar)
+                state.phase == ScanPhase.IDLE -> Triple(R.string.empty_title, R.string.empty_body, R.drawable.ic_trending_up)
+                else -> Triple(R.string.empty_failed_title, R.string.empty_failed_body, R.drawable.ic_error)
+            }
+            ui.emptyTitle.setText(title)
+            ui.emptyBody.setText(body)
+            ui.emptyIcon.setImageResource(icon)
         }
-        ui.emptyTitle.setText(title)
-        ui.emptyBody.setText(body)
-        ui.emptyIcon.setImageResource(icon)
 
         val spin = state.isRunning && ui.emptyScroll.isVisible
         if (spin && radarSpin == null) {
@@ -210,6 +228,15 @@ class MainActivity : AppCompatActivity() {
             radarSpin = null
             ui.emptyIcon.rotation = 0f
         }
+    }
+
+    /** The chip turns tinted and shows a count while any limit is set. */
+    private fun renderFilterChip(filters: ScanFilters) {
+        val active = filters.activeCount
+        ui.filterChip.text = if (active > 0) getString(R.string.filters_active, active) else getString(R.string.filters)
+        ui.filterChip.chipBackgroundColor = ColorStateList.valueOf(
+            ContextCompat.getColor(this, if (active > 0) R.color.primary_container else android.R.color.transparent),
+        )
     }
 
     private fun applyWindowInsets() {
