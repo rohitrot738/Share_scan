@@ -8,9 +8,19 @@ mkdir -p "$OUT"
 
 adb shell svc power stayon true
 adb shell settings put system screen_off_timeout 1800000
+# A freshly booted emulator's launcher often hangs for a while; hide its ANR dialog and let it settle.
+adb shell settings put global hide_error_dialogs 1
+sleep 20
+adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS > /dev/null
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 
-shot() { sleep "${2:-3}"; adb exec-out screencap -p > "$OUT/$1.png"; echo "shot $1"; }
+shot() {
+  sleep "${2:-3}"
+  # Tap "Wait" on any system "isn't responding" dialog that still got through.
+  if find_node text "Wait" > /dev/null 2>&1; then tap_text "Wait"; sleep 2; fi
+  adb exec-out screencap -p > "$OUT/$1.png"
+  echo "shot $1"
+}
 launch() { adb shell am force-stop "$PKG"; adb shell am start -W -n "$PKG/.MainActivity" > /dev/null; }
 dump() {
   for attempt in 1 2 3; do
