@@ -12,4 +12,7 @@ object Prefs {
 
     /** Score ranks from the previous completed scan, used for NEW badges and rank changes. */
     const val LAST_RANKS = "last_ranks"
+
+    /** Version code of a release the user chose "बाद में" for; its banner stays hidden. */
+    const val UPDATE_DISMISSED = "update_dismissed"
 }
