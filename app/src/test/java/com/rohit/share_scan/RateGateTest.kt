@@ -6,32 +6,33 @@ import org.junit.Test
 class RateGateTest {
     private var clock = 1_000L
     private val sleeps = mutableListOf<Long>()
-    private val gate = RateGate(intervalMs = 100, now = { clock }, sleep = { sleeps += it; clock += it })
+    private val gate = RateGate(burst = 3, perSecond = 10.0, now = { clock }, sleep = { sleeps += it; clock += it })
 
     @Test
-    fun spacesRequestsByTheInterval() {
-        repeat(3) { gate.acquire() }
+    fun letsTheBurstThroughThenPacesAtTheSteadyRate() {
+        repeat(5) { gate.acquire() }
 
         assertEquals(listOf(100L, 100L), sleeps)
-        assertEquals(1_200L, clock)
     }
 
     @Test
-    fun doesNotWaitWhenRequestsAreAlreadySpacedOut() {
-        gate.acquire()
-        clock += 500
+    fun refillsOverTimeUpToTheBurst() {
+        repeat(3) { gate.acquire() }
+        clock += 60_000
+        repeat(3) { gate.acquire() }
         gate.acquire()
 
-        assertEquals(emptyList<Long>(), sleeps)
+        assertEquals(listOf(100L), sleeps)
     }
 
     @Test
-    fun pauseHoldsTheNextRequestBack() {
+    fun pauseHoldsEveryoneBackThenResumesAtTheSteadyRate() {
         gate.acquire()
         gate.pause(5_000)
         gate.acquire()
+        gate.acquire()
 
-        assertEquals(listOf(5_000L), sleeps)
+        assertEquals(listOf(5_100L, 100L), sleeps)
     }
 
     @Test
@@ -40,6 +41,6 @@ class RateGateTest {
         gate.pause(1_000)
         gate.acquire()
 
-        assertEquals(listOf(5_000L), sleeps)
+        assertEquals(listOf(5_100L), sleeps)
     }
 }

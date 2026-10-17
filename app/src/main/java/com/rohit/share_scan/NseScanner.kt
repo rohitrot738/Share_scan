@@ -108,6 +108,14 @@ object NseScanner {
     /** BSE's daily equity bhavcopy: every scrip traded that day, with its ISIN; the source of BSE-only stocks. */
     private const val BSE_BHAVCOPY = "https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_%s_F_0000.CSV"
     private val INDIA = ZoneId.of("Asia/Kolkata")
+    /**
+     * Yahoo let about 3,250 chart requests through at full speed, then refused every one for about 85 seconds; a
+     * steady 10 a second went through, 20 a second did not. A little under both keeps a full scan clear of the limit.
+     */
+    private val yahoo = RateGate(burst = 2_400, perSecond = 7.5)
+    private const val HTTP_TOO_MANY_REQUESTS = 429
+    private const val RATE_LIMIT_TRIES = 6
+    private const val RATE_LIMIT_PAUSE_MS = 45_000L
     private const val USER_AGENT = "ShareScan/1.0 (Android)"
     private val BYTE_ORDER_MARK = Char(0xFEFF)
     private const val BROWSER_AGENT =
@@ -280,7 +288,7 @@ object NseScanner {
     /** One chart request per ticker: about 62 daily sessions, enough for the 50-day average. */
     private fun score(listing: Listing): ScanResult? {
         val symbol = listing.symbol
-        val signals = yahooTickers(listing).firstNotNullOfOrNull { ticker -> runCatching { signalsFor(ticker) }.getOrNull() }
+        val signals = yahooTickers(listing).firstNotNullOfOrNull { ticker -> runCatching { chart(ticker) }.getOrNull() }
             ?: return null
         return ScanResult(
             symbol = symbol,
@@ -295,6 +303,23 @@ object NseScanner {
             market = listing.market,
             bseCode = listing.bseCode,
         )
+    }
+
+    /**
+     * [signalsFor] paced by [yahoo]. On a 429 every thread waits [RATE_LIMIT_PAUSE_MS] and this ticker is asked again,
+     * so a scan that runs into Yahoo's limit slows down instead of losing the rest of its stocks.
+     */
+    private fun chart(ticker: String): BreakoutSignals.Signals? {
+        repeat(RATE_LIMIT_TRIES) {
+            yahoo.acquire()
+            try {
+                return signalsFor(ticker)
+            } catch (limited: HttpStatusException) {
+                if (limited.status != HTTP_TOO_MANY_REQUESTS) throw limited
+                yahoo.pause(RATE_LIMIT_PAUSE_MS)
+            }
+        }
+        return null
     }
 
     /** One of Yahoo's daily arrays; JSON nulls (holidays, a session still forming) stay null for [BreakoutSignals]. */
@@ -409,7 +434,7 @@ object NseScanner {
             if (status !in 200..299) {
                 // Read the short error body too, so its connection can be reused like any other.
                 connection.errorStream?.use { it.readBytes() }
-                error("HTTP $status")
+                throw HttpStatusException(status)
             }
             // No disconnect(): a fully read response hands its connection back to the system's pool, so a scan's
             // thousands of chart requests share a few connections. A new TLS connection per request left thousands
