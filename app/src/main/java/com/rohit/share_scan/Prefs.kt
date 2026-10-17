@@ -1,6 +1,6 @@
 package com.rohit.share_scan
 
-/** Shared preference file and keys; the scan screen and the background alert read the same values. */
+/** Shared preference file and keys used across the app. */
 object Prefs {
     const val FILE = "scan"
 
@@ -12,7 +12,4 @@ object Prefs {
 
     /** Score ranks from the previous completed scan, used for NEW badges and rank changes. */
     const val LAST_RANKS = "last_ranks"
-
-    /** Boolean: whether the daily background scan and notification are on. */
-    const val ALERTS = "alerts"
 }
