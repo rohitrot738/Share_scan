@@ -52,6 +52,8 @@ PY
 tap() { local xy; xy=$(find_node id "$1") && adb shell input tap $xy || echo "could not find $1"; }
 tap_text() { local xy; xy=$(find_node text "$1") && adb shell input tap $xy || echo "could not find text $1"; }
 menu() { tap menuButton; sleep 2; }
+# Closes a settings sheet only if one is open, so a stray BACK never leaves the app.
+close_sheet() { if find_node id settingBse > /dev/null; then adb shell input keyevent KEYCODE_BACK; sleep 2; else echo "no sheet open"; fi; }
 type_query() { adb shell input text "$1"; sleep 2; }
 clear_query() { for i in $(seq 1 20); do adb shell input keyevent KEYCODE_DEL; done; sleep 1; }
 
@@ -76,8 +78,7 @@ sleep 2
 tap settingSme
 tap settingBse
 shot 01-settings-all-markets 2
-adb shell input keyevent KEYCODE_BACK
-sleep 2
+close_sheet
 tap startButton
 sleep 20
 wait_scan scan1
@@ -90,7 +91,7 @@ shot 04-search-sme 2
 adb shell input keyevent KEYCODE_BACK
 sleep 1
 tap searchClose
-sleep 2
+shot 04b-header-back-after-search 2
 
 # Scan 2: NSE off, SME off, BSE on; the last switch cannot be turned off.
 menu
@@ -100,10 +101,7 @@ tap settingNse
 tap settingSme
 tap settingBse
 shot 05-settings-nse-off-guard 1
-adb shell input keyevent KEYCODE_BACK
-sleep 2
-adb shell input swipe 540 600 540 1900 400
-sleep 1
+close_sheet
 tap startButton
 sleep 20
 wait_scan scan2
