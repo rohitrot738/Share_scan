@@ -2,6 +2,10 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
+// The release workflow passes these; local and debug builds fall back to the defaults.
+val releaseBuild = System.getenv("SHARESCAN_VERSION_CODE")?.toIntOrNull()
+val signingPassword = System.getenv("SHARESCAN_KEY_PASSWORD")
+
 android {
     namespace = "com.rohit.share_scan"
     compileSdk = 35
@@ -9,8 +13,24 @@ android {
         applicationId = "com.rohit.share_scan"
         minSdk = 26
         targetSdk = 35
-        versionCode = 2
-        versionName = "1.1.0"
+        versionCode = releaseBuild ?: 2
+        versionName = if (releaseBuild != null) "1.2.$releaseBuild" else "1.1.0"
+    }
+    signingConfigs {
+        // Permanent key so every release installs over the previous one. The keystore is encrypted;
+        // its password lives only in the SHARESCAN_KEY_PASSWORD repository secret.
+        create("release") {
+            storeFile = file("sharescan-release.p12")
+            storeType = "pkcs12"
+            storePassword = signingPassword
+            keyAlias = "sharescan"
+            keyPassword = signingPassword
+        }
+    }
+    buildTypes {
+        release {
+            if (signingPassword != null) signingConfig = signingConfigs.getByName("release")
+        }
     }
     buildFeatures { viewBinding = true }
     compileOptions {
