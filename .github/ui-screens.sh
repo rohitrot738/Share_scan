@@ -49,8 +49,9 @@ launch; shot 01-idle-light 4
 adb shell cmd uimode night yes
 launch; shot 02-idle-dark 4
 
-adb shell input keyevent KEYCODE_HOME; sleep 2
-adb shell input swipe 540 1900 540 400 300
+adb shell input keyevent KEYCODE_HOME; sleep 3
+adb shell input swipe 540 2050 540 350 600
+sleep 2
 shot 03-app-drawer 3
 
 launch; sleep 3

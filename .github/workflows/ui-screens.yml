@@ -7,6 +7,9 @@ on:
     paths: ['app/**', '.github/ui-screens.sh', '.github/workflows/ui-screens.yml']
 permissions:
   contents: write
+concurrency:
+  group: ui-screens-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   screens:
     runs-on: ubuntu-latest
@@ -46,5 +49,5 @@ jobs:
           git add ui-screens
           git commit -m "Add emulator UI screenshots for review" || exit 0
           # Another push may have landed while the emulator ran; replay the screenshots on top of it.
-          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git pull --rebase -X theirs origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
