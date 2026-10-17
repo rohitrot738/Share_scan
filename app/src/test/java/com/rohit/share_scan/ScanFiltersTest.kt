@@ -34,6 +34,38 @@ class ScanFiltersTest {
     }
 
     @Test
+    fun breakoutMetricsReadThePriceStructure() {
+        val structure = PriceStructure(
+            closes = listOf(95.0, 98.0, 97.0),
+            high20 = 100.0,
+            low10 = 90.0,
+            atr14 = 2.0,
+            sma20 = 96.0,
+            sma50 = 80.0,
+            high10 = 100.0,
+        )
+        val coiled = ScanResult("COILED", 97.0, 78.0, 1.8, 2.0, volume = 500_000.0, structure = structure)
+        assertEquals(3.0, Metric.FROM_HIGH.read(coiled)!!, 1e-9)
+        assertEquals(10.0 / 95.0 * 100.0, Metric.BASE_RANGE.read(coiled)!!, 1e-9)
+        assertEquals(21.25, Metric.VS_SMA50.read(coiled)!!, 1e-9)
+        val brokenOut = coiled.copy(price = 104.0)
+        assertEquals(-4.0, brokenOut.belowHigh20Pct!!, 1e-9)
+
+        val nearHigh = ScanFilters()
+            .with(Metric.FROM_HIGH, Bound(max = 3.0))
+            .with(Metric.BASE_RANGE, Bound(max = 12.0))
+            .with(Metric.VS_SMA50, Bound(min = 0.0))
+        assertTrue(nearHigh.accepts(coiled))
+        assertTrue(nearHigh.accepts(brokenOut))
+        assertFalse(nearHigh.accepts(coiled.copy(price = 90.0)))
+        // Without candles (or without a 50-day average) the limits fail closed, like an unknown market cap.
+        assertNull(big.belowHigh20Pct)
+        assertFalse(nearHigh.accepts(big))
+        assertFalse(nearHigh.accepts(coiled.copy(structure = structure.copy(sma50 = null))))
+        assertNull(coiled.copy(structure = structure.copy(high10 = null)).baseRangePct)
+    }
+
+    @Test
     fun clearingABoundRemovesIt() {
         val filters = ScanFilters().with(Metric.RVOL, Bound(min = 2.0)).with(Metric.RVOL, Bound())
         assertEquals(0, filters.activeCount)
@@ -56,7 +88,11 @@ class ScanFiltersTest {
         val filters = ScanFilters(limit = 50)
             .with(Metric.MARKET_CAP, Bound(min = 500.0, max = 20_000.0))
             .with(Metric.CHANGE, Bound(min = -5.0))
+            .with(Metric.FROM_HIGH, Bound(min = -2.0, max = 3.0))
+            .with(Metric.BASE_RANGE, Bound(max = 8.0))
+            .with(Metric.VS_SMA50, Bound(min = 0.0))
         assertEquals(filters, ScanFilters.decode(filters.encode()))
+        assertEquals(Metric.entries.size, Metric.entries.map { it.key }.toSet().size)
         assertEquals(ScanFilters(), ScanFilters.decode(null))
         assertEquals(ScanFilters(), ScanFilters.decode("limit=7;bogus.min=1;price.max=abc"))
     }
@@ -70,6 +106,9 @@ class ScanFiltersTest {
         assertEquals(2.0, metric.valueAt(4)!!, 0.0)
         assertNull(metric.valueAt(0))
         assertNull(metric.valueAt(metric.lastPosition))
+        // Negative stops work too: 2% above the 20-day high sits at the third stop.
+        assertEquals(3, Metric.FROM_HIGH.positionOf(-2.0, upper = false))
+        for (each in Metric.entries) assertEquals(each.stops.sorted(), each.stops)
     }
 
     @Test

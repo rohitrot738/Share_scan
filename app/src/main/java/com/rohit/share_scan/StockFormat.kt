@@ -13,11 +13,20 @@ object StockFormat {
 
     enum class Tier { STRONG, WATCH, WEAK }
 
+    /**
+     * Tiers for the [BreakoutSignals] score. A neutral stock (volume at its average, flat, mid-range, ₹2 Cr a day)
+     * scores about 49, and a textbook setup (tight base just under the 20-day high, rising averages, volume 1.8×
+     * after a quiet week, ₹10 Cr a day) about 78. STRONG starts at 75, roughly the best 7–8% of the market;
+     * WATCH starts at 62, clearly better than neutral, roughly the next quarter.
+     */
     fun tier(score: Double): Tier = when {
-        score >= 65.0 -> Tier.STRONG
-        score >= 52.0 -> Tier.WATCH
+        score >= STRONG_SCORE -> Tier.STRONG
+        score >= WATCH_SCORE -> Tier.WATCH
         else -> Tier.WEAK
     }
+
+    const val STRONG_SCORE = 75.0
+    const val WATCH_SCORE = 62.0
 
     fun price(value: Double): String = NumberFormat.getNumberInstance(indian).apply {
         minimumFractionDigits = 2
@@ -53,7 +62,8 @@ object StockFormat {
         Metric.PRICE -> "₹" + count(value.roundToInt())
         Metric.VOLUME -> shares(value)
         Metric.RVOL -> short(value) + "×"
-        Metric.CHANGE -> (if (value > 0) "+" else "") + short(value) + "%"
+        Metric.CHANGE, Metric.VS_SMA50 -> (if (value > 0) "+" else "") + short(value) + "%"
+        Metric.FROM_HIGH, Metric.BASE_RANGE -> short(value) + "%"
         Metric.SCORE -> short(value)
     }
 
