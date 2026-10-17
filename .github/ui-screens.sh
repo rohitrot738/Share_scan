@@ -13,6 +13,10 @@ adb shell settings put global hide_error_dialogs 1
 sleep 20
 adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS > /dev/null
 adb install -r app/build/outputs/apk/debug/app-debug.apk
+# Keep crash, ANR and process-death lines for the whole run.
+adb logcat -c
+adb logcat -v time AndroidRuntime:E ActivityManager:I ActivityTaskManager:I lowmemorykiller:I libprocessgroup:I \
+  System.err:W ShareScan:V '*:S' > "$OUT/logcat.txt" 2>&1 &
 
 shot() {
   sleep "${2:-3}"
@@ -51,12 +55,15 @@ menu() { tap menuButton; sleep 2; }
 type_query() { adb shell input text "$1"; sleep 2; }
 clear_query() { for i in $(seq 1 20); do adb shell input keyevent KEYCODE_DEL; done; sleep 1; }
 
+# Waits up to 15 minutes, with a progress screenshot every 2 minutes; $1 names them.
 wait_scan() {
-  for i in $(seq 1 120); do
+  for i in $(seq 1 60); do
     flags=$(adb shell dumpsys activity top | grep 'id/startButton' | head -1 | awk '{print $2}')
-    case "$flags" in ??E*) echo "scan finished after about $((i * 15)) seconds"; break ;; esac
+    case "$flags" in ??E*) echo "scan finished after about $((i * 15)) seconds"; return 0 ;; esac
+    if [ $((i % 8)) -eq 0 ]; then adb exec-out screencap -p > "$OUT/$1-progress-$i.png"; echo "progress $1 $i: $(adb shell pidof com.rohit.share_scan)"; fi
     sleep 15
   done
+  echo "scan $1 did not finish"
 }
 search() { tap searchButton; sleep 1; clear_query; type_query "$1"; }
 
@@ -73,7 +80,7 @@ adb shell input keyevent KEYCODE_BACK
 sleep 2
 tap startButton
 sleep 20
-wait_scan
+wait_scan scan1
 shot 02-results-with-badges 3
 search "globus"
 shot 03-search-globus-nse-bse 2
@@ -99,7 +106,7 @@ adb shell input swipe 540 600 540 1900 400
 sleep 1
 tap startButton
 sleep 20
-wait_scan
+wait_scan scan2
 shot 06-results-bse-only 3
 search "reliance"
 shot 07-search-reliance-on-bse 2
@@ -107,4 +114,5 @@ adb shell input keyevent KEYCODE_BACK
 sleep 1
 tap symbol
 shot 08-detail-reliance-bse 4
-adb logcat -d | grep -E "AndroidRuntime|FATAL" | tail -60 > "$OUT/crash-log.txt"
+sleep 2
+kill %1 2>/dev/null
