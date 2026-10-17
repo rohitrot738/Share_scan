@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Adaptive-icon background: deep-space gradient, nebula glows, a soft galactic band, stars and a small ringed planet. -->
+<!-- Adaptive-icon background: deep-space gradient, nebula glows, a soft galactic band and stars. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
@@ -85,36 +85,4 @@
         android:fillAlpha="0.9"
         android:fillColor="#F5F3FF"
         android:pathData="M24,36.8L24.45,40.55L28.2,41L24.45,41.45L24,45.2L23.55,41.45L19.8,41L23.55,40.55zM82,76.6L82.4,79.6L85.4,80L82.4,80.4L82,83.4L81.6,80.4L78.6,80L81.6,79.6z" />
-
-    <!-- Ringed planet -->
-    <group
-        android:pivotX="72"
-        android:pivotY="33"
-        android:rotation="-25">
-        <path
-            android:fillColor="#00000000"
-            android:pathData="M65.5,33a6.5,2.2 0,1 1,13 0"
-            android:strokeWidth="0.9"
-            android:strokeAlpha="0.6"
-            android:strokeColor="#A5F3FC" />
-        <path android:pathData="M68.4,33a3.6,3.6 0,1 0,7.2 0a3.6,3.6 0,1 0,-7.2 0z">
-            <aapt:attr name="android:fillColor">
-                <gradient
-                    android:centerX="70.8"
-                    android:centerY="31.4"
-                    android:gradientRadius="5"
-                    android:type="radial">
-                    <item android:color="#FFF5D0FE" android:offset="0" />
-                    <item android:color="#FFC084FC" android:offset="0.5" />
-                    <item android:color="#FF6D28D9" android:offset="1" />
-                </gradient>
-            </aapt:attr>
-        </path>
-        <path
-            android:fillColor="#00000000"
-            android:pathData="M65.5,33a6.5,2.2 0,0 0,13 0"
-            android:strokeWidth="0.9"
-            android:strokeColor="#A5F3FC"
-            android:strokeLineCap="round" />
-    </group>
 </vector>
