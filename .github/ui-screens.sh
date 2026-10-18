@@ -120,37 +120,56 @@ glass_mode() {
 }
 
 focus() { adb shell dumpsys window | grep -m1 mCurrentFocus; }
+# Activity lifecycle (create/destroy) and window focus, to tell a dismissed sheet from a restarted screen.
+adb logcat -b events -v time > "$OUT/events.txt" 2>&1 &
 set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">frosted</string>"
 launch
 sleep 8
-# Does dragging a slider keep the filter sheet open? No scan needed for the sheet.
+slider_box() {
+  dump
+  python3 - "$1" <<'PY'
+import re, sys
+xml = open("/tmp/ui.xml", encoding="utf-8").read()
+found = [re.search(r'bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', n).groups()
+         for n in re.findall(r"<node [^>]*>", xml) if re.search(r'resource-id="[^"]*:id/metricSlider"', n)]
+print(*found[int(sys.argv[1])]) if len(found) > int(sys.argv[1]) else sys.exit(1)
+PY
+}
+# A: a sideways swipe on the sheet away from any slider (across the Filters title).
 tap filterChip
 sleep 3
-focus
-shot drag-0 0
-swipe_id metricSlider 4 45
-sleep 0.3
-focus
-shot drag-1 0
+echo "A sheet open:"; focus
+adb shell input swipe 100 560 700 560 600
 sleep 2
-focus
-shot drag-2 0
-# The second slider (price), dragged from its right bead leftwards.
-dump
-python3 - <<'PY' > /tmp/sliders.txt
-import re
-xml = open("/tmp/ui.xml", encoding="utf-8").read()
-for node in re.findall(r"<node [^>]*>", xml):
-    if re.search(r'resource-id="[^"]*:id/metricSlider"', node):
-        print(*re.search(r'bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', node).groups())
-PY
-cat /tmp/sliders.txt
-set -- $(sed -n 2p /tmp/sliders.txt)
-if [ $# -eq 4 ]; then
+echo "A after swipe:"; focus
+shot a-after 0
+adb shell input keyevent BACK; sleep 2
+# B: drag the first slider's left bead, recording the screen meanwhile.
+tap filterChip
+sleep 3
+box=$(slider_box 0) || box=""
+echo "B slider: $box"
+adb shell screenrecord --time-limit 10 --bit-rate 4000000 /sdcard/drag.mp4 &
+sleep 2
+if [ -n "$box" ]; then
+  set -- $box
   y=$(( ($2 + $4) / 2 ))
-  adb shell input swipe $(( $1 + ($3 - $1) * 96 / 100 )) $y $(( $1 + ($3 - $1) * 60 / 100 )) $y 800
-  sleep 1
-  focus
-  shot drag-3 0
+  echo "B swipe at y=$y from x=$(( $1 + 50 ))"
+  adb shell input swipe $(( $1 + 50 )) $y $(( $1 + ($3 - $1) / 2 )) $y 800
 fi
-kill %1 2>/dev/null
+sleep 1
+echo "B after swipe:"; focus
+sleep 9
+adb pull /sdcard/drag.mp4 "$OUT/drag.mp4" > /dev/null && echo "video pulled"
+shot b-after 0
+# C: a tap on the Micro preset chip.
+adb shell input keyevent BACK; sleep 2
+tap filterChip
+sleep 3
+tap_text "Micro ≤₹500 Cr"
+sleep 2
+echo "C after chip tap:"; focus
+shot c-after 0
+kill %1 %2 2>/dev/null
+grep -E "share_scan" "$OUT/events.txt" | grep -E "wm_on_(create|destroy|resume|pause)_called|wm_finish|am_proc|wm_set_resumed|focus" | tail -40 > "$OUT/lifecycle.txt"
+cat "$OUT/lifecycle.txt"
