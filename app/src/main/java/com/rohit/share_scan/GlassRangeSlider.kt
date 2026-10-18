@@ -81,14 +81,14 @@ class GlassRangeSlider @JvmOverloads constructor(
         setBounds(left.roundToInt(), top.roundToInt(), right.roundToInt(), bottom.roundToInt())
 
     private companion object {
-        /** The glass channel's height. */
-        const val CHANNEL_DP = 26f
+        /** The glass channel's height: a slim rod. */
+        const val CHANNEL_DP = 12f
 
         /** How far the range's glass sits inside the channel. */
-        const val RANGE_INSET_DP = 3f
+        const val RANGE_INSET_DP = 2f
 
         /** The beads' size: bigger than the channel, so they read as handles. */
-        const val BEAD_DP = 32f
+        const val BEAD_DP = 22f
 
         /** How far the press halo reaches past a bead. */
         const val HALO_DP = 6f

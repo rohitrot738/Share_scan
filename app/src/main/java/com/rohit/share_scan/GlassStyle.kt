@@ -244,7 +244,8 @@ private class ChipGlass(
         // Each colour fades to itself at zero alpha: fading to transparent black would leave a grey band.
         val top = (h * 0.16f).coerceIn(4 * density, 14 * density)
         topPaint.shader = LinearGradient(0f, box.top, 0f, box.top + top, shineRim, shineRim and 0xFFFFFF, Shader.TileMode.CLAMP)
-        val bandHeight = (h * 0.4f).coerceIn(8 * density, 26 * density)
+        // Never deeper than the glass itself, which a slim slider's range can be.
+        val bandHeight = (h * 0.4f).coerceIn(8 * density, 26 * density).coerceAtMost(h - 2 * density)
         val side = maxOf(6 * density, corner * 0.45f)
         band.set(box.left + side, box.top + density, box.right - side, box.top + density + bandHeight)
         bandCorner = minOf(bandHeight / 2, corner)
