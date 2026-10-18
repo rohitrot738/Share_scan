@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Glass card fill. Follows the picked theme (values/styles.xml); use it for colours, never as a drawable. -->
+<!--
+    Glass card fill: the glass mode's tint at its strength (Frosted: the theme's own scanCard). Follows the picked
+    theme and glass mode (values/styles_glass.xml); use it for colours, never as a drawable.
+-->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:color="?attr/scanCard" />
+    <item android:alpha="?attr/glassCardAlpha" android:color="?attr/glassCardTint" />
 </selector>

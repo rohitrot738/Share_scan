@@ -4,7 +4,7 @@
     <string name="menu_open">Menu खोलें</string>
     <string name="menu_version">Version %1$s</string>
     <string name="menu_settings">सेटिंग्स</string>
-    <string name="menu_settings_body">Update check, स्क्रीन, चार्ट site और डेटा</string>
+    <string name="menu_settings_body">ग्लास मोड, आसमान, update check, चार्ट site और डेटा</string>
     <string name="menu_theme">थीम</string>
     <string name="menu_theme_body">अभी: %1$s</string>
     <string name="menu_update">Update देखें</string>

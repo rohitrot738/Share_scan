@@ -190,6 +190,9 @@ class SettingsSheet(
 ) {
     interface Actions {
         fun keepScreenOnChanged(on: Boolean)
+        fun skyAnimationChanged(on: Boolean)
+        /** Saves [style] and re-creates the screen in it. */
+        fun glassStyleChanged(style: GlassStyle)
         fun clearWatchlist()
         fun resetFilters()
         fun clearRankHistory()
@@ -208,6 +211,12 @@ class SettingsSheet(
             actions.keepScreenOnChanged(on)
         }
         ui.settingScreenRow.setOnClickListener { ui.settingScreen.toggle() }
+        ui.settingSky.isChecked = settings.skyAnimation
+        ui.settingSky.setOnCheckedChangeListener { _, on ->
+            settings.skyAnimation = on
+            actions.skyAnimationChanged(on)
+        }
+        ui.settingSkyRow.setOnClickListener { ui.settingSky.toggle() }
         bindMarket(ui.settingNse, ui.settingNseRow, settings.includeNse) { settings.includeNse = it }
         bindMarket(ui.settingSme, ui.settingSmeRow, settings.includeSme) { settings.includeSme = it }
         bindMarket(ui.settingBse, ui.settingBseRow, settings.includeBse) { settings.includeBse = it }
@@ -221,6 +230,18 @@ class SettingsSheet(
             chip.isChecked = site == current
             chip.setOnCheckedChangeListener { _, checked -> if (checked) settings.chartSite = site }
             ui.settingChart.addView(chip)
+        }
+
+        val glass = settings.glassStyle
+        ui.settingGlassCurrent.setText(glass.body)
+        GlassStyle.entries.forEach { style ->
+            val chip = activity.layoutInflater.inflate(R.layout.chip_choice, ui.settingGlass, false) as Chip
+            chip.id = android.view.View.generateViewId()
+            chip.setText(style.label)
+            chip.isCheckable = true
+            chip.isChecked = style == glass
+            chip.setOnCheckedChangeListener { _, checked -> if (checked && style != glass) actions.glassStyleChanged(style) }
+            ui.settingGlass.addView(chip)
         }
 
         ui.settingClearWatchlist.text = activity.getString(R.string.settings_clear_watchlist, watchlistSize)

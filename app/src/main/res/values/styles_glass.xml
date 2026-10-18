@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!--
+        Glass mode (Settings → ग्लास मोड, GlassStyle.kt); the attributes are in values/attrs_glass.xml.
+        Theme.ShareScan's parent carries the Frosted values, so all the themes, and anything inflated without
+        MainActivity's overlay, resolve every glass attribute. MainActivity lays the picked style's overlay over the
+        theme; an overlay lists only what differs from Frosted and takes its colours from the theme (scanCard,
+        colorPrimary, the surfaces...), so each style works in every theme.
+    -->
+    <style name="Base.Theme.ShareScan" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="glassCardTint">?attr/scanCard</item>
+        <item name="glassCardAlpha">1.0</item>
+        <item name="glassCardRimTint">?attr/scanCardStroke</item>
+        <item name="glassCardRimAlpha">1.0</item>
+        <item name="glassSheetTint">?attr/scanSheet</item>
+        <item name="glassSheetAlpha">1.0</item>
+        <item name="glassHeroAlpha">1.0</item>
+        <item name="glassHeroBase">@android:color/transparent</item>
+        <item name="glassHeroWash">@android:color/transparent</item>
+        <item name="glassHeroSheen">@android:color/transparent</item>
+        <item name="glassHeroRim">@android:color/transparent</item>
+        <item name="glassChipSurface">#59000000</item>
+        <item name="glassChipSurfaceOn">#4D000000</item>
+        <item name="glassChipTintAlpha">0.20</item>
+        <item name="glassChipTintAlphaOn">0.48</item>
+        <item name="glassChipRimTint">@android:color/white</item>
+        <item name="glassChipRimAlpha">0.18</item>
+        <item name="glassShineRim">#8CFFFFFF</item>
+        <item name="glassShineRimOn">#99FFFFFF</item>
+        <item name="glassShineSpecular">#57FFFFFF</item>
+        <item name="glassShineSpecularOn">#6BFFFFFF</item>
+        <item name="glassShineGlint">#29FFFFFF</item>
+        <item name="glassSwitchBase">@android:color/transparent</item>
+        <item name="glassSwitchWash">@android:color/transparent</item>
+        <item name="glassIrisTop">@android:color/transparent</item>
+        <item name="glassIrisBottom">@android:color/transparent</item>
+    </style>
+
+    <!-- धुंधला: the theme's own frosted glass, exactly the defaults above. -->
+    <style name="ThemeOverlay.ShareScan.Glass.Frosted" parent="" />
+
+    <!-- पारदर्शी: very see-through cards, sheets and scan board with bright white rims and crisp light. -->
+    <style name="ThemeOverlay.ShareScan.Glass.Clear" parent="">
+        <item name="glassCardAlpha">0.45</item>
+        <item name="glassCardRimTint">@android:color/white</item>
+        <item name="glassCardRimAlpha">0.42</item>
+        <item name="glassSheetAlpha">0.76</item>
+        <item name="glassHeroAlpha">0.55</item>
+        <item name="glassHeroSheen">#29FFFFFF</item>
+        <item name="glassHeroRim">#A6FFFFFF</item>
+        <item name="glassChipSurface">#14000000</item>
+        <item name="glassChipSurfaceOn">#0F000000</item>
+        <item name="glassChipTintAlpha">0.10</item>
+        <item name="glassChipTintAlphaOn">0.36</item>
+        <item name="glassChipRimAlpha">0.42</item>
+        <item name="glassShineRim">#BFFFFFFF</item>
+        <item name="glassShineRimOn">#D9FFFFFF</item>
+        <item name="glassShineSpecular">#73FFFFFF</item>
+        <item name="glassShineSpecularOn">#8CFFFFFF</item>
+        <item name="glassShineGlint">#47FFFFFF</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.ShareScan.BottomSheetDialog.Clear</item>
+    </style>
+
+    <!-- गहरा: dark smoked glass, nearly black, with dim rims and a darker scan board. -->
+    <style name="ThemeOverlay.ShareScan.Glass.Smoky" parent="">
+        <item name="glassCardTint">?attr/colorSurfaceContainerLowest</item>
+        <item name="glassCardAlpha">0.82</item>
+        <item name="glassCardRimAlpha">0.45</item>
+        <item name="glassSheetTint">?attr/colorSurfaceContainerLowest</item>
+        <item name="glassSheetAlpha">0.93</item>
+        <item name="glassHeroBase">#59000000</item>
+        <item name="glassHeroWash">#4D000000</item>
+        <item name="glassChipSurface">#A6000000</item>
+        <item name="glassChipSurfaceOn">#8C000000</item>
+        <item name="glassChipTintAlpha">0.12</item>
+        <item name="glassChipTintAlphaOn">0.40</item>
+        <item name="glassChipRimAlpha">0.10</item>
+        <item name="glassShineRim">#4DFFFFFF</item>
+        <item name="glassShineRimOn">#66FFFFFF</item>
+        <item name="glassShineSpecular">#29FFFFFF</item>
+        <item name="glassShineSpecularOn">#3DFFFFFF</item>
+        <item name="glassShineGlint">#14FFFFFF</item>
+        <item name="glassSwitchWash">#4D000000</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.ShareScan.BottomSheetDialog.Smoky</item>
+    </style>
+
+    <!-- रंगीन: glass stained with the theme's accent, accent rims, an accent wash over the scan board. -->
+    <style name="ThemeOverlay.ShareScan.Glass.Tinted" parent="">
+        <item name="glassCardTint">?attr/colorPrimaryContainer</item>
+        <item name="glassCardAlpha">0.62</item>
+        <item name="glassCardRimTint">?attr/colorPrimary</item>
+        <item name="glassCardRimAlpha">0.80</item>
+        <item name="glassSheetTint">?attr/colorPrimaryContainer</item>
+        <item name="glassSheetAlpha">0.84</item>
+        <item name="glassHeroWash">@color/glass_accent_wash</item>
+        <item name="glassHeroRim">@color/glass_accent_rim</item>
+        <item name="glassChipSurface">#40000000</item>
+        <item name="glassChipSurfaceOn">#33000000</item>
+        <item name="glassChipTintAlpha">0.36</item>
+        <item name="glassChipTintAlphaOn">0.66</item>
+        <item name="glassChipRimTint">?attr/colorPrimary</item>
+        <item name="glassChipRimAlpha">0.55</item>
+        <item name="glassSwitchWash">@color/glass_accent_wash</item>
+    </style>
+
+    <!-- इंद्रधनुषी: clearer glass whose edges shift from cyan at the top to magenta at the bottom. -->
+    <style name="ThemeOverlay.ShareScan.Glass.Liquid" parent="">
+        <item name="glassIrisTop">@color/glass_iris_cyan</item>
+        <item name="glassIrisBottom">@color/glass_iris_magenta</item>
+        <item name="glassCardAlpha">0.80</item>
+        <item name="glassCardRimTint">?attr/glassIrisTop</item>
+        <item name="glassCardRimAlpha">0.85</item>
+        <item name="glassSheetAlpha">0.94</item>
+        <item name="glassHeroAlpha">0.80</item>
+        <item name="glassHeroSheen">#24FFFFFF</item>
+        <item name="glassChipSurface">#40000000</item>
+        <item name="glassChipSurfaceOn">#33000000</item>
+        <item name="glassChipTintAlpha">0.14</item>
+        <item name="glassChipTintAlphaOn">0.44</item>
+        <item name="glassChipRimTint">?attr/glassIrisTop</item>
+        <item name="glassChipRimAlpha">0.60</item>
+        <item name="glassShineRim">#B3A5F3FC</item>
+        <item name="glassShineRimOn">#CCCFFAFE</item>
+        <item name="glassShineSpecular">#6BE0E7FF</item>
+        <item name="glassShineSpecularOn">#80F5F3FF</item>
+        <item name="glassShineGlint">#8CF0ABFC</item>
+    </style>
+
+    <!--
+        ठोस: glass off. Opaque cards, sheets, chips and switch tracks in the theme's surfaces, the scan board on an
+        opaque base, almost no light on the chips and no blur behind the sheets (less GPU work).
+    -->
+    <style name="ThemeOverlay.ShareScan.Glass.Solid" parent="">
+        <item name="glassCardTint">?attr/colorSurfaceContainer</item>
+        <item name="glassCardRimAlpha">0.70</item>
+        <item name="glassSheetTint">?attr/colorSurfaceContainerLow</item>
+        <item name="glassHeroBase">?attr/colorSurfaceContainerLow</item>
+        <item name="glassChipSurface">?attr/colorSurfaceContainerHigh</item>
+        <item name="glassChipSurfaceOn">?attr/colorSurfaceContainerHigh</item>
+        <item name="glassChipRimAlpha">0.12</item>
+        <item name="glassShineRim">#26FFFFFF</item>
+        <item name="glassShineRimOn">#33FFFFFF</item>
+        <item name="glassShineSpecular">@android:color/transparent</item>
+        <item name="glassShineSpecularOn">#14FFFFFF</item>
+        <item name="glassShineGlint">@android:color/transparent</item>
+        <item name="glassSwitchBase">?attr/colorSurfaceContainerHighest</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.ShareScan.BottomSheetDialog.Solid</item>
+    </style>
+
+    <!-- How much the screen behind a sheet is frosted on Android 12+: lighter for Clear, heavier for Smoky, off for Solid. -->
+    <style name="ThemeOverlay.ShareScan.BottomSheetDialog.Clear" parent="ThemeOverlay.ShareScan.BottomSheetDialog">
+        <item name="android:windowBlurBehindRadius" tools:targetApi="31">12dp</item>
+    </style>
+
+    <style name="ThemeOverlay.ShareScan.BottomSheetDialog.Smoky" parent="ThemeOverlay.ShareScan.BottomSheetDialog">
+        <item name="android:windowBlurBehindRadius" tools:targetApi="31">40dp</item>
+    </style>
+
+    <style name="ThemeOverlay.ShareScan.BottomSheetDialog.Solid" parent="ThemeOverlay.ShareScan.BottomSheetDialog">
+        <item name="android:windowBlurBehindEnabled" tools:targetApi="31">false</item>
+    </style>
+</resources>

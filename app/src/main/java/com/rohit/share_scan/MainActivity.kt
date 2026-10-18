@@ -61,12 +61,16 @@ class MainActivity : AppCompatActivity() {
         // The picked theme has to be in place before any view (or the window background) is created.
         settings = AppSettings(this)
         setTheme(settings.theme.style)
+        // The glass mode goes over the theme: cards, sheets, chips and switches read their glass from it.
+        theme.applyStyle(settings.glassStyle.overlay, true)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         ui = ActivityMainBinding.inflate(layoutInflater)
         setContentView(ui.root)
         ui.galaxySky.palette = settings.theme.skyPalette
+        ui.galaxySky.animate = settings.skyAnimation
         ui.hero.clipToOutline = true
+        ui.hero.applyGlassHero()
         ui.results.adapter = adapter
         applyWindowInsets()
         setUpListTools()
@@ -515,6 +519,16 @@ class MainActivity : AppCompatActivity() {
         override fun keepScreenOnChanged(on: Boolean) {
             ui.root.keepScreenOn = scan.uiState.value.isRunning && on
             renderEmpty(scan.uiState.value)
+        }
+
+        override fun skyAnimationChanged(on: Boolean) {
+            ui.galaxySky.animate = on
+        }
+
+        /** Like [applyTheme]: the scan and its results live on in the view model. */
+        override fun glassStyleChanged(style: GlassStyle) {
+            settings.glassStyle = style
+            recreate()
         }
 
         override fun clearWatchlist() = scan.clearWatchlist()

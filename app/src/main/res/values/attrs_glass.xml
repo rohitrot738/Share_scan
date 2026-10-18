@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Glass mode (Settings → ग्लास मोड, GlassStyle.kt). Base.Theme.ShareScan sets them all to Frosted, so every theme
+        has them; each ThemeOverlay.ShareScan.Glass.* (values/styles_glass.xml) changes the ones that differ.
+        A theme colour at some strength is a colour attribute plus a float alpha, combined in res/color. The light
+        drawn by shape gradients (chip shine) is a plain colour with its alpha, since gradients cannot fade a colour.
+    -->
+
+    <!-- Cards (ShareScanCard): fill and rim, through color/card and color/glass_card_rim. -->
+    <attr name="glassCardTint" format="color" />
+    <attr name="glassCardAlpha" format="float" />
+    <attr name="glassCardRimTint" format="color" />
+    <attr name="glassCardRimAlpha" format="float" />
+
+    <!-- Bottom sheets (Widget.ShareScan.BottomSheet), through color/glass_sheet. -->
+    <attr name="glassSheetTint" format="color" />
+    <attr name="glassSheetAlpha" format="float" />
+
+    <!--
+        Hero (scan board), read by applyGlassHero(): the theme's hero drawable at glassHeroAlpha, over a glassHeroBase
+        fill and under a glassHeroWash, with a glassHeroSheen across the top and a glassHeroRim (iridescent instead
+        when glassIrisTop is set). Transparent means none.
+    -->
+    <attr name="glassHeroAlpha" format="float" />
+    <attr name="glassHeroBase" format="color" />
+    <attr name="glassHeroWash" format="color" />
+    <attr name="glassHeroSheen" format="color" />
+    <attr name="glassHeroRim" format="color" />
+
+    <!-- Chips: the smoked base under the accent tint (unchecked, and checked/activated/disabled), the tint and the rim. -->
+    <attr name="glassChipSurface" format="color" />
+    <attr name="glassChipSurfaceOn" format="color" />
+    <attr name="glassChipTintAlpha" format="float" />
+    <attr name="glassChipTintAlphaOn" format="float" />
+    <attr name="glassChipRimTint" format="color" />
+    <attr name="glassChipRimAlpha" format="float" />
+
+    <!-- Light on a chip (glass_chip_shine_*): top rim band, specular sheen and bottom glint, unchecked and checked. -->
+    <attr name="glassShineRim" format="color" />
+    <attr name="glassShineRimOn" format="color" />
+    <attr name="glassShineSpecular" format="color" />
+    <attr name="glassShineSpecularOn" format="color" />
+    <attr name="glassShineGlint" format="color" />
+
+    <!-- Switch track (switch_glass_track_*): a fill under the glass and a wash over the off track's body. -->
+    <attr name="glassSwitchBase" format="color" />
+    <attr name="glassSwitchWash" format="color" />
+
+    <!-- Liquid's iridescence: the colour of the upper and lower edges (switch rims, the hero's rim, card and chip rims). -->
+    <attr name="glassIrisTop" format="color" />
+    <attr name="glassIrisBottom" format="color" />
+</resources>

@@ -39,7 +39,7 @@ import kotlin.random.Random
  * of crisp stars whose brightness swells and fades out of step, so the stars seem to twinkle one by one.
  * Every halo is light blue. The hero, the cards and the sheets are see-through glass, so it shows behind them too.
  * It redraws about 30 times a second while the screen is on show (15 in battery saver), and holds still only when
- * the system's animations are switched off.
+ * the system's animations are switched off or Settings turns [animate] off.
  */
 class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     private val density = resources.displayMetrics.density
@@ -59,6 +59,17 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
             if (field === value) return
             field = value
             if (bakeWidth > 0 && bakeHeight > 0) bake(bakeWidth, bakeHeight)
+        }
+
+    /**
+     * Settings' sky animation switch. Off holds the sky still: the Milky Way stays at full brightness and the
+     * twinkling and drifting stars are drawn once where they are; no shooting stars.
+     */
+    var animate: Boolean = true
+        set(value) {
+            if (field == value) return
+            field = value
+            updateAnimating()
         }
 
     // The baked Milky Way: null until the first bake for this size lands. Bitmaps are scaled up with filtering.
@@ -180,8 +191,9 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
     private fun updateAnimating() {
         if (!ready) return
         // It keeps moving under the glass sheets and in battery saver (at half the frame rate); only "Remove
-        // animations" stills it.
-        val run = isAttachedToWindow && windowVisibility == VISIBLE && isShown && ValueAnimator.areAnimatorsEnabled()
+        // animations" or the Settings switch ([animate]) stills it.
+        val run = animate && isAttachedToWindow && windowVisibility == VISIBLE && isShown &&
+            ValueAnimator.areAnimatorsEnabled()
         if (run == animating) return
         if (run) {
             animating = true

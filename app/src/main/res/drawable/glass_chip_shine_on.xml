@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Glass chip light, checked/activated: brighter rim and sheen, and the accent glowing up from the bottom. -->
+<!--
+    Glass chip light, checked/activated: brighter rim and sheen, and the accent glowing up from the bottom.
+    The rim and sheen follow the glass mode (glassShine*On, values/styles_glass.xml).
+-->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:bottom="8dp"
@@ -11,7 +14,7 @@
                 android:centerColor="#00FFFFFF"
                 android:centerY="0.16"
                 android:endColor="#00FFFFFF"
-                android:startColor="#99FFFFFF"
+                android:startColor="?attr/glassShineRimOn"
                 android:type="linear" />
         </shape>
     </item>
@@ -25,7 +28,7 @@
             <gradient
                 android:angle="270"
                 android:endColor="#00FFFFFF"
-                android:startColor="#6BFFFFFF"
+                android:startColor="?attr/glassShineSpecularOn"
                 android:type="linear" />
         </shape>
     </item>

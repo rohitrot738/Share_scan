@@ -103,6 +103,70 @@
                     android:contentDescription="@string/settings_screen" />
             </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/settingSkyRow"
+                style="@style/SettingsRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/SettingsRowTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_sky" />
+
+                    <TextView
+                        style="@style/SettingsRowBody"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_sky_body" />
+                </LinearLayout>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/settingSky"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/settings_sky" />
+            </LinearLayout>
+
+            <!-- Glass mode: picking one re-creates the screen in it, so the line under the chips describes the current one. -->
+            <TextView
+                style="@style/SettingsSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_section_glass" />
+
+            <TextView
+                style="@style/SettingsRowBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/settings_glass_body" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/settingGlass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingHorizontal="20dp"
+                app:selectionRequired="true"
+                app:singleSelection="true" />
+
+            <TextView
+                android:id="@+id/settingGlassCurrent"
+                style="@style/SettingsRowBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="4dp" />
+
             <TextView
                 style="@style/SettingsSection"
                 android:layout_width="wrap_content"

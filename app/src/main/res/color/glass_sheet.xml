@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bottom sheet glass: the glass mode's tint at its strength (Frosted: the theme's own scanSheet). -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:alpha="?attr/glassSheetAlpha" android:color="?attr/glassSheetTint" />
+</selector>

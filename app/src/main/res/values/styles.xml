@@ -3,8 +3,9 @@
     <!--
         Always-dark galaxy theme (ShareScanApp forces night mode); the window shows the space background.
         It is the default; MainActivity swaps in the picked AppTheme before inflating its views.
+        Its parent (values/styles_glass.xml) adds the glass-mode defaults, so every theme has them.
     -->
-    <style name="Theme.ShareScan" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.ShareScan" parent="Base.Theme.ShareScan">
         <item name="colorPrimary">@color/galaxy_accent</item>
         <item name="colorOnPrimary">@color/galaxy_on_accent</item>
         <item name="colorPrimaryContainer">@color/galaxy_accent_container</item>
@@ -399,18 +400,18 @@
         <item name="bottomSheetStyle">@style/Widget.ShareScan.BottomSheet</item>
     </style>
 
-    <!-- Dark glass sheet: see-through enough that the frosted, moving sky shows behind it. -->
+    <!-- Dark glass sheet: see-through enough that the frosted, moving sky shows behind it (how much: the glass mode). -->
     <style name="Widget.ShareScan.BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
-        <item name="backgroundTint">?attr/scanSheet</item>
+        <item name="backgroundTint">@color/glass_sheet</item>
     </style>
 
-    <!-- Glass card: translucent fill with a soft glowing accent edge. -->
+    <!-- Glass card: translucent fill with a soft glowing accent edge (both follow the glass mode). -->
     <style name="ShareScanCard" parent="Widget.Material3.CardView.Outlined">
         <item name="android:stateListAnimator">@animator/press_scale_soft</item>
-        <item name="cardBackgroundColor">?attr/scanCard</item>
+        <item name="cardBackgroundColor">@color/card</item>
         <item name="cardCornerRadius">20dp</item>
         <item name="cardElevation">0dp</item>
-        <item name="strokeColor">?attr/scanCardStroke</item>
+        <item name="strokeColor">@color/glass_card_rim</item>
         <item name="strokeWidth">1dp</item>
     </style>
 
