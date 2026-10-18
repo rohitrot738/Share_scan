@@ -32,13 +32,15 @@ import kotlin.random.Random
 
 /**
  * Every theme's sky, behind everything on the screen: a Milky Way photographed on a dark night, about a
- * million stars in all, with the animated stars on top of it (stars that twinkle, stars that drift out from the
- * middle as if the screen were flying through space, and a shooting star every couple of seconds).
+ * million stars in all, with the animated stars on top of it (stars that twinkle, stars rushing past, and a
+ * shooting star every couple of seconds). While it animates, the screen keeps flying towards the Milky Way's core:
+ * the band slowly grows closer, its stars stream outwards past it (see [drawFlying]) and nearer stars rush by.
  *
  * The Milky Way is baked once per view size on a background thread (see [SkyBaker]) and then costs five bitmap
- * draws a frame: an opaque half-resolution base (the band, its warm core, dust lanes, nebulae and ~900,000 faint
- * stars as grain), a quarter-resolution light-blue glow around the bright stars, and three full-resolution layers
- * of crisp stars whose brightness swells and fades out of step, so the stars seem to twinkle one by one.
+ * draws a frame, ten while it flies (see [drawFlying]): an opaque half-resolution base (the band, its warm core,
+ * dust lanes, nebulae and ~900,000 faint stars as grain), a quarter-resolution light-blue glow around the bright
+ * stars, and three full-resolution layers of crisp stars whose brightness swells and fades out of step, so the
+ * stars seem to twinkle one by one.
  * Every halo is light blue. The hero, the cards and the sheets are see-through glass, so it shows behind them too.
  * It redraws about 30 times a second while the screen is on show (15 in battery saver), and holds still only when
  * the system's animations are switched off or Settings turns [animate] off.
@@ -123,11 +125,15 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
     private val twinklePhase = FloatArray(TWINKLES) { random.nextFloat() * TWO_PI }
     private val twinkleMax = FloatArray(TWINKLES) { i -> if (i < SPARKLERS) 1f else 0.7f + random.nextFloat() * 0.3f }
     private val twinkleColor = IntArray(TWINKLES) { STAR_COLORS[random.nextInt(STAR_COLORS.size)] }
+    /** Where each twinkling star is in its flight past ([drawTwinkles]), so they do not all come and go at once. */
+    private val twinkleFlight = FloatArray(TWINKLES) { random.nextFloat() }
 
-    // Stars flying out from the vanishing point; each comes back from the middle on a new heading.
+    // Near stars rushing past: each comes out of the Milky Way's core and flies by, then comes back from the core on
+    // a new heading. [flyReach] is how far off the flight path it passes (1: by the screen's corners).
     private val flyAngle = FloatArray(FLYERS) { random.nextFloat() * TWO_PI }
-    private val flyLife = FloatArray(FLYERS) { 6f + random.nextFloat() * 5f }
+    private val flyLife = FloatArray(FLYERS) { 4f + random.nextFloat() * 3f }
     private val flyOffset = FloatArray(FLYERS) { random.nextFloat() }
+    private val flyReach = FloatArray(FLYERS) { 0.3f + 0.7f * random.nextFloat() }
     private val flyColor = IntArray(FLYERS) { STAR_COLORS[random.nextInt(STAR_COLORS.size)] }
 
     // Shooting stars: a few slots, each live from its start time for its duration.
@@ -250,15 +256,18 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
         val now = drawingTime
         // Double: a Float of seconds loses whole frames of precision once a screen has been open for a day.
         val seconds = (now - startedAt) / 1000.0
-        drawMilkyWay(canvas, now, seconds)
-        drawFlyers(canvas, w, h, seconds)
-        drawTwinkles(canvas, w, h, seconds)
+        // The Milky Way's core, the point the screen flies towards, where the baked sky has it.
+        val coreX = CORE_X * bakeWidth
+        val coreY = CORE_Y * bakeHeight
+        drawMilkyWay(canvas, now, seconds, coreX, coreY)
+        drawFlyers(canvas, w, h, seconds, coreX, coreY)
+        drawTwinkles(canvas, w, h, seconds, coreX, coreY)
         if (animating) drawMeteors(canvas, w, h, now)
-        drawFrost(canvas, now)
+        drawFrost(canvas, now, seconds, coreX, coreY)
     }
 
     /** The frosted pane behind the scan board: the blurred sky, a little darkened, clipped to the board's shape. */
-    private fun drawFrost(canvas: Canvas, now: Long) {
+    private fun drawFrost(canvas: Canvas, now: Long, seconds: Double, coreX: Float, coreY: Float) {
         val sky = sky ?: return
         val target = frostTarget ?: return
         if (frostStrength <= 0f || !target.isShown || target.width == 0) return
@@ -276,25 +285,61 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
         val shown = if (animating) ((now - skyShownAt) / SKY_FADE_IN_MS).coerceIn(0f, 1f) else 1f
         val saved = canvas.save()
         canvas.clipPath(frostPath)
-        frostPaint.alpha = (255 * frostStrength * shown).toInt()
-        canvas.drawBitmap(sky.frost, null, sky.frostRect, frostPaint)
+        // Flies along with the sharp band behind it.
+        val strength = frostStrength * shown
+        drawFlying(canvas, sky.frost, sky.frostRect, frostPaint, strength, seconds, coreX, coreY, BAND_FLIGHT, true)
         if (frostShade > 0f) canvas.drawRect(frostBox, frostShadePaint)
         canvas.restoreToCount(saved)
     }
 
-    /** The baked sky: five bitmap draws, each layer of crisp stars breathing on its own beat. */
-    private fun drawMilkyWay(canvas: Canvas, now: Long, seconds: Double) {
+    /**
+     * The baked sky, flying towards its core: the band (far away) slowly grows closer while its crisp stars and
+     * their glow (nearer) stream outwards faster, each layer of crisp stars breathing on its own beat.
+     */
+    private fun drawMilkyWay(canvas: Canvas, now: Long, seconds: Double, coreX: Float, coreY: Float) {
         val sky = sky ?: return
         // Eases in over the plain window background instead of popping in when the bake lands.
         val shown = if (animating) ((now - skyShownAt) / SKY_FADE_IN_MS).coerceIn(0f, 1f) else 1f
-        basePaint.alpha = (255 * shown).toInt()
-        canvas.drawBitmap(sky.base, null, sky.baseRect, basePaint)
-        glowPaint.alpha = (255 * shown * (0.85f + 0.15f * beat(seconds, GLOW_PERIOD, 0f))).toInt()
-        canvas.drawBitmap(sky.glow, null, sky.glowRect, glowPaint)
+        drawFlying(canvas, sky.base, sky.baseRect, basePaint, shown, seconds, coreX, coreY, BAND_FLIGHT, true)
+        val glow = shown * (0.85f + 0.15f * beat(seconds, GLOW_PERIOD, 0f))
+        drawFlying(canvas, sky.glow, sky.glowRect, glowPaint, glow, seconds, coreX, coreY, STAR_FLIGHT, false)
         for (i in sky.stars.indices) {
             val wave = beat(seconds, LAYER_PERIODS[i], i * 2.1f)
-            layerPaints[i].alpha = (255 * shown * (LAYER_DIMMEST + (1f - LAYER_DIMMEST) * wave)).toInt()
-            canvas.drawBitmap(sky.stars[i], null, sky.starRect, layerPaints[i])
+            val strength = shown * (LAYER_DIMMEST + (1f - LAYER_DIMMEST) * wave)
+            val layer = sky.stars[i]
+            drawFlying(canvas, layer, sky.starRect, layerPaints[i], strength, seconds, coreX, coreY, STAR_FLIGHT, false)
+        }
+    }
+
+    /**
+     * Draws one baked layer into [rect] as if flying towards ([coreX], [coreY]): it keeps zooming in, [flight]'s
+     * growth every [Flight.seconds]. One picture cannot zoom in for ever, so it is drawn twice, half a period apart:
+     * each copy grows from life size as it fades in, and grows on as it fades out while the other comes in, their
+     * strengths always adding up to one. An [opaque] layer (the band) lays the fading copy over the other at full
+     * strength, so it cross-fades without dimming; star layers just add up, each star coming in from the distance
+     * and fading as it passes. Still, the layer is drawn once at life size.
+     */
+    private fun drawFlying(
+        canvas: Canvas, bitmap: Bitmap, rect: RectF, paint: Paint, strength: Float, seconds: Double,
+        coreX: Float, coreY: Float, flight: Flight, opaque: Boolean,
+    ) {
+        if (!animating) {
+            paint.alpha = (255 * strength).toInt()
+            canvas.drawBitmap(bitmap, null, rect, paint)
+            return
+        }
+        val turn = seconds / flight.seconds
+        for (copy in 0..1) {
+            val along = ((turn + copy * 0.5) % 1.0).toFloat()
+            // sin² of one copy and of the other, half a period on, add up to one.
+            val swell = sin(HALF_TURN * along)
+            val share = if (opaque && copy == 0) 1f else swell * swell
+            paint.alpha = (255 * strength * share).toInt()
+            val zoom = flight.growth.pow(along)
+            val saved = canvas.save()
+            canvas.scale(zoom, zoom, coreX, coreY)
+            canvas.drawBitmap(bitmap, null, rect, paint)
+            canvas.restoreToCount(saved)
         }
     }
 
@@ -302,10 +347,8 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
     private fun beat(seconds: Double, period: Float, phase: Float): Float =
         0.5f + 0.5f * sin(TWO_PI * ((seconds / period) % 1.0).toFloat() + phase)
 
-    private fun drawFlyers(canvas: Canvas, w: Float, h: Float, seconds: Double) {
-        val centreX = w * 0.5f
-        val centreY = h * 0.42f
-        val reach = hypot(w, h) * 0.62f
+    private fun drawFlyers(canvas: Canvas, w: Float, h: Float, seconds: Double, coreX: Float, coreY: Float) {
+        val reach = hypot(w, h) * 0.75f
         for (i in 0 until FLYERS) {
             val cycles = seconds / flyLife[i] + flyOffset[i]
             val cycle = floor(cycles)
@@ -313,41 +356,58 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
             val angle = flyAngle[i] + (cycle % TURNS_BEFORE_REPEAT).toFloat() * GOLDEN_ANGLE
             val dx = cos(angle)
             val dy = sin(angle)
-            // Slow near the middle, quicker towards the edge, and bigger as it comes closer.
-            val distance = reach * progress * progress
-            val x = centreX + dx * distance
-            val y = centreY + dy * distance
-            val fade = FLYER_BRIGHTNESS * min(1f, progress / 0.15f) * min(1f, (1f - progress) / 0.1f) * fadeNearTop(y)
-            val radius = density * (0.5f + 2.0f * progress)
+            // Perspective: the star comes steadily nearer, so it creeps out of the core while far away, then
+            // speeds up, grows and rushes past at the end.
+            val near = nearness(progress)
+            val distance = reach * flyReach[i] * near
+            val x = coreX + dx * distance
+            val y = coreY + dy * distance
+            val fade = FLYER_BRIGHTNESS * min(1f, progress / 0.2f) * min(1f, (1f - progress) / 0.06f) * fadeNearTop(y)
+            val radius = density * (0.4f + 2.4f * near)
             val alpha = (255 * fade).toInt()
-            if (progress > 0.35f) {
-                // Motion blur: a few flat-ended pieces, each narrower and fainter, so it tapers away to nothing.
-                val streak = density * 40f * (progress - 0.35f)
+            // Motion blur back to where it was a moment ago: longer the faster it goes, tapering to nothing.
+            val streak = min(
+                distance - reach * flyReach[i] * nearness(max(0f, progress - STREAK_TIME)),
+                density * STREAK_LONGEST,
+            )
+            if (streak > density * 2f) {
                 tail.color = STAR_GLOW
                 for (s in 0 until STREAK_SEGMENTS) {
                     val from = s.toFloat() / STREAK_SEGMENTS
                     val to = (s + 1).toFloat() / STREAK_SEGMENTS
                     val strength = 1f - from
-                    tail.alpha = (alpha * 0.4f * strength * strength).toInt()
+                    tail.alpha = (alpha * 0.45f * strength * strength).toInt()
                     tail.strokeWidth = radius * 1.4f * strength
                     canvas.drawLine(x - dx * streak * from, y - dy * streak * from, x - dx * streak * to, y - dy * streak * to, tail)
                 }
             }
-            if (progress > 0.4f) glow(canvas, x, y, radius, alpha / 4)
+            if (near > 0.3f) glow(canvas, x, y, radius, alpha / 4)
             dot.color = flyColor[i]
             dot.alpha = alpha
             canvas.drawCircle(x, y, radius, dot)
         }
     }
 
-    private fun drawTwinkles(canvas: Canvas, w: Float, h: Float, seconds: Double) {
+    /** How near a flying star is, [FARTHEST] to 1, [progress] through its flight: one over its depth. */
+    private fun nearness(progress: Float): Float = FARTHEST / (1f - (1f - FARTHEST) * progress)
+
+    private fun drawTwinkles(canvas: Canvas, w: Float, h: Float, seconds: Double, coreX: Float, coreY: Float) {
         for (i in 0 until TWINKLES) {
             val turn = ((seconds / twinklePeriod[i]) % 1.0).toFloat()
             val wave = 0.5f + 0.5f * sin(TWO_PI * turn + twinklePhase[i])
-            val x = twinkleX[i] * w
-            val y = twinkleY[i] * h
+            // Each streams out from the core with the crisp stars around it, coming in and fading as it passes.
+            var x = twinkleX[i] * w
+            var y = twinkleY[i] * h
+            var passing = 1f
+            if (animating) {
+                val along = ((seconds / STAR_FLIGHT.seconds + twinkleFlight[i]) % 1.0).toFloat()
+                val zoom = STAR_FLIGHT.growth.pow(along)
+                x = coreX + (x - coreX) * zoom
+                y = coreY + (y - coreY) * zoom
+                passing = sin(HALF_TURN * along)
+            }
             // Nearly out at the bottom of each beat, swelling to full brightness and size at the top.
-            val brightness = twinkleMax[i] * (0.04f + 0.96f * wave * wave) * fadeNearTop(y)
+            val brightness = twinkleMax[i] * (0.04f + 0.96f * wave * wave) * fadeNearTop(y) * passing
             val radius = twinkleRadius[i] * (0.6f + 0.6f * wave)
             if (wave > 0.5f) glow(canvas, x, y, radius, (150 * brightness * (wave - 0.5f) * 2f).toInt())
             if (i < SPARKLERS && wave > 0.6f) {
@@ -443,12 +503,21 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
         const val SEED = 20261018
         const val TWINKLES = 90
         const val SPARKLERS = 18
-        const val FLYERS = 40
+        const val FLYERS = 120
         const val METEORS = 4
         const val TAIL_SEGMENTS = 10
         const val STREAK_SEGMENTS = 4
         /** The flyers stay a quiet extra over the Milky Way rather than the main show. */
         const val FLYER_BRIGHTNESS = 0.75f
+        /** How far away a flying star starts, as a share of the depth it ends at. */
+        const val FARTHEST = 0.06f
+        /** A flying star's motion streak reaches back this share of its flight, but no longer than STREAK_LONGEST dp. */
+        const val STREAK_TIME = 0.015f
+        const val STREAK_LONGEST = 56f
+        /** The band is far away and grows closer slowly; its crisp stars are nearer and stream past faster. */
+        val BAND_FLIGHT = Flight(seconds = 36f, growth = 1.15f)
+        val STAR_FLIGHT = Flight(seconds = 12f, growth = 1.7f)
+        const val HALF_TURN = 3.1415927f
         const val FIRST_METEOR_MS = 800L
         const val METEOR_GAP_MIN_MS = 1_200L
         const val METEOR_GAP_MAX_MS = 3_500L
@@ -481,6 +550,19 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
         val STAR_LAYERS = LAYER_TINTS.size
     }
 }
+
+// The Milky Way's centre line runs from the lower left to the upper right (fractions of the view), and its core sits
+// CORE_AT of the way along it: the point the screen flies towards.
+private const val BAND_START_X = -0.08f
+private const val BAND_START_Y = 0.94f
+private const val BAND_END_X = 1.08f
+private const val BAND_END_Y = 0.08f
+private const val CORE_AT = 0.64f
+private const val CORE_X = BAND_START_X + (BAND_END_X - BAND_START_X) * CORE_AT
+private const val CORE_Y = BAND_START_Y + (BAND_END_Y - BAND_START_Y) * CORE_AT
+
+/** A layer's flight towards the core: it zooms in [growth] times every [seconds]. */
+private class Flight(val seconds: Float, val growth: Float)
 
 /** One bake, for one view size. The rects scale each bitmap back up to that size. */
 private class Sky(
@@ -535,15 +617,15 @@ private class SkyBaker(
     private val topFade = 56 * density
 
     init {
-        val startX = -0.08f * w
-        val startY = 0.94f * h
-        val endX = 1.08f * w
-        val endY = 0.08f * h
+        val startX = BAND_START_X * w
+        val startY = BAND_START_Y * h
+        val endX = BAND_END_X * w
+        val endY = BAND_END_Y * h
         val length = hypot(endX - startX, endY - startY)
         alongX = (endX - startX) / length
         alongY = (endY - startY) / length
-        coreX = startX + (endX - startX) * CORE_AT
-        coreY = startY + (endY - startY) * CORE_AT
+        coreX = CORE_X * w
+        coreY = CORE_Y * h
     }
 
     // What field() found at the last point it was asked about.
@@ -991,8 +1073,6 @@ private class SkyBaker(
         const val MEMORY_BUDGET = 16L * 1024 * 1024
         /** Star layer count and down-scale, best first. */
         val PLANS = arrayOf(intArrayOf(3, 1), intArrayOf(2, 1), intArrayOf(3, 2))
-        /** How far along the band, from the lower left, its core sits. */
-        const val CORE_AT = 0.64f
         const val BAND_ARCH = 0.05f
         const val BAND_WIDTH = 0.14f
         const val HALO_WIDTH = 0.42f
