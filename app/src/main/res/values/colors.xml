@@ -43,7 +43,6 @@
     <color name="galaxy_magenta">#F472B6</color>
     <color name="galaxy_star">#F5F3FF</color>
     <color name="galaxy_card_stroke">#66A78BFA</color>
-    <color name="galaxy_chip_fill">#14A78BFA</color>
     <color name="galaxy_sheet">#FF120A33</color>
     <color name="galaxy_surface_lowest">#010005</color>
     <color name="galaxy_surface_low">#0E0829</color>

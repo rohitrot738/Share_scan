@@ -5,7 +5,6 @@
     <attr name="scanCardStroke" format="color" />
     <attr name="scanSheet" format="color" />
     <attr name="scanTrack" format="color" />
-    <attr name="scanChipFill" format="color" />
     <attr name="scanHeroBackground" format="reference" />
     <attr name="scanLogoBackground" format="reference" />
 </resources>
