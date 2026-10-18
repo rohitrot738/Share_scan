@@ -120,11 +120,9 @@ glass_mode() {
 }
 
 focus() { adb shell dumpsys window | grep -m1 mCurrentFocus; }
-# Activity lifecycle (create/destroy) and window focus, to tell a dismissed sheet from a restarted screen.
+snap() { adb exec-out screencap -p > "$OUT/$1.png"; echo "snap $1"; }
+touched() { adb shell dumpsys input | grep -iE "TouchedWindow|touchedWindows|windowName=.*share_scan" | head -6; }
 adb logcat -b events -v time > "$OUT/events.txt" 2>&1 &
-set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">frosted</string>"
-launch
-sleep 8
 slider_box() {
   dump
   python3 - "$1" <<'PY'
@@ -135,41 +133,42 @@ found = [re.search(r'bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', n).groups()
 print(*found[int(sys.argv[1])]) if len(found) > int(sys.argv[1]) else sys.exit(1)
 PY
 }
-# A: a sideways swipe on the sheet away from any slider (across the Filters title).
-tap filterChip
-sleep 3
-echo "A sheet open:"; focus
-adb shell input swipe 100 560 700 560 600
-sleep 2
-echo "A after swipe:"; focus
-shot a-after 0
-adb shell input keyevent BACK; sleep 2
-# B: drag the first slider's left bead, recording the screen meanwhile.
-tap filterChip
-sleep 3
-box=$(slider_box 0) || box=""
-echo "B slider: $box"
-adb shell screenrecord --time-limit 10 --bit-rate 4000000 /sdcard/drag.mp4 &
-sleep 2
-if [ -n "$box" ]; then
-  set -- $box
-  y=$(( ($2 + $4) / 2 ))
-  echo "B swipe at y=$y from x=$(( $1 + 50 ))"
-  adb shell input swipe $(( $1 + 50 )) $y $(( $1 + ($3 - $1) / 2 )) $y 800
-fi
-sleep 1
-echo "B after swipe:"; focus
-sleep 9
-adb pull /sdcard/drag.mp4 "$OUT/drag.mp4" > /dev/null && echo "video pulled"
-shot b-after 0
-# C: a tap on the Micro preset chip.
-adb shell input keyevent BACK; sleep 2
-tap filterChip
-sleep 3
-tap_text "Micro ≤₹500 Cr"
-sleep 2
-echo "C after chip tap:"; focus
-shot c-after 0
+drag_test() {
+  local tag=$1
+  tap filterChip
+  sleep 4
+  echo "$tag sheet:"; focus
+  # P1: a tap on a preset chip (does the sheet get touches at all?)
+  tap_text "Micro ≤₹500 Cr"
+  sleep 2
+  snap "$tag-1-chip"
+  echo "$tag after chip:"; focus
+  # P2: drag the price slider's right bead to the middle
+  box=$(slider_box 1) || box=""
+  echo "$tag price slider: $box"
+  if [ -n "$box" ]; then
+    set -- $box
+    y=$(( ($2 + $4) / 2 ))
+    adb shell input swipe $(( $3 - 50 )) $y $(( ($1 + $3) / 2 )) $y 800
+    snap "$tag-2-drag"
+    echo "$tag after drag:"; focus; touched
+    sleep 3
+    snap "$tag-3-later"
+    echo "$tag later:"; focus
+  fi
+  adb shell input keyevent BACK; sleep 2
+  echo "$tag after back:"; focus
+}
+set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">frosted</string>"
+launch
+sleep 8
+drag_test anim
+# The same with the sky held still (Settings: sky animation off).
+set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">frosted</string><boolean name=\"sky_animation\" value=\"false\" />"
+launch
+sleep 8
+drag_test still
 kill %1 %2 2>/dev/null
-grep -E "share_scan" "$OUT/events.txt" | grep -E "wm_on_(create|destroy|resume|pause)_called|wm_finish|am_proc|wm_set_resumed|focus" | tail -40 > "$OUT/lifecycle.txt"
+grep -E "share_scan" "$OUT/events.txt" | grep -E "wm_on_(create|destroy)_called|input_focus|am_anr|wm_finish" | tail -40 > "$OUT/lifecycle.txt"
 cat "$OUT/lifecycle.txt"
+grep -iE "anr|not responding|input dispatch" "$OUT/logcat.txt" | head -10
