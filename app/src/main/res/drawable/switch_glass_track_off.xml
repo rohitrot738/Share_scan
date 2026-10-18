@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Glass switch track, off: clear smoky dark glass. 52 x 32dp, like Material's track. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="52dp"
+    android:height="32dp"
+    android:viewportWidth="52"
+    android:viewportHeight="32">
+    <!-- Smoky dark glass body, darkest under the top edge. -->
+    <path android:pathData="M0,16 A16,16 0 0,1 16,0 H36 A16,16 0 0,1 36,32 H16 A16,16 0 0,1 0,16 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="0"
+                android:endY="32"
+                android:startX="0"
+                android:startY="0"
+                android:type="linear">
+                <item android:color="#D9020109" android:offset="0" />
+                <item android:color="#99020109" android:offset="0.3" />
+                <item android:color="#73020109" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Faint frost inside the glass wall. -->
+    <path
+        android:fillColor="#0FFFFFFF"
+        android:pathData="M1.5,16 A14.5,14.5 0 0,1 16,1.5 H36 A14.5,14.5 0 0,1 36,30.5 H16 A14.5,14.5 0 0,1 1.5,16 Z" />
+    <!-- Light refracted through the lower half of the tube. -->
+    <path android:pathData="M1.5,16 A14.5,14.5 0 0,1 16,1.5 H36 A14.5,14.5 0 0,1 36,30.5 H16 A14.5,14.5 0 0,1 1.5,16 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="0"
+                android:endY="30.5"
+                android:startX="0"
+                android:startY="14"
+                android:type="linear">
+                <item android:color="#00FFFFFF" android:offset="0" />
+                <item android:color="#24FFFFFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Reflected light hugging the bottom inside edge. -->
+    <path android:pathData="M1.6,16 A14.4,14.4 0 0,0 16,30.4 H36 A14.4,14.4 0 0,0 50.4,16 A14.4,11.8 0 0,1 36,27.8 H16 A14.4,11.8 0 0,1 1.6,16 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="0"
+                android:endY="30.4"
+                android:startX="0"
+                android:startY="21"
+                android:type="linear">
+                <item android:color="#00FFFFFF" android:offset="0" />
+                <item android:color="#8CFFFFFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Specular band across the top of the tube. -->
+    <path android:pathData="M6.5,7.6 A5,5 0 0,1 11.5,2.6 H40.5 A5,5 0 0,1 40.5,12.6 H11.5 A5,5 0 0,1 6.5,7.6 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="0"
+                android:endY="12.6"
+                android:startX="0"
+                android:startY="2.6"
+                android:type="linear">
+                <item android:color="#B3FFFFFF" android:offset="0" />
+                <item android:color="#33FFFFFF" android:offset="0.45" />
+                <item android:color="#05FFFFFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Crisp hot streak on the band. -->
+    <path android:pathData="M12,4.2 A0.9,0.9 0 0,1 12.9,3.3 H39.1 A0.9,0.9 0 0,1 39.1,5.1 H12.9 A0.9,0.9 0 0,1 12,4.2 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="0"
+                android:endY="5.1"
+                android:startX="0"
+                android:startY="3.3"
+                android:type="linear">
+                <item android:color="#E6FFFFFF" android:offset="0" />
+                <item android:color="#66FFFFFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Rim: bright where light hits the top, falling off towards the bottom. -->
+    <path
+        android:pathData="M0.7,16 A15.3,15.3 0 0,1 16,0.7 H36 A15.3,15.3 0 0,1 36,31.3 H16 A15.3,15.3 0 0,1 0.7,16 Z"
+        android:strokeWidth="1.4">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:endX="0"
+                android:endY="32"
+                android:startX="0"
+                android:startY="0"
+                android:type="linear">
+                <item android:color="#E6FFFFFF" android:offset="0" />
+                <item android:color="#8CFFFFFF" android:offset="0.25" />
+                <item android:color="#33FFFFFF" android:offset="0.6" />
+                <item android:color="#1FFFFFFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

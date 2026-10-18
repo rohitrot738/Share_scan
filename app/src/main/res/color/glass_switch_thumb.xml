@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Glass switch knob: bright white when on, a softer translucent white when off. -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:alpha="0.30" android:color="@android:color/white" android:state_enabled="false" />
-    <item android:color="@android:color/white" android:state_checked="true" />
-    <item android:alpha="0.70" android:color="@android:color/white" />
-</selector>

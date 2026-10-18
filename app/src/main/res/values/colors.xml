@@ -11,8 +11,8 @@
     <color name="galaxy_on_accent_container">#EDE9FE</color>
     <!-- Top of the deep-space gradient; also the opaque status-bar strip. -->
     <color name="galaxy_bg">#020108</color>
-    <!-- Glass: ~80% opaque dark violet so the starfield faintly shows through cards. -->
-    <color name="galaxy_card">#E6170E3F</color>
+    <!-- Glass: ~70% opaque dark violet so the moving stars show through the cards. -->
+    <color name="galaxy_card">#B3170E3F</color>
     <color name="galaxy_surface">#150D3A</color>
     <color name="galaxy_track">#2A1E5E</color>
     <color name="galaxy_outline">#3B2F7A</color>
@@ -31,6 +31,13 @@
     <color name="hero_start">#22104E</color>
     <color name="hero_mid">#6A22B5</color>
     <color name="hero_end">#08718F</color>
+    <!-- The same nebula as see-through glass, so the moving Galaxy sky shows through the hero card. -->
+    <color name="hero_glass_start">#AD22104E</color>
+    <color name="hero_glass_mid">#B86A22B5</color>
+    <color name="hero_glass_end">#AD08718F</color>
+    <!-- Glass edge and sheen: a light rim and a soft shine across the top. -->
+    <color name="glass_rim">#59FFFFFF</color>
+    <color name="glass_sheen">#2EFFFFFF</color>
     <color name="hero_text_soft">#DEF5F3FF</color>
     <color name="hero_text_muted">#B8EDE9FE</color>
     <color name="hero_track">#33FFFFFF</color>
@@ -42,8 +49,8 @@
     <color name="galaxy_cyan">#22D3EE</color>
     <color name="galaxy_magenta">#F472B6</color>
     <color name="galaxy_star">#F5F3FF</color>
-    <color name="galaxy_card_stroke">#66A78BFA</color>
-    <color name="galaxy_sheet">#FF120A33</color>
+    <color name="galaxy_card_stroke">#8CA78BFA</color>
+    <color name="galaxy_sheet">#E0120A33</color>
     <color name="galaxy_surface_lowest">#010005</color>
     <color name="galaxy_surface_low">#0E0829</color>
     <color name="galaxy_surface_high">#1D1347</color>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Glass chip light, checked/activated: brighter rim and sheen, and the accent glowing up from the bottom. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:bottom="8dp"
+        android:top="8dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="100dp" />
+            <gradient
+                android:angle="270"
+                android:centerColor="#00FFFFFF"
+                android:centerY="0.16"
+                android:endColor="#00FFFFFF"
+                android:startColor="#99FFFFFF"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item
+        android:height="13dp"
+        android:left="6dp"
+        android:right="6dp"
+        android:top="9dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="100dp" />
+            <gradient
+                android:angle="270"
+                android:endColor="#00FFFFFF"
+                android:startColor="#6BFFFFFF"
+                android:type="linear" />
+        </shape>
+    </item>
+    <!-- The accent glowing through the glass, pooled along the bottom edge (below the label). -->
+    <item
+        android:bottom="8dp"
+        android:top="8dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="100dp" />
+            <gradient
+                android:angle="270"
+                android:centerColor="@color/glass_chip_glow_clear"
+                android:centerY="0.62"
+                android:endColor="@color/glass_chip_glow"
+                android:startColor="@color/glass_chip_glow_clear"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Glass chip touch ripple: a white flash inside the glass. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:alpha="0.22" android:color="@android:color/white" />
+</selector>

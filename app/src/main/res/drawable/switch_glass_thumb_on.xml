@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Glass switch thumb, on: a glass bead 24dp across, centred in Material's 32dp thumb box. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="32dp"
+    android:height="32dp"
+    android:viewportWidth="32"
+    android:viewportHeight="32">
+    <group
+        android:name="bead"
+        android:pivotX="16"
+        android:pivotY="16"
+        android:scaleX="0.857"
+        android:scaleY="0.857">
+        <!-- Soft shadow under the bead. -->
+        <path android:pathData="M1.4,17.4 A14.6,14.6 0 1,1 30.6,17.4 A14.6,14.6 0 1,1 1.4,17.4 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:centerX="16"
+                    android:centerY="17.4"
+                    android:gradientRadius="14.6"
+                    android:type="radial">
+                    <item android:color="#66000000" android:offset="0" />
+                    <item android:color="#4D000000" android:offset="0.82" />
+                    <item android:color="#00000000" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <!-- Bead body: white glass, clear in the middle and a little translucent towards the edge. -->
+        <path android:pathData="M2,16 A14,14 0 1,1 30,16 A14,14 0 1,1 2,16 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:centerX="16"
+                    android:centerY="21"
+                    android:gradientRadius="17.5"
+                    android:type="radial">
+                    <item android:color="#FFFFFFFF" android:offset="0" />
+                    <item android:color="#FAF6F8FD" android:offset="0.5" />
+                    <item android:color="#EBDDE3F2" android:offset="0.8" />
+                    <item android:color="#E0C6CFE6" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <!-- Light-blue glow caught in the lower half. -->
+        <path android:pathData="M2,16 A14,14 0 1,1 30,16 A14,14 0 1,1 2,16 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:centerX="16"
+                    android:centerY="27"
+                    android:gradientRadius="12"
+                    android:type="radial">
+                    <item android:color="#8C7DD3FC" android:offset="0" />
+                    <item android:color="#007DD3FC" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <!-- Rim: a fine edge, light at the top and cooler at the bottom. -->
+        <path
+            android:pathData="M2.45,16 A13.55,13.55 0 1,1 29.55,16 A13.55,13.55 0 1,1 2.45,16 Z"
+            android:strokeWidth="0.9">
+            <aapt:attr name="android:strokeColor">
+                <gradient
+                    android:endX="0"
+                    android:endY="30"
+                    android:startX="0"
+                    android:startY="2"
+                    android:type="linear">
+                    <item android:color="#FFFFFFFF" android:offset="0" />
+                    <item android:color="#8C9AA8C8" android:offset="0.5" />
+                    <item android:color="#B37DD3FC" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <!-- Specular dot, top left. -->
+        <path android:pathData="M7.6,9.2 A3.4,2.5 0 1,1 14.4,9.2 A3.4,2.5 0 1,1 7.6,9.2 Z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:centerX="11"
+                    android:centerY="9.2"
+                    android:gradientRadius="3.4"
+                    android:type="radial">
+                    <item android:color="#FFFFFFFF" android:offset="0" />
+                    <item android:color="#FFFFFFFF" android:offset="0.7" />
+                    <item android:color="#00FFFFFF" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+    </group>
+</vector>
