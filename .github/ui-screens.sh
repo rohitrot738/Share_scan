@@ -63,26 +63,59 @@ moving() {
   if cmp -s /tmp/a.raw /tmp/b.raw; then echo "$1: sky STILL"; else echo "$1: sky moving"; fi
 }
 
-# Every theme has its own Milky Way. Pick each one by writing the theme setting straight into the app's
-# preferences (the debug build allows run-as), then relaunch and check its sky moves.
-set_theme() {
+# Settings are written straight into the app's preferences (the debug build allows run-as); base64 keeps the XML
+# safe from the two shells in between.
+set_prefs() {
   adb shell am force-stop "$PKG"
-  adb shell "run-as $PKG sh -c 'mkdir -p shared_prefs && printf \"<?xml version=\\\"1.0\\\" encoding=\\\"utf-8\\\" standalone=\\\"yes\\\" ?><map><string name=\\\"theme\\\">$1</string></map>\" > shared_prefs/scan.xml'"
+  local xml="<?xml version='1.0' encoding='utf-8' standalone='yes' ?><map>$1</map>"
+  local b64; b64=$(printf '%s' "$xml" | base64 -w0)
+  adb shell "run-as $PKG sh -c 'mkdir -p shared_prefs && echo $b64 | base64 -d > shared_prefs/scan.xml'"
 }
+
+# Every theme has its own Milky Way: check each sky moves.
 n=1
 for theme in galaxy nebula aurora midnight sunset ocean emerald mars royal_gold frost; do
-  set_theme "$theme"
+  set_prefs "<string name=\"theme\">$theme</string>"
   launch
-  # Give the sky time to bake and fade in.
   sleep 5
   moving "$theme" | tee -a "$OUT/moving.txt"
   shot "$(printf %02d $n)-$theme-home" 0
   n=$((n + 1))
 done
+
+# The six glass styles, over Galaxy.
+for glass in clear smoky tinted liquid solid frosted; do
+  set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">$glass</string>"
+  launch
+  sleep 4
+  shot "$(printf %02d $n)-glass-$glass" 0
+  n=$((n + 1))
+done
+
+# Stop a running scan part-way.
+tap startButton
+sleep 15
+shot "$(printf %02d $n)-scan-running" 0; n=$((n + 1))
+tap startButton
+sleep 4
+shot "$(printf %02d $n)-scan-stopped" 0; n=$((n + 1))
+
+# Settings: glass mode chips and the animation switch, then the account sheet (login not set up in CI).
 menu
 tap_text "सेटिंग्स"
 sleep 2
-shot 11-frost-settings 1
+shot "$(printf %02d $n)-settings" 0; n=$((n + 1))
+adb shell input swipe 540 1800 540 700 400
+sleep 1
+shot "$(printf %02d $n)-settings-glass" 0; n=$((n + 1))
+adb shell input keyevent KEYCODE_BACK
+sleep 2
+adb shell input keyevent KEYCODE_BACK
+sleep 1
+menu
+tap_text "अकाउंट"
+sleep 2
+shot "$(printf %02d $n)-account" 1
 adb shell input keyevent KEYCODE_BACK
 sleep 1
 kill %1 2>/dev/null

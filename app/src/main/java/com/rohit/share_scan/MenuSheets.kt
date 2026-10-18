@@ -117,7 +117,7 @@ val ChartSite.label: Int
  * Shared shape of the menu's sheets: content-height, fully expanded, no half-open state. Its [bar]'s ✕ closes it; a
  * sheet opened from the menu gets [onBack], which ← and the system back button run to return to the menu.
  */
-private fun AppCompatActivity.showSheet(
+internal fun AppCompatActivity.showSheet(
     root: android.view.View,
     bar: SheetTopBarBinding,
     onBack: (() -> Unit)? = null,
@@ -153,7 +153,7 @@ class MenuSheet(
     private val theme: ThemeChoice,
     private val onPick: (Entry) -> Unit,
 ) {
-    enum class Entry { SETTINGS, THEME, UPDATE, HELP, SHARE, ABOUT }
+    enum class Entry { ACCOUNT, SETTINGS, THEME, UPDATE, HELP, SHARE, ABOUT }
 
     fun show(): BottomSheetDialog {
         val ui = SheetMenuBinding.inflate(activity.layoutInflater)
@@ -169,6 +169,8 @@ class MenuSheet(
                 onPick(entry)
             }
         }
+        val account = AccountManager.summary(activity) ?: activity.getString(R.string.menu_account_signed_out)
+        add(Entry.ACCOUNT, R.drawable.ic_account, R.string.menu_account, account)
         add(Entry.SETTINGS, R.drawable.ic_settings, R.string.menu_settings, activity.getString(R.string.menu_settings_body))
         add(Entry.THEME, R.drawable.ic_palette, R.string.menu_theme, activity.getString(R.string.menu_theme_body, activity.getString(theme.title)))
         add(Entry.UPDATE, R.drawable.ic_system_update, R.string.menu_update, activity.getString(R.string.menu_update_body, version))

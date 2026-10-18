@@ -33,6 +33,13 @@ jobs:
         if: steps.secret.outputs.ready == 'true'
         env:
           SHARESCAN_KEY_PASSWORD: ${{ secrets.SHARESCAN_KEY_PASSWORD }}
+          # Firebase login config (docs/LOGIN_SETUP.md). A missing secret is empty and the app ships with login off.
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_WEB_CLIENT_ID: ${{ secrets.FIREBASE_WEB_CLIENT_ID }}
+          FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+          FIREBASE_SENDER_ID: ${{ secrets.FIREBASE_SENDER_ID }}
         run: |
           # Offset keeps release version codes above the debug builds' versionCode 2.
           export SHARESCAN_VERSION_CODE=$((GITHUB_RUN_NUMBER + 100))

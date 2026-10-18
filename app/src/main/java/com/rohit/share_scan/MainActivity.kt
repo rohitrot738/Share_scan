@@ -494,6 +494,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onMenuPick(entry: MenuSheet.Entry) {
         when (entry) {
+            MenuSheet.Entry.ACCOUNT -> showMenuSheet { AccountSheet(this, ::openMenu).show() }
             MenuSheet.Entry.SETTINGS -> showMenuSheet {
                 SettingsSheet(this, settings, scan.uiState.value.watchlist.size, settingsActions, ::openMenu).show()
             }

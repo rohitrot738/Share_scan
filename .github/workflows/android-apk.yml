@@ -13,6 +13,14 @@ jobs:
           distribution: temurin
           java-version: '17'
       - name: Verify, test, and build debug APK
+        env:
+          # Firebase login config (docs/LOGIN_SETUP.md). A missing secret is empty and the app builds with login off.
+          FIREBASE_API_KEY: ${{ secrets.FIREBASE_API_KEY }}
+          FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+          FIREBASE_WEB_CLIENT_ID: ${{ secrets.FIREBASE_WEB_CLIENT_ID }}
+          FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+          FIREBASE_SENDER_ID: ${{ secrets.FIREBASE_SENDER_ID }}
         run: |
           curl -sSL https://services.gradle.org/distributions/gradle-8.10.2-bin.zip -o gradle.zip
           unzip -q gradle.zip -d "$RUNNER_TEMP"
