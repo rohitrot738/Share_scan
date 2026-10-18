@@ -135,10 +135,11 @@ PY
 }
 # Drags each end bead from where it sits by the screen's edge (where the back gesture lives) to the middle.
 edge_test() {
-  tap filterChip
+  for try in 1 2 3; do tap filterChip && break; sleep 3; done
   sleep 4
   echo "sheet:"; focus
-  box=$(slider_box 0) || box=""
+  snap edge-0-open
+  box=$(slider_box 0) || { echo "no slider found"; return; }
   echo "market cap slider: $box"
   set -- $box
   y=$(( ($2 + $4) / 2 ))
@@ -146,7 +147,7 @@ edge_test() {
   sleep 2
   snap edge-1-left
   echo "after left drag:"; focus
-  box=$(slider_box 1) || box=""
+  box=$(slider_box 1) || { echo "no price slider found"; return; }
   echo "price slider: $box"
   set -- $box
   y=$(( ($2 + $4) / 2 ))
@@ -155,7 +156,8 @@ edge_test() {
   snap edge-2-right
   echo "after right drag:"; focus
 }
-set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">frosted</string>"
+# The sky held still: uiautomator can only read a screen that settles (the sheet closed this way either way).
+set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">frosted</string><boolean name=\"sky_animation\" value=\"false\" />"
 launch
 sleep 8
 edge_test
