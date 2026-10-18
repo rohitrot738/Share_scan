@@ -136,34 +136,19 @@ print(n)
 PY
 }
 
-# 1) The sky held still stays still while the screen keeps redrawing (a scan updates the board many times a second).
+# The sky held still stays still while a scan updates the board many times a second. Two boxes of sky only, clear
+# of every text and control: the lower left corner and a strip on the right below the chips.
 set_prefs "<string name=\"theme\">galaxy</string><boolean name=\"sky_animation\" value=\"false\" />"
 launch
 sleep 8
 tap startButton
 sleep 6
-raw /tmp/s1.raw; sleep 3; raw /tmp/s2.raw
-echo "still sky, scanning: changed bytes in a sky-only corner = $(differ /tmp/s1.raw /tmp/s2.raw 0 2000 320 2300)"
+raw /tmp/s1.raw; sleep 4; raw /tmp/s2.raw
+echo "still sky, scanning: corner $(differ /tmp/s1.raw /tmp/s2.raw 0 2100 300 2300), right strip $(differ /tmp/s1.raw /tmp/s2.raw 900 1400 1080 1500)"
 snap still-scanning
-# The same with the sky moving, for comparison.
 set_prefs "<string name=\"theme\">galaxy</string>"
 launch
 sleep 8
-raw /tmp/m1.raw; sleep 3; raw /tmp/m2.raw
-echo "moving sky: changed bytes in the same corner = $(differ /tmp/m1.raw /tmp/m2.raw 0 2000 320 2300)"
-
-# 2) Glass switched off: home, filter sheet and Settings.
-set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">frosted</string><boolean name=\"glass_enabled\" value=\"false\" /><boolean name=\"sky_animation\" value=\"false\" />"
-launch
-sleep 8
-snap off-home
-tap filterChip
-sleep 4
-snap off-filters
-adb shell input keyevent BACK; sleep 2
-menu
-tap_text "सेटिंग्स"
-sleep 3
-for i in 1 2 3; do find_node text "ग्लास इफ़ेक्ट" > /dev/null 2>&1 && break; adb shell input swipe 540 1800 540 1000 500; sleep 1; done
-snap off-settings
+raw /tmp/m1.raw; sleep 4; raw /tmp/m2.raw
+echo "moving sky: corner $(differ /tmp/m1.raw /tmp/m2.raw 0 2100 300 2300), right strip $(differ /tmp/m1.raw /tmp/m2.raw 900 1400 1080 1500)"
 kill %1 2>/dev/null
