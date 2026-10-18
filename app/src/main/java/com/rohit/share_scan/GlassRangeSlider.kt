@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import androidx.core.view.ViewCompat
 import com.google.android.material.slider.RangeSlider
 import kotlin.math.roundToInt
 
@@ -44,6 +46,27 @@ class GlassRangeSlider @JvmOverloads constructor(
         setThumbHeight(dp(BEAD_DP))
         setHaloRadius(dp(BEAD_DP / 2 + HALO_DP))
         setHaloTintList(ColorStateList.valueOf(HALO))
+        addOnChangeListener { _, _, _ -> keepBeadsFromBackGesture() }
+    }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        super.onLayout(changed, left, top, right, bottom)
+        keepBeadsFromBackGesture()
+    }
+
+    /**
+     * The beads at the ends sit near the screen's edges, where a sideways drag would be taken for the system's back
+     * gesture and close the sheet instead of moving the bead: each bead's spot is kept out of that gesture. The
+     * spots stay small, since the system honours only 200dp of them along each edge.
+     */
+    private fun keepBeadsFromBackGesture() {
+        val reach = dp(BEAD_DP / 2 + GESTURE_GUARD_DP)
+        val y = height / 2
+        val spots = values.map { value ->
+            val x = xOf(value).roundToInt()
+            Rect(x - reach, y - reach, x + reach, y + reach)
+        }
+        ViewCompat.setSystemGestureExclusionRects(this, spots)
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -92,6 +115,9 @@ class GlassRangeSlider @JvmOverloads constructor(
 
         /** How far the press halo reaches past a bead. */
         const val HALO_DP = 6f
+
+        /** How far past a bead a drag is still kept from the back gesture. */
+        const val GESTURE_GUARD_DP = 8f
 
         /** A bead's base: a little white under its glass, so it stands out from the accent range it sits on. */
         const val BEAD_SURFACE = 0x40FFFFFF

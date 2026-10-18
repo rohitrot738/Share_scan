@@ -133,42 +133,32 @@ found = [re.search(r'bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', n).groups()
 print(*found[int(sys.argv[1])]) if len(found) > int(sys.argv[1]) else sys.exit(1)
 PY
 }
-drag_test() {
-  local tag=$1
+# Drags each end bead from where it sits by the screen's edge (where the back gesture lives) to the middle.
+edge_test() {
   tap filterChip
   sleep 4
-  echo "$tag sheet:"; focus
-  # P1: a tap on a preset chip (does the sheet get touches at all?)
-  tap_text "Micro ≤₹500 Cr"
+  echo "sheet:"; focus
+  box=$(slider_box 0) || box=""
+  echo "market cap slider: $box"
+  set -- $box
+  y=$(( ($2 + $4) / 2 ))
+  adb shell input swipe $(( $1 + 50 )) $y $(( ($1 + $3) / 2 - 100 )) $y 800
   sleep 2
-  snap "$tag-1-chip"
-  echo "$tag after chip:"; focus
-  # P2: drag the price slider's right bead to the middle
+  snap edge-1-left
+  echo "after left drag:"; focus
   box=$(slider_box 1) || box=""
-  echo "$tag price slider: $box"
-  if [ -n "$box" ]; then
-    set -- $box
-    y=$(( ($2 + $4) / 2 ))
-    adb shell input swipe $(( $3 - 50 )) $y $(( ($1 + $3) / 2 )) $y 800
-    snap "$tag-2-drag"
-    echo "$tag after drag:"; focus; touched
-    sleep 3
-    snap "$tag-3-later"
-    echo "$tag later:"; focus
-  fi
-  adb shell input keyevent BACK; sleep 2
-  echo "$tag after back:"; focus
+  echo "price slider: $box"
+  set -- $box
+  y=$(( ($2 + $4) / 2 ))
+  adb shell input swipe $(( $3 - 50 )) $y $(( ($1 + $3) / 2 + 100 )) $y 800
+  sleep 2
+  snap edge-2-right
+  echo "after right drag:"; focus
 }
 set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">frosted</string>"
 launch
 sleep 8
-drag_test anim
-# The same with the sky held still (Settings: sky animation off).
-set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">frosted</string><boolean name=\"sky_animation\" value=\"false\" />"
-launch
-sleep 8
-drag_test still
+edge_test
 kill %1 %2 2>/dev/null
-grep -E "share_scan" "$OUT/events.txt" | grep -E "wm_on_(create|destroy)_called|input_focus|am_anr|wm_finish" | tail -40 > "$OUT/lifecycle.txt"
+grep -E "share_scan" "$OUT/events.txt" | grep -E "wm_on_(create|destroy)_called|input_focus|wm_finish" | tail -20 > "$OUT/lifecycle.txt" || true
 cat "$OUT/lifecycle.txt"
-grep -iE "anr|not responding|input dispatch" "$OUT/logcat.txt" | head -10
