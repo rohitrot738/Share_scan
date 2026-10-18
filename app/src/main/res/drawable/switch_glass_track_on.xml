@@ -1,39 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Glass switch track, on: the accent glowing through frosted glass. -->
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item>
-        <shape android:shape="rectangle">
-            <size
-                android:width="52dp"
-                android:height="32dp" />
-            <corners android:radius="16dp" />
-            <solid android:color="@color/glass_switch_on" />
-        </shape>
-    </item>
-    <!-- Depth: a little darker towards the bottom. -->
-    <item>
-        <shape android:shape="rectangle">
-            <corners android:radius="16dp" />
+<!-- Glass switch track, on: deep tinted glass with the theme accent glowing through. 52 x 32dp, like Material's track. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="52dp"
+    android:height="32dp"
+    android:viewportWidth="52"
+    android:viewportHeight="32">
+    <!-- Tinted glass body: the theme accent glowing through. -->
+    <path
+        android:fillColor="?attr/colorPrimary"
+        android:fillAlpha="0.66"
+        android:pathData="M0,16 A16,16 0 0,1 16,0 H36 A16,16 0 0,1 36,32 H16 A16,16 0 0,1 0,16 Z" />
+    <!-- Denser core inside the glass wall, so the colour looks deep. -->
+    <path
+        android:fillColor="?attr/colorPrimary"
+        android:fillAlpha="0.42"
+        android:pathData="M3,16 A13,13 0 0,1 16,3 H36 A13,13 0 0,1 36,29 H16 A13,13 0 0,1 3,16 Z" />
+    <!-- Depth: inner shadow under the top edge, darkening into the body. -->
+    <path android:pathData="M0,16 A16,16 0 0,1 16,0 H36 A16,16 0 0,1 36,32 H16 A16,16 0 0,1 0,16 Z">
+        <aapt:attr name="android:fillColor">
             <gradient
-                android:angle="270"
-                android:endColor="#40000000"
-                android:startColor="@android:color/transparent"
-                android:type="linear" />
-        </shape>
-    </item>
-    <!-- Shine across the upper half, like light on a glass tube. -->
-    <item
-        android:bottom="15dp"
-        android:left="7dp"
-        android:right="7dp"
-        android:top="3dp">
-        <shape android:shape="rectangle">
-            <corners android:radius="7dp" />
+                android:endX="0"
+                android:endY="32"
+                android:startX="0"
+                android:startY="0"
+                android:type="linear">
+                <item android:color="#BF000000" android:offset="0" />
+                <item android:color="#59000000" android:offset="0.22" />
+                <item android:color="#14000000" android:offset="0.55" />
+                <item android:color="#00000000" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Light refracted through the lower half of the tube. -->
+    <path android:pathData="M1.5,16 A14.5,14.5 0 0,1 16,1.5 H36 A14.5,14.5 0 0,1 36,30.5 H16 A14.5,14.5 0 0,1 1.5,16 Z">
+        <aapt:attr name="android:fillColor">
             <gradient
-                android:angle="270"
-                android:endColor="@android:color/transparent"
-                android:startColor="#99FFFFFF"
-                android:type="linear" />
-        </shape>
-    </item>
-</layer-list>
+                android:endX="0"
+                android:endY="30.5"
+                android:startX="0"
+                android:startY="15"
+                android:type="linear">
+                <item android:color="#00FFFFFF" android:offset="0" />
+                <item android:color="#2EFFFFFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Reflected light hugging the bottom inside edge. -->
+    <path android:pathData="M1.6,16 A14.4,14.4 0 0,0 16,30.4 H36 A14.4,14.4 0 0,0 50.4,16 A14.4,11.8 0 0,1 36,27.8 H16 A14.4,11.8 0 0,1 1.6,16 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="0"
+                android:endY="30.4"
+                android:startX="0"
+                android:startY="21"
+                android:type="linear">
+                <item android:color="#00FFFFFF" android:offset="0" />
+                <item android:color="#CCFFFFFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Specular band across the top of the tube. -->
+    <path android:pathData="M6.5,7.6 A5,5 0 0,1 11.5,2.6 H40.5 A5,5 0 0,1 40.5,12.6 H11.5 A5,5 0 0,1 6.5,7.6 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="0"
+                android:endY="12.6"
+                android:startX="0"
+                android:startY="2.6"
+                android:type="linear">
+                <item android:color="#E6FFFFFF" android:offset="0" />
+                <item android:color="#59FFFFFF" android:offset="0.45" />
+                <item android:color="#08FFFFFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Crisp hot streak on the band. -->
+    <path android:pathData="M12,4.2 A0.9,0.9 0 0,1 12.9,3.3 H39.1 A0.9,0.9 0 0,1 39.1,5.1 H12.9 A0.9,0.9 0 0,1 12,4.2 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="0"
+                android:endY="5.1"
+                android:startX="0"
+                android:startY="3.3"
+                android:type="linear">
+                <item android:color="#FFFFFFFF" android:offset="0" />
+                <item android:color="#99FFFFFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <!-- Rim: bright where light hits the top, falling off towards the bottom. -->
+    <path
+        android:pathData="M0.7,16 A15.3,15.3 0 0,1 16,0.7 H36 A15.3,15.3 0 0,1 36,31.3 H16 A15.3,15.3 0 0,1 0.7,16 Z"
+        android:strokeWidth="1.4">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:endX="0"
+                android:endY="32"
+                android:startX="0"
+                android:startY="0"
+                android:type="linear">
+                <item android:color="#FFFFFFFF" android:offset="0" />
+                <item android:color="#A6FFFFFF" android:offset="0.25" />
+                <item android:color="#40FFFFFF" android:offset="0.6" />
+                <item android:color="#26FFFFFF" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+</vector>

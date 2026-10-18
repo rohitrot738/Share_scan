@@ -212,12 +212,17 @@
         <item name="android:stateListAnimator">@animator/press_scale</item>
     </style>
 
-    <!-- Glass switch: see-through track with a shine and a light rim; the accent glows through it when on. -->
+    <!--
+        Glass switch: a deep see-through glass tube (the accent glows through it when on) with a glass-bead thumb.
+        The drawables carry their own colours and rim, so every Material tint and the outline decoration are cleared.
+    -->
     <style name="Widget.ShareScan.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="android:thumb">@drawable/switch_glass_thumb</item>
+        <item name="thumbTint">@null</item>
         <item name="track">@drawable/switch_glass_track</item>
         <item name="trackTint">@null</item>
-        <item name="trackDecorationTint">@color/glass_switch_rim</item>
-        <item name="thumbTint">@color/glass_switch_thumb</item>
+        <item name="trackDecoration">@null</item>
+        <item name="trackDecorationTint">@null</item>
         <item name="android:stateListAnimator">@animator/press_scale</item>
     </style>
 

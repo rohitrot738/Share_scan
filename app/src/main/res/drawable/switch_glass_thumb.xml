@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Glass switch thumb. Like Material's own thumb (mtrl_switch_thumb) it is a 32dp box whose bead is
+    16dp across when off, 24dp when on and 28dp while pressed, and it animates between those sizes.
+    The bead carries its own colours, so the style sets thumbTint to @null.
+-->
+<animated-selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/switch_glass_pressed"
+        android:drawable="@drawable/switch_glass_thumb_pressed"
+        android:state_pressed="true" />
+    <item
+        android:id="@+id/switch_glass_on"
+        android:drawable="@drawable/switch_glass_thumb_on"
+        android:state_checked="true" />
+    <item
+        android:id="@+id/switch_glass_off"
+        android:drawable="@drawable/switch_glass_thumb_off" />
+
+    <transition
+        android:drawable="@drawable/switch_glass_thumb_off_to_on"
+        android:fromId="@id/switch_glass_off"
+        android:toId="@id/switch_glass_on" />
+    <transition
+        android:drawable="@drawable/switch_glass_thumb_on_to_off"
+        android:fromId="@id/switch_glass_on"
+        android:toId="@id/switch_glass_off" />
+    <transition
+        android:drawable="@drawable/switch_glass_thumb_off_to_pressed"
+        android:fromId="@id/switch_glass_off"
+        android:toId="@id/switch_glass_pressed" />
+    <transition
+        android:drawable="@drawable/switch_glass_thumb_on_to_pressed"
+        android:fromId="@id/switch_glass_on"
+        android:toId="@id/switch_glass_pressed" />
+    <transition
+        android:drawable="@drawable/switch_glass_thumb_pressed_to_on"
+        android:fromId="@id/switch_glass_pressed"
+        android:toId="@id/switch_glass_on" />
+    <transition
+        android:drawable="@drawable/switch_glass_thumb_pressed_to_off"
+        android:fromId="@id/switch_glass_pressed"
+        android:toId="@id/switch_glass_off" />
+</animated-selector>
