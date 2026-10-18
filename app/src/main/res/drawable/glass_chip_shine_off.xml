@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Glass chip light, unchecked: bright top rim, a crisp specular sheen, a faint glint along the bottom. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Rim light: the top edge of the pill catches the light, so the rim is brightest at the top. -->
+    <item
+        android:bottom="8dp"
+        android:top="8dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="100dp" />
+            <gradient
+                android:angle="270"
+                android:centerColor="#00FFFFFF"
+                android:centerY="0.16"
+                android:endColor="#00FFFFFF"
+                android:startColor="#8CFFFFFF"
+                android:type="linear" />
+        </shape>
+    </item>
+    <!-- Specular highlight: crisp-edged reflection just under the top rim, fading out before the text. -->
+    <item
+        android:height="13dp"
+        android:left="6dp"
+        android:right="6dp"
+        android:top="9dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="100dp" />
+            <gradient
+                android:angle="270"
+                android:endColor="#00FFFFFF"
+                android:startColor="#57FFFFFF"
+                android:type="linear" />
+        </shape>
+    </item>
+    <!-- Light refracted through the glass, gathering along the bottom edge. -->
+    <item
+        android:bottom="8dp"
+        android:top="8dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="100dp" />
+            <gradient
+                android:angle="270"
+                android:centerColor="#00FFFFFF"
+                android:centerY="0.7"
+                android:endColor="#29FFFFFF"
+                android:startColor="#00FFFFFF"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Glass finish for chips, set as android:foreground in ShareScanChip / ShareScanActionChip (a Chip
+    draws its own background, so the light on the glass has to sit in front of it).
+
+    Geometry contract: Chip keeps a 48dp touch target by insetting its 32dp pill (chipMinHeight) 8dp
+    top and bottom inside the view, so every layer here is inset 8dp vertically to land exactly on the
+    pill. Horizontally the layers fill the view; that matches the pill because the chip paddings in the
+    styles keep every chip at least 48dp wide, so Chip never adds side insets.
+    The light stays in the top and bottom bands of the pill and fades out before the label, so the
+    text is never veiled.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:enterFadeDuration="150"
+    android:exitFadeDuration="150">
+    <item android:drawable="@drawable/glass_chip_shine_disabled" android:state_enabled="false" />
+    <item android:drawable="@drawable/glass_chip_shine_on" android:state_checked="true" />
+    <item android:drawable="@drawable/glass_chip_shine_on" android:state_activated="true" />
+    <item android:drawable="@drawable/glass_chip_shine_off" />
+</selector>

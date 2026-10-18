@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The accent at zero alpha: the clear end of the accent glow gradient. Gradients blend unpremultiplied
+    colours, so fading to this instead of @android:color/transparent (black) avoids a grey band.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:alpha="0" android:color="?attr/colorPrimary" />
+</selector>

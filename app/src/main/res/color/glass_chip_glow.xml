@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Accent light pooling along the bottom of a checked glass chip (gradient end in glass_chip_shine_on). -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:alpha="0.80" android:color="?attr/colorPrimary" />
+</selector>

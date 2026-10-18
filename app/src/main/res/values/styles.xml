@@ -192,24 +192,61 @@
         <item name="strokeWidth">1dp</item>
     </style>
 
+    <!--
+        Glass chip (toggle): a deep, see-through tinted glass pill. The body is chipSurfaceColor (smoked)
+        under chipBackgroundColor (accent tint); the light on the glass (top rim, specular sheen, bottom
+        glow) is the foreground glass_chip_shine, because Chip owns its background. The label and icons
+        stay fully opaque.
+        glass_chip_shine is inset 8dp top and bottom to sit exactly on the pill: that is the
+        (chipMinTouchTargetSize - chipMinHeight) / 2 inset Chip adds, so keep those three values together.
+        The side paddings keep every chip at least 48dp wide so Chip never insets the pill sideways.
+    -->
     <style name="ShareScanChip" parent="Widget.Material3.Chip.Filter">
         <item name="android:textSize">13sp</item>
-        <item name="chipCornerRadius">12dp</item>
-        <item name="chipSurfaceColor">@android:color/transparent</item>
+        <item name="android:textColor">@color/glass_chip_text</item>
+        <item name="android:foreground">@drawable/glass_chip_shine</item>
+        <item name="android:stateListAnimator">@animator/press_scale</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.ShareScan.GlassChip</item>
+        <item name="chipMinHeight">32dp</item>
+        <item name="chipMinTouchTargetSize">48dp</item>
+        <item name="ensureMinTouchTargetSize">true</item>
+        <item name="chipSurfaceColor">@color/glass_chip_surface</item>
         <item name="chipBackgroundColor">@color/glass_chip_bg</item>
         <item name="chipStrokeColor">@color/glass_chip_stroke</item>
         <item name="chipStrokeWidth">1dp</item>
-        <item name="android:stateListAnimator">@animator/press_scale</item>
+        <item name="rippleColor">@color/glass_chip_ripple</item>
+        <item name="checkedIconTint">@color/glass_chip_text</item>
+        <item name="chipStartPadding">10dp</item>
+        <item name="textStartPadding">8dp</item>
+        <item name="textEndPadding">8dp</item>
+        <item name="chipEndPadding">10dp</item>
     </style>
 
     <style name="ShareScanActionChip" parent="Widget.Material3.Chip.Assist">
         <item name="android:textSize">13sp</item>
-        <item name="chipCornerRadius">12dp</item>
-        <item name="chipSurfaceColor">@android:color/transparent</item>
-        <item name="chipIconTint">@color/brand_primary</item>
+        <item name="android:textColor">@color/glass_chip_text</item>
+        <item name="android:foreground">@drawable/glass_chip_shine</item>
+        <item name="android:stateListAnimator">@animator/press_scale</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.ShareScan.GlassChip</item>
+        <item name="chipMinHeight">32dp</item>
+        <item name="chipMinTouchTargetSize">48dp</item>
+        <item name="ensureMinTouchTargetSize">true</item>
+        <item name="chipSurfaceColor">@color/glass_chip_surface</item>
         <item name="chipBackgroundColor">@color/glass_chip_bg</item>
         <item name="chipStrokeColor">@color/glass_chip_stroke</item>
-        <item name="android:stateListAnimator">@animator/press_scale</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="rippleColor">@color/glass_chip_ripple</item>
+        <item name="chipIconTint">@color/glass_chip_icon</item>
+        <item name="chipStartPadding">10dp</item>
+        <item name="textStartPadding">8dp</item>
+        <item name="textEndPadding">8dp</item>
+        <item name="chipEndPadding">12dp</item>
+    </style>
+
+    <!-- Glass chips are full pills at any height (large font sizes too), matching their foreground shine. -->
+    <style name="ShapeAppearance.ShareScan.GlassChip" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
     </style>
 
     <!--

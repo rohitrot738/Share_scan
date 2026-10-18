@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Glass chip base (chipSurfaceColor): smoked, see-through glass that gives the tint below it depth. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:alpha="0.30" android:color="@android:color/black" android:state_enabled="false" />
+    <item android:alpha="0.30" android:color="@android:color/black" android:state_checked="true" />
+    <item android:alpha="0.30" android:color="@android:color/black" android:state_activated="true" />
+    <item android:alpha="0.35" android:color="@android:color/black" />
+</selector>
