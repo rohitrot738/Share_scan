@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
-    <!-- Galaxy theme only: twinkling, drifting and shooting stars behind everything else. -->
+    <!-- Every theme: its Milky Way with twinkling, drifting and shooting stars, behind everything else. -->
     <com.rohit.share_scan.GalaxySkyView
         android:id="@+id/galaxySky"
         android:layout_width="match_parent"

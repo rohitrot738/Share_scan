@@ -29,7 +29,7 @@ import kotlin.math.sin
 import kotlin.random.Random
 
 /**
- * The Galaxy theme's sky, behind everything on the screen: a Milky Way photographed on a dark night, about a
+ * Every theme's sky, behind everything on the screen: a Milky Way photographed on a dark night, about a
  * million stars in all, with the animated stars on top of it (stars that twinkle, stars that drift out from the
  * middle as if the screen were flying through space, and a shooting star every couple of seconds).
  *
@@ -52,6 +52,14 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
     private val startedAt = SystemClock.uptimeMillis()
     /** Stars fade out towards the top, under the opaque status-bar strip, instead of being cut off by it. */
     private val topFade = 56 * density
+
+    /** The picked theme's colours for the Milky Way; set it before the first layout (a later change re-bakes). */
+    var palette: SkyPalette = SkyPalette.GALAXY
+        set(value) {
+            if (field === value) return
+            field = value
+            if (bakeWidth > 0 && bakeHeight > 0) bake(bakeWidth, bakeHeight)
+        }
 
     // The baked Milky Way: null until the first bake for this size lands. Bitmaps are scaled up with filtering.
     private var sky: Sky? = null
@@ -139,8 +147,9 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
         bakeHeight = h
         if (w <= 0 || h <= 0) return
         val density = density
+        val palette = palette
         thread(name = "GalaxySkyBake") {
-            val baked = SkyBaker(w, h, density) { generation != bakeGeneration }.bake() ?: return@thread
+            val baked = SkyBaker(w, h, density, palette) { generation != bakeGeneration }.bake() ?: return@thread
             mainThread.post {
                 if (generation == bakeGeneration) {
                     sky = baked
@@ -433,6 +442,7 @@ private class SkyBaker(
     private val w: Int,
     private val h: Int,
     private val density: Float,
+    private val palette: SkyPalette,
     private val stale: () -> Boolean,
 ) {
     private val random = Random(SKY_SEED)
@@ -549,9 +559,9 @@ private class SkyBaker(
             val sy = y * 2f + 1f
             val fade = smoothstep(0f, topFade, sy)
             val down = sy / h
-            val spaceR = SPACE_TOP_R + (SPACE_BOTTOM_R - SPACE_TOP_R) * down
-            val spaceG = SPACE_TOP_G + (SPACE_BOTTOM_G - SPACE_TOP_G) * down
-            val spaceB = SPACE_TOP_B + (SPACE_BOTTOM_B - SPACE_TOP_B) * down
+            val spaceR = palette.spaceTop[0] + (palette.spaceBottom[0] - palette.spaceTop[0]) * down
+            val spaceG = palette.spaceTop[1] + (palette.spaceBottom[1] - palette.spaceTop[1]) * down
+            val spaceB = palette.spaceTop[2] + (palette.spaceBottom[2] - palette.spaceTop[2]) * down
             val gyf = sy / GRID
             val row = gyf.toInt()
             val fy = gyf - row
@@ -625,38 +635,77 @@ private class SkyBaker(
         val patches = smoothstep(0f, 0.28f, dust) * exp(-across / (2 * 0.22f * 0.22f))
         val clear = (1f - 0.94f * rift) * (1f - 0.88f * patches)
 
-        // Cool grey-blue out along the arms, cream and amber towards the core.
+        // The palette's arm colour out along the arms, its core colour towards the core.
         warmth = (bulge + 0.6f * exp(-u * u / (2 * 0.45f * 0.45f)) * band).coerceIn(0f, 1f)
-        val glow = along * (BAND_GLOW * band * (0.25f + 0.75f * clouds) + HALO_GLOW * halo) +
-            CORE_GLOW * bulge * (0.75f + 0.35f * clouds)
+        val glow = palette.brightness * (along * (BAND_GLOW * band * (0.25f + 0.75f * clouds) + HALO_GLOW * halo) +
+            CORE_GLOW * bulge * (0.75f + 0.35f * clouds))
         // Dust dims blue light more than red, so what shows through it turns brown.
         val clearR = clear
         val clearG = clear * (0.75f + 0.25f * clear)
         val clearB = clear * (0.5f + 0.5f * clear)
-        lightR = glow * (0.80f + 0.20f * warmth) * clearR
-        lightG = glow * (0.85f - 0.02f * warmth) * clearG
-        lightB = glow * (1.00f - 0.5f * warmth) * clearB
+        val arm = palette.arm
+        val core = palette.core
+        lightR = glow * (arm[0] + (core[0] - arm[0]) * warmth) * clearR
+        lightG = glow * (arm[1] + (core[1] - arm[1]) * warmth) * clearG
+        lightB = glow * (arm[2] + (core[2] - arm[2]) * warmth) * clearB
         starDensity = (0.22f + 2.8f * band * clouds * along + 2.5f * bulge) * clear
 
         // Nebulae, each a soft patch broken up by wisps; only near one is the extra noise worked out.
         var wisps = -1f
-        for (n in NEBULAE.indices step 7) {
-            val du = u - NEBULAE[n]
-            val dv = v - NEBULAE[n + 1]
-            val size = NEBULAE[n + 2]
+        val nebulae = palette.nebulae
+        for (n in nebulae.indices step 7) {
+            val du = u - nebulae[n]
+            val dv = v - nebulae[n + 1]
+            val size = nebulae[n + 2]
             val d = (du * du + dv * dv) / (size * size)
             if (d > 9f) continue
             if (wisps < 0f) wisps = (0.45f + 1.8f * fbm(u * 7f + 40f, v * 7f - 20f, 4)).coerceIn(0f, 1.5f)
-            val strength = NEBULAE[n + 6] * exp(-0.5f * d) * wisps * (0.4f + 0.6f * clear)
-            lightR += strength * NEBULAE[n + 3]
-            lightG += strength * NEBULAE[n + 4]
-            lightB += strength * NEBULAE[n + 5]
+            val strength = nebulae[n + 6] * exp(-0.5f * d) * wisps * (0.4f + 0.6f * clear)
+            lightR += strength * nebulae[n + 3]
+            lightG += strength * nebulae[n + 4]
+            lightB += strength * nebulae[n + 5]
         }
-        // Faint hydrogen glow scattered along the band.
-        val hydrogen = smoothstep(0.08f, 0.35f, fbm(u * 2.4f + 50f, v * 4f, 3)) * band * along * 0.16f * clear
-        lightR += hydrogen * 1.0f
-        lightG += hydrogen * 0.30f
-        lightB += hydrogen * 0.45f
+        // Faint gas glow scattered along the band, in the palette's colour.
+        val gas = palette.gas
+        val glowing = smoothstep(0.08f, 0.35f, fbm(u * 2.4f + 50f, v * 4f, 3)) * band * along * gas[3] * clear
+        lightR += glowing * gas[0]
+        lightG += glowing * gas[1]
+        lightB += glowing * gas[2]
+        if (palette.aurora > 0f) addAurora(x, y)
+    }
+
+    /**
+     * Aurora curtains low in the sky: a wavy green hem with rays rising from it, turning teal and then violet as
+     * they fade upwards, and a second, fainter curtain folded behind the first.
+     */
+    private fun addAurora(x: Float, y: Float) {
+        var total = 0f
+        var topness = 0f
+        val nx = x / unit
+        for (curtain in 0..1) {
+            val s = curtain * 37f
+            // The hem: a slow wave plus a wander, higher for the curtain behind.
+            val hem = h * (AURORA_HEM - 0.1f * curtain) +
+                unit * (0.09f * sin(nx * 5.5f + s) + 0.05f * sin(nx * 11f + 2f * s) + 0.06f * noise(nx * 3f + s, 2.3f))
+            val above = (hem - y) / (unit * AURORA_HEIGHT)
+            if (above < -0.3f || above > 1.6f) continue
+            // Soft rays across x, brighter and dimmer patches along the curtain, and a gentle fold.
+            val rays = (0.55f + 0.9f * fbm(nx * 13f + s, 0.4f * curtain, 3)).coerceIn(0.15f, 1.3f)
+            val patches = 0.3f + 0.7f * smoothstep(-0.25f, 0.35f, fbm(nx * 2.1f + s, 1.3f + curtain, 2))
+            // Brightest just above the hem, a quick fall-off below it, a long soft fade up the rays.
+            val profile = if (above < 0f) exp(-(above * above) / (2 * 0.07f * 0.07f))
+            else exp(-above * 1.7f) * (1f - smoothstep(0.55f, 1.5f, above))
+            val strength = palette.aurora * profile * rays * patches * (1f - 0.45f * curtain)
+            total += strength
+            topness += strength * above.coerceIn(0f, 1f)
+        }
+        if (total <= 0f) return
+        // Green at the hem, teal above it, violet at the top of the rays.
+        val t = (topness / total).coerceIn(0f, 1f)
+        lightR += total * (0.16f + 0.6f * smoothstep(0.4f, 1f, t))
+        lightG += total * (1.0f - 0.7f * t)
+        lightB += total * (0.42f + 0.55f * t)
+        starDensity *= 1f - 0.25f * min(1f, total)
     }
 
     /**
@@ -816,26 +865,12 @@ private class SkyBaker(
         /** e^-t for t from 0 to 4 (as far as a star's spot reaches), GAUSS_STEPS steps per unit. */
         const val GAUSS_STEPS = 64
         val FALLOFF = FloatArray(4 * GAUSS_STEPS) { exp(-(it + 0.5f) / GAUSS_STEPS) }
+        /** Where the aurora's hem sits, as a fraction of the height, and how far its rays reach (shorter-side units). */
+        const val AURORA_HEM = 0.86f
+        const val AURORA_HEIGHT = 0.42f
         const val CRISP_SLOPE = 1.6f
         const val CRISP_BRIGHTEST = 400f
         /** Crisp stars brighter than this many times the faintest get a light-blue glow. */
         const val GLOW_FROM = 45f
-        // Deep space, black-blue: the top matches the opaque status-bar strip (@color/galaxy_bg).
-        const val SPACE_TOP_R = 2 / 255f
-        const val SPACE_TOP_G = 1 / 255f
-        const val SPACE_TOP_B = 8 / 255f
-        const val SPACE_BOTTOM_R = 3 / 255f
-        const val SPACE_BOTTOM_G = 6 / 255f
-        const val SPACE_BOTTOM_B = 20 / 255f
-        /** Nebulae: u, v and size in band units, then colour and strength. */
-        val NEBULAE = floatArrayOf(
-            0.10f, 0.15f, 0.045f, 1.0f, 0.30f, 0.45f, 0.55f, // hydrogen, pink-red, below the core
-            0.17f, 0.08f, 0.022f, 1.0f, 0.35f, 0.55f, 0.45f, // a small one beside it
-            0.32f, -0.20f, 0.065f, 0.42f, 0.58f, 1.0f, 0.40f, // blue reflection nebula above the band
-            0.38f, -0.14f, 0.03f, 1.0f, 0.78f, 0.45f, 0.30f, // its warm star
-            -0.95f, -0.02f, 0.07f, 1.0f, 0.28f, 0.42f, 0.40f, // hydrogen further down the band
-            -0.50f, 0.10f, 0.04f, 0.20f, 0.85f, 0.80f, 0.25f, // teal
-            0.62f, 0.05f, 0.05f, 1.0f, 0.32f, 0.50f, 0.30f, // hydrogen towards the top
-        )
     }
 }

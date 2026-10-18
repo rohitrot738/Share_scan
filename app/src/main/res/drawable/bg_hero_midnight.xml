@@ -9,9 +9,9 @@
             <corners android:radius="28dp" />
             <gradient
                 android:angle="45"
-                android:centerColor="@color/midnight_hero_mid"
-                android:endColor="@color/midnight_hero_end"
-                android:startColor="@color/midnight_hero_start"
+                android:centerColor="@color/midnight_hero_glass_mid"
+                android:endColor="@color/midnight_hero_glass_end"
+                android:startColor="@color/midnight_hero_glass_start"
                 android:type="linear" />
         </shape>
     </item>
@@ -40,4 +40,5 @@
         </shape>
     </item>
     <item android:drawable="@drawable/galaxy_hero_stars" />
+    <item android:drawable="@drawable/glass_sheen_28" />
 </layer-list>

@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         ui = ActivityMainBinding.inflate(layoutInflater)
         setContentView(ui.root)
-        ui.galaxySky.isVisible = settings.theme == ThemeChoice.GALAXY
+        ui.galaxySky.palette = settings.theme.skyPalette
         ui.hero.clipToOutline = true
         ui.results.adapter = adapter
         applyWindowInsets()

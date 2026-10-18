@@ -21,13 +21,17 @@
     <color name="nebula_text">#FDF2F8</color>
     <color name="nebula_text_soft">#D9A9C4</color>
     <color name="nebula_outline">#5C2350</color>
-    <color name="nebula_card">#E6240C2E</color>
-    <color name="nebula_card_stroke">#66E879F9</color>
-    <color name="nebula_sheet">#FF1B0A21</color>
+    <color name="nebula_card">#B3240C2E</color>
+    <color name="nebula_card_stroke">#8CE879F9</color>
+    <color name="nebula_sheet">#E01B0A21</color>
     <color name="nebula_track">#3F1735</color>
     <color name="nebula_hero_start">#2D0A2E</color>
     <color name="nebula_hero_mid">#9D1C6A</color>
     <color name="nebula_hero_end">#6D28D9</color>
+    <!-- The hero as see-through glass, so the moving sky shows through it. -->
+    <color name="nebula_hero_glass_start">#AD2D0A2E</color>
+    <color name="nebula_hero_glass_mid">#B89D1C6A</color>
+    <color name="nebula_hero_glass_end">#AD6D28D9</color>
 
     <!-- Aurora -->
     <color name="aurora_accent">#67E8F9</color>
@@ -48,13 +52,17 @@
     <color name="aurora_text">#ECFEFF</color>
     <color name="aurora_text_soft">#9BC7C4</color>
     <color name="aurora_outline">#1E5052</color>
-    <color name="aurora_card">#E6082226</color>
-    <color name="aurora_card_stroke">#6667E8F9</color>
-    <color name="aurora_sheet">#FF061A1E</color>
+    <color name="aurora_card">#B3082226</color>
+    <color name="aurora_card_stroke">#8C67E8F9</color>
+    <color name="aurora_sheet">#E0061A1E</color>
     <color name="aurora_track">#10393A</color>
     <color name="aurora_hero_start">#042A2E</color>
     <color name="aurora_hero_mid">#0B6B5D</color>
     <color name="aurora_hero_end">#1E40AF</color>
+    <!-- The hero as see-through glass, so the moving sky shows through it. -->
+    <color name="aurora_hero_glass_start">#AD042A2E</color>
+    <color name="aurora_hero_glass_mid">#B80B6B5D</color>
+    <color name="aurora_hero_glass_end">#AD1E40AF</color>
 
     <!-- Midnight -->
     <color name="midnight_accent">#93C5FD</color>
@@ -73,11 +81,15 @@
     <color name="midnight_text">#F1F5F9</color>
     <color name="midnight_text_soft">#94A3B8</color>
     <color name="midnight_outline">#334155</color>
-    <color name="midnight_card">#FF0A0D14</color>
-    <color name="midnight_card_stroke">#4D64748B</color>
-    <color name="midnight_sheet">#FF0B0E15</color>
+    <color name="midnight_card">#B80A0D14</color>
+    <color name="midnight_card_stroke">#8064748B</color>
+    <color name="midnight_sheet">#E00B0E15</color>
     <color name="midnight_track">#1E293B</color>
     <color name="midnight_hero_start">#0B1426</color>
     <color name="midnight_hero_mid">#1E3A8A</color>
     <color name="midnight_hero_end">#0E7490</color>
+    <!-- The hero as see-through glass, so the moving sky shows through it. -->
+    <color name="midnight_hero_glass_start">#AD0B1426</color>
+    <color name="midnight_hero_glass_mid">#B81E3A8A</color>
+    <color name="midnight_hero_glass_end">#AD0E7490</color>
 </resources>

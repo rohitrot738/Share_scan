@@ -38,6 +38,15 @@ val ThemeChoice.style: Int
         ThemeChoice.MIDNIGHT -> R.style.Theme_ShareScan_Midnight
     }
 
+/** The theme's colours for the moving Milky Way behind the home screen. */
+val ThemeChoice.skyPalette: SkyPalette
+    get() = when (this) {
+        ThemeChoice.GALAXY -> SkyPalette.GALAXY
+        ThemeChoice.NEBULA -> SkyPalette.NEBULA
+        ThemeChoice.AURORA -> SkyPalette.AURORA
+        ThemeChoice.MIDNIGHT -> SkyPalette.MIDNIGHT
+    }
+
 @get:StringRes
 val ThemeChoice.title: Int
     get() = when (this) {
