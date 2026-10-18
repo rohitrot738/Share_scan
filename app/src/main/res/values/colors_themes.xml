@@ -25,7 +25,6 @@
     <color name="nebula_card_stroke">#66E879F9</color>
     <color name="nebula_sheet">#FF1B0A21</color>
     <color name="nebula_track">#3F1735</color>
-    <color name="nebula_chip_fill">#14E879F9</color>
     <color name="nebula_hero_start">#2D0A2E</color>
     <color name="nebula_hero_mid">#9D1C6A</color>
     <color name="nebula_hero_end">#6D28D9</color>
@@ -53,7 +52,6 @@
     <color name="aurora_card_stroke">#6667E8F9</color>
     <color name="aurora_sheet">#FF061A1E</color>
     <color name="aurora_track">#10393A</color>
-    <color name="aurora_chip_fill">#1467E8F9</color>
     <color name="aurora_hero_start">#042A2E</color>
     <color name="aurora_hero_mid">#0B6B5D</color>
     <color name="aurora_hero_end">#1E40AF</color>
@@ -79,7 +77,6 @@
     <color name="midnight_card_stroke">#4D64748B</color>
     <color name="midnight_sheet">#FF0B0E15</color>
     <color name="midnight_track">#1E293B</color>
-    <color name="midnight_chip_fill">#0F93C5FD</color>
     <color name="midnight_hero_start">#0B1426</color>
     <color name="midnight_hero_mid">#1E3A8A</color>
     <color name="midnight_hero_end">#0E7490</color>

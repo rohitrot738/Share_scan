@@ -5,6 +5,13 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent">
 
+    <!-- Galaxy theme only: twinkling, drifting and shooting stars behind everything else. -->
+    <com.rohit.share_scan.GalaxySkyView
+        android:id="@+id/galaxySky"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
@@ -177,7 +184,7 @@
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/updateLater"
-                        style="@style/Widget.Material3.Button.TextButton"
+                        style="@style/Widget.ShareScan.TextButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/update_action_later" />
@@ -301,6 +308,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/startButton"
+                    android:stateListAnimator="@animator/press_scale_soft"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginTop="20dp"

@@ -38,9 +38,12 @@
         <item name="scanCardStroke">@color/galaxy_card_stroke</item>
         <item name="scanSheet">@color/galaxy_sheet</item>
         <item name="scanTrack">@color/galaxy_track</item>
-        <item name="scanChipFill">@color/galaxy_chip_fill</item>
         <item name="scanHeroBackground">@drawable/bg_hero</item>
         <item name="scanLogoBackground">@drawable/bg_logo</item>
+        <item name="materialSwitchStyle">@style/Widget.ShareScan.Switch</item>
+        <item name="materialButtonStyle">@style/Widget.ShareScan.Button</item>
+        <item name="imageButtonStyle">@style/Widget.ShareScan.ImageButton</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.ShareScan.Dialog</item>
     </style>
 
     <!-- Nebula: rose and magenta clouds with a pink accent. -->
@@ -76,7 +79,6 @@
         <item name="scanCardStroke">@color/nebula_card_stroke</item>
         <item name="scanSheet">@color/nebula_sheet</item>
         <item name="scanTrack">@color/nebula_track</item>
-        <item name="scanChipFill">@color/nebula_chip_fill</item>
         <item name="scanHeroBackground">@drawable/bg_hero_nebula</item>
         <item name="scanLogoBackground">@drawable/bg_logo_nebula</item>
     </style>
@@ -114,7 +116,6 @@
         <item name="scanCardStroke">@color/aurora_card_stroke</item>
         <item name="scanSheet">@color/aurora_sheet</item>
         <item name="scanTrack">@color/aurora_track</item>
-        <item name="scanChipFill">@color/aurora_chip_fill</item>
         <item name="scanHeroBackground">@drawable/bg_hero_aurora</item>
         <item name="scanLogoBackground">@drawable/bg_logo_aurora</item>
     </style>
@@ -152,7 +153,6 @@
         <item name="scanCardStroke">@color/midnight_card_stroke</item>
         <item name="scanSheet">@color/midnight_sheet</item>
         <item name="scanTrack">@color/midnight_track</item>
-        <item name="scanChipFill">@color/midnight_chip_fill</item>
         <item name="scanHeroBackground">@drawable/bg_hero_midnight</item>
         <item name="scanLogoBackground">@drawable/bg_logo_midnight</item>
     </style>
@@ -179,6 +179,7 @@
 
     <!-- Glass card: translucent fill with a soft glowing accent edge. -->
     <style name="ShareScanCard" parent="Widget.Material3.CardView.Outlined">
+        <item name="android:stateListAnimator">@animator/press_scale_soft</item>
         <item name="cardBackgroundColor">?attr/scanCard</item>
         <item name="cardCornerRadius">20dp</item>
         <item name="cardElevation">0dp</item>
@@ -190,9 +191,10 @@
         <item name="android:textSize">13sp</item>
         <item name="chipCornerRadius">12dp</item>
         <item name="chipSurfaceColor">@android:color/transparent</item>
-        <item name="chipBackgroundColor">@color/galaxy_chip_bg</item>
-        <item name="chipStrokeColor">@color/galaxy_chip_stroke</item>
+        <item name="chipBackgroundColor">@color/glass_chip_bg</item>
+        <item name="chipStrokeColor">@color/glass_chip_stroke</item>
         <item name="chipStrokeWidth">1dp</item>
+        <item name="android:stateListAnimator">@animator/press_scale</item>
     </style>
 
     <style name="ShareScanActionChip" parent="Widget.Material3.Chip.Assist">
@@ -200,7 +202,43 @@
         <item name="chipCornerRadius">12dp</item>
         <item name="chipSurfaceColor">@android:color/transparent</item>
         <item name="chipIconTint">@color/brand_primary</item>
-        <item name="chipStrokeColor">@color/galaxy_chip_stroke</item>
+        <item name="chipBackgroundColor">@color/glass_chip_bg</item>
+        <item name="chipStrokeColor">@color/glass_chip_stroke</item>
+        <item name="android:stateListAnimator">@animator/press_scale</item>
+    </style>
+
+    <!-- Glass switch: see-through track with a light rim; the accent glows through it when on. -->
+    <style name="Widget.ShareScan.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="trackTint">@color/glass_switch_track</item>
+        <item name="trackDecorationTint">@color/glass_switch_rim</item>
+        <item name="thumbTint">@color/glass_switch_thumb</item>
+        <item name="android:stateListAnimator">@animator/press_scale</item>
+    </style>
+
+    <style name="Widget.ShareScan.Button" parent="Widget.Material3.Button">
+        <item name="android:stateListAnimator">@animator/press_scale</item>
+    </style>
+
+    <style name="Widget.ShareScan.TextButton" parent="Widget.Material3.Button.TextButton">
+        <item name="android:stateListAnimator">@animator/press_scale</item>
+    </style>
+
+    <style name="Widget.ShareScan.OutlinedButton" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:stateListAnimator">@animator/press_scale</item>
+    </style>
+
+    <style name="Widget.ShareScan.ImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:stateListAnimator">@animator/press_scale</item>
+    </style>
+
+    <!-- "पक्का?" dialogs: their buttons dip like every other button. -->
+    <style name="ThemeOverlay.ShareScan.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.ShareScan.DialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.ShareScan.DialogButton</item>
+    </style>
+
+    <style name="Widget.ShareScan.DialogButton" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:stateListAnimator">@animator/press_scale</item>
     </style>
 
     <style name="StatValue">
@@ -261,6 +299,7 @@
     <!-- A whole settings row is tappable and flips its switch. -->
     <style name="SettingsRow">
         <item name="android:background">?attr/selectableItemBackground</item>
+        <item name="android:stateListAnimator">@animator/press_scale_soft</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:gravity">center_vertical</item>
@@ -284,6 +323,7 @@
     </style>
 
     <style name="SettingsAction" parent="Widget.Material3.Button.TextButton.Icon">
+        <item name="android:stateListAnimator">@animator/press_scale_soft</item>
         <item name="android:gravity">start|center_vertical</item>
         <item name="android:minHeight">52dp</item>
         <item name="android:paddingHorizontal">20dp</item>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Glass switch track: see-through frosted white when off, the accent shining through when on. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:alpha="0.05" android:color="@android:color/white" android:state_enabled="false" />
+    <item android:alpha="0.50" android:color="?attr/colorPrimary" android:state_checked="true" />
+    <item android:alpha="0.10" android:color="@android:color/white" />
+</selector>

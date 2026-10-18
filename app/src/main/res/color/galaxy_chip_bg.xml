@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Filter chips: faint accent glass, accent container when checked. -->
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:alpha="0.12" android:color="?attr/colorOnSurface" android:state_checked="true" android:state_enabled="false" />
-    <item android:color="@android:color/transparent" android:state_enabled="false" />
-    <item android:color="?attr/colorPrimaryContainer" android:state_checked="true" />
-    <item android:color="?attr/scanChipFill" />
-</selector>
