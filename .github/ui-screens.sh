@@ -119,22 +119,38 @@ glass_mode() {
   sleep 4
 }
 
+focus() { adb shell dumpsys window | grep -m1 mCurrentFocus; }
 set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">frosted</string>"
 launch
 sleep 8
-# The flight towards the galaxy: two frames a few seconds apart and a short video.
-shot fly-a 0
-sleep 4
-shot fly-b 0
-adb shell screenrecord --time-limit 12 --bit-rate 4000000 /sdcard/fly.mp4
-adb pull /sdcard/fly.mp4 "$OUT/fly.mp4" > /dev/null && echo "video pulled"
-tap startButton
-sleep 30
-wait_cards
-filters frosted
-# Drag the left bead of the first slider (market cap) to the right.
+# Does dragging a slider keep the filter sheet open? No scan needed for the sheet.
+tap filterChip
+sleep 3
+focus
+shot drag-0 0
 swipe_id metricSlider 4 45
-shot filters-dragged 2
-adb shell input keyevent BACK
+sleep 0.3
+focus
+shot drag-1 0
 sleep 2
+focus
+shot drag-2 0
+# The second slider (price), dragged from its right bead leftwards.
+dump
+python3 - <<'PY' > /tmp/sliders.txt
+import re
+xml = open("/tmp/ui.xml", encoding="utf-8").read()
+for node in re.findall(r"<node [^>]*>", xml):
+    if re.search(r'resource-id="[^"]*:id/metricSlider"', node):
+        print(*re.search(r'bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', node).groups())
+PY
+cat /tmp/sliders.txt
+set -- $(sed -n 2p /tmp/sliders.txt)
+if [ $# -eq 4 ]; then
+  y=$(( ($2 + $4) / 2 ))
+  adb shell input swipe $(( $1 + ($3 - $1) * 96 / 100 )) $y $(( $1 + ($3 - $1) * 60 / 100 )) $y 800
+  sleep 1
+  focus
+  shot drag-3 0
+fi
 kill %1 2>/dev/null
