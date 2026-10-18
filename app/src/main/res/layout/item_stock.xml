@@ -26,11 +26,11 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
+            <!-- The card, this circle, the tier pill and the score bar wear the Filters chip's glass (StockAdapter). -->
             <TextView
                 android:id="@+id/rank"
                 android:layout_width="42dp"
                 android:layout_height="42dp"
-                android:background="@drawable/bg_circle"
                 android:fontFeatureSettings="tnum"
                 android:gravity="center"
                 android:textSize="14sp"
@@ -161,18 +161,16 @@
                 android:gravity="center"
                 android:letterSpacing="0.08"
                 android:minWidth="64dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textSize="10sp" />
 
-            <com.google.android.material.progressindicator.LinearProgressIndicator
+            <com.rohit.share_scan.GlassMeter
                 android:id="@+id/scoreBar"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="16dp"
                 android:layout_marginHorizontal="12dp"
-                android:layout_weight="1"
-                android:max="1000"
-                app:trackColor="@color/track"
-                app:trackCornerRadius="3dp"
-                app:trackThickness="6dp" />
+                android:layout_weight="1" />
 
             <TextView
                 android:id="@+id/score"

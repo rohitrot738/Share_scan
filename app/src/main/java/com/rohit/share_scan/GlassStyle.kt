@@ -1,17 +1,19 @@
 package com.rohit.share_scan
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.ColorFilter
 import android.graphics.LinearGradient
+import android.graphics.Outline
 import android.graphics.Paint
 import android.graphics.PixelFormat
 import android.graphics.Rect
 import android.graphics.RectF
 import android.graphics.Shader
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
+import android.graphics.drawable.RippleDrawable
 import android.util.TypedValue
 import android.view.View
 import androidx.annotation.AttrRes
@@ -19,14 +21,16 @@ import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import androidx.core.graphics.ColorUtils
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.color.MaterialColors
 import kotlin.math.roundToInt
 
 /**
  * How much glass the screens are made of (Settings → ग्लास मोड); [key] is what the settings store.
  * Each is a theme overlay ([overlay], values/styles_glass.xml) that MainActivity lays over the picked theme, so every
- * style works in every theme: cards, sheets, chips and switches read their glass from its attributes, and the hero
- * (scan board) is dressed from code by [applyGlassHero].
+ * style works in every theme: cards, sheets, chips and switches read their glass from its attributes, and the scan
+ * board, its button, the stat and stock cards, the logo, the filter sheet's sliders and button and the score bars
+ * wear the chips' glass ([wearChipGlass], [chipGlass]).
  */
 enum class GlassStyle(val key: String) {
     /** The default: soft frosted glass the sky shows through. */
@@ -99,111 +103,173 @@ val GlassStyle.heroFrost: Float
         GlassStyle.SOLID -> 0f
     }
 
-/** How much the frosted pane is darkened, so the board's white text stays easy to read over a bright sky. */
+/**
+ * How much the frosted pane is darkened, so the board's white text stays easy to read over a bright sky. Light,
+ * because the board's own chip glass already smokes it.
+ */
 val GlassStyle.heroShade: Float
     get() = when (this) {
-        GlassStyle.FROSTED -> 0.3f
-        GlassStyle.CLEAR -> 0.15f
-        GlassStyle.SMOKY -> 0.5f
-        GlassStyle.TINTED -> 0.28f
-        GlassStyle.LIQUID -> 0.22f
+        GlassStyle.FROSTED -> 0.12f
+        GlassStyle.CLEAR -> 0.05f
+        GlassStyle.SMOKY -> 0.3f
+        GlassStyle.TINTED -> 0.1f
+        GlassStyle.LIQUID -> 0.08f
         GlassStyle.SOLID -> 0f
     }
 
 /** The corners of every bg_hero*.xml. */
 const val HERO_CORNER_DP = 28f
 
-/**
- * Dresses the hero (scan board) in the picked glass mode. Its theme drawable (?attr/scanHeroBackground) is already
- * glass, but a drawable cannot take its strength from the theme, so it is done here: the drawable at glassHeroAlpha,
- * over a glassHeroBase fill (opaque in Solid) and under a glassHeroWash, with a glassHeroSheen across the top and a
- * rim, iridescent when the mode sets glassIrisTop. It all stays in the background, so the hero's text, ring and
- * button stay fully opaque. Frosted leaves the drawable as it is.
- */
-fun View.applyGlassHero() {
-    val body = background ?: return
-    val alpha = themeFloat(R.attr.glassHeroAlpha)
-    val base = themeColor(R.attr.glassHeroBase)
-    val wash = themeColor(R.attr.glassHeroWash)
-    val sheen = themeColor(R.attr.glassHeroSheen)
-    val irisTop = themeColor(R.attr.glassIrisTop)
-    val irisBottom = themeColor(R.attr.glassIrisBottom)
-    val rim = themeColor(R.attr.glassHeroRim)
-    val rimColors = when {
-        Color.alpha(irisTop) > 0 -> intArrayOf(irisTop, ColorUtils.blendARGB(irisTop, irisBottom, 0.5f), irisBottom)
-        Color.alpha(rim) > 0 -> intArrayOf(rim, rim)
-        else -> null
-    }
-    val clear = Color.alpha(base) == 0 && Color.alpha(wash) == 0 && Color.alpha(sheen) == 0 && rimColors == null
-    if (alpha >= 1f && clear) return
+/** The SCAN button's corners (activity_main.xml, app:cornerRadius). */
+const val START_BUTTON_CORNER_DP = 18f
 
-    val density = resources.displayMetrics.density
-    val radius = HERO_CORNER_DP * density
-    // Mutated, so the faded copy never reaches the theme picker's previews of the same drawable.
-    if (alpha < 1f) body.mutate().alpha = (alpha.coerceIn(0f, 1f) * 255).roundToInt()
-    val under = GradientDrawable().apply {
-        cornerRadius = radius
-        setColor(base)
-    }
-    val rimWidth = density * if (Color.alpha(irisTop) > 0) 1.5f else 1f
-    // Off the view first, so the view does not clear the drawable's callback after the layers have taken it.
+/** The header logo tile's corners, as bg_logo*.xml draws them. */
+const val LOGO_CORNER_DP = 14f
+
+/** ShareScanCard's corners (cardCornerRadius): the stat cards and the stock cards. */
+const val CARD_CORNER_DP = 20f
+
+/**
+ * Dresses this view in the same glass as the Filters chip, in the picked glass mode: smoked see-through glass
+ * (glassChipSurface) stained with the accent (glassChipTintAlpha, times [tintBoost]), a bright line along the top,
+ * a crisp shine under it, light gathering along the bottom and a thin rim (glassShine*, glassChipRim*). [radiusDp]
+ * rounds the corners; null makes it round. [accent] stains it another colour than the theme's (a tier's green, say).
+ * The glass is the background, so the view's text and icons stay on top, fully opaque. With [ripple], presses flash
+ * white over it.
+ */
+fun View.wearChipGlass(
+    radiusDp: Float?,
+    tintBoost: Float = 1f,
+    ripple: Boolean = false,
+    @ColorInt accent: Int? = null,
+) {
+    val glass = context.chipGlass(radiusDp?.let { it * resources.displayMetrics.density }, tintBoost, accent)
+    // Off the view first, so the view does not clear the new drawable's callback when it drops the old one.
     background = null
-    // The first layer is a rounded rectangle, so the hero's outline (clipToOutline) keeps its corners.
-    background = LayerDrawable(arrayOf(under, body, GlassFinish(radius, wash, sheen, rimColors, rimWidth)))
+    background = if (ripple) RippleDrawable(ColorStateList.valueOf(PRESS_FLASH), glass, glass) else glass
+    backgroundTintList = null
 }
 
+/** A ShareScanCard in chip glass: the card's own fill and rim off, its content wearing the glass. */
+fun MaterialCardView.wearCardGlass() {
+    setCardBackgroundColor(Color.TRANSPARENT)
+    strokeWidth = 0
+    getChildAt(0).wearChipGlass(CARD_CORNER_DP)
+}
+
+/**
+ * The Filters chip's glass as a drawable, for views that draw it themselves (GlassRangeSlider, GlassMeter); see
+ * [wearChipGlass]. [on] gives a checked chip's glass: more accent, brighter light. [rimBoost] brightens the rim and
+ * [surface] replaces the smoked base.
+ */
+fun Context.chipGlass(
+    radiusPx: Float?,
+    tintBoost: Float = 1f,
+    @ColorInt accent: Int? = null,
+    on: Boolean = false,
+    rimBoost: Float = 1f,
+    @ColorInt surface: Int? = null,
+): Drawable {
+    val tintAlpha = (themeFloat(if (on) R.attr.glassChipTintAlphaOn else R.attr.glassChipTintAlpha) * tintBoost)
+        .coerceIn(0f, 1f)
+    val rimAlpha = (themeFloat(R.attr.glassChipRimAlpha) * rimBoost).coerceIn(0f, 1f)
+    return ChipGlass(
+        radius = radiusPx,
+        density = resources.displayMetrics.density,
+        surface = surface ?: themeColor(if (on) R.attr.glassChipSurfaceOn else R.attr.glassChipSurface),
+        tint = ColorUtils.setAlphaComponent(
+            accent ?: themeColor(androidx.appcompat.R.attr.colorPrimary),
+            (tintAlpha * 255).roundToInt(),
+        ),
+        rim = ColorUtils.setAlphaComponent(themeColor(R.attr.glassChipRimTint), (rimAlpha * 255).roundToInt()),
+        shineRim = themeColor(if (on) R.attr.glassShineRimOn else R.attr.glassShineRim),
+        specular = themeColor(if (on) R.attr.glassShineSpecularOn else R.attr.glassShineSpecular),
+        glint = themeColor(R.attr.glassShineGlint),
+    )
+}
+
+/** A white flash for presses on chip glass. */
+private const val PRESS_FLASH = 0x3DFFFFFF
+
 /** A float theme attribute, or 1 (full strength) when the theme does not set it. */
-private fun View.themeFloat(@AttrRes attr: Int): Float {
+private fun Context.themeFloat(@AttrRes attr: Int): Float {
     val value = TypedValue()
-    val found = context.theme.resolveAttribute(attr, value, true) && value.type == TypedValue.TYPE_FLOAT
+    val found = theme.resolveAttribute(attr, value, true) && value.type == TypedValue.TYPE_FLOAT
     return if (found) value.float else 1f
 }
 
 /** A colour theme attribute (a colour state list gives its default colour), or transparent when it is not set. */
 @ColorInt
-private fun View.themeColor(@AttrRes attr: Int): Int = MaterialColors.getColor(context, attr, Color.TRANSPARENT)
+private fun Context.themeColor(@AttrRes attr: Int): Int = MaterialColors.getColor(this, attr, Color.TRANSPARENT)
 
 /**
- * What a glass mode adds over the hero's drawable: a [wash] over the whole card, a [sheen] fading out over the top
- * third and a rim, one colour or a diagonal gradient through [rim] (top left to bottom right). Every colour carries
- * its own alpha, so the finish as a whole is never faded.
+ * The Filters chip's glass at any size: the body ([surface] under [tint]), a bright line along the top
+ * ([shineRim]), a crisp shine under it ([specular]), light along the bottom ([glint]) and a 1dp [rim]. The bands keep
+ * the chip's proportions on small views and stop growing on big ones, so a board gets a thin bright edge, not a
+ * wash over its text. [radius] null makes it round.
  */
-private class GlassFinish(
-    private val radius: Float,
-    @ColorInt private val wash: Int,
-    @ColorInt private val sheen: Int,
-    private val rim: IntArray?,
-    private val rimWidth: Float,
+private class ChipGlass(
+    private val radius: Float?,
+    private val density: Float,
+    @ColorInt private val surface: Int,
+    @ColorInt private val tint: Int,
+    @ColorInt private val rim: Int,
+    @ColorInt private val shineRim: Int,
+    @ColorInt private val specular: Int,
+    @ColorInt private val glint: Int,
 ) : Drawable() {
-    private val fill = Paint(Paint.ANTI_ALIAS_FLAG)
-    private val sheenPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private val stroke = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    private val surfacePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = surface }
+    private val tintPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = tint }
+    private val topPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val specularPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val glintPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val rimPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.STROKE
-        strokeWidth = rimWidth
+        strokeWidth = density
+        color = rim
     }
     private val box = RectF()
     private val edge = RectF()
+    private val band = RectF()
+    private var corner = 0f
+    private var bandCorner = 0f
 
     override fun onBoundsChange(bounds: Rect) {
         box.set(bounds)
+        val h = box.height()
+        corner = radius ?: (minOf(box.width(), h) / 2)
         // A stroke straddles its path, so the rim's path runs half its width inside the edge.
         edge.set(box)
-        edge.inset(rimWidth / 2, rimWidth / 2)
-        fill.color = wash
-        // Fades to the sheen's own colour at zero alpha: a gradient to transparent black would leave a grey band.
-        sheenPaint.shader = LinearGradient(
-            0f, box.top, 0f, box.top + box.height() * SHEEN_DEPTH,
-            sheen, sheen and 0x00FFFFFF, Shader.TileMode.CLAMP,
+        edge.inset(density / 2, density / 2)
+        // Each colour fades to itself at zero alpha: fading to transparent black would leave a grey band.
+        val top = (h * 0.16f).coerceIn(4 * density, 14 * density)
+        topPaint.shader = LinearGradient(0f, box.top, 0f, box.top + top, shineRim, shineRim and 0xFFFFFF, Shader.TileMode.CLAMP)
+        // Never deeper than the glass itself, which a slim slider's range can be.
+        val bandHeight = (h * 0.4f).coerceIn(8 * density, 26 * density).coerceAtMost(h - 2 * density)
+        val side = maxOf(6 * density, corner * 0.45f)
+        band.set(box.left + side, box.top + density, box.right - side, box.top + density + bandHeight)
+        bandCorner = minOf(bandHeight / 2, corner)
+        specularPaint.shader = LinearGradient(
+            0f, band.top, 0f, band.bottom, specular, specular and 0xFFFFFF, Shader.TileMode.CLAMP,
         )
-        if (rim != null) {
-            stroke.shader = LinearGradient(box.left, box.top, box.right, box.bottom, rim, null, Shader.TileMode.CLAMP)
-        }
+        val bottom = (h * 0.3f).coerceIn(6 * density, 24 * density)
+        glintPaint.shader = LinearGradient(
+            0f, box.bottom - bottom, 0f, box.bottom, glint and 0xFFFFFF, glint, Shader.TileMode.CLAMP,
+        )
     }
 
     override fun draw(canvas: Canvas) {
-        if (Color.alpha(wash) > 0) canvas.drawRoundRect(box, radius, radius, fill)
-        if (Color.alpha(sheen) > 0) canvas.drawRoundRect(box, radius, radius, sheenPaint)
-        if (rim != null) canvas.drawRoundRect(edge, radius - rimWidth / 2, radius - rimWidth / 2, stroke)
+        canvas.drawRoundRect(box, corner, corner, surfacePaint)
+        canvas.drawRoundRect(box, corner, corner, tintPaint)
+        canvas.drawRoundRect(box, corner, corner, topPaint)
+        canvas.drawRoundRect(band, bandCorner, bandCorner, specularPaint)
+        canvas.drawRoundRect(box, corner, corner, glintPaint)
+        canvas.drawRoundRect(edge, corner - density / 2, corner - density / 2, rimPaint)
+    }
+
+    // The rounded shape, so ripples and clipToOutline follow the glass's corners.
+    override fun getOutline(outline: Outline) {
+        outline.setRoundRect(bounds, corner)
     }
 
     override fun setAlpha(alpha: Int) = Unit
@@ -212,9 +278,4 @@ private class GlassFinish(
 
     @Deprecated("Deprecated in Java")
     override fun getOpacity(): Int = PixelFormat.TRANSLUCENT
-
-    private companion object {
-        /** Like glass_sheen_28: the shine is gone 35% of the way down. */
-        const val SHEEN_DEPTH = 0.35f
-    }
 }
