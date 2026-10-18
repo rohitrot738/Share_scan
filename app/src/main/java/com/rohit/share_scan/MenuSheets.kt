@@ -11,6 +11,7 @@ import androidx.annotation.StyleRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -25,6 +26,7 @@ import com.rohit.share_scan.databinding.SheetHelpBinding
 import com.rohit.share_scan.databinding.SheetMenuBinding
 import com.rohit.share_scan.databinding.SheetSettingsBinding
 import com.rohit.share_scan.databinding.SheetThemeBinding
+import com.rohit.share_scan.databinding.SheetTopBarBinding
 import kotlin.math.roundToInt
 
 @get:StyleRes
@@ -72,8 +74,16 @@ val ChartSite.label: Int
         ChartSite.SCREENER -> R.string.chart_site_screener
     }
 
-/** Shared shape of the menu's sheets: content-height, fully expanded, no half-open state. */
-private fun AppCompatActivity.showSheet(root: android.view.View, fullHeight: Boolean = false): BottomSheetDialog {
+/**
+ * Shared shape of the menu's sheets: content-height, fully expanded, no half-open state. Its [bar]'s ✕ closes it; a
+ * sheet opened from the menu gets [onBack], which ← and the system back button run to return to the menu.
+ */
+private fun AppCompatActivity.showSheet(
+    root: android.view.View,
+    bar: SheetTopBarBinding,
+    onBack: (() -> Unit)? = null,
+    fullHeight: Boolean = false,
+): BottomSheetDialog {
     val dialog = BottomSheetDialog(this)
     if (fullHeight) {
         val height = (resources.displayMetrics.heightPixels * 0.9f).toInt()
@@ -83,6 +93,16 @@ private fun AppCompatActivity.showSheet(root: android.view.View, fullHeight: Boo
     }
     dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     dialog.behavior.skipCollapsed = true
+    bar.sheetClose.setOnClickListener { dialog.dismiss() }
+    if (onBack != null) {
+        val back = {
+            dialog.dismiss()
+            onBack()
+        }
+        bar.sheetBack.isVisible = true
+        bar.sheetBack.setOnClickListener { back() }
+        dialog.onBackPressedDispatcher.addCallback(dialog) { back() }
+    }
     dialog.show()
     return dialog
 }
@@ -116,7 +136,7 @@ class MenuSheet(
         add(Entry.HELP, R.drawable.ic_help, R.string.menu_help, activity.getString(R.string.menu_help_body))
         add(Entry.SHARE, R.drawable.ic_share, R.string.menu_share, activity.getString(R.string.menu_share_body))
         add(Entry.ABOUT, R.drawable.ic_info, R.string.menu_about, activity.getString(R.string.menu_about_body))
-        dialog = activity.showSheet(ui.root)
+        dialog = activity.showSheet(ui.root, ui.sheetTopBar)
         return dialog
     }
 }
@@ -127,6 +147,7 @@ class SettingsSheet(
     private val settings: AppSettings,
     private val watchlistSize: Int,
     private val actions: Actions,
+    private val onBack: () -> Unit,
 ) {
     interface Actions {
         fun keepScreenOnChanged(on: Boolean)
@@ -178,7 +199,7 @@ class SettingsSheet(
         ui.settingClearRanks.setOnClickListener {
             confirm(activity.getString(R.string.settings_confirm_ranks)) { actions.clearRankHistory() }
         }
-        val sheet = activity.showSheet(ui.root)
+        val sheet = activity.showSheet(ui.root, ui.sheetTopBar, onBack)
         // Closing the sheet (or the screen being re-created) takes an open "पक्का?" dialog with it.
         sheet.setOnDismissListener { confirmDialog?.dismiss() }
         return sheet
@@ -218,6 +239,7 @@ class ThemeSheet(
     private val activity: AppCompatActivity,
     private val current: ThemeChoice,
     private val onPick: (ThemeChoice) -> Unit,
+    private val onBack: () -> Unit,
 ) {
     fun show(): BottomSheetDialog {
         val ui = SheetThemeBinding.inflate(activity.layoutInflater)
@@ -247,7 +269,7 @@ class ThemeSheet(
                 }
             }
         }
-        dialog = activity.showSheet(ui.root)
+        dialog = activity.showSheet(ui.root, ui.sheetTopBar, onBack)
         return dialog
     }
 
@@ -255,7 +277,7 @@ class ThemeSheet(
 }
 
 /** How the score, tiers, badges and trade plan work, in the same words the cards and detail sheet use. */
-class HelpSheet(private val activity: AppCompatActivity) {
+class HelpSheet(private val activity: AppCompatActivity, private val onBack: () -> Unit) {
     fun show(): BottomSheetDialog {
         val ui = SheetHelpBinding.inflate(activity.layoutInflater)
         fun add(title: String, body: String, weight: Int = 0) {
@@ -291,7 +313,7 @@ class HelpSheet(private val activity: AppCompatActivity) {
         add(activity.getString(R.string.help_plan_title), activity.getString(R.string.help_plan_body))
         add(activity.getString(R.string.help_badges_title), activity.getString(R.string.help_badges_body))
         add(activity.getString(R.string.about_disclaimer_title), activity.getString(R.string.help_disclaimer))
-        return activity.showSheet(ui.root, fullHeight = true)
+        return activity.showSheet(ui.root, ui.sheetTopBar, onBack, fullHeight = true)
     }
 }
 
@@ -302,12 +324,13 @@ class AboutSheet(
     private val build: Long,
     private val onShare: () -> Unit,
     private val onReleases: () -> Unit,
+    private val onBack: () -> Unit,
 ) {
     fun show(): BottomSheetDialog {
         val ui = SheetAboutBinding.inflate(activity.layoutInflater)
         ui.aboutVersion.text = activity.getString(R.string.about_version, version, build.toInt())
         ui.aboutShare.setOnClickListener { onShare() }
         ui.aboutReleases.setOnClickListener { onReleases() }
-        return activity.showSheet(ui.root)
+        return activity.showSheet(ui.root, ui.sheetTopBar, onBack)
     }
 }

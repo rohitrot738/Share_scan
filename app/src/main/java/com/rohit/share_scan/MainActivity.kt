@@ -463,17 +463,17 @@ class MainActivity : AppCompatActivity() {
     private fun onMenuPick(entry: MenuSheet.Entry) {
         when (entry) {
             MenuSheet.Entry.SETTINGS -> showMenuSheet {
-                SettingsSheet(this, settings, scan.uiState.value.watchlist.size, settingsActions).show()
+                SettingsSheet(this, settings, scan.uiState.value.watchlist.size, settingsActions, ::openMenu).show()
             }
-            MenuSheet.Entry.THEME -> showMenuSheet { ThemeSheet(this, settings.theme, ::applyTheme).show() }
+            MenuSheet.Entry.THEME -> showMenuSheet { ThemeSheet(this, settings.theme, ::applyTheme, ::openMenu).show() }
             MenuSheet.Entry.UPDATE -> {
                 if (updates.canCheck) Toast.makeText(this, R.string.update_checking, Toast.LENGTH_SHORT).show()
                 updates.checkNow()
             }
-            MenuSheet.Entry.HELP -> showMenuSheet { HelpSheet(this).show() }
+            MenuSheet.Entry.HELP -> showMenuSheet { HelpSheet(this, ::openMenu).show() }
             MenuSheet.Entry.SHARE -> shareApp()
             MenuSheet.Entry.ABOUT -> showMenuSheet {
-                AboutSheet(this, updates.installedName, updates.installedCode, ::shareApp, ::openReleases).show()
+                AboutSheet(this, updates.installedName, updates.installedCode, ::shareApp, ::openReleases, ::openMenu).show()
             }
         }
     }
