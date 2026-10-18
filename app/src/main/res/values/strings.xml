@@ -18,7 +18,6 @@
     <string name="percent">%1$d%%</string>
 
     <string name="action_start">SCAN</string>
-    <string name="action_scanning">स्कैन चल रहा है…</string>
     <string name="action_rescan">दोबारा स्कैन करें</string>
     <string name="action_retry">फिर से कोशिश करें</string>
 

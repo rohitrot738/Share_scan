@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import java.time.LocalDate
 import java.util.concurrent.Executors
+import java.util.concurrent.atomic.AtomicBoolean
 
 enum class ScanPhase { IDLE, LOADING, SCANNING, DONE, FAILED }
 
@@ -49,6 +50,12 @@ data class ScanUiState(
     val query: String = "",
     /** Rank moves since the previous completed scan, by symbol; empty on the first scan. */
     val rankBadges: Map<String, RankBadge> = emptyMap(),
+    /** Counts up with every scan, so progress a stopped scan's threads report late can be told apart and ignored. */
+    val scanId: Int = 0,
+    /** The user asked to stop; the scan is finishing the requests already under way. */
+    val stopping: Boolean = false,
+    /** With [ScanPhase.DONE]: the user stopped the scan, so [results] hold only the stocks scored before that. */
+    val stopped: Boolean = false,
 ) {
     val isRunning: Boolean get() = phase == ScanPhase.LOADING || phase == ScanPhase.SCANNING
 
@@ -117,12 +124,17 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         ),
     )
     val uiState: StateFlow<ScanUiState> = state.asStateFlow()
+    /** The running scan's stop signal; each scan gets its own, so a stop can never reach the scan after it. */
+    private var stopSignal = AtomicBoolean(false)
 
     fun startScan() {
         val previous = state.value
         if (previous.isRunning) return
+        val stop = AtomicBoolean(false).also { stopSignal = it }
+        val scanId = previous.scanId + 1
         state.value = ScanUiState(
             phase = ScanPhase.LOADING,
+            scanId = scanId,
             startedAt = SystemClock.elapsedRealtime(),
             sort = previous.sort,
             filters = previous.filters,
@@ -137,29 +149,61 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
                     includeNse = settings.includeNse,
                     includeSme = settings.includeSme,
                     includeBse = settings.includeBse,
+                    isStopped = stop::get,
                 ) { finished, total ->
-                    // Progress arrives from several pool threads, so keep the highest count seen.
-                    state.update { it.copy(phase = ScanPhase.SCANNING, done = maxOf(it.done, finished), total = total) }
+                    // Progress arrives from several pool threads, so keep the highest count seen. Threads a stop left
+                    // behind can still report after their scan settled, even during the next scan, so only this
+                    // scan's own run takes it.
+                    state.update {
+                        if (it.scanId != scanId || !it.isRunning) it
+                        else it.copy(phase = ScanPhase.SCANNING, done = maxOf(it.done, finished), total = total)
+                    }
                 }
             }
             val finishedAt = SystemClock.elapsedRealtime()
-            val ranked = outcome.getOrNull()?.results?.sortedByDescending { it.score }.orEmpty()
-            val badges = if (outcome.isSuccess) trackRanks(ranked) else emptyMap()
+            val output = outcome.getOrNull()
+            val ranked = output?.results?.sortedByDescending { it.score }.orEmpty()
+            // A stopped scan ranked only part of the market, so it neither gets badges nor becomes the scan that the
+            // next one is measured against.
+            val badges = if (output != null && !output.stopped) trackRanks(ranked) else emptyMap()
             state.update { current ->
-                outcome.fold(
-                    onSuccess = { output ->
-                        current.copy(
-                            phase = ScanPhase.DONE,
-                            finishedAt = finishedAt,
-                            results = ranked,
-                            marketCapDate = output.marketCapDate,
-                            rankBadges = badges,
-                        )
-                    },
-                    onFailure = { error ->
-                        current.copy(phase = ScanPhase.FAILED, finishedAt = finishedAt, error = error.message)
-                    },
-                )
+                when {
+                    // A stop while the lists loaded has settled this scan already, and a newer scan may own the state.
+                    current.scanId != scanId || !current.isRunning -> current
+                    output != null -> current.copy(
+                        phase = ScanPhase.DONE,
+                        finishedAt = finishedAt,
+                        results = ranked,
+                        marketCapDate = output.marketCapDate,
+                        rankBadges = badges,
+                        stopping = false,
+                        stopped = output.stopped,
+                    )
+                    else -> current.copy(
+                        phase = ScanPhase.FAILED,
+                        finishedAt = finishedAt,
+                        error = outcome.exceptionOrNull()?.message,
+                        stopping = false,
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * Stops the running scan. Mid-scan the scanner winds down within about a second and the stocks scored so far stay,
+     * ranked as usual; while the stock lists load nothing is scored yet, so that stop settles at once.
+     */
+    fun stopScan() {
+        if (!state.value.isRunning) return
+        stopSignal.set(true)
+        val now = SystemClock.elapsedRealtime()
+        state.update { current ->
+            when {
+                !current.isRunning -> current
+                current.phase == ScanPhase.LOADING ->
+                    current.copy(phase = ScanPhase.DONE, finishedAt = now, stopped = true)
+                else -> current.copy(stopping = true)
             }
         }
     }
@@ -221,6 +265,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     override fun onCleared() {
+        stopSignal.set(true)
         worker.shutdownNow()
     }
 }

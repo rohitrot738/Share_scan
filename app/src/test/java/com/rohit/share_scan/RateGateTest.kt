@@ -1,6 +1,8 @@
 package com.rohit.share_scan
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class RateGateTest {
@@ -33,6 +35,24 @@ class RateGateTest {
         gate.acquire()
 
         assertEquals(listOf(5_100L, 100L), sleeps)
+    }
+
+    @Test
+    fun stoppedCallerTakesNoTurn() {
+        repeat(3) { gate.acquire() }
+
+        assertFalse(gate.acquire { true })
+        assertTrue(gate.acquire())
+        assertEquals(listOf(100L), sleeps)
+    }
+
+    @Test
+    fun callerStoppedWhileWaitingSendsNothing() {
+        var stopped = false
+        val gate = RateGate(burst = 1, perSecond = 10.0, now = { clock }, sleep = { clock += it; stopped = true })
+
+        assertTrue(gate.acquire { stopped })
+        assertFalse(gate.acquire { stopped })
     }
 
     @Test

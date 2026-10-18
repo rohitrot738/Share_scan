@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The hero button while a scan runs, and while a stop finishes the requests already under way. -->
+    <string name="action_stop">रोकें</string>
+    <string name="action_stopping">रोक रहे हैं…</string>
+
+    <string name="status_stopped_title">स्कैन रोका गया</string>
+    <string name="status_stopped_body">%1$s / %2$s stocks जाँचे • %3$s में</string>
+    <string name="status_stopped_early_body">Stock list आने से पहले ही रोक दिया गया।</string>
+
+    <string name="empty_stopped_title">कोई stock score नहीं हुआ</string>
+    <string name="empty_stopped_body">स्कैन इससे पहले ही रोक दिया गया। ऊपर का बटन दबाकर फिर से स्कैन करें।</string>
+</resources>

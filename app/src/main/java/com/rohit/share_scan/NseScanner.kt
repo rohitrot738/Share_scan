@@ -10,7 +10,9 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import java.util.concurrent.Callable
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.zip.GZIPInputStream
 
@@ -82,8 +84,11 @@ data class ScanResult(
         get() = structure?.sma50?.takeIf { it > 0.0 }?.let { (price / it - 1.0) * 100.0 }
 }
 
-/** Every stock one scan could score, best score first. [marketCapDate] is null when market caps are missing. */
-data class ScanOutput(val results: List<ScanResult>, val marketCapDate: LocalDate?)
+/**
+ * Every stock one scan could score, best score first. [marketCapDate] is null when market caps are missing; [stopped]
+ * means the user cut the scan short, so [results] hold only the stocks scored before that.
+ */
+data class ScanOutput(val results: List<ScanResult>, val marketCapDate: LocalDate?, val stopped: Boolean = false)
 
 /** Where a stock is listed; decides its Yahoo ticker, chart links and label. */
 enum class Market { NSE, NSE_SME, BSE }
@@ -116,6 +121,10 @@ object NseScanner {
     private const val HTTP_TOO_MANY_REQUESTS = 429
     private const val RATE_LIMIT_TRIES = 6
     private const val RATE_LIMIT_PAUSE_MS = 45_000L
+    /** How often a scan waiting on its pool looks for the user's stop. */
+    private const val STOP_CHECK_MS = 200L
+    /** How long a stopped scan waits for the chart requests already in flight before it returns without them. */
+    private const val STOP_GRACE_MS = 1_000L
     private const val USER_AGENT = "ShareScan/1.0 (Android)"
     private val BYTE_ORDER_MARK = Char(0xFEFF)
     private const val BROWSER_AGENT =
@@ -125,11 +134,15 @@ object NseScanner {
      * Scans the markets switched on in Settings: NSE's main board ([includeNse]), NSE's SME platform ([includeSme])
      * and BSE ([includeBse]). The NSE list is still read when its stocks are off, to give BSE shares their NSE market
      * cap; an optional list that does not load is skipped and the rest of the scan runs.
+     *
+     * Once [isStopped] turns true the scan winds down within about a second and returns the stocks scored so far,
+     * marked [ScanOutput.stopped]; a stop while the lists load returns no stocks.
      */
     fun scan(
         includeNse: Boolean = true,
         includeSme: Boolean = false,
         includeBse: Boolean = false,
+        isStopped: () -> Boolean = { false },
         onProgress: (Int, Int) -> Unit,
     ): ScanOutput {
         val main = if (includeNse) {
@@ -137,8 +150,9 @@ object NseScanner {
         } else {
             runCatching { parseListings(get(NSE_CSV), Market.NSE) }.getOrDefault(emptyList())
         }
-        val sme = if (includeSme) loadSmeListings() else emptyList()
-        val bse = if (includeBse) loadBseListings() else emptyList()
+        val sme = if (includeSme) loadSmeListings(isStopped) else emptyList()
+        val bse = if (includeBse) loadBseListings(isStopped) else emptyList()
+        if (isStopped()) return ScanOutput(emptyList(), null, stopped = true)
         val symbols = combine(if (includeNse) main else emptyList(), sme, bse)
         if (symbols.isEmpty()) error("कोई stock list नहीं मिली")
         val nseSymbolByIsin = main.filter { it.isin.isNotEmpty() }.associate { it.isin to it.symbol }
@@ -147,23 +161,48 @@ object NseScanner {
         val done = AtomicInteger(0)
         val pool = Executors.newFixedThreadPool(4)
         try {
-            val issuedShares = pool.submit(Callable { runCatching { loadIssuedShares() }.getOrNull() })
-            val tasks = symbols.map { listing -> Callable {
-                try { score(listing) } finally { onProgress(done.incrementAndGet(), symbols.size) }
-            }}
-            val scored = pool.invokeAll(tasks).mapNotNull { future ->
-                runCatching { future.get() }.getOrNull()
+            val issuedShares = pool.submit(Callable { runCatching { loadIssuedShares(isStopped) }.getOrNull() })
+            val scored = runStoppable(pool, symbols, isStopped) { listing ->
+                try { score(listing, isStopped) } finally { onProgress(done.incrementAndGet(), symbols.size) }
             }
-            val shares = runCatching { issuedShares.get() }.getOrNull()
+            // After a stop the share counts may not have arrived yet; those rows then go without a market cap.
+            val shares = if (issuedShares.isDone) runCatching { issuedShares.get() }.getOrNull() else null
             val results = scored.map { row ->
                 val key = sharesKey(row, isinBySymbol[row.symbol].orEmpty(), nseSymbolByIsin) ?: return@map row
                 val issued = shares?.second?.get(key) ?: return@map row
                 row.copy(marketCapCr = row.price * issued / CRORE)
             }
-            return ScanOutput(results.sortedByDescending { it.score }, shares?.first)
+            // Fewer stocks checked than listed means a stop cut the scan short.
+            val stopped = done.get() < symbols.size
+            return ScanOutput(results.sortedByDescending { it.score }, shares?.first, stopped)
         } finally {
+            // Also interrupts the threads a stop left behind, such as one sleeping out Yahoo's limit, so they end now.
             pool.shutdownNow()
         }
+    }
+
+    /**
+     * Runs [work] on every item across [pool] and returns what it gave, in item order; [pool] takes no new tasks
+     * afterwards. Once [isStopped] turns true the items still queued are skipped and the ones under way get [graceMs]
+     * to finish. Whatever is later than that is left out, for the caller's shutdownNow() to end.
+     */
+    internal fun <T, R : Any> runStoppable(
+        pool: ExecutorService,
+        items: List<T>,
+        isStopped: () -> Boolean,
+        checkMs: Long = STOP_CHECK_MS,
+        graceMs: Long = STOP_GRACE_MS,
+        work: (T) -> R?,
+    ): List<R> {
+        val tasks = items.map { item -> pool.submit(Callable { if (isStopped()) null else work(item) }) }
+        pool.shutdown()
+        while (!pool.awaitTermination(checkMs, TimeUnit.MILLISECONDS)) {
+            if (isStopped()) {
+                pool.awaitTermination(graceMs, TimeUnit.MILLISECONDS)
+                break
+            }
+        }
+        return tasks.mapNotNull { task -> if (task.isDone) runCatching { task.get() }.getOrNull() else null }
     }
 
     /**
@@ -192,11 +231,15 @@ object NseScanner {
         return bse.filter { it.isin !in isins && it.symbol !in symbols }
     }
 
-    /** The latest BSE bhavcopy from the last week; on holidays BSE serves a web page instead, which parses to nothing. */
-    private fun loadBseListings(): List<Listing> {
+    /**
+     * The latest BSE bhavcopy from the last week; on holidays BSE serves a web page instead, which parses to nothing.
+     * A stop ends the search for an older day.
+     */
+    private fun loadBseListings(isStopped: () -> Boolean): List<Listing> {
         val today = LocalDate.now(INDIA)
         val format = DateTimeFormatter.ofPattern("yyyyMMdd", Locale.US)
         for (daysBack in 0L until 8L) {
+            if (isStopped()) break
             val address = BSE_BHAVCOPY.format(today.minusDays(daysBack).format(format))
             val listings = runCatching {
                 parseBseBhavcopy(open(address, browser = true, referer = "https://www.bseindia.com/") {
@@ -245,8 +288,9 @@ object NseScanner {
         else name.lowercase(Locale.ROOT).split(' ').joinToString(" ") { word -> word.replaceFirstChar { it.titlecase(Locale.ROOT) } }
 
     /** The SME list from whichever NSE host answers; empty when none does, so the main-board scan still runs. */
-    private fun loadSmeListings(): List<Listing> {
+    private fun loadSmeListings(isStopped: () -> Boolean): List<Listing> {
         for (address in SME_CSVS) {
+            if (isStopped()) break
             val listings = runCatching { parseListings(open(address, browser = true) { it.bufferedReader().readText() }, Market.NSE_SME) }
                 .getOrNull()
             if (!listings.isNullOrEmpty()) return listings
@@ -286,10 +330,11 @@ object NseScanner {
     }
 
     /** One chart request per ticker: about 62 daily sessions, enough for the 50-day average. */
-    private fun score(listing: Listing): ScanResult? {
+    private fun score(listing: Listing, isStopped: () -> Boolean): ScanResult? {
         val symbol = listing.symbol
-        val signals = yahooTickers(listing).firstNotNullOfOrNull { ticker -> runCatching { chart(ticker) }.getOrNull() }
-            ?: return null
+        val signals = yahooTickers(listing).firstNotNullOfOrNull { ticker ->
+            runCatching { chart(ticker, isStopped) }.getOrNull()
+        } ?: return null
         return ScanResult(
             symbol = symbol,
             price = signals.price,
@@ -307,11 +352,12 @@ object NseScanner {
 
     /**
      * [signalsFor] paced by [yahoo]. On a 429 every thread waits [RATE_LIMIT_PAUSE_MS] and this ticker is asked again,
-     * so a scan that runs into Yahoo's limit slows down instead of losing the rest of its stocks.
+     * so a scan that runs into Yahoo's limit slows down instead of losing the rest of its stocks. Once [isStopped]
+     * turns true no request or retry goes out and the answer is null.
      */
-    private fun chart(ticker: String): BreakoutSignals.Signals? {
+    private fun chart(ticker: String, isStopped: () -> Boolean): BreakoutSignals.Signals? {
         repeat(RATE_LIMIT_TRIES) {
-            yahoo.acquire()
+            if (!yahoo.acquire(isStopped)) return null
             try {
                 return signalsFor(ticker)
             } catch (limited: HttpStatusException) {
@@ -342,12 +388,13 @@ object NseScanner {
 
     /**
      * Issued share counts from NSE's daily security file, the same source the Python scanner uses for
-     * market cap. NSE only publishes it on trading days, so recent dates are tried newest first.
+     * market cap. NSE only publishes it on trading days, so recent dates are tried newest first; a stop ends that.
      */
-    private fun loadIssuedShares(): Pair<LocalDate, Map<String, Double>>? {
+    private fun loadIssuedShares(isStopped: () -> Boolean): Pair<LocalDate, Map<String, Double>>? {
         val today = LocalDate.now(ZoneId.of("Asia/Kolkata"))
         val format = DateTimeFormatter.ofPattern("ddMMyyyy", Locale.US)
         for (daysBack in 0L until 10L) {
+            if (isStopped()) return null
             val day = today.minusDays(daysBack)
             val shares = runCatching {
                 open(SECURITY_FILE.format(day.format(format)), browser = true) { GZIPInputStream(it).use(::parseIssuedShares) }

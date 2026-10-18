@@ -75,8 +75,13 @@ class MainActivity : AppCompatActivity() {
         ui.menuButton.setOnClickListener { openMenu() }
 
         ui.startButton.setOnClickListener {
-            ui.appBar.setExpanded(true, true)
-            scan.startScan()
+            // While a scan runs the same button stops it.
+            if (scan.uiState.value.isRunning) {
+                scan.stopScan()
+            } else {
+                ui.appBar.setExpanded(true, true)
+                scan.startScan()
+            }
         }
         ui.filterChip.setOnClickListener {
             filterSheet?.dismiss()
@@ -152,12 +157,31 @@ class MainActivity : AppCompatActivity() {
                 null,
                 state.percent,
             )
-            ScanPhase.DONE -> showStatus(
-                getString(R.string.status_done_title),
-                getString(R.string.status_done_body, state.visible.size, clock),
-                R.drawable.ic_check,
-                100,
-            )
+            // A stopped scan keeps its ring where it stopped, so the share of stocks checked shows at a glance.
+            ScanPhase.DONE -> if (state.stopped) {
+                showStatus(
+                    getString(R.string.status_stopped_title),
+                    if (state.total > 0) {
+                        getString(
+                            R.string.status_stopped_body,
+                            StockFormat.count(state.done),
+                            StockFormat.count(state.total),
+                            clock,
+                        )
+                    } else {
+                        getString(R.string.status_stopped_early_body)
+                    },
+                    R.drawable.ic_stop,
+                    state.percent,
+                )
+            } else {
+                showStatus(
+                    getString(R.string.status_done_title),
+                    getString(R.string.status_done_body, state.visible.size, clock),
+                    R.drawable.ic_check,
+                    100,
+                )
+            }
             ScanPhase.FAILED -> showStatus(
                 getString(R.string.status_failed_title),
                 state.error?.let { getString(R.string.status_failed_detail, it) }
@@ -169,13 +193,19 @@ class MainActivity : AppCompatActivity() {
 
         val (label, icon) = when (state.phase) {
             ScanPhase.IDLE -> R.string.action_start to R.drawable.ic_play
-            ScanPhase.LOADING, ScanPhase.SCANNING -> R.string.action_scanning to R.drawable.ic_radar
-            ScanPhase.DONE -> R.string.action_rescan to R.drawable.ic_refresh
+            ScanPhase.LOADING, ScanPhase.SCANNING ->
+                (if (state.stopping) R.string.action_stopping else R.string.action_stop) to R.drawable.ic_stop
+            ScanPhase.DONE -> if (state.stopped) {
+                R.string.action_start to R.drawable.ic_play
+            } else {
+                R.string.action_rescan to R.drawable.ic_refresh
+            }
             ScanPhase.FAILED -> R.string.action_retry to R.drawable.ic_refresh
         }
         ui.startButton.setText(label)
         ui.startButton.setIconResource(icon)
-        ui.startButton.isEnabled = !state.isRunning
+        // A running scan's button stops it; it rests only while a stop finishes the requests under way.
+        ui.startButton.isEnabled = !state.stopping
     }
 
     /** [icon] replaces the percentage in the middle of the progress ring when it is not null. */
@@ -254,6 +284,7 @@ class MainActivity : AppCompatActivity() {
                     R.drawable.ic_radar,
                 )
                 state.phase == ScanPhase.IDLE -> Triple(R.string.empty_title, R.string.empty_body, R.drawable.ic_trending_up)
+                state.stopped -> Triple(R.string.empty_stopped_title, R.string.empty_stopped_body, R.drawable.ic_stop)
                 else -> Triple(R.string.empty_failed_title, R.string.empty_failed_body, R.drawable.ic_error)
             }
             ui.emptyTitle.setText(title)
