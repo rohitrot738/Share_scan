@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
@@ -70,7 +71,16 @@ class MainActivity : AppCompatActivity() {
         ui.galaxySky.palette = settings.theme.skyPalette
         ui.galaxySky.animate = settings.skyAnimation
         ui.hero.clipToOutline = true
-        ui.hero.applyGlassHero()
+        // The scan board, its button, the stat cards, the logo and the empty-state circle wear the Filters chip's glass.
+        ui.hero.wearChipGlass(HERO_CORNER_DP, tintBoost = 1.5f)
+        ui.startButton.wearChipGlass(START_BUTTON_CORNER_DP, tintBoost = 1.8f, ripple = true)
+        ui.logoTile.wearChipGlass(LOGO_CORNER_DP, tintBoost = 3f)
+        ui.emptyCircle.wearChipGlass(null, tintBoost = 2f)
+        listOf(ui.statCardScanned, ui.statCardTop, ui.statCardSpikes).forEach { card ->
+            card.setCardBackgroundColor(Color.TRANSPARENT)
+            card.strokeWidth = 0
+            card.getChildAt(0).wearChipGlass(STAT_CARD_CORNER_DP)
+        }
         // Frosted glass: the sky behind the scan board is drawn blurred, and follows the board as the bar scrolls.
         val glass = settings.glassStyle
         ui.galaxySky.frost(ui.hero, glass.heroFrost, glass.heroShade, HERO_CORNER_DP * resources.displayMetrics.density)

@@ -33,6 +33,7 @@
             app:layout_scrollFlags="scroll">
 
             <FrameLayout
+                android:id="@+id/logoTile"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:background="?attr/scanLogoBackground">
@@ -319,16 +320,11 @@
                     android:textColor="@color/hero_button_text"
                     android:textSize="15sp"
                     android:textStyle="bold"
-                    android:foreground="@drawable/glass_button_sheen"
-                    app:backgroundTint="@color/hero_button_bg"
                     app:cornerRadius="18dp"
                     app:icon="@drawable/ic_play"
                     app:iconGravity="textStart"
                     app:iconPadding="8dp"
-                    app:iconTint="@color/hero_button_text"
-                    app:rippleColor="@color/hero_button_ripple"
-                    app:strokeColor="@color/hero_button_rim"
-                    app:strokeWidth="1dp" />
+                    app:iconTint="@color/hero_button_text" />
             </LinearLayout>
         </FrameLayout>
 
@@ -343,6 +339,7 @@
             app:layout_scrollFlags="scroll">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/statCardScanned"
                 style="@style/ShareScanCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -376,6 +373,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/statCardTop"
                 style="@style/ShareScanCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -410,6 +408,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/statCardSpikes"
                 style="@style/ShareScanCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -691,6 +690,7 @@
                 android:paddingBottom="32dp">
 
                 <FrameLayout
+                    android:id="@+id/emptyCircle"
                     android:layout_width="96dp"
                     android:layout_height="96dp"
                     android:background="@drawable/bg_circle"

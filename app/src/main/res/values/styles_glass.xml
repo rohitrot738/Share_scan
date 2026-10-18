@@ -14,11 +14,6 @@
         <item name="glassCardRimAlpha">1.0</item>
         <item name="glassSheetTint">?attr/scanSheet</item>
         <item name="glassSheetAlpha">1.0</item>
-        <item name="glassHeroAlpha">1.0</item>
-        <item name="glassHeroBase">@android:color/transparent</item>
-        <item name="glassHeroWash">@android:color/transparent</item>
-        <item name="glassHeroSheen">@android:color/transparent</item>
-        <item name="glassHeroRim">@android:color/transparent</item>
         <item name="glassChipSurface">#59000000</item>
         <item name="glassChipSurfaceOn">#4D000000</item>
         <item name="glassChipTintAlpha">0.20</item>
@@ -45,9 +40,6 @@
         <item name="glassCardRimTint">@android:color/white</item>
         <item name="glassCardRimAlpha">0.42</item>
         <item name="glassSheetAlpha">0.76</item>
-        <item name="glassHeroAlpha">0.55</item>
-        <item name="glassHeroSheen">#29FFFFFF</item>
-        <item name="glassHeroRim">#A6FFFFFF</item>
         <item name="glassChipSurface">#14000000</item>
         <item name="glassChipSurfaceOn">#0F000000</item>
         <item name="glassChipTintAlpha">0.10</item>
@@ -68,8 +60,6 @@
         <item name="glassCardRimAlpha">0.45</item>
         <item name="glassSheetTint">?attr/colorSurfaceContainerLowest</item>
         <item name="glassSheetAlpha">0.93</item>
-        <item name="glassHeroBase">#59000000</item>
-        <item name="glassHeroWash">#4D000000</item>
         <item name="glassChipSurface">#A6000000</item>
         <item name="glassChipSurfaceOn">#8C000000</item>
         <item name="glassChipTintAlpha">0.12</item>
@@ -92,8 +82,6 @@
         <item name="glassCardRimAlpha">0.80</item>
         <item name="glassSheetTint">?attr/colorPrimaryContainer</item>
         <item name="glassSheetAlpha">0.84</item>
-        <item name="glassHeroWash">@color/glass_accent_wash</item>
-        <item name="glassHeroRim">@color/glass_accent_rim</item>
         <item name="glassChipSurface">#40000000</item>
         <item name="glassChipSurfaceOn">#33000000</item>
         <item name="glassChipTintAlpha">0.36</item>
@@ -111,8 +99,6 @@
         <item name="glassCardRimTint">?attr/glassIrisTop</item>
         <item name="glassCardRimAlpha">0.85</item>
         <item name="glassSheetAlpha">0.94</item>
-        <item name="glassHeroAlpha">0.80</item>
-        <item name="glassHeroSheen">#24FFFFFF</item>
         <item name="glassChipSurface">#40000000</item>
         <item name="glassChipSurfaceOn">#33000000</item>
         <item name="glassChipTintAlpha">0.14</item>
@@ -134,7 +120,6 @@
         <item name="glassCardTint">?attr/colorSurfaceContainer</item>
         <item name="glassCardRimAlpha">0.70</item>
         <item name="glassSheetTint">?attr/colorSurfaceContainerLow</item>
-        <item name="glassHeroBase">?attr/colorSurfaceContainerLow</item>
         <item name="glassChipSurface">?attr/colorSurfaceContainerHigh</item>
         <item name="glassChipSurfaceOn">?attr/colorSurfaceContainerHigh</item>
         <item name="glassChipRimAlpha">0.12</item>

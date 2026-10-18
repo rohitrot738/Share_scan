@@ -17,17 +17,6 @@
     <attr name="glassSheetTint" format="color" />
     <attr name="glassSheetAlpha" format="float" />
 
-    <!--
-        Hero (scan board), read by applyGlassHero(): the theme's hero drawable at glassHeroAlpha, over a glassHeroBase
-        fill and under a glassHeroWash, with a glassHeroSheen across the top and a glassHeroRim (iridescent instead
-        when glassIrisTop is set). Transparent means none.
-    -->
-    <attr name="glassHeroAlpha" format="float" />
-    <attr name="glassHeroBase" format="color" />
-    <attr name="glassHeroWash" format="color" />
-    <attr name="glassHeroSheen" format="color" />
-    <attr name="glassHeroRim" format="color" />
-
     <!-- Chips: the smoked base under the accent tint (unchecked, and checked/activated/disabled), the tint and the rim. -->
     <attr name="glassChipSurface" format="color" />
     <attr name="glassChipSurfaceOn" format="color" />
