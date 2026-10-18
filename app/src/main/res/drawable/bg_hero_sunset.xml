@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Hero card for the Sunset theme: bg_hero.xml with this theme's colours. The first layer is the rounded
+    rectangle, so the card's outline (clipToOutline) keeps its 28dp corners.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <corners android:radius="28dp" />
+            <gradient
+                android:angle="45"
+                android:centerColor="@color/sunset_hero_glass_mid"
+                android:endColor="@color/sunset_hero_glass_end"
+                android:startColor="@color/sunset_hero_glass_start"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <corners android:radius="28dp" />
+            <gradient
+                android:centerX="0.2"
+                android:centerY="0.85"
+                android:endColor="#00F43F5E"
+                android:gradientRadius="85%"
+                android:startColor="#59F43F5E"
+                android:type="radial" />
+        </shape>
+    </item>
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <corners android:radius="28dp" />
+            <gradient
+                android:centerX="0.92"
+                android:centerY="0.12"
+                android:endColor="#00F59E0B"
+                android:gradientRadius="80%"
+                android:startColor="#4DF59E0B"
+                android:type="radial" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/galaxy_hero_stars" />
+    <item android:drawable="@drawable/glass_sheen_28" />
+</layer-list>

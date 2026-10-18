@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Window background for the Mars theme: bg_galaxy.xml with this theme's sky and nebula tints. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:centerColor="@color/mars_space_mid"
+                android:endColor="@color/mars_space_bottom"
+                android:startColor="@color/mars_bg"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- Red glow behind the hero and stats, upper right. -->
+    <item
+        android:width="480dp"
+        android:height="480dp"
+        android:end="-200dp"
+        android:gravity="top|end"
+        android:top="90dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#06EF4444"
+                android:endColor="#00EF4444"
+                android:gradientRadius="50%"
+                android:startColor="#12EF4444"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Crimson haze, middle left. -->
+    <item
+        android:width="360dp"
+        android:height="360dp"
+        android:gravity="top|start"
+        android:start="-130dp"
+        android:top="300dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#06BE123C"
+                android:endColor="#00BE123C"
+                android:gradientRadius="50%"
+                android:startColor="#12BE123C"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Rust glow, lower left. -->
+    <item
+        android:width="420dp"
+        android:height="420dp"
+        android:bottom="-40dp"
+        android:gravity="bottom|start"
+        android:start="-190dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#06EA580C"
+                android:endColor="#00EA580C"
+                android:gradientRadius="50%"
+                android:startColor="#12EA580C"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Red haze, bottom right. -->
+    <item
+        android:width="380dp"
+        android:height="380dp"
+        android:bottom="-150dp"
+        android:end="-110dp"
+        android:gravity="bottom|end">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#05DC2626"
+                android:endColor="#00DC2626"
+                android:gradientRadius="50%"
+                android:startColor="#10DC2626"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/galaxy_stars" />
+</layer-list>

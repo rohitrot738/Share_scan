@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Window background for the Ocean theme: bg_galaxy.xml with this theme's sky and nebula tints. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:centerColor="@color/ocean_space_mid"
+                android:endColor="@color/ocean_space_bottom"
+                android:startColor="@color/ocean_bg"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- Azure glow behind the hero and stats, upper right. -->
+    <item
+        android:width="480dp"
+        android:height="480dp"
+        android:end="-200dp"
+        android:gravity="top|end"
+        android:top="90dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#060EA5E9"
+                android:endColor="#000EA5E9"
+                android:gradientRadius="50%"
+                android:startColor="#120EA5E9"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Deep-blue haze, middle left. -->
+    <item
+        android:width="360dp"
+        android:height="360dp"
+        android:gravity="top|start"
+        android:start="-130dp"
+        android:top="300dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#062563EB"
+                android:endColor="#002563EB"
+                android:gradientRadius="50%"
+                android:startColor="#122563EB"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Teal glow, lower left. -->
+    <item
+        android:width="420dp"
+        android:height="420dp"
+        android:bottom="-40dp"
+        android:gravity="bottom|start"
+        android:start="-190dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#0614B8A6"
+                android:endColor="#0014B8A6"
+                android:gradientRadius="50%"
+                android:startColor="#1214B8A6"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Cyan haze, bottom right. -->
+    <item
+        android:width="380dp"
+        android:height="380dp"
+        android:bottom="-150dp"
+        android:end="-110dp"
+        android:gravity="bottom|end">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#0506B6D4"
+                android:endColor="#0006B6D4"
+                android:gradientRadius="50%"
+                android:startColor="#1006B6D4"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/galaxy_stars" />
+</layer-list>

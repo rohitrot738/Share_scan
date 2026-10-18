@@ -93,6 +93,110 @@ class SkyPalette(
             ),
         )
 
+        /** Dusk: a plum sky warming to ember low down, a gold core, orange and red clouds below it and magenta above. */
+        val SUNSET = SkyPalette(
+            spaceTop = rgb(11, 3, 8),
+            spaceBottom = rgb(44, 15, 6),
+            arm = floatArrayOf(1.00f, 0.68f, 0.42f),
+            core = floatArrayOf(1.00f, 0.80f, 0.38f),
+            brightness = 0.95f,
+            gas = floatArrayOf(1.0f, 0.42f, 0.15f, 0.40f),
+            nebulae = floatArrayOf(
+                0.05f, 0.16f, 0.10f, 1.0f, 0.45f, 0.08f, 1.00f, // orange, below the core
+                0.32f, -0.20f, 0.09f, 0.85f, 0.22f, 0.75f, 0.80f, // magenta, above the band
+                0.62f, 0.05f, 0.08f, 0.70f, 0.30f, 1.0f, 0.70f, // violet, towards the top
+                -0.55f, 0.08f, 0.10f, 1.0f, 0.22f, 0.18f, 0.90f, // red, further down the band
+                -0.95f, -0.05f, 0.09f, 1.0f, 0.40f, 0.10f, 0.80f, // orange, at the lower end
+                -0.20f, 0.24f, 0.06f, 1.0f, 0.68f, 0.20f, 0.55f, // gold, beside the band
+            ),
+        )
+
+        /** The deep sea: deep-blue space, a cool blue-white Milky Way, and cyan, teal and azure nebulae. */
+        val OCEAN = SkyPalette(
+            spaceTop = rgb(1, 6, 20),
+            spaceBottom = rgb(2, 18, 44),
+            arm = floatArrayOf(0.52f, 0.78f, 1.00f),
+            core = floatArrayOf(0.72f, 0.95f, 1.00f),
+            brightness = 0.85f,
+            gas = floatArrayOf(0.12f, 0.72f, 1.0f, 0.28f),
+            nebulae = floatArrayOf(
+                0.08f, 0.16f, 0.09f, 0.05f, 0.85f, 1.0f, 0.95f, // cyan, below the core
+                0.34f, -0.20f, 0.09f, 0.20f, 0.50f, 1.0f, 0.75f, // azure, above the band
+                -0.60f, 0.06f, 0.10f, 0.08f, 1.0f, 0.85f, 0.65f, // teal, further down the band
+                0.62f, 0.04f, 0.07f, 0.30f, 0.82f, 1.0f, 0.55f, // pale cyan, towards the top
+                -1.00f, -0.04f, 0.08f, 0.25f, 0.45f, 1.0f, 0.60f, // deep blue, at the lower end
+            ),
+        )
+
+        /** Emerald and jade: a green-black sky, a jade Milky Way with a pale green core and emerald gas. */
+        val EMERALD = SkyPalette(
+            spaceTop = rgb(1, 8, 4),
+            spaceBottom = rgb(3, 22, 13),
+            arm = floatArrayOf(0.55f, 1.00f, 0.76f),
+            core = floatArrayOf(0.72f, 1.00f, 0.70f),
+            brightness = 0.88f,
+            gas = floatArrayOf(0.10f, 1.0f, 0.48f, 0.38f),
+            nebulae = floatArrayOf(
+                0.10f, 0.15f, 0.09f, 0.06f, 1.0f, 0.45f, 1.00f, // emerald, below the core
+                0.30f, -0.22f, 0.08f, 0.15f, 0.95f, 0.72f, 0.75f, // jade, above the band
+                -0.55f, 0.06f, 0.10f, 0.08f, 1.0f, 0.40f, 0.85f, // emerald, further down the band
+                0.65f, 0.04f, 0.06f, 0.55f, 1.0f, 0.22f, 0.50f, // lime, towards the top
+                -0.20f, -0.25f, 0.06f, 0.08f, 0.85f, 0.85f, 0.45f, // teal, beside the band
+            ),
+        )
+
+        /** Mars at night: a dusty red-brown sky, a rust and salmon Milky Way and big blood-red clouds. */
+        val MARS = SkyPalette(
+            spaceTop = rgb(12, 3, 2),
+            spaceBottom = rgb(40, 8, 5),
+            arm = floatArrayOf(1.00f, 0.44f, 0.32f),
+            core = floatArrayOf(1.00f, 0.60f, 0.42f),
+            brightness = 0.80f,
+            gas = floatArrayOf(1.0f, 0.18f, 0.10f, 0.45f),
+            nebulae = floatArrayOf(
+                0.12f, 0.14f, 0.09f, 1.0f, 0.12f, 0.08f, 1.10f, // blood red, below the core
+                0.35f, -0.18f, 0.08f, 1.0f, 0.35f, 0.18f, 0.70f, // rust, above the band
+                -0.60f, 0.05f, 0.11f, 0.95f, 0.10f, 0.16f, 0.95f, // crimson, further down the band
+                0.62f, 0.06f, 0.07f, 1.0f, 0.42f, 0.30f, 0.60f, // coral, towards the top
+                -1.00f, 0.10f, 0.09f, 1.0f, 0.18f, 0.08f, 0.75f, // red, at the lower end
+                -0.25f, -0.22f, 0.06f, 0.90f, 0.30f, 0.15f, 0.45f, // rust, beside the band
+            ),
+        )
+
+        /** Royal gold: deep purple space, lavender arms round a big golden core, and violet and gold nebulae. */
+        val ROYAL_GOLD = SkyPalette(
+            spaceTop = rgb(8, 3, 15),
+            spaceBottom = rgb(22, 8, 40),
+            arm = floatArrayOf(0.82f, 0.70f, 1.00f),
+            core = floatArrayOf(1.00f, 0.76f, 0.28f),
+            brightness = 1f,
+            gas = floatArrayOf(0.62f, 0.30f, 1.0f, 0.30f),
+            nebulae = floatArrayOf(
+                0.08f, 0.15f, 0.09f, 1.0f, 0.68f, 0.12f, 1.00f, // gold, below the core
+                0.32f, -0.20f, 0.09f, 0.60f, 0.28f, 1.0f, 0.85f, // violet, above the band
+                -0.60f, 0.06f, 0.10f, 0.78f, 0.25f, 0.95f, 0.75f, // purple, further down the band
+                0.62f, 0.05f, 0.07f, 1.0f, 0.55f, 0.15f, 0.65f, // amber, towards the top
+                -1.00f, -0.03f, 0.08f, 0.55f, 0.30f, 1.0f, 0.60f, // violet, at the lower end
+            ),
+        )
+
+        /** Frost: a pale steel-blue sky, a bright blue-white Milky Way, ice-blue nebulae and a faint aurora. */
+        val FROST = SkyPalette(
+            spaceTop = rgb(5, 10, 16),
+            spaceBottom = rgb(20, 36, 54),
+            arm = floatArrayOf(0.72f, 0.88f, 1.00f),
+            core = floatArrayOf(0.92f, 0.97f, 1.00f),
+            brightness = 1f,
+            gas = floatArrayOf(0.55f, 0.85f, 1.0f, 0.22f),
+            nebulae = floatArrayOf(
+                0.32f, -0.20f, 0.09f, 0.45f, 0.78f, 1.0f, 0.75f, // ice-blue reflection nebula, above the band
+                0.10f, 0.15f, 0.06f, 0.65f, 0.85f, 1.0f, 0.50f, // pale blue, below the core
+                -0.55f, 0.08f, 0.09f, 0.50f, 0.92f, 1.0f, 0.55f, // pale cyan, further down the band
+                0.62f, 0.05f, 0.06f, 0.70f, 0.70f, 1.0f, 0.40f, // lavender, towards the top
+            ),
+            aurora = 0.3f,
+        )
+
         private fun rgb(r: Int, g: Int, b: Int) = floatArrayOf(r / 255f, g / 255f, b / 255f)
     }
 }

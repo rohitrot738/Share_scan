@@ -63,27 +63,26 @@ moving() {
   if cmp -s /tmp/a.raw /tmp/b.raw; then echo "$1: sky STILL"; else echo "$1: sky moving"; fi
 }
 
-launch
-sleep 4
-moving galaxy | tee -a "$OUT/moving.txt"
-shot 01-galaxy-home 1
-# Every other theme now has its own Milky Way: pick each one from the menu and check its sky.
-n=2
-for theme in Nebula Aurora Midnight; do
-  menu
-  tap_text "थीम"
-  sleep 2
-  tap_text "$theme"
-  # Picking a theme recreates the screen; give the sky time to bake and fade in.
+# Every theme has its own Milky Way. Pick each one by writing the theme setting straight into the app's
+# preferences (the debug build allows run-as), then relaunch and check its sky moves.
+set_theme() {
+  adb shell am force-stop "$PKG"
+  adb shell "run-as $PKG sh -c 'mkdir -p shared_prefs && printf \"<?xml version=\\\"1.0\\\" encoding=\\\"utf-8\\\" standalone=\\\"yes\\\" ?><map><string name=\\\"theme\\\">$1</string></map>\" > shared_prefs/scan.xml'"
+}
+n=1
+for theme in galaxy nebula aurora midnight sunset ocean emerald mars royal_gold frost; do
+  set_theme "$theme"
+  launch
+  # Give the sky time to bake and fade in.
   sleep 5
   moving "$theme" | tee -a "$OUT/moving.txt"
-  shot "0$n-${theme,,}-home" 1
+  shot "$(printf %02d $n)-$theme-home" 0
   n=$((n + 1))
 done
 menu
 tap_text "सेटिंग्स"
 sleep 2
-shot 05-midnight-settings 1
+shot 11-frost-settings 1
 adb shell input keyevent KEYCODE_BACK
 sleep 1
 kill %1 2>/dev/null

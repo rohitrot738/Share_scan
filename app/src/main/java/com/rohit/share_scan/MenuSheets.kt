@@ -36,6 +36,12 @@ val ThemeChoice.style: Int
         ThemeChoice.NEBULA -> R.style.Theme_ShareScan_Nebula
         ThemeChoice.AURORA -> R.style.Theme_ShareScan_Aurora
         ThemeChoice.MIDNIGHT -> R.style.Theme_ShareScan_Midnight
+        ThemeChoice.SUNSET -> R.style.Theme_ShareScan_Sunset
+        ThemeChoice.OCEAN -> R.style.Theme_ShareScan_Ocean
+        ThemeChoice.EMERALD -> R.style.Theme_ShareScan_Emerald
+        ThemeChoice.MARS -> R.style.Theme_ShareScan_Mars
+        ThemeChoice.ROYAL_GOLD -> R.style.Theme_ShareScan_RoyalGold
+        ThemeChoice.FROST -> R.style.Theme_ShareScan_Frost
     }
 
 /** The theme's colours for the moving Milky Way behind the home screen. */
@@ -45,6 +51,12 @@ val ThemeChoice.skyPalette: SkyPalette
         ThemeChoice.NEBULA -> SkyPalette.NEBULA
         ThemeChoice.AURORA -> SkyPalette.AURORA
         ThemeChoice.MIDNIGHT -> SkyPalette.MIDNIGHT
+        ThemeChoice.SUNSET -> SkyPalette.SUNSET
+        ThemeChoice.OCEAN -> SkyPalette.OCEAN
+        ThemeChoice.EMERALD -> SkyPalette.EMERALD
+        ThemeChoice.MARS -> SkyPalette.MARS
+        ThemeChoice.ROYAL_GOLD -> SkyPalette.ROYAL_GOLD
+        ThemeChoice.FROST -> SkyPalette.FROST
     }
 
 @get:StringRes
@@ -54,6 +66,12 @@ val ThemeChoice.title: Int
         ThemeChoice.NEBULA -> R.string.theme_nebula
         ThemeChoice.AURORA -> R.string.theme_aurora
         ThemeChoice.MIDNIGHT -> R.string.theme_midnight
+        ThemeChoice.SUNSET -> R.string.theme_sunset
+        ThemeChoice.OCEAN -> R.string.theme_ocean
+        ThemeChoice.EMERALD -> R.string.theme_emerald
+        ThemeChoice.MARS -> R.string.theme_mars
+        ThemeChoice.ROYAL_GOLD -> R.string.theme_royal_gold
+        ThemeChoice.FROST -> R.string.theme_frost
     }
 
 @get:StringRes
@@ -63,6 +81,12 @@ private val ThemeChoice.body: Int
         ThemeChoice.NEBULA -> R.string.theme_nebula_body
         ThemeChoice.AURORA -> R.string.theme_aurora_body
         ThemeChoice.MIDNIGHT -> R.string.theme_midnight_body
+        ThemeChoice.SUNSET -> R.string.theme_sunset_body
+        ThemeChoice.OCEAN -> R.string.theme_ocean_body
+        ThemeChoice.EMERALD -> R.string.theme_emerald_body
+        ThemeChoice.MARS -> R.string.theme_mars_body
+        ThemeChoice.ROYAL_GOLD -> R.string.theme_royal_gold_body
+        ThemeChoice.FROST -> R.string.theme_frost_body
     }
 
 /** The theme's hero card, logo tile and accent, so the picker previews a theme without applying it. */
@@ -72,6 +96,12 @@ private val ThemeChoice.preview: Triple<Int, Int, Int>
         ThemeChoice.NEBULA -> Triple(R.drawable.bg_hero_nebula, R.drawable.bg_logo_nebula, R.color.nebula_accent)
         ThemeChoice.AURORA -> Triple(R.drawable.bg_hero_aurora, R.drawable.bg_logo_aurora, R.color.aurora_accent)
         ThemeChoice.MIDNIGHT -> Triple(R.drawable.bg_hero_midnight, R.drawable.bg_logo_midnight, R.color.midnight_accent)
+        ThemeChoice.SUNSET -> Triple(R.drawable.bg_hero_sunset, R.drawable.bg_logo_sunset, R.color.sunset_accent)
+        ThemeChoice.OCEAN -> Triple(R.drawable.bg_hero_ocean, R.drawable.bg_logo_ocean, R.color.ocean_accent)
+        ThemeChoice.EMERALD -> Triple(R.drawable.bg_hero_emerald, R.drawable.bg_logo_emerald, R.color.emerald_accent)
+        ThemeChoice.MARS -> Triple(R.drawable.bg_hero_mars, R.drawable.bg_logo_mars, R.color.mars_accent)
+        ThemeChoice.ROYAL_GOLD -> Triple(R.drawable.bg_hero_royal_gold, R.drawable.bg_logo_royal_gold, R.color.royal_gold_accent)
+        ThemeChoice.FROST -> Triple(R.drawable.bg_hero_frost, R.drawable.bg_logo_frost, R.color.frost_accent)
     }
 
 @get:StringRes

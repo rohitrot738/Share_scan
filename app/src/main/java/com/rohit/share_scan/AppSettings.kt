@@ -9,7 +9,13 @@ enum class ThemeChoice(val key: String) {
     GALAXY("galaxy"),
     NEBULA("nebula"),
     AURORA("aurora"),
-    MIDNIGHT("midnight");
+    MIDNIGHT("midnight"),
+    SUNSET("sunset"),
+    OCEAN("ocean"),
+    EMERALD("emerald"),
+    MARS("mars"),
+    ROYAL_GOLD("royal_gold"),
+    FROST("frost");
 
     companion object {
         fun fromKey(key: String?): ThemeChoice = entries.firstOrNull { it.key == key } ?: GALAXY

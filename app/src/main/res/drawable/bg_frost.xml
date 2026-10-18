@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Window background for the Frost theme: bg_galaxy.xml with this theme's sky and nebula tints. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:centerColor="@color/frost_space_mid"
+                android:endColor="@color/frost_space_bottom"
+                android:startColor="@color/frost_bg"
+                android:type="linear" />
+        </shape>
+    </item>
+
+    <!-- Ice-blue glow behind the hero and stats, upper right. -->
+    <item
+        android:width="480dp"
+        android:height="480dp"
+        android:end="-200dp"
+        android:gravity="top|end"
+        android:top="90dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#067DD3FC"
+                android:endColor="#007DD3FC"
+                android:gradientRadius="50%"
+                android:startColor="#127DD3FC"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Lavender haze, middle left. -->
+    <item
+        android:width="360dp"
+        android:height="360dp"
+        android:gravity="top|start"
+        android:start="-130dp"
+        android:top="300dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#06A5B4FC"
+                android:endColor="#00A5B4FC"
+                android:gradientRadius="50%"
+                android:startColor="#12A5B4FC"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Pale teal glow, lower left. -->
+    <item
+        android:width="420dp"
+        android:height="420dp"
+        android:bottom="-40dp"
+        android:gravity="bottom|start"
+        android:start="-190dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#065EEAD4"
+                android:endColor="#005EEAD4"
+                android:gradientRadius="50%"
+                android:startColor="#125EEAD4"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <!-- Ice haze, bottom right. -->
+    <item
+        android:width="380dp"
+        android:height="380dp"
+        android:bottom="-150dp"
+        android:end="-110dp"
+        android:gravity="bottom|end">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#05BAE6FD"
+                android:endColor="#00BAE6FD"
+                android:gradientRadius="50%"
+                android:startColor="#10BAE6FD"
+                android:type="radial" />
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/galaxy_stars" />
+</layer-list>

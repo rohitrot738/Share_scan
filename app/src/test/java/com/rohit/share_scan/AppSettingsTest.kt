@@ -7,7 +7,7 @@ class AppSettingsTest {
     @Test
     fun unknownKeysFallBackToDefaults() {
         assertEquals(ThemeChoice.GALAXY, ThemeChoice.fromKey(null))
-        assertEquals(ThemeChoice.GALAXY, ThemeChoice.fromKey("sunset"))
+        assertEquals(ThemeChoice.GALAXY, ThemeChoice.fromKey("solarized"))
         assertEquals(ChartSite.TRADINGVIEW, ChartSite.fromKey(null))
         assertEquals(ChartSite.TRADINGVIEW, ChartSite.fromKey("kite"))
     }

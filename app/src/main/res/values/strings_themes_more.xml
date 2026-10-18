@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Theme sheet (MenuSheets.kt): names and one-line descriptions of the six themes after Midnight. -->
+    <string name="theme_sunset">Sunset</string>
+    <string name="theme_sunset_body">नारंगी-गुलाबी शाम का आसमान</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_ocean_body">गहरा नीला समंदर</string>
+    <string name="theme_emerald">Emerald</string>
+    <string name="theme_emerald_body">पन्ना-हरी आकाशगंगा</string>
+    <string name="theme_mars">Mars</string>
+    <string name="theme_mars_body">धूल भरा लाल आसमान</string>
+    <string name="theme_royal_gold">Royal Gold</string>
+    <string name="theme_royal_gold_body">सुनहरा और शाही जामुनी</string>
+    <string name="theme_frost">Frost</string>
+    <string name="theme_frost_body">बर्फ़ीला नीला • हल्की northern lights</string>
+</resources>

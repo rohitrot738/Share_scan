@@ -157,9 +157,231 @@
         <item name="scanLogoBackground">@drawable/bg_logo_midnight</item>
     </style>
 
+    <!-- Sunset: a plum-to-ember dusk sky with orange and magenta clouds and an orange accent. -->
+    <style name="Theme.ShareScan.Sunset">
+        <item name="colorPrimary">@color/sunset_accent</item>
+        <item name="colorOnPrimary">@color/sunset_on_accent</item>
+        <item name="colorPrimaryContainer">@color/sunset_accent_container</item>
+        <item name="colorOnPrimaryContainer">@color/sunset_on_accent_container</item>
+        <item name="colorPrimaryInverse">@color/sunset_primary_inverse</item>
+        <item name="colorSecondary">@color/sunset_secondary</item>
+        <item name="colorOnSecondary">@color/sunset_on_accent</item>
+        <item name="colorSecondaryContainer">@color/sunset_accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/sunset_on_accent_container</item>
+        <item name="colorTertiary">@color/sunset_tertiary</item>
+        <item name="colorOnTertiary">@color/sunset_on_accent</item>
+        <item name="colorSurface">@color/sunset_bg</item>
+        <item name="colorSurfaceVariant">@color/sunset_surface_high</item>
+        <item name="colorSurfaceContainerLowest">@color/sunset_surface_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/sunset_surface_low</item>
+        <item name="colorSurfaceContainer">@color/sunset_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/sunset_surface_high</item>
+        <item name="colorSurfaceContainerHighest">@color/sunset_surface_highest</item>
+        <item name="colorSurfaceInverse">@color/sunset_text</item>
+        <item name="colorOnSurfaceInverse">@color/sunset_on_accent</item>
+        <item name="colorOnSurface">@color/sunset_text</item>
+        <item name="colorOnSurfaceVariant">@color/sunset_text_soft</item>
+        <item name="colorOnBackground">@color/sunset_text</item>
+        <item name="colorOutline">@color/sunset_outline</item>
+        <item name="colorOutlineVariant">@color/sunset_outline</item>
+        <item name="android:colorBackground">@color/sunset_bg</item>
+        <item name="android:windowBackground">@drawable/bg_sunset</item>
+        <item name="scanCard">@color/sunset_card</item>
+        <item name="scanCardStroke">@color/sunset_card_stroke</item>
+        <item name="scanSheet">@color/sunset_sheet</item>
+        <item name="scanTrack">@color/sunset_track</item>
+        <item name="scanHeroBackground">@drawable/bg_hero_sunset</item>
+        <item name="scanLogoBackground">@drawable/bg_logo_sunset</item>
+    </style>
+
+    <!-- Ocean: deep-sea blue with cyan and teal oceane and a sky-blue accent. -->
+    <style name="Theme.ShareScan.Ocean">
+        <item name="colorPrimary">@color/ocean_accent</item>
+        <item name="colorOnPrimary">@color/ocean_on_accent</item>
+        <item name="colorPrimaryContainer">@color/ocean_accent_container</item>
+        <item name="colorOnPrimaryContainer">@color/ocean_on_accent_container</item>
+        <item name="colorPrimaryInverse">@color/ocean_primary_inverse</item>
+        <item name="colorSecondary">@color/ocean_secondary</item>
+        <item name="colorOnSecondary">@color/ocean_on_accent</item>
+        <item name="colorSecondaryContainer">@color/ocean_accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/ocean_on_accent_container</item>
+        <item name="colorTertiary">@color/ocean_tertiary</item>
+        <item name="colorOnTertiary">@color/ocean_on_accent</item>
+        <item name="colorSurface">@color/ocean_bg</item>
+        <item name="colorSurfaceVariant">@color/ocean_surface_high</item>
+        <item name="colorSurfaceContainerLowest">@color/ocean_surface_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/ocean_surface_low</item>
+        <item name="colorSurfaceContainer">@color/ocean_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/ocean_surface_high</item>
+        <item name="colorSurfaceContainerHighest">@color/ocean_surface_highest</item>
+        <item name="colorSurfaceInverse">@color/ocean_text</item>
+        <item name="colorOnSurfaceInverse">@color/ocean_on_accent</item>
+        <item name="colorOnSurface">@color/ocean_text</item>
+        <item name="colorOnSurfaceVariant">@color/ocean_text_soft</item>
+        <item name="colorOnBackground">@color/ocean_text</item>
+        <item name="colorOutline">@color/ocean_outline</item>
+        <item name="colorOutlineVariant">@color/ocean_outline</item>
+        <item name="android:colorBackground">@color/ocean_bg</item>
+        <item name="android:windowBackground">@drawable/bg_ocean</item>
+        <item name="scanCard">@color/ocean_card</item>
+        <item name="scanCardStroke">@color/ocean_card_stroke</item>
+        <item name="scanSheet">@color/ocean_sheet</item>
+        <item name="scanTrack">@color/ocean_track</item>
+        <item name="scanHeroBackground">@drawable/bg_hero_ocean</item>
+        <item name="scanLogoBackground">@drawable/bg_logo_ocean</item>
+    </style>
+
+    <!-- Emerald: a green-tinted sky with emerald and jade gas and an emerald accent. -->
+    <style name="Theme.ShareScan.Emerald">
+        <item name="colorPrimary">@color/emerald_accent</item>
+        <item name="colorOnPrimary">@color/emerald_on_accent</item>
+        <item name="colorPrimaryContainer">@color/emerald_accent_container</item>
+        <item name="colorOnPrimaryContainer">@color/emerald_on_accent_container</item>
+        <item name="colorPrimaryInverse">@color/emerald_primary_inverse</item>
+        <item name="colorSecondary">@color/emerald_secondary</item>
+        <item name="colorOnSecondary">@color/emerald_on_accent</item>
+        <item name="colorSecondaryContainer">@color/emerald_accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/emerald_on_accent_container</item>
+        <item name="colorTertiary">@color/emerald_tertiary</item>
+        <item name="colorOnTertiary">@color/emerald_on_accent</item>
+        <item name="colorSurface">@color/emerald_bg</item>
+        <item name="colorSurfaceVariant">@color/emerald_surface_high</item>
+        <item name="colorSurfaceContainerLowest">@color/emerald_surface_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/emerald_surface_low</item>
+        <item name="colorSurfaceContainer">@color/emerald_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/emerald_surface_high</item>
+        <item name="colorSurfaceContainerHighest">@color/emerald_surface_highest</item>
+        <item name="colorSurfaceInverse">@color/emerald_text</item>
+        <item name="colorOnSurfaceInverse">@color/emerald_on_accent</item>
+        <item name="colorOnSurface">@color/emerald_text</item>
+        <item name="colorOnSurfaceVariant">@color/emerald_text_soft</item>
+        <item name="colorOnBackground">@color/emerald_text</item>
+        <item name="colorOutline">@color/emerald_outline</item>
+        <item name="colorOutlineVariant">@color/emerald_outline</item>
+        <item name="android:colorBackground">@color/emerald_bg</item>
+        <item name="android:windowBackground">@drawable/bg_emerald</item>
+        <item name="scanCard">@color/emerald_card</item>
+        <item name="scanCardStroke">@color/emerald_card_stroke</item>
+        <item name="scanSheet">@color/emerald_sheet</item>
+        <item name="scanTrack">@color/emerald_track</item>
+        <item name="scanHeroBackground">@drawable/bg_hero_emerald</item>
+        <item name="scanLogoBackground">@drawable/bg_logo_emerald</item>
+    </style>
+
+    <!-- Mars: a dusty red sky with blood-red clouds and a coral accent. -->
+    <style name="Theme.ShareScan.Mars">
+        <item name="colorPrimary">@color/mars_accent</item>
+        <item name="colorOnPrimary">@color/mars_on_accent</item>
+        <item name="colorPrimaryContainer">@color/mars_accent_container</item>
+        <item name="colorOnPrimaryContainer">@color/mars_on_accent_container</item>
+        <item name="colorPrimaryInverse">@color/mars_primary_inverse</item>
+        <item name="colorSecondary">@color/mars_secondary</item>
+        <item name="colorOnSecondary">@color/mars_on_accent</item>
+        <item name="colorSecondaryContainer">@color/mars_accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/mars_on_accent_container</item>
+        <item name="colorTertiary">@color/mars_tertiary</item>
+        <item name="colorOnTertiary">@color/mars_on_accent</item>
+        <item name="colorSurface">@color/mars_bg</item>
+        <item name="colorSurfaceVariant">@color/mars_surface_high</item>
+        <item name="colorSurfaceContainerLowest">@color/mars_surface_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/mars_surface_low</item>
+        <item name="colorSurfaceContainer">@color/mars_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/mars_surface_high</item>
+        <item name="colorSurfaceContainerHighest">@color/mars_surface_highest</item>
+        <item name="colorSurfaceInverse">@color/mars_text</item>
+        <item name="colorOnSurfaceInverse">@color/mars_on_accent</item>
+        <item name="colorOnSurface">@color/mars_text</item>
+        <item name="colorOnSurfaceVariant">@color/mars_text_soft</item>
+        <item name="colorOnBackground">@color/mars_text</item>
+        <item name="colorOutline">@color/mars_outline</item>
+        <item name="colorOutlineVariant">@color/mars_outline</item>
+        <item name="android:colorBackground">@color/mars_bg</item>
+        <item name="android:windowBackground">@drawable/bg_mars</item>
+        <item name="scanCard">@color/mars_card</item>
+        <item name="scanCardStroke">@color/mars_card_stroke</item>
+        <item name="scanSheet">@color/mars_sheet</item>
+        <item name="scanTrack">@color/mars_track</item>
+        <item name="scanHeroBackground">@drawable/bg_hero_mars</item>
+        <item name="scanLogoBackground">@drawable/bg_logo_mars</item>
+    </style>
+
+    <!-- Royal Gold: deep purple space round a golden core, with a gold accent. -->
+    <style name="Theme.ShareScan.RoyalGold">
+        <item name="colorPrimary">@color/royal_gold_accent</item>
+        <item name="colorOnPrimary">@color/royal_gold_on_accent</item>
+        <item name="colorPrimaryContainer">@color/royal_gold_accent_container</item>
+        <item name="colorOnPrimaryContainer">@color/royal_gold_on_accent_container</item>
+        <item name="colorPrimaryInverse">@color/royal_gold_primary_inverse</item>
+        <item name="colorSecondary">@color/royal_gold_secondary</item>
+        <item name="colorOnSecondary">@color/royal_gold_on_accent</item>
+        <item name="colorSecondaryContainer">@color/royal_gold_accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/royal_gold_on_accent_container</item>
+        <item name="colorTertiary">@color/royal_gold_tertiary</item>
+        <item name="colorOnTertiary">@color/royal_gold_on_accent</item>
+        <item name="colorSurface">@color/royal_gold_bg</item>
+        <item name="colorSurfaceVariant">@color/royal_gold_surface_high</item>
+        <item name="colorSurfaceContainerLowest">@color/royal_gold_surface_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/royal_gold_surface_low</item>
+        <item name="colorSurfaceContainer">@color/royal_gold_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/royal_gold_surface_high</item>
+        <item name="colorSurfaceContainerHighest">@color/royal_gold_surface_highest</item>
+        <item name="colorSurfaceInverse">@color/royal_gold_text</item>
+        <item name="colorOnSurfaceInverse">@color/royal_gold_on_accent</item>
+        <item name="colorOnSurface">@color/royal_gold_text</item>
+        <item name="colorOnSurfaceVariant">@color/royal_gold_text_soft</item>
+        <item name="colorOnBackground">@color/royal_gold_text</item>
+        <item name="colorOutline">@color/royal_gold_outline</item>
+        <item name="colorOutlineVariant">@color/royal_gold_outline</item>
+        <item name="android:colorBackground">@color/royal_gold_bg</item>
+        <item name="android:windowBackground">@drawable/bg_royal_gold</item>
+        <item name="scanCard">@color/royal_gold_card</item>
+        <item name="scanCardStroke">@color/royal_gold_card_stroke</item>
+        <item name="scanSheet">@color/royal_gold_sheet</item>
+        <item name="scanTrack">@color/royal_gold_track</item>
+        <item name="scanHeroBackground">@drawable/bg_hero_royal_gold</item>
+        <item name="scanLogoBackground">@drawable/bg_logo_royal_gold</item>
+    </style>
+
+    <!-- Frost: a pale steel-blue sky with a faint aurora and an ice-blue accent. -->
+    <style name="Theme.ShareScan.Frost">
+        <item name="colorPrimary">@color/frost_accent</item>
+        <item name="colorOnPrimary">@color/frost_on_accent</item>
+        <item name="colorPrimaryContainer">@color/frost_accent_container</item>
+        <item name="colorOnPrimaryContainer">@color/frost_on_accent_container</item>
+        <item name="colorPrimaryInverse">@color/frost_primary_inverse</item>
+        <item name="colorSecondary">@color/frost_secondary</item>
+        <item name="colorOnSecondary">@color/frost_on_accent</item>
+        <item name="colorSecondaryContainer">@color/frost_accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/frost_on_accent_container</item>
+        <item name="colorTertiary">@color/frost_tertiary</item>
+        <item name="colorOnTertiary">@color/frost_on_accent</item>
+        <item name="colorSurface">@color/frost_bg</item>
+        <item name="colorSurfaceVariant">@color/frost_surface_high</item>
+        <item name="colorSurfaceContainerLowest">@color/frost_surface_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/frost_surface_low</item>
+        <item name="colorSurfaceContainer">@color/frost_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/frost_surface_high</item>
+        <item name="colorSurfaceContainerHighest">@color/frost_surface_highest</item>
+        <item name="colorSurfaceInverse">@color/frost_text</item>
+        <item name="colorOnSurfaceInverse">@color/frost_on_accent</item>
+        <item name="colorOnSurface">@color/frost_text</item>
+        <item name="colorOnSurfaceVariant">@color/frost_text_soft</item>
+        <item name="colorOnBackground">@color/frost_text</item>
+        <item name="colorOutline">@color/frost_outline</item>
+        <item name="colorOutlineVariant">@color/frost_outline</item>
+        <item name="android:colorBackground">@color/frost_bg</item>
+        <item name="android:windowBackground">@drawable/bg_frost</item>
+        <item name="scanCard">@color/frost_card</item>
+        <item name="scanCardStroke">@color/frost_card_stroke</item>
+        <item name="scanSheet">@color/frost_sheet</item>
+        <item name="scanTrack">@color/frost_track</item>
+        <item name="scanHeroBackground">@drawable/bg_hero_frost</item>
+        <item name="scanLogoBackground">@drawable/bg_logo_frost</item>
+    </style>
+
     <!--
         The system draws the launch window from the manifest theme before MainActivity can apply the
-        picked one, so it gets a plain near-black that suits all four themes instead of Galaxy's sky.
+        picked one, so it gets a plain near-black that suits every theme instead of Galaxy's sky.
     -->
     <style name="Theme.ShareScan.Launch">
         <item name="android:windowBackground">@color/galaxy_bg</item>
