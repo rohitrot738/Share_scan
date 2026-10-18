@@ -1,0 +1,53 @@
+--------- beginning of system
+10-18 22:00:11.956 I/ActivityManager(  521): Force stopping com.rohit.share_scan appid=10192 user=0: from pid 4643
+--------- beginning of main
+10-18 22:00:11.957 E/libprocessgroup(  521): No such cgroup attribute: /sys/fs/cgroup/uid_10192/cgroup.freeze
+10-18 22:00:11.957 W/libprocessgroup(  521): Failed to apply Frozen process profile: No such file or directory
+10-18 22:00:11.971 E/libprocessgroup(  521): No such cgroup attribute: /sys/fs/cgroup/uid_10192/cgroup.freeze
+10-18 22:00:11.971 W/libprocessgroup(  521): Failed to apply Unfrozen process profile: No such file or directory
+10-18 22:00:12.404 I/ActivityManager(  521): Force stopping com.rohit.share_scan appid=10192 user=0: from pid 4670
+10-18 22:00:12.404 E/libprocessgroup(  521): No such cgroup attribute: /sys/fs/cgroup/uid_10192/cgroup.freeze
+10-18 22:00:12.404 W/libprocessgroup(  521): Failed to apply Frozen process profile: No such file or directory
+10-18 22:00:12.408 E/libprocessgroup(  521): No such cgroup attribute: /sys/fs/cgroup/uid_10192/cgroup.freeze
+10-18 22:00:12.408 W/libprocessgroup(  521): Failed to apply Unfrozen process profile: No such file or directory
+10-18 22:00:12.523 W/ActivityTaskManager(  521): callingPackage for (uid=2000, pid=4680) has no WPC
+10-18 22:00:12.585 I/ActivityTaskManager(  521): START u0 {flg=0x10000000 cmp=com.rohit.share_scan/.MainActivity} with LAUNCH_MULTIPLE from uid 2000 (BAL_ALLOW_PERMISSION) result code=0
+10-18 22:00:12.675 W/ActivityManager(  521): Slow operation: 71ms so far, now at startProcess: done starting proc!
+10-18 22:00:12.675 W/ActivityManager(  521): Slow operation: 71ms so far, now at startProcess: asking zygote to start proc
+10-18 22:00:12.866 W/ActivityManager(  521): Slow operation: 261ms so far, now at startProcess: returned from zygote!
+10-18 22:00:12.866 W/ActivityManager(  521): Slow operation: 262ms so far, now at startProcess: done updating battery stats
+10-18 22:00:12.866 W/ActivityManager(  521): Slow operation: 262ms so far, now at startProcess: building log message
+10-18 22:00:12.867 I/ActivityManager(  521): Start proc 4685:com.rohit.share_scan/u0a192 for next-top-activity {com.rohit.share_scan/com.rohit.share_scan.MainActivity}
+10-18 22:00:12.867 W/ActivityManager(  521): Slow operation: 262ms so far, now at startProcess: starting to update pids map
+10-18 22:00:12.867 W/ActivityManager(  521): Slow operation: 262ms so far, now at startProcess: done updating pids map
+10-18 22:00:13.151 W/ActivityTaskManager(  521): Activity top resumed state loss timeout for ActivityRecord{2d4d7cb u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
+10-18 22:00:13.155 W/ActivityTaskManager(  521): Activity pause timeout for ActivityRecord{2d4d7cb u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
+10-18 22:00:13.398 W/ActivityManager(  521): Slow operation: 75ms so far, now at finishAttachApplicationInner: after mServices.attachApplicationLocked
+10-18 22:00:13.398 W/ActivityManager(  521): Slow operation: 76ms so far, now at finishAttachApplicationInner: after dispatching broadcasts
+10-18 22:00:14.191 I/ActivityManager(  521): Flag disabled. Ignoring finishAttachApplication from uid: 10192. pid: 4685
+--------- beginning of kernel
+10-18 22:00:16.715 I/libprocessgroup(    0): Successfully killed process cgroup uid 1000 pid 4125 in 5ms
+10-18 22:00:16.646 I/ActivityTaskManager(  521): Displayed com.rohit.share_scan/.MainActivity for user 0: +4s26ms
+10-18 22:00:23.321 I/ActivityManager(  521): Start proc 4884:com.google.android.apps.messaging:rcs/u0a129 for broadcast {com.google.android.apps.messaging/com.google.android.ims.receiver.ProvisioningEventReceiver}
+10-18 22:00:23.591 I/ActivityManager(  521): Flag disabled. Ignoring finishAttachApplication from uid: 10129. pid: 4884
+10-18 22:00:24.672 I/ActivityManager(  521): Start proc 4970:com.google.android.googlequicksearchbox/u0a132 for broadcast {com.google.android.googlequicksearchbox/com.google.android.libraries.phenotype.client.stable.PhenotypeUpdateBackgroundBroadcastReceiver}
+10-18 22:00:25.192 W/ActivityManager(  521): Receiver with filter android.content.IntentFilter@705502 already registered for pid 4970, callerPackage is com.google.android.googlequicksearchbox
+10-18 22:00:25.705 W/ActivityManager(  521): Unable to start service Intent { cmp=com.google.android.apps.tachyon/.clientapi.ClientApiService } U=0: not found
+10-18 22:00:25.720 I/ActivityManager(  521): Flag disabled. Ignoring finishAttachApplication from uid: 10132. pid: 4970
+10-18 22:00:26.782 W/ActivityManager(  521): Unable to start service Intent { cmp=com.google.android.apps.tachyon/.clientapi.ClientApiService } U=0: not found
+10-18 22:00:27.282 I/ActivityManager(  521): Background started FGS: Allowed [callingPackage: com.google.android.googlequicksearchbox; callingUid: 10132; uidState: BFGS; uidBFSL: [BFSL]; intent: Intent { cmp=com.google.android.googlequicksearchbox/com.google.android.libraries.mdi.download.foreground.sting.ForegroundDownloadService (has extras) }; code:ACTIVITY_STARTER; tempAllowListReason:<null>; targetSdkVersion:31; callerTargetSdkVersion:31; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+10-18 22:00:34.611 W/ActivityManager(  521): Unable to start service Intent { cmp=com.google.android.apps.tachyon/.clientapi.ClientApiService } U=0: not found
+10-18 22:00:37.562 W/ActivityManager(  521): Unable to start service Intent { act=com.google.android.play.core.splitinstall.BIND_SPLIT_INSTALL_SERVICE pkg=com.android.vending } U=0: not found
+10-18 22:00:38.721 I/ActivityManager(  521): Background started FGS: Allowed [callingPackage: com.google.android.inputmethod.latin; callingUid: 10140; uidState: IMPB; uidBFSL: n/a; intent: Intent { cmp=com.google.android.inputmethod.latin/com.google.android.apps.inputmethod.libs.dataservice.superpacks.SuperpacksForegroundTaskService }; code:CURRENT_INPUT_METHOD; tempAllowListReason:<null>; targetSdkVersion:33; callerTargetSdkVersion:33; startForegroundCount:0; bindFromPackage:null: isBindService:false]
+10-18 22:00:38.731 W/ActivityManager(  521): Foreground service started from background can not have location/camera/microphone access: service com.google.android.inputmethod.latin/com.google.android.apps.inputmethod.libs.dataservice.superpacks.SuperpacksForegroundTaskService
+10-18 22:00:41.598 I/ActivityManager(  521): Start proc 5253:com.google.android.webview/u0a134 for broadcast {com.google.android.webview/com.google.android.libraries.phenotype.client.stable.PhenotypeUpdateBackgroundBroadcastReceiver}
+10-18 22:00:41.795 I/ActivityManager(  521): Flag disabled. Ignoring finishAttachApplication from uid: 10134. pid: 5253
+10-18 22:00:42.587 W/ActivityManager(  521): Unable to start service Intent { cmp=com.google.android.apps.tachyon/.clientapi.ClientApiService } U=0: not found
+10-18 22:00:42.971 W/ActivityManager(  521): Unable to start service Intent { act=android.settings.hats.START_SERVICE pkg=com.google.android.settings.intelligence (has extras) } U=0: not found
+10-18 22:00:43.022 E/ActivityManager(  521): Unable to freeze binder for 4241: -11
+10-18 22:00:43.031 I/ActivityManager(  521): Killing 4241:com.google.android.settings.intelligence/u0a118 (adj 0): change com.google.android.settings.intelligence
+10-18 22:00:43.055 W/ActivityManager(  521): Scheduling restart of crashed service com.google.android.settings.intelligence/.modules.routines.impl.PruneDatabaseJobService in 1000ms for connection
+10-18 22:00:43.055 W/ActivityManager(  521): Scheduling restart of crashed service com.google.android.settings.intelligence/.modules.routines.impl.RoutinesJobIntentService in 11000ms for connection
+10-18 22:00:43.055 W/ActivityManager(  521): Scheduling restart of crashed service com.google.android.settings.intelligence/.modules.routines.impl.ComputeNewInferencesJobService in 21000ms for connection
+10-18 22:00:44.137 I/ActivityManager(  521): Start proc 5307:com.google.android.settings.intelligence/u0a118 for service {com.google.android.settings.intelligence/com.google.android.settings.intelligence.modules.routines.impl.PruneDatabaseJobService}
+10-18 22:00:45.574 I/ActivityManager(  521): Flag disabled. Ignoring finishAttachApplication from uid: 10118. pid: 5307

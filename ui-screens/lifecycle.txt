@@ -1,0 +1,6 @@
+10-18 22:00:15.106 I/wm_on_create_called( 4685): [120679082,com.rohit.share_scan.MainActivity,performCreate,768]
+10-18 22:00:15.348 I/input_focus(  521): [Focus request 9edb19a com.rohit.share_scan/com.rohit.share_scan.MainActivity,reason=UpdateInputWindows]
+10-18 22:00:16.613 I/input_focus(  521): [Focus entering 9edb19a com.rohit.share_scan/com.rohit.share_scan.MainActivity (server),reason=Window became focusable. Previous reason: NOT_VISIBLE]
+10-18 22:00:28.889 I/input_focus(  521): [Focus request 7e83415 com.rohit.share_scan/com.rohit.share_scan.MainActivity,reason=UpdateInputWindows]
+10-18 22:00:28.974 I/input_focus(  521): [Focus leaving 9edb19a com.rohit.share_scan/com.rohit.share_scan.MainActivity (server),reason=Waiting for window because NO_WINDOW]
+10-18 22:00:29.785 I/input_focus(  521): [Focus entering 7e83415 com.rohit.share_scan/com.rohit.share_scan.MainActivity (server),reason=Window became focusable. Previous reason: NOT_VISIBLE]
