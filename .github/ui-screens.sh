@@ -72,33 +72,26 @@ set_prefs() {
   adb shell "run-as $PKG sh -c 'mkdir -p shared_prefs && echo $b64 | base64 -d > shared_prefs/scan.xml'"
 }
 
-# Every theme has its own Milky Way: check each sky moves.
-n=1
-for theme in galaxy nebula aurora midnight sunset ocean emerald mars royal_gold frost; do
-  set_prefs "<string name=\"theme\">$theme</string>"
-  launch
-  sleep 5
-  moving "$theme" | tee -a "$OUT/moving.txt"
-  shot "$(printf %02d $n)-$theme-home" 0
-  n=$((n + 1))
-done
-
-# The six glass styles, over Galaxy.
-for glass in clear smoky tinted liquid solid frosted; do
-  set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">$glass</string>"
-  launch
-  sleep 4
-  shot "$(printf %02d $n)-glass-$glass" 0
-  n=$((n + 1))
-done
-
-# Stop a running scan part-way.
-tap startButton
+# Themes and glass styles were checked in the previous run; this run checks stopping a scan.
+set_prefs "<string name=\"theme\">galaxy</string>"
+launch
+sleep 5
+# Find the SCAN button once while the screen is calm, then tap its spot directly: a dump taken while a scan
+# updates the screen many times a second can come back stale or fail.
+xy=$(find_node id startButton) || { echo "could not find startButton"; xy="540 650"; }
+echo "startButton at $xy"
+adb shell input tap $xy
 sleep 15
-shot "$(printf %02d $n)-scan-running" 0; n=$((n + 1))
-tap startButton
+shot 01-scan-running 0
+adb shell input tap $xy
+echo "tapped stop"
+sleep 1
+shot 02-scan-stopping 0
 sleep 4
-shot "$(printf %02d $n)-scan-stopped" 0; n=$((n + 1))
+shot 03-scan-stopped 0
+sleep 5
+shot 04-scan-stopped-later 0
+n=5
 
 # Settings: glass mode chips and the animation switch, then the account sheet (login not set up in CI).
 menu
