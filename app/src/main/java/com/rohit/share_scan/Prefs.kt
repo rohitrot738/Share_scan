@@ -25,6 +25,9 @@ object Prefs {
     /** [GlassStyle.key] of the picked glass mode. */
     const val GLASS_STYLE = "glass_style"
 
+    /** Whether the glass is on at all; on by default, off gives flat, solid surfaces whatever mode is picked. */
+    const val GLASS_ENABLED = "glass_enabled"
+
     /** Whether the sky behind the home screen moves; on by default. */
     const val SKY_ANIMATION = "sky_animation"
 

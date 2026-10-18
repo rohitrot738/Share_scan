@@ -195,6 +195,8 @@ class SettingsSheet(
         fun skyAnimationChanged(on: Boolean)
         /** Saves [style] and re-creates the screen in it. */
         fun glassStyleChanged(style: GlassStyle)
+        /** Saves whether the glass is on and re-creates the screen with it on, or flat and solid. */
+        fun glassEnabledChanged(on: Boolean)
         fun clearWatchlist()
         fun resetFilters()
         fun clearRankHistory()
@@ -234,14 +236,20 @@ class SettingsSheet(
             ui.settingChart.addView(chip)
         }
 
+        val glassOn = settings.glassEnabled
+        ui.settingGlassOn.isChecked = glassOn
+        ui.settingGlassOn.setOnCheckedChangeListener { _, on -> actions.glassEnabledChanged(on) }
+        ui.settingGlassRow.setOnClickListener { ui.settingGlassOn.toggle() }
         val glass = settings.glassStyle
-        ui.settingGlassCurrent.setText(glass.body)
+        ui.settingGlassCurrent.setText(if (glassOn) glass.body else R.string.glass_off_body)
         GlassStyle.entries.forEach { style ->
             val chip = activity.layoutInflater.inflate(R.layout.chip_choice, ui.settingGlass, false) as Chip
             chip.id = android.view.View.generateViewId()
             chip.setText(style.label)
             chip.isCheckable = true
             chip.isChecked = style == glass
+            // With the glass off the modes wait, greyed out, for it to come back on.
+            chip.isEnabled = glassOn
             chip.setOnCheckedChangeListener { _, checked -> if (checked && style != glass) actions.glassStyleChanged(style) }
             ui.settingGlass.addView(chip)
         }

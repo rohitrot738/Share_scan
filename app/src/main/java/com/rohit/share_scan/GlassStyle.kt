@@ -67,6 +67,13 @@ val GlassStyle.overlay: Int
         GlassStyle.SOLID -> R.style.ThemeOverlay_ShareScan_Glass_Solid
     }
 
+/**
+ * Glass switched off in Settings: flat, solid surfaces with no light on them and no blur behind the sheets,
+ * whichever mode is picked (Solid without its faint shine).
+ */
+@get:StyleRes
+val GLASS_OFF_OVERLAY: Int = R.style.ThemeOverlay_ShareScan_Glass_Off
+
 @get:StringRes
 val GlassStyle.label: Int
     get() = when (this) {

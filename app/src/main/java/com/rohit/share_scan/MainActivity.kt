@@ -61,8 +61,9 @@ class MainActivity : AppCompatActivity() {
         // The picked theme has to be in place before any view (or the window background) is created.
         settings = AppSettings(this)
         setTheme(settings.theme.style)
-        // The glass mode goes over the theme: cards, sheets, chips and switches read their glass from it.
-        theme.applyStyle(settings.glassStyle.overlay, true)
+        // The glass mode goes over the theme: cards, sheets, chips and switches read their glass from it. Glass
+        // switched off lays flat, solid surfaces over it instead.
+        theme.applyStyle(if (settings.glassEnabled) settings.glassStyle.overlay else GLASS_OFF_OVERLAY, true)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         ui = ActivityMainBinding.inflate(layoutInflater)
@@ -78,8 +79,11 @@ class MainActivity : AppCompatActivity() {
         ui.emptyCircle.wearChipGlass(null, tintBoost = 2f)
         listOf(ui.statCardScanned, ui.statCardTop, ui.statCardSpikes).forEach { it.wearCardGlass() }
         // Frosted glass: the sky behind the scan board is drawn blurred, and follows the board as the bar scrolls.
-        val glass = settings.glassStyle
-        ui.galaxySky.frost(ui.hero, glass.heroFrost, glass.heroShade, HERO_CORNER_DP * resources.displayMetrics.density)
+        if (settings.glassEnabled) {
+            val glass = settings.glassStyle
+            val corner = HERO_CORNER_DP * resources.displayMetrics.density
+            ui.galaxySky.frost(ui.hero, glass.heroFrost, glass.heroShade, corner)
+        }
         ui.appBar.addOnOffsetChangedListener { _, _ -> ui.galaxySky.invalidate() }
         ui.results.adapter = adapter
         applyWindowInsets()
@@ -539,6 +543,12 @@ class MainActivity : AppCompatActivity() {
         /** Like [applyTheme]: the scan and its results live on in the view model. */
         override fun glassStyleChanged(style: GlassStyle) {
             settings.glassStyle = style
+            recreate()
+        }
+
+        /** Like [glassStyleChanged]: the screen is rebuilt with the glass on, or flat and solid. */
+        override fun glassEnabledChanged(on: Boolean) {
+            settings.glassEnabled = on
             recreate()
         }
 

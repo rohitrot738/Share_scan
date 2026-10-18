@@ -143,6 +143,40 @@
                 android:layout_height="wrap_content"
                 android:text="@string/settings_section_glass" />
 
+            <!-- Glass on at all: off re-creates the screen flat and solid and greys out the modes below. -->
+            <LinearLayout
+                android:id="@+id/settingGlassRow"
+                style="@style/SettingsRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/SettingsRowTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_glass_on" />
+
+                    <TextView
+                        style="@style/SettingsRowBody"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_glass_on_body" />
+                </LinearLayout>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/settingGlassOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/settings_glass_on" />
+            </LinearLayout>
+
             <TextView
                 style="@style/SettingsRowBody"
                 android:layout_width="wrap_content"

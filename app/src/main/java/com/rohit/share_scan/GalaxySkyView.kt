@@ -67,7 +67,8 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     /**
      * Settings' sky animation switch. Off holds the sky still: the Milky Way stays at full brightness and the
-     * twinkling and drifting stars are drawn once where they are; no shooting stars.
+     * twinkling and drifting stars stay where they were when it stopped, however often the view is redrawn; no
+     * shooting stars.
      */
     var animate: Boolean = true
         set(value) {
@@ -150,6 +151,10 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private var animating = false
     private var lastFrameNanos = 0L
+    // The sky's own clock stops while it is held still: every redraw then (the frosted pane following the board,
+    // a layout pass) shows the moment it stopped at, and it picks up from there when it moves again.
+    private var stillAt = startedAt
+    private var heldFor = 0L
     private val frame = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
             if (!animating) return
@@ -234,6 +239,7 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
         if (run == animating) return
         if (run) {
             animating = true
+            heldFor += SystemClock.uptimeMillis() - stillAt
             // No shooting star the instant the screen comes back; the next one follows after a short pause.
             nextMeteorAt = SystemClock.uptimeMillis() + FIRST_METEOR_MS
             Choreographer.getInstance().postFrameCallback(frame)
@@ -244,6 +250,7 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     private fun stopAnimating() {
+        if (animating) stillAt = SystemClock.uptimeMillis()
         animating = false
         Choreographer.getInstance().removeFrameCallback(frame)
     }
@@ -252,10 +259,11 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
         val w = width.toFloat()
         val h = height.toFloat()
         if (w <= 0f || h <= 0f) return
-        // The frame's own time rather than the moment onDraw runs, so motion stays even from frame to frame.
-        val now = drawingTime
+        // The frame's own time rather than the moment onDraw runs, so motion stays even from frame to frame; held
+        // still, the moment it stopped at.
+        val now = if (animating) drawingTime else stillAt
         // Double: a Float of seconds loses whole frames of precision once a screen has been open for a day.
-        val seconds = (now - startedAt) / 1000.0
+        val seconds = (now - startedAt - heldFor) / 1000.0
         // The Milky Way's core, the point the screen flies towards, where the baked sky has it.
         val coreX = CORE_X * bakeWidth
         val coreY = CORE_Y * bakeHeight
