@@ -20,9 +20,10 @@ import kotlin.random.Random
 
 /**
  * The Galaxy theme's moving sky, drawn over the static window background: stars that twinkle, stars that drift
- * out from the middle and grow as if the screen were flying through space, and a shooting star every few seconds.
- * It redraws about 30 times a second, only while the screen is on show and in focus, and holds still when the
- * system's animations are off or battery saver is on.
+ * out from the middle and grow as if the screen were flying through space, and a shooting star every couple of
+ * seconds. The hero, the cards and the sheets are see-through glass, so it shows behind them too.
+ * It redraws about 30 times a second while the screen is on show (15 in battery saver), and holds still only when
+ * the system's animations are switched off.
  */
 class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     private val density = resources.displayMetrics.density
@@ -39,15 +40,15 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
     // Twinkling stars, at fixed places given as fractions of the view; the first SPARKLERS also glint.
     private val twinkleX = FloatArray(TWINKLES) { random.nextFloat() }
     private val twinkleY = FloatArray(TWINKLES) { 0.06f + 0.94f * random.nextFloat() }
-    private val twinkleRadius = FloatArray(TWINKLES) { i -> density * if (i < SPARKLERS) 1.3f + random.nextFloat() * 0.7f else 0.5f + random.nextFloat() * 0.9f }
-    private val twinklePeriod = FloatArray(TWINKLES) { 1.6f + random.nextFloat() * 3.2f }
+    private val twinkleRadius = FloatArray(TWINKLES) { i -> density * if (i < SPARKLERS) 1.8f + random.nextFloat() * 0.9f else 0.8f + random.nextFloat() * 1.0f }
+    private val twinklePeriod = FloatArray(TWINKLES) { 1.2f + random.nextFloat() * 2.4f }
     private val twinklePhase = FloatArray(TWINKLES) { random.nextFloat() * TWO_PI }
-    private val twinkleMax = FloatArray(TWINKLES) { i -> if (i < SPARKLERS) 0.9f + random.nextFloat() * 0.1f else 0.45f + random.nextFloat() * 0.45f }
+    private val twinkleMax = FloatArray(TWINKLES) { i -> if (i < SPARKLERS) 1f else 0.7f + random.nextFloat() * 0.3f }
     private val twinkleColor = IntArray(TWINKLES) { STAR_COLORS[random.nextInt(STAR_COLORS.size)] }
 
     // Stars flying out from the vanishing point; each comes back from the middle on a new heading.
     private val flyAngle = FloatArray(FLYERS) { random.nextFloat() * TWO_PI }
-    private val flyLife = FloatArray(FLYERS) { 9f + random.nextFloat() * 7f }
+    private val flyLife = FloatArray(FLYERS) { 6f + random.nextFloat() * 5f }
     private val flyOffset = FloatArray(FLYERS) { random.nextFloat() }
     private val flyColor = IntArray(FLYERS) { STAR_COLORS[random.nextInt(STAR_COLORS.size)] }
 
@@ -68,7 +69,8 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
     private val frame = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
             if (!animating) return
-            if (frameTimeNanos - lastFrameNanos >= MIN_FRAME_NANOS) {
+            val gap = if (power?.isPowerSaveMode == true) SAVER_FRAME_NANOS else MIN_FRAME_NANOS
+            if (frameTimeNanos - lastFrameNanos >= gap) {
                 lastFrameNanos = frameTimeNanos
                 invalidate()
             }
@@ -112,16 +114,11 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
         updateAnimating()
     }
 
-    /** A sheet, dialog or the notification shade on top takes the focus; the sky rests until it is back. */
-    override fun onWindowFocusChanged(hasWindowFocus: Boolean) {
-        super.onWindowFocusChanged(hasWindowFocus)
-        updateAnimating()
-    }
-
     private fun updateAnimating() {
         if (!ready) return
-        val run = isAttachedToWindow && windowVisibility == VISIBLE && isShown && hasWindowFocus() &&
-            ValueAnimator.areAnimatorsEnabled() && power?.isPowerSaveMode != true
+        // It keeps moving under the glass sheets and in battery saver (at half the frame rate); only "Remove
+        // animations" stills it.
+        val run = isAttachedToWindow && windowVisibility == VISIBLE && isShown && ValueAnimator.areAnimatorsEnabled()
         if (run == animating) return
         if (run) {
             animating = true
@@ -168,16 +165,18 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
             val x = centreX + dx * distance
             val y = centreY + dy * distance
             val fade = min(1f, progress / 0.15f) * min(1f, (1f - progress) / 0.1f) * fadeNearTop(y)
-            val radius = density * (0.3f + 1.9f * progress)
-            val alpha = (220 * fade).toInt()
+            val radius = density * (0.5f + 2.7f * progress)
+            val alpha = (255 * fade).toInt()
             dot.color = flyColor[i]
+            if (progress > 0.4f) glow(canvas, x, y, radius, alpha / 4)
             dot.alpha = alpha
             canvas.drawCircle(x, y, radius, dot)
-            if (progress > 0.45f) {
-                val streak = density * 18f * (progress - 0.45f)
+            if (progress > 0.35f) {
+                val streak = density * 46f * (progress - 0.35f)
+                // As wide as the star and fainter, so it reads as motion blur rather than a pin.
                 line.color = flyColor[i]
-                line.alpha = alpha / 2
-                line.strokeWidth = radius
+                line.alpha = alpha * 2 / 5
+                line.strokeWidth = radius * 1.6f
                 canvas.drawLine(x, y, x - dx * streak, y - dy * streak, line)
             }
         }
@@ -189,15 +188,18 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
             val wave = 0.5f + 0.5f * sin(TWO_PI * turn + twinklePhase[i])
             val x = twinkleX[i] * w
             val y = twinkleY[i] * h
-            val brightness = twinkleMax[i] * (0.15f + 0.85f * wave * wave) * fadeNearTop(y)
+            // Nearly out at the bottom of each beat, swelling to full brightness and size at the top.
+            val brightness = twinkleMax[i] * (0.04f + 0.96f * wave * wave) * fadeNearTop(y)
+            val radius = twinkleRadius[i] * (0.6f + 0.6f * wave)
             dot.color = twinkleColor[i]
+            if (wave > 0.5f) glow(canvas, x, y, radius, (150 * brightness * (wave - 0.5f) * 2f).toInt())
             dot.alpha = (255 * brightness).toInt()
-            canvas.drawCircle(x, y, twinkleRadius[i], dot)
-            if (i < SPARKLERS && wave > 0.75f) {
-                val arm = twinkleRadius[i] * 16f * (wave - 0.75f)
+            canvas.drawCircle(x, y, radius, dot)
+            if (i < SPARKLERS && wave > 0.6f) {
+                val arm = twinkleRadius[i] * 18f * (wave - 0.6f)
                 line.color = twinkleColor[i]
-                line.alpha = (170 * brightness).toInt()
-                line.strokeWidth = 0.8f * density
+                line.alpha = (220 * brightness).toInt()
+                line.strokeWidth = 1.1f * density
                 canvas.drawLine(x - arm, y, x + arm, y, line)
                 canvas.drawLine(x, y - arm, x, y + arm, line)
             }
@@ -227,7 +229,7 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
                 val strength = 1f - from
                 tail.color = METEOR_TAIL
                 tail.alpha = (255 * fade * strength * strength).toInt()
-                tail.strokeWidth = density * 2.2f * strength
+                tail.strokeWidth = density * 3.2f * strength
                 canvas.drawLine(
                     headX - meteorDx[m] * length * from, headY - meteorDy[m] * length * from,
                     headX - meteorDx[m] * length * to, headY - meteorDy[m] * length * to,
@@ -235,45 +237,57 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
                 )
             }
             dot.color = METEOR_GLOW
-            dot.alpha = (90 * fade).toInt()
-            canvas.drawCircle(headX, headY, density * 5f, dot)
+            dot.alpha = (60 * fade).toInt()
+            canvas.drawCircle(headX, headY, density * 11f, dot)
+            dot.alpha = (130 * fade).toInt()
+            canvas.drawCircle(headX, headY, density * 5.5f, dot)
             dot.color = METEOR_HEAD
             dot.alpha = (255 * fade).toInt()
-            canvas.drawCircle(headX, headY, density * 1.6f, dot)
+            canvas.drawCircle(headX, headY, density * 2.4f, dot)
         }
+    }
+
+    /** A soft halo in [dot]'s colour: two faint rings stacked so the light falls off instead of ending in an edge. */
+    private fun glow(canvas: Canvas, x: Float, y: Float, radius: Float, alpha: Int) {
+        dot.alpha = alpha / 3
+        canvas.drawCircle(x, y, radius * 2.8f, dot)
+        dot.alpha = alpha / 2
+        canvas.drawCircle(x, y, radius * 1.8f, dot)
     }
 
     private fun fadeNearTop(y: Float): Float = (y / topFade).coerceIn(0f, 1f)
 
-    /** Starts a shooting star in a free slot, from the upper part of the sky down towards the lower left. */
+    /** Starts a shooting star in a free slot, from anywhere in the top two thirds of the sky down to the lower left. */
     private fun launchMeteor(w: Float, h: Float, now: Long) {
         var m = 0
         while (m < METEORS && meteorLive[m]) m++
         if (m == METEORS) return
-        val angle = (135f + random.nextFloat() * 25f) * DEGREES
+        val angle = (130f + random.nextFloat() * 30f) * DEGREES
         meteorLive[m] = true
         meteorStart[m] = now
-        meteorDuration[m] = random.nextLong(650L, 1_100L)
-        meteorX[m] = w * (0.35f + random.nextFloat() * 0.7f)
-        meteorY[m] = h * (0.08f + random.nextFloat() * 0.37f)
+        meteorDuration[m] = random.nextLong(1_000L, 1_600L)
+        meteorX[m] = w * (0.3f + random.nextFloat() * 0.85f)
+        meteorY[m] = h * (0.04f + random.nextFloat() * 0.62f)
         meteorDx[m] = cos(angle)
         meteorDy[m] = sin(angle)
-        meteorTravel[m] = w * (0.55f + random.nextFloat() * 0.3f)
-        meteorTail[m] = density * (70f + random.nextFloat() * 60f)
+        meteorTravel[m] = w * (0.8f + random.nextFloat() * 0.5f)
+        meteorTail[m] = density * (110f + random.nextFloat() * 90f)
     }
 
     private companion object {
         const val SEED = 20261018
-        const val TWINKLES = 70
-        const val SPARKLERS = 10
-        const val FLYERS = 36
-        const val METEORS = 3
+        const val TWINKLES = 90
+        const val SPARKLERS = 18
+        const val FLYERS = 40
+        const val METEORS = 4
         const val TAIL_SEGMENTS = 10
-        const val FIRST_METEOR_MS = 1_500L
-        const val METEOR_GAP_MIN_MS = 2_500L
-        const val METEOR_GAP_MAX_MS = 6_500L
+        const val FIRST_METEOR_MS = 800L
+        const val METEOR_GAP_MIN_MS = 1_200L
+        const val METEOR_GAP_MAX_MS = 3_500L
         /** About 30 frames a second, evenly paced on 60, 90 and 120 Hz screens. */
         const val MIN_FRAME_NANOS = 30_000_000L
+        /** About 15 frames a second in battery saver. */
+        const val SAVER_FRAME_NANOS = 62_000_000L
         const val TWO_PI = 6.2831855f
         const val DEGREES = 0.017453292f
         /** Turning each returning star by the golden angle keeps its new path away from its last one. */

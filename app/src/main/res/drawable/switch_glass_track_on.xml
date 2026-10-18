@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Glass switch track, on: the accent glowing through frosted glass. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <size
+                android:width="52dp"
+                android:height="32dp" />
+            <corners android:radius="16dp" />
+            <solid android:color="@color/glass_switch_on" />
+        </shape>
+    </item>
+    <!-- Depth: a little darker towards the bottom. -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <gradient
+                android:angle="270"
+                android:endColor="#40000000"
+                android:startColor="@android:color/transparent"
+                android:type="linear" />
+        </shape>
+    </item>
+    <!-- Shine across the upper half, like light on a glass tube. -->
+    <item
+        android:bottom="15dp"
+        android:left="7dp"
+        android:right="7dp"
+        android:top="3dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="7dp" />
+            <gradient
+                android:angle="270"
+                android:endColor="@android:color/transparent"
+                android:startColor="#99FFFFFF"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>

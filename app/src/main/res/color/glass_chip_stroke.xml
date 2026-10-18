@@ -2,7 +2,7 @@
 <!-- Glass chip edge: a light rim, the accent when checked, nearly gone when disabled. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:alpha="0.08" android:color="@android:color/white" android:state_enabled="false" />
-    <item android:alpha="0.85" android:color="?attr/colorPrimary" android:state_checked="true" />
-    <item android:alpha="0.85" android:color="?attr/colorPrimary" android:state_activated="true" />
-    <item android:alpha="0.24" android:color="@android:color/white" />
+    <item android:color="?attr/colorPrimary" android:state_checked="true" />
+    <item android:color="?attr/colorPrimary" android:state_activated="true" />
+    <item android:alpha="0.42" android:color="@android:color/white" />
 </selector>

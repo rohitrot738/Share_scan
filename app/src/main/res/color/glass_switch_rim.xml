@@ -2,6 +2,6 @@
 <!-- Glass switch rim: a thin light edge around the track in both states. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:alpha="0.10" android:color="@android:color/white" android:state_enabled="false" />
-    <item android:alpha="0.50" android:color="@android:color/white" android:state_checked="true" />
-    <item android:alpha="0.42" android:color="@android:color/white" />
+    <item android:alpha="0.70" android:color="@android:color/white" android:state_checked="true" />
+    <item android:alpha="0.55" android:color="@android:color/white" />
 </selector>

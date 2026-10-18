@@ -70,8 +70,9 @@ class PriceChartView @JvmOverloads constructor(
 
     private val density = resources.displayMetrics.density
 
+    /** Opaque, unlike the glass card itself, so the line never shows through the end dot or the level pills. */
     @ColorInt
-    private val cardColor = ContextCompat.getColor(context, R.color.card)
+    private val cardColor = ColorUtils.setAlphaComponent(ContextCompat.getColor(context, R.color.card), 255)
     private val emptyText = context.getString(R.string.detail_chart_empty)
 
     private val linePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {

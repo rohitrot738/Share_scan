@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--
         Always-dark galaxy theme (ShareScanApp forces night mode); the window shows the space background.
         It is the default; MainActivity swaps in the picked AppTheme before inflating its views.
@@ -165,14 +165,19 @@
         <item name="android:windowBackground">@color/galaxy_bg</item>
     </style>
 
-    <!-- Lets the filter sheet draw behind the navigation bar instead of leaving a black strip under it. -->
+    <!--
+        Lets the filter sheet draw behind the navigation bar instead of leaving a black strip under it.
+        On Android 12+ the screen behind a sheet is frosted (blurred), so the sheets read as glass.
+    -->
     <style name="ThemeOverlay.ShareScan.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="android:windowBlurBehindEnabled" tools:targetApi="31">true</item>
+        <item name="android:windowBlurBehindRadius" tools:targetApi="31">24dp</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="enableEdgeToEdge">true</item>
         <item name="bottomSheetStyle">@style/Widget.ShareScan.BottomSheet</item>
     </style>
 
-    <!-- Dark glass sheet: mostly opaque, so the dimmed sky only just shows through. -->
+    <!-- Dark glass sheet: see-through enough that the frosted, moving sky shows behind it. -->
     <style name="Widget.ShareScan.BottomSheet" parent="Widget.Material3.BottomSheet.Modal">
         <item name="backgroundTint">?attr/scanSheet</item>
     </style>
@@ -207,9 +212,10 @@
         <item name="android:stateListAnimator">@animator/press_scale</item>
     </style>
 
-    <!-- Glass switch: see-through track with a light rim; the accent glows through it when on. -->
+    <!-- Glass switch: see-through track with a shine and a light rim; the accent glows through it when on. -->
     <style name="Widget.ShareScan.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
-        <item name="trackTint">@color/glass_switch_track</item>
+        <item name="track">@drawable/switch_glass_track</item>
+        <item name="trackTint">@null</item>
         <item name="trackDecorationTint">@color/glass_switch_rim</item>
         <item name="thumbTint">@color/glass_switch_thumb</item>
         <item name="android:stateListAnimator">@animator/press_scale</item>

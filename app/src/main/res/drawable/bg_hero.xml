@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Hero nebula: deep violet to magenta-violet to cyan, with a magenta glow low on the left,
-    a cyan glow behind the progress ring and faint stars. The first layer is the rounded
+    Hero nebula as see-through glass: deep violet to magenta-violet to cyan, with a magenta glow
+    low on the left, a cyan glow behind the progress ring and faint stars, then a shine across the
+    top and a light rim. The moving sky shows through it. The first layer is the rounded
     rectangle, so the card's outline (clipToOutline) keeps its 28dp corners.
 -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
@@ -10,9 +11,9 @@
             <corners android:radius="28dp" />
             <gradient
                 android:angle="45"
-                android:centerColor="@color/hero_mid"
-                android:endColor="@color/hero_end"
-                android:startColor="@color/hero_start"
+                android:centerColor="@color/hero_glass_mid"
+                android:endColor="@color/hero_glass_end"
+                android:startColor="@color/hero_glass_start"
                 android:type="linear" />
         </shape>
     </item>
@@ -41,4 +42,5 @@
         </shape>
     </item>
     <item android:drawable="@drawable/galaxy_hero_stars" />
+    <item android:drawable="@drawable/glass_sheen_28" />
 </layer-list>
