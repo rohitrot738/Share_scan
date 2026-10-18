@@ -60,8 +60,8 @@ adb shell settings put global window_animation_scale 1
 # Holds a finger on a view for $2 ms and screenshots it while pressed.
 hold_shot() {
   local xy; xy=$(find_node "$1" "$2") || { echo "could not find $2"; return; }
-  adb shell input swipe $xy $xy 900 &
-  sleep 0.45
+  adb shell input swipe $xy $xy 1500 &
+  sleep 0.8
   adb exec-out screencap -p > "$OUT/$3.png"
   wait %2 2>/dev/null
   echo "shot $3 (pressed)"

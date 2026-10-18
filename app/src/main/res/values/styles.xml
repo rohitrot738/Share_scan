@@ -210,7 +210,6 @@
     <!-- Glass switch: see-through track with a light rim; the accent glows through it when on. -->
     <style name="Widget.ShareScan.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
         <item name="trackTint">@color/glass_switch_track</item>
-        <item name="trackDecoration">@drawable/glass_switch_rim</item>
         <item name="trackDecorationTint">@color/glass_switch_rim</item>
         <item name="thumbTint">@color/glass_switch_thumb</item>
         <item name="android:stateListAnimator">@animator/press_scale</item>
