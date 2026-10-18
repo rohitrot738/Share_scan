@@ -121,7 +121,13 @@ glass_mode() {
 
 set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">frosted</string>"
 launch
-sleep 5
+sleep 8
+# The flight towards the galaxy: two frames a few seconds apart and a short video.
+shot fly-a 0
+sleep 4
+shot fly-b 0
+adb shell screenrecord --time-limit 12 --bit-rate 4000000 /sdcard/fly.mp4
+adb pull /sdcard/fly.mp4 "$OUT/fly.mp4" > /dev/null && echo "video pulled"
 tap startButton
 sleep 30
 wait_cards
