@@ -4,7 +4,6 @@ import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.View
@@ -16,7 +15,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
@@ -278,13 +276,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /** The chip turns tinted and shows a count while any limit is set. */
+    /** The chip lights up with the accent (activated) and shows a count while any limit is set. */
     private fun renderFilterChip(filters: ScanFilters) {
         val active = filters.activeCount
         ui.filterChip.text = if (active > 0) getString(R.string.filters_active, active) else getString(R.string.filters)
-        ui.filterChip.chipBackgroundColor = ColorStateList.valueOf(
-            ContextCompat.getColor(this, if (active > 0) R.color.primary_container else android.R.color.transparent),
-        )
+        ui.filterChip.isActivated = active > 0
     }
 
     private fun applyWindowInsets() {

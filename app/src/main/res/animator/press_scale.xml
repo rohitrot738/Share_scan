@@ -4,13 +4,13 @@
     <item android:state_enabled="true" android:state_pressed="true">
         <set>
             <objectAnimator
-                android:duration="90"
+                android:duration="60"
                 android:interpolator="@android:interpolator/fast_out_slow_in"
                 android:propertyName="scaleX"
                 android:valueTo="0.93"
                 android:valueType="floatType" />
             <objectAnimator
-                android:duration="90"
+                android:duration="60"
                 android:interpolator="@android:interpolator/fast_out_slow_in"
                 android:propertyName="scaleY"
                 android:valueTo="0.93"

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Glass chip fill: a faint frosted white, tinted with the accent once checked. -->
+<!-- Glass chip fill: a faint frosted white, tinted with the accent once checked (or activated: Filters in use). -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:alpha="0.12" android:color="?attr/colorOnSurface" android:state_checked="true" android:state_enabled="false" />
     <item android:color="@android:color/transparent" android:state_enabled="false" />
     <item android:alpha="0.30" android:color="?attr/colorPrimary" android:state_checked="true" />
+    <item android:alpha="0.30" android:color="?attr/colorPrimary" android:state_activated="true" />
     <item android:alpha="0.07" android:color="@android:color/white" />
 </selector>

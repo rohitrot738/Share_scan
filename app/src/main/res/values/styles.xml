@@ -43,6 +43,7 @@
         <item name="materialSwitchStyle">@style/Widget.ShareScan.Switch</item>
         <item name="materialButtonStyle">@style/Widget.ShareScan.Button</item>
         <item name="imageButtonStyle">@style/Widget.ShareScan.ImageButton</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.ShareScan.Dialog</item>
     </style>
 
     <!-- Nebula: rose and magenta clouds with a pink accent. -->
@@ -209,6 +210,7 @@
     <!-- Glass switch: see-through track with a light rim; the accent glows through it when on. -->
     <style name="Widget.ShareScan.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
         <item name="trackTint">@color/glass_switch_track</item>
+        <item name="trackDecoration">@drawable/glass_switch_rim</item>
         <item name="trackDecorationTint">@color/glass_switch_rim</item>
         <item name="thumbTint">@color/glass_switch_thumb</item>
         <item name="android:stateListAnimator">@animator/press_scale</item>
@@ -227,6 +229,16 @@
     </style>
 
     <style name="Widget.ShareScan.ImageButton" parent="Widget.AppCompat.ImageButton">
+        <item name="android:stateListAnimator">@animator/press_scale</item>
+    </style>
+
+    <!-- "पक्का?" dialogs: their buttons dip like every other button. -->
+    <style name="ThemeOverlay.ShareScan.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.ShareScan.DialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.ShareScan.DialogButton</item>
+    </style>
+
+    <style name="Widget.ShareScan.DialogButton" parent="Widget.Material3.Button.TextButton.Dialog">
         <item name="android:stateListAnimator">@animator/press_scale</item>
     </style>
 

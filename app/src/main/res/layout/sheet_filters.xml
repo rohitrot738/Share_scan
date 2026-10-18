@@ -103,6 +103,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/filterApply"
+        android:stateListAnimator="@animator/press_scale_soft"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_margin="16dp"

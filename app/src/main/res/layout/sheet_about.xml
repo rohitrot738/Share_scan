@@ -96,6 +96,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/aboutShare"
+                android:stateListAnimator="@animator/press_scale_soft"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"
                 android:layout_marginTop="16dp"
@@ -109,6 +110,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/aboutReleases"
+                android:stateListAnimator="@animator/press_scale_soft"
                 style="@style/Widget.ShareScan.OutlinedButton"
                 android:layout_width="match_parent"
                 android:layout_height="52dp"

@@ -69,8 +69,13 @@ hold_shot() {
 
 launch
 sleep 4
-adb shell screenrecord --time-limit 12 --bit-rate 4000000 /sdcard/galaxy.mp4
-adb pull /sdcard/galaxy.mp4 "$OUT/galaxy-sky.mp4" > /dev/null && echo "recorded galaxy-sky.mp4"
+# The emulator's screenrecord drops nearly every frame, so stitch a burst of raw screenshots into a video.
+burst=$(mktemp -d)
+started=$(date +%s.%N)
+for n in $(seq -w 1 90); do adb exec-out screencap > "$burst/$n.raw"; done
+ended=$(date +%s.%N)
+python3 .github/stitch-burst.py "$burst" "$started" "$ended" "$OUT/galaxy-sky.mp4" && echo "recorded galaxy-sky.mp4"
+rm -rf "$burst"
 shot 01-galaxy-sky 0
 shot 02-galaxy-sky-later 1
 hold_shot id filterChip 03-filters-chip-pressed
