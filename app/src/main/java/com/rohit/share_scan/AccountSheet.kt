@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Build
 import android.util.Patterns
+import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -51,8 +52,9 @@ class AccountSheet(
     /** The photo already in the avatar, so a re-render does not download it again. */
     private var shownPhoto: String? = null
 
+    // Typed as View: the inferred intersection of these widgets hides View's synthetic isEnabled property.
     private val controls
-        get() = listOf(
+        get() = listOf<View>(
             ui.accountGoogle, ui.accountGithub, ui.accountEmail, ui.accountPassword, ui.accountSignIn,
             ui.accountCreate, ui.accountForgot, ui.accountEditName, ui.accountSendVerification,
             ui.accountChangePassword, ui.accountLinkGoogle, ui.accountLinkGithub, ui.accountSignOut, ui.accountDelete,
