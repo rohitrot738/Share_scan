@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- White label and icon on the glass button, softer while it is resting. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:alpha="0.9" android:color="@color/galaxy_star" android:state_enabled="false" />
-    <item android:color="@color/galaxy_hero_button_text" />
+    <item android:alpha="0.6" android:color="@color/galaxy_star" android:state_enabled="false" />
+    <item android:color="@color/galaxy_star" />
 </selector>

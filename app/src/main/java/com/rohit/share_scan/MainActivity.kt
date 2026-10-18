@@ -71,6 +71,10 @@ class MainActivity : AppCompatActivity() {
         ui.galaxySky.animate = settings.skyAnimation
         ui.hero.clipToOutline = true
         ui.hero.applyGlassHero()
+        // Frosted glass: the sky behind the scan board is drawn blurred, and follows the board as the bar scrolls.
+        val glass = settings.glassStyle
+        ui.galaxySky.frost(ui.hero, glass.heroFrost, glass.heroShade, HERO_CORNER_DP * resources.displayMetrics.density)
+        ui.appBar.addOnOffsetChangedListener { _, _ -> ui.galaxySky.invalidate() }
         ui.results.adapter = adapter
         applyWindowInsets()
         setUpListTools()

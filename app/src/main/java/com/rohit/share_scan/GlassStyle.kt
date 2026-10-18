@@ -85,8 +85,33 @@ val GlassStyle.body: Int
         GlassStyle.SOLID -> R.string.glass_solid_body
     }
 
+/**
+ * How much the sky behind the scan board is frosted (GalaxySkyView.frost): 0 shows it sharp, 1 only blurred. Solid
+ * has no pane; its board is opaque anyway.
+ */
+val GlassStyle.heroFrost: Float
+    get() = when (this) {
+        GlassStyle.FROSTED -> 0.9f
+        GlassStyle.CLEAR -> 0.55f
+        GlassStyle.SMOKY -> 0.95f
+        GlassStyle.TINTED -> 0.9f
+        GlassStyle.LIQUID -> 0.75f
+        GlassStyle.SOLID -> 0f
+    }
+
+/** How much the frosted pane is darkened, so the board's white text stays easy to read over a bright sky. */
+val GlassStyle.heroShade: Float
+    get() = when (this) {
+        GlassStyle.FROSTED -> 0.3f
+        GlassStyle.CLEAR -> 0.15f
+        GlassStyle.SMOKY -> 0.5f
+        GlassStyle.TINTED -> 0.28f
+        GlassStyle.LIQUID -> 0.22f
+        GlassStyle.SOLID -> 0f
+    }
+
 /** The corners of every bg_hero*.xml. */
-private const val HERO_CORNER_DP = 28f
+const val HERO_CORNER_DP = 28f
 
 /**
  * Dresses the hero (scan board) in the picked glass mode. Its theme drawable (?attr/scanHeroBackground) is already

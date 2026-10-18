@@ -28,10 +28,10 @@
     <color name="nebula_hero_start">#2D0A2E</color>
     <color name="nebula_hero_mid">#9D1C6A</color>
     <color name="nebula_hero_end">#6D28D9</color>
-    <!-- The hero as see-through glass, so the moving sky shows through it. -->
-    <color name="nebula_hero_glass_start">#AD2D0A2E</color>
-    <color name="nebula_hero_glass_mid">#B89D1C6A</color>
-    <color name="nebula_hero_glass_end">#AD6D28D9</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="nebula_hero_glass_start">#592D0A2E</color>
+    <color name="nebula_hero_glass_mid">#669D1C6A</color>
+    <color name="nebula_hero_glass_end">#596D28D9</color>
 
     <!-- Aurora -->
     <color name="aurora_accent">#67E8F9</color>
@@ -59,10 +59,10 @@
     <color name="aurora_hero_start">#042A2E</color>
     <color name="aurora_hero_mid">#0B6B5D</color>
     <color name="aurora_hero_end">#1E40AF</color>
-    <!-- The hero as see-through glass, so the moving sky shows through it. -->
-    <color name="aurora_hero_glass_start">#AD042A2E</color>
-    <color name="aurora_hero_glass_mid">#B80B6B5D</color>
-    <color name="aurora_hero_glass_end">#AD1E40AF</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="aurora_hero_glass_start">#59042A2E</color>
+    <color name="aurora_hero_glass_mid">#660B6B5D</color>
+    <color name="aurora_hero_glass_end">#591E40AF</color>
 
     <!-- Midnight -->
     <color name="midnight_accent">#93C5FD</color>
@@ -88,8 +88,8 @@
     <color name="midnight_hero_start">#0B1426</color>
     <color name="midnight_hero_mid">#1E3A8A</color>
     <color name="midnight_hero_end">#0E7490</color>
-    <!-- The hero as see-through glass, so the moving sky shows through it. -->
-    <color name="midnight_hero_glass_start">#AD0B1426</color>
-    <color name="midnight_hero_glass_mid">#B81E3A8A</color>
-    <color name="midnight_hero_glass_end">#AD0E7490</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="midnight_hero_glass_start">#590B1426</color>
+    <color name="midnight_hero_glass_mid">#661E3A8A</color>
+    <color name="midnight_hero_glass_end">#590E7490</color>
 </resources>

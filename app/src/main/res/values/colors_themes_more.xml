@@ -32,10 +32,10 @@
     <color name="sunset_hero_start">#2B0A1A</color>
     <color name="sunset_hero_mid">#A8381A</color>
     <color name="sunset_hero_end">#86198F</color>
-    <!-- The hero as see-through glass, so the moving sky shows through it. -->
-    <color name="sunset_hero_glass_start">#AD2B0A1A</color>
-    <color name="sunset_hero_glass_mid">#B8A8381A</color>
-    <color name="sunset_hero_glass_end">#AD86198F</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="sunset_hero_glass_start">#592B0A1A</color>
+    <color name="sunset_hero_glass_mid">#66A8381A</color>
+    <color name="sunset_hero_glass_end">#5986198F</color>
 
     <!-- Ocean -->
     <color name="ocean_accent">#38BDF8</color>
@@ -63,10 +63,10 @@
     <color name="ocean_hero_start">#022140</color>
     <color name="ocean_hero_mid">#04609A</color>
     <color name="ocean_hero_end">#0F766E</color>
-    <!-- The hero as see-through glass, so the moving sky shows through it. -->
-    <color name="ocean_hero_glass_start">#AD022140</color>
-    <color name="ocean_hero_glass_mid">#B804609A</color>
-    <color name="ocean_hero_glass_end">#AD0F766E</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="ocean_hero_glass_start">#59022140</color>
+    <color name="ocean_hero_glass_mid">#6604609A</color>
+    <color name="ocean_hero_glass_end">#590F766E</color>
 
     <!-- Emerald -->
     <color name="emerald_accent">#34D399</color>
@@ -94,10 +94,10 @@
     <color name="emerald_hero_start">#032B1E</color>
     <color name="emerald_hero_mid">#036B4D</color>
     <color name="emerald_hero_end">#3F6212</color>
-    <!-- The hero as see-through glass, so the moving sky shows through it. -->
-    <color name="emerald_hero_glass_start">#AD032B1E</color>
-    <color name="emerald_hero_glass_mid">#B8036B4D</color>
-    <color name="emerald_hero_glass_end">#AD3F6212</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="emerald_hero_glass_start">#59032B1E</color>
+    <color name="emerald_hero_glass_mid">#66036B4D</color>
+    <color name="emerald_hero_glass_end">#593F6212</color>
 
     <!-- Mars -->
     <color name="mars_accent">#FF7F66</color>
@@ -125,10 +125,10 @@
     <color name="mars_hero_start">#2A0806</color>
     <color name="mars_hero_mid">#8F1D14</color>
     <color name="mars_hero_end">#A0402A</color>
-    <!-- The hero as see-through glass, so the moving sky shows through it. -->
-    <color name="mars_hero_glass_start">#AD2A0806</color>
-    <color name="mars_hero_glass_mid">#B88F1D14</color>
-    <color name="mars_hero_glass_end">#ADA0402A</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="mars_hero_glass_start">#592A0806</color>
+    <color name="mars_hero_glass_mid">#668F1D14</color>
+    <color name="mars_hero_glass_end">#59A0402A</color>
 
     <!-- Royal Gold -->
     <color name="royal_gold_accent">#EFC55D</color>
@@ -156,10 +156,10 @@
     <color name="royal_gold_hero_start">#1E0B3A</color>
     <color name="royal_gold_hero_mid">#5B21B6</color>
     <color name="royal_gold_hero_end">#8A5A0B</color>
-    <!-- The hero as see-through glass, so the moving sky shows through it. -->
-    <color name="royal_gold_hero_glass_start">#AD1E0B3A</color>
-    <color name="royal_gold_hero_glass_mid">#B85B21B6</color>
-    <color name="royal_gold_hero_glass_end">#AD8A5A0B</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="royal_gold_hero_glass_start">#591E0B3A</color>
+    <color name="royal_gold_hero_glass_mid">#665B21B6</color>
+    <color name="royal_gold_hero_glass_end">#598A5A0B</color>
 
     <!-- Frost -->
     <color name="frost_accent">#A5DDF2</color>
@@ -187,8 +187,8 @@
     <color name="frost_hero_start">#0D1B2C</color>
     <color name="frost_hero_mid">#2A4E72</color>
     <color name="frost_hero_end">#2F6C80</color>
-    <!-- The hero as see-through glass, so the moving sky shows through it. -->
-    <color name="frost_hero_glass_start">#AD0D1B2C</color>
-    <color name="frost_hero_glass_mid">#B82A4E72</color>
-    <color name="frost_hero_glass_end">#AD2F6C80</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="frost_hero_glass_start">#590D1B2C</color>
+    <color name="frost_hero_glass_mid">#662A4E72</color>
+    <color name="frost_hero_glass_end">#592F6C80</color>
 </resources>

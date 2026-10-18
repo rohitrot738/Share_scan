@@ -4,7 +4,9 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Path
 import android.graphics.RectF
 import android.os.Build
 import android.os.Handler
@@ -71,6 +73,35 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
             field = value
             updateAnimating()
         }
+
+    // The frosted pane: behind [frostTarget] (the scan board) the sky is drawn blurred, as through frosted glass.
+    private var frostTarget: View? = null
+    private var frostStrength = 0f
+    private var frostShade = 0f
+    private var frostRadius = 0f
+    private val frostPaint = Paint(Paint.FILTER_BITMAP_FLAG)
+    private val frostShadePaint = Paint()
+    private val frostPath = Path()
+    private val frostBox = RectF()
+    private val targetAt = IntArray(2)
+    private val selfAt = IntArray(2)
+
+    /**
+     * Shows the sky behind [target] blurred, as through frosted glass: [strength] how much of the blur covers the
+     * sharp sky (0 none, 1 all), [shade] how much it is darkened so text on the glass stays easy to read. [radius]
+     * rounds the pane like the target's corners. The pane follows the target as it moves; call [invalidate] when it
+     * moves while the sky is not animating.
+     */
+    fun frost(target: View?, strength: Float, shade: Float, radius: Float) {
+        frostTarget = target
+        frostStrength = strength.coerceIn(0f, 1f)
+        frostShade = shade.coerceIn(0f, 1f)
+        frostRadius = radius
+        frostShadePaint.color = Color.BLACK
+        frostShadePaint.alpha = (255 * frostShade).toInt()
+        frostBox.setEmpty()
+        invalidate()
+    }
 
     // The baked Milky Way: null until the first bake for this size lands. Bitmaps are scaled up with filtering.
     private var sky: Sky? = null
@@ -223,6 +254,32 @@ class GalaxySkyView @JvmOverloads constructor(context: Context, attrs: Attribute
         drawFlyers(canvas, w, h, seconds)
         drawTwinkles(canvas, w, h, seconds)
         if (animating) drawMeteors(canvas, w, h, now)
+        drawFrost(canvas, now)
+    }
+
+    /** The frosted pane behind the scan board: the blurred sky, a little darkened, clipped to the board's shape. */
+    private fun drawFrost(canvas: Canvas, now: Long) {
+        val sky = sky ?: return
+        val target = frostTarget ?: return
+        if (frostStrength <= 0f || !target.isShown || target.width == 0) return
+        target.getLocationInWindow(targetAt)
+        getLocationInWindow(selfAt)
+        val left = (targetAt[0] - selfAt[0]).toFloat()
+        val top = (targetAt[1] - selfAt[1]).toFloat()
+        val right = left + target.width
+        val bottom = top + target.height
+        if (left != frostBox.left || top != frostBox.top || right != frostBox.right || bottom != frostBox.bottom) {
+            frostBox.set(left, top, right, bottom)
+            frostPath.rewind()
+            frostPath.addRoundRect(frostBox, frostRadius, frostRadius, Path.Direction.CW)
+        }
+        val shown = if (animating) ((now - skyShownAt) / SKY_FADE_IN_MS).coerceIn(0f, 1f) else 1f
+        val saved = canvas.save()
+        canvas.clipPath(frostPath)
+        frostPaint.alpha = (255 * frostStrength * shown).toInt()
+        canvas.drawBitmap(sky.frost, null, sky.frostRect, frostPaint)
+        if (frostShade > 0f) canvas.drawRect(frostBox, frostShadePaint)
+        canvas.restoreToCount(saved)
     }
 
     /** The baked sky: five bitmap draws, each layer of crisp stars breathing on its own beat. */
@@ -433,6 +490,9 @@ private class Sky(
     val baseRect: RectF,
     val glowRect: RectF,
     val starRect: RectF,
+    /** The base shrunk and softened into a blur, for the frosted pane behind the scan board. */
+    val frost: Bitmap,
+    val frostRect: RectF,
 )
 
 /**
@@ -510,6 +570,8 @@ private class SkyBaker(
         base.setPixels(pixels, 0, bw, 0, 0, bw, bh)
         base.setHasAlpha(false)
         base.prepareToDraw()
+        val frost = blurred(pixels, bw, bh)
+        val frostRect = RectF(0f, 0f, frost.width * 2f * FROST_SHRINK, frost.height * 2f * FROST_SHRINK)
 
         val gw = (w + 3) / 4
         val gh = (h + 3) / 4
@@ -525,12 +587,76 @@ private class SkyBaker(
                 val stars = paintStars(plan[0], scale, sw, sh, bw, bh, crowd, glowBytes, gw, gh) ?: return null
                 val glow = alphaBitmap(glowBytes, gw, gh, gw)
                 val full = RectF(0f, 0f, sw.toFloat() * scale, sh.toFloat() * scale)
-                return Sky(base, glow, stars, RectF(0f, 0f, bw * 2f, bh * 2f), RectF(0f, 0f, gw * 4f, gh * 4f), full)
+                return Sky(
+                    base, glow, stars, RectF(0f, 0f, bw * 2f, bh * 2f), RectF(0f, 0f, gw * 4f, gh * 4f), full,
+                    frost, frostRect,
+                )
             } catch (e: OutOfMemoryError) {
                 // Try the next, smaller plan.
             }
         }
         return null
+    }
+
+    /**
+     * The base's [pixels] averaged down FROST_SHRINK times each way, then softened by two box blurs: drawn back up
+     * with filtering it is the sky as seen through frosted glass. Tiny (about 70 x 150 on a phone), opaque.
+     */
+    private fun blurred(pixels: IntArray, bw: Int, bh: Int): Bitmap {
+        val fw = (bw + FROST_SHRINK - 1) / FROST_SHRINK
+        val fh = (bh + FROST_SHRINK - 1) / FROST_SHRINK
+        val r = FloatArray(fw * fh)
+        val g = FloatArray(fw * fh)
+        val b = FloatArray(fw * fh)
+        val n = FloatArray(fw * fh)
+        for (y in 0 until bh) {
+            val row = (y / FROST_SHRINK) * fw
+            for (x in 0 until bw) {
+                val c = pixels[y * bw + x]
+                val i = row + x / FROST_SHRINK
+                r[i] += (c shr 16 and 0xFF).toFloat()
+                g[i] += (c shr 8 and 0xFF).toFloat()
+                b[i] += (c and 0xFF).toFloat()
+                n[i] += 1f
+            }
+        }
+        for (i in r.indices) {
+            r[i] /= n[i]
+            g[i] /= n[i]
+            b[i] /= n[i]
+        }
+        repeat(2) {
+            boxBlur(r, fw, fh)
+            boxBlur(g, fw, fh)
+            boxBlur(b, fw, fh)
+        }
+        val out = IntArray(fw * fh) { i ->
+            (0xFF shl 24) or (r[i].toInt().coerceIn(0, 255) shl 16) or (g[i].toInt().coerceIn(0, 255) shl 8) or
+                b[i].toInt().coerceIn(0, 255)
+        }
+        return Bitmap.createBitmap(out, fw, fh, Bitmap.Config.ARGB_8888).also { it.prepareToDraw() }
+    }
+
+    /** One 3 x 3 box blur of [v], a [fw] x [fh] channel, in place; edges average what lies inside. */
+    private fun boxBlur(v: FloatArray, fw: Int, fh: Int) {
+        val copy = v.copyOf()
+        for (y in 0 until fh) {
+            for (x in 0 until fw) {
+                var sum = 0f
+                var count = 0
+                for (dy in -1..1) {
+                    val yy = y + dy
+                    if (yy < 0 || yy >= fh) continue
+                    for (dx in -1..1) {
+                        val xx = x + dx
+                        if (xx < 0 || xx >= fw) continue
+                        sum += copy[yy * fw + xx]
+                        count++
+                    }
+                }
+                v[y * fw + x] = sum / count
+            }
+        }
     }
 
     /**
@@ -855,6 +981,8 @@ private class SkyBaker(
 
     private companion object {
         const val SKY_SEED = 1_000_003
+        /** How many times smaller than the base the frosted-glass blur is, each way. */
+        const val FROST_SHRINK = 8
         /** View pixels between the points where the Milky Way's smooth light is worked out. */
         const val GRID = 6
         const val FAINT_STARS = 900_000

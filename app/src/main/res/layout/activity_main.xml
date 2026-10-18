@@ -319,12 +319,16 @@
                     android:textColor="@color/hero_button_text"
                     android:textSize="15sp"
                     android:textStyle="bold"
+                    android:foreground="@drawable/glass_button_sheen"
                     app:backgroundTint="@color/hero_button_bg"
                     app:cornerRadius="18dp"
                     app:icon="@drawable/ic_play"
                     app:iconGravity="textStart"
                     app:iconPadding="8dp"
-                    app:iconTint="@color/hero_button_text" />
+                    app:iconTint="@color/hero_button_text"
+                    app:rippleColor="@color/hero_button_ripple"
+                    app:strokeColor="@color/hero_button_rim"
+                    app:strokeWidth="1dp" />
             </LinearLayout>
         </FrameLayout>
 
