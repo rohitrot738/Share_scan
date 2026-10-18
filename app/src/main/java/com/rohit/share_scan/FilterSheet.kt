@@ -37,6 +37,7 @@ class FilterSheet(
             draft = ScanFilters()
             sync()
         }
+        ui.filterApply.wearChipGlass(APPLY_CORNER_DP, tintBoost = 1.8f, ripple = true)
         ui.filterApply.setOnClickListener {
             onApply(draft)
             dialog.dismiss()
@@ -204,6 +205,9 @@ class FilterSheet(
     }
 
     private companion object {
+        /** The apply button's corners (sheet_filters.xml, app:cornerRadius). */
+        const val APPLY_CORNER_DP = 16f
+
         val MARKET_CAP_PRESETS = listOf(
             R.string.cap_micro to Bound(max = 500.0),
             R.string.cap_small to Bound(min = 500.0, max = 5_000.0),

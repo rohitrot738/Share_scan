@@ -1,5 +1,6 @@
 package com.rohit.share_scan
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Canvas
 import android.graphics.Color
@@ -20,6 +21,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import androidx.core.graphics.ColorUtils
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.color.MaterialColors
 import kotlin.math.roundToInt
 
@@ -27,7 +29,8 @@ import kotlin.math.roundToInt
  * How much glass the screens are made of (Settings → ग्लास मोड); [key] is what the settings store.
  * Each is a theme overlay ([overlay], values/styles_glass.xml) that MainActivity lays over the picked theme, so every
  * style works in every theme: cards, sheets, chips and switches read their glass from its attributes, and the scan
- * board, its button, the stat cards, the logo and the empty-state circle wear the chips' glass ([wearChipGlass]).
+ * board, its button, the stat and stock cards, the logo, the filter sheet's sliders and button and the score bars
+ * wear the chips' glass ([wearChipGlass], [chipGlass]).
  */
 enum class GlassStyle(val key: String) {
     /** The default: soft frosted glass the sky shows through. */
@@ -123,48 +126,81 @@ const val START_BUTTON_CORNER_DP = 18f
 /** The header logo tile's corners, as bg_logo*.xml draws them. */
 const val LOGO_CORNER_DP = 14f
 
-/** The stat cards' corners (ShareScanCard's cardCornerRadius). */
-const val STAT_CARD_CORNER_DP = 20f
+/** ShareScanCard's corners (cardCornerRadius): the stat cards and the stock cards. */
+const val CARD_CORNER_DP = 20f
 
 /**
  * Dresses this view in the same glass as the Filters chip, in the picked glass mode: smoked see-through glass
  * (glassChipSurface) stained with the accent (glassChipTintAlpha, times [tintBoost]), a bright line along the top,
  * a crisp shine under it, light gathering along the bottom and a thin rim (glassShine*, glassChipRim*). [radiusDp]
- * rounds the corners; null makes it round. The glass is the background, so the view's text and icons stay on top,
- * fully opaque. With [ripple], presses flash white over it.
+ * rounds the corners; null makes it round. [accent] stains it another colour than the theme's (a tier's green, say).
+ * The glass is the background, so the view's text and icons stay on top, fully opaque. With [ripple], presses flash
+ * white over it.
  */
-fun View.wearChipGlass(radiusDp: Float?, tintBoost: Float = 1f, ripple: Boolean = false) {
-    val tintAlpha = (themeFloat(R.attr.glassChipTintAlpha) * tintBoost).coerceIn(0f, 1f)
-    val rimAlpha = themeFloat(R.attr.glassChipRimAlpha).coerceIn(0f, 1f)
-    val glass = ChipGlass(
-        radius = radiusDp?.let { it * resources.displayMetrics.density },
-        density = resources.displayMetrics.density,
-        surface = themeColor(R.attr.glassChipSurface),
-        tint = ColorUtils.setAlphaComponent(themeColor(androidx.appcompat.R.attr.colorPrimary), (tintAlpha * 255).roundToInt()),
-        rim = ColorUtils.setAlphaComponent(themeColor(R.attr.glassChipRimTint), (rimAlpha * 255).roundToInt()),
-        shineRim = themeColor(R.attr.glassShineRim),
-        specular = themeColor(R.attr.glassShineSpecular),
-        glint = themeColor(R.attr.glassShineGlint),
-    )
+fun View.wearChipGlass(
+    radiusDp: Float?,
+    tintBoost: Float = 1f,
+    ripple: Boolean = false,
+    @ColorInt accent: Int? = null,
+) {
+    val glass = context.chipGlass(radiusDp?.let { it * resources.displayMetrics.density }, tintBoost, accent)
     // Off the view first, so the view does not clear the new drawable's callback when it drops the old one.
     background = null
     background = if (ripple) RippleDrawable(ColorStateList.valueOf(PRESS_FLASH), glass, glass) else glass
     backgroundTintList = null
 }
 
+/** A ShareScanCard in chip glass: the card's own fill and rim off, its content wearing the glass. */
+fun MaterialCardView.wearCardGlass() {
+    setCardBackgroundColor(Color.TRANSPARENT)
+    strokeWidth = 0
+    getChildAt(0).wearChipGlass(CARD_CORNER_DP)
+}
+
+/**
+ * The Filters chip's glass as a drawable, for views that draw it themselves (GlassRangeSlider, GlassMeter); see
+ * [wearChipGlass]. [on] gives a checked chip's glass: more accent, brighter light. [rimBoost] brightens the rim and
+ * [surface] replaces the smoked base.
+ */
+fun Context.chipGlass(
+    radiusPx: Float?,
+    tintBoost: Float = 1f,
+    @ColorInt accent: Int? = null,
+    on: Boolean = false,
+    rimBoost: Float = 1f,
+    @ColorInt surface: Int? = null,
+): Drawable {
+    val tintAlpha = (themeFloat(if (on) R.attr.glassChipTintAlphaOn else R.attr.glassChipTintAlpha) * tintBoost)
+        .coerceIn(0f, 1f)
+    val rimAlpha = (themeFloat(R.attr.glassChipRimAlpha) * rimBoost).coerceIn(0f, 1f)
+    return ChipGlass(
+        radius = radiusPx,
+        density = resources.displayMetrics.density,
+        surface = surface ?: themeColor(if (on) R.attr.glassChipSurfaceOn else R.attr.glassChipSurface),
+        tint = ColorUtils.setAlphaComponent(
+            accent ?: themeColor(androidx.appcompat.R.attr.colorPrimary),
+            (tintAlpha * 255).roundToInt(),
+        ),
+        rim = ColorUtils.setAlphaComponent(themeColor(R.attr.glassChipRimTint), (rimAlpha * 255).roundToInt()),
+        shineRim = themeColor(if (on) R.attr.glassShineRimOn else R.attr.glassShineRim),
+        specular = themeColor(if (on) R.attr.glassShineSpecularOn else R.attr.glassShineSpecular),
+        glint = themeColor(R.attr.glassShineGlint),
+    )
+}
+
 /** A white flash for presses on chip glass. */
 private const val PRESS_FLASH = 0x3DFFFFFF
 
 /** A float theme attribute, or 1 (full strength) when the theme does not set it. */
-private fun View.themeFloat(@AttrRes attr: Int): Float {
+private fun Context.themeFloat(@AttrRes attr: Int): Float {
     val value = TypedValue()
-    val found = context.theme.resolveAttribute(attr, value, true) && value.type == TypedValue.TYPE_FLOAT
+    val found = theme.resolveAttribute(attr, value, true) && value.type == TypedValue.TYPE_FLOAT
     return if (found) value.float else 1f
 }
 
 /** A colour theme attribute (a colour state list gives its default colour), or transparent when it is not set. */
 @ColorInt
-private fun View.themeColor(@AttrRes attr: Int): Int = MaterialColors.getColor(context, attr, Color.TRANSPARENT)
+private fun Context.themeColor(@AttrRes attr: Int): Int = MaterialColors.getColor(this, attr, Color.TRANSPARENT)
 
 /**
  * The Filters chip's glass at any size: the body ([surface] under [tint]), a bright line along the top

@@ -12,17 +12,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rohit.share_scan.databinding.ItemStockBinding
-import kotlin.math.roundToInt
 
 class StockAdapter(
     private val onOpen: (ScanResult) -> Unit,
     private val onStar: (ScanResult) -> Unit = {},
 ) : ListAdapter<RankedStock, StockAdapter.Holder>(Diff) {
 
-    class Holder(val ui: ItemStockBinding) : RecyclerView.ViewHolder(ui.root)
+    class Holder(val ui: ItemStockBinding) : RecyclerView.ViewHolder(ui.root) {
+        /** The tier whose colour stains the rank circle's and tier pill's glass, so a rebind keeps the same glass. */
+        var glassTier: StockFormat.Tier? = null
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val holder = Holder(ItemStockBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        holder.ui.root.wearCardGlass()
         holder.ui.root.setOnClickListener {
             val position = holder.bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) onOpen(getItem(position).stock)
@@ -41,16 +44,21 @@ class StockAdapter(
         val context = ui.root.context
         fun color(id: Int) = ContextCompat.getColor(context, id)
 
-        val (tierLabel, tierColor, tierContainer) = when (StockFormat.tier(stock.score)) {
-            StockFormat.Tier.STRONG -> Triple(R.string.tier_strong, R.color.bull, R.color.bull_container)
-            StockFormat.Tier.WATCH -> Triple(R.string.tier_watch, R.color.warn, R.color.warn_container)
-            StockFormat.Tier.WEAK -> Triple(R.string.tier_weak, R.color.neutral, R.color.neutral_container)
+        val tier = StockFormat.tier(stock.score)
+        val (tierLabel, tierColor) = when (tier) {
+            StockFormat.Tier.STRONG -> R.string.tier_strong to R.color.bull
+            StockFormat.Tier.WATCH -> R.string.tier_watch to R.color.warn
+            StockFormat.Tier.WEAK -> R.string.tier_weak to R.color.neutral
+        }
+        if (holder.glassTier != tier) {
+            holder.glassTier = tier
+            ui.rank.wearChipGlass(null, tintBoost = 1.5f, accent = color(tierColor))
+            ui.tier.wearChipGlass(null, tintBoost = 1.5f, accent = color(tierColor))
         }
         val score = StockFormat.score(stock.score)
 
         ui.rank.text = item.rank.toString()
         ui.rank.setTextColor(color(tierColor))
-        ui.rank.backgroundTintList = ColorStateList.valueOf(color(tierContainer))
 
         ui.symbol.text = stock.symbol
         val name = StockSearch.shortName(stock.name)
@@ -78,10 +86,9 @@ class StockAdapter(
 
         ui.tier.setText(tierLabel)
         ui.tier.setTextColor(color(tierColor))
-        ui.tier.backgroundTintList = ColorStateList.valueOf(color(tierContainer))
 
-        ui.scoreBar.setIndicatorColor(color(tierColor))
-        ui.scoreBar.setProgressCompat((stock.score * 10).roundToInt(), false)
+        ui.scoreBar.color = color(tierColor)
+        ui.scoreBar.fraction = (stock.score / 100).toFloat()
         ui.score.text = score
         ui.score.setTextColor(color(tierColor))
 

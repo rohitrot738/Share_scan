@@ -101,6 +101,7 @@
         android:layout_height="1dp"
         android:background="?attr/colorOutline" />
 
+    <!-- Wears the Filters chip's glass (FilterSheet), so its text and icon are white like the SCAN button's. -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/filterApply"
         android:stateListAnimator="@animator/press_scale_soft"
@@ -111,9 +112,11 @@
         android:insetBottom="0dp"
         android:text="@string/filters_apply"
         android:textAllCaps="false"
+        android:textColor="@color/hero_button_text"
         android:textSize="15sp"
         android:textStyle="bold"
         app:cornerRadius="16dp"
         app:icon="@drawable/ic_check"
-        app:iconGravity="textStart" />
+        app:iconGravity="textStart"
+        app:iconTint="@color/hero_button_text" />
 </LinearLayout>

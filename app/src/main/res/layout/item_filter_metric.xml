@@ -52,12 +52,10 @@
         android:visibility="gone"
         app:chipSpacingVertical="0dp" />
 
-    <com.google.android.material.slider.RangeSlider
+    <!-- Glass channel, range and beads: sized and coloured in GlassRangeSlider. -->
+    <com.rohit.share_scan.GlassRangeSlider
         android:id="@+id/metricSlider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="6dp"
-        app:thumbHeight="28dp"
-        app:tickColor="@android:color/transparent"
-        app:trackHeight="8dp" />
+        android:layout_marginHorizontal="6dp" />
 </LinearLayout>
