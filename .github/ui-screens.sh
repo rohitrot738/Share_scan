@@ -26,6 +26,8 @@ shot() {
 }
 launch() { adb shell am force-stop "$PKG"; adb shell am start -W -n "$PKG/.MainActivity" > /dev/null; }
 dump() {
+  # Never read a stale dump: a failed dump would otherwise leave the previous screen's file in place.
+  adb shell rm -f /sdcard/ui.xml
   for attempt in 1 2 3; do
     adb shell uiautomator dump /sdcard/ui.xml > /dev/null 2>&1 && break
     sleep 2
@@ -83,7 +85,10 @@ echo "startButton at $xy"
 adb shell input tap $xy
 sleep 15
 shot 01-scan-running 0
-adb shell input tap $xy
+# The board's text is shorter while scanning, so the button sits higher than before: find it again.
+stop_xy=$(find_node id startButton) || { echo "could not find the stop button"; stop_xy="540 713"; }
+echo "stop button at $stop_xy"
+adb shell input tap $stop_xy
 echo "tapped stop"
 sleep 1
 shot 02-scan-stopping 0
