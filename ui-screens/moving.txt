@@ -1,0 +1,3 @@
+normal: sky moving
+battery-saver: sky moving
+under-sheet: sky moving
