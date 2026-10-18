@@ -136,19 +136,41 @@ print(n)
 PY
 }
 
-# The sky held still stays still while a scan updates the board many times a second. Two boxes of sky only, clear
-# of every text and control: the lower left corner and a strip on the right below the chips.
+# Where do the few changed pixels of the still sky lie? Saves both grabs as PNGs and lists the changed pixels.
 set_prefs "<string name=\"theme\">galaxy</string><boolean name=\"sky_animation\" value=\"false\" />"
 launch
 sleep 8
 tap startButton
 sleep 6
-raw /tmp/s1.raw; sleep 4; raw /tmp/s2.raw
-echo "still sky, scanning: corner $(differ /tmp/s1.raw /tmp/s2.raw 0 2100 300 2300), right strip $(differ /tmp/s1.raw /tmp/s2.raw 900 1400 1080 1500)"
-snap still-scanning
-set_prefs "<string name=\"theme\">galaxy</string>"
-launch
-sleep 8
-raw /tmp/m1.raw; sleep 4; raw /tmp/m2.raw
-echo "moving sky: corner $(differ /tmp/m1.raw /tmp/m2.raw 0 2100 300 2300), right strip $(differ /tmp/m1.raw /tmp/m2.raw 900 1400 1080 1500)"
+adb exec-out screencap -p > "$OUT/still-a.png"; sleep 4; adb exec-out screencap -p > "$OUT/still-b.png"
+python3 - "$OUT/still-a.png" "$OUT/still-b.png" <<'PY' > "$OUT/still-diff.txt"
+import sys, zlib, struct
+def png(path):
+    data = open(path, "rb").read(); pos = 8; idat = b""; w = h = 0
+    while pos < len(data):
+        n = struct.unpack(">I", data[pos:pos+4])[0]; kind = data[pos+4:pos+8]; body = data[pos+8:pos+8+n]; pos += 12 + n
+        if kind == b"IHDR": w, h, depth, ctype = struct.unpack(">IIBB", body[:10])
+        elif kind == b"IDAT": idat += body
+    raw = zlib.decompress(idat); bpp = 4; stride = w * bpp; rows = []; prev = bytearray(stride); i = 0
+    for y in range(h):
+        f = raw[i]; line = bytearray(raw[i+1:i+1+stride]); i += 1 + stride
+        for x in range(stride):
+            a = line[x-bpp] if x >= bpp else 0; b = prev[x]; c = prev[x-bpp] if x >= bpp else 0
+            if f == 1: line[x] = (line[x] + a) & 255
+            elif f == 2: line[x] = (line[x] + b) & 255
+            elif f == 3: line[x] = (line[x] + (a + b) // 2) & 255
+            elif f == 4:
+                p = a + b - c; pa, pb, pc = abs(p - a), abs(p - b), abs(p - c)
+                line[x] = (line[x] + (a if pa <= pb and pa <= pc else b if pb <= pc else c)) & 255
+        rows.append(bytes(line)); prev = line
+    return w, h, rows
+w, h, A = png(sys.argv[1]); _, _, B = png(sys.argv[2])
+changed = [(x, y) for y in range(h) for x in range(w) if A[y][x*4:x*4+3] != B[y][x*4:x*4+3]]
+print("changed pixels:", len(changed))
+# Group into 40-pixel cells to show where they are.
+cells = {}
+for x, y in changed: cells[(x // 40 * 40, y // 40 * 40)] = cells.get((x // 40 * 40, y // 40 * 40), 0) + 1
+for (x, y), n in sorted(cells.items(), key=lambda kv: -kv[1])[:60]: print(f"cell x={x} y={y}: {n}")
+PY
+head -70 "$OUT/still-diff.txt"
 kill %1 2>/dev/null
