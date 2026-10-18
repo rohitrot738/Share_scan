@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- The scan board's button as glass: a frosted white film over the board, fainter while it is resting. -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:alpha="0.18" android:color="@color/galaxy_star" android:state_enabled="false" />
-    <item android:color="@color/galaxy_hero_button" />
+    <item android:alpha="0.07" android:color="@android:color/white" android:state_enabled="false" />
+    <item android:alpha="0.18" android:color="@android:color/white" />
 </selector>

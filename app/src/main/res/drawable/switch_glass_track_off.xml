@@ -6,6 +6,10 @@
     android:height="32dp"
     android:viewportWidth="52"
     android:viewportHeight="32">
+    <!-- Glass mode: an opaque fill under the glass in Solid, clear otherwise. -->
+    <path
+        android:fillColor="?attr/glassSwitchBase"
+        android:pathData="M0,16 A16,16 0 0,1 16,0 H36 A16,16 0 0,1 36,32 H16 A16,16 0 0,1 0,16 Z" />
     <!-- Smoky dark glass body, darkest under the top edge. -->
     <path android:pathData="M0,16 A16,16 0 0,1 16,0 H36 A16,16 0 0,1 36,32 H16 A16,16 0 0,1 0,16 Z">
         <aapt:attr name="android:fillColor">
@@ -21,6 +25,10 @@
             </gradient>
         </aapt:attr>
     </path>
+    <!-- Glass mode: darker in Smoky, accent-stained in Tinted, clear otherwise. -->
+    <path
+        android:fillColor="?attr/glassSwitchWash"
+        android:pathData="M0,16 A16,16 0 0,1 16,0 H36 A16,16 0 0,1 36,32 H16 A16,16 0 0,1 0,16 Z" />
     <!-- Faint frost inside the glass wall. -->
     <path
         android:fillColor="#0FFFFFFF"
@@ -100,4 +108,13 @@
             </gradient>
         </aapt:attr>
     </path>
+    <!-- Liquid glass mode: the rim shifts from cyan along the top to magenta along the bottom; clear otherwise. -->
+    <path
+        android:pathData="M0.7,16 A15.3,15.3 0 0,1 16,0.7 H36 A15.3,15.3 0 0,1 51.3,16"
+        android:strokeColor="?attr/glassIrisTop"
+        android:strokeWidth="1.4" />
+    <path
+        android:pathData="M51.3,16 A15.3,15.3 0 0,1 36,31.3 H16 A15.3,15.3 0 0,1 0.7,16"
+        android:strokeColor="?attr/glassIrisBottom"
+        android:strokeWidth="1.4" />
 </vector>

@@ -2,12 +2,12 @@
 <!--
     Glass chip body tint, layered by the chip over glass_chip_surface (chipSurfaceColor): a deep,
     see-through accent-tinted glass; the accent glows strongly through it once checked (or activated:
-    Filters in use). Never opaque, so the sky or sheet stays visible behind every chip.
+    Filters in use). How strongly follows the glass mode; the sky or sheet shows through unless it is Solid.
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:alpha="0.26" android:color="?attr/colorPrimary" android:state_checked="true" android:state_enabled="false" />
     <item android:alpha="0.08" android:color="?attr/colorPrimary" android:state_enabled="false" />
-    <item android:alpha="0.48" android:color="?attr/colorPrimary" android:state_checked="true" />
-    <item android:alpha="0.48" android:color="?attr/colorPrimary" android:state_activated="true" />
-    <item android:alpha="0.20" android:color="?attr/colorPrimary" />
+    <item android:alpha="?attr/glassChipTintAlphaOn" android:color="?attr/colorPrimary" android:state_checked="true" />
+    <item android:alpha="?attr/glassChipTintAlphaOn" android:color="?attr/colorPrimary" android:state_activated="true" />
+    <item android:alpha="?attr/glassChipTintAlpha" android:color="?attr/colorPrimary" />
 </selector>

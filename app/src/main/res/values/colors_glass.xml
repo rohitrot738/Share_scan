@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Liquid glass mode (values/styles_glass.xml): cyan light on the upper edges, magenta on the lower ones. -->
+    <color name="glass_iris_cyan">#CC67E8F9</color>
+    <color name="glass_iris_magenta">#CCF0ABFC</color>
+</resources>

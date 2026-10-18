@@ -22,6 +22,12 @@ object Prefs {
     /** [ChartSite.key] the detail sheet's chart button opens. */
     const val CHART_SITE = "chart_site"
 
+    /** [GlassStyle.key] of the picked glass mode. */
+    const val GLASS_STYLE = "glass_style"
+
+    /** Whether the sky behind the home screen moves; on by default. */
+    const val SKY_ANIMATION = "sky_animation"
+
     /** Booleans from the Settings sheet; the first three are on by default, the SME and BSE scans off. */
     const val CHECK_UPDATES = "check_updates"
     const val KEEP_SCREEN_ON = "keep_screen_on"

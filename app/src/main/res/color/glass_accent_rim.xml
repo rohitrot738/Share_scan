@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tinted glass mode: the scan board's accent rim. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:alpha="0.75" android:color="?attr/colorPrimary" />
+</selector>

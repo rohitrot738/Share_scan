@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Glass chip light, unchecked: bright top rim, a crisp specular sheen, a faint glint along the bottom. -->
+<!--
+    Glass chip light, unchecked: bright top rim, a crisp specular sheen, a faint glint along the bottom.
+    Their colours and strength follow the glass mode (glassShine*, values/styles_glass.xml).
+-->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Rim light: the top edge of the pill catches the light, so the rim is brightest at the top. -->
     <item
@@ -12,7 +15,7 @@
                 android:centerColor="#00FFFFFF"
                 android:centerY="0.16"
                 android:endColor="#00FFFFFF"
-                android:startColor="#8CFFFFFF"
+                android:startColor="?attr/glassShineRim"
                 android:type="linear" />
         </shape>
     </item>
@@ -27,7 +30,7 @@
             <gradient
                 android:angle="270"
                 android:endColor="#00FFFFFF"
-                android:startColor="#57FFFFFF"
+                android:startColor="?attr/glassShineSpecular"
                 android:type="linear" />
         </shape>
     </item>
@@ -41,7 +44,7 @@
                 android:angle="270"
                 android:centerColor="#00FFFFFF"
                 android:centerY="0.7"
-                android:endColor="#29FFFFFF"
+                android:endColor="?attr/glassShineGlint"
                 android:startColor="#00FFFFFF"
                 android:type="linear" />
         </shape>

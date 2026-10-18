@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     Glass chip edge: a soft light rim (the foreground glass_chip_shine brightens its top half), the
-    accent when checked, nearly gone when disabled.
+    accent when checked, nearly gone when disabled. The unchecked rim follows the glass mode.
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:alpha="0.45" android:color="?attr/colorPrimary" android:state_checked="true" android:state_enabled="false" />
     <item android:alpha="0.08" android:color="@android:color/white" android:state_enabled="false" />
     <item android:alpha="0.95" android:color="?attr/colorPrimary" android:state_checked="true" />
     <item android:alpha="0.95" android:color="?attr/colorPrimary" android:state_activated="true" />
-    <item android:alpha="0.18" android:color="@android:color/white" />
+    <item android:alpha="?attr/glassChipRimAlpha" android:color="?attr/glassChipRimTint" />
 </selector>

@@ -10,3 +10,6 @@ native/*.dylib
 .gradle/
 build/
 local.properties
+# Firebase config comes from repository secrets at build time (docs/LOGIN_SETUP.md), never from a committed file.
+app/google-services.json
+google-services.json

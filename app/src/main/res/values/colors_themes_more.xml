@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Raw palettes of the Sunset, Ocean, Emerald, Mars, Royal Gold and Frost themes (values/styles.xml),
+        laid out like colors_themes.xml. Each *_bg is also its sky's spaceTop (SkyPalette.kt), so the opaque
+        status-bar strip meets the sky without a seam.
+    -->
+
+    <!-- Sunset -->
+    <color name="sunset_accent">#FB923C</color>
+    <color name="sunset_on_accent">#431407</color>
+    <color name="sunset_accent_container">#6A2410</color>
+    <color name="sunset_on_accent_container">#FFEDD5</color>
+    <color name="sunset_primary_inverse">#C2410C</color>
+    <color name="sunset_secondary">#FDA4AF</color>
+    <color name="sunset_tertiary">#FCD34D</color>
+    <color name="sunset_bg">#0B0308</color>
+    <color name="sunset_space_mid">#12060A</color>
+    <color name="sunset_space_bottom">#2C0F06</color>
+    <color name="sunset_surface">#1F0C0E</color>
+    <color name="sunset_surface_lowest">#050103</color>
+    <color name="sunset_surface_low">#160709</color>
+    <color name="sunset_surface_high">#2E1316</color>
+    <color name="sunset_surface_highest">#3B1A1C</color>
+    <color name="sunset_text">#FFF7ED</color>
+    <color name="sunset_text_soft">#DDB3A0</color>
+    <color name="sunset_outline">#5E2A22</color>
+    <color name="sunset_card">#B32A100E</color>
+    <color name="sunset_card_stroke">#8CFB923C</color>
+    <color name="sunset_sheet">#E0200B0C</color>
+    <color name="sunset_track">#3F1A16</color>
+    <color name="sunset_hero_start">#2B0A1A</color>
+    <color name="sunset_hero_mid">#A8381A</color>
+    <color name="sunset_hero_end">#86198F</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="sunset_hero_glass_start">#592B0A1A</color>
+    <color name="sunset_hero_glass_mid">#66A8381A</color>
+    <color name="sunset_hero_glass_end">#5986198F</color>
+
+    <!-- Ocean -->
+    <color name="ocean_accent">#38BDF8</color>
+    <color name="ocean_on_accent">#062538</color>
+    <color name="ocean_accent_container">#0C4A6E</color>
+    <color name="ocean_on_accent_container">#E0F2FE</color>
+    <color name="ocean_primary_inverse">#0369A1</color>
+    <color name="ocean_secondary">#2DD4BF</color>
+    <color name="ocean_tertiary">#818CF8</color>
+    <color name="ocean_bg">#010614</color>
+    <color name="ocean_space_mid">#020A1C</color>
+    <color name="ocean_space_bottom">#02122C</color>
+    <color name="ocean_surface">#08182E</color>
+    <color name="ocean_surface_lowest">#01040C</color>
+    <color name="ocean_surface_low">#051124</color>
+    <color name="ocean_surface_high">#0E2340</color>
+    <color name="ocean_surface_highest">#142E52</color>
+    <color name="ocean_text">#F0F9FF</color>
+    <color name="ocean_text_soft">#9DBAD3</color>
+    <color name="ocean_outline">#1E3F63</color>
+    <color name="ocean_card">#B3081B36</color>
+    <color name="ocean_card_stroke">#8C38BDF8</color>
+    <color name="ocean_sheet">#E007162D</color>
+    <color name="ocean_track">#12304F</color>
+    <color name="ocean_hero_start">#022140</color>
+    <color name="ocean_hero_mid">#04609A</color>
+    <color name="ocean_hero_end">#0F766E</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="ocean_hero_glass_start">#59022140</color>
+    <color name="ocean_hero_glass_mid">#6604609A</color>
+    <color name="ocean_hero_glass_end">#590F766E</color>
+
+    <!-- Emerald -->
+    <color name="emerald_accent">#34D399</color>
+    <color name="emerald_on_accent">#022C22</color>
+    <color name="emerald_accent_container">#064E3B</color>
+    <color name="emerald_on_accent_container">#D1FAE5</color>
+    <color name="emerald_primary_inverse">#047857</color>
+    <color name="emerald_secondary">#5EEAD4</color>
+    <color name="emerald_tertiary">#BEF264</color>
+    <color name="emerald_bg">#010804</color>
+    <color name="emerald_space_mid">#020C07</color>
+    <color name="emerald_space_bottom">#03160D</color>
+    <color name="emerald_surface">#0A1E16</color>
+    <color name="emerald_surface_lowest">#010503</color>
+    <color name="emerald_surface_low">#06140E</color>
+    <color name="emerald_surface_high">#0F2C21</color>
+    <color name="emerald_surface_highest">#15392B</color>
+    <color name="emerald_text">#ECFDF5</color>
+    <color name="emerald_text_soft">#9DC7B3</color>
+    <color name="emerald_outline">#1D4D3B</color>
+    <color name="emerald_card">#B3092318</color>
+    <color name="emerald_card_stroke">#8C34D399</color>
+    <color name="emerald_sheet">#E0071B13</color>
+    <color name="emerald_track">#10372A</color>
+    <color name="emerald_hero_start">#032B1E</color>
+    <color name="emerald_hero_mid">#036B4D</color>
+    <color name="emerald_hero_end">#3F6212</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="emerald_hero_glass_start">#59032B1E</color>
+    <color name="emerald_hero_glass_mid">#66036B4D</color>
+    <color name="emerald_hero_glass_end">#593F6212</color>
+
+    <!-- Mars -->
+    <color name="mars_accent">#FF7F66</color>
+    <color name="mars_on_accent">#450A0A</color>
+    <color name="mars_accent_container">#6B1A17</color>
+    <color name="mars_on_accent_container">#FEE2E2</color>
+    <color name="mars_primary_inverse">#B91C1C</color>
+    <color name="mars_secondary">#FDBA74</color>
+    <color name="mars_tertiary">#FCA5A5</color>
+    <color name="mars_bg">#0C0302</color>
+    <color name="mars_space_mid">#120504</color>
+    <color name="mars_space_bottom">#280805</color>
+    <color name="mars_surface">#220C09</color>
+    <color name="mars_surface_lowest">#060101</color>
+    <color name="mars_surface_low">#180806</color>
+    <color name="mars_surface_high">#331410</color>
+    <color name="mars_surface_highest">#421A15</color>
+    <color name="mars_text">#FEF2F2</color>
+    <color name="mars_text_soft">#D8A79F</color>
+    <color name="mars_outline">#6A2A22</color>
+    <color name="mars_card">#B32B0E0B</color>
+    <color name="mars_card_stroke">#8CFF7F66</color>
+    <color name="mars_sheet">#E0220A08</color>
+    <color name="mars_track">#42170F</color>
+    <color name="mars_hero_start">#2A0806</color>
+    <color name="mars_hero_mid">#8F1D14</color>
+    <color name="mars_hero_end">#A0402A</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="mars_hero_glass_start">#592A0806</color>
+    <color name="mars_hero_glass_mid">#668F1D14</color>
+    <color name="mars_hero_glass_end">#59A0402A</color>
+
+    <!-- Royal Gold -->
+    <color name="royal_gold_accent">#EFC55D</color>
+    <color name="royal_gold_on_accent">#2A0F4A</color>
+    <color name="royal_gold_accent_container">#3F2268</color>
+    <color name="royal_gold_on_accent_container">#FEF3C7</color>
+    <color name="royal_gold_primary_inverse">#A16207</color>
+    <color name="royal_gold_secondary">#C8A8FF</color>
+    <color name="royal_gold_tertiary">#FDE68A</color>
+    <color name="royal_gold_bg">#08030F</color>
+    <color name="royal_gold_space_mid">#0C0517</color>
+    <color name="royal_gold_space_bottom">#160828</color>
+    <color name="royal_gold_surface">#1A0F2B</color>
+    <color name="royal_gold_surface_lowest">#040108</color>
+    <color name="royal_gold_surface_low">#120A20</color>
+    <color name="royal_gold_surface_high">#26183D</color>
+    <color name="royal_gold_surface_highest">#312050</color>
+    <color name="royal_gold_text">#FFFBEB</color>
+    <color name="royal_gold_text_soft">#C9B5D9</color>
+    <color name="royal_gold_outline">#4A3366</color>
+    <color name="royal_gold_card">#B31F1035</color>
+    <color name="royal_gold_card_stroke">#8CEFC55D</color>
+    <color name="royal_gold_sheet">#E01A0D2E</color>
+    <color name="royal_gold_track">#33224D</color>
+    <color name="royal_gold_hero_start">#1E0B3A</color>
+    <color name="royal_gold_hero_mid">#5B21B6</color>
+    <color name="royal_gold_hero_end">#8A5A0B</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="royal_gold_hero_glass_start">#591E0B3A</color>
+    <color name="royal_gold_hero_glass_mid">#665B21B6</color>
+    <color name="royal_gold_hero_glass_end">#598A5A0B</color>
+
+    <!-- Frost -->
+    <color name="frost_accent">#A5DDF2</color>
+    <color name="frost_on_accent">#0C2D44</color>
+    <color name="frost_accent_container">#1E4562</color>
+    <color name="frost_on_accent_container">#E8F6FF</color>
+    <color name="frost_primary_inverse">#2B7BB0</color>
+    <color name="frost_secondary">#99F6E4</color>
+    <color name="frost_tertiary">#DDD6FE</color>
+    <color name="frost_bg">#050A10</color>
+    <color name="frost_space_mid">#08101A</color>
+    <color name="frost_space_bottom">#142436</color>
+    <color name="frost_surface">#111D2A</color>
+    <color name="frost_surface_lowest">#030609</color>
+    <color name="frost_surface_low">#0B151F</color>
+    <color name="frost_surface_high">#192838</color>
+    <color name="frost_surface_highest">#213346</color>
+    <color name="frost_text">#F8FCFF</color>
+    <color name="frost_text_soft">#AEC2D3</color>
+    <color name="frost_outline">#36506A</color>
+    <color name="frost_card">#B3142334</color>
+    <color name="frost_card_stroke">#8CA5DDF2</color>
+    <color name="frost_sheet">#E0101C29</color>
+    <color name="frost_track">#22364A</color>
+    <color name="frost_hero_start">#0D1B2C</color>
+    <color name="frost_hero_mid">#2A4E72</color>
+    <color name="frost_hero_end">#2F6C80</color>
+    <!-- The hero as glass: a light tint over the frosted sky behind it (GalaxySkyView.frost). -->
+    <color name="frost_hero_glass_start">#590D1B2C</color>
+    <color name="frost_hero_glass_mid">#662A4E72</color>
+    <color name="frost_hero_glass_end">#592F6C80</color>
+</resources>

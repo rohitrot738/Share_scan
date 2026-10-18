@@ -9,7 +9,13 @@ enum class ThemeChoice(val key: String) {
     GALAXY("galaxy"),
     NEBULA("nebula"),
     AURORA("aurora"),
-    MIDNIGHT("midnight");
+    MIDNIGHT("midnight"),
+    SUNSET("sunset"),
+    OCEAN("ocean"),
+    EMERALD("emerald"),
+    MARS("mars"),
+    ROYAL_GOLD("royal_gold"),
+    FROST("frost");
 
     companion object {
         fun fromKey(key: String?): ThemeChoice = entries.firstOrNull { it.key == key } ?: GALAXY
@@ -58,6 +64,16 @@ class AppSettings(context: Context) {
     var chartSite: ChartSite
         get() = ChartSite.fromKey(prefs.getString(Prefs.CHART_SITE, null))
         set(value) = prefs.edit { putString(Prefs.CHART_SITE, value.key) }
+
+    /** How much glass the screens are made of; MainActivity lays it over the theme when the screen is created. */
+    var glassStyle: GlassStyle
+        get() = GlassStyle.fromKey(prefs.getString(Prefs.GLASS_STYLE, null))
+        set(value) = prefs.edit { putString(Prefs.GLASS_STYLE, value.key) }
+
+    /** Let the sky's stars twinkle, drift and shoot; off holds it still, which saves battery. */
+    var skyAnimation: Boolean
+        get() = prefs.getBoolean(Prefs.SKY_ANIMATION, true)
+        set(value) = prefs.edit { putBoolean(Prefs.SKY_ANIMATION, value) }
 
     /** Look for a newer release every time the app opens. */
     var checkUpdates: Boolean

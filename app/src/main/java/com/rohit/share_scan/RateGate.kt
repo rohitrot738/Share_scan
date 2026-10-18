@@ -20,8 +20,13 @@ internal class RateGate(
     /** When [tokens] was last topped up; after a pause, the moment the pause ends. */
     private var updatedAt = now()
 
-    /** Blocks until this caller may send a request. */
-    fun acquire() {
+    /**
+     * Blocks until this caller may send a request. False means [isStopped] turned true, before the turn was taken or
+     * while waiting for it, and nothing may be sent. A wait is one sleep, so a long one (after a [pause]) ends early
+     * only through an interrupt, which the stopped scan's pool sends.
+     */
+    fun acquire(isStopped: () -> Boolean = { false }): Boolean {
+        if (isStopped()) return false
         val wait = synchronized(this) {
             val time = now()
             if (time > updatedAt) {
@@ -33,6 +38,7 @@ internal class RateGate(
             readyAt - time
         }
         if (wait > 0) sleep(wait)
+        return !isStopped()
     }
 
     /**

@@ -31,10 +31,10 @@
     <color name="hero_start">#22104E</color>
     <color name="hero_mid">#6A22B5</color>
     <color name="hero_end">#08718F</color>
-    <!-- The same nebula as see-through glass, so the moving Galaxy sky shows through the hero card. -->
-    <color name="hero_glass_start">#AD22104E</color>
-    <color name="hero_glass_mid">#B86A22B5</color>
-    <color name="hero_glass_end">#AD08718F</color>
+    <!-- The same nebula as glass: a light tint over the frosted sky behind the hero (GalaxySkyView.frost). -->
+    <color name="hero_glass_start">#5922104E</color>
+    <color name="hero_glass_mid">#666A22B5</color>
+    <color name="hero_glass_end">#5908718F</color>
     <!-- Glass edge and sheen: a light rim and a soft shine across the top. -->
     <color name="glass_rim">#59FFFFFF</color>
     <color name="glass_sheen">#2EFFFFFF</color>
@@ -56,6 +56,4 @@
     <color name="galaxy_surface_high">#1D1347</color>
     <color name="galaxy_surface_highest">#271A58</color>
     <color name="galaxy_primary_inverse">#5B3FD0</color>
-    <color name="galaxy_hero_button">#F3EFFF</color>
-    <color name="galaxy_hero_button_text">#22104E</color>
 </resources>

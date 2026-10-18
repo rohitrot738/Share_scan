@@ -61,12 +61,20 @@ class MainActivity : AppCompatActivity() {
         // The picked theme has to be in place before any view (or the window background) is created.
         settings = AppSettings(this)
         setTheme(settings.theme.style)
+        // The glass mode goes over the theme: cards, sheets, chips and switches read their glass from it.
+        theme.applyStyle(settings.glassStyle.overlay, true)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         ui = ActivityMainBinding.inflate(layoutInflater)
         setContentView(ui.root)
-        ui.galaxySky.isVisible = settings.theme == ThemeChoice.GALAXY
+        ui.galaxySky.palette = settings.theme.skyPalette
+        ui.galaxySky.animate = settings.skyAnimation
         ui.hero.clipToOutline = true
+        ui.hero.applyGlassHero()
+        // Frosted glass: the sky behind the scan board is drawn blurred, and follows the board as the bar scrolls.
+        val glass = settings.glassStyle
+        ui.galaxySky.frost(ui.hero, glass.heroFrost, glass.heroShade, HERO_CORNER_DP * resources.displayMetrics.density)
+        ui.appBar.addOnOffsetChangedListener { _, _ -> ui.galaxySky.invalidate() }
         ui.results.adapter = adapter
         applyWindowInsets()
         setUpListTools()
@@ -75,8 +83,13 @@ class MainActivity : AppCompatActivity() {
         ui.menuButton.setOnClickListener { openMenu() }
 
         ui.startButton.setOnClickListener {
-            ui.appBar.setExpanded(true, true)
-            scan.startScan()
+            // While a scan runs the same button stops it.
+            if (scan.uiState.value.isRunning) {
+                scan.stopScan()
+            } else {
+                ui.appBar.setExpanded(true, true)
+                scan.startScan()
+            }
         }
         ui.filterChip.setOnClickListener {
             filterSheet?.dismiss()
@@ -152,12 +165,31 @@ class MainActivity : AppCompatActivity() {
                 null,
                 state.percent,
             )
-            ScanPhase.DONE -> showStatus(
-                getString(R.string.status_done_title),
-                getString(R.string.status_done_body, state.visible.size, clock),
-                R.drawable.ic_check,
-                100,
-            )
+            // A stopped scan keeps its ring where it stopped, so the share of stocks checked shows at a glance.
+            ScanPhase.DONE -> if (state.stopped) {
+                showStatus(
+                    getString(R.string.status_stopped_title),
+                    if (state.total > 0) {
+                        getString(
+                            R.string.status_stopped_body,
+                            StockFormat.count(state.done),
+                            StockFormat.count(state.total),
+                            clock,
+                        )
+                    } else {
+                        getString(R.string.status_stopped_early_body)
+                    },
+                    R.drawable.ic_stop,
+                    state.percent,
+                )
+            } else {
+                showStatus(
+                    getString(R.string.status_done_title),
+                    getString(R.string.status_done_body, state.visible.size, clock),
+                    R.drawable.ic_check,
+                    100,
+                )
+            }
             ScanPhase.FAILED -> showStatus(
                 getString(R.string.status_failed_title),
                 state.error?.let { getString(R.string.status_failed_detail, it) }
@@ -169,13 +201,19 @@ class MainActivity : AppCompatActivity() {
 
         val (label, icon) = when (state.phase) {
             ScanPhase.IDLE -> R.string.action_start to R.drawable.ic_play
-            ScanPhase.LOADING, ScanPhase.SCANNING -> R.string.action_scanning to R.drawable.ic_radar
-            ScanPhase.DONE -> R.string.action_rescan to R.drawable.ic_refresh
+            ScanPhase.LOADING, ScanPhase.SCANNING ->
+                (if (state.stopping) R.string.action_stopping else R.string.action_stop) to R.drawable.ic_stop
+            ScanPhase.DONE -> if (state.stopped) {
+                R.string.action_start to R.drawable.ic_play
+            } else {
+                R.string.action_rescan to R.drawable.ic_refresh
+            }
             ScanPhase.FAILED -> R.string.action_retry to R.drawable.ic_refresh
         }
         ui.startButton.setText(label)
         ui.startButton.setIconResource(icon)
-        ui.startButton.isEnabled = !state.isRunning
+        // A running scan's button stops it; it rests only while a stop finishes the requests under way.
+        ui.startButton.isEnabled = !state.stopping
     }
 
     /** [icon] replaces the percentage in the middle of the progress ring when it is not null. */
@@ -254,6 +292,7 @@ class MainActivity : AppCompatActivity() {
                     R.drawable.ic_radar,
                 )
                 state.phase == ScanPhase.IDLE -> Triple(R.string.empty_title, R.string.empty_body, R.drawable.ic_trending_up)
+                state.stopped -> Triple(R.string.empty_stopped_title, R.string.empty_stopped_body, R.drawable.ic_stop)
                 else -> Triple(R.string.empty_failed_title, R.string.empty_failed_body, R.drawable.ic_error)
             }
             ui.emptyTitle.setText(title)
@@ -459,6 +498,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onMenuPick(entry: MenuSheet.Entry) {
         when (entry) {
+            MenuSheet.Entry.ACCOUNT -> showMenuSheet { AccountSheet(this, ::openMenu).show() }
             MenuSheet.Entry.SETTINGS -> showMenuSheet {
                 SettingsSheet(this, settings, scan.uiState.value.watchlist.size, settingsActions, ::openMenu).show()
             }
@@ -484,6 +524,16 @@ class MainActivity : AppCompatActivity() {
         override fun keepScreenOnChanged(on: Boolean) {
             ui.root.keepScreenOn = scan.uiState.value.isRunning && on
             renderEmpty(scan.uiState.value)
+        }
+
+        override fun skyAnimationChanged(on: Boolean) {
+            ui.galaxySky.animate = on
+        }
+
+        /** Like [applyTheme]: the scan and its results live on in the view model. */
+        override fun glassStyleChanged(style: GlassStyle) {
+            settings.glassStyle = style
+            recreate()
         }
 
         override fun clearWatchlist() = scan.clearWatchlist()

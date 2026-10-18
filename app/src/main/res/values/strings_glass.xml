@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Settings: the sky animation switch (App section) and glass mode (GlassStyle.kt). -->
+    <string name="settings_sky">आसमान का animation</string>
+    <string name="settings_sky_body">तारे, टूटते तारे और चमक चलें; बंद करने पर आसमान रुका रहेगा (battery बचेगी)</string>
+    <string name="settings_section_glass">ग्लास मोड</string>
+    <string name="settings_glass_body">स्कैन बोर्ड, कार्ड, sheets, chips और switches का कांच • चुनते ही पूरा app उसी में</string>
+
+    <string name="glass_frosted">धुंधला</string>
+    <string name="glass_clear">पारदर्शी</string>
+    <string name="glass_smoky">गहरा</string>
+    <string name="glass_tinted">रंगीन</string>
+    <string name="glass_liquid">इंद्रधनुषी</string>
+    <string name="glass_solid">ठोस</string>
+
+    <string name="glass_frosted_body">अभी: हल्का धुंधला कांच, पीछे आसमान झलके • default</string>
+    <string name="glass_clear_body">अभी: एकदम साफ़ कांच, चमकते किनारे • आसमान सबसे ज़्यादा दिखे</string>
+    <string name="glass_smoky_body">अभी: धुएँ जैसा गहरा काला कांच • आसमान हल्का-सा झलके</string>
+    <string name="glass_tinted_body">अभी: थीम के रंग में रंगा कांच</string>
+    <string name="glass_liquid_body">अभी: आसमानी से गुलाबी चमकते किनारे, जैसे पानी पर तेल की परत</string>
+    <string name="glass_solid_body">अभी: कांच बंद, पक्के कार्ड • पढ़ने में सबसे आसान, phone पर सबसे हल्का</string>
+</resources>

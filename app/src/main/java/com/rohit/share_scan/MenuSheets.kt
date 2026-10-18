@@ -36,6 +36,27 @@ val ThemeChoice.style: Int
         ThemeChoice.NEBULA -> R.style.Theme_ShareScan_Nebula
         ThemeChoice.AURORA -> R.style.Theme_ShareScan_Aurora
         ThemeChoice.MIDNIGHT -> R.style.Theme_ShareScan_Midnight
+        ThemeChoice.SUNSET -> R.style.Theme_ShareScan_Sunset
+        ThemeChoice.OCEAN -> R.style.Theme_ShareScan_Ocean
+        ThemeChoice.EMERALD -> R.style.Theme_ShareScan_Emerald
+        ThemeChoice.MARS -> R.style.Theme_ShareScan_Mars
+        ThemeChoice.ROYAL_GOLD -> R.style.Theme_ShareScan_RoyalGold
+        ThemeChoice.FROST -> R.style.Theme_ShareScan_Frost
+    }
+
+/** The theme's colours for the moving Milky Way behind the home screen. */
+val ThemeChoice.skyPalette: SkyPalette
+    get() = when (this) {
+        ThemeChoice.GALAXY -> SkyPalette.GALAXY
+        ThemeChoice.NEBULA -> SkyPalette.NEBULA
+        ThemeChoice.AURORA -> SkyPalette.AURORA
+        ThemeChoice.MIDNIGHT -> SkyPalette.MIDNIGHT
+        ThemeChoice.SUNSET -> SkyPalette.SUNSET
+        ThemeChoice.OCEAN -> SkyPalette.OCEAN
+        ThemeChoice.EMERALD -> SkyPalette.EMERALD
+        ThemeChoice.MARS -> SkyPalette.MARS
+        ThemeChoice.ROYAL_GOLD -> SkyPalette.ROYAL_GOLD
+        ThemeChoice.FROST -> SkyPalette.FROST
     }
 
 @get:StringRes
@@ -45,6 +66,12 @@ val ThemeChoice.title: Int
         ThemeChoice.NEBULA -> R.string.theme_nebula
         ThemeChoice.AURORA -> R.string.theme_aurora
         ThemeChoice.MIDNIGHT -> R.string.theme_midnight
+        ThemeChoice.SUNSET -> R.string.theme_sunset
+        ThemeChoice.OCEAN -> R.string.theme_ocean
+        ThemeChoice.EMERALD -> R.string.theme_emerald
+        ThemeChoice.MARS -> R.string.theme_mars
+        ThemeChoice.ROYAL_GOLD -> R.string.theme_royal_gold
+        ThemeChoice.FROST -> R.string.theme_frost
     }
 
 @get:StringRes
@@ -54,6 +81,12 @@ private val ThemeChoice.body: Int
         ThemeChoice.NEBULA -> R.string.theme_nebula_body
         ThemeChoice.AURORA -> R.string.theme_aurora_body
         ThemeChoice.MIDNIGHT -> R.string.theme_midnight_body
+        ThemeChoice.SUNSET -> R.string.theme_sunset_body
+        ThemeChoice.OCEAN -> R.string.theme_ocean_body
+        ThemeChoice.EMERALD -> R.string.theme_emerald_body
+        ThemeChoice.MARS -> R.string.theme_mars_body
+        ThemeChoice.ROYAL_GOLD -> R.string.theme_royal_gold_body
+        ThemeChoice.FROST -> R.string.theme_frost_body
     }
 
 /** The theme's hero card, logo tile and accent, so the picker previews a theme without applying it. */
@@ -63,6 +96,12 @@ private val ThemeChoice.preview: Triple<Int, Int, Int>
         ThemeChoice.NEBULA -> Triple(R.drawable.bg_hero_nebula, R.drawable.bg_logo_nebula, R.color.nebula_accent)
         ThemeChoice.AURORA -> Triple(R.drawable.bg_hero_aurora, R.drawable.bg_logo_aurora, R.color.aurora_accent)
         ThemeChoice.MIDNIGHT -> Triple(R.drawable.bg_hero_midnight, R.drawable.bg_logo_midnight, R.color.midnight_accent)
+        ThemeChoice.SUNSET -> Triple(R.drawable.bg_hero_sunset, R.drawable.bg_logo_sunset, R.color.sunset_accent)
+        ThemeChoice.OCEAN -> Triple(R.drawable.bg_hero_ocean, R.drawable.bg_logo_ocean, R.color.ocean_accent)
+        ThemeChoice.EMERALD -> Triple(R.drawable.bg_hero_emerald, R.drawable.bg_logo_emerald, R.color.emerald_accent)
+        ThemeChoice.MARS -> Triple(R.drawable.bg_hero_mars, R.drawable.bg_logo_mars, R.color.mars_accent)
+        ThemeChoice.ROYAL_GOLD -> Triple(R.drawable.bg_hero_royal_gold, R.drawable.bg_logo_royal_gold, R.color.royal_gold_accent)
+        ThemeChoice.FROST -> Triple(R.drawable.bg_hero_frost, R.drawable.bg_logo_frost, R.color.frost_accent)
     }
 
 @get:StringRes
@@ -78,7 +117,7 @@ val ChartSite.label: Int
  * Shared shape of the menu's sheets: content-height, fully expanded, no half-open state. Its [bar]'s ✕ closes it; a
  * sheet opened from the menu gets [onBack], which ← and the system back button run to return to the menu.
  */
-private fun AppCompatActivity.showSheet(
+internal fun AppCompatActivity.showSheet(
     root: android.view.View,
     bar: SheetTopBarBinding,
     onBack: (() -> Unit)? = null,
@@ -114,7 +153,7 @@ class MenuSheet(
     private val theme: ThemeChoice,
     private val onPick: (Entry) -> Unit,
 ) {
-    enum class Entry { SETTINGS, THEME, UPDATE, HELP, SHARE, ABOUT }
+    enum class Entry { ACCOUNT, SETTINGS, THEME, UPDATE, HELP, SHARE, ABOUT }
 
     fun show(): BottomSheetDialog {
         val ui = SheetMenuBinding.inflate(activity.layoutInflater)
@@ -130,6 +169,8 @@ class MenuSheet(
                 onPick(entry)
             }
         }
+        val account = AccountManager.summary(activity) ?: activity.getString(R.string.menu_account_signed_out)
+        add(Entry.ACCOUNT, R.drawable.ic_account, R.string.menu_account, account)
         add(Entry.SETTINGS, R.drawable.ic_settings, R.string.menu_settings, activity.getString(R.string.menu_settings_body))
         add(Entry.THEME, R.drawable.ic_palette, R.string.menu_theme, activity.getString(R.string.menu_theme_body, activity.getString(theme.title)))
         add(Entry.UPDATE, R.drawable.ic_system_update, R.string.menu_update, activity.getString(R.string.menu_update_body, version))
@@ -151,6 +192,9 @@ class SettingsSheet(
 ) {
     interface Actions {
         fun keepScreenOnChanged(on: Boolean)
+        fun skyAnimationChanged(on: Boolean)
+        /** Saves [style] and re-creates the screen in it. */
+        fun glassStyleChanged(style: GlassStyle)
         fun clearWatchlist()
         fun resetFilters()
         fun clearRankHistory()
@@ -169,6 +213,12 @@ class SettingsSheet(
             actions.keepScreenOnChanged(on)
         }
         ui.settingScreenRow.setOnClickListener { ui.settingScreen.toggle() }
+        ui.settingSky.isChecked = settings.skyAnimation
+        ui.settingSky.setOnCheckedChangeListener { _, on ->
+            settings.skyAnimation = on
+            actions.skyAnimationChanged(on)
+        }
+        ui.settingSkyRow.setOnClickListener { ui.settingSky.toggle() }
         bindMarket(ui.settingNse, ui.settingNseRow, settings.includeNse) { settings.includeNse = it }
         bindMarket(ui.settingSme, ui.settingSmeRow, settings.includeSme) { settings.includeSme = it }
         bindMarket(ui.settingBse, ui.settingBseRow, settings.includeBse) { settings.includeBse = it }
@@ -182,6 +232,18 @@ class SettingsSheet(
             chip.isChecked = site == current
             chip.setOnCheckedChangeListener { _, checked -> if (checked) settings.chartSite = site }
             ui.settingChart.addView(chip)
+        }
+
+        val glass = settings.glassStyle
+        ui.settingGlassCurrent.setText(glass.body)
+        GlassStyle.entries.forEach { style ->
+            val chip = activity.layoutInflater.inflate(R.layout.chip_choice, ui.settingGlass, false) as Chip
+            chip.id = android.view.View.generateViewId()
+            chip.setText(style.label)
+            chip.isCheckable = true
+            chip.isChecked = style == glass
+            chip.setOnCheckedChangeListener { _, checked -> if (checked && style != glass) actions.glassStyleChanged(style) }
+            ui.settingGlass.addView(chip)
         }
 
         ui.settingClearWatchlist.text = activity.getString(R.string.settings_clear_watchlist, watchlistSize)

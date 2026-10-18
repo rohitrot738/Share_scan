@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu row -->
+    <string name="menu_account">अकाउंट</string>
+    <string name="menu_account_signed_out">लॉगिन नहीं</string>
+    <string name="account_signed_in_generic">लॉगिन है</string>
+
+    <!-- Account sheet -->
+    <string name="account_title">अकाउंट</string>
+    <string name="account_subtitle_signed_out">Google, GitHub या email से लॉगिन करें</string>
+    <string name="account_subtitle_signed_in">आपकी profile और लॉगिन</string>
+    <string name="account_subtitle_unconfigured">लॉगिन जल्द आ रहा है</string>
+    <string name="account_unconfigured_title">लॉगिन अभी सेट नहीं है</string>
+    <string name="account_unconfigured_body">इस version में लॉगिन अभी चालू नहीं किया गया है। बाकी पूरा app — स्कैन, watchlist, filters और थीम — बिना लॉगिन के पहले जैसा चलता है।</string>
+    <string name="account_working">थोड़ा रुकें…</string>
+
+    <!-- Signed out -->
+    <string name="account_google">Google से लॉगिन</string>
+    <string name="account_github">GitHub से लॉगिन</string>
+    <string name="account_or_email">या email और password से</string>
+    <string name="account_email_hint">Email</string>
+    <string name="account_password_hint">Password</string>
+    <string name="account_sign_in">लॉगिन</string>
+    <string name="account_create">नया अकाउंट बनाएँ</string>
+    <string name="account_forgot">पासवर्ड भूल गए?</string>
+    <string name="account_email_needed">Email डालें</string>
+    <string name="account_password_needed">Password डालें</string>
+    <string name="account_reset_sent">पासवर्ड reset का link %1$s पर भेज दिया — inbox (और spam) देखें</string>
+    <string name="account_created">अकाउंट बन गया! Email verify करने का link भेजा है</string>
+    <string name="account_signed_in_toast">लॉगिन हो गया</string>
+    <string name="account_signed_out_toast">लॉग आउट हो गया</string>
+
+    <!-- Signed in: profile -->
+    <string name="account_no_name">नाम नहीं जोड़ा</string>
+    <string name="account_verified">✓ Verified</string>
+    <string name="account_unverified">Verify बाकी</string>
+    <string name="account_section_details">जानकारी</string>
+    <string name="account_phone">फ़ोन</string>
+    <string name="account_methods">लॉगिन के तरीके</string>
+    <string name="account_created_at">अकाउंट बना</string>
+    <string name="account_last_sign_in">आख़िरी लॉगिन</string>
+    <string name="account_unknown">पता नहीं</string>
+    <string name="account_uid">User ID</string>
+    <string name="account_copy_uid">User ID कॉपी करें</string>
+    <string name="account_uid_copied">User ID कॉपी हो गया</string>
+    <string name="account_provider_google">Google</string>
+    <string name="account_provider_github">GitHub</string>
+    <string name="account_provider_password">Email + password</string>
+    <string name="account_provider_phone">फ़ोन</string>
+
+    <!-- Signed in: actions -->
+    <string name="account_section_actions">अकाउंट सेटिंग्स</string>
+    <string name="account_edit_name">नाम बदलें</string>
+    <string name="account_name_hint">आपका नाम</string>
+    <string name="account_name_saved">नाम बदल गया</string>
+    <string name="account_send_verification">Verification email भेजें</string>
+    <string name="account_verification_sent">Verify करने का link %1$s पर भेज दिया</string>
+    <string name="account_change_password">पासवर्ड बदलें</string>
+    <string name="account_password_current_hint">अभी का password</string>
+    <string name="account_password_new_hint">नया password (कम से कम 6 अक्षर)</string>
+    <string name="account_password_changed">पासवर्ड बदल गया</string>
+    <string name="account_password_send_reset">Reset email भेजें</string>
+    <string name="account_link_google">Google अकाउंट जोड़ें</string>
+    <string name="account_link_github">GitHub अकाउंट जोड़ें</string>
+    <string name="account_linked">%1$s जुड़ गया — अब इससे भी लॉगिन कर सकते हैं</string>
+    <string name="account_sign_out">लॉग आउट</string>
+    <string name="account_delete">अकाउंट डिलीट करें</string>
+    <string name="account_delete_title">अकाउंट डिलीट करें?</string>
+    <string name="account_delete_message">आपका Share Scan अकाउंट हमेशा के लिए हट जाएगा। इस फ़ोन की watchlist और settings बनी रहेंगी।</string>
+    <string name="account_delete_yes">हाँ, डिलीट करें</string>
+    <string name="account_deleted">अकाउंट डिलीट हो गया</string>
+    <string name="account_save">सेव करें</string>
+    <string name="account_cancel">रहने दें</string>
+    <string name="account_relogin_title">दोबारा लॉगिन करें</string>
+    <string name="account_relogin_message">सुरक्षा के लिए यह काम ताज़ा लॉगिन के बाद ही होता है। लॉग आउट करके फिर से लॉगिन करें, फिर दोबारा कोशिश करें।</string>
+    <string name="account_relogin_yes">लॉग आउट करें</string>
+
+    <!-- Errors -->
+    <string name="account_error_wrong_password">Email या password गलत है</string>
+    <string name="account_error_no_user">इस email से कोई अकाउंट नहीं मिला — पहले नया अकाउंट बनाएँ</string>
+    <string name="account_error_disabled">यह अकाउंट बंद कर दिया गया है</string>
+    <string name="account_error_weak_password">Password कमज़ोर है — कम से कम 6 अक्षर रखें</string>
+    <string name="account_error_email_used">इस email से अकाउंट पहले से बना है — लॉगिन करें</string>
+    <string name="account_error_other_method">इस email का अकाउंट किसी दूसरे तरीके (Google, GitHub या password) से बना है — उसी से लॉगिन करें, फिर यहाँ से यह तरीका जोड़ें</string>
+    <string name="account_error_already_linked">यह अकाउंट पहले से जुड़ा है या किसी दूसरे Share Scan अकाउंट में है</string>
+    <string name="account_error_bad_email">Email सही नहीं है</string>
+    <string name="account_error_network">इंटरनेट कनेक्शन नहीं है — जाँचकर फिर कोशिश करें</string>
+    <string name="account_error_too_many">बहुत ज़्यादा कोशिशें हुईं — थोड़ी देर बाद फिर करें</string>
+    <string name="account_error_no_google_account">इस फ़ोन पर कोई Google अकाउंट नहीं मिला — फ़ोन की Settings में जोड़ें</string>
+    <string name="account_error_google">Google से लॉगिन नहीं हो पाया — फिर कोशिश करें</string>
+    <string name="account_error_browser">Browser में लॉगिन पूरा नहीं हुआ — फिर कोशिश करें</string>
+    <string name="account_error_method_off">यह लॉगिन तरीका अभी चालू नहीं है</string>
+    <string name="account_error_generic">कुछ गड़बड़ हुई — फिर कोशिश करें</string>
+
+    <!-- Short Hindi month names for "18 अक्टू 2026, 4:30 PM", January first. -->
+    <string-array name="account_months">
+        <item>जन</item>
+        <item>फ़र</item>
+        <item>मार्च</item>
+        <item>अप्रै</item>
+        <item>मई</item>
+        <item>जून</item>
+        <item>जुला</item>
+        <item>अग</item>
+        <item>सितं</item>
+        <item>अक्टू</item>
+        <item>नवं</item>
+        <item>दिसं</item>
+    </string-array>
+</resources>
