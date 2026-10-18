@@ -92,38 +92,53 @@ PY
   adb shell input swipe $(( $1 + ($3 - $1) * $5 / 100 )) $y $(( $1 + ($3 - $1) * $6 / 100 )) $y 600
 }
 
-# Results: start a scan, stop it after a while and look at the stock cards it found.
-for theme in galaxy ocean; do
-  set_prefs "<string name=\"theme\">$theme</string><string name=\"glass_style\">frosted</string>"
-  launch
-  sleep 5
-  tap startButton
-  sleep 45
-  tap startButton
+# Waits (up to 7 minutes) for a finished scan's stock cards; uiautomator cannot read the screen while a scan runs.
+wait_cards() {
+  for i in $(seq 1 42); do
+    if find_node id rank > /dev/null 2>&1; then echo "cards after ${i}0s"; return; fi
+    sleep 10
+  done
+  echo "no cards"
+}
+# Scroll the board away so the cards fill the screen.
+to_cards() { adb shell input swipe 540 1900 540 500 600; sleep 2; }
+filters() {
+  tap filterChip
+  shot "filters-$1" 3
+}
+# Picks a glass mode in Settings; the activity restarts but keeps the scan's results.
+glass_mode() {
+  menu
+  tap_text "सेटिंग्स"
+  sleep 2
+  local tries=0
+  until find_node text "$1" > /dev/null 2>&1 || [ $tries -ge 4 ]; do
+    adb shell input swipe 540 1800 540 900 500; sleep 1; tries=$((tries + 1))
+  done
+  tap_text "$1"
   sleep 4
-  # Scroll the board away so the cards fill the screen.
-  adb shell input swipe 540 1900 540 600 500
-  shot "cards-$theme" 3
-done
-# The filter sheet: glass sliders and button, then a slider dragged to show the range and beads.
-tap filterChip
-shot "filters-galaxy" 3
-swipe_id metricSlider 4 40
-shot "filters-dragged" 2
+}
+
+set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">frosted</string>"
+launch
+sleep 5
+tap startButton
+sleep 30
+wait_cards
+to_cards
+shot cards-frosted 2
+filters frosted
+# Drag the left bead of the first slider (market cap) to the right.
+swipe_id metricSlider 4 45
+shot filters-dragged 2
 adb shell input keyevent BACK
 sleep 2
-# Other glass modes on the cards and the sheet.
-for glass in clear smoky solid; do
-  set_prefs "<string name=\"theme\">galaxy</string><string name=\"glass_style\">$glass</string>"
-  launch
-  sleep 5
-  tap startButton
-  sleep 30
-  tap startButton
-  sleep 4
-  adb shell input swipe 540 1900 540 600 500
-  shot "cards-$glass" 3
-  tap filterChip
-  shot "filters-$glass" 3
+for mode in "पारदर्शी:clear" "गहरा:smoky" "ठोस:solid"; do
+  glass_mode "${mode%%:*}"
+  to_cards
+  shot "cards-${mode##*:}" 2
+  filters "${mode##*:}"
+  adb shell input keyevent BACK
+  sleep 2
 done
 kill %1 2>/dev/null
