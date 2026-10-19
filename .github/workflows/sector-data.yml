@@ -6,9 +6,6 @@ on:
   schedule:
     # Sundays, 07:00 IST.
     - cron: '30 1 * * 0'
-  push:
-    branches: [claude/fervent-turing-3b79hv]
-    paths: ['build_sectors.py', '.github/workflows/sector-data.yml']
 permissions:
   contents: write
 concurrency:
