@@ -1,0 +1,33 @@
+# Temporary: samples today's live volume through the session to calibrate the live RVOL curve. Remove before merging.
+name: Volume sample
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['.github/workflows/volume-sample.yml']
+jobs:
+  morning:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 .github/volume_sample.py samples.jsonl 09:16 09:20 09:25 09:30 09:40 09:50 10:00 10:15 10:30 10:45 11:00 11:30 12:00 12:30 13:00
+      - uses: actions/upload-artifact@v4
+        with:
+          name: morning
+          path: samples.jsonl
+  afternoon:
+    needs: morning
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: morning
+      - run: python3 .github/volume_sample.py samples.jsonl 13:30 14:00 14:30 14:45 15:00 15:10 15:20 15:29 15:45 16:10
+      - run: python3 .github/volume_report.py samples.jsonl 16:10
+      - uses: actions/upload-artifact@v4
+        with:
+          name: all
+          path: samples.jsonl
