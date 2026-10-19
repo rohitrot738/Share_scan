@@ -25,6 +25,9 @@ object ScoreKeys {
     const val MOMENTUM = "momentum"
     const val BREAKOUT = "breakout"
     const val TREND = "trend"
+
+    /** A bonus on top of the weighted parts, for a long-standing support floor ([SupportFloor]). */
+    const val SUPPORT = "support"
 }
 
 /** One ingredient of the score: its 0–100 value and its weight in the total. */
@@ -75,6 +78,8 @@ data class ScanResult(
     val live: Boolean = false,
     /** Scores at the close of earlier sessions, newest first ([BreakoutSignals.Signals.pastScores]). */
     val pastScores: List<DayScore> = emptyList(),
+    /** The longest-standing price it has not closed below, over the chart's six months; null without one. */
+    val support: SupportFloor? = null,
 ) {
     /** Rupee value traded in the latest session, in crore. */
     val turnoverCr: Double get() = price * volume / CRORE
@@ -446,6 +451,7 @@ object NseScanner {
             bseCode = listing.bseCode,
             live = signals.live,
             pastScores = signals.pastScores,
+            support = signals.support,
         )
     }
 
@@ -474,7 +480,8 @@ object NseScanner {
      * against the share of a day's volume that normally trades by now ([VolumeCurve]).
      */
     private fun signalsFor(ticker: String, nowMillis: Long): BreakoutSignals.Signals? {
-        val url = "https://query1.finance.yahoo.com/v8/finance/chart/$ticker?range=3mo&interval=1d"
+        // Six months: the support floor ([SupportFloors]) looks that far back; the score needs only the last 60 sessions.
+        val url = "https://query1.finance.yahoo.com/v8/finance/chart/$ticker?range=6mo&interval=1d"
         val chart = JSONObject(get(url)).getJSONObject("chart").optJSONArray("result")?.optJSONObject(0) ?: return null
         val quote = chart.optJSONObject("indicators")?.optJSONArray("quote")?.optJSONObject(0) ?: return null
         val stamps = chart.optJSONArray("timestamp")

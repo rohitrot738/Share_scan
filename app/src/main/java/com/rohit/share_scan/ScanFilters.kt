@@ -17,6 +17,12 @@ enum class Metric(val key: String, val stops: List<Double>) {
 
     /** Percent above (+) or below (-) the 50-day average; "≥ 0%" keeps stocks in an uptrend. */
     VS_SMA50("sma50", listOf(-20.0, -10.0, -5.0, 0.0, 5.0, 10.0, 20.0, 30.0, 50.0)),
+
+    /** Sessions since the support floor was first tested ([SupportFloor.ageSessions]); stops are whole months. */
+    SUPPORT_AGE("supage", List(6) { (it + 1) * SupportFloors.SESSIONS_PER_MONTH.toDouble() }),
+
+    /** Percent the price sits above its support floor; "≤ 5%" keeps stocks close to it. */
+    SUPPORT_GAP("supgap", listOf(0.0, 2.0, 5.0, 10.0, 15.0, 20.0, 30.0, 50.0)),
     SCORE("score", listOf(20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0));
 
     fun read(stock: ScanResult): Double? = when (this) {
@@ -29,6 +35,8 @@ enum class Metric(val key: String, val stops: List<Double>) {
         FROM_HIGH -> stock.belowHigh20Pct
         BASE_RANGE -> stock.baseRangePct
         VS_SMA50 -> stock.vsSma50Pct
+        SUPPORT_AGE -> stock.support?.ageSessions?.toDouble()
+        SUPPORT_GAP -> stock.support?.distancePct(stock.price)
         SCORE -> stock.score
     }
 

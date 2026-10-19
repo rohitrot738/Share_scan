@@ -120,6 +120,18 @@
                     android:maxLines="1"
                     android:textColor="@color/text_secondary"
                     android:textSize="12sp" />
+
+                <!-- A support floor of three months or more: its price, age and tests. -->
+                <TextView
+                    android:id="@+id/supportLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:fontFeatureSettings="tnum"
+                    android:maxLines="1"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout

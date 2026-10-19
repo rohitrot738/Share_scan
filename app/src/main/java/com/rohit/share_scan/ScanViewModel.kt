@@ -136,7 +136,12 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun setWatchlistOnly(only: Boolean) {
-        state.update { it.copy(watchlistOnly = only) }
+        state.update { it.copy(watchlistOnly = only, supportOnly = it.supportOnly && !only) }
+    }
+
+    /** Shows only stocks on a long support floor; it takes the watchlist's place, the two never show together. */
+    fun setSupportOnly(only: Boolean) {
+        state.update { it.copy(supportOnly = only, watchlistOnly = it.watchlistOnly && !only) }
     }
 
     fun openSearch() {

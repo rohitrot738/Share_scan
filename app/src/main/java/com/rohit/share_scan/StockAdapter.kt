@@ -95,6 +95,16 @@ class StockAdapter(
         ui.score.text = score
         ui.score.setTextColor(color(tierColor))
 
+        // A floor of three months or more; one that held six months is green, as the Support 6M chip lists it.
+        val floor = stock.support?.takeIf { it.ageSessions >= SupportFloors.LONG_AGE }
+        ui.supportLine.isVisible = floor != null
+        val supportDescription = floor?.let {
+            val age = StockFormat.supportAge(it)
+            ui.supportLine.text = context.getString(R.string.item_support, StockFormat.price(it.level), age, it.touches)
+            ui.supportLine.setTextColor(color(if (it.long) R.color.bull else R.color.text_secondary))
+            context.getString(R.string.item_support_description, StockFormat.price(it.level), age, it.touches)
+        }
+
         // A starred stock no chart has come in for yet: its symbol, and a word that its prices are on their way.
         val charted = stock.charted
         ui.rvol.isVisible = charted
@@ -125,6 +135,7 @@ class StockAdapter(
                 else -> context.getString(R.string.item_description_unranked, stock.symbol, score)
             },
             context.getString(exchange.description),
+            supportDescription,
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,
         ).joinToString(", ")

@@ -202,6 +202,8 @@ class FilterSheet(
         Metric.FROM_HIGH -> R.string.metric_from_high
         Metric.BASE_RANGE -> R.string.metric_base_range
         Metric.VS_SMA50 -> R.string.metric_vs_sma50
+        Metric.SUPPORT_AGE -> R.string.metric_support_age
+        Metric.SUPPORT_GAP -> R.string.metric_support_gap
         Metric.SCORE -> R.string.metric_score
     }
 
@@ -220,6 +222,8 @@ class FilterSheet(
         Metric.FROM_HIGH -> activity.getString(R.string.hint_from_high)
         Metric.BASE_RANGE -> activity.getString(R.string.hint_base_range)
         Metric.VS_SMA50 -> activity.getString(R.string.hint_vs_sma50)
+        Metric.SUPPORT_AGE -> activity.getString(R.string.hint_support_age)
+        Metric.SUPPORT_GAP -> activity.getString(R.string.hint_support_gap)
         Metric.SCORE -> activity.getString(
             R.string.hint_score_mix,
             StockFormat.metricValue(Metric.SCORE, StockFormat.STRONG_SCORE),

@@ -353,6 +353,13 @@ class HelpSheet(private val activity: AppCompatActivity, private val onBack: () 
             add(activity.getString(title), activity.getString(body), weight)
         }
         add(
+            activity.getString(R.string.help_part_support, (BreakoutSignals.SUPPORT_BONUS * 100).roundToInt()),
+            activity.getString(
+                R.string.help_part_support_body,
+                SupportFloors.LONG_AGE / SupportFloors.SESSIONS_PER_MONTH,
+            ),
+        )
+        add(
             activity.getString(R.string.help_tiers_title),
             activity.getString(
                 R.string.help_tiers_body,

@@ -35,6 +35,7 @@ class ScanStoreTest {
         sector = "Automobile and Auto Components",
         live = true,
         pastScores = listOf(DayScore(20_741L, 79.0), DayScore(20_740L, 70.5)),
+        support = SupportFloor(level = 2_890.0, ageSessions = 118, touches = 4, unbroken = true, window = 124),
     )
 
     private val bare = ScanResult(symbol = "123ABC", price = 10.0, score = 40.0, rvol = 0.5, change5d = 2.0, market = Market.BSE, bseCode = "543210")

@@ -613,6 +613,19 @@
                         app:closeIconSize="16dp"
                         app:closeIconTint="@color/glass_chip_text" />
 
+                    <!-- Stocks on a support floor of six months; like the watchlist, a mode with a way back. -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/supportChip"
+                        style="@style/ShareScanChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/support_chip"
+                        app:checkedIconVisible="false"
+                        app:closeIcon="@drawable/ic_close"
+                        app:closeIconSize="16dp"
+                        app:closeIconTint="@color/glass_chip_text" />
+
                     <!-- Industries ranked by strength; picking one filters the list to it. -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/sectorChip"

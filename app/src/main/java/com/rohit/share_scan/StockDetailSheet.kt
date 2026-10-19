@@ -133,6 +133,7 @@ class StockDetailSheet(
             if (structure.high20.isFinite() && structure.high20 > 0.0) {
                 add(level(structure.high20, R.string.detail_chart_high20, R.color.warn))
             }
+            stock.support?.let { add(level(it.level, R.string.detail_chart_support, R.color.neutral)) }
         }
         ui.detailChart.setData(closes, levels, color(trend))
         ui.detailChart.contentDescription = activity.getString(
@@ -264,12 +265,18 @@ class StockDetailSheet(
             ui.detailScoreSection.isVisible = false
             return
         }
-        val totalWeight = parts.sumOf { it.weight.coerceAtLeast(0.0) }
+        // The support bonus comes on top of the weighted parts, which share 100%; it shows how much it can add.
+        val totalWeight = parts.filter { it.key != ScoreKeys.SUPPORT }.sumOf { it.weight.coerceAtLeast(0.0) }
         for (part in parts.sortedByDescending { it.weight }) {
+            val bonus = part.key == ScoreKeys.SUPPORT
             val row = ItemDetailScoreBinding.inflate(activity.layoutInflater, ui.detailScoreParts, true)
             val value = part.value.coerceIn(0.0, 100.0)
             val shown = String.format(Locale.US, "%.0f", value)
-            val weight = if (totalWeight > 0.0) (part.weight.coerceAtLeast(0.0) / totalWeight * 100.0).roundToInt() else 0
+            val weight = when {
+                bonus -> (part.weight * 100.0).roundToInt()
+                totalWeight > 0.0 -> (part.weight.coerceAtLeast(0.0) / totalWeight * 100.0).roundToInt()
+                else -> 0
+            }
             val name = partName(part.key)
             val tone = when (StockFormat.tier(value)) {
                 StockFormat.Tier.STRONG -> R.color.bull
@@ -282,7 +289,8 @@ class StockDetailSheet(
             row.partBar.setIndicatorColor(color(tone))
             row.partBar.setProgressCompat(value.roundToInt(), false)
             row.partWeight.isVisible = totalWeight > 0.0
-            row.partWeight.text = activity.getString(R.string.detail_part_weight, weight)
+            row.partWeight.text =
+                activity.getString(if (bonus) R.string.detail_part_bonus else R.string.detail_part_weight, weight)
             row.root.contentDescription = activity.getString(R.string.detail_part_description, name, shown, weight)
         }
     }
@@ -293,6 +301,7 @@ class StockDetailSheet(
         ScoreKeys.MOMENTUM -> activity.getString(R.string.detail_part_momentum)
         ScoreKeys.BREAKOUT -> activity.getString(R.string.detail_part_breakout)
         ScoreKeys.TREND -> activity.getString(R.string.detail_part_trend)
+        ScoreKeys.SUPPORT -> activity.getString(R.string.detail_part_support)
         else -> key.replaceFirstChar { it.uppercaseChar() }
     }
 
@@ -331,6 +340,22 @@ class StockDetailSheet(
                         activity.getString(R.string.detail_stat_rvol_value, StockFormat.rvol(stock.rvol)),
                         activity.getString(if (stock.live) R.string.detail_stat_rvol_live_note else R.string.detail_stat_rvol_note),
                         if (stock.rvol >= StockFormat.SPIKE_RVOL) R.color.warn else R.color.text_secondary,
+                    ),
+                )
+            }
+            stock.support?.let { floor ->
+                val note = activity.getString(
+                    if (floor.long) R.string.detail_stat_support_long_note else R.string.detail_stat_support_note,
+                    StockFormat.supportAge(floor),
+                    floor.touches,
+                    percent(maxOf(0.0, floor.distancePct(stock.price))),
+                )
+                add(
+                    Stat(
+                        activity.getString(R.string.detail_stat_support),
+                        rupees(floor.level),
+                        note,
+                        if (floor.long) R.color.bull else R.color.text_secondary,
                     ),
                 )
             }

@@ -41,6 +41,8 @@ data class ScanUiState(
     val watchlist: Set<String> = emptySet(),
     /** Show only starred stocks. */
     val watchlistOnly: Boolean = false,
+    /** Show only stocks standing on a long support floor ([SupportFloor.long]); never together with [watchlistOnly]. */
+    val supportOnly: Boolean = false,
     val searchOpen: Boolean = false,
     /** Search text, matched against the symbol and the company name ([StockSearch]). */
     val query: String = "",
@@ -84,9 +86,19 @@ data class ScanUiState(
         if (filters.limit > 0) matching.take(filters.limit) else matching
     }
 
-    /** The list before the search: [visible], or in watchlist mode [starredStocks]. */
+    /**
+     * Stocks inside the filters that stand on a long support floor: not closed below it for about six months and
+     * tested since at least three months ago. Like the watchlist, it looks past the Top limit.
+     */
+    val supported: List<RankedStock> by lazy { matching.filter { it.stock.support?.long == true } }
+
+    /** The list before the search: [visible], or [starredStocks] in watchlist mode, or [supported] in support mode. */
     val listed: List<RankedStock> by lazy {
-        if (watchlistOnly) starredStocks else visible
+        when {
+            watchlistOnly -> starredStocks
+            supportOnly -> supported
+            else -> visible
+        }
     }
 
     /**
@@ -115,7 +127,11 @@ data class ScanUiState(
         if (query.isBlank()) {
             listed
         } else {
-            val pool = if (watchlistOnly) starredStocks else matching
+            val pool = when {
+                watchlistOnly -> starredStocks
+                supportOnly -> supported
+                else -> matching
+            }
             pool.filter { StockSearch.matches(it.stock, query) }
         }
     }

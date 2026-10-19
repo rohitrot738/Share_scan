@@ -57,14 +57,18 @@ class MainActivity : AppCompatActivity() {
     private var shownSort: SortMode? = null
     private var shownAscending: Boolean? = null
     private var shownWatchlistOnly: Boolean? = null
+    private var shownSupportOnly: Boolean? = null
     private var shownQuery: String? = null
     private var shownWatchlist: Set<String>? = null
     private val closeSearchOnBack = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() = closeSearch()
     }
-    /** In the watchlist, Back goes to the full list rather than out of the app. */
-    private val leaveWatchlistOnBack = object : OnBackPressedCallback(false) {
-        override fun handleOnBackPressed() = scan.setWatchlistOnly(false)
+    /** In the watchlist or the Support 6M list, Back goes to the full list rather than out of the app. */
+    private val leaveListModeOnBack = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {
+            scan.setWatchlistOnly(false)
+            scan.setSupportOnly(false)
+        }
     }
     private var filterSheet: BottomSheetDialog? = null
     private var detailSheet: BottomSheetDialog? = null
@@ -363,18 +367,20 @@ class MainActivity : AppCompatActivity() {
 
         // A star toggle only rebinds its card; anything that changes which stocks show, or their order, jumps to the top.
         val reorder = state.results !== shownResults || state.filters != shownFilters || state.sort != shownSort ||
-            state.ascending != shownAscending || state.watchlistOnly != shownWatchlistOnly || state.query != shownQuery
+            state.ascending != shownAscending || state.watchlistOnly != shownWatchlistOnly ||
+            state.supportOnly != shownSupportOnly || state.query != shownQuery
         if (reorder || state.watchlist != shownWatchlist) {
             val freshResults = state.results !== shownResults
             // Live mode's fresh prices arrive while the user may be reading: the list keeps its place for them.
             val quiet = freshResults && shownResults != null && state.autoResults &&
                 state.filters == shownFilters && state.sort == shownSort && state.ascending == shownAscending &&
-                state.watchlistOnly == shownWatchlistOnly && state.query == shownQuery
+                state.watchlistOnly == shownWatchlistOnly && state.supportOnly == shownSupportOnly && state.query == shownQuery
             shownResults = state.results
             shownFilters = state.filters
             shownSort = state.sort
             shownAscending = state.ascending
             shownWatchlistOnly = state.watchlistOnly
+            shownSupportOnly = state.supportOnly
             shownQuery = state.query
             shownWatchlist = state.watchlist
             adapter.submitList(shown) {
@@ -486,11 +492,14 @@ class MainActivity : AppCompatActivity() {
         // A star toggle rebinds its card in place instead of cross-fading it.
         (ui.results.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
         // Added last, the search's callback runs first: Back closes the search, then leaves the watchlist.
-        onBackPressedDispatcher.addCallback(this, leaveWatchlistOnBack)
+        onBackPressedDispatcher.addCallback(this, leaveListModeOnBack)
         onBackPressedDispatcher.addCallback(this, closeSearchOnBack)
         ui.watchlistChip.setOnCheckedChangeListener { _, checked -> scan.setWatchlistOnly(checked) }
         ui.watchlistChip.setOnCloseIconClickListener { scan.setWatchlistOnly(false) }
         ui.watchlistChip.closeIconContentDescription = getString(R.string.list_watchlist_leave)
+        ui.supportChip.setOnCheckedChangeListener { _, checked -> scan.setSupportOnly(checked) }
+        ui.supportChip.setOnCloseIconClickListener { scan.setSupportOnly(false) }
+        ui.supportChip.closeIconContentDescription = getString(R.string.support_chip_leave)
         ui.searchButton.setOnClickListener { openSearch() }
         ui.searchClose.setOnClickListener { closeSearch() }
         ui.searchField.doAfterTextChanged { scan.setQuery(it?.toString().orEmpty()) }
@@ -510,7 +519,13 @@ class MainActivity : AppCompatActivity() {
         if (ui.watchlistChip.isChecked != state.watchlistOnly) ui.watchlistChip.isChecked = state.watchlistOnly
         // The ✕ on the chip shows the way back to the full list.
         ui.watchlistChip.isCloseIconVisible = state.watchlistOnly
-        leaveWatchlistOnBack.isEnabled = state.watchlistOnly
+        val supported = state.supported.size
+        val supportLabel =
+            if (state.results.isEmpty()) getString(R.string.support_chip) else getString(R.string.support_chip_count, supported)
+        if (ui.supportChip.text.toString() != supportLabel) ui.supportChip.text = supportLabel
+        if (ui.supportChip.isChecked != state.supportOnly) ui.supportChip.isChecked = state.supportOnly
+        ui.supportChip.isCloseIconVisible = state.supportOnly
+        leaveListModeOnBack.isEnabled = state.watchlistOnly || state.supportOnly
 
         val scanned = state.results.isNotEmpty()
         ui.searchButton.isVisible = scanned
@@ -533,6 +548,11 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.list_empty_search_title),
                 getString(R.string.list_empty_search_body, state.query.trim()),
                 R.drawable.ic_search,
+            )
+            state.supportOnly -> Triple(
+                getString(R.string.support_list_empty_title),
+                getString(R.string.support_list_empty_body),
+                R.drawable.ic_radar,
             )
             !state.watchlistOnly -> return false
             state.watchlist.isEmpty() -> Triple(

@@ -102,6 +102,26 @@ class WatchlistSearchTest {
     }
 
     @Test
+    fun supportModeListsStocksOnALongFloor() {
+        val long = SupportFloor(level = 380.0, ageSessions = 120, touches = 4, unbroken = true, window = 124)
+        val young = long.copy(ageSessions = 30)
+        val broken = long.copy(unbroken = false)
+        val floors = mapOf("TATAPOWER" to long, "TCS" to young, "M&M" to broken, "INFY" to long)
+        val stocks = results.map { it.copy(support = floors[it.symbol]) }
+        val state = ScanUiState(results = stocks, filters = ScanFilters(limit = 2), supportOnly = true)
+        // Past the limit of 2, ranked as in the full list; a young or broken floor does not count.
+        assertEquals(listOf("TATAPOWER" to 4, "INFY" to 5), ranks(state.sortedResults))
+        assertEquals(listOf("INFY" to 5), ranks(state.copy(query = "inf").sortedResults))
+        assertEquals(2, state.supported.size)
+        assertEquals(listOf("TECHM" to 1, "TCS" to 2), ranks(state.copy(supportOnly = false).sortedResults))
+        // Filters still apply, and rank among what they leave: the support filters read the floor.
+        val near = state.copy(filters = ScanFilters(limit = 0).with(Metric.SUPPORT_GAP, Bound(max = 10.0)))
+        assertEquals(listOf("TATAPOWER" to 1), ranks(near.sortedResults))
+        val old = ScanFilters(limit = 0).with(Metric.SUPPORT_AGE, Bound(min = 63.0))
+        assertEquals(listOf("M&M", "TATAPOWER", "INFY"), state.copy(filters = old, supportOnly = false).sortedResults.map { it.stock.symbol })
+    }
+
+    @Test
     fun badgesAndStarsReachTheRankedStocks() {
         val state = ScanUiState(
             results = results,

@@ -63,8 +63,25 @@ object StockFormat {
         Metric.VOLUME -> shares(value)
         Metric.RVOL -> short(value) + "×"
         Metric.CHANGE, Metric.VS_SMA50 -> (if (value > 0) "+" else "") + short(value) + "%"
-        Metric.FROM_HIGH, Metric.BASE_RANGE -> short(value) + "%"
+        Metric.FROM_HIGH, Metric.BASE_RANGE, Metric.SUPPORT_GAP -> short(value) + "%"
+        Metric.SUPPORT_AGE -> months((value / SupportFloors.SESSIONS_PER_MONTH).roundToInt())
         Metric.SCORE -> short(value)
+    }
+
+    /** "1 महीना", "3 महीने". */
+    fun months(count: Int): String = if (count == 1) "1 महीना" else "$count महीने"
+
+    /**
+     * How long a support floor has stood: trading days under a month, then months, with a "+" when it reaches back
+     * to the chart's start and may be older: "12 दिन", "4 महीने", "6+ महीने".
+     */
+    fun supportAge(floor: SupportFloor): String {
+        val months = (floor.ageSessions.toDouble() / SupportFloors.SESSIONS_PER_MONTH).roundToInt()
+        return when {
+            floor.sinceChartStart -> months(months).replaceFirst(" ", "+ ")
+            floor.ageSessions < SupportFloors.SESSIONS_PER_MONTH -> "${floor.ageSessions} दिन"
+            else -> months(months)
+        }
     }
 
     /** "₹500 Cr – ₹20,000 Cr", "≥ ₹500 Cr", "≤ 3×", or [any] when the bound is open on both sides. */
