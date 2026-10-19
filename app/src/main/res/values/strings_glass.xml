@@ -4,6 +4,9 @@
     <string name="settings_sky">आसमान का animation</string>
     <string name="settings_sky_body">तारे, टूटते तारे और चमक चलें; बंद करने पर आसमान रुका रहेगा (battery बचेगी)</string>
     <string name="settings_section_glass">ग्लास मोड</string>
+    <string name="settings_glass_on">ग्लास इफ़ेक्ट</string>
+    <string name="settings_glass_on_body">बंद करने पर बोर्ड, कार्ड, बटन और sheets सादे और ठोस • कोई कांच, चमक या धुंधलापन नहीं</string>
+    <string name="glass_off_body">अभी: ग्लास बंद • ऊपर का switch चालू करते ही चुना हुआ मोड लौट आएगा</string>
     <string name="settings_glass_body">स्कैन बोर्ड, कार्ड, sheets, chips और switches का कांच • चुनते ही पूरा app उसी में</string>
 
     <string name="glass_frosted">धुंधला</string>
@@ -18,5 +21,5 @@
     <string name="glass_smoky_body">अभी: धुएँ जैसा गहरा काला कांच • आसमान हल्का-सा झलके</string>
     <string name="glass_tinted_body">अभी: थीम के रंग में रंगा कांच</string>
     <string name="glass_liquid_body">अभी: आसमानी से गुलाबी चमकते किनारे, जैसे पानी पर तेल की परत</string>
-    <string name="glass_solid_body">अभी: कांच बंद, पक्के कार्ड • पढ़ने में सबसे आसान, phone पर सबसे हल्का</string>
+    <string name="glass_solid_body">अभी: पक्के, ठोस कार्ड, बस हल्की चमक • पढ़ने में सबसे आसान, phone पर सबसे हल्का</string>
 </resources>

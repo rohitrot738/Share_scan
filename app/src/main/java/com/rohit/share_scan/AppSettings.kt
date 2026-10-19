@@ -70,6 +70,11 @@ class AppSettings(context: Context) {
         get() = GlassStyle.fromKey(prefs.getString(Prefs.GLASS_STYLE, null))
         set(value) = prefs.edit { putString(Prefs.GLASS_STYLE, value.key) }
 
+    /** Glass on at all; off makes every surface flat and solid but keeps [glassStyle] for when it is back on. */
+    var glassEnabled: Boolean
+        get() = prefs.getBoolean(Prefs.GLASS_ENABLED, true)
+        set(value) = prefs.edit { putBoolean(Prefs.GLASS_ENABLED, value) }
+
     /** Let the sky's stars twinkle, drift and shoot; off holds it still, which saves battery. */
     var skyAnimation: Boolean
         get() = prefs.getBoolean(Prefs.SKY_ANIMATION, true)

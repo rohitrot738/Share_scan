@@ -132,6 +132,17 @@
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.ShareScan.BottomSheetDialog.Solid</item>
     </style>
 
+    <!--
+        Glass switched off (Settings → ग्लास इफ़ेक्ट): Solid without even its faint light, so cards, sheets, chips and the
+        scan board are flat and solid whichever mode is picked. Not a mode of its own: the picked mode comes back
+        when the glass is switched on again.
+    -->
+    <style name="ThemeOverlay.ShareScan.Glass.Off" parent="ThemeOverlay.ShareScan.Glass.Solid">
+        <item name="glassShineRim">@android:color/transparent</item>
+        <item name="glassShineRimOn">@android:color/transparent</item>
+        <item name="glassShineSpecularOn">@android:color/transparent</item>
+    </style>
+
     <!-- How much the screen behind a sheet is frosted on Android 12+: lighter for Clear, heavier for Smoky, off for Solid. -->
     <style name="ThemeOverlay.ShareScan.BottomSheetDialog.Clear" parent="ThemeOverlay.ShareScan.BottomSheetDialog">
         <item name="android:windowBlurBehindRadius" tools:targetApi="31">12dp</item>
