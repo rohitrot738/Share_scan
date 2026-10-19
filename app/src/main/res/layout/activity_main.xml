@@ -237,9 +237,12 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
+                        <!-- The market's state: LIVE while it trades, closed otherwise, and whether live mode scans on its own. -->
                         <TextView
+                            android:id="@+id/heroLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:accessibilityLiveRegion="polite"
                             android:letterSpacing="0.12"
                             android:text="@string/hero_label"
                             android:textColor="@color/hero_text_muted"
@@ -606,6 +609,16 @@
                         android:layout_marginStart="8dp"
                         android:text="@string/list_watchlist"
                         app:checkedIconVisible="false" />
+
+                    <!-- Industries ranked by strength; picking one filters the list to it. -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/sectorChip"
+                        style="@style/ShareScanActionChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/sector_chip"
+                        app:chipIcon="@drawable/ic_sector" />
 
                     <View
                         android:layout_width="1dp"

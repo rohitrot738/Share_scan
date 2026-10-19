@@ -17,7 +17,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.materialswitch.MaterialSwitch
 import com.rohit.share_scan.databinding.ItemHelpBinding
 import com.rohit.share_scan.databinding.ItemMenuBinding
 import com.rohit.share_scan.databinding.ItemThemeBinding
@@ -153,7 +152,7 @@ class MenuSheet(
     private val theme: ThemeChoice,
     private val onPick: (Entry) -> Unit,
 ) {
-    enum class Entry { ACCOUNT, SETTINGS, THEME, UPDATE, HELP, SHARE, ABOUT }
+    enum class Entry { ACCOUNT, SCAN, TRACK_RECORD, SECTORS, SETTINGS, THEME, UPDATE, HELP, SHARE, ABOUT }
 
     fun show(): BottomSheetDialog {
         val ui = SheetMenuBinding.inflate(activity.layoutInflater)
@@ -171,6 +170,9 @@ class MenuSheet(
         }
         val account = AccountManager.summary(activity) ?: activity.getString(R.string.menu_account_signed_out)
         add(Entry.ACCOUNT, R.drawable.ic_account, R.string.menu_account, account)
+        add(Entry.SCAN, R.drawable.ic_radar, R.string.menu_scan, activity.getString(R.string.menu_scan_body))
+        add(Entry.TRACK_RECORD, R.drawable.ic_history, R.string.menu_track_record, activity.getString(R.string.menu_track_record_body))
+        add(Entry.SECTORS, R.drawable.ic_sector, R.string.menu_sectors, activity.getString(R.string.menu_sectors_body))
         add(Entry.SETTINGS, R.drawable.ic_settings, R.string.menu_settings, activity.getString(R.string.menu_settings_body))
         add(Entry.THEME, R.drawable.ic_palette, R.string.menu_theme, activity.getString(R.string.menu_theme_body, activity.getString(theme.title)))
         add(Entry.UPDATE, R.drawable.ic_system_update, R.string.menu_update, activity.getString(R.string.menu_update_body, version))
@@ -221,9 +223,6 @@ class SettingsSheet(
             actions.skyAnimationChanged(on)
         }
         ui.settingSkyRow.setOnClickListener { ui.settingSky.toggle() }
-        bindMarket(ui.settingNse, ui.settingNseRow, settings.includeNse) { settings.includeNse = it }
-        bindMarket(ui.settingSme, ui.settingSmeRow, settings.includeSme) { settings.includeSme = it }
-        bindMarket(ui.settingBse, ui.settingBseRow, settings.includeBse) { settings.includeBse = it }
 
         val current = settings.chartSite
         ChartSite.entries.forEach { site ->
@@ -273,21 +272,6 @@ class SettingsSheet(
         // Closing the sheet (or the screen being re-created) takes an open "पक्का?" dialog with it.
         sheet.setOnDismissListener { confirmDialog?.dismiss() }
         return sheet
-    }
-
-    /** A market switch; turning off the last market still on is refused, since the scan would have nothing to scan. */
-    private fun bindMarket(switch: MaterialSwitch, row: View, on: Boolean, save: (Boolean) -> Unit) {
-        switch.isChecked = on
-        switch.setOnCheckedChangeListener { _, checked ->
-            val anyOn = listOf(ui.settingNse, ui.settingSme, ui.settingBse).any { it.isChecked }
-            if (!checked && !anyOn) {
-                switch.isChecked = true
-                android.widget.Toast.makeText(activity, R.string.settings_market_needed, android.widget.Toast.LENGTH_SHORT).show()
-            } else {
-                save(checked)
-            }
-        }
-        row.setOnClickListener { switch.toggle() }
     }
 
     private fun confirm(message: String, action: () -> Unit) {
@@ -382,6 +366,11 @@ class HelpSheet(private val activity: AppCompatActivity, private val onBack: () 
         )
         add(activity.getString(R.string.help_plan_title), activity.getString(R.string.help_plan_body))
         add(activity.getString(R.string.help_badges_title), activity.getString(R.string.help_badges_body))
+        add(activity.getString(R.string.help_live_title), activity.getString(R.string.help_live_body))
+        add(activity.getString(R.string.help_alerts_title), activity.getString(R.string.help_alerts_body))
+        add(activity.getString(R.string.help_record_title), activity.getString(R.string.help_record_body))
+        add(activity.getString(R.string.help_sector_title), activity.getString(R.string.help_sector_body))
+        add(activity.getString(R.string.help_cloud_title), activity.getString(R.string.help_cloud_body))
         add(activity.getString(R.string.about_disclaimer_title), activity.getString(R.string.help_disclaimer))
         return activity.showSheet(ui.root, ui.sheetTopBar, onBack, fullHeight = true)
     }

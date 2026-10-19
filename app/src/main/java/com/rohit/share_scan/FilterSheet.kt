@@ -28,9 +28,11 @@ class FilterSheet(
     private val rows = LinkedHashMap<Metric, ItemFilterMetricBinding>()
     private val presetChips = mutableListOf<Pair<Chip, Bound>>()
     private val limitChips = mutableMapOf<Int, Int>()
+    private val sectorChips = mutableMapOf<String, Chip>()
     private var draft = state.filters
 
     fun show(): BottomSheetDialog {
+        addSectorChips()
         Metric.entries.forEach(::addRow)
         addLimitChips()
         ui.filterReset.setOnClickListener {
@@ -100,6 +102,27 @@ class FilterSheet(
         }
     }
 
+    /** One chip per industry in the scan, biggest first, plus any picked one the scan no longer has. */
+    private fun addSectorChips() {
+        val counts = state.results.filter { it.sector.isNotEmpty() }.groupingBy { it.sector }.eachCount()
+        val sectors = counts.entries.sortedByDescending { it.value }.map { it.key } + (draft.sectors - counts.keys).sorted()
+        val visible = sectors.isNotEmpty()
+        ui.sectorTitle.isVisible = visible
+        ui.sectorHint.isVisible = visible
+        ui.sectorChips.isVisible = visible
+        for (sector in sectors) {
+            val chip = ChipChoiceBinding.inflate(activity.layoutInflater, ui.sectorChips, true).root
+            chip.id = View.generateViewId()
+            chip.text = counts[sector]?.let { activity.getString(R.string.filters_sector_chip, sector, it) } ?: sector
+            chip.isCheckable = true
+            chip.setOnClickListener {
+                draft = draft.copy(sectors = if (sector in draft.sectors) draft.sectors - sector else draft.sectors + sector)
+                syncLabels()
+            }
+            sectorChips[sector] = chip
+        }
+    }
+
     private fun addLimitChips() {
         for (limit in ScanFilters.LIMITS) {
             val chip = ChipChoiceBinding.inflate(activity.layoutInflater, ui.limitChips, true).root
@@ -143,6 +166,7 @@ class FilterSheet(
         }
         val capBound = draft.bound(Metric.MARKET_CAP)
         for ((chip, bound) in presetChips) chip.isChecked = bound == capBound
+        for ((sector, chip) in sectorChips) chip.isChecked = sector in draft.sectors
 
         val scanned = state.results
         if (scanned.isEmpty()) {

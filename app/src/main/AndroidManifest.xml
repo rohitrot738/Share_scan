@@ -2,6 +2,8 @@
   <uses-permission android:name="android.permission.INTERNET" />
   <!-- Lets the update banner hand a downloaded release APK to the system installer. -->
   <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+  <!-- Live mode's finds and the watchlist's breakout, target and stop alerts (asked for on Android 13 and later). -->
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
   <application
       android:name=".ShareScanApp"
       android:allowBackup="true"
@@ -11,9 +13,11 @@
       android:supportsRtl="true"
       android:theme="@style/Theme.ShareScan"
       android:usesCleartextTraffic="false">
+    <!-- singleTop: an alert tapped while the app is open reaches the open screen (onNewIntent). -->
     <activity
         android:name=".MainActivity"
         android:exported="true"
+        android:launchMode="singleTop"
         android:theme="@style/Theme.ShareScan.Launch">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

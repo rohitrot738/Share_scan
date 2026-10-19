@@ -88,6 +88,30 @@ Share Scan → `google-services.json`), ताकि उसमें Google व�
 ध्यान रहे: `FIREBASE_APP_ID` **Android** app का होना चाहिए (बीच में `:android:` लिखा हो), web app का नहीं।
 `FIREBASE_WEB_CLIENT_ID` में `client_type: 3` (web) वाला ID चाहिए, `client_type: 1` (Android) वाला नहीं।
 
+## Step 6.5 — Watchlist cloud में रखने के लिए Firestore चालू करें
+
+Login के बाद app आपकी ★ Watchlist को Cloud Firestore में रखता है, ताकि दूसरे phone पर उसी account से login करने पर
+वही watchlist दिखे। इसके लिए (यह step छोड़ देंगे तो login चलेगा, बस watchlist सिर्फ़ phone पर रहेगी):
+
+1. Firebase console → **Build → Firestore Database** → **Create database**।
+2. **Location** में `asia-south1 (Mumbai)` चुनें → Next → **Start in production mode** → **Create**।
+3. Database बनने के बाद **Rules** tab खोलें, पूरा text हटाकर नीचे वाले rules paste करें → **Publish**:
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // हर user सिर्फ़ अपना document पढ़/लिख सकता है: users/{अपना uid}
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+  }
+}
+```
+
+पहली बार किसी phone पर login करने पर phone की watchlist और cloud की watchlist जुड़ जाती हैं (कुछ नहीं हटता)।
+उसके बाद cloud वाली list ही मानी जाती है — एक phone पर ★ लगाएँ या हटाएँ, दूसरे पर भी हो जाएगा।
+
 ## Step 7 — Values को repository secrets में डालें
 
 1. GitHub पर repo खोलें → **Settings** → **Secrets and variables** → **Actions**।
@@ -118,6 +142,7 @@ Secrets सिर्फ़ नए build में जाते हैं:
 | "Google से लॉगिन नहीं हो पाया" | Step 3 के SHA-1/SHA-256 जुड़े हैं? `FIREBASE_WEB_CLIENT_ID` web (`client_type: 3`) वाला है? Release APK इस्तेमाल कर रहे हैं (debug नहीं)? |
 | GitHub login browser में error दे | GitHub OAuth App का callback URL Firebase वाले URL से बिल्कुल मिलता है? Firebase में GitHub का Client ID/secret सही paste हुआ? |
 | "यह लॉगिन तरीका अभी चालू नहीं है" | Step 4 में वह provider Enable करके Save किया? |
+| Watchlist दूसरे phone पर नहीं आई | Step 6.5 में Firestore database बना और rules Publish हुए? दोनों phones पर एक ही account से login है? |
 | "Email या password गलत है" (नए user पर भी) | Firebase की email enumeration protection गलत password और "user नहीं मिला" दोनों को एक ही error बनाती है — पहले "नया अकाउंट बनाएँ" से अकाउंट बनाएँ। |
 
 Password reset और verification emails हिंदी template में जाते हैं। उनका text बदलना हो तो:

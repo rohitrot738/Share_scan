@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Hero: the market's state and live mode -->
+    <string name="hero_live">● LIVE · %1$s का भाव</string>
+    <string name="hero_open">● बाज़ार खुला</string>
+    <string name="hero_before_open">बाज़ार 9:15 पर खुलेगा</string>
+    <string name="hero_closed">बाज़ार बंद</string>
+    <string name="hero_auto">%1$s · AUTO हर %2$d मिनट</string>
+    <string name="time_today">आज %1$s</string>
+    <string name="status_auto_title">Live scan चल रहा है</string>
+    <string name="status_auto_done_title">Live scan पूरा</string>
+    <string name="status_done_saved_body">%1$d top candidates • %2$s का scan</string>
+    <string name="status_done_sectors_body">%1$d top candidates • %2$s का scan • सिर्फ़ चुने sectors</string>
+
+    <!-- Cards and detail sheet -->
+    <string name="item_rvol_live">RVOL ≈%1$s×</string>
+    <string name="detail_live_change">%1$s · LIVE</string>
+    <string name="detail_stat_volume_live_note">आज अब तक के shares</string>
+    <string name="detail_stat_rvol_live_note">आज के अब तक के volume से पूरे दिन का अनुमान</string>
+    <string name="detail_alert_star">☆ Watchlist में डालें — breakout, target और stop-loss पर notification मिलेगा</string>
+    <string name="detail_alert_waiting">Alert तैयार: भाव ₹%1$s पार करते ही breakout की notification</string>
+    <string name="detail_alert_trade">Trade चालू: entry ₹%1$s • stop ₹%2$s • targets %3$d/%4$d पूरे — हर target और stop पर notification</string>
+    <string name="detail_alert_soon">अगले scan से इस stock के alerts शुरू होंगे</string>
+
+    <!-- Settings: live mode -->
+    <string name="settings_section_live">लाइव बाज़ार</string>
+    <string name="settings_live">बाज़ार खुला रहते auto-scan</string>
+    <string name="settings_live_body">सोम–शुक्र 9:15 से 3:30 तक हर चुने समय पर पूरा scan, app बंद हो तब भी • RVOL में आज का volume पूरे दिन के अनुमान से गिना जाता है • mobile data ज़्यादा लग सकता है</string>
+    <string name="settings_live_minutes">हर %1$d मिनट</string>
+    <string name="settings_live_hours">हर %1$d घंटा</string>
+    <string name="settings_live_alerts">नए STRONG stocks और breakout की notification</string>
+    <string name="settings_live_alerts_body">Auto-scan में कोई stock नया STRONG बने या breakout trigger पार करे (आपके filters के अंदर)</string>
+    <string name="settings_watch_alerts">Watchlist alerts</string>
+    <string name="settings_watch_alerts_body">★ वाले stocks का breakout, हर target और stop-loss — detail sheet के trade plan से</string>
+    <string name="settings_notify_blocked">⚠ Android ने इस app की notifications बंद कर रखी हैं — चालू करने के लिए यहाँ दबाएँ</string>
+
+    <!-- Notifications -->
+    <string name="notify_channel_live">Live scan</string>
+    <string name="notify_channel_live_body">बाज़ार के दौरान नए STRONG stocks और breakouts</string>
+    <string name="notify_channel_watch">Watchlist alerts</string>
+    <string name="notify_channel_watch_body">Watchlist stocks का breakout, target और stop-loss</string>
+    <string name="notify_live_both">📈 %1$d नए STRONG • 🚀 %2$d breakout</string>
+    <string name="notify_live_strong">📈 %1$d नए STRONG stocks</string>
+    <string name="notify_live_breakouts">🚀 %1$d stocks का breakout</string>
+    <string name="notify_tag_breakout">breakout</string>
+    <string name="notify_tag_strong">नया STRONG</string>
+    <string name="notify_live_line">%1$s · score %2$s · ₹%3$s · %4$s</string>
+    <string name="notify_live_more">और %1$d</string>
+    <string name="notify_watch_breakout">🚀 %1$s breakout</string>
+    <string name="notify_watch_breakout_body">भाव ₹%1$s ने trigger ₹%2$s पार किया • stop ₹%3$s • target 1 ₹%4$s</string>
+    <string name="notify_watch_target">🎯 %1$s target %2$d पूरा</string>
+    <string name="notify_watch_target_body">भाव ₹%1$s, target ₹%2$s पर पहुँचा • entry से %3$s</string>
+    <string name="notify_watch_stop">⚠️ %1$s stop-loss टूटा</string>
+    <string name="notify_watch_stop_body">भाव ₹%1$s, stop ₹%2$s के नीचे • entry से %3$s</string>
+
+    <!-- Menu -->
+    <string name="menu_track_record">Track record</string>
+    <string name="menu_track_record_body">हर दिन के STRONG picks बाद में कितने चले, Nifty के मुकाबले</string>
+    <string name="menu_sectors">सेक्टर की ताकत</string>
+    <string name="menu_sectors_body">कौन सा sector आज सबसे मज़बूत है • दबाकर उसी के stocks देखें</string>
+
+    <!-- Track record -->
+    <string name="record_title">Track record</string>
+    <string name="record_subtitle">हर दिन के बंद भाव पर top %1$d STRONG picks, और उसके बाद का हाल</string>
+    <string name="record_empty_title">अभी कोई record नहीं</string>
+    <string name="record_empty_body">एक पूरा scan चलाएँ — उसी से पिछले कुछ दिनों के picks और उनका नतीजा यहाँ आ जाएगा, फिर हर दिन जुड़ता जाएगा।</string>
+    <string name="record_how_title">यह कैसे गिना जाता है</string>
+    <string name="record_how_body">हर session के बंद भाव पर जो stocks STRONG (score 75+) थे, उनमें से सबसे ऊपर के 10 उस दिन के picks हैं। उनका return उसी दिन के बंद भाव से 1, 5 और 10 sessions बाद के बंद भाव तक है, और Nifty 50 का उन्हीं दिनों का return साथ में। शुरू के दिन उसी score formula को पिछले भावों पर चलाकर निकाले जाते हैं (backtest), आगे के दिन हर scan के साथ जुड़ते हैं। पिछला प्रदर्शन आगे की गारंटी नहीं है।</string>
+    <string name="record_after">%1$d दिन बाद</string>
+    <string name="record_pending">अभी इतने दिन नहीं हुए</string>
+    <string name="record_summary_note">जीत %1$d%% • Nifty %2$s • %3$d picks</string>
+    <string name="record_day_nifty">Nifty 5 दिन: %1$s</string>
+    <string name="record_column_stock">Stock · score</string>
+    <string name="record_column">%1$dD</string>
+    <string name="record_pick">%1$s · %2$s</string>
+
+    <!-- Sectors -->
+    <string name="sector_chip">सेक्टर</string>
+    <string name="sector_title">सेक्टर की ताकत</string>
+    <string name="sector_subtitle">आखिरी scan के stocks का औसत score, sector के हिसाब से (कम से कम %1$d stocks वाले) • दबाकर उसी sector के stocks देखें</string>
+    <string name="sector_empty_title">अभी sectors नहीं</string>
+    <string name="sector_empty_no_scan">पहले एक scan चलाएँ।</string>
+    <string name="sector_empty_body">इस scan के stocks का sector पता नहीं चला। एक नया scan चलाएँ — sector list उसी के साथ आ जाएगी।</string>
+    <string name="sector_clear_title">सभी sectors दिखाएँ (अभी: %1$s)</string>
+    <string name="sector_clear_body">Sector filter हटाकर पूरी list देखें</string>
+    <string name="sector_rank">#%1$d</string>
+    <string name="sector_detail">%1$d stocks • %2$d STRONG • 5D औसत %3$s • 50-दिन औसत के ऊपर %4$s</string>
+    <string name="sector_applied">सिर्फ़ %1$s के stocks</string>
+    <string name="filters_sector">सेक्टर</string>
+    <string name="filters_sector_hint">स्कैन हुए stocks को sector से छाँटें • कोई न चुनें तो सभी stocks • scan किन sectors का हो, यह Menu → स्कैन में चुनें</string>
+    <string name="filters_sector_chip">%1$s (%2$d)</string>
+
+    <!-- Help -->
+    <string name="help_live_title">लाइव बाज़ार और auto-scan</string>
+    <string name="help_live_body">बाज़ार खुला रहने पर (सोम–शुक्र 9:15–3:30) app चुने समय पर अपने-आप पूरा scan करता है, app बंद हो तब भी। दिन के बीच आज का volume अधूरा होता है, इसलिए RVOL उसे पूरे दिन के अनुमान में बदलकर गिना जाता है — सुबह volume ज़्यादा होता है, यह भी ध्यान में रखा जाता है (card पर ≈ का निशान)। नए STRONG stocks और breakouts की notification आती है। फ़ोन battery saver में हो तो Android scan को थोड़ा देर से चला सकता है।</string>
+    <string name="help_alerts_title">Watchlist alerts</string>
+    <string name="help_alerts_body">★ वाले हर stock के trade plan पर नज़र रहती है। भाव breakout trigger पार करे तो notification, फिर वही plan पक्का हो जाता है: हर target पर और stop-loss टूटने पर notification। पहली बार देखते समय stock पहले से trigger के ऊपर हो तो alert तभी आएगा जब वह नीचे आकर फिर breakout करे।</string>
+    <string name="help_record_title">Track record</string>
+    <string name="help_record_body">Menu → Track record में हर दिन के top 10 STRONG picks और 1, 5, 10 दिन बाद उनका return दिखता है, Nifty 50 के साथ — ताकि पता चले score कितना काम कर रहा है।</string>
+    <string name="help_sector_title">सेक्टर</string>
+    <string name="help_sector_body">हर stock का sector NSE/BSE की classification से आता है (Capital Goods, Healthcare, Financial Services…)। Menu → स्कैन में NSE, SME और BSE, हर एक के sectors अलग-अलग on/off करें — scan सिर्फ़ चालू sectors के stocks का होगा। जिन stocks का sector पता नहीं (ज़्यादातर SME) वे "अन्य" में हैं। "सेक्टर" chip से sectors की ताकत देखें और किसी एक को दबाकर list को उसी पर filter करें।</string>
+    <string name="help_cloud_title">Login और watchlist</string>
+    <string name="help_cloud_body">Menu → अकाउंट से login करने पर ★ Watchlist आपके account में cloud पर रहती है: दूसरे phone पर उसी account से login करें, वही stocks दिखेंगे, और एक phone पर ★ लगाने-हटाने से दूसरे पर भी बदल जाता है। Login न हो तो watchlist सिर्फ़ इसी phone पर रहती है।</string>
+
+    <!-- Menu → स्कैन -->
+    <string name="menu_scan">स्कैन</string>
+    <string name="menu_scan_body">NSE, SME, BSE • हर exchange में sectors on/off • live auto-scan</string>
+    <string name="scan_title">स्कैन</string>
+    <string name="scan_subtitle">कब scan हो और किन stocks का • बदलाव अगले scan से लागू</string>
+    <string name="scan_section_markets">Exchanges और sectors</string>
+    <string name="scan_markets_body">हर exchange को on/off करें, और "Sectors चुनें" से उसके sectors — scan सिर्फ़ चालू sectors के stocks का होगा</string>
+    <string name="scan_sectors_show">Sectors चुनें</string>
+    <string name="scan_sectors_hide">छिपाएँ</string>
+    <string name="scan_all">सभी</string>
+    <string name="scan_none">कोई नहीं</string>
+    <string name="scan_other">अन्य (sector पता नहीं)</string>
+    <string name="scan_sector_chip">%1$s · %2$s</string>
+    <string name="scan_market_off">बंद — इस exchange का scan नहीं होगा</string>
+    <string name="scan_market_no_data">Sector list नहीं — सभी stocks scan होंगे</string>
+    <string name="scan_market_none">कोई sector चालू नहीं — इस exchange का कोई stock scan नहीं होगा</string>
+    <string name="scan_market_all">सभी %1$d sectors • %2$s stocks</string>
+    <string name="scan_market_some">%1$d/%2$d sectors • %3$s stocks</string>
+    <string name="scan_sector_note">Sector: NSE/BSE की classification • list %1$s की • हर हफ़्ते नई list अपने-आप आती है</string>
+    <string name="scan_sector_note_missing">Sector list अभी नहीं है — सभी stocks "अन्य" में गिने जाएँगे</string>
+</resources>

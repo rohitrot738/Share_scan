@@ -61,7 +61,7 @@ class StockAdapter(
         ui.rank.setTextColor(color(tierColor))
 
         ui.symbol.text = stock.symbol
-        val name = StockSearch.shortName(stock.name)
+        val name = listOf(StockSearch.shortName(stock.name), stock.sector).filter { it.isNotEmpty() }.joinToString(" · ")
         ui.companyName.isVisible = name.isNotEmpty()
         ui.companyName.text = name
         val exchange = MarketStyle.of(stock.market)
@@ -79,7 +79,8 @@ class StockAdapter(
         ui.price.text = context.getString(R.string.item_price, StockFormat.price(stock.price))
 
         val spike = stock.rvol >= StockFormat.SPIKE_RVOL
-        ui.rvol.text = context.getString(R.string.item_rvol, StockFormat.rvol(stock.rvol))
+        // A live session's RVOL is its volume so far scaled to a full day: an estimate, marked ≈.
+        ui.rvol.text = context.getString(if (stock.live) R.string.item_rvol_live else R.string.item_rvol, StockFormat.rvol(stock.rvol))
         ui.rvol.setTextColor(color(if (spike) R.color.warn else R.color.neutral))
         ui.rvol.backgroundTintList =
             ColorStateList.valueOf(color(if (spike) R.color.warn_container else R.color.neutral_container))
