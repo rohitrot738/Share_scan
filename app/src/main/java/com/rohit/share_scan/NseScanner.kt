@@ -79,6 +79,9 @@ data class ScanResult(
     /** Rupee value traded in the latest session, in crore. */
     val turnoverCr: Double get() = price * volume / CRORE
 
+    /** False for a starred stock no chart has come in for yet: a symbol and nothing else to show. */
+    val charted: Boolean get() = price > 0.0
+
     /** Percent below the 20-day high ([PriceStructure.high20]); negative once price has broken above it. */
     val belowHigh20Pct: Double?
         get() = structure?.high20?.takeIf { it > 0.0 }?.let { (it - price) / it * 100.0 }

@@ -90,9 +90,10 @@ data class ScanUiState(
     }
 
     /**
-     * Every starred stock, best score first, whatever the filters, the limit or the scan's exchanges and industries:
-     * a watchlist always shows what the user saved. Those inside the filters keep their rank; the rest, outside the
-     * filters or not in this scan ([watchExtras]), are [RankedStock.UNRANKED].
+     * Every starred stock, whatever the filters, the limit or the scan's exchanges and industries: a watchlist always
+     * shows what the user saved. Best score first; those inside the filters keep their rank, the rest, outside the
+     * filters or not in this scan ([watchExtras]), are [RankedStock.UNRANKED]. A starred stock no chart has come in
+     * for yet still shows, last, by its symbol alone ([ScanResult.charted]).
      */
     val starredStocks: List<RankedStock> by lazy {
         val ranked = matching.filter { it.starred }
@@ -100,7 +101,10 @@ data class ScanUiState(
         val others = (results + watchExtras)
             .filter { it.symbol in watchlist && shownSymbols.add(it.symbol) }
             .map { RankedStock(RankedStock.UNRANKED, it, rankBadges[it.symbol], starred = true) }
-        (ranked + others).sortedByDescending { it.stock.score }
+        val uncharted = watchlist.filter { it !in shownSymbols }.sorted().map { symbol ->
+            RankedStock(RankedStock.UNRANKED, ScanResult(symbol, price = 0.0, score = 0.0, rvol = 0.0, change5d = 0.0), starred = true)
+        }
+        (ranked + others).sortedByDescending { it.stock.score } + uncharted
     }
 
     /**

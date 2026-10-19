@@ -576,7 +576,7 @@ class MainActivity : AppCompatActivity() {
     /** Shares the top of the list exactly as shown, so filters, watchlist, search and sort all apply. */
     private fun shareShown() {
         val state = scan.uiState.value
-        val stocks = state.sortedResults.take(ShareText.COUNT).map { it.stock }
+        val stocks = state.sortedResults.map { it.stock }.filter { it.charted }.take(ShareText.COUNT)
         if (stocks.isEmpty()) return
         val active = state.filters.activeCount
         val filters =
@@ -639,6 +639,10 @@ class MainActivity : AppCompatActivity() {
 
     /** Opens the stock's detail sheet; its button leads on to the chart site picked in Settings. */
     private fun openChart(stock: ScanResult) {
+        if (!stock.charted) {
+            Toast.makeText(this, getString(R.string.item_no_data_toast, stock.symbol), Toast.LENGTH_SHORT).show()
+            return
+        }
         detailSheet?.dismiss()
         val state = scan.uiState.value
         val alert = ScanEngine.watchStates(this)[stock.symbol]

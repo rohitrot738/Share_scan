@@ -52,6 +52,10 @@
     <string name="item_description">रैंक %1$d, %2$s, score %3$s</string>
     <string name="item_description_unranked">%1$s, score %2$s, इस list या scan से बाहर</string>
     <string name="item_rank_none">★</string>
+    <string name="item_no_data">भाव अभी नहीं मिला</string>
+    <string name="item_no_data_meta">अगले scan के साथ आएगा</string>
+    <string name="item_no_data_toast">%1$s का भाव अभी नहीं मिला — अगले scan के बाद details दिखेंगी</string>
+    <string name="item_description_no_data">%1$s, watchlist में, भाव अभी नहीं मिला</string>
     <string name="tier_strong">STRONG</string>
     <string name="tier_watch">WATCH</string>
     <string name="tier_weak">WEAK</string>

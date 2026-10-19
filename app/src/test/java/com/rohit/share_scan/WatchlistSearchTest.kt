@@ -58,17 +58,22 @@ class WatchlistSearchTest {
             watchExtras = listOf(gone),
         )
         // INFY is below the limit of 2 but keeps its real rank. TATAPOWER fails the price filter and GONE is not in
-        // this scan, yet both show, without a rank. NODATA was never charted, so there is nothing to show.
+        // this scan, yet both show, without a rank. NODATA was never charted: it shows last, by its symbol alone.
         assertEquals(listOf("TECHM" to 1, "TCS" to 2), ranks(state.visible))
         val none = RankedStock.UNRANKED
-        assertEquals(listOf("GONE" to none, "TATAPOWER" to none, "INFY" to 4), ranks(state.sortedResults))
+        assertEquals(
+            listOf("GONE" to none, "TATAPOWER" to none, "INFY" to 4, "NODATA" to none),
+            ranks(state.sortedResults),
+        )
         assertTrue(state.sortedResults.all { it.starred })
+        assertEquals(listOf(true, true, true, false), state.sortedResults.map { it.stock.charted })
         assertEquals(listOf("GONE" to none), ranks(state.copy(query = "gone").sortedResults))
         assertTrue(state.copy(query = "tcs").sortedResults.isEmpty())
         assertTrue(state.copy(watchlist = emptySet()).listed.isEmpty())
-        // Unstarred, a stock outside the scan leaves the watchlist; the main list never shows it.
+        // Unstarred, a stock outside the scan leaves the watchlist; the main list never shows one.
         assertEquals(listOf("INFY" to 4), ranks(state.copy(watchlist = setOf("INFY")).sortedResults))
-        assertTrue(state.copy(watchlistOnly = false).sortedResults.none { it.stock.symbol == "GONE" })
+        val main = state.copy(watchlistOnly = false).sortedResults.map { it.stock.symbol }
+        assertTrue(main.none { it == "GONE" || it == "NODATA" || it == "TATAPOWER" })
     }
 
     @Test
