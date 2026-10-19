@@ -153,7 +153,7 @@ class MenuSheet(
     private val theme: ThemeChoice,
     private val onPick: (Entry) -> Unit,
 ) {
-    enum class Entry { ACCOUNT, SETTINGS, THEME, UPDATE, HELP, SHARE, ABOUT }
+    enum class Entry { ACCOUNT, TRACK_RECORD, SECTORS, SETTINGS, THEME, UPDATE, HELP, SHARE, ABOUT }
 
     fun show(): BottomSheetDialog {
         val ui = SheetMenuBinding.inflate(activity.layoutInflater)
@@ -171,6 +171,8 @@ class MenuSheet(
         }
         val account = AccountManager.summary(activity) ?: activity.getString(R.string.menu_account_signed_out)
         add(Entry.ACCOUNT, R.drawable.ic_account, R.string.menu_account, account)
+        add(Entry.TRACK_RECORD, R.drawable.ic_history, R.string.menu_track_record, activity.getString(R.string.menu_track_record_body))
+        add(Entry.SECTORS, R.drawable.ic_sector, R.string.menu_sectors, activity.getString(R.string.menu_sectors_body))
         add(Entry.SETTINGS, R.drawable.ic_settings, R.string.menu_settings, activity.getString(R.string.menu_settings_body))
         add(Entry.THEME, R.drawable.ic_palette, R.string.menu_theme, activity.getString(R.string.menu_theme_body, activity.getString(theme.title)))
         add(Entry.UPDATE, R.drawable.ic_system_update, R.string.menu_update, activity.getString(R.string.menu_update_body, version))
@@ -200,6 +202,10 @@ class SettingsSheet(
         fun clearWatchlist()
         fun resetFilters()
         fun clearRankHistory()
+        /** Live mode or one of its alerts changed: reschedule the background work, ask to notify if needed. */
+        fun liveChanged(notifying: Boolean)
+        /** Opens the system's notification settings for the app. */
+        fun openNotificationSettings()
     }
 
     private val ui = SheetSettingsBinding.inflate(activity.layoutInflater)
@@ -221,6 +227,7 @@ class SettingsSheet(
             actions.skyAnimationChanged(on)
         }
         ui.settingSkyRow.setOnClickListener { ui.settingSky.toggle() }
+        bindLive()
         bindMarket(ui.settingNse, ui.settingNseRow, settings.includeNse) { settings.includeNse = it }
         bindMarket(ui.settingSme, ui.settingSmeRow, settings.includeSme) { settings.includeSme = it }
         bindMarket(ui.settingBse, ui.settingBseRow, settings.includeBse) { settings.includeBse = it }
@@ -275,6 +282,57 @@ class SettingsSheet(
         return sheet
     }
 
+    /** Live mode's switch and interval, and the two kinds of alerts. */
+    private fun bindLive() {
+        fun refresh() {
+            val live = settings.liveScan
+            for (index in 0 until ui.settingLiveInterval.childCount) ui.settingLiveInterval.getChildAt(index).isEnabled = live
+            ui.settingLiveAlerts.isEnabled = live
+            ui.settingLiveAlertsRow.isEnabled = live
+            ui.settingLiveAlertsRow.alpha = if (live) 1f else DISABLED_ALPHA
+            val notifying = (live && settings.liveAlerts) || settings.watchAlerts
+            ui.settingNotifyBlocked.isVisible = notifying && !Notifier.canPost(activity)
+        }
+        fun changed() {
+            refresh()
+            actions.liveChanged((settings.liveScan && settings.liveAlerts) || settings.watchAlerts)
+        }
+        ui.settingLive.isChecked = settings.liveScan
+        ui.settingLive.setOnCheckedChangeListener { _, on ->
+            settings.liveScan = on
+            changed()
+        }
+        ui.settingLiveRow.setOnClickListener { ui.settingLive.toggle() }
+        val interval = settings.liveInterval
+        AppSettings.LIVE_INTERVALS.forEach { minutes ->
+            val chip = activity.layoutInflater.inflate(R.layout.chip_choice, ui.settingLiveInterval, false) as Chip
+            chip.id = android.view.View.generateViewId()
+            chip.text = if (minutes % 60 == 0) {
+                activity.getString(R.string.settings_live_hours, minutes / 60)
+            } else {
+                activity.getString(R.string.settings_live_minutes, minutes)
+            }
+            chip.isCheckable = true
+            chip.isChecked = minutes == interval
+            chip.setOnCheckedChangeListener { _, checked -> if (checked) settings.liveInterval = minutes }
+            ui.settingLiveInterval.addView(chip)
+        }
+        ui.settingLiveAlerts.isChecked = settings.liveAlerts
+        ui.settingLiveAlerts.setOnCheckedChangeListener { _, on ->
+            settings.liveAlerts = on
+            changed()
+        }
+        ui.settingLiveAlertsRow.setOnClickListener { if (ui.settingLiveAlerts.isEnabled) ui.settingLiveAlerts.toggle() }
+        ui.settingWatchAlerts.isChecked = settings.watchAlerts
+        ui.settingWatchAlerts.setOnCheckedChangeListener { _, on ->
+            settings.watchAlerts = on
+            changed()
+        }
+        ui.settingWatchAlertsRow.setOnClickListener { ui.settingWatchAlerts.toggle() }
+        ui.settingNotifyBlocked.setOnClickListener { actions.openNotificationSettings() }
+        refresh()
+    }
+
     /** A market switch; turning off the last market still on is refused, since the scan would have nothing to scan. */
     private fun bindMarket(switch: MaterialSwitch, row: View, on: Boolean, save: (Boolean) -> Unit) {
         switch.isChecked = on
@@ -301,6 +359,10 @@ class SettingsSheet(
                 android.widget.Toast.makeText(activity, R.string.settings_done, android.widget.Toast.LENGTH_SHORT).show()
             }
             .show()
+    }
+
+    private companion object {
+        const val DISABLED_ALPHA = 0.5f
     }
 }
 
@@ -382,6 +444,10 @@ class HelpSheet(private val activity: AppCompatActivity, private val onBack: () 
         )
         add(activity.getString(R.string.help_plan_title), activity.getString(R.string.help_plan_body))
         add(activity.getString(R.string.help_badges_title), activity.getString(R.string.help_badges_body))
+        add(activity.getString(R.string.help_live_title), activity.getString(R.string.help_live_body))
+        add(activity.getString(R.string.help_alerts_title), activity.getString(R.string.help_alerts_body))
+        add(activity.getString(R.string.help_record_title), activity.getString(R.string.help_record_body))
+        add(activity.getString(R.string.help_sector_title), activity.getString(R.string.help_sector_body))
         add(activity.getString(R.string.about_disclaimer_title), activity.getString(R.string.help_disclaimer))
         return activity.showSheet(ui.root, ui.sheetTopBar, onBack, fullHeight = true)
     }

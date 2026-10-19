@@ -104,4 +104,30 @@ class AppSettings(context: Context) {
     var keepScreenOn: Boolean
         get() = prefs.getBoolean(Prefs.KEEP_SCREEN_ON, true)
         set(value) = prefs.edit { putBoolean(Prefs.KEEP_SCREEN_ON, value) }
+
+    /** Live mode: while the market is open, scan on its own every [liveInterval] minutes, even with the app closed. */
+    var liveScan: Boolean
+        get() = prefs.getBoolean(Prefs.LIVE_SCAN, true)
+        set(value) = prefs.edit { putBoolean(Prefs.LIVE_SCAN, value) }
+
+    /** Minutes between live mode's full scans; one of [LIVE_INTERVALS]. */
+    var liveInterval: Int
+        get() = prefs.getInt(Prefs.LIVE_INTERVAL, DEFAULT_LIVE_INTERVAL).takeIf { it in LIVE_INTERVALS } ?: DEFAULT_LIVE_INTERVAL
+        set(value) = prefs.edit { putInt(Prefs.LIVE_INTERVAL, value) }
+
+    /** Notify when a live scan finds stocks newly STRONG or breaking out. */
+    var liveAlerts: Boolean
+        get() = prefs.getBoolean(Prefs.LIVE_ALERTS, true)
+        set(value) = prefs.edit { putBoolean(Prefs.LIVE_ALERTS, value) }
+
+    /** Notify on watchlisted stocks' breakouts, targets and stops. */
+    var watchAlerts: Boolean
+        get() = prefs.getBoolean(Prefs.WATCH_ALERTS, true)
+        set(value) = prefs.edit { putBoolean(Prefs.WATCH_ALERTS, value) }
+
+    companion object {
+        /** Live mode's choices; the background check itself runs every 15 minutes, Android's shortest period. */
+        val LIVE_INTERVALS = listOf(15, 30, 60)
+        const val DEFAULT_LIVE_INTERVAL = 30
+    }
 }

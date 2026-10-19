@@ -1,21 +1,28 @@
 package com.rohit.share_scan
 
+import android.Manifest
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
+import android.provider.Settings
 import android.view.View
 import android.view.animation.LinearInterpolator
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.content.edit
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -33,7 +40,10 @@ import com.rohit.share_scan.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
+import java.time.Instant
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     private val scan: ScanViewModel by viewModels()
@@ -56,6 +66,10 @@ class MainActivity : AppCompatActivity() {
     private var menuSheet: BottomSheetDialog? = null
     private var shownRing = -1
     private var radarSpin: ObjectAnimator? = null
+    /** A notification's stock, opened once the list holds it. */
+    private var pendingSymbol: String? = null
+    private var sectorSheet: BottomSheetDialog? = null
+    private val notifyPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // The picked theme has to be in place before any view (or the window background) is created.
@@ -91,6 +105,9 @@ class MainActivity : AppCompatActivity() {
         ui.updateAction.setOnClickListener { updates.proceed() }
         ui.updateLater.setOnClickListener { updates.dismiss() }
         ui.menuButton.setOnClickListener { openMenu() }
+        ui.sectorChip.setOnClickListener { openSectors(fromMenu = false) }
+        if (savedInstanceState == null) pendingSymbol = intent.getStringExtra(Notifier.EXTRA_SYMBOL)
+        if ((settings.liveScan && settings.liveAlerts) || settings.watchAlerts) askToNotify(again = false)
 
         ui.startButton.setOnClickListener {
             // While a scan runs the same button stops it.
@@ -123,15 +140,36 @@ class MainActivity : AppCompatActivity() {
                 launch { updates.installRequests.collect { install(it) } }
                 launch { updates.checkResults.collect { showUpdateCheck(it) } }
                 launch {
-                    // Keeps the elapsed-time clock in the hero card ticking during a scan.
+                    // Keeps the elapsed-time clock in the hero card ticking during a scan, and the market's state
+                    // (LIVE or closed) current while the screen is up.
+                    var tick = 0
                     while (true) {
                         delay(1_000)
                         val state = scan.uiState.value
-                        if (state.isRunning) renderHero(state)
+                        if (state.isRunning || ++tick % MARKET_REFRESH_S == 0) renderHero(state)
                     }
                 }
             }
         }
+    }
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let {
+            pendingSymbol = it
+            openPending(scan.uiState.value)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Signed in, the watchlist follows the account; a change from another phone shows here at once.
+        CloudWatchlist.start(this) { scan.showWatchlist(it) }
+    }
+
+    override fun onStop() {
+        CloudWatchlist.stop(this)
+        super.onStop()
     }
 
     override fun onDestroy() {
@@ -139,6 +177,7 @@ class MainActivity : AppCompatActivity() {
         filterSheet?.dismiss()
         detailSheet?.dismiss()
         menuSheet?.dismiss()
+        sectorSheet?.dismiss()
         super.onDestroy()
     }
 
@@ -146,10 +185,61 @@ class MainActivity : AppCompatActivity() {
         renderHero(state)
         renderStats(state)
         renderResults(state)
-        ui.root.keepScreenOn = state.isRunning && settings.keepScreenOn
+        // Only the user's own scan keeps the screen awake; live mode's run on their own.
+        ui.root.keepScreenOn = state.isRunning && !state.runningAuto && settings.keepScreenOn
+        openPending(state)
     }
 
+    /** Opens the stock a notification named, once the list holds it. */
+    private fun openPending(state: ScanUiState) {
+        val symbol = pendingSymbol ?: return
+        val stock = state.results.firstOrNull { it.symbol == symbol } ?: return
+        pendingSymbol = null
+        openChart(stock)
+    }
+
+    /**
+     * Asks Android (13 and later) for permission to post the alerts. On its own the app asks once; [again] asks
+     * whenever the user turns an alert on, and Android itself stops asking after the user said no twice.
+     */
+    private fun askToNotify(again: Boolean) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || Notifier.canPost(this)) return
+        val prefs = getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE)
+        if (!again && prefs.getBoolean(Prefs.NOTIFY_ASKED, false)) return
+        prefs.edit { putBoolean(Prefs.NOTIFY_ASKED, true) }
+        notifyPermission.launch(Manifest.permission.POST_NOTIFICATIONS)
+    }
+
+    /** The hero's top line: whether the market trades now and how fresh the list is, and whether live mode is on. */
+    private fun renderMarket(state: ScanUiState) {
+        val now = MarketClock.now()
+        val phase = MarketClock.phase(now)
+        val open = phase == MarketClock.Phase.OPEN
+        val today = state.savedAt > 0 && MarketClock.now(state.savedAt).toLocalDate() == now.toLocalDate()
+        val market = when {
+            open && state.live && today -> getString(R.string.hero_live, clockTime(state.savedAt))
+            open -> getString(R.string.hero_open)
+            phase == MarketClock.Phase.BEFORE_OPEN -> getString(R.string.hero_before_open)
+            else -> getString(R.string.hero_closed)
+        }
+        ui.heroLabel.text = if (settings.liveScan) getString(R.string.hero_auto, market, settings.liveInterval) else market
+        ui.heroLabel.setTextColor(ContextCompat.getColor(this, if (open) R.color.bull else R.color.hero_text_muted))
+    }
+
+    /** "आज 11:42" for today, otherwise the day as well: "शुक्र 16 अक्टू 15:30". */
+    private fun whenScanned(millis: Long): String {
+        val at = MarketClock.now(millis)
+        return if (at.toLocalDate() == MarketClock.now().toLocalDate()) {
+            getString(R.string.time_today, clockTime(millis))
+        } else {
+            DAY_TIME.format(at)
+        }
+    }
+
+    private fun clockTime(millis: Long): String = CLOCK.format(Instant.ofEpochMilli(millis).atZone(MarketClock.INDIA))
+
     private fun renderHero(state: ScanUiState) {
+        renderMarket(state)
         val clock = StockFormat.duration(state.elapsedAt(SystemClock.elapsedRealtime()))
         when (state.phase) {
             ScanPhase.IDLE -> showStatus(
@@ -159,13 +249,13 @@ class MainActivity : AppCompatActivity() {
                 0,
             )
             ScanPhase.LOADING -> showStatus(
-                getString(R.string.status_loading_title),
+                getString(if (state.runningAuto) R.string.status_auto_title else R.string.status_loading_title),
                 getString(R.string.status_loading_body, clock),
                 R.drawable.ic_radar,
                 0,
             )
             ScanPhase.SCANNING -> showStatus(
-                getString(R.string.status_scanning_title),
+                getString(if (state.runningAuto) R.string.status_auto_title else R.string.status_scanning_title),
                 getString(
                     R.string.status_scanning_body,
                     StockFormat.count(state.done),
@@ -179,7 +269,7 @@ class MainActivity : AppCompatActivity() {
             ScanPhase.DONE -> if (state.stopped) {
                 showStatus(
                     getString(R.string.status_stopped_title),
-                    if (state.total > 0) {
+                    if (state.total > 0 && !state.earlyStop) {
                         getString(
                             R.string.status_stopped_body,
                             StockFormat.count(state.done),
@@ -194,8 +284,8 @@ class MainActivity : AppCompatActivity() {
                 )
             } else {
                 showStatus(
-                    getString(R.string.status_done_title),
-                    getString(R.string.status_done_body, state.visible.size, clock),
+                    getString(if (state.autoResults) R.string.status_auto_done_title else R.string.status_done_title),
+                    getString(R.string.status_done_saved_body, state.visible.size, whenScanned(state.savedAt)),
                     R.drawable.ic_check,
                     100,
                 )
@@ -274,6 +364,10 @@ class MainActivity : AppCompatActivity() {
             state.watchlistOnly != shownWatchlistOnly || state.query != shownQuery
         if (reorder || state.watchlist != shownWatchlist) {
             val freshResults = state.results !== shownResults
+            // Live mode's fresh prices arrive while the user may be reading: the list keeps its place for them.
+            val quiet = freshResults && shownResults != null && state.autoResults &&
+                state.filters == shownFilters && state.sort == shownSort && state.watchlistOnly == shownWatchlistOnly &&
+                state.query == shownQuery
             shownResults = state.results
             shownFilters = state.filters
             shownSort = state.sort
@@ -281,8 +375,8 @@ class MainActivity : AppCompatActivity() {
             shownQuery = state.query
             shownWatchlist = state.watchlist
             adapter.submitList(shown) {
-                if (reorder) ui.results.scrollToPosition(0)
-                if (freshResults && hasResults) ui.results.scheduleLayoutAnimation()
+                if (reorder && !quiet) ui.results.scrollToPosition(0)
+                if (freshResults && hasResults && !quiet) ui.results.scheduleLayoutAnimation()
             }
         }
     }
@@ -499,7 +593,36 @@ class MainActivity : AppCompatActivity() {
     /** Opens the stock's detail sheet; its button leads on to the chart site picked in Settings. */
     private fun openChart(stock: ScanResult) {
         detailSheet?.dismiss()
-        detailSheet = StockDetailSheet(this, stock, settings.chartSite).show()
+        val state = scan.uiState.value
+        val alert = ScanEngine.watchStates(this)[stock.symbol]
+        detailSheet = StockDetailSheet(
+            this,
+            stock,
+            settings.chartSite,
+            starred = stock.symbol in state.watchlist,
+            alerts = settings.watchAlerts,
+            alert = alert,
+        ).show()
+    }
+
+    /** Industries by strength; picking one filters the list to it, the reset row clears the industry filter. */
+    private fun openSectors(fromMenu: Boolean) {
+        val state = scan.uiState.value
+        val open = {
+            SectorSheet(this, state.results, state.filters.sectors, ::pickSector, if (fromMenu) ::openMenu else null).show()
+        }
+        if (fromMenu) {
+            showMenuSheet(open)
+        } else {
+            sectorSheet?.dismiss()
+            sectorSheet = open()
+        }
+    }
+
+    private fun pickSector(sector: String?) {
+        val filters = scan.uiState.value.filters
+        scan.setFilters(filters.copy(sectors = sector?.let(::setOf).orEmpty()))
+        if (sector != null) Toast.makeText(this, getString(R.string.sector_applied, sector), Toast.LENGTH_SHORT).show()
     }
 
     private fun openMenu() {
@@ -509,6 +632,8 @@ class MainActivity : AppCompatActivity() {
     private fun onMenuPick(entry: MenuSheet.Entry) {
         when (entry) {
             MenuSheet.Entry.ACCOUNT -> showMenuSheet { AccountSheet(this, ::openMenu).show() }
+            MenuSheet.Entry.TRACK_RECORD -> showMenuSheet { TrackRecordSheet(this, ScanEngine.journal(this), ::openMenu).show() }
+            MenuSheet.Entry.SECTORS -> openSectors(fromMenu = true)
             MenuSheet.Entry.SETTINGS -> showMenuSheet {
                 SettingsSheet(this, settings, scan.uiState.value.watchlist.size, settingsActions, ::openMenu).show()
             }
@@ -557,6 +682,21 @@ class MainActivity : AppCompatActivity() {
         override fun resetFilters() = scan.setFilters(ScanFilters())
 
         override fun clearRankHistory() = scan.clearRankHistory()
+
+        override fun liveChanged(notifying: Boolean) {
+            LiveSchedule.sync(this@MainActivity)
+            if (notifying) askToNotify(again = true)
+            renderHero(scan.uiState.value)
+        }
+
+        override fun openNotificationSettings() {
+            val open = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+            try {
+                startActivity(open)
+            } catch (error: ActivityNotFoundException) {
+                Toast.makeText(this@MainActivity, R.string.about_open_failed, Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     /** Saves the theme and rebuilds the screen in it; the scan and its results live on in the view model. */
@@ -588,6 +728,13 @@ class MainActivity : AppCompatActivity() {
         } catch (error: ActivityNotFoundException) {
             Toast.makeText(this, R.string.list_share_failed, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private companion object {
+        /** How often, in seconds, the hero's market line is brought up to date when no scan runs. */
+        const val MARKET_REFRESH_S = 30
+        val CLOCK: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.US)
+        val DAY_TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE d MMM HH:mm", Locale.forLanguageTag("hi-IN"))
     }
 
     private fun openReleases() {

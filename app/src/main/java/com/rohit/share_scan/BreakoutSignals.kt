@@ -7,6 +7,9 @@ import kotlin.math.log2
 import kotlin.math.max
 import kotlin.math.min
 
+/** A stock's score at the close of one past session; [day] is that session's epoch day (IST). */
+data class DayScore(val day: Long, val score: Double)
+
 /**
  * Pre-breakout signals from daily candles. This is the Kotlin port of the Python scanner's whole-market prefilter
  * (`live_scan.daily_prefilter_score` and `scanner.baseline_daily`) together with the base and trend features of
@@ -25,6 +28,9 @@ import kotlin.math.min
  *
  * Raw points go through [soft], which is linear between 15 and 85 and eases towards 0 and 100 beyond, so the best
  * stocks keep their order instead of tying at a hard cap.
+ *
+ * During market hours the latest candle is today's, still forming. Its volume so far is scaled up to a full day with
+ * [VolumeCurve] before it is compared with full past days, so relative volume means the same at 10:00 as at the close.
  */
 object BreakoutSignals {
     /** The latest session plus the 20 before it, which the 20-day high and the volume average need. */
@@ -40,6 +46,10 @@ object BreakoutSignals {
     )
 
     private const val CHART_CLOSES = 60
+
+    /** How many past sessions get a score of their own, for the track record; the 50-day average limits it too. */
+    const val PAST_SESSIONS = 12
+    private const val SMA50_SESSIONS = 50
     private const val BASE_SESSIONS = 10
     private const val VOLATILITY_SESSIONS = 50
     private const val LOW_KNEE = 15.0
@@ -47,30 +57,48 @@ object BreakoutSignals {
 
     /** What one stock's daily candles say; [score] is the sum of value × weight over [parts]. */
     data class Signals(
-        /** Latest close. */
+        /** Latest close, or the latest price while the session is [live]. */
         val price: Double,
-        /** Shares traded in the latest session. */
+        /** Shares traded in the latest session; while it is [live], those traded so far today. */
         val volume: Double,
-        /** Latest volume ÷ the average of the 20 sessions before it. */
+        /** Latest volume ÷ the average of the 20 sessions before it; a [live] session's volume is first scaled to a full day. */
         val rvol: Double,
         /** Percent change over the latest 5 sessions. */
         val change5d: Double,
         val structure: PriceStructure,
         val score: Double,
         val parts: List<ScorePart>,
+        /** The latest session is today's and still trading. */
+        val live: Boolean = false,
+        /** Scores at the close of the sessions before the latest, newest first; empty without bar dates. */
+        val pastScores: List<DayScore> = emptyList(),
     )
 
     /**
      * Reads daily candles (oldest first) and scores them, or returns null when fewer than [MIN_SESSIONS] complete
      * sessions remain. Yahoo leaves nulls for holidays and for a session that is still forming; a session missing
      * any of close, high, low or volume is dropped from all four series so they stay aligned.
+     *
+     * [days] holds each candle's epoch day (IST), when known; it dates the chart and the [Signals.pastScores]. When the
+     * latest kept candle is [liveDay]'s, the session is still trading and [liveShare] of a normal day's volume has
+     * traded so far ([VolumeCurve]); its volume is scaled up by that before relative volume is measured.
      */
-    fun analyse(closes: List<Double?>, highs: List<Double?>, lows: List<Double?>, volumes: List<Double?>): Signals? {
+    fun analyse(
+        closes: List<Double?>,
+        highs: List<Double?>,
+        lows: List<Double?>,
+        volumes: List<Double?>,
+        days: List<Long?> = emptyList(),
+        liveDay: Long? = null,
+        liveShare: Double = 1.0,
+    ): Signals? {
         val size = minOf(closes.size, highs.size, lows.size, volumes.size)
+        val dated = days.size >= size
         val close = ArrayList<Double>(size)
         val high = ArrayList<Double>(size)
         val low = ArrayList<Double>(size)
         val volume = ArrayList<Double>(size)
+        val day = ArrayList<Long>(size)
         for (i in 0 until size) {
             val c = closes[i] ?: continue
             val h = highs[i] ?: continue
@@ -78,20 +106,52 @@ object BreakoutSignals {
             val v = volumes[i] ?: continue
             if (!c.isFinite() || !h.isFinite() || !l.isFinite() || !v.isFinite()) continue
             if (c <= 0.0 || h <= 0.0 || l <= 0.0 || v < 0.0) continue
+            val d = if (dated) days[i] ?: continue else 0L
             close += c
             // Keep the candle consistent even when a feed reports a high below the close or swapped extremes.
             high += maxOf(h, l, c)
             low += minOf(h, l, c)
             volume += v
+            day += d
         }
         if (close.size < MIN_SESSIONS) return null
-        return score(close.toDoubleArray(), high.toDoubleArray(), low.toDoubleArray(), volume.toDoubleArray())
+        val c = close.toDoubleArray()
+        val h = high.toDoubleArray()
+        val l = low.toDoubleArray()
+        val v = volume.toDoubleArray()
+        val n = c.size
+        val live = dated && liveDay != null && day.last() == liveDay && liveShare > 0.0 && liveShare < 1.0
+        val signals = score(c, h, l, v, if (live) 1.0 / liveShare else 1.0, if (dated) day else emptyList())
+        val past = if (dated) {
+            (1..PAST_SESSIONS).mapNotNull { back ->
+                val until = n - back
+                if (until < SMA50_SESSIONS) return@mapNotNull null
+                val earlier = score(c.copyOf(until), h.copyOf(until), l.copyOf(until), v.copyOf(until), 1.0, emptyList())
+                DayScore(day[until - 1], earlier.score)
+            }
+        } else {
+            emptyList()
+        }
+        return signals.copy(live = live, pastScores = past)
     }
 
-    private fun score(close: DoubleArray, high: DoubleArray, low: DoubleArray, volume: DoubleArray): Signals {
+    /**
+     * [volumeScale] scales the latest session's volume up to a full day (1 for a finished session); [days] dates the
+     * candles for the chart, or is empty.
+     */
+    private fun score(
+        close: DoubleArray,
+        high: DoubleArray,
+        low: DoubleArray,
+        traded: DoubleArray,
+        volumeScale: Double,
+        days: List<Long>,
+    ): Signals {
         val n = close.size
         val last = n - 1
         val price = close[last]
+        // A live session is judged on the full day its volume so far points to.
+        val volume = if (volumeScale == 1.0) traded else traded.copyOf().also { it[last] *= volumeScale }
 
         // Price structure, exactly as PriceStructure documents it.
         val high20 = highest(high, n - 21, last)
@@ -106,6 +166,7 @@ object BreakoutSignals {
         val sma50 = if (n >= 50) mean(close, n - 50, n) else null
         val structure = PriceStructure(
             closes = close.copyOfRange(max(0, n - CHART_CLOSES), n).toList(),
+            closeDays = if (days.size == n) days.subList(max(0, n - CHART_CLOSES), n).toList() else emptyList(),
             high20 = high20,
             low10 = low10,
             atr14 = atr14,
@@ -142,7 +203,7 @@ object BreakoutSignals {
             ScorePart(ScoreKeys.MOMENTUM, soft(50.0 + change5d * 4.0 + change20 * 1.5), WEIGHTS.getValue(ScoreKeys.MOMENTUM)),
         )
         val total = parts.sumOf { it.value * it.weight }.coerceIn(0.0, 100.0)
-        return Signals(price, volume[last], rvol, change5d, structure, total, parts)
+        return Signals(price, traded[last], rvol, change5d, structure, total, parts)
     }
 
     /**

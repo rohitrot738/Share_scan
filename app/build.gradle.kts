@@ -61,9 +61,13 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    // Live mode: scans through market hours in the background (LiveScanWorker).
+    implementation("androidx.work:work-runtime-ktx:2.9.1")
     // Login (AccountManager.kt). No google-services plugin: Firebase is configured in code from BuildConfig.
     implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
     implementation("com.google.firebase:firebase-auth")
+    // The signed-in user's watchlist in the cloud (CloudWatchlist.kt).
+    implementation("com.google.firebase:firebase-firestore")
     implementation("androidx.credentials:credentials:1.3.0")
     implementation("androidx.credentials:credentials-play-services-auth:1.3.0")
     implementation("com.google.android.libraries.identity.googleid:googleid:1.1.1")

@@ -63,15 +63,18 @@ data class ScanFilters(
     val bounds: Map<Metric, Bound> = emptyMap(),
     /** How many of the best-scoring matches to show; 0 shows all of them. */
     val limit: Int = DEFAULT_LIMIT,
+    /** Industries to keep ([ScanResult.sector]); empty keeps every stock, with or without one. */
+    val sectors: Set<String> = emptySet(),
 ) {
-    val activeCount: Int get() = bounds.values.count { it.isActive }
+    val activeCount: Int get() = bounds.values.count { it.isActive } + if (sectors.isEmpty()) 0 else 1
 
     fun bound(metric: Metric): Bound = bounds[metric] ?: Bound()
 
     fun with(metric: Metric, bound: Bound): ScanFilters =
         copy(bounds = if (bound.isActive) bounds + (metric to bound) else bounds - metric)
 
-    fun accepts(stock: ScanResult): Boolean = bounds.all { (metric, bound) -> bound.accepts(metric.read(stock)) }
+    fun accepts(stock: ScanResult): Boolean =
+        (sectors.isEmpty() || stock.sector in sectors) && bounds.all { (metric, bound) -> bound.accepts(metric.read(stock)) }
 
     fun encode(): String = buildString {
         append("limit=").append(limit)
@@ -79,10 +82,13 @@ data class ScanFilters(
             bound.min?.let { append(';').append(metric.key).append(".min=").append(it) }
             bound.max?.let { append(';').append(metric.key).append(".max=").append(it) }
         }
+        // NSE's industry names hold letters, spaces, '&' and ',', never ';', '=' or '|'.
+        if (sectors.isNotEmpty()) append(";sectors=").append(sectors.sorted().joinToString(SECTOR_SEPARATOR))
     }
 
     companion object {
         const val DEFAULT_LIMIT = 100
+        private const val SECTOR_SEPARATOR = "|"
         val LIMITS = listOf(25, 50, 100, 200, 0)
 
         fun decode(text: String?): ScanFilters {
@@ -91,6 +97,10 @@ data class ScanFilters(
                 val (key, raw) = part.split('=', limit = 2).takeIf { it.size == 2 } ?: continue
                 if (key == "limit") {
                     raw.toIntOrNull()?.takeIf { it in LIMITS }?.let { filters = filters.copy(limit = it) }
+                    continue
+                }
+                if (key == "sectors") {
+                    filters = filters.copy(sectors = raw.split(SECTOR_SEPARATOR).filter { it.isNotBlank() }.toSet())
                     continue
                 }
                 val metric = Metric.entries.firstOrNull { key.startsWith(it.key + ".") } ?: continue

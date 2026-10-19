@@ -327,6 +327,20 @@
                     android:textColor="@color/warn"
                     android:textSize="12sp"
                     android:visibility="gone" />
+
+                <!-- The watchlist alert this plan drives: waiting for the breakout, or the trade under way. -->
+                <TextView
+                    android:id="@+id/detailAlert"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:drawablePadding="6dp"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="2dp"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <!-- Score breakdown -->

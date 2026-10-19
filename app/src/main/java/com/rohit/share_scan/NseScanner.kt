@@ -45,6 +45,8 @@ data class PriceStructure(
     val sma50: Double?,
     /** Highest high of the latest 10 sessions, the top of the base that [low10] bottoms; null when not recorded. */
     val high10: Double? = null,
+    /** Epoch day (IST) of each of [closes], same order; empty when the feed gave no dates. */
+    val closeDays: List<Long> = emptyList(),
 )
 
 data class ScanResult(
@@ -67,6 +69,12 @@ data class ScanResult(
     val market: Market = Market.NSE,
     /** BSE's numeric scrip code, for BSE-only stocks; empty otherwise. */
     val bseCode: String = "",
+    /** NSE's industry for the stock ([SectorBook]); empty when it is not among the 750 NSE lists it. */
+    val sector: String = "",
+    /** The price and volume are from today's session, still trading; [rvol] then compares the day they point to. */
+    val live: Boolean = false,
+    /** Scores at the close of earlier sessions, newest first ([BreakoutSignals.Signals.pastScores]). */
+    val pastScores: List<DayScore> = emptyList(),
 ) {
     /** Rupee value traded in the latest session, in crore. */
     val turnoverCr: Double get() = price * volume / CRORE
@@ -86,9 +94,24 @@ data class ScanResult(
 
 /**
  * Every stock one scan could score, best score first. [marketCapDate] is null when market caps are missing; [stopped]
- * means the user cut the scan short, so [results] hold only the stocks scored before that.
+ * means the scan was cut short, so [results] hold only the stocks scored before that.
  */
-data class ScanOutput(val results: List<ScanResult>, val marketCapDate: LocalDate?, val stopped: Boolean = false)
+data class ScanOutput(
+    val results: List<ScanResult>,
+    val marketCapDate: LocalDate?,
+    val stopped: Boolean = false,
+    /** Nifty 50's daily closes, the yardstick for the track record; null when Yahoo had none. */
+    val benchmark: DailySeries? = null,
+) {
+    /** At least one price is from today's session, still trading. */
+    val live: Boolean get() = results.any { it.live }
+}
+
+/** Daily closes, oldest first, with the epoch day (IST) of each. */
+data class DailySeries(val days: List<Long>, val closes: List<Double>) {
+    /** The close on [day], or null when the series has no session that day. */
+    fun closeOn(day: Long): Double? = days.indexOf(day).takeIf { it >= 0 }?.let { closes[it] }
+}
 
 /** Where a stock is listed; decides its Yahoo ticker, chart links and label. */
 enum class Market { NSE, NSE_SME, BSE }
@@ -110,6 +133,13 @@ object NseScanner {
         "https://archives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv",
     )
     private const val SECURITY_FILE = "https://nsearchives.nseindia.com/content/cm/NSE_CM_security_%s.csv.gz"
+    /** NSE's Nifty Total Market constituents with their industries; the hosts are tried in turn. */
+    private val SECTOR_CSVS = listOf(
+        "https://archives.nseindia.com/content/indices/ind_niftytotalmarket_list.csv",
+        "https://nsearchives.nseindia.com/content/indices/ind_niftytotalmarket_list.csv",
+        "https://www.niftyindices.com/IndexConstituent/ind_niftytotalmarket_list.csv",
+    )
+    private const val BENCHMARK = "%5ENSEI"
     /** BSE's daily equity bhavcopy: every scrip traded that day, with its ISIN; the source of BSE-only stocks. */
     private const val BSE_BHAVCOPY = "https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_%s_F_0000.CSV"
     private val INDIA = ZoneId.of("Asia/Kolkata")
@@ -143,15 +173,16 @@ object NseScanner {
         includeSme: Boolean = false,
         includeBse: Boolean = false,
         isStopped: () -> Boolean = { false },
+        now: () -> Long = System::currentTimeMillis,
         onProgress: (Int, Int) -> Unit,
     ): ScanOutput {
         val main = if (includeNse) {
-            parseListings(get(NSE_CSV), Market.NSE)
+            daily("nse") { parseListings(get(NSE_CSV), Market.NSE) }
         } else {
-            runCatching { parseListings(get(NSE_CSV), Market.NSE) }.getOrDefault(emptyList())
+            runCatching { daily("nse") { parseListings(get(NSE_CSV), Market.NSE) } }.getOrDefault(emptyList())
         }
-        val sme = if (includeSme) loadSmeListings(isStopped) else emptyList()
-        val bse = if (includeBse) loadBseListings(isStopped) else emptyList()
+        val sme = if (includeSme) daily("sme") { loadSmeListings(isStopped) } else emptyList()
+        val bse = if (includeBse) daily("bse") { loadBseListings(isStopped) } else emptyList()
         if (isStopped()) return ScanOutput(emptyList(), null, stopped = true)
         val symbols = combine(if (includeNse) main else emptyList(), sme, bse)
         if (symbols.isEmpty()) error("कोई stock list नहीं मिली")
@@ -161,24 +192,98 @@ object NseScanner {
         val done = AtomicInteger(0)
         val pool = Executors.newFixedThreadPool(4)
         try {
-            val issuedShares = pool.submit(Callable { runCatching { loadIssuedShares(isStopped) }.getOrNull() })
+            val issuedShares = pool.submit(Callable { runCatching { daily("shares") { loadIssuedShares(isStopped) ?: error("no share counts") } }.getOrNull() })
+            val sectors = pool.submit(Callable { runCatching { daily("sectors") { loadSectors() } }.getOrNull() })
+            val benchmark = pool.submit(Callable { runCatching { benchmark(isStopped) }.getOrNull() })
             val scored = runStoppable(pool, symbols, isStopped) { listing ->
-                try { score(listing, isStopped) } finally { onProgress(done.incrementAndGet(), symbols.size) }
+                try { score(listing, isStopped, now) } finally { onProgress(done.incrementAndGet(), symbols.size) }
             }
-            // After a stop the share counts may not have arrived yet; those rows then go without a market cap.
+            // After a stop the share counts, industries and Nifty may not have arrived yet; rows then go without them.
             val shares = if (issuedShares.isDone) runCatching { issuedShares.get() }.getOrNull() else null
+            val book = if (sectors.isDone) runCatching { sectors.get() }.getOrNull() ?: SectorBook.EMPTY else SectorBook.EMPTY
             val results = scored.map { row ->
-                val key = sharesKey(row, isinBySymbol[row.symbol].orEmpty(), nseSymbolByIsin) ?: return@map row
-                val issued = shares?.second?.get(key) ?: return@map row
-                row.copy(marketCapCr = row.price * issued / CRORE)
+                val isin = isinBySymbol[row.symbol].orEmpty()
+                val sector = book.of(if (row.market == Market.BSE) "" else row.symbol, isin)
+                val key = sharesKey(row, isin, nseSymbolByIsin)
+                val issued = key?.let { shares?.second?.get(it) }
+                row.copy(sector = sector, marketCapCr = issued?.let { row.price * it / CRORE })
             }
             // Fewer stocks checked than listed means a stop cut the scan short.
             val stopped = done.get() < symbols.size
-            return ScanOutput(results.sortedByDescending { it.score }, shares?.first, stopped)
+            val nifty = if (benchmark.isDone) runCatching { benchmark.get() }.getOrNull() else null
+            return ScanOutput(results.sortedByDescending { it.score }, shares?.first, stopped, nifty)
         } finally {
             // Also interrupts the threads a stop left behind, such as one sleeping out Yahoo's limit, so they end now.
             pool.shutdownNow()
         }
+    }
+
+    /**
+     * Scores [rows] again, from fresh charts, for a quick look at a few stocks between full scans: name, exchange,
+     * industry and market cap carry over (the market cap moves with the price). A stock whose chart does not load
+     * keeps its old row.
+     */
+    fun refresh(rows: List<ScanResult>, isStopped: () -> Boolean = { false }, now: () -> Long = System::currentTimeMillis): List<ScanResult> {
+        if (rows.isEmpty()) return rows
+        val pool = Executors.newFixedThreadPool(4)
+        try {
+            val fresh = runStoppable(pool, rows, isStopped) { old ->
+                val row = score(Listing(old.symbol, old.name, old.market, bseCode = old.bseCode), isStopped, now)
+                    ?: return@runStoppable old
+                row.copy(
+                    sector = old.sector,
+                    marketCapCr = old.marketCapCr?.takeIf { old.price > 0.0 }?.let { it * row.price / old.price },
+                )
+            }
+            val bySymbol = fresh.associateBy { it.symbol }
+            return rows.map { bySymbol[it.symbol] ?: it }
+        } finally {
+            pool.shutdownNow()
+        }
+    }
+
+    /**
+     * Lists that change at most once a day are kept for the day (IST), so the scans that live mode runs through the
+     * session download them once. A failed load is not kept.
+     */
+    private val dayCache = HashMap<String, Pair<LocalDate, Any>>()
+
+    @Suppress("UNCHECKED_CAST")
+    private fun <T : Any> daily(key: String, load: () -> T): T {
+        val today = LocalDate.now(INDIA)
+        synchronized(dayCache) {
+            dayCache[key]?.takeIf { it.first == today }?.let { return it.second as T }
+        }
+        val value = load()
+        val empty = (value as? Collection<*>)?.isEmpty() == true || (value as? SectorBook)?.size == 0
+        if (!empty) synchronized(dayCache) { dayCache[key] = today to value }
+        return value
+    }
+
+    /** The industries file from whichever host answers; an empty book when none does. */
+    private fun loadSectors(): SectorBook {
+        for (address in SECTOR_CSVS) {
+            val book = runCatching { SectorBook.parse(open(address, browser = true) { it.bufferedReader().readText() }) }.getOrNull()
+            if (book != null && book.size >= 100) return book
+        }
+        return SectorBook.EMPTY
+    }
+
+    /** Nifty 50's daily closes over the same three months as the stocks' charts. */
+    private fun benchmark(isStopped: () -> Boolean): DailySeries? {
+        if (!yahoo.acquire(isStopped)) return null
+        val url = "https://query1.finance.yahoo.com/v8/finance/chart/$BENCHMARK?range=3mo&interval=1d"
+        val chart = JSONObject(get(url)).getJSONObject("chart").optJSONArray("result")?.optJSONObject(0) ?: return null
+        val stamps = chart.optJSONArray("timestamp") ?: return null
+        val closes = chart.optJSONObject("indicators")?.optJSONArray("quote")?.optJSONObject(0)?.series("close") ?: return null
+        val days = ArrayList<Long>()
+        val values = ArrayList<Double>()
+        for (i in 0 until minOf(stamps.length(), closes.size)) {
+            val close = closes[i]?.takeIf { it.isFinite() && it > 0.0 } ?: continue
+            days += MarketClock.dayOf(stamps.getLong(i)).toEpochDay()
+            values += close
+        }
+        return if (values.isEmpty()) null else DailySeries(days, values)
     }
 
     /**
@@ -330,10 +435,10 @@ object NseScanner {
     }
 
     /** One chart request per ticker: about 62 daily sessions, enough for the 50-day average. */
-    private fun score(listing: Listing, isStopped: () -> Boolean): ScanResult? {
+    private fun score(listing: Listing, isStopped: () -> Boolean, now: () -> Long): ScanResult? {
         val symbol = listing.symbol
         val signals = yahooTickers(listing).firstNotNullOfOrNull { ticker ->
-            runCatching { chart(ticker, isStopped) }.getOrNull()
+            runCatching { chart(ticker, isStopped, now) }.getOrNull()
         } ?: return null
         return ScanResult(
             symbol = symbol,
@@ -347,6 +452,8 @@ object NseScanner {
             name = listing.name,
             market = listing.market,
             bseCode = listing.bseCode,
+            live = signals.live,
+            pastScores = signals.pastScores,
         )
     }
 
@@ -355,11 +462,11 @@ object NseScanner {
      * so a scan that runs into Yahoo's limit slows down instead of losing the rest of its stocks. Once [isStopped]
      * turns true no request or retry goes out and the answer is null.
      */
-    private fun chart(ticker: String, isStopped: () -> Boolean): BreakoutSignals.Signals? {
+    private fun chart(ticker: String, isStopped: () -> Boolean, now: () -> Long): BreakoutSignals.Signals? {
         repeat(RATE_LIMIT_TRIES) {
             if (!yahoo.acquire(isStopped)) return null
             try {
-                return signalsFor(ticker)
+                return signalsFor(ticker, now())
             } catch (limited: HttpStatusException) {
                 if (limited.status != HTTP_TOO_MANY_REQUESTS) throw limited
                 yahoo.pause(RATE_LIMIT_PAUSE_MS)
@@ -368,17 +475,44 @@ object NseScanner {
         return null
     }
 
-    /** One of Yahoo's daily arrays; JSON nulls (holidays, a session still forming) stay null for [BreakoutSignals]. */
-    private fun signalsFor(ticker: String): BreakoutSignals.Signals? {
+    /**
+     * One of Yahoo's daily arrays; JSON nulls (holidays, a session still forming) stay null for [BreakoutSignals].
+     * Each bar is stamped with its session's start, which dates it. While today's regular session (from the chart's
+     * `currentTradingPeriod`) is under way, the latest bar is today's and still forming: its volume so far is judged
+     * against the share of a day's volume that normally trades by now ([VolumeCurve]).
+     */
+    private fun signalsFor(ticker: String, nowMillis: Long): BreakoutSignals.Signals? {
         val url = "https://query1.finance.yahoo.com/v8/finance/chart/$ticker?range=3mo&interval=1d"
         val chart = JSONObject(get(url)).getJSONObject("chart").optJSONArray("result")?.optJSONObject(0) ?: return null
         val quote = chart.optJSONObject("indicators")?.optJSONArray("quote")?.optJSONObject(0) ?: return null
+        val stamps = chart.optJSONArray("timestamp")
+        val days = if (stamps == null) emptyList() else List(stamps.length()) { i ->
+            stamps.optLong(i, 0L).takeIf { it > 0L }?.let { MarketClock.dayOf(it).toEpochDay() }
+        }
+        val session = chart.optJSONObject("meta")?.optJSONObject("currentTradingPeriod")?.optJSONObject("regular")
+        val live = liveSession(session?.optLong("start", 0L) ?: 0L, session?.optLong("end", 0L) ?: 0L, nowMillis)
         return BreakoutSignals.analyse(
             closes = quote.series("close"),
             highs = quote.series("high"),
             lows = quote.series("low"),
             volumes = quote.series("volume"),
+            days = days,
+            liveDay = live?.first,
+            liveShare = live?.second ?: 1.0,
         )
+    }
+
+    /**
+     * Today's epoch day and the share of a day's volume normally traded by [nowMillis], when today's regular session
+     * ([start] to [end], epoch seconds) is under way; null otherwise, including on a holiday, when the session the
+     * chart names is another day's.
+     */
+    internal fun liveSession(start: Long, end: Long, nowMillis: Long): Pair<Long, Double>? {
+        val now = nowMillis / 1000
+        if (start <= 0L || end <= start || now < start || now >= end) return null
+        val today = MarketClock.dayOf(now)
+        if (MarketClock.dayOf(start) != today) return null
+        return today.toEpochDay() to VolumeCurve.shareAt((now - start) / 60.0)
     }
 
     private fun JSONObject.series(name: String): List<Double?> {

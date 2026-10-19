@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A row of the track record's table: symbol and score, then the returns after 1, 5 and 10 sessions. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingTop="6dp">
+
+    <TextView
+        android:id="@+id/pickSymbol"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.2"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/text_primary"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/pickOne"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFeatureSettings="tnum"
+        android:gravity="end"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/pickFive"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFeatureSettings="tnum"
+        android:gravity="end"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/pickTen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFeatureSettings="tnum"
+        android:gravity="end"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp" />
+</LinearLayout>

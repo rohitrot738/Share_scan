@@ -33,6 +33,12 @@ class StockDetailSheet(
     private val activity: AppCompatActivity,
     private val stock: ScanResult,
     private val chartSite: ChartSite = ChartSite.TRADINGVIEW,
+    /** On the watchlist, so its plan drives breakout, target and stop alerts. */
+    private val starred: Boolean = false,
+    /** Watchlist alerts are on in Settings. */
+    private val alerts: Boolean = false,
+    /** Where the stock's alerts stand ([WatchAlerts]); null before its first check. */
+    private val alert: WatchAlerts.State? = null,
 ) {
     private val dialog = BottomSheetDialog(activity)
     private val ui = SheetStockDetailBinding.inflate(activity.layoutInflater)
@@ -76,10 +82,12 @@ class StockDetailSheet(
                 Market.BSE -> R.string.detail_exchange_bse
             },
         )
-        ui.detailName.isVisible = stock.name.isNotBlank()
-        ui.detailName.text = StockSearch.shortName(stock.name)
+        val name = listOf(StockSearch.shortName(stock.name), stock.sector).filter { it.isNotBlank() }.joinToString(" · ")
+        ui.detailName.isVisible = name.isNotEmpty()
+        ui.detailName.text = name
         ui.detailPrice.text = rupees(stock.price)
-        ui.detailChange.text = activity.getString(R.string.item_change, StockFormat.change(stock.change5d))
+        val change = activity.getString(R.string.item_change, StockFormat.change(stock.change5d))
+        ui.detailChange.text = if (stock.live) activity.getString(R.string.detail_live_change, change) else change
         ui.detailChange.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
 
         ui.detailTier.setText(tierLabel)
@@ -192,6 +200,33 @@ class StockDetailSheet(
                 String.format(Locale.US, "%.1f", plan.extensionAtr),
             )
         }
+        bindAlert()
+    }
+
+    /** What the watchlist alert will do for this stock, or how to get one. */
+    private fun bindAlert() {
+        val state = alert
+        val entry = state?.entry
+        val stop = state?.stop
+        val text = when {
+            !alerts -> null
+            !starred -> activity.getString(R.string.detail_alert_star)
+            state != null && state.phase == WatchAlerts.Phase.IN_TRADE && entry != null && stop != null ->
+                activity.getString(
+                    R.string.detail_alert_trade,
+                    StockFormat.price(entry),
+                    StockFormat.price(stop),
+                    state.hits,
+                    state.targets.size,
+                )
+            entry != null -> activity.getString(R.string.detail_alert_waiting, StockFormat.price(entry))
+            else -> activity.getString(R.string.detail_alert_soon)
+        }
+        ui.detailAlert.isVisible = text != null
+        ui.detailAlert.text = text.orEmpty()
+        if (text != null) {
+            ui.detailAlert.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_notifications_small, 0, 0, 0)
+        }
     }
 
     private fun addLevel(
@@ -278,7 +313,7 @@ class StockDetailSheet(
                     Stat(
                         activity.getString(R.string.detail_stat_volume),
                         StockFormat.shares(stock.volume),
-                        activity.getString(R.string.detail_stat_volume_note),
+                        activity.getString(if (stock.live) R.string.detail_stat_volume_live_note else R.string.detail_stat_volume_note),
                     ),
                 )
                 add(
@@ -294,7 +329,7 @@ class StockDetailSheet(
                     Stat(
                         activity.getString(R.string.detail_stat_rvol),
                         activity.getString(R.string.detail_stat_rvol_value, StockFormat.rvol(stock.rvol)),
-                        activity.getString(R.string.detail_stat_rvol_note),
+                        activity.getString(if (stock.live) R.string.detail_stat_rvol_live_note else R.string.detail_stat_rvol_note),
                         if (stock.rvol >= StockFormat.SPIKE_RVOL) R.color.warn else R.color.text_secondary,
                     ),
                 )
