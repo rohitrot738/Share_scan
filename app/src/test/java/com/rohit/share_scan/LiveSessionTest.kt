@@ -31,10 +31,11 @@ class LiveSessionTest {
         val floor = VolumeCurve.shareAt(VolumeCurve.FLOOR_MINUTES)
         assertEquals(floor, VolumeCurve.shareAt(0.0), 1e-12)
         assertEquals(floor, VolumeCurve.shareAt(-30.0), 1e-12)
-        assertEquals(1.0, VolumeCurve.shareAt(375.0), 1e-12)
-        assertEquals(1.0, VolumeCurve.shareAt(500.0), 1e-12)
+        val close = VolumeCurve.shareAt(375.0)
+        assertTrue(close in 0.9..1.0)
+        assertEquals(close, VolumeCurve.shareAt(500.0), 1e-12)
         var previous = 0.0
-        for (minute in 15..375 step 5) {
+        for (minute in 20..375 step 5) {
             val share = VolumeCurve.shareAt(minute.toDouble())
             assertTrue("$minute: $share", share >= previous && share in 0.0..1.0)
             previous = share

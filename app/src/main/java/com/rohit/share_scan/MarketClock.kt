@@ -63,41 +63,45 @@ object MarketClock {
 }
 
 /**
- * How much of a normal day's volume has traded by each minute of the session, so a live session's volume so far can
- * be scaled up to a full day before it is compared with full past days. The points are the median share of the day's
- * volume done by each time, measured from 60 sessions of 5-minute bars of 42 NSE stocks, large and small. Volume is
- * heaviest after the open and before the close, so a straight line from 9:15 to 15:30 would overrate the morning.
+ * How much of a normal day's volume a stock's live daily bar holds at each minute of the session, so a live session's
+ * volume so far can be scaled up to a full day before it is compared with full past days.
+ *
+ * The points are the median share of the day's final volume traded by each time, from 5,010 sessions (60 days of
+ * 5-minute bars of 89 NSE stocks, large and small), plus 1.5% of the day that the live daily bar holds from the open
+ * but the 5-minute bars do not (the opening auction and first trades: on 19 Oct 2026 at 9:43 the live daily bar held a
+ * median 1.15 times the 5-minute bars' sum). Volume is heaviest after the open and before the close, so a straight
+ * line from 9:15 to 15:30 would overrate the morning; the closing session after 15:30 adds the last few percent.
  */
 object VolumeCurve {
-    /** (minutes since 9:15, share of the day's volume done by then). */
+    /** (minutes since 9:15, share of the day's volume the live bar holds by then). */
     private val POINTS = listOf(
-        0.0 to 0.0,
-        10.0 to 0.031,
-        15.0 to 0.054,
-        30.0 to 0.113,
-        45.0 to 0.161,
-        60.0 to 0.203,
-        90.0 to 0.275,
-        120.0 to 0.345,
-        150.0 to 0.414,
-        180.0 to 0.482,
-        210.0 to 0.547,
-        240.0 to 0.608,
-        270.0 to 0.670,
-        300.0 to 0.735,
-        330.0 to 0.813,
-        345.0 to 0.869,
-        360.0 to 0.983,
-        375.0 to 1.0,
+        0.0 to 0.015,
+        15.0 to 0.068,
+        20.0 to 0.089,
+        30.0 to 0.126,
+        45.0 to 0.173,
+        60.0 to 0.215,
+        90.0 to 0.287,
+        120.0 to 0.353,
+        150.0 to 0.415,
+        180.0 to 0.476,
+        210.0 to 0.535,
+        240.0 to 0.591,
+        270.0 to 0.648,
+        300.0 to 0.708,
+        330.0 to 0.780,
+        345.0 to 0.830,
+        360.0 to 0.927,
+        375.0 to 0.966,
     )
 
     /**
-     * The first minutes say little about the day: until [FLOOR_MINUTES] the share stays at its value there, so a few
-     * early trades are not blown up into a huge day.
+     * The first minutes say little about the day: until [FLOOR_MINUTES] the share stays at its value there, so the
+     * opening burst is not blown up into a huge day.
      */
-    const val FLOOR_MINUTES = 15.0
+    const val FLOOR_MINUTES = 20.0
 
-    /** Share of a full day's volume done [minutes] after the open, between the floor's share and 1. */
+    /** Share of a full day's volume done [minutes] after the open, between the floor's share and the close's. */
     fun shareAt(minutes: Double): Double {
         val m = minutes.coerceIn(FLOOR_MINUTES, MarketClock.SESSION_MINUTES.toDouble())
         val upper = POINTS.indexOfFirst { it.first >= m }
