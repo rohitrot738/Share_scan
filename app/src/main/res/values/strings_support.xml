@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Support floor: a price a stock has not closed below for long, though it came down to it again and again. -->
-    <string name="support_chip">Support 6M</string>
-    <string name="support_chip_count">Support 6M · %1$d</string>
-    <string name="support_chip_leave">Support बंद करें, सभी stocks दिखाएँ</string>
+    <!-- The two scans the home screen switches between. -->
+    <string name="mode_breakout">Breakout स्कैन</string>
+    <string name="mode_support">Support स्कैन</string>
+
+    <!-- Support scan: hero, stats, reach chips, empty states. -->
+    <string name="support_ready_title">Support स्कैन</string>
+    <string name="support_ready_body">वे stocks जो 6 महीने से एक भाव के नीचे बंद नहीं हुए, जबकि बार-बार उस तक आए</string>
+    <string name="support_done_title">Support स्कैन पूरा</string>
+    <string name="support_done_body">%1$d stocks 6 महीने से support पर टिके • %2$s का scan</string>
+    <string name="support_action_start">Support स्कैन करें</string>
+    <string name="support_action_rescan">दोबारा Support स्कैन करें</string>
+    <string name="support_stat_long">6M support</string>
+    <string name="support_stat_near">5% के अंदर</string>
+    <string name="support_reach_any">कोई भी दूरी</string>
+    <string name="support_reach_within">%1$d%% तक पास</string>
     <string name="support_list_empty_title">6 महीने वाला कोई support नहीं मिला</string>
-    <string name="support_list_empty_body">इन filters में कोई stock 6 महीने से अपने support के नीचे बंद हुए बिना नहीं टिका। Filters ढीले करें या Support 6M बंद करें।</string>
+    <string name="support_list_empty_body">इस scan में कोई stock 6 महीने से अपने support के ऊपर नहीं टिका। दूरी बढ़ाएँ, या Menu → स्कैन में और exchanges / sectors चालू करें।</string>
+    <string name="sort_support">Support</string>
 
     <!-- Card: "Support ₹412 · 6+ महीने · 4 बार". -->
     <string name="item_support">Support ₹%1$s · %2$s · %3$d बार</string>
@@ -27,5 +40,5 @@
 
     <!-- Help. -->
     <string name="help_part_support">Support bonus • %1$d अंक तक</string>
-    <string name="help_part_support_body">जिस भाव तक stock बार-बार आकर लौटा और जिसके नीचे बंद नहीं हुआ, वह उसका support है: उसके नीचे seller भाव नहीं गिरा पाए। Support जितना पुराना (6 महीने पर पूरे अंक) और जितनी बार परखा गया (5 बार पर पूरे), score में उतने ज़्यादा अंक जुड़ते हैं; बिना support वाले stock के अंक नहीं कटते। Support 6M chip वे stocks दिखाता है जो 6 महीने में अपने support के नीचे कभी बंद नहीं हुए और जिनका support कम से कम %1$d महीने से परखा जा रहा है।</string>
+    <string name="help_part_support_body">जिस भाव तक stock बार-बार आकर लौटा और जिसके नीचे बंद नहीं हुआ, वह उसका support है: उसके नीचे seller भाव नहीं गिरा पाए। Support जितना पुराना (6 महीने पर पूरे अंक) और जितनी बार परखा गया (5 बार पर पूरे), score में उतने ज़्यादा अंक जुड़ते हैं; बिना support वाले stock के अंक नहीं कटते। ऊपर "Support स्कैन" चुनें तो सिर्फ़ वे stocks दिखते हैं जो 6 महीने में अपने support के नीचे कभी बंद नहीं हुए और जिनका support कम से कम %1$d महीने से और कम से कम 3 बार परखा गया है। दोनों scan एक ही data पढ़ते हैं, इसलिए एक scan से दोनों list ताज़ा हो जाती हैं।</string>
 </resources>

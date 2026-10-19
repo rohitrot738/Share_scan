@@ -20,11 +20,12 @@ data class SupportFloor(
     val window: Int,
 ) {
     /**
-     * Not closed below for about six months, and tested from at least three months ago: the floors the Support chip
-     * lists. A floor that only formed lately (a fresh low) does not count, however unbroken.
+     * Not closed below for about six months, tested from at least three months ago and at least three times: the
+     * floors the Support scan lists. A floor that only formed lately (a fresh low) does not count, however unbroken.
      */
     val long: Boolean
-        get() = unbroken && window >= SupportFloors.LONG_WINDOW && ageSessions >= SupportFloors.LONG_AGE
+        get() = unbroken && window >= SupportFloors.LONG_WINDOW && ageSessions >= SupportFloors.LONG_AGE &&
+            touches >= SupportFloors.LONG_TOUCHES
 
     /** Reaches back to the start of the chart, so it may be older still. */
     val sinceChartStart: Boolean get() = ageSessions >= window - SupportFloors.CHART_START_SLACK
@@ -60,6 +61,12 @@ object SupportFloors {
 
     /** A floor needs at least this many separate dips into its zone. */
     const val MIN_TOUCHES = 2
+
+    /**
+     * A long floor took at least this many. On 300 random NSE stocks (19 Oct 2026) two tests made 38% of them long,
+     * three 26%; within 5% of the floor, 10%.
+     */
+    const val LONG_TOUCHES = 3
 
     /** Two dips count separately only this many sessions apart. */
     const val TOUCH_GAP = 5

@@ -24,6 +24,8 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         ScanUiState(
             filters = ScanFilters.decode(prefs.getString(Prefs.FILTERS, null)),
             watchlist = prefs.getStringSet(Prefs.WATCHLIST, null).orEmpty().toSet(),
+        ).withScanMode(
+            if (prefs.getString(Prefs.SCAN_MODE, null) == ScanMode.SUPPORT.name) ScanMode.SUPPORT else ScanMode.BREAKOUT,
         ),
     )
     val uiState: StateFlow<ScanUiState> = state.asStateFlow()
@@ -136,12 +138,18 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun setWatchlistOnly(only: Boolean) {
-        state.update { it.copy(watchlistOnly = only, supportOnly = it.supportOnly && !only) }
+        state.update { it.copy(watchlistOnly = only) }
     }
 
-    /** Shows only stocks on a long support floor; it takes the watchlist's place, the two never show together. */
-    fun setSupportOnly(only: Boolean) {
-        state.update { it.copy(supportOnly = only, watchlistOnly = it.watchlistOnly && !only) }
+    /** Switches between the Breakout and the Support scan; the app opens on the one last chosen. */
+    fun setScanMode(mode: ScanMode) {
+        state.update { it.withScanMode(mode) }
+        prefs.edit { putString(Prefs.SCAN_MODE, mode.name) }
+    }
+
+    /** How far above its floor a stock may sit to stay in the Support scan; null for any distance. */
+    fun setSupportReach(reach: Double?) {
+        state.update { it.copy(supportReach = reach) }
     }
 
     fun openSearch() {

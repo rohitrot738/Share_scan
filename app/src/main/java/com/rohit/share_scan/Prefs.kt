@@ -13,6 +13,9 @@ object Prefs {
     /** Score ranks from the previous completed scan, used for NEW badges and rank changes. */
     const val LAST_RANKS = "last_ranks"
 
+    /** [ScanMode.name] of the scan the home screen showed last. */
+    const val SCAN_MODE = "scan_mode"
+
     /** [ScanSectors.key] of the scan [LAST_RANKS] came from; ranks of other stocks are not compared. */
     const val LAST_RANKS_SCOPE = "last_ranks_scope"
 

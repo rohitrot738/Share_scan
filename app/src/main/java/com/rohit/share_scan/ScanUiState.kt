@@ -4,7 +4,15 @@ import java.time.LocalDate
 
 enum class ScanPhase { IDLE, LOADING, SCANNING, DONE, FAILED }
 
-enum class SortMode { SCORE, RVOL, CHANGE, PRICE }
+/** [SUPPORT] orders by the support floor's strength, then by how close the price sits to it. */
+enum class SortMode { SCORE, RVOL, CHANGE, PRICE, SUPPORT }
+
+/**
+ * Which scan the home screen shows. [BREAKOUT] is the main scan: pre-breakout stocks ranked by score, with the user's
+ * filters. [SUPPORT] lists only stocks standing on a long support floor ([SupportFloor.long]). Both read the same
+ * scanned charts, so one scan fills both.
+ */
+enum class ScanMode { BREAKOUT, SUPPORT }
 
 /**
  * [rank] is the position among the stocks inside the filters, or [UNRANKED] for a starred stock outside them or
@@ -41,8 +49,9 @@ data class ScanUiState(
     val watchlist: Set<String> = emptySet(),
     /** Show only starred stocks. */
     val watchlistOnly: Boolean = false,
-    /** Show only stocks standing on a long support floor ([SupportFloor.long]); never together with [watchlistOnly]. */
-    val supportOnly: Boolean = false,
+    val scanMode: ScanMode = ScanMode.BREAKOUT,
+    /** The Support scan keeps stocks at most this many percent above their floor; null keeps them all. */
+    val supportReach: Double? = null,
     val searchOpen: Boolean = false,
     /** Search text, matched against the symbol and the company name ([StockSearch]). */
     val query: String = "",
@@ -87,16 +96,27 @@ data class ScanUiState(
     }
 
     /**
-     * Stocks inside the filters that stand on a long support floor: not closed below it for about six months and
-     * tested since at least three months ago. Like the watchlist, it looks past the Top limit.
+     * Every scanned stock on a long support floor: not closed below it for about six months and tested since at least
+     * three months ago. The Breakout scan's filters and limit do not apply; ranks are by score among all stocks.
      */
-    val supported: List<RankedStock> by lazy { matching.filter { it.stock.support?.long == true } }
+    val supportStocks: List<RankedStock> by lazy {
+        results.mapIndexedNotNull { index, stock ->
+            if (stock.support?.long != true) return@mapIndexedNotNull null
+            RankedStock(index + 1, stock, rankBadges[stock.symbol], stock.symbol in watchlist)
+        }
+    }
 
-    /** The list before the search: [visible], or [starredStocks] in watchlist mode, or [supported] in support mode. */
+    /** The Support scan's list: [supportStocks] within [supportReach] of their floor. */
+    val supportListed: List<RankedStock> by lazy {
+        val reach = supportReach ?: return@lazy supportStocks
+        supportStocks.filter { it.stock.support!!.distancePct(it.stock.price) <= reach }
+    }
+
+    /** The list before the search: the Support scan's, or the watchlist, or [visible]. */
     val listed: List<RankedStock> by lazy {
         when {
+            scanMode == ScanMode.SUPPORT -> supportListed
             watchlistOnly -> starredStocks
-            supportOnly -> supported
             else -> visible
         }
     }
@@ -128,8 +148,8 @@ data class ScanUiState(
             listed
         } else {
             val pool = when {
+                scanMode == ScanMode.SUPPORT -> supportListed
                 watchlistOnly -> starredStocks
-                supportOnly -> supported
                 else -> matching
             }
             pool.filter { StockSearch.matches(it.stock, query) }
@@ -146,9 +166,26 @@ data class ScanUiState(
                 SortMode.RVOL -> shown.sortedByDescending { it.stock.rvol }
                 SortMode.CHANGE -> shown.sortedByDescending { it.stock.change5d }
                 SortMode.PRICE -> shown.sortedByDescending { it.stock.price }
+                SortMode.SUPPORT -> shown.sortedWith(
+                    compareByDescending<RankedStock> { it.stock.support?.strength ?: -1.0 }
+                        .thenBy { it.stock.support?.distancePct(it.stock.price) ?: Double.MAX_VALUE },
+                )
             }
             return if (ascending) highFirst.reversed() else highFirst
         }
+
+    /**
+     * The same state on [mode]'s list: the Support scan has no watchlist view and opens ordered by the floor's
+     * strength; back on the Breakout scan, that order gives way to the score's.
+     */
+    fun withScanMode(mode: ScanMode): ScanUiState = when (mode) {
+        ScanMode.SUPPORT -> copy(scanMode = mode, watchlistOnly = false, sort = SortMode.SUPPORT, ascending = false)
+        ScanMode.BREAKOUT -> copy(
+            scanMode = mode,
+            sort = if (sort == SortMode.SUPPORT) SortMode.SCORE else sort,
+            ascending = if (sort == SortMode.SUPPORT) false else ascending,
+        )
+    }
 
     fun elapsedAt(now: Long): Long = when {
         isRunning -> now - startedAt
