@@ -52,6 +52,8 @@ class TrackRecordSheet(
             val tile = ItemDetailStatBinding.inflate(activity.layoutInflater, row, true)
             tile.statLabel.text = activity.getString(R.string.record_after, sessions)
             tile.statNote.isVisible = true
+            // Win rate, Nifty and the pick count wrap to three lines on a phone's third of the width.
+            tile.statNote.maxLines = 3
             val summary = journal.summary(index)
             if (summary == null) {
                 tile.statValue.setText(R.string.stat_empty)

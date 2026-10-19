@@ -73,6 +73,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
                 },
                 savedAt = latest?.finishedAt ?: 0L,
                 autoResults = latest?.auto == true,
+                narrowed = latest != null && ScanSectors.narrowed(latest.scope),
                 runningAuto = progress.running && progress.trigger == ScanEngine.Trigger.AUTO,
                 earlyStop = !progress.running && lastRun?.stoppedEarly == true,
             )

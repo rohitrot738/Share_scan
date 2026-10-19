@@ -13,6 +13,9 @@ object Prefs {
     /** Score ranks from the previous completed scan, used for NEW badges and rank changes. */
     const val LAST_RANKS = "last_ranks"
 
+    /** [ScanSectors.key] of the scan [LAST_RANKS] came from; ranks of other stocks are not compared. */
+    const val LAST_RANKS_SCOPE = "last_ranks_scope"
+
     /** Version code of a release the user chose "बाद में" for; its banner stays hidden. */
     const val UPDATE_DISMISSED = "update_dismissed"
 

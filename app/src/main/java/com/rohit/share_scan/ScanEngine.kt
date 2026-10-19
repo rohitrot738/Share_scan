@@ -186,6 +186,12 @@ object ScanEngine {
         val stop = stopSignal
         val started = SystemClock.elapsedRealtime()
         val settings = AppSettings(app)
+        val markets = buildSet {
+            if (settings.includeNse) add(Market.NSE)
+            if (settings.includeSme) add(Market.NSE_SME)
+            if (settings.includeBse) add(Market.BSE)
+        }
+        val scope = settings.scanSectors.key(markets)
         val outcome = runCatching {
             runCatching { SectorRepository.refreshIfStale(app) }
             NseScanner.scan(
@@ -212,7 +218,7 @@ object ScanEngine {
                 // Stopped while the lists loaded: nothing scored, the kept scan stays.
                 failureFlow.value = Failure(runId, null, stoppedEarly = output.stopped)
             } else {
-                finish(app, trigger, output, cutByBudget = budgetMs > 0 && !stop.get() && output.stopped)
+                finish(app, trigger, output, scope, cutByBudget = budgetMs > 0 && !stop.get() && output.stopped)
             }
         } finally {
             progressFlow.update {
@@ -225,15 +231,24 @@ object ScanEngine {
         }
     }
 
-    /** Keeps a finished scan and acts on it. */
-    private fun finish(app: Context, trigger: Trigger, scanned: ScanOutput, cutByBudget: Boolean) {
-        val previous = latestFlow.value
+    /** Keeps a finished scan of the stocks [scope] names and acts on it. */
+    private fun finish(app: Context, trigger: Trigger, scanned: ScanOutput, scope: String, cutByBudget: Boolean) {
+        val kept = latestFlow.value
+        // Only a scan of the same exchanges and industries is a "before" for this one; a kept scan from before scans
+        // had a scope counts as one.
+        val previous = kept?.takeIf { it.scope.isEmpty() || it.scope == scope }
         // Live mode out of time keeps the stocks it did not reach from the scan before, rather than losing them.
         val output = if (cutByBudget && previous != null) merge(previous.output, scanned) else scanned
         val ranked = output.results.sortedByDescending { it.score }
         val complete = !output.stopped
-        val badges = if (complete) trackRanks(app, ranked) else emptyMap()
-        val saved = SavedScan(output.copy(results = ranked), System.currentTimeMillis(), trigger == Trigger.AUTO, badges)
+        val badges = if (complete) trackRanks(app, ranked, scope) else emptyMap()
+        val saved = SavedScan(
+            output.copy(results = ranked),
+            System.currentTimeMillis(),
+            trigger == Trigger.AUTO,
+            badges,
+            scope,
+        )
         runCatching { store(app).save(saved) }
         latestFlow.value = saved
         if (complete) {
@@ -284,13 +299,21 @@ object ScanEngine {
         if (AppSettings(app).watchAlerts) events.forEach { (event, name) -> Notifier.watchEvent(app, event, name) }
     }
 
-    /** Badges against the previous complete scan, then remembers this scan's ranks. */
-    private fun trackRanks(app: Context, results: List<ScanResult>): Map<String, RankBadge> {
+    /** Badges against the previous complete scan of the same stocks ([scope]), then remembers this scan's ranks. */
+    private fun trackRanks(app: Context, results: List<ScanResult>, scope: String): Map<String, RankBadge> {
         if (results.isEmpty()) return emptyMap()
         val prefs = prefs(app)
         val symbols = results.map { it.symbol }
-        val previous = RankHistory.decode(prefs.getString(Prefs.LAST_RANKS, null))
-        prefs.edit { putString(Prefs.LAST_RANKS, RankHistory.encode(symbols)) }
+        val ranksScope = prefs.getString(Prefs.LAST_RANKS_SCOPE, null)
+        val previous = if (ranksScope == null || ranksScope == scope) {
+            RankHistory.decode(prefs.getString(Prefs.LAST_RANKS, null))
+        } else {
+            emptyMap()
+        }
+        prefs.edit {
+            putString(Prefs.LAST_RANKS, RankHistory.encode(symbols))
+            putString(Prefs.LAST_RANKS_SCOPE, scope)
+        }
         return RankHistory.badges(symbols, previous)
     }
 

@@ -10,6 +10,7 @@
     <string name="status_auto_title">Live scan चल रहा है</string>
     <string name="status_auto_done_title">Live scan पूरा</string>
     <string name="status_done_saved_body">%1$d top candidates • %2$s का scan</string>
+    <string name="status_done_sectors_body">%1$d top candidates • %2$s का scan • सिर्फ़ चुने sectors</string>
 
     <!-- Cards and detail sheet -->
     <string name="item_rvol_live">RVOL ≈%1$s×</string>

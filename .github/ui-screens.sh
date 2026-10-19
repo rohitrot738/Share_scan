@@ -12,7 +12,8 @@ adb shell settings put global hide_error_dialogs 1
 sleep 20
 adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS > /dev/null
 adb install -r app/build/outputs/apk/debug/app-debug.apk
-# Keep crash, ANR and process-death lines for the whole run.
+# Keep crash, ANR and process-death lines for the whole run, and enough of the rest for the worker's lines.
+adb logcat -G 16M
 adb logcat -c
 adb logcat -v time AndroidRuntime:E ActivityManager:I ActivityTaskManager:I lowmemorykiller:I libprocessgroup:I \
   System.err:W ShareScan:V '*:S' > "$OUT/logcat.txt" 2>&1 &
@@ -79,11 +80,14 @@ wait_cards() {
 }
 # Our notifications as the system lists them.
 notes() { adb shell dumpsys notification --noredact | grep -A12 "pkg=$PKG" | grep -E "android.title=|android.text=|android.bigText=" ; }
-# WorkManager's job for live mode, run now instead of at its next 15-minute slot.
+# WorkManager's job for live mode, run now instead of at its next 15-minute slot. Its job id grows with every
+# reschedule, so it is read from the job list.
 run_live_job() {
-  adb shell dumpsys jobscheduler | grep -i "$PKG" | head -5
-  # WorkManager numbers its jobs from 0; forcing the first few runs live mode's one among them.
-  for id in 0 1 2 3 4 5; do adb shell cmd jobscheduler run -f "$PKG" "$id" 2>&1 | head -1; done
+  local ids
+  ids=$(adb shell dumpsys jobscheduler | grep -E "JOB #u0a[0-9]+/" | grep "$PKG/androidx.work" \
+    | sed -E 's|.*JOB #u0a[0-9]+/([^:]*:)?([0-9]+): .*|\2|' | sort -u)
+  echo "live job ids: ${ids:-none}"
+  for id in $ids; do adb shell cmd jobscheduler run -f "$PKG" "$id" 2>&1 | head -1; done
 }
 
 # Live mode needs the market open: wait for 9:17 IST when the emulator is up earlier.
@@ -179,6 +183,8 @@ python3 - <<'PY'
 import gzip, json, time
 lines = gzip.open('/tmp/scan.gz', 'rt', encoding='utf-8').read().splitlines()
 head = json.loads(lines[0]); head['at'] = int(time.time() * 1000) - 2 * 3600 * 1000
+# The kept scan was of IT only; mark it as a scan of every NSE stock, like the next one, so it is the "before".
+head['scope'] = 'NSE'
 rows = [json.loads(l) for l in lines[1:] if l.strip()]
 for row in rows: row['sc'] = 10.0
 with gzip.open('/tmp/scan2.gz', 'wt', encoding='utf-8') as out:
@@ -192,6 +198,11 @@ adb shell "run-as $PKG cp /data/local/tmp/scan2.gz files/last_scan.gz"
 STATE='{&quot;RELIANCE&quot;:{&quot;ph&quot;:&quot;WAITING&quot;,&quot;p&quot;:1.0,&quot;e&quot;:2.0,&quot;s&quot;:1.5,&quot;t&quot;:[1.0E9,2.0E9,3.0E9],&quot;h&quot;:0,&quot;since&quot;:0}}'
 set_prefs "<string name=\"theme\">galaxy</string><boolean name=\"sky_animation\" value=\"false\" />$WATCH<string name=\"watch_states\">$STATE</string>"
 adb logcat -c
+# A force-stop drops the app's jobs until it next starts: open it so WorkManager puts them back, then leave it.
+launch
+sleep 8
+adb shell input keyevent HOME
+sleep 3
 run_live_job
 for i in $(seq 1 40); do
   sleep 20

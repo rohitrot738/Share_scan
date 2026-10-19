@@ -185,6 +185,27 @@ class SectorBookTest {
     }
 }
 
+class ScanScopeTest {
+    @Test
+    fun namesTheExchangesAndIndustriesScanned() {
+        val every = ScanSectors()
+        assertEquals("NSE", every.key(setOf(Market.NSE)))
+        assertEquals("NSE;BSE", every.key(setOf(Market.BSE, Market.NSE)))
+        assertFalse(ScanSectors.narrowed(every.key(Market.entries)))
+
+        val it = every.with(Market.NSE, setOf("Information Technology"))
+        assertEquals("NSE=Information Technology", it.key(setOf(Market.NSE)))
+        assertTrue(ScanSectors.narrowed(it.key(setOf(Market.NSE))))
+        // A pick on an exchange left out of the scan changes nothing.
+        assertEquals("BSE", it.key(setOf(Market.BSE)))
+        assertFalse(ScanSectors.narrowed(it.key(setOf(Market.BSE))))
+        // Every industry picked by hand reads as every industry again.
+        assertEquals("NSE", it.with(Market.NSE, null).key(setOf(Market.NSE)))
+        assertEquals("NSE=", every.with(Market.NSE, emptySet()).key(setOf(Market.NSE)))
+        assertEquals("NSE=-|Power", every.with(Market.NSE, setOf("Power", "-")).key(setOf(Market.NSE)))
+    }
+}
+
 class SectorFilterTest {
     private fun stock(symbol: String, sector: String) =
         ScanResult(symbol = symbol, price = 100.0, score = 70.0, rvol = 1.0, change5d = 1.0, sector = sector)

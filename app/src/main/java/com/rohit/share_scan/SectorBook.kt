@@ -81,8 +81,20 @@ data class ScanSectors(val picked: Map<Market, Set<String>> = emptyMap()) {
     fun with(market: Market, sectors: Set<String>?): ScanSectors =
         ScanSectors(if (sectors == null) picked - market else picked + (market to sectors))
 
+    /**
+     * Names the stocks a scan of [markets] covers, "NSE;BSE=Capital Goods|Healthcare", so a scan is only compared with
+     * one of the same stocks: a scan of one industry is not "new" or "up 30 ranks" against a scan of every industry.
+     */
+    fun key(markets: Collection<Market>): String =
+        Market.entries.filter { it in markets }.joinToString(";") { market ->
+            picked[market]?.let { "${market.name}=${encode(it)}" } ?: market.name
+        }
+
     companion object {
         private const val SEPARATOR = "|"
+
+        /** Whether the scan [key] names left some industry out on some exchange. */
+        fun narrowed(key: String): Boolean = '=' in key
 
         /** "Capital Goods|Healthcare|-"; the empty text is a valid "no industry at all". */
         fun encode(sectors: Set<String>): String = sectors.sorted().joinToString(SEPARATOR)

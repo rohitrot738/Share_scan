@@ -285,7 +285,11 @@ class MainActivity : AppCompatActivity() {
             } else {
                 showStatus(
                     getString(if (state.autoResults) R.string.status_auto_done_title else R.string.status_done_title),
-                    getString(R.string.status_done_saved_body, state.visible.size, whenScanned(state.savedAt)),
+                    getString(
+                        if (state.narrowed) R.string.status_done_sectors_body else R.string.status_done_saved_body,
+                        state.visible.size,
+                        whenScanned(state.savedAt),
+                    ),
                     R.drawable.ic_check,
                     100,
                 )

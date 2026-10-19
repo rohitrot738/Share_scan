@@ -52,6 +52,7 @@ class ScanStoreTest {
             finishedAt = 1_792_377_000_000L,
             auto = true,
             badges = mapOf("M&M" to RankBadge.New, "123ABC" to RankBadge.Moved(-4)),
+            scope = "NSE;BSE=Capital Goods|-",
         )
         store.save(saved)
         val back = store.load()!!
@@ -59,6 +60,7 @@ class ScanStoreTest {
         assertEquals(saved.finishedAt, back.finishedAt)
         assertTrue(back.auto)
         assertEquals(saved.badges, back.badges)
+        assertEquals(saved.scope, back.scope)
         assertEquals(saved.output.marketCapDate, back.output.marketCapDate)
         assertEquals(saved.output.benchmark, back.output.benchmark)
         assertEquals(bare, back.output.results[1])

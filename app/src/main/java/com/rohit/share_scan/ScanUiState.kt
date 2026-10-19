@@ -48,6 +48,8 @@ data class ScanUiState(
     val savedAt: Long = 0L,
     /** Live mode ran the scan in [results] in the background. */
     val autoResults: Boolean = false,
+    /** The scan in [results] left some industries out (Menu → स्कैन). */
+    val narrowed: Boolean = false,
     /** Live mode's background scan is under way (the list still shows the previous scan). */
     val runningAuto: Boolean = false,
     /** The latest run was stopped before any stock was scored; [results] are the scan before it. */

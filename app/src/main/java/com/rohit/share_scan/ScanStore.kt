@@ -16,6 +16,8 @@ data class SavedScan(
     val auto: Boolean = false,
     /** Rank moves against the scan before it, as the list showed them. */
     val badges: Map<String, RankBadge> = emptyMap(),
+    /** [ScanSectors.key] of the exchanges and industries scanned; empty for a scan kept before scans had one. */
+    val scope: String = "",
 )
 
 /**
@@ -60,6 +62,7 @@ class ScanStore(private val file: File) {
                 finishedAt = head.optLong("at"),
                 auto = head.optBoolean("auto"),
                 badges = badges(head.optJSONObject("badges")),
+                scope = head.optString("scope"),
             )
         }
     }.getOrNull()
@@ -72,6 +75,7 @@ class ScanStore(private val file: File) {
         put("v", VERSION)
         put("at", scan.finishedAt)
         put("auto", scan.auto)
+        put("scope", scan.scope)
         put("stopped", scan.output.stopped)
         scan.output.marketCapDate?.let { put("capDate", it.toString()) }
         scan.output.benchmark?.let { put("nifty", series(it)) }
