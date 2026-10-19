@@ -3,6 +3,7 @@
     <!-- Watchlist -->
     <string name="list_watchlist">★ Watchlist</string>
     <string name="list_watchlist_count">★ Watchlist · %1$d</string>
+    <string name="list_watchlist_leave">Watchlist बंद करें, सभी stocks दिखाएँ</string>
     <string name="list_star_add">%1$s को watchlist में जोड़ें</string>
     <string name="list_star_remove">%1$s को watchlist से हटाएँ</string>
     <string name="list_starred_description">Watchlist में</string>
