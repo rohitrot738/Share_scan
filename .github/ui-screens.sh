@@ -168,13 +168,16 @@ PY
 pref() {
   adb shell "run-as $PKG cat shared_prefs/scan.xml" | grep -o "name=\"$1\" value=\"[a-z]*\"" || echo "$1 not saved"
 }
-# Back to the home screen: closes whatever sheet is still open, then checks the start button is showing.
+# Back to the home screen: closes whatever sheet is still open. A screen uiautomator cannot read is left alone, so a
+# BACK never lands on the home screen itself and closes the app.
 home() {
   for i in 1 2 3; do
-    find_node id startButton > /dev/null 2>&1 && return
+    find_node id design_bottom_sheet > /dev/null 2>&1 || return
     adb shell input keyevent BACK; sleep 2
   done
 }
+# Scrolls back up to the board, where the menu button is.
+to_top() { for i in 1 2; do adb shell input swipe 540 700 540 2000 400; sleep 1; done; sleep 1; }
 open_settings() { menu; tap_text "सेटिंग्स"; sleep 3; }
 
 # Where the menu, its Settings row and the sky switch are, and how those sheets look once settled, learnt with the
@@ -216,7 +219,6 @@ snap 1-still-scanning
 
 # 2) The glass switch, as on the phone: off, then back on, with a finished scan's cards on screen.
 wait_cards
-to_cards
 open_settings
 echo "2 before the switch: $(pref glass_enabled)"
 tap settingGlassOn
@@ -229,6 +231,7 @@ snap 2-glass-off
 tap filterChip; sleep 4
 snap 2-glass-off-filters
 adb shell input keyevent BACK; sleep 2
+to_top
 open_settings
 snap 2-settings-glass-off
 tap settingGlassOn
@@ -239,6 +242,7 @@ to_cards
 snap 2-glass-on-again
 
 # 3) The sky switched back on moves again.
+to_top
 open_settings
 tap settingSky; sleep 2
 echo "3 after the switch: $(pref sky_animation)"
