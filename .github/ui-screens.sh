@@ -139,16 +139,56 @@ PY
 # Sky only, clear of every text and control: the band under the empty-state text, above the navigation handle.
 band() { differ "$1" "$2" 0 2080 1080 2320; }
 
-# Where the menu, its Settings row and the sky switch are, learnt with the sky still: uiautomator only reads a
-# settled screen. The layout is the same with the sky moving.
+# Waits (up to 25 s) until a box (x0 y0 x1 y1) looks as it did in a reference grab made with the sky still, so a tap
+# lands on a sheet that has finished sliding in: the emulator draws a moving sky slowly and the sheets come in late.
+settle_like() {
+  local ref=$1; shift
+  for i in $(seq 1 25); do
+    raw /tmp/now.raw
+    if python3 - "$ref" /tmp/now.raw "$@" <<'PY'
+import sys
+a = open(sys.argv[1], "rb").read(); b = open(sys.argv[2], "rb").read()
+x0, y0, x1, y1 = map(int, sys.argv[3:7])
+w = int.from_bytes(a[0:4], "little"); off = 16 if len(a) % 4 == 0 else 12
+bad = total = 0
+for y in range(y0, y1):
+    s = off + (y * w + x0) * 4
+    for i in range(0, (x1 - x0) * 4, 4):
+        total += 1
+        if max(abs(a[s + i + k] - b[s + i + k]) for k in range(3)) > 40:
+            bad += 1
+sys.exit(0 if bad < total * 0.03 else 1)
+PY
+    then echo "settled after ${i} s"; return 0; fi
+    sleep 1
+  done
+  echo "never settled"; return 1
+}
+# The switch's saved value, read straight from the app's preferences.
+pref() {
+  adb shell "run-as $PKG cat shared_prefs/scan.xml" | grep -o "name=\"$1\" value=\"[a-z]*\"" || echo "$1 not saved"
+}
+# Back to the home screen: closes whatever sheet is still open, then checks the start button is showing.
+home() {
+  for i in 1 2 3; do
+    find_node id startButton > /dev/null 2>&1 && return
+    adb shell input keyevent BACK; sleep 2
+  done
+}
+open_settings() { menu; tap_text "सेटिंग्स"; sleep 3; }
+
+# Where the menu, its Settings row and the sky switch are, and how those sheets look once settled, learnt with the
+# sky still: uiautomator only reads a settled screen. The layout is the same with the sky moving.
 set_prefs "<string name=\"theme\">galaxy</string><boolean name=\"sky_animation\" value=\"false\" />"
 launch
 sleep 8
-xy_menu=$(find_node id menuButton); tap menuButton; sleep 2
-xy_settings=$(find_node text "सेटिंग्स"); tap_text "सेटिंग्स"; sleep 3
-xy_sky=$(find_node id settingSky)
+xy_menu=$(find_node id menuButton); tap menuButton; sleep 3
+xy_settings=$(find_node text "सेटिंग्स"); raw /tmp/ref_menu; tap_text "सेटिंग्स"; sleep 3
+xy_sky=$(find_node id settingSky); raw /tmp/ref_settings
 echo "menu=$xy_menu settings=$xy_settings sky switch=$xy_sky"
 snap 0-settings
+set -- $xy_settings; menu_box="30 $(( $2 - 45 )) 600 $(( $2 + 45 ))"
+set -- $xy_sky; settings_box="40 $(( $2 - 75 )) 700 $(( $2 - 25 ))"
 
 # 1) As on the phone: the sky moving, then switched off in Settings, then a scan redrawing the screen.
 set_prefs "<string name=\"theme\">galaxy</string>"
@@ -156,11 +196,16 @@ launch
 sleep 8
 raw /tmp/a1; sleep 3; raw /tmp/a2
 echo "1a sky on: changed bytes in 3 s = $(band /tmp/a1 /tmp/a2)"
-adb shell input tap $xy_menu; sleep 3
-adb shell input tap $xy_settings; sleep 4
-adb shell input tap $xy_sky; sleep 2
+echo "1 before the switch: $(pref sky_animation)"
+adb shell input tap $xy_menu
+settle_like /tmp/ref_menu $menu_box
+adb shell input tap $xy_settings
+settle_like /tmp/ref_settings $settings_box
+adb shell input tap $xy_sky; sleep 3
+echo "1 after the switch: $(pref sky_animation)"
 snap 1-switch-off
-adb shell input keyevent BACK; sleep 3
+home
+snap 1-home-still
 raw /tmp/b1; sleep 3; raw /tmp/b2
 echo "1b switched off, idle: changed bytes in 3 s = $(band /tmp/b1 /tmp/b2)"
 tap startButton
@@ -169,26 +214,36 @@ raw /tmp/c1; sleep 4; raw /tmp/c2
 echo "1c switched off, scanning: changed bytes in 4 s = $(band /tmp/c1 /tmp/c2)"
 snap 1-still-scanning
 
-# 2) The glass switch, as on the phone: off, then back on.
-menu; tap_text "सेटिंग्स"; sleep 3
-for i in 1 2 3; do find_node id settingGlassOn > /dev/null 2>&1 && break; adb shell input swipe 540 1800 540 1100 500; sleep 1; done
+# 2) The glass switch, as on the phone: off, then back on, with a finished scan's cards on screen.
+wait_cards
+to_cards
+open_settings
+echo "2 before the switch: $(pref glass_enabled)"
 tap settingGlassOn
 sleep 6
+echo "2 after the switch: $(pref glass_enabled)"
+snap 2-after-switch
+home
+to_cards
 snap 2-glass-off
 tap filterChip; sleep 4
 snap 2-glass-off-filters
 adb shell input keyevent BACK; sleep 2
-menu; tap_text "सेटिंग्स"; sleep 3
-for i in 1 2 3; do find_node id settingGlassOn > /dev/null 2>&1 && break; adb shell input swipe 540 1800 540 1100 500; sleep 1; done
+open_settings
 snap 2-settings-glass-off
 tap settingGlassOn
 sleep 6
+echo "2 switched back: $(pref glass_enabled)"
+home
+to_cards
 snap 2-glass-on-again
 
 # 3) The sky switched back on moves again.
-menu; tap_text "सेटिंग्स"; sleep 3
+open_settings
 tap settingSky; sleep 2
+echo "3 after the switch: $(pref sky_animation)"
 adb shell input keyevent BACK; sleep 3
 raw /tmp/d1; sleep 3; raw /tmp/d2
-echo "3 switched on again: changed bytes in 3 s = $(band /tmp/d1 /tmp/d2)"
+echo "3 switched on again: changed bytes in 3 s = $(differ /tmp/d1 /tmp/d2 0 0 1080 2400)"
+snap 3-sky-on-again
 kill %1 2>/dev/null
