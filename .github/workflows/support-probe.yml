@@ -1,0 +1,14 @@
+# Temporary: checks the support-floor rules on real NSE charts. Remove before merging.
+name: Support probe
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['.github/support_probe.py', '.github/workflows/support-probe.yml']
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 .github/support_probe.py
