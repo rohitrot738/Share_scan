@@ -69,7 +69,7 @@ data class ScanResult(
     val market: Market = Market.NSE,
     /** BSE's numeric scrip code, for BSE-only stocks; empty otherwise. */
     val bseCode: String = "",
-    /** NSE's industry for the stock ([SectorBook]); empty when it is not among the 750 NSE lists it. */
+    /** The stock's industry ([SectorBook]), NSE's classification; empty when the sector file does not know it. */
     val sector: String = "",
     /** The price and volume are from today's session, still trading; [rvol] then compares the day they point to. */
     val live: Boolean = false,
@@ -133,12 +133,6 @@ object NseScanner {
         "https://archives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv",
     )
     private const val SECURITY_FILE = "https://nsearchives.nseindia.com/content/cm/NSE_CM_security_%s.csv.gz"
-    /** NSE's Nifty Total Market constituents with their industries; the hosts are tried in turn. */
-    private val SECTOR_CSVS = listOf(
-        "https://archives.nseindia.com/content/indices/ind_niftytotalmarket_list.csv",
-        "https://nsearchives.nseindia.com/content/indices/ind_niftytotalmarket_list.csv",
-        "https://www.niftyindices.com/IndexConstituent/ind_niftytotalmarket_list.csv",
-    )
     private const val BENCHMARK = "%5ENSEI"
     /** BSE's daily equity bhavcopy: every scrip traded that day, with its ISIN; the source of BSE-only stocks. */
     private const val BSE_BHAVCOPY = "https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_%s_F_0000.CSV"
@@ -167,11 +161,15 @@ object NseScanner {
      *
      * Once [isStopped] turns true the scan winds down within about a second and returns the stocks scored so far,
      * marked [ScanOutput.stopped]; a stop while the lists load returns no stocks.
+     *
+     * [sectors] gives each stock its industry, and only the industries [scope] picks for each exchange are scanned.
      */
     fun scan(
         includeNse: Boolean = true,
         includeSme: Boolean = false,
         includeBse: Boolean = false,
+        sectors: SectorBook = SectorBook.EMPTY,
+        scope: ScanSectors = ScanSectors(),
         isStopped: () -> Boolean = { false },
         now: () -> Long = System::currentTimeMillis,
         onProgress: (Int, Int) -> Unit,
@@ -184,8 +182,10 @@ object NseScanner {
         val sme = if (includeSme) daily("sme") { loadSmeListings(isStopped) } else emptyList()
         val bse = if (includeBse) daily("bse") { loadBseListings(isStopped) } else emptyList()
         if (isStopped()) return ScanOutput(emptyList(), null, stopped = true)
-        val symbols = combine(if (includeNse) main else emptyList(), sme, bse)
-        if (symbols.isEmpty()) error("कोई stock list नहीं मिली")
+        val listed = combine(if (includeNse) main else emptyList(), sme, bse)
+        if (listed.isEmpty()) error("कोई stock list नहीं मिली")
+        val symbols = listed.filter { scope.includes(it.market, sectors.of(it.isin)) }
+        if (symbols.isEmpty()) error("चुने हुए sectors में कोई stock नहीं — Menu → स्कैन में sectors चुनें")
         val nseSymbolByIsin = main.filter { it.isin.isNotEmpty() }.associate { it.isin to it.symbol }
         val isinBySymbol = symbols.associate { it.symbol to it.isin }
         onProgress(0, symbols.size)
@@ -193,17 +193,15 @@ object NseScanner {
         val pool = Executors.newFixedThreadPool(4)
         try {
             val issuedShares = pool.submit(Callable { runCatching { daily("shares") { loadIssuedShares(isStopped) ?: error("no share counts") } }.getOrNull() })
-            val sectors = pool.submit(Callable { runCatching { daily("sectors") { loadSectors() } }.getOrNull() })
             val benchmark = pool.submit(Callable { runCatching { benchmark(isStopped) }.getOrNull() })
             val scored = runStoppable(pool, symbols, isStopped) { listing ->
                 try { score(listing, isStopped, now) } finally { onProgress(done.incrementAndGet(), symbols.size) }
             }
-            // After a stop the share counts, industries and Nifty may not have arrived yet; rows then go without them.
+            // After a stop the share counts and Nifty may not have arrived yet; rows then go without them.
             val shares = if (issuedShares.isDone) runCatching { issuedShares.get() }.getOrNull() else null
-            val book = if (sectors.isDone) runCatching { sectors.get() }.getOrNull() ?: SectorBook.EMPTY else SectorBook.EMPTY
             val results = scored.map { row ->
                 val isin = isinBySymbol[row.symbol].orEmpty()
-                val sector = book.of(if (row.market == Market.BSE) "" else row.symbol, isin)
+                val sector = sectors.of(isin)
                 val key = sharesKey(row, isin, nseSymbolByIsin)
                 val issued = key?.let { shares?.second?.get(it) }
                 row.copy(sector = sector, marketCapCr = issued?.let { row.price * it / CRORE })
@@ -255,18 +253,9 @@ object NseScanner {
             dayCache[key]?.takeIf { it.first == today }?.let { return it.second as T }
         }
         val value = load()
-        val empty = (value as? Collection<*>)?.isEmpty() == true || (value as? SectorBook)?.size == 0
+        val empty = (value as? Collection<*>)?.isEmpty() == true
         if (!empty) synchronized(dayCache) { dayCache[key] = today to value }
         return value
-    }
-
-    /** The industries file from whichever host answers; an empty book when none does. */
-    private fun loadSectors(): SectorBook {
-        for (address in SECTOR_CSVS) {
-            val book = runCatching { SectorBook.parse(open(address, browser = true) { it.bufferedReader().readText() }) }.getOrNull()
-            if (book != null && book.size >= 100) return book
-        }
-        return SectorBook.EMPTY
     }
 
     /** Nifty 50's daily closes over the same three months as the stocks' charts. */

@@ -53,6 +53,12 @@ object Prefs {
     /** Firebase uid whose cloud watchlist this phone's watchlist was last merged with. */
     const val WATCHLIST_SYNCED_UID = "watchlist_synced_uid"
 
+    /**
+     * Prefix of the industries the scan covers on one exchange ([ScanSectors.encode]), followed by the market's name in
+     * lower case ("scan_sectors_nse"); missing means every industry.
+     */
+    const val SCAN_SECTORS = "scan_sectors_"
+
     /** Booleans from the Settings sheet; the first three are on by default, the SME and BSE scans off. */
     const val CHECK_UPDATES = "check_updates"
     const val KEEP_SCREEN_ON = "keep_screen_on"

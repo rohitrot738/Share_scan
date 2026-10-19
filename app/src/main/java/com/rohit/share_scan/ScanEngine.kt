@@ -187,10 +187,13 @@ object ScanEngine {
         val started = SystemClock.elapsedRealtime()
         val settings = AppSettings(app)
         val outcome = runCatching {
+            runCatching { SectorRepository.refreshIfStale(app) }
             NseScanner.scan(
                 includeNse = settings.includeNse,
                 includeSme = settings.includeSme,
                 includeBse = settings.includeBse,
+                sectors = SectorRepository.book(app),
+                scope = settings.scanSectors,
                 isStopped = { stop.get() || (budgetMs > 0 && SystemClock.elapsedRealtime() - started > budgetMs) },
             ) { finished, total ->
                 // Progress arrives from several pool threads, so keep the highest count seen; threads a stop left

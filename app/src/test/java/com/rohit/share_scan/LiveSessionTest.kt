@@ -126,22 +126,40 @@ class LiveChartSessionTest {
 }
 
 class SectorBookTest {
-    private val csv = "﻿Company Name,Industry,Symbol,Series,ISIN Code\n" +
-        "ABB India Ltd.,Capital Goods,ABB,EQ,INE117A01022\n" +
-        "\"Dr. Reddy's Laboratories Ltd.\",Healthcare,DRREDDY,EQ,INE089A01031\n" +
-        "Mahindra & Mahindra Ltd.,Automobile and Auto Components,M&M,EQ,INE101A01026\n" +
-        "Broken Row,,NOSECTOR,EQ,\n"
+    private val json = """{"v":1,"updated":"2026-10-19","sectors":["Capital Goods","Healthcare","Power"],
+        "totals":{"nse":5,"sme":2,"bse":1},
+        "nse":{"INE117A01022":0,"INE089A01031":1,"INE000000001":0},"sme":{"INE000000002":2},"bse":{"INE000000003":1}}"""
 
     @Test
-    fun readsIndustriesBySymbolAndIsin() {
-        val book = SectorBook.parse(csv)
-        assertEquals(3, book.size)
-        assertEquals("Capital Goods", book.of("ABB"))
-        assertEquals("Automobile and Auto Components", book.of("m&m"))
-        assertEquals("Healthcare", book.of("", "INE089A01031"))
-        assertEquals("", book.of("NOSECTOR"))
-        assertEquals("", book.of("UNKNOWN", "INE000000000"))
-        assertEquals(0, SectorBook.parse("<html>holiday</html>").size)
+    fun readsIndustriesByIsinAndCountsThemPerExchange() {
+        val book = SectorBook.parse(json)
+        assertEquals(5, book.size)
+        assertEquals("2026-10-19", book.updated)
+        assertEquals("Capital Goods", book.of("INE117A01022"))
+        assertEquals("Healthcare", book.of("ine089a01031"))
+        assertEquals("Power", book.of("INE000000002"))
+        assertEquals("", book.of("INE999999999"))
+        // Two NSE stocks of five have no industry: they count as OTHER, which comes last.
+        assertEquals(listOf("Capital Goods" to 2, "Healthcare" to 1, SectorBook.OTHER to 2), book.counts(Market.NSE))
+        assertEquals(listOf("Power" to 1, SectorBook.OTHER to 1), book.counts(Market.NSE_SME))
+        assertEquals(0, SectorBook.parse("<html>").size)
+        assertEquals(0, SectorBook.parse(null).size)
+    }
+
+    @Test
+    fun scanSectorsPickIndustriesPerExchange() {
+        val all = ScanSectors()
+        assertTrue(all.includes(Market.BSE, "Power"))
+        assertTrue(all.includes(Market.BSE, ""))
+        val picked = all.with(Market.NSE, setOf("Power", SectorBook.OTHER)).with(Market.BSE, emptySet())
+        assertTrue(picked.includes(Market.NSE, "Power"))
+        assertTrue(picked.includes(Market.NSE, ""))
+        assertFalse(picked.includes(Market.NSE, "Healthcare"))
+        assertFalse(picked.includes(Market.BSE, "Power"))
+        assertTrue(picked.includes(Market.NSE_SME, "Healthcare"))
+        assertTrue(picked.with(Market.NSE, null).all(Market.NSE))
+        assertEquals(setOf("Power", SectorBook.OTHER), ScanSectors.decode(ScanSectors.encode(setOf("Power", SectorBook.OTHER))))
+        assertEquals(emptySet<String>(), ScanSectors.decode(ScanSectors.encode(emptySet())))
     }
 
     private fun stock(symbol: String, sector: String, score: Double, change: Double) =

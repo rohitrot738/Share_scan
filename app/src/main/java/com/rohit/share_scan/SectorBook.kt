@@ -1,44 +1,93 @@
 package com.rohit.share_scan
 
+import org.json.JSONObject
 import java.util.Locale
 
 /**
- * Industries from NSE's Nifty Total Market list, the 750 biggest NSE stocks, each with NSE's industry
- * ("Capital Goods", "Healthcare"…). Smaller stocks are not on it and stay without a sector. Free of Android types so
- * it can be unit tested.
+ * The industry of every stock the app can scan, from data/sectors.json (build_sectors.py): NSE's classification
+ * ("Capital Goods", "Healthcare", ...), from NSE's index files and BSE's scrip pages, by ISIN. A stock the file does
+ * not know has no industry; the scan counts it under [OTHER]. Free of Android types so it can be unit tested.
  */
-class SectorBook(private val bySymbol: Map<String, String>, private val byIsin: Map<String, String>) {
-    val size: Int get() = bySymbol.size
+class SectorBook(
+    /** Every industry, in name order. */
+    val sectors: List<String>,
+    private val byIsin: Map<String, String>,
+    /** How many stocks of each exchange have each industry. */
+    private val counts: Map<Market, Map<String, Int>>,
+    /** How many stocks each exchange listed when the file was built, with or without an industry. */
+    private val totals: Map<Market, Int>,
+    /** The day the file was built (yyyy-mm-dd); empty when unknown. */
+    val updated: String = "",
+) {
+    val size: Int get() = byIsin.size
 
-    /** The industry of an NSE symbol, or of a BSE share through its [isin]; empty when neither is listed. */
-    fun of(symbol: String, isin: String = ""): String =
-        bySymbol[symbol.uppercase(Locale.US)] ?: byIsin[isin.uppercase(Locale.US)].orEmpty()
+    /** The industry of the stock with [isin]; empty when the file does not know it. */
+    fun of(isin: String): String = byIsin[isin.uppercase(Locale.US)].orEmpty()
+
+    /** Stocks of [market] in each industry, with [OTHER] for those without one, biggest first. */
+    fun counts(market: Market): List<Pair<String, Int>> {
+        val known = counts[market].orEmpty()
+        val other = (totals[market] ?: 0) - known.values.sum()
+        val rows = known.entries.sortedWith(compareByDescending<Map.Entry<String, Int>> { it.value }.thenBy { it.key })
+            .map { it.key to it.value }
+        return if (other > 0) rows + (OTHER to other) else rows
+    }
 
     companion object {
-        val EMPTY = SectorBook(emptyMap(), emptyMap())
+        /** The scan's key for stocks without an industry. */
+        const val OTHER = "-"
 
-        /** Reads an NSE index constituents file: "Company Name,Industry,Symbol,Series,ISIN Code". */
-        fun parse(csv: String): SectorBook {
-            val lines = csv.trimStart(Char(0xFEFF)).lineSequence().filter { it.isNotBlank() }.iterator()
-            if (!lines.hasNext()) return EMPTY
-            val header = NseScanner.splitCsv(lines.next()).map { it.trim().uppercase(Locale.US) }
-            val industryAt = header.indexOf("INDUSTRY")
-            val symbolAt = header.indexOf("SYMBOL")
-            val isinAt = header.indexOf("ISIN CODE")
-            if (industryAt < 0 || symbolAt < 0) return EMPTY
-            val bySymbol = HashMap<String, String>()
+        val EMPTY = SectorBook(emptyList(), emptyMap(), emptyMap(), emptyMap())
+
+        private val MARKET_KEYS = mapOf(Market.NSE to "nse", Market.NSE_SME to "sme", Market.BSE to "bse")
+
+        /** Reads data/sectors.json; [EMPTY] for text that is not one. */
+        fun parse(json: String?): SectorBook = runCatching {
+            val root = JSONObject(json ?: return EMPTY)
+            if (root.optInt("v") != 1) return EMPTY
+            val names = root.getJSONArray("sectors").let { array -> List(array.length()) { array.getString(it) } }
             val byIsin = HashMap<String, String>()
-            for (line in lines) {
-                val cells = NseScanner.splitCsv(line)
-                val industry = cells.getOrNull(industryAt)?.trim().orEmpty()
-                val symbol = cells.getOrNull(symbolAt)?.trim()?.uppercase(Locale.US).orEmpty()
-                if (industry.isEmpty() || symbol.isEmpty()) continue
-                bySymbol[symbol] = industry
-                val isin = if (isinAt >= 0) cells.getOrNull(isinAt)?.trim()?.uppercase(Locale.US).orEmpty() else ""
-                if (isin.isNotEmpty()) byIsin[isin] = industry
+            val counts = HashMap<Market, Map<String, Int>>()
+            for ((market, key) in MARKET_KEYS) {
+                val stocks = root.optJSONObject(key) ?: continue
+                val count = HashMap<String, Int>()
+                for (isin in stocks.keys()) {
+                    val sector = names.getOrNull(stocks.getInt(isin)) ?: continue
+                    byIsin[isin.uppercase(Locale.US)] = sector
+                    count[sector] = (count[sector] ?: 0) + 1
+                }
+                counts[market] = count
             }
-            return SectorBook(bySymbol, byIsin)
-        }
+            val totals = root.optJSONObject("totals")?.let { t ->
+                MARKET_KEYS.mapNotNull { (market, key) -> if (t.has(key)) market to t.getInt(key) else null }.toMap()
+            }.orEmpty()
+            SectorBook(names, byIsin, counts, totals, root.optString("updated"))
+        }.getOrDefault(EMPTY)
+    }
+}
+
+/**
+ * Which industries the scan covers on each exchange: a set per exchange, or null for every industry, the default.
+ * [SectorBook.OTHER] stands for stocks without one. Free of Android types so it can be unit tested.
+ */
+data class ScanSectors(val picked: Map<Market, Set<String>> = emptyMap()) {
+    /** Every industry of [market] is in. */
+    fun all(market: Market): Boolean = market !in picked
+
+    fun includes(market: Market, sector: String): Boolean =
+        picked[market]?.contains(sector.ifEmpty { SectorBook.OTHER }) ?: true
+
+    /** [market] covers [sectors] only, or every industry when [sectors] is null. */
+    fun with(market: Market, sectors: Set<String>?): ScanSectors =
+        ScanSectors(if (sectors == null) picked - market else picked + (market to sectors))
+
+    companion object {
+        private const val SEPARATOR = "|"
+
+        /** "Capital Goods|Healthcare|-"; the empty text is a valid "no industry at all". */
+        fun encode(sectors: Set<String>): String = sectors.sorted().joinToString(SEPARATOR)
+
+        fun decode(text: String): Set<String> = text.split(SEPARATOR).filter { it.isNotEmpty() }.toSet()
     }
 }
 

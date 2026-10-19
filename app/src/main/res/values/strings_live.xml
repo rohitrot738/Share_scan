@@ -79,14 +79,14 @@
     <string name="sector_subtitle">आखिरी scan के stocks का औसत score, sector के हिसाब से (कम से कम %1$d stocks वाले) • दबाकर उसी sector के stocks देखें</string>
     <string name="sector_empty_title">अभी sectors नहीं</string>
     <string name="sector_empty_no_scan">पहले एक scan चलाएँ।</string>
-    <string name="sector_empty_body">इस scan में sector की जानकारी नहीं आई — NSE की sector list नहीं मिली। अगला scan फिर कोशिश करेगा।</string>
+    <string name="sector_empty_body">इस scan के stocks का sector पता नहीं चला। एक नया scan चलाएँ — sector list उसी के साथ आ जाएगी।</string>
     <string name="sector_clear_title">सभी sectors दिखाएँ (अभी: %1$s)</string>
     <string name="sector_clear_body">Sector filter हटाकर पूरी list देखें</string>
     <string name="sector_rank">#%1$d</string>
     <string name="sector_detail">%1$d stocks • %2$d STRONG • 5D औसत %3$s • 50-दिन औसत के ऊपर %4$s</string>
     <string name="sector_applied">सिर्फ़ %1$s के stocks</string>
     <string name="filters_sector">सेक्टर</string>
-    <string name="filters_sector_hint">NSE के 750 बड़े stocks का sector पता है • कोई न चुनें तो सभी stocks</string>
+    <string name="filters_sector_hint">स्कैन हुए stocks को sector से छाँटें • कोई न चुनें तो सभी stocks • scan किन sectors का हो, यह Menu → स्कैन में चुनें</string>
     <string name="filters_sector_chip">%1$s (%2$d)</string>
 
     <!-- Help -->
@@ -97,7 +97,28 @@
     <string name="help_record_title">Track record</string>
     <string name="help_record_body">Menu → Track record में हर दिन के top 10 STRONG picks और 1, 5, 10 दिन बाद उनका return दिखता है, Nifty 50 के साथ — ताकि पता चले score कितना काम कर रहा है।</string>
     <string name="help_sector_title">सेक्टर</string>
-    <string name="help_sector_body">NSE की Nifty Total Market list (750 stocks) से हर stock का sector आता है; छोटे stocks का sector नहीं होता। "सेक्टर" chip या Menu से sectors की ताकत देखें और किसी एक को दबाकर list को उसी पर filter करें।</string>
+    <string name="help_sector_body">हर stock का sector NSE/BSE की classification से आता है (Capital Goods, Healthcare, Financial Services…)। Menu → स्कैन में NSE, SME और BSE, हर एक के sectors अलग-अलग on/off करें — scan सिर्फ़ चालू sectors के stocks का होगा। जिन stocks का sector पता नहीं (ज़्यादातर SME) वे "अन्य" में हैं। "सेक्टर" chip से sectors की ताकत देखें और किसी एक को दबाकर list को उसी पर filter करें।</string>
     <string name="help_cloud_title">Login और watchlist</string>
     <string name="help_cloud_body">Menu → अकाउंट से login करने पर ★ Watchlist आपके account में cloud पर रहती है: दूसरे phone पर उसी account से login करें, वही stocks दिखेंगे, और एक phone पर ★ लगाने-हटाने से दूसरे पर भी बदल जाता है। Login न हो तो watchlist सिर्फ़ इसी phone पर रहती है।</string>
+
+    <!-- Menu → स्कैन -->
+    <string name="menu_scan">स्कैन</string>
+    <string name="menu_scan_body">NSE, SME, BSE • हर exchange में sectors on/off • live auto-scan</string>
+    <string name="scan_title">स्कैन</string>
+    <string name="scan_subtitle">कब scan हो और किन stocks का • बदलाव अगले scan से लागू</string>
+    <string name="scan_section_markets">Exchanges और sectors</string>
+    <string name="scan_markets_body">हर exchange को on/off करें, और "Sectors चुनें" से उसके sectors — scan सिर्फ़ चालू sectors के stocks का होगा</string>
+    <string name="scan_sectors_show">Sectors चुनें</string>
+    <string name="scan_sectors_hide">छिपाएँ</string>
+    <string name="scan_all">सभी</string>
+    <string name="scan_none">कोई नहीं</string>
+    <string name="scan_other">अन्य (sector पता नहीं)</string>
+    <string name="scan_sector_chip">%1$s · %2$s</string>
+    <string name="scan_market_off">बंद — इस exchange का scan नहीं होगा</string>
+    <string name="scan_market_no_data">Sector list नहीं — सभी stocks scan होंगे</string>
+    <string name="scan_market_none">कोई sector चालू नहीं — इस exchange का कोई stock scan नहीं होगा</string>
+    <string name="scan_market_all">सभी %1$d sectors • %2$s stocks</string>
+    <string name="scan_market_some">%1$d/%2$d sectors • %3$s stocks</string>
+    <string name="scan_sector_note">Sector: NSE/BSE की classification • list %1$s की • हर हफ़्ते नई list अपने-आप आती है</string>
+    <string name="scan_sector_note_missing">Sector list अभी नहीं है — सभी stocks "अन्य" में गिने जाएँगे</string>
 </resources>

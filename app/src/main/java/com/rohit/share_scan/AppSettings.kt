@@ -125,6 +125,22 @@ class AppSettings(context: Context) {
         get() = prefs.getBoolean(Prefs.WATCH_ALERTS, true)
         set(value) = prefs.edit { putBoolean(Prefs.WATCH_ALERTS, value) }
 
+    /** The industries the scan covers on each exchange; an exchange not stored covers every industry. */
+    var scanSectors: ScanSectors
+        get() = ScanSectors(
+            Market.entries.mapNotNull { market ->
+                prefs.getString(sectorsKey(market), null)?.let { market to ScanSectors.decode(it) }
+            }.toMap(),
+        )
+        set(value) = prefs.edit {
+            for (market in Market.entries) {
+                val picked = value.picked[market]
+                if (picked == null) remove(sectorsKey(market)) else putString(sectorsKey(market), ScanSectors.encode(picked))
+            }
+        }
+
+    private fun sectorsKey(market: Market) = Prefs.SCAN_SECTORS + market.name.lowercase()
+
     companion object {
         /** Live mode's choices; the background check itself runs every 15 minutes, Android's shortest period. */
         val LIVE_INTERVALS = listOf(15, 30, 60)

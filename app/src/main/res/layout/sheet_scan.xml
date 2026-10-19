@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu → स्कैन: live mode, and which exchanges and which of their industries the scan covers. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/sheetTopBar"
+        layout="@layout/sheet_top_bar" />
+
+    <TextView
+        style="@style/SheetTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_title" />
+
+    <TextView
+        style="@style/SheetSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/scan_subtitle" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+
+            <TextView
+                style="@style/SettingsSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_section_live" />
+
+            <!-- Live mode: scans through market hours in the background, every interval picked below. -->
+            <LinearLayout
+                android:id="@+id/settingLiveRow"
+                style="@style/SettingsRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/SettingsRowTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_live" />
+
+                    <TextView
+                        style="@style/SettingsRowBody"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_live_body" />
+                </LinearLayout>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/settingLive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/settings_live" />
+            </LinearLayout>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/settingLiveInterval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                app:selectionRequired="true"
+                app:singleSelection="true" />
+
+            <LinearLayout
+                android:id="@+id/settingLiveAlertsRow"
+                style="@style/SettingsRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/SettingsRowTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_live_alerts" />
+
+                    <TextView
+                        style="@style/SettingsRowBody"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_live_alerts_body" />
+                </LinearLayout>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/settingLiveAlerts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/settings_live_alerts" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/settingWatchAlertsRow"
+                style="@style/SettingsRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/SettingsRowTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_watch_alerts" />
+
+                    <TextView
+                        style="@style/SettingsRowBody"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_watch_alerts_body" />
+                </LinearLayout>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/settingWatchAlerts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/settings_watch_alerts" />
+            </LinearLayout>
+
+            <!-- Shown while Android blocks the app's notifications; tapping it opens their system settings. -->
+            <TextView
+                android:id="@+id/settingNotifyBlocked"
+                style="@style/SettingsRowBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="8dp"
+                android:text="@string/settings_notify_blocked"
+                android:textColor="@color/warn"
+                android:visibility="gone" />
+
+            <TextView
+                style="@style/SettingsSection"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scan_section_markets" />
+
+            <TextView
+                style="@style/SettingsRowBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:text="@string/scan_markets_body" />
+
+            <!-- One card per exchange (item_scan_market.xml), added by ScanSheet. -->
+            <LinearLayout
+                android:id="@+id/scanMarkets"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="16dp" />
+
+            <TextView
+                android:id="@+id/scanSectorNote"
+                style="@style/SettingsRowBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

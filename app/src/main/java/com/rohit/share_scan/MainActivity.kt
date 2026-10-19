@@ -632,6 +632,9 @@ class MainActivity : AppCompatActivity() {
     private fun onMenuPick(entry: MenuSheet.Entry) {
         when (entry) {
             MenuSheet.Entry.ACCOUNT -> showMenuSheet { AccountSheet(this, ::openMenu).show() }
+            MenuSheet.Entry.SCAN -> showMenuSheet {
+                ScanSheet(this, settings, SectorRepository.book(this), scanActions, ::openMenu).show()
+            }
             MenuSheet.Entry.TRACK_RECORD -> showMenuSheet { TrackRecordSheet(this, ScanEngine.journal(this), ::openMenu).show() }
             MenuSheet.Entry.SECTORS -> openSectors(fromMenu = true)
             MenuSheet.Entry.SETTINGS -> showMenuSheet {
@@ -682,7 +685,9 @@ class MainActivity : AppCompatActivity() {
         override fun resetFilters() = scan.setFilters(ScanFilters())
 
         override fun clearRankHistory() = scan.clearRankHistory()
+    }
 
+    private val scanActions = object : ScanSheet.Actions {
         override fun liveChanged(notifying: Boolean) {
             LiveSchedule.sync(this@MainActivity)
             if (notifying) askToNotify(again = true)
