@@ -28,6 +28,8 @@ data class ScanUiState(
     val marketCapDate: LocalDate? = null,
     val error: String? = null,
     val sort: SortMode = SortMode.SCORE,
+    /** [sort] runs from the lowest value up instead of from the highest down. */
+    val ascending: Boolean = false,
     val filters: ScanFilters = ScanFilters(),
     /** Symbols the user starred. */
     val watchlist: Set<String> = emptySet(),
@@ -99,11 +101,14 @@ data class ScanUiState(
 
     /** [shown] in the chosen order; this is what the list displays. */
     val sortedResults: List<RankedStock>
-        get() = when (sort) {
-            SortMode.SCORE -> shown
-            SortMode.RVOL -> shown.sortedByDescending { it.stock.rvol }
-            SortMode.CHANGE -> shown.sortedByDescending { it.stock.change5d }
-            SortMode.PRICE -> shown.sortedByDescending { it.stock.price }
+        get() {
+            val highFirst = when (sort) {
+                SortMode.SCORE -> shown
+                SortMode.RVOL -> shown.sortedByDescending { it.stock.rvol }
+                SortMode.CHANGE -> shown.sortedByDescending { it.stock.change5d }
+                SortMode.PRICE -> shown.sortedByDescending { it.stock.price }
+            }
+            return if (ascending) highFirst.reversed() else highFirst
         }
 
     fun elapsedAt(now: Long): Long = when {
