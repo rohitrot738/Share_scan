@@ -90,8 +90,11 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
      */
     fun stopScan() = ScanEngine.stop()
 
-    fun setSort(mode: SortMode) {
-        state.update { it.copy(sort = mode) }
+    /** Orders the list by [mode], highest first; picking the mode already in use turns its order round. */
+    fun pickSort(mode: SortMode) {
+        state.update {
+            if (it.sort == mode) it.copy(ascending = !it.ascending) else it.copy(sort = mode, ascending = false)
+        }
     }
 
     fun setFilters(filters: ScanFilters) {

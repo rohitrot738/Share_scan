@@ -73,6 +73,22 @@ class WatchlistSearchTest {
     }
 
     @Test
+    fun everySortRunsEitherWay() {
+        val state = ScanUiState(results = results, filters = ScanFilters(limit = 0))
+        fun order(sort: SortMode, ascending: Boolean) =
+            state.copy(sort = sort, ascending = ascending).sortedResults.map { it.stock.symbol }
+
+        assertEquals(listOf("TECHM", "TCS", "M&M", "TATAPOWER", "INFY"), order(SortMode.SCORE, false))
+        assertEquals(listOf("INFY", "TATAPOWER", "M&M", "TCS", "TECHM"), order(SortMode.SCORE, true))
+        assertEquals(listOf("TECHM", "TATAPOWER", "M&M", "TCS", "INFY"), order(SortMode.RVOL, false))
+        assertEquals(listOf("INFY", "TCS", "M&M", "TATAPOWER", "TECHM"), order(SortMode.RVOL, true))
+        assertEquals(listOf("M&M", "TCS", "INFY", "TECHM", "TATAPOWER"), order(SortMode.CHANGE, true))
+        assertEquals(listOf("TATAPOWER", "INFY", "TECHM", "M&M", "TCS"), order(SortMode.PRICE, true))
+        // Ranks stay the score's, whichever way the list runs.
+        assertEquals(5, state.copy(ascending = true).sortedResults.first().rank)
+    }
+
+    @Test
     fun badgesAndStarsReachTheRankedStocks() {
         val state = ScanUiState(
             results = results,

@@ -36,6 +36,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.chip.Chip
 import com.rohit.share_scan.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -54,6 +55,7 @@ class MainActivity : AppCompatActivity() {
     private var shownResults: List<ScanResult>? = null
     private var shownFilters: ScanFilters? = null
     private var shownSort: SortMode? = null
+    private var shownAscending: Boolean? = null
     private var shownWatchlistOnly: Boolean? = null
     private var shownQuery: String? = null
     private var shownWatchlist: Set<String>? = null
@@ -122,15 +124,13 @@ class MainActivity : AppCompatActivity() {
             filterSheet?.dismiss()
             filterSheet = FilterSheet(this, scan.uiState.value, scan::setFilters).show()
         }
-        ui.sortChips.setOnCheckedStateChangeListener { _, checked ->
-            scan.setSort(
-                when (checked.firstOrNull()) {
-                    R.id.sortRvol -> SortMode.RVOL
-                    R.id.sortChange -> SortMode.CHANGE
-                    R.id.sortPrice -> SortMode.PRICE
-                    else -> SortMode.SCORE
-                }
-            )
+        // A tap on another sort picks it, highest first; a tap on the one in use turns its order round.
+        for (mode in SortMode.entries) {
+            sortChip(mode).setOnClickListener {
+                val turning = scan.uiState.value.sort == mode
+                scan.pickSort(mode)
+                if (turning) Toast.makeText(this, sortName(scan.uiState.value), Toast.LENGTH_SHORT).show()
+            }
         }
 
         lifecycleScope.launch {
@@ -351,13 +351,7 @@ class MainActivity : AppCompatActivity() {
         // Invisible rather than gone: the hint also pushes the search and share buttons to the end of the row.
         ui.resultsHint.isInvisible = !hasResults
         for (index in 0 until ui.sortChips.childCount) ui.sortChips.getChildAt(index).isEnabled = hasResults
-        val sortChip = when (state.sort) {
-            SortMode.SCORE -> R.id.sortScore
-            SortMode.RVOL -> R.id.sortRvol
-            SortMode.CHANGE -> R.id.sortChange
-            SortMode.PRICE -> R.id.sortPrice
-        }
-        if (ui.sortChips.checkedChipId != sortChip) ui.sortChips.check(sortChip)
+        renderSort(state)
 
         ui.results.isVisible = hasResults
         ui.emptyScroll.isVisible = !hasResults
@@ -365,16 +359,17 @@ class MainActivity : AppCompatActivity() {
 
         // A star toggle only rebinds its card; anything that changes which stocks show, or their order, jumps to the top.
         val reorder = state.results !== shownResults || state.filters != shownFilters || state.sort != shownSort ||
-            state.watchlistOnly != shownWatchlistOnly || state.query != shownQuery
+            state.ascending != shownAscending || state.watchlistOnly != shownWatchlistOnly || state.query != shownQuery
         if (reorder || state.watchlist != shownWatchlist) {
             val freshResults = state.results !== shownResults
             // Live mode's fresh prices arrive while the user may be reading: the list keeps its place for them.
             val quiet = freshResults && shownResults != null && state.autoResults &&
-                state.filters == shownFilters && state.sort == shownSort && state.watchlistOnly == shownWatchlistOnly &&
-                state.query == shownQuery
+                state.filters == shownFilters && state.sort == shownSort && state.ascending == shownAscending &&
+                state.watchlistOnly == shownWatchlistOnly && state.query == shownQuery
             shownResults = state.results
             shownFilters = state.filters
             shownSort = state.sort
+            shownAscending = state.ascending
             shownWatchlistOnly = state.watchlistOnly
             shownQuery = state.query
             shownWatchlist = state.watchlist
@@ -428,6 +423,42 @@ class MainActivity : AppCompatActivity() {
         val active = filters.activeCount
         ui.filterChip.text = if (active > 0) getString(R.string.filters_active, active) else getString(R.string.filters)
         ui.filterChip.isActivated = active > 0
+    }
+
+    /** The chosen sort is checked and carries its direction: "RVOL ↓" highest first, "RVOL ↑" lowest first. */
+    private fun renderSort(state: ScanUiState) {
+        for (mode in SortMode.entries) {
+            val chip = sortChip(mode)
+            val label = getString(sortLabel(mode))
+            val chosen = mode == state.sort
+            val text = if (!chosen) label else getString(if (state.ascending) R.string.sort_up else R.string.sort_down, label)
+            // Every progress tick renders; leave the chip alone unless its text changes, so it does not lay out again.
+            if (chip.text.toString() != text) chip.text = text
+            chip.contentDescription = if (chosen) sortName(state) else null
+        }
+        val checked = sortChip(state.sort).id
+        if (ui.sortChips.checkedChipId != checked) ui.sortChips.check(checked)
+    }
+
+    /** "RVOL: कम से ज़्यादा". */
+    private fun sortName(state: ScanUiState): String = getString(
+        R.string.sort_named,
+        getString(sortLabel(state.sort)),
+        getString(if (state.ascending) R.string.sort_low_first else R.string.sort_high_first),
+    )
+
+    private fun sortChip(mode: SortMode): Chip = when (mode) {
+        SortMode.SCORE -> ui.sortScore
+        SortMode.RVOL -> ui.sortRvol
+        SortMode.CHANGE -> ui.sortChange
+        SortMode.PRICE -> ui.sortPrice
+    }
+
+    private fun sortLabel(mode: SortMode): Int = when (mode) {
+        SortMode.SCORE -> R.string.sort_score
+        SortMode.RVOL -> R.string.sort_rvol
+        SortMode.CHANGE -> R.string.sort_change
+        SortMode.PRICE -> R.string.sort_price
     }
 
     private fun applyWindowInsets() {
