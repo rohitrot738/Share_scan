@@ -1,0 +1,13 @@
+# Temporary: data-source probe for live scans and sectors. Remove before merging.
+name: Data probe
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['.github/probe.sh', '.github/workflows/probe.yml']
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: bash .github/probe.sh
