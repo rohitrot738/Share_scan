@@ -51,6 +51,7 @@ class TrackRecordSheet(
         PickJournal.HORIZONS.forEachIndexed { index, sessions ->
             val tile = ItemDetailStatBinding.inflate(activity.layoutInflater, row, true)
             tile.statLabel.text = activity.getString(R.string.record_after, sessions)
+            tile.statNote.isVisible = true
             val summary = journal.summary(index)
             if (summary == null) {
                 tile.statValue.setText(R.string.stat_empty)

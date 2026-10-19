@@ -81,10 +81,9 @@ wait_cards() {
 notes() { adb shell dumpsys notification --noredact | grep -A12 "pkg=$PKG" | grep -E "android.title=|android.text=|android.bigText=" ; }
 # WorkManager's job for live mode, run now instead of at its next 15-minute slot.
 run_live_job() {
-  local id
-  id=$(adb shell dumpsys jobscheduler | grep -oE "#u0a[0-9]+/[0-9]+: [0-9a-f]+ $PKG/androidx.work" | head -1 | sed -E 's/.*\/([0-9]+):.*/\1/')
-  echo "live job id: ${id:-none}"
-  [ -n "$id" ] && adb shell cmd jobscheduler run -f "$PKG" "$id"
+  adb shell dumpsys jobscheduler | grep -i "$PKG" | head -5
+  # WorkManager numbers its jobs from 0; forcing the first few runs live mode's one among them.
+  for id in 0 1 2 3 4 5; do adb shell cmd jobscheduler run -f "$PKG" "$id" 2>&1 | head -1; done
 }
 
 # Live mode needs the market open: wait for 9:17 IST when the emulator is up earlier.
@@ -142,9 +141,35 @@ menu; tap_text "सेटिंग्स"; sleep 3
 snap 7-settings-live
 home
 
+# 4b) Menu → स्कैन: live mode, exchanges and their industries; NSE narrowed to IT only, then a scan.
+menu; tap_text "स्कैन"; sleep 3
+snap 7-scan-sheet
+adb shell input swipe 540 1900 540 600 500; sleep 2
+snap 7-scan-markets
+tap marketExpand; sleep 2
+snap 7-scan-nse-sectors
+tap marketNone; sleep 1
+tap_prefix "Information Technology"; sleep 1
+snap 7-scan-it-only
+home
+to_top
+tap startButton
+wait_cards 600
+snap 7-it-scan
+to_cards
+snap 7-it-scan-cards
+to_top
+menu; tap_text "स्कैन"; sleep 3
+adb shell input swipe 540 1900 540 600 500; sleep 2
+tap marketExpand; sleep 1
+tap marketAll; sleep 1
+snap 7-scan-all-again
+home
+
 # 5) A fresh start shows the kept scan at once.
 launch
-shot 8-restart 4
+shot 8-restart 3
+shot 8-restart-later 6
 
 # 6) Alerts: the kept scan is made old and all-WEAK, and RELIANCE is set to wait under a ₹2 trigger, so live mode's
 # next scan finds new STRONG stocks and a RELIANCE breakout.

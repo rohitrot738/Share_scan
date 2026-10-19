@@ -29,7 +29,6 @@ NSE_HEADERS = {"Referer": "https://www.nseindia.com/"}
 INDEX_FILES = [
     "ind_niftytotalmarket_list.csv",
     "ind_niftymicrocap250_list.csv",
-    "ind_niftysmeemerge_list.csv",
     "ind_niftyindiamanufacturing_list.csv",
 ]
 BSE_NON_EQUITY = {"E", "F", "G", "GS", "IF", "IT", "DT"}
