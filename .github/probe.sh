@@ -1,74 +1,101 @@
 #!/usr/bin/env bash
-# Temporary: checks which data sources the app can use for live scans and sectors. Remove before merging.
+# Temporary: looks for a sector source that covers NSE, SME and BSE-only stocks. Remove before merging.
 set -u
-UA="ShareScan/1.0 (Android)"
-echo "now UTC: $(date -u) | IST: $(TZ=Asia/Kolkata date)"
-fetch() { curl -sS -m 30 -A "$UA" -H "Accept: application/json,text/plain,*/*" "${@:2}" -o /tmp/p.bin -w "%{http_code} %{size_download}" "$1"; }
-
-for t in RELIANCE.NS HBLENGINE.NS %5ENSEI 500325.BO; do
-  echo "== yahoo chart $t"
-  fetch "https://query1.finance.yahoo.com/v8/finance/chart/$t?range=3mo&interval=1d"; echo
-  python3 - <<'PY'
-import json, datetime
-try:
-    d = json.load(open('/tmp/p.bin'))
-    r = d['chart']['result'][0]; m = r['meta']
-    ist = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
-    f = lambda s: datetime.datetime.fromtimestamp(s, ist).strftime('%a %d %b %H:%M') if s else s
-    print({k: m.get(k) for k in ('currency','exchangeName','instrumentType','regularMarketPrice','chartPreviousClose','regularMarketVolume','regularMarketDayHigh','dataGranularity','range','hasPrePostMarketData','gmtoffset','exchangeTimezoneName')})
-    print('meta keys', sorted(m.keys()))
-    print('regularMarketTime', f(m.get('regularMarketTime')))
-    ctp = m.get('currentTradingPeriod', {})
-    for k, v in ctp.items(): print('period', k, f(v.get('start')), '->', f(v.get('end')))
-    ts = r.get('timestamp', []); q = r['indicators']['quote'][0]
-    for i in range(max(0, len(ts) - 3), len(ts)):
-        print(' bar', f(ts[i]), 'o', q['open'][i], 'h', q['high'][i], 'l', q['low'][i], 'c', q['close'][i], 'v', q['volume'][i])
-except Exception as e:
-    print('parse error', e, open('/tmp/p.bin','rb').read()[:300])
-PY
-done
-
-echo "== yahoo spark v8"; fetch "https://query1.finance.yahoo.com/v8/finance/spark?symbols=RELIANCE.NS,TCS.NS,INFY.NS&range=1d&interval=1d"; echo; head -c 600 /tmp/p.bin; echo
-echo "== yahoo spark v7"; fetch "https://query1.finance.yahoo.com/v7/finance/spark?symbols=RELIANCE.NS,TCS.NS,INFY.NS&range=1d&interval=5m"; echo; head -c 300 /tmp/p.bin; echo
-echo "== yahoo quote v7"; fetch "https://query1.finance.yahoo.com/v7/finance/quote?symbols=RELIANCE.NS,TCS.NS"; echo; head -c 300 /tmp/p.bin; echo
-
-# Intraday volume profile: share of a full session's volume traded by each time of day, from 5-minute bars.
-echo "== intraday volume profile"
-: > /tmp/profiles.jsonl
-for t in RELIANCE TCS HDFCBANK INFY ICICIBANK SBIN ITC LT BHARTIARTL AXISBANK TATAMOTORS MARUTI SUNPHARMA HCLTECH BAJFINANCE \
-         HBLENGINE MOLBIO SAMBHV INDHOTEL TRENT DIXON POLYCAB KPITTECH IRFC SUZLON YESBANK IDEA PNB BEL HAL \
-         CDSL BSE ANGELONE KAYNES SONACOMS TITAGARH RVNL NBCC NHPC IREDA JIOFIN ZOMATO PAYTM DELHIVERY NYKAA; do
-  fetch "https://query1.finance.yahoo.com/v8/finance/chart/$t.NS?range=60d&interval=5m" > /dev/null
-  python3 - "$t" >> /tmp/profiles.jsonl <<'PY'
-import json, sys, datetime, collections
-ist = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
-try:
-    r = json.load(open('/tmp/p.bin'))['chart']['result'][0]
-except Exception:
-    sys.exit()
-ts = r.get('timestamp') or []; v = r['indicators']['quote'][0]['volume']
-days = collections.defaultdict(list)
-for s, vol in zip(ts, v):
-    if vol is None: continue
-    t = datetime.datetime.fromtimestamp(s, ist)
-    days[t.date()].append(((t.hour * 60 + t.minute) - 555, vol))
-for day, bars in days.items():
-    total = sum(b for _, b in bars)
-    if total <= 0 or len(bars) < 70: continue
-    print(json.dumps({'sym': sys.argv[1], 'day': str(day), 'bars': bars, 'total': total}))
-PY
-done
+echo "now: $(TZ=Asia/Kolkata date)"
 python3 - <<'PY'
-import json, statistics
-rows = [json.loads(l) for l in open('/tmp/profiles.jsonl')]
-print('sessions', len(rows), 'stocks', len({r['sym'] for r in rows}))
-marks = [5, 10, 15, 30, 45, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 345, 360, 370, 375]
-for m in marks:
-    shares = []
-    for r in rows:
-        # A 5-minute bar starting at minute s covers s..s+5; it is done by minute m when s + 5 <= m.
-        done = sum(v for s, v in r['bars'] if s + 5 <= m)
-        shares.append(done / r['total'])
-    shares.sort()
-    print(f"min {m:3d} ({9 + (15 + m) // 60}:{(15 + m) % 60:02d}) median {statistics.median(shares):.3f} p25 {shares[len(shares)//4]:.3f} p75 {shares[3*len(shares)//4]:.3f}")
+import csv, datetime, gzip, io, json, random, time, urllib.request, http.cookiejar
+
+UA_APP = "ShareScan/1.0 (Android)"
+UA_WEB = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Mobile Safari/537.36"
+jar = http.cookiejar.CookieJar()
+opener = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
+
+def get(url, ua=UA_WEB, headers=None, raw=False):
+    req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept": "*/*", **(headers or {})})
+    try:
+        r = opener.open(req, timeout=25)
+        body = r.read()
+        return r.status, body if raw else body.decode("utf-8", "replace")
+    except urllib.error.HTTPError as e:
+        return e.code, e.read()[:300].decode("utf-8", "replace")
+    except Exception as e:
+        return -1, str(e)
+
+# 1) NSE's daily security file: any industry column?
+day = datetime.date.today()
+for back in range(8):
+    d = day - datetime.timedelta(days=back)
+    st, body = get(f"https://nsearchives.nseindia.com/content/cm/NSE_CM_security_{d:%d%m%Y}.csv.gz",
+                   headers={"Referer": "https://www.nseindia.com/all-reports"}, raw=True)
+    if st == 200:
+        text = gzip.decompress(body).decode("utf-8", "replace")
+        print("security file", d, "header:", text.splitlines()[0][:900])
+        print("row:", text.splitlines()[1][:600])
+        break
+else:
+    print("no security file")
+
+# Sample symbols: NSE small caps, SME, BSE-only.
+st, nse = get("https://archives.nseindia.com/content/equities/EQUITY_L.csv")
+nse_rows = list(csv.reader(io.StringIO(nse)))[1:]
+nse_syms = [r[0] for r in nse_rows]
+nse_isins = {r[6].strip() for r in nse_rows if len(r) > 6}
+st, sme = get("https://nsearchives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv", headers={"Referer": "https://www.nseindia.com/"})
+sme_syms = [r[0] for r in list(csv.reader(io.StringIO(sme)))[1:] if r]
+print("nse", len(nse_syms), "sme", len(sme_syms))
+bse = []
+for back in range(8):
+    d = day - datetime.timedelta(days=back)
+    st, body = get(f"https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_{d:%Y%m%d}_F_0000.CSV",
+                   headers={"Referer": "https://www.bseindia.com/"})
+    if st == 200 and "TckrSymb" in body[:500]:
+        rows = list(csv.DictReader(io.StringIO(body)))
+        bse = [(r["TckrSymb"], r["FinInstrmId"]) for r in rows if r.get("ISIN") not in nse_isins and r.get("SctySrs") not in ("E","F","G","GS","IF","IT","DT")]
+        print("bse-only", len(bse), "from", d)
+        break
+random.seed(7)
+samples = {
+    "NSE": [s + ".NS" for s in random.sample(nse_syms, 25)],
+    "SME": [s + ".NS" for s in random.sample(sme_syms, 20)] if sme_syms else [],
+    "BSE": [c + ".BO" for _, c in random.sample(bse, 20)] if bse else [],
+}
+
+# 2) Yahoo search: sector and industry per symbol, no crumb.
+for market, syms in samples.items():
+    found = 0
+    for t in syms:
+        st, body = get(f"https://query2.finance.yahoo.com/v1/finance/search?q={t}&quotesCount=3&newsCount=0&listsCount=0", ua=UA_APP)
+        sector = industry = None
+        if st == 200:
+            for q in json.loads(body).get("quotes", []):
+                if q.get("symbol", "").upper() == t.upper():
+                    sector, industry = q.get("sector"), q.get("industry")
+        found += bool(sector)
+        print(f"search {market} {t}: {st} {sector} / {industry}")
+        time.sleep(0.15)
+    print(f"== search coverage {market}: {found}/{len(syms)}")
+
+# 3) Yahoo quoteSummary assetProfile with a crumb.
+get("https://fc.yahoo.com", ua=UA_WEB)
+st, crumb = get("https://query1.finance.yahoo.com/v1/test/getcrumb", ua=UA_WEB)
+print("crumb", st, crumb[:40])
+if st == 200:
+    for market, syms in samples.items():
+        found = 0
+        for t in syms[:10]:
+            st, body = get(f"https://query2.finance.yahoo.com/v10/finance/quoteSummary/{t}?modules=assetProfile&crumb={crumb}", ua=UA_WEB)
+            sector = None
+            if st == 200:
+                prof = json.loads(body)["quoteSummary"]["result"][0].get("assetProfile", {})
+                sector = prof.get("sector"), prof.get("industry")
+                found += bool(prof.get("sector"))
+            print(f"summary {market} {t}: {st} {sector}")
+            time.sleep(0.2)
+        print(f"== summary coverage {market}: {found}/10")
+
+# 4) BSE's scrip list with browser headers.
+st, body = get("https://api.bseindia.com/BseIndiaAPI/api/ListofScripData/w?Group=&Scripcode=&industry=&segment=Equity&status=Active",
+               headers={"Referer": "https://www.bseindia.com/", "Origin": "https://www.bseindia.com", "Accept": "application/json, text/plain, */*",
+                        "Accept-Language": "en-US,en;q=0.9"})
+print("bse api", st, body[:300])
 PY
