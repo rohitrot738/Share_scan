@@ -1,0 +1,32 @@
+# Keeps data/sectors.json, the industry of every NSE, SME and BSE-only stock, current for the app's sector-wise scans.
+# The app downloads the file from main; a run only asks BSE about stocks that are new or still unknown.
+name: Sector data
+on:
+  workflow_dispatch:
+  schedule:
+    # Sundays, 07:00 IST.
+    - cron: '30 1 * * 0'
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['build_sectors.py', '.github/workflows/sector-data.yml']
+permissions:
+  contents: write
+concurrency:
+  group: sector-data-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the industry file
+        run: python3 build_sectors.py data/sectors.json
+      - name: Commit it
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/sectors.json
+          git commit -m "Update sector data" || exit 0
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
