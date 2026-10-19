@@ -94,7 +94,7 @@
     <string name="help_rvol_title">RVOL</string>
     <string name="help_rvol_body">आज का volume ÷ पिछले 20 sessions का औसत। %1$s× या ज़्यादा पर card पर volume spike दिखता है।</string>
     <string name="help_plan_title">Trade plan</string>
-    <string name="help_plan_body">Entry = 20 दिन का high + 0.1 ATR (breakout की पुष्टि)। Stop = 10 दिन का low, जिसे 1–2 ATR के बीच रखा जाता है। Targets = risk का 1.5, 2.5 और 4 गुना (1.5R / 2.5R / 4R)। हर target के साथ लगभग कितने दिन: entry से target जितनी चाल (ATR में) इस stock ने पिछले 6 महीने में आम तौर पर जितने कारोबारी दिनों में पूरी की — अनुमान है, गारंटी नहीं।</string>
+    <string name="help_plan_body">Entry = 20 दिन का high + 0.1 ATR (breakout की पुष्टि)। Stop = 10 दिन का low, जिसे 1–2 ATR के बीच रखा जाता है। Targets = risk का 1.5, 2.5 और 4 गुना (1.5R / 2.5R / 4R)। हर target के साथ लगभग कितने दिन: target entry से जितने ATR दूर है, उतने दूर के target NSE के पिछले data में जब लगे तो आम तौर पर entry के बाद इतने कारोबारी दिनों में लगे — अनुमान है, गारंटी नहीं।</string>
     <string name="help_badges_title">Badges</string>
     <string name="market_nse">NSE</string>
     <string name="market_sme">SME</string>

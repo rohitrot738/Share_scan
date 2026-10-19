@@ -181,7 +181,6 @@ class StockDetailSheet(
             container = R.color.bear_container,
             onContainer = R.color.bear,
         )
-        val timed = plan.targetSessions.size == plan.targets.size
         plan.targets.forEachIndexed { index, target ->
             addLevel(
                 plan,
@@ -191,15 +190,11 @@ class StockDetailSheet(
                 accent = R.color.bull,
                 container = R.color.bull_container,
                 onContainer = R.color.bull,
-                time = if (!timed) {
-                    null
-                } else {
-                    plan.targetSessions[index]?.let { activity.getString(R.string.detail_plan_target_time, it) }
-                        ?: activity.getString(R.string.detail_plan_target_time_long)
+                time = plan.targetSessions[index].let { days ->
+                    activity.getString(R.string.detail_plan_target_time, days.first, days.last)
                 },
             )
         }
-        ui.detailPlanTime.isVisible = timed
 
         ui.detailPlanRisk.text = activity.getString(R.string.detail_plan_risk, StockFormat.price(plan.risk), percent(plan.riskPercent))
         ui.detailPlanExtended.isVisible = plan.isExtended

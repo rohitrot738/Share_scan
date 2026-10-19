@@ -23,15 +23,11 @@ class TradePlanTest {
     }
 
     @Test
-    fun targetsAreTimedByHowFastTheStockRises() {
+    fun targetsAreTimedByTheirDistanceInAtrs() {
         // Risk is 2 ATR, so the targets sit 3, 5 and 8 ATRs above the entry.
-        val rises = listOf(1, 3, 4, 6, 7, 9, 10, 12)
-        val plan = TradePlan.of(price = 100.0, high20 = 105.0, low10 = 95.0, atr14 = 2.0, riseSessions = rises)!!
-        assertEquals(listOf(4, 7, 12), plan.targetSessions)
-        // A rise the stock rarely made leaves that target untimed; an unmeasured chart leaves all of them.
-        val slow = TradePlan.of(price = 100.0, high20 = 105.0, low10 = 95.0, atr14 = 2.0, riseSessions = rises.dropLast(1) + null)!!
-        assertEquals(listOf(4, 7, null), slow.targetSessions)
-        assertTrue(TradePlan.of(price = 100.0, high20 = 105.0, low10 = 95.0, atr14 = 2.0)!!.targetSessions.isEmpty())
+        val plan = TradePlan.of(price = 100.0, high20 = 105.0, low10 = 95.0, atr14 = 2.0)!!
+        assertEquals(listOf(3.0, 5.0, 8.0).map(TargetTimes::sessions), plan.targetSessions)
+        assertEquals(5..15, plan.targetSessions[0])
     }
 
     @Test

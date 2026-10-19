@@ -149,8 +149,7 @@ object BreakoutSignals {
         } else {
             emptyList()
         }
-        val rises = TargetTimes.measure(c, h, l)
-        return signals.copy(live = live, pastScores = past, structure = signals.structure.copy(riseSessions = rises))
+        return signals.copy(live = live, pastScores = past)
     }
 
     /**
