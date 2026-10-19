@@ -448,6 +448,7 @@ class HelpSheet(private val activity: AppCompatActivity, private val onBack: () 
         add(activity.getString(R.string.help_alerts_title), activity.getString(R.string.help_alerts_body))
         add(activity.getString(R.string.help_record_title), activity.getString(R.string.help_record_body))
         add(activity.getString(R.string.help_sector_title), activity.getString(R.string.help_sector_body))
+        add(activity.getString(R.string.help_cloud_title), activity.getString(R.string.help_cloud_body))
         add(activity.getString(R.string.about_disclaimer_title), activity.getString(R.string.help_disclaimer))
         return activity.showSheet(ui.root, ui.sheetTopBar, onBack, fullHeight = true)
     }

@@ -98,4 +98,6 @@
     <string name="help_record_body">Menu → Track record में हर दिन के top 10 STRONG picks और 1, 5, 10 दिन बाद उनका return दिखता है, Nifty 50 के साथ — ताकि पता चले score कितना काम कर रहा है।</string>
     <string name="help_sector_title">सेक्टर</string>
     <string name="help_sector_body">NSE की Nifty Total Market list (750 stocks) से हर stock का sector आता है; छोटे stocks का sector नहीं होता। "सेक्टर" chip या Menu से sectors की ताकत देखें और किसी एक को दबाकर list को उसी पर filter करें।</string>
+    <string name="help_cloud_title">Login और watchlist</string>
+    <string name="help_cloud_body">Menu → अकाउंट से login करने पर ★ Watchlist आपके account में cloud पर रहती है: दूसरे phone पर उसी account से login करें, वही stocks दिखेंगे, और एक phone पर ★ लगाने-हटाने से दूसरे पर भी बदल जाता है। Login न हो तो watchlist सिर्फ़ इसी phone पर रहती है।</string>
 </resources>
