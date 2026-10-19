@@ -26,6 +26,9 @@ data class DayScore(val day: Long, val score: Double)
  * - [ScoreKeys.MOMENTUM] 10%: 5- and 20-day returns, with the Python prefilter's formula. It is light because
  *   [ScoreKeys.TREND] already rewards the same up-move.
  *
+ * On top of those, [ScoreKeys.SUPPORT] adds up to [SUPPORT_BONUS] × 100 = 5 points for a support floor that has
+ * stood long and been tested often ([SupportFloor.strength]); a stock without one loses nothing.
+ *
  * Raw points go through [soft], which is linear between 15 and 85 and eases towards 0 and 100 beyond, so the best
  * stocks keep their order instead of tying at a hard cap.
  *
@@ -44,6 +47,9 @@ object BreakoutSignals {
         ScoreKeys.LIQUIDITY to 0.15,
         ScoreKeys.MOMENTUM to 0.10,
     )
+
+    /** The support floor's bonus: its strength (0–100) times this, added to the weighted parts. */
+    const val SUPPORT_BONUS = 0.05
 
     private const val CHART_CLOSES = 60
 
@@ -72,6 +78,8 @@ object BreakoutSignals {
         val live: Boolean = false,
         /** Scores at the close of the sessions before the latest, newest first; empty without bar dates. */
         val pastScores: List<DayScore> = emptyList(),
+        /** The longest-standing floor under the price, over the whole chart; null without one. */
+        val support: SupportFloor? = null,
     )
 
     /**
@@ -190,6 +198,9 @@ object BreakoutSignals {
         val change5d = (price / close[last - 5] - 1.0) * 100.0
         val change20 = (price / close[last - 20] - 1.0) * 100.0
 
+        // The floor under the price over the whole chart; its zone is half a normal daily swing either side.
+        val support = SupportFloors.find(close, low, SupportFloors.zonePct(swingPct))
+
         val turnoverCr = DoubleArray(20) { k -> close[n - 20 + k] * volume[n - 20 + k] / CRORE }
         turnoverCr.sort()
         val medianTurnoverCr = (turnoverCr[9] + turnoverCr[10]) / 2.0
@@ -201,9 +212,11 @@ object BreakoutSignals {
             // ₹10 lakh a day scores 0 raw points, ₹1 Cr 33, ₹10 Cr 67 and ₹100 Cr 100.
             ScorePart(ScoreKeys.LIQUIDITY, soft(100.0 / 3.0 * (log10(max(medianTurnoverCr, 1e-6)) + 1.0)), WEIGHTS.getValue(ScoreKeys.LIQUIDITY)),
             ScorePart(ScoreKeys.MOMENTUM, soft(50.0 + change5d * 4.0 + change20 * 1.5), WEIGHTS.getValue(ScoreKeys.MOMENTUM)),
+            // The bonus: its weight is on top of the others', which add up to 1.
+            ScorePart(ScoreKeys.SUPPORT, support?.strength ?: 0.0, SUPPORT_BONUS),
         )
         val total = parts.sumOf { it.value * it.weight }.coerceIn(0.0, 100.0)
-        return Signals(price, traded[last], rvol, change5d, structure, total, parts)
+        return Signals(price, traded[last], rvol, change5d, structure, total, parts, support = support)
     }
 
     /**

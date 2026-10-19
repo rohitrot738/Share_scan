@@ -57,6 +57,8 @@ class MainActivity : AppCompatActivity() {
     private var shownSort: SortMode? = null
     private var shownAscending: Boolean? = null
     private var shownWatchlistOnly: Boolean? = null
+    private var shownScanMode: ScanMode? = null
+    private var shownSupportReach: Double? = null
     private var shownQuery: String? = null
     private var shownWatchlist: Set<String>? = null
     private val closeSearchOnBack = object : OnBackPressedCallback(false) {
@@ -244,12 +246,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderHero(state: ScanUiState) {
         renderMarket(state)
+        val support = state.scanMode == ScanMode.SUPPORT
         val clock = StockFormat.duration(state.elapsedAt(SystemClock.elapsedRealtime()))
         when (state.phase) {
             ScanPhase.IDLE -> showStatus(
-                getString(R.string.status_ready_title),
-                getString(R.string.status_ready_body),
-                R.drawable.ic_radar,
+                getString(if (support) R.string.support_ready_title else R.string.status_ready_title),
+                getString(if (support) R.string.support_ready_body else R.string.status_ready_body),
+                if (support) R.drawable.ic_support else R.drawable.ic_radar,
                 0,
             )
             ScanPhase.LOADING -> showStatus(
@@ -286,6 +289,13 @@ class MainActivity : AppCompatActivity() {
                     R.drawable.ic_stop,
                     state.percent,
                 )
+            } else if (support) {
+                showStatus(
+                    getString(R.string.support_done_title),
+                    getString(R.string.support_done_body, state.supportStocks.size, whenScanned(state.savedAt)),
+                    R.drawable.ic_support,
+                    100,
+                )
             } else {
                 showStatus(
                     getString(if (state.autoResults) R.string.status_auto_done_title else R.string.status_done_title),
@@ -307,14 +317,15 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        val start = if (support) R.string.support_action_start else R.string.action_start
         val (label, icon) = when (state.phase) {
-            ScanPhase.IDLE -> R.string.action_start to R.drawable.ic_play
+            ScanPhase.IDLE -> start to R.drawable.ic_play
             ScanPhase.LOADING, ScanPhase.SCANNING ->
                 (if (state.stopping) R.string.action_stopping else R.string.action_stop) to R.drawable.ic_stop
             ScanPhase.DONE -> if (state.stopped) {
-                R.string.action_start to R.drawable.ic_play
+                start to R.drawable.ic_play
             } else {
-                R.string.action_rescan to R.drawable.ic_refresh
+                (if (support) R.string.support_action_rescan else R.string.action_rescan) to R.drawable.ic_refresh
             }
             ScanPhase.FAILED -> R.string.action_retry to R.drawable.ic_refresh
         }
@@ -341,8 +352,20 @@ class MainActivity : AppCompatActivity() {
     private fun renderStats(state: ScanUiState) {
         val empty = getString(R.string.stat_empty)
         ui.statScannedValue.text = if (state.total > 0) StockFormat.count(state.done) else empty
-        ui.statTopValue.text = state.visible.firstOrNull()?.let { StockFormat.score(it.stock.score) } ?: empty
-        ui.statSpikesValue.text = if (state.visible.isEmpty()) empty else state.volumeSpikes.toString()
+        if (state.scanMode == ScanMode.SUPPORT) {
+            // How many stand on a six-month floor, and how many of them sit within 5% of it.
+            val floors = state.supportStocks
+            val near = floors.count { it.stock.support!!.distancePct(it.stock.price) <= NEAR_SUPPORT_PCT }
+            ui.statTopLabel.setText(R.string.support_stat_long)
+            ui.statSpikesLabel.setText(R.string.support_stat_near)
+            ui.statTopValue.text = if (state.results.isEmpty()) empty else floors.size.toString()
+            ui.statSpikesValue.text = if (state.results.isEmpty()) empty else near.toString()
+        } else {
+            ui.statTopLabel.setText(R.string.stat_top_score)
+            ui.statSpikesLabel.setText(R.string.stat_spikes)
+            ui.statTopValue.text = state.visible.firstOrNull()?.let { StockFormat.score(it.stock.score) } ?: empty
+            ui.statSpikesValue.text = if (state.visible.isEmpty()) empty else state.volumeSpikes.toString()
+        }
     }
 
     private fun renderResults(state: ScanUiState) {
@@ -363,18 +386,22 @@ class MainActivity : AppCompatActivity() {
 
         // A star toggle only rebinds its card; anything that changes which stocks show, or their order, jumps to the top.
         val reorder = state.results !== shownResults || state.filters != shownFilters || state.sort != shownSort ||
-            state.ascending != shownAscending || state.watchlistOnly != shownWatchlistOnly || state.query != shownQuery
+            state.ascending != shownAscending || state.watchlistOnly != shownWatchlistOnly ||
+            state.scanMode != shownScanMode || state.supportReach != shownSupportReach || state.query != shownQuery
         if (reorder || state.watchlist != shownWatchlist) {
             val freshResults = state.results !== shownResults
             // Live mode's fresh prices arrive while the user may be reading: the list keeps its place for them.
             val quiet = freshResults && shownResults != null && state.autoResults &&
                 state.filters == shownFilters && state.sort == shownSort && state.ascending == shownAscending &&
-                state.watchlistOnly == shownWatchlistOnly && state.query == shownQuery
+                state.watchlistOnly == shownWatchlistOnly && state.scanMode == shownScanMode &&
+                state.supportReach == shownSupportReach && state.query == shownQuery
             shownResults = state.results
             shownFilters = state.filters
             shownSort = state.sort
             shownAscending = state.ascending
             shownWatchlistOnly = state.watchlistOnly
+            shownScanMode = state.scanMode
+            shownSupportReach = state.supportReach
             shownQuery = state.query
             shownWatchlist = state.watchlist
             adapter.submitList(shown) {
@@ -456,6 +483,7 @@ class MainActivity : AppCompatActivity() {
         SortMode.RVOL -> ui.sortRvol
         SortMode.CHANGE -> ui.sortChange
         SortMode.PRICE -> ui.sortPrice
+        SortMode.SUPPORT -> ui.sortSupport
     }
 
     private fun sortLabel(mode: SortMode): Int = when (mode) {
@@ -463,6 +491,7 @@ class MainActivity : AppCompatActivity() {
         SortMode.RVOL -> R.string.sort_rvol
         SortMode.CHANGE -> R.string.sort_change
         SortMode.PRICE -> R.string.sort_price
+        SortMode.SUPPORT -> R.string.sort_support
     }
 
     private fun applyWindowInsets() {
@@ -491,6 +520,18 @@ class MainActivity : AppCompatActivity() {
         ui.watchlistChip.setOnCheckedChangeListener { _, checked -> scan.setWatchlistOnly(checked) }
         ui.watchlistChip.setOnCloseIconClickListener { scan.setWatchlistOnly(false) }
         ui.watchlistChip.closeIconContentDescription = getString(R.string.list_watchlist_leave)
+        ui.modeBreakout.setOnClickListener { scan.setScanMode(ScanMode.BREAKOUT) }
+        ui.modeSupport.setOnClickListener { scan.setScanMode(ScanMode.SUPPORT) }
+        // The Support scan's reach: any distance above the floor, or within a few percent of it.
+        for (reach in SUPPORT_REACHES) {
+            val chip = layoutInflater.inflate(R.layout.chip_choice, ui.supportReachChips, false) as Chip
+            chip.id = View.generateViewId()
+            chip.tag = reach
+            chip.text = reach?.let { getString(R.string.support_reach_within, it.toInt()) } ?: getString(R.string.support_reach_any)
+            chip.isCheckable = true
+            chip.setOnClickListener { scan.setSupportReach(reach) }
+            ui.supportReachChips.addView(chip)
+        }
         ui.searchButton.setOnClickListener { openSearch() }
         ui.searchClose.setOnClickListener { closeSearch() }
         ui.searchField.doAfterTextChanged { scan.setQuery(it?.toString().orEmpty()) }
@@ -511,6 +552,20 @@ class MainActivity : AppCompatActivity() {
         // The ✕ on the chip shows the way back to the full list.
         ui.watchlistChip.isCloseIconVisible = state.watchlistOnly
         leaveWatchlistOnBack.isEnabled = state.watchlistOnly
+
+        // The Support scan has its own list: no breakout filters, watchlist or industry chip, but a reach to pick.
+        val support = state.scanMode == ScanMode.SUPPORT
+        val modeChip = if (support) ui.modeSupport.id else ui.modeBreakout.id
+        if (ui.scanModeChips.checkedChipId != modeChip) ui.scanModeChips.check(modeChip)
+        ui.filterChip.isVisible = !support
+        ui.watchlistChip.isVisible = !support
+        ui.sectorChip.isVisible = !support
+        ui.supportReachChips.isVisible = support
+        ui.sortSupport.isVisible = support
+        // Checked through the group, which unchecks the others; unchecking one by hand would fight selectionRequired.
+        val reachChip = (0 until ui.supportReachChips.childCount).map(ui.supportReachChips::getChildAt)
+            .firstOrNull { it.tag == state.supportReach }
+        if (reachChip != null && ui.supportReachChips.checkedChipId != reachChip.id) ui.supportReachChips.check(reachChip.id)
 
         val scanned = state.results.isNotEmpty()
         ui.searchButton.isVisible = scanned
@@ -533,6 +588,11 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.list_empty_search_title),
                 getString(R.string.list_empty_search_body, state.query.trim()),
                 R.drawable.ic_search,
+            )
+            state.scanMode == ScanMode.SUPPORT -> Triple(
+                getString(R.string.support_list_empty_title),
+                getString(R.string.support_list_empty_body),
+                R.drawable.ic_support,
             )
             !state.watchlistOnly -> return false
             state.watchlist.isEmpty() -> Triple(
@@ -791,6 +851,12 @@ class MainActivity : AppCompatActivity() {
         const val MARKET_REFRESH_S = 30
         val CLOCK: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.US)
         val DAY_TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE d MMM HH:mm", Locale.forLanguageTag("hi-IN"))
+
+        /** The Support scan's reach choices, percent above the floor; null is any distance. */
+        val SUPPORT_REACHES = listOf(null, 5.0, 10.0, 20.0)
+
+        /** The Support scan's stat counts floors this close, percent above. */
+        const val NEAR_SUPPORT_PCT = 5.0
     }
 
     private fun openReleases() {

@@ -201,6 +201,48 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
+        <!-- Which scan the screen shows: the main Breakout scan or the separate Support scan. -->
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:clipToPadding="false"
+            android:paddingHorizontal="16dp"
+            android:scrollbars="none"
+            app:layout_scrollFlags="scroll">
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/scanModeChips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:checkedChip="@id/modeBreakout"
+                app:selectionRequired="true"
+                app:singleLine="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/modeBreakout"
+                    style="@style/ShareScanChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/mode_breakout"
+                    app:chipIcon="@drawable/ic_trending_up"
+                    app:chipIconVisible="true"
+                    app:checkedIconVisible="false" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/modeSupport"
+                    style="@style/ShareScanChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/mode_support"
+                    app:chipIcon="@drawable/ic_support"
+                    app:chipIconVisible="true"
+                    app:checkedIconVisible="false" />
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
         <!-- Scan status hero -->
         <FrameLayout
             android:id="@+id/hero"
@@ -403,6 +445,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/statTopLabel"
                         style="@style/StatLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -437,6 +480,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
+                        android:id="@+id/statSpikesLabel"
                         style="@style/StatLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -613,6 +657,16 @@
                         app:closeIconSize="16dp"
                         app:closeIconTint="@color/glass_chip_text" />
 
+                    <!-- Support scan only: how far above its floor a stock may sit. -->
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/supportReachChips"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:selectionRequired="true"
+                        app:singleLine="true"
+                        app:singleSelection="true" />
+
                     <!-- Industries ranked by strength; picking one filters the list to it. -->
                     <com.google.android.material.chip.Chip
                         android:id="@+id/sectorChip"
@@ -637,6 +691,14 @@
                         app:selectionRequired="true"
                         app:singleLine="true"
                         app:singleSelection="true">
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/sortSupport"
+                            style="@style/ShareScanChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sort_support"
+                            android:visibility="gone" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/sortScore"

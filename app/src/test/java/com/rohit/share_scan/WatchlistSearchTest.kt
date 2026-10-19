@@ -102,6 +102,42 @@ class WatchlistSearchTest {
     }
 
     @Test
+    fun theSupportScanListsStocksOnALongFloor() {
+        val long = SupportFloor(level = 380.0, ageSessions = 120, touches = 4, unbroken = true, window = 124)
+        val young = long.copy(ageSessions = 30)
+        val broken = long.copy(unbroken = false)
+        val once = long.copy(touches = 2)
+        val floors = mapOf("TATAPOWER" to long, "TCS" to young, "M&M" to broken, "INFY" to long, "TECHM" to once)
+        val stocks = results.map { it.copy(support = floors[it.symbol]) }
+        // The Breakout scan's filters and limit do not apply to the Support scan.
+        val breakout = ScanUiState(
+            results = stocks,
+            filters = ScanFilters(limit = 2).with(Metric.PRICE, Bound(min = 1_000.0)),
+            watchlist = setOf("INFY"),
+            watchlistOnly = true,
+        )
+        val state = breakout.withScanMode(ScanMode.SUPPORT)
+        assertFalse(state.watchlistOnly)
+        assertEquals(SortMode.SUPPORT, state.sort)
+        // Strongest floor first; equal floors go nearest first (TATAPOWER is 8% above 380, INFY far above).
+        // Ranks are by score among all stocks; a young, broken or once-tested floor does not count.
+        assertEquals(listOf("TATAPOWER" to 4, "INFY" to 5), ranks(state.sortedResults))
+        assertEquals(2, state.supportStocks.size)
+        assertEquals(listOf("TATAPOWER" to 4), ranks(state.copy(supportReach = 10.0).sortedResults))
+        assertEquals(listOf("INFY" to 5), ranks(state.copy(query = "inf").sortedResults))
+        assertEquals(listOf("INFY" to 5, "TATAPOWER" to 4), ranks(state.copy(sort = SortMode.SCORE, ascending = true).sortedResults))
+
+        // Back on the Breakout scan the score's order and the filters return; the support filters read the floor.
+        val back = state.withScanMode(ScanMode.BREAKOUT)
+        assertEquals(SortMode.SCORE, back.sort)
+        assertEquals(listOf("TECHM" to 1, "TCS" to 2), ranks(back.sortedResults))
+        val near = back.copy(filters = ScanFilters(limit = 0).with(Metric.SUPPORT_GAP, Bound(max = 10.0)))
+        assertEquals(listOf("TATAPOWER" to 1), ranks(near.sortedResults))
+        val old = ScanFilters(limit = 0).with(Metric.SUPPORT_AGE, Bound(min = 63.0))
+        assertEquals(listOf("TECHM", "M&M", "TATAPOWER", "INFY"), back.copy(filters = old).sortedResults.map { it.stock.symbol })
+    }
+
+    @Test
     fun badgesAndStarsReachTheRankedStocks() {
         val state = ScanUiState(
             results = results,

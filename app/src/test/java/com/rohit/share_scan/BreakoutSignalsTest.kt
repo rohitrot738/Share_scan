@@ -63,9 +63,14 @@ class BreakoutSignalsTest {
     @Test
     fun scoreIsTheWeightedSumOfSpreadParts() {
         val signals = tightBase().analyse()!!
-        assertEquals(BreakoutSignals.WEIGHTS.keys.toList(), signals.parts.map { it.key })
-        assertEquals(1.0, signals.parts.sumOf { it.weight }, 1e-9)
-        for (part in signals.parts) assertTrue(part.key, part.value > 0.0 && part.value < 100.0)
+        assertEquals(BreakoutSignals.WEIGHTS.keys.toList() + ScoreKeys.SUPPORT, signals.parts.map { it.key })
+        // The weighted parts add up to 1; the support bonus comes on top.
+        val weighted = signals.parts.filter { it.key != ScoreKeys.SUPPORT }
+        assertEquals(1.0, weighted.sumOf { it.weight }, 1e-9)
+        for (part in weighted) assertTrue(part.key, part.value > 0.0 && part.value < 100.0)
+        val bonus = signals.parts.single { it.key == ScoreKeys.SUPPORT }
+        assertEquals(BreakoutSignals.SUPPORT_BONUS, bonus.weight, 1e-12)
+        assertEquals((signals.support?.strength ?: 0.0), bonus.value, 1e-9)
         assertEquals(signals.parts.sumOf { it.value * it.weight }, signals.score, 1e-9)
 
         // Stronger confirmation still ranks higher instead of tying at a cap.

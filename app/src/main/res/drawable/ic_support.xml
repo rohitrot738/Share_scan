@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A price line resting on a floor: the Support scan. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M2,19h20v2H2zM3.41,15.5L2,14.09l4.5,-4.5 3,3 2.5,-2.5 2,2L18.5,7.5 22,7.5 22,11 20.5,11 20.5,9.62 14,16.12l-2,-2 -2.5,2.5 -3,-3z" />
+</vector>

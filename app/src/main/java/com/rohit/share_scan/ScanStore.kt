@@ -133,6 +133,13 @@ class ScanStore(private val file: File) {
         if (row.pastScores.isNotEmpty()) {
             put("past", JSONArray().apply { for (past in row.pastScores) put(JSONArray().put(past.day).put(num(past.score))) })
         }
+        row.support?.let { floor ->
+            put(
+                "sup",
+                JSONArray().put(num(floor.level)).put(floor.ageSessions).put(floor.touches)
+                    .put(if (floor.unbroken) 1 else 0).put(floor.window),
+            )
+        }
     }
 
     private fun stock(json: JSONObject): ScanResult = ScanResult(
@@ -161,6 +168,15 @@ class ScanStore(private val file: File) {
                 DayScore(pair.getLong(0), pair.doubleAt(1))
             }
         }.orEmpty(),
+        support = json.optJSONArray("sup")?.let { floor ->
+            SupportFloor(
+                level = floor.doubleAt(0),
+                ageSessions = floor.getInt(1),
+                touches = floor.getInt(2),
+                unbroken = floor.getInt(3) == 1,
+                window = floor.getInt(4),
+            )
+        },
     )
 
     private fun structure(s: PriceStructure) = JSONObject().apply {

@@ -5,6 +5,17 @@ import org.junit.Test
 
 class StockFormatTest {
     @Test
+    fun supportAgeReadsInDaysMonthsOrSinceTheChartStart() {
+        val floor = SupportFloor(level = 100.0, ageSessions = 12, touches = 2, unbroken = true, window = 124)
+        assertEquals("12 दिन", StockFormat.supportAge(floor))
+        assertEquals("1 महीना", StockFormat.supportAge(floor.copy(ageSessions = 25)))
+        assertEquals("4 महीने", StockFormat.supportAge(floor.copy(ageSessions = 84)))
+        assertEquals("6+ महीने", StockFormat.supportAge(floor.copy(ageSessions = 123)))
+        assertEquals("3 महीने", StockFormat.metricValue(Metric.SUPPORT_AGE, 63.0))
+        assertEquals("5%", StockFormat.metricValue(Metric.SUPPORT_GAP, 5.0))
+    }
+
+    @Test
     fun tiersFollowScoreThresholds() {
         assertEquals(StockFormat.Tier.STRONG, StockFormat.tier(75.0))
         assertEquals(StockFormat.Tier.WATCH, StockFormat.tier(74.9))
