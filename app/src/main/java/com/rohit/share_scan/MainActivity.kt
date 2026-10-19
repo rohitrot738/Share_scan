@@ -128,7 +128,20 @@ class MainActivity : AppCompatActivity() {
         }
         ui.filterChip.setOnClickListener {
             filterSheet?.dismiss()
-            filterSheet = FilterSheet(this, scan.uiState.value, scan::setFilters).show()
+            val state = scan.uiState.value
+            // Each scan keeps its own filters: the Support scan's count among the stocks on a long floor.
+            filterSheet = if (state.scanMode == ScanMode.SUPPORT) {
+                FilterSheet(
+                    this,
+                    state,
+                    state.supportFilters,
+                    state.supportReached.map { it.stock },
+                    ScanFilters(limit = 0),
+                    scan::setSupportFilters,
+                )
+            } else {
+                FilterSheet(this, state, state.filters, state.results, ScanFilters(), scan::setFilters)
+            }.show()
         }
         // A tap on another sort picks it, highest first; a tap on the one in use turns its order round.
         for (mode in SortMode.entries) {
@@ -373,7 +386,7 @@ class MainActivity : AppCompatActivity() {
         val hasResults = shown.isNotEmpty()
         ui.resultCount.isVisible = hasResults
         ui.resultCount.text = StockFormat.count(shown.size)
-        renderFilterChip(state.filters)
+        renderFilterChip(state.activeFilters)
         renderListTools(state, hasResults)
         // Invisible rather than gone: the hint also pushes the search and share buttons to the end of the row.
         ui.resultsHint.isInvisible = !hasResults
@@ -385,18 +398,18 @@ class MainActivity : AppCompatActivity() {
         renderEmpty(state)
 
         // A star toggle only rebinds its card; anything that changes which stocks show, or their order, jumps to the top.
-        val reorder = state.results !== shownResults || state.filters != shownFilters || state.sort != shownSort ||
+        val reorder = state.results !== shownResults || state.activeFilters != shownFilters || state.sort != shownSort ||
             state.ascending != shownAscending || state.watchlistOnly != shownWatchlistOnly ||
             state.scanMode != shownScanMode || state.supportReach != shownSupportReach || state.query != shownQuery
         if (reorder || state.watchlist != shownWatchlist) {
             val freshResults = state.results !== shownResults
             // Live mode's fresh prices arrive while the user may be reading: the list keeps its place for them.
             val quiet = freshResults && shownResults != null && state.autoResults &&
-                state.filters == shownFilters && state.sort == shownSort && state.ascending == shownAscending &&
+                state.activeFilters == shownFilters && state.sort == shownSort && state.ascending == shownAscending &&
                 state.watchlistOnly == shownWatchlistOnly && state.scanMode == shownScanMode &&
                 state.supportReach == shownSupportReach && state.query == shownQuery
             shownResults = state.results
-            shownFilters = state.filters
+            shownFilters = state.activeFilters
             shownSort = state.sort
             shownAscending = state.ascending
             shownWatchlistOnly = state.watchlistOnly
@@ -553,13 +566,11 @@ class MainActivity : AppCompatActivity() {
         ui.watchlistChip.isCloseIconVisible = state.watchlistOnly
         leaveWatchlistOnBack.isEnabled = state.watchlistOnly
 
-        // The Support scan has its own list: no breakout filters, watchlist or industry chip, but a reach to pick.
+        // The Support scan has its own list and filters, a reach to pick and no watchlist view.
         val support = state.scanMode == ScanMode.SUPPORT
         val modeChip = if (support) ui.modeSupport.id else ui.modeBreakout.id
         if (ui.scanModeChips.checkedChipId != modeChip) ui.scanModeChips.check(modeChip)
-        ui.filterChip.isVisible = !support
         ui.watchlistChip.isVisible = !support
-        ui.sectorChip.isVisible = !support
         ui.supportReachChips.isVisible = support
         ui.sortSupport.isVisible = support
         // Checked through the group, which unchecks the others; unchecking one by hand would fight selectionRequired.
@@ -638,7 +649,7 @@ class MainActivity : AppCompatActivity() {
         val state = scan.uiState.value
         val stocks = state.sortedResults.map { it.stock }.filter { it.charted }.take(ShareText.COUNT)
         if (stocks.isEmpty()) return
-        val active = state.filters.activeCount
+        val active = state.activeFilters.activeCount
         val filters =
             if (active > 0) getString(R.string.list_share_filters, active) else getString(R.string.list_share_no_filters)
         val header = ShareText.header(getString(R.string.app_name), LocalDate.now(), filters)
@@ -720,7 +731,7 @@ class MainActivity : AppCompatActivity() {
     private fun openSectors(fromMenu: Boolean) {
         val state = scan.uiState.value
         val open = {
-            SectorSheet(this, state.results, state.filters.sectors, ::pickSector, if (fromMenu) ::openMenu else null).show()
+            SectorSheet(this, state.results, state.activeFilters.sectors, ::pickSector, if (fromMenu) ::openMenu else null).show()
         }
         if (fromMenu) {
             showMenuSheet(open)
@@ -731,8 +742,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun pickSector(sector: String?) {
-        val filters = scan.uiState.value.filters
-        scan.setFilters(filters.copy(sectors = sector?.let(::setOf).orEmpty()))
+        val state = scan.uiState.value
+        val sectors = sector?.let(::setOf).orEmpty()
+        if (state.scanMode == ScanMode.SUPPORT) {
+            scan.setSupportFilters(state.supportFilters.copy(sectors = sectors))
+        } else {
+            scan.setFilters(state.filters.copy(sectors = sectors))
+        }
         if (sector != null) Toast.makeText(this, getString(R.string.sector_applied, sector), Toast.LENGTH_SHORT).show()
     }
 

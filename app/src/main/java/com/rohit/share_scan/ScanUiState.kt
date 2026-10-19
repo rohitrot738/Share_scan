@@ -52,6 +52,8 @@ data class ScanUiState(
     val scanMode: ScanMode = ScanMode.BREAKOUT,
     /** The Support scan keeps stocks at most this many percent above their floor; null keeps them all. */
     val supportReach: Double? = null,
+    /** The Support scan's own filters, apart from the Breakout scan's [filters]; no Top limit unless picked. */
+    val supportFilters: ScanFilters = ScanFilters(limit = 0),
     val searchOpen: Boolean = false,
     /** Search text, matched against the symbol and the company name ([StockSearch]). */
     val query: String = "",
@@ -106,11 +108,20 @@ data class ScanUiState(
         }
     }
 
-    /** The Support scan's list: [supportStocks] within [supportReach] of their floor. */
-    val supportListed: List<RankedStock> by lazy {
+    /** [supportStocks] within [supportReach] of their floor: what the Support scan's filters choose from. */
+    val supportReached: List<RankedStock> by lazy {
         val reach = supportReach ?: return@lazy supportStocks
         supportStocks.filter { it.stock.support!!.distancePct(it.stock.price) <= reach }
     }
+
+    /** The Support scan's list: [supportReached] inside [supportFilters], cut to their Top limit by score. */
+    val supportListed: List<RankedStock> by lazy {
+        val inside = supportReached.filter { supportFilters.accepts(it.stock) }
+        if (supportFilters.limit > 0) inside.take(supportFilters.limit) else inside
+    }
+
+    /** The filters of the scan on screen. */
+    val activeFilters: ScanFilters get() = if (scanMode == ScanMode.SUPPORT) supportFilters else filters
 
     /** The list before the search: the Support scan's, or the watchlist, or [visible]. */
     val listed: List<RankedStock> by lazy {

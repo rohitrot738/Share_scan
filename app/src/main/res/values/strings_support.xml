@@ -17,7 +17,7 @@
     <string name="support_reach_any">कोई भी दूरी</string>
     <string name="support_reach_within">%1$d%% तक पास</string>
     <string name="support_list_empty_title">6 महीने वाला कोई support नहीं मिला</string>
-    <string name="support_list_empty_body">इस scan में कोई stock 6 महीने से अपने support के ऊपर नहीं टिका। दूरी बढ़ाएँ, या Menu → स्कैन में और exchanges / sectors चालू करें।</string>
+    <string name="support_list_empty_body">इस scan में, इन filters के अंदर, कोई stock 6 महीने से अपने support के ऊपर नहीं टिका। दूरी बढ़ाएँ, Filters ढीले करें, या Menu → स्कैन में और exchanges / sectors चालू करें।</string>
     <string name="sort_support">Support</string>
 
     <!-- Card: "Support ₹412 · 6+ महीने · 4 बार". -->
@@ -40,5 +40,5 @@
 
     <!-- Help. -->
     <string name="help_part_support">Support bonus • %1$d अंक तक</string>
-    <string name="help_part_support_body">जिस भाव तक stock बार-बार आकर लौटा और जिसके नीचे बंद नहीं हुआ, वह उसका support है: उसके नीचे seller भाव नहीं गिरा पाए। Support जितना पुराना (6 महीने पर पूरे अंक) और जितनी बार परखा गया (5 बार पर पूरे), score में उतने ज़्यादा अंक जुड़ते हैं; बिना support वाले stock के अंक नहीं कटते। ऊपर "Support स्कैन" चुनें तो सिर्फ़ वे stocks दिखते हैं जो 6 महीने में अपने support के नीचे कभी बंद नहीं हुए और जिनका support कम से कम %1$d महीने से और कम से कम 3 बार परखा गया है। दोनों scan एक ही data पढ़ते हैं, इसलिए एक scan से दोनों list ताज़ा हो जाती हैं।</string>
+    <string name="help_part_support_body">जिस भाव तक stock बार-बार आकर लौटा और जिसके नीचे बंद नहीं हुआ, वह उसका support है: उसके नीचे seller भाव नहीं गिरा पाए। Support जितना पुराना (6 महीने पर पूरे अंक) और जितनी बार परखा गया (5 बार पर पूरे), score में उतने ज़्यादा अंक जुड़ते हैं; बिना support वाले stock के अंक नहीं कटते। ऊपर "Support स्कैन" चुनें तो सिर्फ़ वे stocks दिखते हैं जो 6 महीने में अपने support के नीचे कभी बंद नहीं हुए और जिनका support कम से कम %1$d महीने से और कम से कम 3 बार परखा गया है। Support स्कैन के अपने Filters हैं, Breakout वाले से अलग। दोनों scan एक ही data पढ़ते हैं, इसलिए एक scan से दोनों list ताज़ा हो जाती हैं।</string>
 </resources>

@@ -17,10 +17,17 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 import kotlin.math.roundToInt
 
-/** Bottom sheet where every metric gets a min/max range slider; nothing changes until "लागू करें". */
+/**
+ * Bottom sheet where every metric gets a min/max range slider; nothing changes until "लागू करें". It edits one
+ * scan's [filters], counting matches among that scan's [pool] (every scanned stock for the Breakout scan, the stocks on
+ * a long support floor for the Support scan); Reset goes back to [defaults].
+ */
 class FilterSheet(
     private val activity: AppCompatActivity,
     private val state: ScanUiState,
+    filters: ScanFilters,
+    private val pool: List<ScanResult>,
+    private val defaults: ScanFilters,
     private val onApply: (ScanFilters) -> Unit,
 ) {
     private val dialog = BottomSheetDialog(activity)
@@ -29,14 +36,14 @@ class FilterSheet(
     private val presetChips = mutableListOf<Pair<Chip, Bound>>()
     private val limitChips = mutableMapOf<Int, Int>()
     private val sectorChips = mutableMapOf<String, Chip>()
-    private var draft = state.filters
+    private var draft = filters
 
     fun show(): BottomSheetDialog {
         addSectorChips()
         Metric.entries.forEach(::addRow)
         addLimitChips()
         ui.filterReset.setOnClickListener {
-            draft = ScanFilters()
+            draft = defaults
             sync()
         }
         ui.filterApply.wearChipGlass(APPLY_CORNER_DP, tintBoost = 1.8f, ripple = true)
@@ -104,7 +111,7 @@ class FilterSheet(
 
     /** One chip per industry in the scan, biggest first, plus any picked one the scan no longer has. */
     private fun addSectorChips() {
-        val counts = state.results.filter { it.sector.isNotEmpty() }.groupingBy { it.sector }.eachCount()
+        val counts = pool.filter { it.sector.isNotEmpty() }.groupingBy { it.sector }.eachCount()
         val sectors = counts.entries.sortedByDescending { it.value }.map { it.key } + (draft.sectors - counts.keys).sorted()
         val visible = sectors.isNotEmpty()
         ui.sectorTitle.isVisible = visible
@@ -168,8 +175,8 @@ class FilterSheet(
         for ((chip, bound) in presetChips) chip.isChecked = bound == capBound
         for ((sector, chip) in sectorChips) chip.isChecked = sector in draft.sectors
 
-        val scanned = state.results
-        if (scanned.isEmpty()) {
+        val scanned = pool
+        if (state.results.isEmpty()) {
             ui.filterSummary.setText(R.string.filters_summary_idle)
             ui.filterApply.setText(R.string.filters_apply)
         } else {
@@ -182,7 +189,7 @@ class FilterSheet(
             )
             ui.filterApply.text = activity.getString(R.string.filters_apply_count, StockFormat.count(shown))
         }
-        ui.filterReset.isEnabled = draft != ScanFilters()
+        ui.filterReset.isEnabled = draft != defaults
     }
 
     private fun label(metric: Metric, position: Int): String = when (position) {

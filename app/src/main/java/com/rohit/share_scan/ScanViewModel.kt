@@ -23,6 +23,8 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
     private val state = MutableStateFlow(
         ScanUiState(
             filters = ScanFilters.decode(prefs.getString(Prefs.FILTERS, null)),
+            supportFilters = prefs.getString(Prefs.SUPPORT_FILTERS, null)?.let(ScanFilters::decode)
+                ?: ScanFilters(limit = 0),
             watchlist = prefs.getStringSet(Prefs.WATCHLIST, null).orEmpty().toSet(),
         ).withScanMode(
             if (prefs.getString(Prefs.SCAN_MODE, null) == ScanMode.SUPPORT.name) ScanMode.SUPPORT else ScanMode.BREAKOUT,
@@ -103,6 +105,12 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
     fun setFilters(filters: ScanFilters) {
         state.update { it.copy(filters = filters) }
         prefs.edit { putString(Prefs.FILTERS, filters.encode()) }
+    }
+
+    /** The Support scan's own filters, kept apart from the Breakout scan's. */
+    fun setSupportFilters(filters: ScanFilters) {
+        state.update { it.copy(supportFilters = filters) }
+        prefs.edit { putString(Prefs.SUPPORT_FILTERS, filters.encode()) }
     }
 
     fun toggleStar(symbol: String) {
