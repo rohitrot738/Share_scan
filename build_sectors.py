@@ -153,7 +153,8 @@ def main():
 
     sectors = sorted({known[i] for i in known})
     index = {name: i for i, name in enumerate(sectors)}
-    data = {"v": 1, "updated": today.isoformat(), "sectors": sectors}
+    data = {"v": 1, "updated": today.isoformat(), "sectors": sectors,
+            "totals": {"nse": len(nse_isin), "sme": len(sme_isin), "bse": len(bse_only)}}
     for market, isins in (("nse", nse_isin), ("sme", sme_isin), ("bse", bse_only)):
         data[market] = {isin: index[known[isin]] for isin in sorted(isins) if isin in known}
         print(f"{market}: {len(data[market])}/{len(isins)} with an industry")
