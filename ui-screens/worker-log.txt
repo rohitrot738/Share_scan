@@ -1,13 +1,4 @@
 --------- beginning of main
-10-19 03:54:44.606  4191  7408 I WM-WorkerWrapper: Work [ id=8d78a785-6c98-4a5e-abf8-888de48d6a7e, tags={ com.google.android.apps.messaging.rcsprovisioning.RcsProvisioningListenableWorker, provisioning } ] was cancelled
-10-19 03:54:44.606  4191  7408 I WM-WorkerWrapper: java.util.concurrent.CancellationException: Task was cancelled.
-10-19 03:54:44.606  4191  7408 I WM-WorkerWrapper: 	at lrv.j(PG:2)
-10-19 03:54:44.606  4191  7408 I WM-WorkerWrapper: 	at lrv.get(PG:3)
-10-19 03:54:44.606  4191  7408 I WM-WorkerWrapper: 	at lkw.run(PG:1)
-10-19 03:54:44.606  4191  7408 I WM-WorkerWrapper: 	at lqu.run(PG:1)
-10-19 03:54:44.606  4191  7408 I WM-WorkerWrapper: 	at bxfd.run(PG:1)
-10-19 03:54:44.606  4191  7408 I WM-WorkerWrapper: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
-10-19 03:54:44.606  4191  7408 I WM-WorkerWrapper: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
-10-19 03:54:44.606  4191  7408 I WM-WorkerWrapper: 	at bxef.run(PG:2)
-10-19 03:54:44.606  4191  7408 I WM-WorkerWrapper: 	at java.lang.Thread.run(Thread.java:1012)
-10-19 03:54:44.606  4191  7408 I WM-WorkerWrapper: 	at bxfj.run(PG:5)
+10-19 04:18:57.371  2809  2920 I WM-WorkerWrapper: Worker result RETRY for Work [ id=883a86e6-3e01-4254-9a2b-6a74642ac98c, tags={ com.google.apps.tiktok.contrib.work.TikTokListenableWorker, TikTokWorker#com.android.dialer.businessvoice.control.worker.ConstellationSyncWorker } ]
+10-19 04:30:43.570  2809  2920 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=28f9901b-e6db-4816-92d6-e38a3ba2728c, tags={ com.google.apps.tiktok.contrib.work.TikTokListenableWorker, TikTokWorker#com.android.dialer.timekeeper.impl.worker.TimeKeeperDbRefreshingWorker } ]
+10-19 04:30:43.655  2809  2918 I WM-WorkerWrapper: Worker result RETRY for Work [ id=883a86e6-3e01-4254-9a2b-6a74642ac98c, tags={ com.google.apps.tiktok.contrib.work.TikTokListenableWorker, TikTokWorker#com.android.dialer.businessvoice.control.worker.ConstellationSyncWorker } ]
