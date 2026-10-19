@@ -53,7 +53,7 @@ def find(close, low, zone_pct):
                 in_zone = False
         if touches < 2:
             continue
-        cand = dict(level=deepest, age=n - first, touches=touches, unbroken=last_break < 0, window=n)
+        cand = dict(level=deepest, age=n - first, touches=touches, unbroken=last_break < 0, window=n, recent=n - 1 - last_touch)
         key = (cand["age"], -pierces, touches, deepest)
         if best is None or key > best[0]:
             best = (key, cand)
@@ -102,6 +102,10 @@ def main():
     print(f"6mo payload: median {statistics.median(sizes)/1024:.1f} KB on the wire, total {sum(sizes)/1e6:.1f} MB for {len(sizes)}")
     print(f"with a floor: {len(floors)}; age >= {LONG_AGE} (card line): {sum(f['age'] >= LONG_AGE for f in floors)}; long (chip): {sum(f['long'] for f in floors)}")
     longs = [f for f in floors if f["long"]]
+    t3 = [f for f in longs if f["touches"] >= 3]
+    print(f"variants of long: touches>=3 {len(t3)}; +gap<=10 {sum(f['gap'] <= 10 for f in t3)}; "
+          f"+gap<=5 {sum(f['gap'] <= 5 for f in t3)}; +tested in last 63 {sum(f['recent'] <= 63 for f in t3)}; "
+          f"touches>=4 {sum(f['touches'] >= 4 for f in longs)}")
     if longs:
         print("long gap %: median", statistics.median(f["gap"] for f in longs), "max", max(f["gap"] for f in longs))
         print("long touches: median", statistics.median(f["touches"] for f in longs))
