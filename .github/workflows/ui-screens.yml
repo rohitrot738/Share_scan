@@ -9,7 +9,7 @@ permissions:
   contents: write
 concurrency:
   group: ui-screens-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   screens:
     runs-on: ubuntu-latest
