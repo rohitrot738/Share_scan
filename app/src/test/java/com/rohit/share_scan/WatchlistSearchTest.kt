@@ -127,6 +127,13 @@ class WatchlistSearchTest {
         assertEquals(listOf("INFY" to 5), ranks(state.copy(query = "inf").sortedResults))
         assertEquals(listOf("INFY" to 5, "TATAPOWER" to 4), ranks(state.copy(sort = SortMode.SCORE, ascending = true).sortedResults))
 
+        // The Support scan has filters of its own, Top limit included (by score), apart from the Breakout scan's.
+        assertEquals(state.supportFilters, state.activeFilters)
+        val dear = state.copy(supportFilters = ScanFilters(limit = 0).with(Metric.PRICE, Bound(min = 1_000.0)))
+        assertEquals(listOf("INFY" to 5), ranks(dear.sortedResults))
+        assertEquals(listOf("TATAPOWER" to 4), ranks(state.copy(supportFilters = ScanFilters(limit = 1)).sortedResults))
+        assertEquals(breakout.filters, state.withScanMode(ScanMode.BREAKOUT).activeFilters)
+
         // Back on the Breakout scan the score's order and the filters return; the support filters read the floor.
         val back = state.withScanMode(ScanMode.BREAKOUT)
         assertEquals(SortMode.SCORE, back.sort)
