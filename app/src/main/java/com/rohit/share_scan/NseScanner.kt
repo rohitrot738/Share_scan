@@ -50,6 +50,11 @@ data class PriceStructure(
     val high10: Double? = null,
     /** Epoch day (IST) of each of [closes], same order; empty when the feed gave no dates. */
     val closeDays: List<Long> = emptyList(),
+    /**
+     * Width of the latest 1, 2, 3 and 4 weeks (5, 10, 15 and 20 sessions), highest high to lowest low, as a percent
+     * of the midpoint; empty when not recorded.
+     */
+    val weekRanges: List<Double> = emptyList(),
 )
 
 data class ScanResult(
@@ -94,6 +99,13 @@ data class ScanResult(
     /** Width of the latest 10-session base, highest high to lowest low, as a percent of its midpoint; small = tight. */
     val baseRangePct: Double?
         get() = structure?.let { s -> s.high10?.let { high -> BreakoutSignals.rangePct(high, s.low10) } }
+
+    /**
+     * Width of the latest [weeks] weeks (1–4), highest high to lowest low, as a percent of its midpoint; small = calm,
+     * neither up nor down much. A scan saved before these were recorded knows only the two-week [baseRangePct].
+     */
+    fun rangePct(weeks: Int): Double? =
+        structure?.weekRanges?.getOrNull(weeks - 1) ?: baseRangePct.takeIf { weeks == BreakoutSignals.BASE_WEEKS }
 
     /** Percent above (+) or below (-) the 50-day simple moving average. */
     val vsSma50Pct: Double?

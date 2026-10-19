@@ -71,6 +71,8 @@ object StockFormat {
     /** "1 महीना", "3 महीने". */
     fun months(count: Int): String = if (count == 1) "1 महीना" else "$count महीने"
 
+    fun weeks(count: Int): String = if (count == 1) "1 हफ्ता" else "$count हफ्ते"
+
     /**
      * How long a support floor has stood: trading days under a month, then months, with a "+" when it reaches back
      * to the chart's start and may be older: "12 दिन", "4 महीने", "6+ महीने".
