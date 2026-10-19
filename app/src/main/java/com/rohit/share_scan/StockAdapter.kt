@@ -57,7 +57,9 @@ class StockAdapter(
         }
         val score = StockFormat.score(stock.score)
 
-        ui.rank.text = item.rank.toString()
+        val ranked = item.rank != RankedStock.UNRANKED
+        // A starred stock outside the filters or this scan has no place in the list: its circle shows a star.
+        ui.rank.text = if (ranked) item.rank.toString() else context.getString(R.string.item_rank_none)
         ui.rank.setTextColor(color(tierColor))
 
         ui.symbol.text = stock.symbol
@@ -93,6 +95,21 @@ class StockAdapter(
         ui.score.text = score
         ui.score.setTextColor(color(tierColor))
 
+        // A starred stock no chart has come in for yet: its symbol, and a word that its prices are on their way.
+        val charted = stock.charted
+        ui.rvol.isVisible = charted
+        ui.tier.isVisible = charted
+        // Without a chart the exchange is not known either.
+        ui.exchange.isVisible = charted
+        if (!charted) {
+            ui.change.setText(R.string.item_no_data)
+            ui.change.setTextColor(color(R.color.neutral))
+            ui.meta.setText(R.string.item_no_data_meta)
+            ui.price.text = context.getString(R.string.stat_empty)
+            ui.score.text = context.getString(R.string.stat_empty)
+            ui.score.setTextColor(color(R.color.neutral))
+        }
+
         ui.star.setImageResource(if (item.starred) R.drawable.ic_star else R.drawable.ic_star_outline)
         ImageViewCompat.setImageTintList(
             ui.star,
@@ -102,7 +119,11 @@ class StockAdapter(
             context.getString(if (item.starred) R.string.list_star_remove else R.string.list_star_add, stock.symbol)
 
         ui.root.contentDescription = listOfNotNull(
-            context.getString(R.string.item_description, item.rank, stock.symbol, score),
+            when {
+                !charted -> context.getString(R.string.item_description_no_data, stock.symbol)
+                ranked -> context.getString(R.string.item_description, item.rank, stock.symbol, score)
+                else -> context.getString(R.string.item_description_unranked, stock.symbol, score)
+            },
             context.getString(exchange.description),
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,

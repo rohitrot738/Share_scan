@@ -62,6 +62,10 @@ class MainActivity : AppCompatActivity() {
     private val closeSearchOnBack = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() = closeSearch()
     }
+    /** In the watchlist, Back goes to the full list rather than out of the app. */
+    private val leaveWatchlistOnBack = object : OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() = scan.setWatchlistOnly(false)
+    }
     private var filterSheet: BottomSheetDialog? = null
     private var detailSheet: BottomSheetDialog? = null
     /** The menu or whichever of its sheets is open; only one shows at a time. */
@@ -481,8 +485,12 @@ class MainActivity : AppCompatActivity() {
     private fun setUpListTools() {
         // A star toggle rebinds its card in place instead of cross-fading it.
         (ui.results.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
+        // Added last, the search's callback runs first: Back closes the search, then leaves the watchlist.
+        onBackPressedDispatcher.addCallback(this, leaveWatchlistOnBack)
         onBackPressedDispatcher.addCallback(this, closeSearchOnBack)
         ui.watchlistChip.setOnCheckedChangeListener { _, checked -> scan.setWatchlistOnly(checked) }
+        ui.watchlistChip.setOnCloseIconClickListener { scan.setWatchlistOnly(false) }
+        ui.watchlistChip.closeIconContentDescription = getString(R.string.list_watchlist_leave)
         ui.searchButton.setOnClickListener { openSearch() }
         ui.searchClose.setOnClickListener { closeSearch() }
         ui.searchField.doAfterTextChanged { scan.setQuery(it?.toString().orEmpty()) }
@@ -500,6 +508,9 @@ class MainActivity : AppCompatActivity() {
             if (stars > 0) getString(R.string.list_watchlist_count, stars) else getString(R.string.list_watchlist)
         if (ui.watchlistChip.text.toString() != watchlistLabel) ui.watchlistChip.text = watchlistLabel
         if (ui.watchlistChip.isChecked != state.watchlistOnly) ui.watchlistChip.isChecked = state.watchlistOnly
+        // The ✕ on the chip shows the way back to the full list.
+        ui.watchlistChip.isCloseIconVisible = state.watchlistOnly
+        leaveWatchlistOnBack.isEnabled = state.watchlistOnly
 
         val scanned = state.results.isNotEmpty()
         ui.searchButton.isVisible = scanned
@@ -529,9 +540,10 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.list_empty_watchlist_body),
                 R.drawable.ic_star_outline,
             )
+            // Stars with no chart yet, such as ones synced from another phone before any scan here.
             else -> Triple(
-                getString(R.string.list_empty_watchlist_filtered_title),
-                getString(R.string.list_empty_watchlist_filtered_body),
+                getString(R.string.list_empty_watchlist_waiting_title),
+                getString(R.string.list_empty_watchlist_waiting_body),
                 R.drawable.ic_star,
             )
         }
@@ -564,7 +576,7 @@ class MainActivity : AppCompatActivity() {
     /** Shares the top of the list exactly as shown, so filters, watchlist, search and sort all apply. */
     private fun shareShown() {
         val state = scan.uiState.value
-        val stocks = state.sortedResults.take(ShareText.COUNT).map { it.stock }
+        val stocks = state.sortedResults.map { it.stock }.filter { it.charted }.take(ShareText.COUNT)
         if (stocks.isEmpty()) return
         val active = state.filters.activeCount
         val filters =
@@ -627,6 +639,10 @@ class MainActivity : AppCompatActivity() {
 
     /** Opens the stock's detail sheet; its button leads on to the chart site picked in Settings. */
     private fun openChart(stock: ScanResult) {
+        if (!stock.charted) {
+            Toast.makeText(this, getString(R.string.item_no_data_toast, stock.symbol), Toast.LENGTH_SHORT).show()
+            return
+        }
         detailSheet?.dismiss()
         val state = scan.uiState.value
         val alert = ScanEngine.watchStates(this)[stock.symbol]

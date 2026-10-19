@@ -3,13 +3,14 @@
     <!-- Watchlist -->
     <string name="list_watchlist">★ Watchlist</string>
     <string name="list_watchlist_count">★ Watchlist · %1$d</string>
+    <string name="list_watchlist_leave">Watchlist बंद करें, सभी stocks दिखाएँ</string>
     <string name="list_star_add">%1$s को watchlist में जोड़ें</string>
     <string name="list_star_remove">%1$s को watchlist से हटाएँ</string>
     <string name="list_starred_description">Watchlist में</string>
     <string name="list_empty_watchlist_title">Watchlist खाली है</string>
     <string name="list_empty_watchlist_body">किसी भी card पर ☆ दबाएँ — वह stock यहाँ दिखेगा।</string>
-    <string name="list_empty_watchlist_filtered_title">कोई starred stock match नहीं हुआ</string>
-    <string name="list_empty_watchlist_filtered_body">आपका कोई भी starred stock इन filters में नहीं आता — Filters ढीले करें या ★ Watchlist बंद करें।</string>
+    <string name="list_empty_watchlist_waiting_title">★ stocks का भाव अभी नहीं आया</string>
+    <string name="list_empty_watchlist_waiting_body">आपके starred stocks अगले scan के साथ यहाँ दिखेंगे।</string>
 
     <!-- Rank change since the previous scan -->
     <string name="list_rank_new">NEW</string>
