@@ -189,12 +189,16 @@ class ScanStore(private val file: File) {
         s.sma50?.let { put("s50", num(it)) }
         s.high10?.let { put("h10", num(it)) }
         if (s.weekRanges.isNotEmpty()) put("wr", JSONArray().apply { for (range in s.weekRanges) put(num(range)) })
+        if (s.riseSessions.isNotEmpty()) {
+            put("rs", JSONArray().apply { for (rise in s.riseSessions) put(rise ?: JSONObject.NULL) })
+        }
     }
 
     private fun structure(json: JSONObject): PriceStructure {
         val closes = json.getJSONArray("c")
         val days = json.optJSONArray("d")
         val ranges = json.optJSONArray("wr")
+        val rises = json.optJSONArray("rs")
         return PriceStructure(
             closes = List(closes.length()) { closes.doubleAt(it) },
             high20 = json.double("h20"),
@@ -205,6 +209,9 @@ class ScanStore(private val file: File) {
             high10 = if (json.has("h10")) json.double("h10") else null,
             closeDays = if (days == null) emptyList() else List(days.length()) { days.getLong(it) },
             weekRanges = if (ranges == null) emptyList() else List(ranges.length()) { ranges.doubleAt(it) },
+            riseSessions = if (rises == null) emptyList() else List(rises.length()) { i ->
+                if (rises.isNull(i)) null else rises.getInt(i)
+            },
         )
     }
 

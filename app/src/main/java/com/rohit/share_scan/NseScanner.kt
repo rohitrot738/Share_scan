@@ -55,6 +55,11 @@ data class PriceStructure(
      * of the midpoint; empty when not recorded.
      */
     val weekRanges: List<Double> = emptyList(),
+    /**
+     * Sessions a rise of 1, 2 … [TargetTimes.MAX_ATRS] ATRs typically took on this chart ([TargetTimes.measure]); null
+     * where fewer than half the closes got that far, empty when not measured.
+     */
+    val riseSessions: List<Int?> = emptyList(),
 )
 
 data class ScanResult(

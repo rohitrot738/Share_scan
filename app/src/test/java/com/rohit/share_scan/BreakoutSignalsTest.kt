@@ -110,6 +110,8 @@ class BreakoutSignalsTest {
         val weeks = listOf(163.0, 158.0, 153.0, 1.0).map { BreakoutSignals.rangePct(500.0, it) }
         assertEquals(weeks, structure.weekRanges)
         assertEquals(stock.baseRangePct!!, stock.rangePct(BreakoutSignals.BASE_WEEKS)!!, 1e-9)
+        // Seventy sessions are enough to time the targets.
+        assertEquals(TargetTimes.MAX_ATRS, structure.riseSessions.size)
         assertEquals((169.0 / 144.5 - 1.0) * 100.0, stock.vsSma50Pct!!, 1e-9)
     }
 

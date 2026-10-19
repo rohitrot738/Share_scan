@@ -29,6 +29,7 @@ class ScanStoreTest {
             high10 = 3_240.0,
             closeDays = listOf(20_740L, 20_741L, 20_742L),
             weekRanges = listOf(1.5, 2.25, 4.0, 6.75),
+            riseSessions = listOf(2, 5, null),
         ),
         parts = listOf(ScorePart(ScoreKeys.BREAKOUT, 90.0, 0.35), ScorePart(ScoreKeys.VOLUME, Double.NaN, 0.2)),
         name = "Mahindra & Mahindra Ltd.",

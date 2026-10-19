@@ -315,6 +315,18 @@
                             android:paddingHorizontal="16dp"
                             android:textColor="@color/text_secondary"
                             android:textSize="12sp" />
+
+                        <!-- How the targets' times are estimated; shown when they are. -->
+                        <TextView
+                            android:id="@+id/detailPlanTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:paddingHorizontal="16dp"
+                            android:text="@string/detail_plan_time_note"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp"
+                            android:visibility="gone" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
