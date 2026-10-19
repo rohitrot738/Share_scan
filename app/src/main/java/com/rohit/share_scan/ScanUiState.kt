@@ -7,15 +7,21 @@ enum class ScanPhase { IDLE, LOADING, SCANNING, DONE, FAILED }
 enum class SortMode { SCORE, RVOL, CHANGE, PRICE }
 
 /**
- * [rank] is the position among the stocks inside the filters; [badge] is the move since the previous scan
- * and [starred] tells whether the stock is on the watchlist.
+ * [rank] is the position among the stocks inside the filters, or [UNRANKED] for a starred stock outside them or
+ * outside the scan; [badge] is the move since the previous scan and [starred] tells whether the stock is on the
+ * watchlist.
  */
 data class RankedStock(
     val rank: Int,
     val stock: ScanResult,
     val badge: RankBadge? = null,
     val starred: Boolean = false,
-)
+) {
+    companion object {
+        /** A starred stock the watchlist shows though the filters or the scan left it out. */
+        const val UNRANKED = 0
+    }
+}
 
 data class ScanUiState(
     val phase: ScanPhase = ScanPhase.IDLE,
@@ -50,6 +56,8 @@ data class ScanUiState(
     val savedAt: Long = 0L,
     /** Live mode ran the scan in [results] in the background. */
     val autoResults: Boolean = false,
+    /** Starred stocks the scan in [results] did not cover ([SavedScan.watchExtras]). */
+    val watchExtras: List<ScanResult> = emptyList(),
     /** The scan in [results] left some industries out (Menu → स्कैन). */
     val narrowed: Boolean = false,
     /** Live mode's background scan is under way (the list still shows the previous scan). */
@@ -76,12 +84,23 @@ data class ScanUiState(
         if (filters.limit > 0) matching.take(filters.limit) else matching
     }
 
-    /**
-     * The list before the search: [visible], or in watchlist mode every starred stock inside the filters.
-     * Watchlist mode ignores the limit so a starred stock that slipped below it still shows, with its real rank.
-     */
+    /** The list before the search: [visible], or in watchlist mode [starredStocks]. */
     val listed: List<RankedStock> by lazy {
-        if (watchlistOnly) matching.filter { it.starred } else visible
+        if (watchlistOnly) starredStocks else visible
+    }
+
+    /**
+     * Every starred stock, best score first, whatever the filters, the limit or the scan's exchanges and industries:
+     * a watchlist always shows what the user saved. Those inside the filters keep their rank; the rest, outside the
+     * filters or not in this scan ([watchExtras]), are [RankedStock.UNRANKED].
+     */
+    val starredStocks: List<RankedStock> by lazy {
+        val ranked = matching.filter { it.starred }
+        val shownSymbols = ranked.mapTo(HashSet()) { it.stock.symbol }
+        val others = (results + watchExtras)
+            .filter { it.symbol in watchlist && shownSymbols.add(it.symbol) }
+            .map { RankedStock(RankedStock.UNRANKED, it, rankBadges[it.symbol], starred = true) }
+        (ranked + others).sortedByDescending { it.stock.score }
     }
 
     /**
@@ -92,7 +111,7 @@ data class ScanUiState(
         if (query.isBlank()) {
             listed
         } else {
-            val pool = if (watchlistOnly) matching.filter { it.starred } else matching
+            val pool = if (watchlistOnly) starredStocks else matching
             pool.filter { StockSearch.matches(it.stock, query) }
         }
     }

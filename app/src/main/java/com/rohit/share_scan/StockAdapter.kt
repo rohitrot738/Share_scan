@@ -57,7 +57,9 @@ class StockAdapter(
         }
         val score = StockFormat.score(stock.score)
 
-        ui.rank.text = item.rank.toString()
+        val ranked = item.rank != RankedStock.UNRANKED
+        // A starred stock outside the filters or this scan has no place in the list: its circle shows a star.
+        ui.rank.text = if (ranked) item.rank.toString() else context.getString(R.string.item_rank_none)
         ui.rank.setTextColor(color(tierColor))
 
         ui.symbol.text = stock.symbol
@@ -102,7 +104,11 @@ class StockAdapter(
             context.getString(if (item.starred) R.string.list_star_remove else R.string.list_star_add, stock.symbol)
 
         ui.root.contentDescription = listOfNotNull(
-            context.getString(R.string.item_description, item.rank, stock.symbol, score),
+            if (ranked) {
+                context.getString(R.string.item_description, item.rank, stock.symbol, score)
+            } else {
+                context.getString(R.string.item_description_unranked, stock.symbol, score)
+            },
             context.getString(exchange.description),
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,

@@ -53,6 +53,7 @@ class ScanStoreTest {
             auto = true,
             badges = mapOf("M&M" to RankBadge.New, "123ABC" to RankBadge.Moved(-4)),
             scope = "NSE;BSE=Capital Goods|-",
+            watchExtras = listOf(bare.copy(symbol = "STARRED", sector = "Healthcare")),
         )
         store.save(saved)
         val back = store.load()!!
@@ -64,6 +65,9 @@ class ScanStoreTest {
         assertEquals(saved.output.marketCapDate, back.output.marketCapDate)
         assertEquals(saved.output.benchmark, back.output.benchmark)
         assertEquals(bare, back.output.results[1])
+        // Starred stocks outside the scan come back apart from its own rows.
+        assertEquals(2, back.output.results.size)
+        assertEquals(saved.watchExtras, back.watchExtras)
         // NaN has no JSON form; it comes back as NaN all the same.
         val first = back.output.results[0]
         assertTrue(first.parts[1].value.isNaN())

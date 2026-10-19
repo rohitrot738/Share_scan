@@ -18,6 +18,11 @@ data class SavedScan(
     val badges: Map<String, RankBadge> = emptyMap(),
     /** [ScanSectors.key] of the exchanges and industries scanned; empty for a scan kept before scans had one. */
     val scope: String = "",
+    /**
+     * Starred stocks the scan did not cover (another exchange or industry, or no chart this time), from their last
+     * known rows charted again when the scan finished, so the watchlist still shows them.
+     */
+    val watchExtras: List<ScanResult> = emptyList(),
 )
 
 /**
@@ -33,6 +38,10 @@ class ScanStore(private val file: File) {
             out.write("\n")
             for (row in scan.output.results) {
                 out.write(stock(row).toString())
+                out.write("\n")
+            }
+            for (row in scan.watchExtras) {
+                out.write(stock(row).put(WATCH_EXTRA, 1).toString())
                 out.write("\n")
             }
         }
@@ -51,7 +60,12 @@ class ScanStore(private val file: File) {
             val head = JSONObject(iterator.next())
             if (head.optInt("v") != VERSION) return null
             val results = ArrayList<ScanResult>()
-            for (line in iterator) if (line.isNotBlank()) results += stock(JSONObject(line))
+            val extras = ArrayList<ScanResult>()
+            for (line in iterator) {
+                if (line.isBlank()) continue
+                val json = JSONObject(line)
+                if (json.optInt(WATCH_EXTRA) == 1) extras += stock(json) else results += stock(json)
+            }
             SavedScan(
                 output = ScanOutput(
                     results = results,
@@ -63,6 +77,7 @@ class ScanStore(private val file: File) {
                 auto = head.optBoolean("auto"),
                 badges = badges(head.optJSONObject("badges")),
                 scope = head.optString("scope"),
+                watchExtras = extras,
             )
         }
     }.getOrNull()
@@ -189,6 +204,9 @@ class ScanStore(private val file: File) {
     private companion object {
         const val VERSION = 1
         const val NEW = "N"
+
+        /** Marks a line of [SavedScan.watchExtras]; the other stock lines are the scan's own. */
+        const val WATCH_EXTRA = "w"
 
         /** JSON has no NaN or infinity; such a value is written as null and read back as NaN. */
         fun num(value: Double): Any = if (value.isFinite()) value else JSONObject.NULL

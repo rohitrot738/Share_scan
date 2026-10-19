@@ -130,14 +130,16 @@ object ScanEngine {
                 if (progressFlow.value.running) return@execute
                 val saved = latestFlow.value ?: return@execute
                 val rows = saved.output.results.filter { it.symbol in watchlist }
-                if (rows.isEmpty()) return@execute
-                val fresh = NseScanner.refresh(rows).associateBy { it.symbol }
+                val extras = saved.watchExtras.filter { it.symbol in watchlist }
+                if (rows.isEmpty() && extras.isEmpty()) return@execute
+                val fresh = NseScanner.refresh(rows + extras).associateBy { it.symbol }
                 val results = saved.output.results.map { fresh[it.symbol] ?: it }.sortedByDescending { it.score }
+                val freshExtras = extras.map { fresh[it.symbol] ?: it }
                 // The scan's time stays: it dates the full scan, which live mode counts its interval from.
-                val updated = saved.copy(output = saved.output.copy(results = results))
+                val updated = saved.copy(output = saved.output.copy(results = results), watchExtras = freshExtras)
                 store(app).save(updated)
                 latestFlow.value = updated
-                watchAlerts(app, results)
+                watchAlerts(app, results + freshExtras)
             } catch (error: Exception) {
                 // A failed refresh leaves the kept scan as it was; the next full scan brings fresh prices anyway.
             } finally {
@@ -242,12 +244,15 @@ object ScanEngine {
         val ranked = output.results.sortedByDescending { it.score }
         val complete = !output.stopped
         val badges = if (complete) trackRanks(app, ranked, scope) else emptyMap()
+        // A scan the user stopped is kept at once; its starred stocks outside it keep their last rows.
+        val extras = watchExtras(app, ranked, kept, chart = complete)
         val saved = SavedScan(
             output.copy(results = ranked),
             System.currentTimeMillis(),
             trigger == Trigger.AUTO,
             badges,
             scope,
+            extras,
         )
         runCatching { store(app).save(saved) }
         latestFlow.value = saved
@@ -258,13 +263,33 @@ object ScanEngine {
                 file.writeText(journal.encode())
             }
         }
-        watchAlerts(app, ranked)
+        watchAlerts(app, ranked + extras)
         val settings = AppSettings(app)
         if (trigger == Trigger.AUTO && settings.liveAlerts && previous != null) {
             val filters = ScanFilters.decode(prefs(app).getString(Prefs.FILTERS, null))
             val finds = LiveAlerts.fresh(previous.output.results, ranked, filters)
             if (finds.isNotEmpty()) Notifier.liveFinds(app, finds)
         }
+    }
+
+    /**
+     * Starred stocks [results] lack, as the [kept] scan last had them (a stock starred on another phone has no row
+     * yet and is looked up on NSE), charted again when [chart] so the watchlist shows them with fresh prices. A
+     * chart that does not load leaves the old row; a stock never charted is left out.
+     */
+    private fun watchExtras(app: Context, results: List<ScanResult>, kept: SavedScan?, chart: Boolean): List<ScanResult> {
+        val watchlist = prefs(app).getStringSet(Prefs.WATCHLIST, null).orEmpty()
+        val covered = results.mapTo(HashSet()) { it.symbol }
+        val missing = watchlist.filter { it !in covered }
+        if (missing.isEmpty()) return emptyList()
+        val known = kept?.let { it.watchExtras + it.output.results }.orEmpty().associateBy { it.symbol }
+        val old = missing.map { known[it] ?: ScanResult(symbol = it, price = 0.0, score = 0.0, rvol = 0.0, change5d = 0.0) }
+        if (!chart) return old.filter { it.price > 0.0 }
+        // Yahoo's limit can hold a chart for minutes; the scan is kept without waiting that long.
+        val deadline = SystemClock.elapsedRealtime() + EXTRAS_WAIT_MS
+        val fresh = runCatching { NseScanner.refresh(old, isStopped = { SystemClock.elapsedRealtime() > deadline }) }
+            .getOrDefault(old)
+        return fresh.filter { it.price > 0.0 }
     }
 
     /** [fresh]'s rows, then the rows of [old] it did not reach, best score first; stopped only when [old] was too. */
@@ -328,4 +353,6 @@ object ScanEngine {
     private const val WAIT_SLACK_MS = 30_000L
     private const val LOAD_WAIT_S = 20L
     private const val REFRESH_WAIT_MS = 120_000L
+    /** How long a finished scan waits on the charts of starred stocks it did not cover. */
+    private const val EXTRAS_WAIT_MS = 30_000L
 }

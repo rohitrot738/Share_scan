@@ -540,9 +540,10 @@ class MainActivity : AppCompatActivity() {
                 getString(R.string.list_empty_watchlist_body),
                 R.drawable.ic_star_outline,
             )
+            // Stars with no chart yet, such as ones synced from another phone before any scan here.
             else -> Triple(
-                getString(R.string.list_empty_watchlist_filtered_title),
-                getString(R.string.list_empty_watchlist_filtered_body),
+                getString(R.string.list_empty_watchlist_waiting_title),
+                getString(R.string.list_empty_watchlist_waiting_body),
                 R.drawable.ic_star,
             )
         }
