@@ -56,14 +56,20 @@ def measure(c, h, l):
     return [km_median(w) for w in waits]
 
 
-def measure_hits(c, h, l, horizon, min_hits=5):
-    """For each rise, the median sessions among closes that got there within [horizon] sessions, every close
-    watched the full horizon; and how many of those closes got there."""
+def quartiles(x):
+    if len(x) < 2:
+        return x[0], x[0], x[0]
+    q = statistics.quantiles(x, n=4, method="inclusive")
+    return q[0], statistics.median(x), q[2]
+
+
+def measure_hits(c, h, l, horizon, min_hits=5, breakouts=False, scale=1.0):
+    """For each rise: (q1, median, q3) sessions among starts that got there within [horizon] sessions, every start
+    watched the full horizon; None with fewer than [min_hits] hits. With [breakouts], only closes above the 20
+    sessions' high before them start."""
     n = len(c)
     tr = true_range(c, h, l)
-    starts = list(range(ATR_N, n - horizon))
-    if len(starts) < 30:
-        return [], []
+    starts = [s for s in range(max(ATR_N, 20), n - horizon) if not breakouts or c[s] >= max(h[s - 20:s])]
     hits = [[] for _ in range(MAX_ATRS)]
     for s in starts:
         atr = sum(tr[s - ATR_N + 1:s + 1]) / ATR_N
@@ -77,24 +83,23 @@ def measure_hits(c, h, l, horizon, min_hits=5):
                 reached += 1
             if reached == MAX_ATRS:
                 break
-    med = [statistics.median(x) if len(x) >= min_hits else None for x in hits]
-    rate = [len(x) / len(starts) for x in hits]
-    return [None if m is None else int(round(m)) for m in med], rate
+    return [tuple(v * scale for v in quartiles(x)) if len(x) >= min_hits else None for x in hits]
 
 
-def sessions(rises, atrs):
-    if not rises or not atrs > 0:
+def interp(table, atrs, pick):
+    """Like sessions(), over one of a table's (q1, median, q3)."""
+    if not table or not atrs > 0:
         return None
-    at = len(rises) if len(rises) < atrs < len(rises) + 0.01 else atrs
-    if at > len(rises):
+    at = len(table) if len(table) < atrs < len(table) + 0.01 else atrs
+    if at > len(table):
         return None
     below, above = int(at // 1), -int(-at // 1)
-    frm = 0 if below == 0 else rises[below - 1]
-    to = rises[above - 1]
+    frm = 0 if below == 0 else (table[below - 1][pick] if table[below - 1] else None)
+    to = table[above - 1][pick] if table[above - 1] else None
     if frm is None or to is None:
         return None
     v = to if above == below else frm + (to - frm) * (at - below)
-    return max(1, round(v))
+    return max(1.0, v)
 
 
 def plan(c, h, l):
@@ -123,21 +128,23 @@ def load(symbol):
 def main():
     text = get("https://archives.nseindia.com/content/equities/EQUITY_L.csv")
     symbols = [r["SYMBOL"].strip() for r in csv.DictReader(io.StringIO(text)) if r.get(" SERIES", r.get("SERIES", "")).strip() == "EQ"]
-    random.seed(23)
-    sample = random.sample(symbols, min(400, len(symbols)))
+    random.seed(29)
+    sample = random.sample(symbols, min(450, len(symbols)))
     WATCH = 40
+    def combo(c, h, l):
+        e = measure_hits(c, h, l, 40, min_hits=3, breakouts=True)
+        f = measure_hits(c, h, l, 40, scale=0.5)
+        return [x if x is not None else y for x, y in zip(e, f)]
     methods = {
-        "A all-closes KM": lambda c, h, l: measure(c, h, l),
-        "B hits within 40": lambda c, h, l: measure_hits(c, h, l, 40)[0],
-        "C hits within 60": lambda c, h, l: measure_hits(c, h, l, 60)[0],
-        "D hits within 30": lambda c, h, l: measure_hits(c, h, l, 30)[0],
+        "B hits within 40": lambda c, h, l: measure_hits(c, h, l, 40),
+        "E breakout starts, 3+ hits": lambda c, h, l: measure_hits(c, h, l, 40, min_hits=3, breakouts=True),
+        "F B x 0.5": lambda c, h, l: measure_hits(c, h, l, 40, scale=0.5),
+        "G E else F": combo,
     }
     today = {m: [[], [], []] for m in methods}
     today_none = {m: [0, 0, 0] for m in methods}
     calib = {m: [[], [], []] for m in methods}
-    untimed_hit = {m: [[0, 0], [0, 0], [0, 0]] for m in methods}
-    rates = [[], [], []]
-    outcomes = [[0, 0, 0], [0, 0, 0], [0, 0, 0]]  # hit, stop first, neither
+    untimed = {m: [[0, 0], [0, 0], [0, 0]] for m in methods}
     plans = failed = 0
     for symbol in sample:
         try:
@@ -150,17 +157,13 @@ def main():
         p = plan(tc, th, tl)
         if p:
             for m, f in methods.items():
-                rises = f(tc, th, tl)
+                table = f(tc, th, tl)
                 for i, t in enumerate(p["targets"]):
-                    v = sessions(rises, (t - p["entry"]) / p["atr"])
-                    (today[m][i].append(v) if v is not None else None)
+                    v = interp(table, (t - p["entry"]) / p["atr"], 1)
                     if v is None:
                         today_none[m][i] += 1
-            _, rate = measure_hits(tc, th, tl, 40)
-            if rate:
-                for i, t in enumerate(p["targets"]):
-                    k = min(MAX_ATRS, max(1, round((t - p["entry"]) / p["atr"])))
-                    rates[i].append(rate[k - 1])
+                    else:
+                        today[m][i].append(round(v))
         n = len(c)
         cut = n - AHEAD
         if cut < HIST:
@@ -169,35 +172,24 @@ def main():
         p = plan(hc, hh, hl)
         if not p:
             continue
-        fh, fl = h[cut:], l[cut:]
+        fh = h[cut:]
         e = -1 if p["broken"] else next((j for j in range(len(fh)) if fh[j] >= p["entry"]), None)
         if e is None or e > AHEAD - 1 - WATCH:
             continue
         plans += 1
-        stop_day = next((j for j in range(e + 1, e + WATCH + 1) if fl[j] <= p["stop"]), None)
-        for i, t in enumerate(p["targets"]):
-            hit = next((j for j in range(max(e, 0), e + WATCH + 1) if fh[j] >= t), None)
-            took = None if hit is None else max(1, hit - e)
-            if took is not None and (stop_day is None or took <= stop_day - e):
-                outcomes[i][0] += 1
-            elif stop_day is not None:
-                outcomes[i][1] += 1
-            else:
-                outcomes[i][2] += 1
-            for m, f in methods.items():
-                pred = sessions(f(hc, hh, hl), (t - p["entry"]) / p["atr"])
-                if pred is None:
-                    untimed_hit[m][i][0] += 1
-                    untimed_hit[m][i][1] += took is not None
+        for m, f in methods.items():
+            table = f(hc, hh, hl)
+            for i, t in enumerate(p["targets"]):
+                hit = next((j for j in range(max(e, 0), e + WATCH + 1) if fh[j] >= t), None)
+                took = None if hit is None else max(1, hit - e)
+                atrs = (t - p["entry"]) / p["atr"]
+                est = [interp(table, atrs, k) for k in range(3)]
+                if est[1] is None:
+                    untimed[m][i][0] += 1
+                    untimed[m][i][1] += took is not None
                 elif took is not None:
-                    calib[m][i].append((pred, took))
-    print(f"stocks {len(sample)}, failed {failed}; plans entered early enough to watch {WATCH} sessions: {plans}")
-    for i in range(3):
-        o = outcomes[i]
-        tot = sum(o) or 1
-        print(f"T{i+1} outcome in {WATCH} sessions: target first {o[0]/tot:.0%}, stop first {o[1]/tot:.0%}, neither {o[2]/tot:.0%}")
-        if rates[i]:
-            print(f"   past hit rate (rise within 40 sessions) at this distance: median {statistics.median(rates[i]):.0%}")
+                    calib[m][i].append((est, took))
+    print(f"stocks {len(sample)}, failed {failed}; plans watched {WATCH} sessions after entry: {plans}")
     for m in methods:
         print("==", m)
         for i in range(3):
@@ -209,10 +201,11 @@ def main():
             print(line)
             rows = calib[m][i]
             if rows:
-                by = sum(1 for p_, t_ in rows if t_ <= p_) / len(rows)
-                ratio = statistics.median(t_ / p_ for p_, t_ in rows)
-                print(f"     hits with an estimate: {len(rows)}; hit by the estimate {by:.0%}; actual/estimate median {ratio:.2f}")
-            u = untimed_hit[m][i]
+                by = sum(1 for e_, t_ in rows if t_ <= round(e_[1])) / len(rows)
+                inside = sum(1 for e_, t_ in rows if round(e_[0]) <= t_ <= round(e_[2])) / len(rows)
+                ratio = statistics.median(t_ / e_[1] for e_, t_ in rows)
+                print(f"     hits with an estimate: {len(rows)}; by the estimate {by:.0%}; inside q1-q3 {inside:.0%}; actual/estimate median {ratio:.2f}")
+            u = untimed[m][i]
             if u[0]:
                 print(f"     untimed plans: {u[0]}, target hit in {WATCH}: {u[1]/u[0]:.0%}")
 
