@@ -7,7 +7,8 @@ enum class Metric(val key: String, val stops: List<Double>) {
     VOLUME("volume", listOf(10_000.0, 50_000.0, 100_000.0, 500_000.0, 1_000_000.0, 5_000_000.0, 10_000_000.0)),
     TURNOVER("turnover", listOf(0.5, 1.0, 5.0, 10.0, 25.0, 50.0, 100.0, 500.0)),
     RVOL("rvol", listOf(0.5, 1.0, 1.5, 2.0, 3.0, 5.0, 10.0)),
-    CHANGE("change", listOf(-20.0, -10.0, -5.0, 0.0, 5.0, 10.0, 20.0, 50.0)),
+    /** Five days mostly move a few percent, so stops run 1% apart within ±10% and widen beyond. */
+    CHANGE("change", listOf(-20.0, -15.0) + (-10..10).map { it.toDouble() } + listOf(15.0, 20.0, 30.0, 50.0)),
 
     /** Percent below the 20-day high; negative values are breakouts above it. "≤ 3%" keeps stocks near resistance. */
     FROM_HIGH("high20", listOf(-10.0, -5.0, -2.0, 0.0, 1.0, 2.0, 3.0, 5.0, 8.0, 10.0, 15.0, 25.0)),

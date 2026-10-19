@@ -108,6 +108,10 @@ class ScanFiltersTest {
         assertNull(metric.valueAt(metric.lastPosition))
         // Negative stops work too: 2% above the 20-day high sits at the third stop.
         assertEquals(3, Metric.FROM_HIGH.positionOf(-2.0, upper = false))
+        // 5D change steps 1% at a time within ±10%, and keeps the wider stops older saved filters used.
+        for (percent in -10..10) assertTrue(percent.toDouble() in Metric.CHANGE.stops)
+        assertTrue(Metric.CHANGE.stops.containsAll(listOf(-20.0, -5.0, 5.0, 20.0, 50.0)))
+        assertEquals(1.0, Metric.CHANGE.valueAt(Metric.CHANGE.positionOf(0.0, upper = false) + 1)!!, 0.0)
         for (each in Metric.entries) assertEquals(each.stops.sorted(), each.stops)
     }
 
