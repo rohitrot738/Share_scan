@@ -153,6 +153,8 @@ def main():
             failed += 1
             continue
         time.sleep(0.12)
+        if len(c) < 60:
+            continue  # a fresh listing: too short a chart to plan or time
         tc, th, tl = c[-HIST:], h[-HIST:], l[-HIST:]
         p = plan(tc, th, tl)
         if p:
