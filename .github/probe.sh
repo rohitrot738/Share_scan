@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Temporary: checks which data sources the app can use for live scans and sectors. Remove before merging.
 set -u
-UA="Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124 Mobile Safari/537.36"
+UA="ShareScan/1.0 (Android)"
 echo "now UTC: $(date -u) | IST: $(TZ=Asia/Kolkata date)"
-fetch() { curl -sS -m 30 -A "$UA" -H "Accept: */*" "${@:2}" -o /tmp/p.bin -w "%{http_code} %{size_download}" "$1"; }
+fetch() { curl -sS -m 30 -A "$UA" -H "Accept: application/json,text/plain,*/*" "${@:2}" -o /tmp/p.bin -w "%{http_code} %{size_download}" "$1"; }
 
 for t in RELIANCE.NS HBLENGINE.NS %5ENSEI 500325.BO; do
   echo "== yahoo chart $t"
@@ -15,7 +15,8 @@ try:
     r = d['chart']['result'][0]; m = r['meta']
     ist = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
     f = lambda s: datetime.datetime.fromtimestamp(s, ist).strftime('%a %d %b %H:%M') if s else s
-    print({k: m.get(k) for k in ('currency','exchangeName','instrumentType','regularMarketPrice','chartPreviousClose','regularMarketVolume','dataGranularity','range','hasPrePostMarketData','gmtoffset','exchangeTimezoneName')})
+    print({k: m.get(k) for k in ('currency','exchangeName','instrumentType','regularMarketPrice','chartPreviousClose','regularMarketVolume','regularMarketDayHigh','dataGranularity','range','hasPrePostMarketData','gmtoffset','exchangeTimezoneName')})
+    print('meta keys', sorted(m.keys()))
     print('regularMarketTime', f(m.get('regularMarketTime')))
     ctp = m.get('currentTradingPeriod', {})
     for k, v in ctp.items(): print('period', k, f(v.get('start')), '->', f(v.get('end')))
@@ -27,36 +28,47 @@ except Exception as e:
 PY
 done
 
-echo "== yahoo spark v7"; fetch "https://query1.finance.yahoo.com/v7/finance/spark?symbols=RELIANCE.NS,TCS.NS,INFY.NS&range=1d&interval=5m"; echo; head -c 400 /tmp/p.bin; echo
-echo "== yahoo spark v8"; fetch "https://query1.finance.yahoo.com/v8/finance/spark?symbols=RELIANCE.NS,TCS.NS,INFY.NS&range=1d&interval=1d"; echo; head -c 400 /tmp/p.bin; echo
+echo "== yahoo spark v8"; fetch "https://query1.finance.yahoo.com/v8/finance/spark?symbols=RELIANCE.NS,TCS.NS,INFY.NS&range=1d&interval=1d"; echo; head -c 600 /tmp/p.bin; echo
+echo "== yahoo spark v7"; fetch "https://query1.finance.yahoo.com/v7/finance/spark?symbols=RELIANCE.NS,TCS.NS,INFY.NS&range=1d&interval=5m"; echo; head -c 300 /tmp/p.bin; echo
 echo "== yahoo quote v7"; fetch "https://query1.finance.yahoo.com/v7/finance/quote?symbols=RELIANCE.NS,TCS.NS"; echo; head -c 300 /tmp/p.bin; echo
 
-for u in \
-  https://archives.nseindia.com/content/indices/ind_nifty500list.csv \
-  https://nsearchives.nseindia.com/content/indices/ind_nifty500list.csv \
-  https://archives.nseindia.com/content/indices/ind_niftytotalmarket_list.csv \
-  https://nsearchives.nseindia.com/content/indices/ind_niftytotalmarket_list.csv \
-  https://archives.nseindia.com/content/indices/ind_niftymicrocap250_list.csv \
-  https://nsearchives.nseindia.com/content/indices/ind_niftymicrocap250_list.csv \
-  https://www.niftyindices.com/IndexConstituent/ind_niftytotalmarket_list.csv \
-  https://www.niftyindices.com/IndexConstituent/ind_niftymicrocap250_list.csv; do
-  echo "== $u"; fetch "$u" -H "Referer: https://www.nseindia.com/"; echo
-  head -c 250 /tmp/p.bin; echo; echo "rows: $(wc -l < /tmp/p.bin)"
-  python3 -c "
-import csv,collections
-rows=list(csv.DictReader(open('/tmp/p.bin',encoding='utf-8-sig',errors='replace')))
-if rows and 'Industry' in rows[0]:
-  c=collections.Counter(r['Industry'] for r in rows); print(len(c),'industries:',c.most_common(30))
-" 2>/dev/null
+# Intraday volume profile: share of a full session's volume traded by each time of day, from 5-minute bars.
+echo "== intraday volume profile"
+: > /tmp/profiles.jsonl
+for t in RELIANCE TCS HDFCBANK INFY ICICIBANK SBIN ITC LT BHARTIARTL AXISBANK TATAMOTORS MARUTI SUNPHARMA HCLTECH BAJFINANCE \
+         HBLENGINE MOLBIO SAMBHV INDHOTEL TRENT DIXON POLYCAB KPITTECH IRFC SUZLON YESBANK IDEA PNB BEL HAL \
+         CDSL BSE ANGELONE KAYNES SONACOMS TITAGARH RVNL NBCC NHPC IREDA JIOFIN ZOMATO PAYTM DELHIVERY NYKAA; do
+  fetch "https://query1.finance.yahoo.com/v8/finance/chart/$t.NS?range=60d&interval=5m" > /dev/null
+  python3 - "$t" >> /tmp/profiles.jsonl <<'PY'
+import json, sys, datetime, collections
+ist = datetime.timezone(datetime.timedelta(hours=5, minutes=30))
+try:
+    r = json.load(open('/tmp/p.bin'))['chart']['result'][0]
+except Exception:
+    sys.exit()
+ts = r.get('timestamp') or []; v = r['indicators']['quote'][0]['volume']
+days = collections.defaultdict(list)
+for s, vol in zip(ts, v):
+    if vol is None: continue
+    t = datetime.datetime.fromtimestamp(s, ist)
+    days[t.date()].append(((t.hour * 60 + t.minute) - 555, vol))
+for day, bars in days.items():
+    total = sum(b for _, b in bars)
+    if total <= 0 or len(bars) < 70: continue
+    print(json.dumps({'sym': sys.argv[1], 'day': str(day), 'bars': bars, 'total': total}))
+PY
 done
-
-echo "== bse scrip list"
-fetch "https://api.bseindia.com/BseIndiaAPI/api/ListofScripData/w?Group=&Scripcode=&industry=&segment=Equity&status=Active" -H "Referer: https://www.bseindia.com/" -H "Origin: https://www.bseindia.com"; echo
-head -c 600 /tmp/p.bin; echo
-python3 -c "
-import json,collections
-d=json.load(open('/tmp/p.bin'))
-print(type(d), len(d)); print(d[0] if isinstance(d,list) else list(d)[:5])
-c=collections.Counter((r.get('INDUSTRY') or r.get('Industry') or '') for r in d); print(len(c),'industries', c.most_common(15))
-print('with ISIN', sum(1 for r in d if (r.get('ISIN_NUMBER') or r.get('ISIN'))))
-" 2>&1 | head -12
+python3 - <<'PY'
+import json, statistics
+rows = [json.loads(l) for l in open('/tmp/profiles.jsonl')]
+print('sessions', len(rows), 'stocks', len({r['sym'] for r in rows}))
+marks = [5, 10, 15, 30, 45, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 345, 360, 370, 375]
+for m in marks:
+    shares = []
+    for r in rows:
+        # A 5-minute bar starting at minute s covers s..s+5; it is done by minute m when s + 5 <= m.
+        done = sum(v for s, v in r['bars'] if s + 5 <= m)
+        shares.append(done / r['total'])
+    shares.sort()
+    print(f"min {m:3d} ({9 + (15 + m) // 60}:{(15 + m) % 60:02d}) median {statistics.median(shares):.3f} p25 {shares[len(shares)//4]:.3f} p75 {shares[3*len(shares)//4]:.3f}")
+PY
