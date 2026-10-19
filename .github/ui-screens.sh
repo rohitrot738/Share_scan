@@ -198,7 +198,9 @@ adb shell "run-as $PKG cp /data/local/tmp/scan2.gz files/last_scan.gz"
 STATE='{&quot;RELIANCE&quot;:{&quot;ph&quot;:&quot;WAITING&quot;,&quot;p&quot;:1.0,&quot;e&quot;:2.0,&quot;s&quot;:1.5,&quot;t&quot;:[1.0E9,2.0E9,3.0E9],&quot;h&quot;:0,&quot;since&quot;:0}}'
 set_prefs "<string name=\"theme\">galaxy</string><boolean name=\"sky_animation\" value=\"false\" />$WATCH<string name=\"watch_states\">$STATE</string>"
 adb logcat -c
-# A force-stop drops the app's jobs until it next starts: open it so WorkManager puts them back, then leave it.
+# WorkManager skips a periodic job forced before its 15 minutes are up, so forget the schedule instead: on the next
+# start the app enqueues live mode afresh and its first run starts at once, as when the user turns live mode on.
+adb shell "run-as $PKG sh -c 'rm -f databases/androidx.work.workdb* no_backup/androidx.work.workdb*'"
 launch
 sleep 8
 adb shell input keyevent HOME
@@ -209,8 +211,12 @@ for i in $(seq 1 40); do
   if notes | grep -q "breakout"; then echo "alerts after $((i * 20))s"; break; fi
 done
 notes | tee "$OUT/notifications.txt"
+adb shell dumpsys jobscheduler | grep -B2 -A12 "$PKG/androidx.work" > "$OUT/jobs.txt" 2>&1
 adb shell cmd statusbar expand-notifications; sleep 3
 snap 9-notifications
 adb shell cmd statusbar collapse
+# The app as the background scan left it, opened without a restart.
+adb shell am start -W -n "$PKG/.MainActivity" > /dev/null
+shot 9-after-job 4
 adb logcat -d -s WM-WorkerWrapper:I WM-SystemJobService:I ShareScan:V AndroidRuntime:E > "$OUT/worker-log.txt" 2>&1
 kill %1 2>/dev/null
