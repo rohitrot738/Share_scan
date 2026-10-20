@@ -1,0 +1,155 @@
+[
+  {
+    "version": "",
+    "date": "2026-10-20",
+    "items": [
+      "About में \"क्या नया है\": app के सभी updates की सूची, हर version के बदलावों के साथ",
+      "GitHub पर हर नए release के साथ भी उसके बदलाव लिखे आएँगे"
+    ]
+  },
+  {
+    "version": "1.2.120",
+    "date": "2026-10-20",
+    "items": [
+      "5D बदलाव filter अब −10% से +10% तक 1-1% के कदम पर चलता है",
+      "नया \"शांत दायरा\" filter: 1, 2, 3 या 4 हफ्ते में stock कितने high–low दायरे में रहा — Breakout और Support दोनों scans में",
+      "Trade plan के हर target के साथ: entry के बाद लगभग कितने दिन में लग सकता है (NSE के पिछले data से अनुमान)"
+    ]
+  },
+  {
+    "version": "1.2.119",
+    "date": "2026-10-20",
+    "items": [
+      "Support scan के अपने अलग Filters: हर metric, sector और Top limit, Breakout scan से अलग याद रहते हैं"
+    ]
+  },
+  {
+    "version": "1.2.118",
+    "date": "2026-10-19",
+    "items": [
+      "नया Support scan: ऐसे stocks जो 6 महीने से एक भाव के नीचे बंद नहीं हुए, जबकि बार-बार उस तक आए",
+      "ऊपर Breakout / Support switch, और support से दूरी (5%, 10%, 20%) के chips",
+      "Card और detail में support का भाव, उम्र और कितनी बार टिका; score में मज़बूत support का +5 तक bonus",
+      "Chart अब 3 की जगह 6 महीने का"
+    ]
+  },
+  {
+    "version": "1.2.117",
+    "date": "2026-10-19",
+    "items": [
+      "Watchlist में Back या ✕ दबाने पर पूरी list पर वापसी",
+      "★ लगाया हर stock watchlist में हमेशा दिखेगा, अगले scan में न आए तब भी"
+    ]
+  },
+  {
+    "version": "1.2.116",
+    "date": "2026-10-19",
+    "items": [
+      "Score, RVOL, 5D बदलाव और Price की sorting उल्टी भी (कम से ज़्यादा): वही chip दोबारा दबाएँ"
+    ]
+  },
+  {
+    "version": "1.2.115",
+    "date": "2026-10-19",
+    "items": [
+      "Live market scan: बाज़ार खुले रहते RVOL अब तक के volume से पूरे दिन के हिसाब में, LIVE status, और पिछला scan याद रहता है",
+      "Background में अपने-आप scan और नए breakout पर notification",
+      "Menu → स्कैन: exchanges और sectors चुनकर सिर्फ़ उन्हीं का scan",
+      "Watchlist alerts: entry, stop-loss और targets पर notification",
+      "रोज़ के top picks का track record, Nifty 50 से तुलना के साथ",
+      "हर stock का sector, sector filter और sector strength",
+      "Login करने पर watchlist cloud में sync"
+    ]
+  },
+  {
+    "version": "1.2.114",
+    "date": "2026-10-19",
+    "items": [
+      "Animation बंद होने पर आसमान स्थिर रहता है",
+      "Glass effect बंद करने का switch"
+    ]
+  },
+  {
+    "version": "1.2.113",
+    "date": "2026-10-19",
+    "items": [
+      "हर जगह chips पर glass, पतले glass sliders",
+      "आसमान अब Galaxy की ओर उड़ता हुआ"
+    ]
+  },
+  {
+    "version": "1.2.112",
+    "date": "2026-10-18",
+    "items": [
+      "हर theme का अपना आसमान और 6 नए themes",
+      "Glass modes और frosted scan board",
+      "चलता scan बीच में रोकने का button",
+      "Login: Google, Email/password या GitHub से"
+    ]
+  },
+  {
+    "version": "1.2.111",
+    "date": "2026-10-18",
+    "items": [
+      "असली Milky Way जैसा आसमान",
+      "असली glass जैसे switches और chips"
+    ]
+  },
+  {
+    "version": "1.2.110",
+    "date": "2026-10-18",
+    "items": [
+      "चलता-फिरता Galaxy आसमान",
+      "Glass वाले toggles और दबाने पर effect"
+    ]
+  },
+  {
+    "version": "1.2.109",
+    "date": "2026-10-18",
+    "items": [
+      "Menu की हर sheet में Back और बंद करने के buttons"
+    ]
+  },
+  {
+    "version": "1.2.108",
+    "date": "2026-10-18",
+    "items": [
+      "Cards पर exchange badge (NSE, SME, BSE)",
+      "NSE on/off switch और बड़ा SCAN button",
+      "पूरे market का scan अब बिना रुके पूरा होता है"
+    ]
+  },
+  {
+    "version": "1.2.107",
+    "date": "2026-10-17",
+    "items": [
+      "Company के नाम से search, search bar ऊपर",
+      "चाहें तो NSE SME (Emerge) और सिर्फ़ BSE वाले stocks भी scan करें"
+    ]
+  },
+  {
+    "version": "1.2.106",
+    "date": "2026-10-17",
+    "items": [
+      "ऊपर Menu: Settings, Themes, Update check, Score guide (Help) और About"
+    ]
+  },
+  {
+    "version": "1.2.104",
+    "date": "2026-10-17",
+    "items": [
+      "नया version आने पर app में update banner"
+    ]
+  },
+  {
+    "version": "1.2.102",
+    "date": "2026-10-17",
+    "items": [
+      "नया Galaxy design",
+      "Breakout signals से नया score: breakout, trend, volume, liquidity और momentum",
+      "Filters: market cap, price, volume, RVOL और बाकी metrics",
+      "Stock detail: chart, trade plan (entry, stop-loss, targets) और score का हिसाब",
+      "Watchlist (★), NEW / rank badges, search और share"
+    ]
+  }
+]
