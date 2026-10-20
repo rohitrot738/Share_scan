@@ -190,6 +190,9 @@ class StockDetailSheet(
                 accent = R.color.bull,
                 container = R.color.bull_container,
                 onContainer = R.color.bull,
+                time = plan.targetSessions[index].let { days ->
+                    activity.getString(R.string.detail_plan_target_time, days.first, days.last)
+                },
             )
         }
 
@@ -238,6 +241,7 @@ class StockDetailSheet(
         @ColorRes accent: Int,
         @ColorRes container: Int,
         @ColorRes onContainer: Int,
+        time: String? = null,
     ) {
         val row = ItemDetailLevelBinding.inflate(activity.layoutInflater, ui.detailLevels, true)
         val fromPrice = TradePlan.formatPercent(plan.fromPrice(value))
@@ -245,18 +249,23 @@ class StockDetailSheet(
         row.levelDot.backgroundTintList = ColorStateList.valueOf(color(accent))
         row.levelName.text = name
         row.levelNote.text = note
+        row.levelTime.isVisible = time != null
+        row.levelTime.text = time.orEmpty()
+        row.levelTime.setTextColor(color(onContainer))
         row.levelPrice.text = rupees(value)
         row.levelPercent.text = fromPrice
         row.levelR.text = multiple
         row.levelR.setTextColor(color(onContainer))
         row.levelR.backgroundTintList = ColorStateList.valueOf(color(container))
-        row.root.contentDescription = activity.getString(
+        val description = activity.getString(
             R.string.detail_plan_level_description,
             name,
             StockFormat.price(value),
             fromPrice,
             multiple,
         )
+        row.root.contentDescription =
+            if (time == null) description else activity.getString(R.string.detail_plan_level_time_description, description, time)
     }
 
     private fun bindScore() {

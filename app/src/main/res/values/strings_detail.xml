@@ -31,9 +31,13 @@
     <string name="detail_plan_stop_min_atr">Entry से 1 ATR नीचे (10D low बहुत पास)</string>
     <string name="detail_plan_target">Target %1$d</string>
     <string name="detail_plan_target_note">मुनाफ़ा ₹%1$s प्रति share</string>
+    <!-- About how long a target takes after the entry when it is reached, in trading sessions: "5–15". -->
+    <string name="detail_plan_target_time">⏱ entry के बाद लगभग %1$d–%2$d दिन</string>
+    <string name="detail_plan_time_note">⏱ समय: NSE के 800 stocks के data में, entry से target तक जितनी दूरी (ATR में) हो, उतने दूर के target जब लगे तो आधे मौकों पर entry के बाद इतने कारोबारी दिनों में लगे; बाकी इससे जल्दी या देर से। कई बार target से पहले stop लग जाता है • यह अनुमान है, गारंटी नहीं।</string>
     <string name="detail_plan_risk">1R (risk) = ₹%1$s प्रति share · entry का %2$s</string>
     <string name="detail_plan_extended">भाव 20D high से %1$s ATR ऊपर निकल चुका है — इस भाव पर chase करना जोखिम भरा है।</string>
     <string name="detail_plan_level_description">%1$s: ₹%2$s, अभी के भाव से %3$s, %4$s</string>
+    <string name="detail_plan_level_time_description">%1$s, %2$s</string>
 
     <string name="detail_section_score">Score कैसे बना</string>
     <string name="detail_score_subtitle">हर हिस्सा 0 से 100 · वज़न = कुल score में हिस्सा</string>

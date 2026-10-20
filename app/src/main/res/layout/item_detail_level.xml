@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- One trade-plan level: name and how it was chosen, price and % from the current price, R-multiple. -->
+<!-- One trade-plan level: name and how it was chosen (and, for a target, about how long it may take), price and %
+     from the current price, R-multiple. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -41,6 +42,16 @@
             android:maxLines="1"
             android:textColor="@color/text_secondary"
             android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/levelTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="11sp"
+            android:visibility="gone" />
     </LinearLayout>
 
     <LinearLayout

@@ -23,6 +23,14 @@ class TradePlanTest {
     }
 
     @Test
+    fun targetsAreTimedByTheirDistanceInAtrs() {
+        // Risk is 2 ATR, so the targets sit 3, 5 and 8 ATRs above the entry.
+        val plan = TradePlan.of(price = 100.0, high20 = 105.0, low10 = 95.0, atr14 = 2.0)!!
+        assertEquals(listOf(3.0, 5.0, 8.0).map(TargetTimes::sessions), plan.targetSessions)
+        assertEquals(5..15, plan.targetSessions[0])
+    }
+
+    @Test
     fun aboveTheTriggerEntryIsTheCurrentPrice() {
         val plan = TradePlan.of(price = 110.0, high20 = 105.0, low10 = 108.5, atr14 = 2.0)!!
         assertEquals(TradePlan.EntryKind.MARKET, plan.entryKind)

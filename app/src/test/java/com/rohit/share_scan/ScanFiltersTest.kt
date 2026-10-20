@@ -66,6 +66,39 @@ class ScanFiltersTest {
     }
 
     @Test
+    fun theRangeFilterSpansTheChosenWeeks() {
+        val structure = PriceStructure(
+            closes = listOf(99.0, 100.0),
+            high20 = 104.0,
+            low10 = 97.0,
+            atr14 = 1.0,
+            sma20 = 100.0,
+            sma50 = 98.0,
+            high10 = 101.0,
+            weekRanges = listOf(2.0, 4.0, 7.0, 12.0),
+        )
+        val calm = ScanResult("CALM", 100.0, 60.0, 1.0, 0.5, structure = structure)
+        val withinFive = ScanFilters().with(Metric.BASE_RANGE, Bound(max = 5.0))
+        assertEquals(BreakoutSignals.BASE_WEEKS, withinFive.rangeWeeks)
+        assertTrue(withinFive.accepts(calm))
+        assertTrue(withinFive.copy(rangeWeeks = 1).accepts(calm))
+        assertFalse(withinFive.copy(rangeWeeks = 3).accepts(calm))
+        assertEquals(12.0, Metric.BASE_RANGE.read(calm, rangeWeeks = 4)!!, 0.0)
+        // A scan saved before the weekly ranges knows only the two-week base.
+        val older = calm.copy(structure = structure.copy(weekRanges = emptyList()))
+        assertEquals(4.0 / 99.0 * 100.0, older.rangePct(2)!!, 1e-9)
+        assertNull(older.rangePct(4))
+        assertFalse(withinFive.copy(rangeWeeks = 4).accepts(older))
+        // Range stops step 1% up to 10%.
+        for (percent in 1..10) assertTrue(percent.toDouble() in Metric.BASE_RANGE.stops)
+
+        val threeWeeks = withinFive.copy(rangeWeeks = 3)
+        assertEquals(threeWeeks, ScanFilters.decode(threeWeeks.encode()))
+        assertFalse("weeks" in withinFive.encode())
+        assertEquals(BreakoutSignals.BASE_WEEKS, ScanFilters.decode("limit=50;weeks=9").rangeWeeks)
+    }
+
+    @Test
     fun clearingABoundRemovesIt() {
         val filters = ScanFilters().with(Metric.RVOL, Bound(min = 2.0)).with(Metric.RVOL, Bound())
         assertEquals(0, filters.activeCount)
@@ -108,6 +141,10 @@ class ScanFiltersTest {
         assertNull(metric.valueAt(metric.lastPosition))
         // Negative stops work too: 2% above the 20-day high sits at the third stop.
         assertEquals(3, Metric.FROM_HIGH.positionOf(-2.0, upper = false))
+        // 5D change steps 1% at a time within ±10%, and keeps the wider stops older saved filters used.
+        for (percent in -10..10) assertTrue(percent.toDouble() in Metric.CHANGE.stops)
+        assertTrue(Metric.CHANGE.stops.containsAll(listOf(-20.0, -5.0, 5.0, 20.0, 50.0)))
+        assertEquals(1.0, Metric.CHANGE.valueAt(Metric.CHANGE.positionOf(0.0, upper = false) + 1)!!, 0.0)
         for (each in Metric.entries) assertEquals(each.stops.sorted(), each.stops)
     }
 

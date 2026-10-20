@@ -34,6 +34,7 @@ class FilterSheet(
     private val ui = SheetFiltersBinding.inflate(activity.layoutInflater)
     private val rows = LinkedHashMap<Metric, ItemFilterMetricBinding>()
     private val presetChips = mutableListOf<Pair<Chip, Bound>>()
+    private val weekChips = mutableMapOf<Int, Chip>()
     private val limitChips = mutableMapOf<Int, Int>()
     private val sectorChips = mutableMapOf<String, Chip>()
     private var draft = filters
@@ -92,6 +93,7 @@ class FilterSheet(
             }
         }
         if (metric == Metric.MARKET_CAP) addMarketCapPresets(row)
+        if (metric == Metric.BASE_RANGE) addWeekChips(row)
     }
 
     private fun addMarketCapPresets(row: ItemFilterMetricBinding) {
@@ -106,6 +108,21 @@ class FilterSheet(
                 sync()
             }
             presetChips += chip to bound
+        }
+    }
+
+    /** One chip per span the range can cover, 1–4 weeks; one is always picked. */
+    private fun addWeekChips(row: ItemFilterMetricBinding) {
+        row.metricPresets.isVisible = true
+        for (weeks in ScanFilters.RANGE_WEEKS) {
+            val chip = ChipChoiceBinding.inflate(activity.layoutInflater, row.metricPresets, true).root
+            chip.text = StockFormat.weeks(weeks)
+            chip.isCheckable = true
+            chip.setOnClickListener {
+                draft = draft.copy(rangeWeeks = weeks)
+                syncLabels()
+            }
+            weekChips[weeks] = chip
         }
     }
 
@@ -173,6 +190,7 @@ class FilterSheet(
         }
         val capBound = draft.bound(Metric.MARKET_CAP)
         for ((chip, bound) in presetChips) chip.isChecked = bound == capBound
+        for ((weeks, chip) in weekChips) chip.isChecked = weeks == draft.rangeWeeks
         for ((sector, chip) in sectorChips) chip.isChecked = sector in draft.sectors
 
         val scanned = pool

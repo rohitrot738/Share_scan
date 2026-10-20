@@ -51,12 +51,21 @@ object BreakoutSignals {
     /** The support floor's bonus: its strength (0–100) times this, added to the weighted parts. */
     const val SUPPORT_BONUS = 0.05
 
+    /** Sessions in a trading week. */
+    const val WEEK_SESSIONS = 5
+
+    /** The base the score judges spans this many weeks, ten sessions. */
+    const val BASE_WEEKS = 2
+
+    /** The longest span [PriceStructure.weekRanges] covers; [MIN_SESSIONS] candles always reach back that far. */
+    const val MAX_RANGE_WEEKS = 4
+
     private const val CHART_CLOSES = 60
 
     /** How many past sessions get a score of their own, for the track record; the 50-day average limits it too. */
     const val PAST_SESSIONS = 12
     private const val SMA50_SESSIONS = 50
-    private const val BASE_SESSIONS = 10
+    private const val BASE_SESSIONS = BASE_WEEKS * WEEK_SESSIONS
     private const val VOLATILITY_SESSIONS = 50
     private const val LOW_KNEE = 15.0
     private const val HIGH_KNEE = 85.0
@@ -181,6 +190,10 @@ object BreakoutSignals {
             sma20 = sma20,
             sma50 = sma50,
             high10 = high10,
+            weekRanges = (1..MAX_RANGE_WEEKS).map { weeks ->
+                val from = n - weeks * WEEK_SESSIONS
+                rangePct(highest(high, from, n), lowest(low, from, n))
+            },
         )
 
         // The stock's normal daily swing: mean true range as a percent of price over up to 50 sessions. It is the

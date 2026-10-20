@@ -22,6 +22,7 @@ import kotlin.math.roundToLong
  *   normal day's range hits it ([StopKind.MIN_ATR]; Python keeps at least 0.8 ATR), never further than the
  *   ATR stop, so the tighter of the structure stop and the 2-ATR stop wins ([StopKind.MAX_ATR]).
  * - **Risk** (1R) = entry − stop. **Targets** = entry + [TARGET_R] × R, i.e. 1.5R, 2.5R and 4R as in Python.
+ * - **Time** to each target: the sessions it typically takes after the entry, from its distance in ATRs ([TargetTimes]).
  *
  * [of] returns null when an input is missing or not positive, or when the stop would not be above zero.
  */
@@ -39,6 +40,8 @@ data class TradePlan(
     val stopKind: StopKind,
     /** Ascending: 1.5R, 2.5R and 4R above the entry. */
     val targets: List<Double>,
+    /** About how many sessions after the entry each of [targets] takes when it is reached ([TargetTimes.sessions]). */
+    val targetSessions: List<IntRange>,
 ) {
     enum class EntryKind {
         /** Price is below the trigger: the entry is a buy-stop at the trigger. */
@@ -107,6 +110,7 @@ data class TradePlan(
             if (!(stop > 0.0 && stop < entry)) return null
 
             val risk = entry - stop
+            val targets = TARGET_R.map { entry + it * risk }
             return TradePlan(
                 price = price,
                 atr = atr,
@@ -116,7 +120,8 @@ data class TradePlan(
                 entryKind = if (broken) EntryKind.MARKET else EntryKind.BREAKOUT,
                 stop = stop,
                 stopKind = stopKind,
-                targets = TARGET_R.map { entry + it * risk },
+                targets = targets,
+                targetSessions = targets.map { TargetTimes.sessions((it - entry) / atr) },
             )
         }
 

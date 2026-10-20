@@ -7,13 +7,17 @@ enum class Metric(val key: String, val stops: List<Double>) {
     VOLUME("volume", listOf(10_000.0, 50_000.0, 100_000.0, 500_000.0, 1_000_000.0, 5_000_000.0, 10_000_000.0)),
     TURNOVER("turnover", listOf(0.5, 1.0, 5.0, 10.0, 25.0, 50.0, 100.0, 500.0)),
     RVOL("rvol", listOf(0.5, 1.0, 1.5, 2.0, 3.0, 5.0, 10.0)),
-    CHANGE("change", listOf(-20.0, -10.0, -5.0, 0.0, 5.0, 10.0, 20.0, 50.0)),
+    /** Five days mostly move a few percent, so stops run 1% apart within ±10% and widen beyond. */
+    CHANGE("change", listOf(-20.0, -15.0) + (-10..10).map { it.toDouble() } + listOf(15.0, 20.0, 30.0, 50.0)),
 
     /** Percent below the 20-day high; negative values are breakouts above it. "≤ 3%" keeps stocks near resistance. */
     FROM_HIGH("high20", listOf(-10.0, -5.0, -2.0, 0.0, 1.0, 2.0, 3.0, 5.0, 8.0, 10.0, 15.0, 25.0)),
 
-    /** Width of the latest 10-session base in percent; "≤ 8%" keeps tight consolidations. */
-    BASE_RANGE("base", listOf(2.0, 3.0, 4.0, 5.0, 6.0, 8.0, 10.0, 12.0, 15.0, 20.0, 30.0)),
+    /**
+     * Width of the latest 1–4 weeks ([ScanFilters.rangeWeeks]) in percent, highest high to lowest low; "≤ 5%" keeps
+     * calm stocks that went neither far up nor far down. Stops run 1% apart up to 10%.
+     */
+    BASE_RANGE("base", (1..10).map { it.toDouble() } + listOf(12.0, 15.0, 20.0, 25.0, 30.0)),
 
     /** Percent above (+) or below (-) the 50-day average; "≥ 0%" keeps stocks in an uptrend. */
     VS_SMA50("sma50", listOf(-20.0, -10.0, -5.0, 0.0, 5.0, 10.0, 20.0, 30.0, 50.0)),
@@ -25,7 +29,8 @@ enum class Metric(val key: String, val stops: List<Double>) {
     SUPPORT_GAP("supgap", listOf(0.0, 2.0, 5.0, 10.0, 15.0, 20.0, 30.0, 50.0)),
     SCORE("score", listOf(20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0, 90.0));
 
-    fun read(stock: ScanResult): Double? = when (this) {
+    /** This metric's value for [stock]; [BASE_RANGE] spans [rangeWeeks] weeks. */
+    fun read(stock: ScanResult, rangeWeeks: Int = BreakoutSignals.BASE_WEEKS): Double? = when (this) {
         MARKET_CAP -> stock.marketCapCr
         PRICE -> stock.price
         VOLUME -> stock.volume
@@ -33,7 +38,7 @@ enum class Metric(val key: String, val stops: List<Double>) {
         RVOL -> stock.rvol
         CHANGE -> stock.change5d
         FROM_HIGH -> stock.belowHigh20Pct
-        BASE_RANGE -> stock.baseRangePct
+        BASE_RANGE -> stock.rangePct(rangeWeeks)
         VS_SMA50 -> stock.vsSma50Pct
         SUPPORT_AGE -> stock.support?.ageSessions?.toDouble()
         SUPPORT_GAP -> stock.support?.distancePct(stock.price)
@@ -73,6 +78,8 @@ data class ScanFilters(
     val limit: Int = DEFAULT_LIMIT,
     /** Industries to keep ([ScanResult.sector]); empty keeps every stock, with or without one. */
     val sectors: Set<String> = emptySet(),
+    /** Weeks [Metric.BASE_RANGE] spans, one of [RANGE_WEEKS]. */
+    val rangeWeeks: Int = BreakoutSignals.BASE_WEEKS,
 ) {
     val activeCount: Int get() = bounds.values.count { it.isActive } + if (sectors.isEmpty()) 0 else 1
 
@@ -82,10 +89,12 @@ data class ScanFilters(
         copy(bounds = if (bound.isActive) bounds + (metric to bound) else bounds - metric)
 
     fun accepts(stock: ScanResult): Boolean =
-        (sectors.isEmpty() || stock.sector in sectors) && bounds.all { (metric, bound) -> bound.accepts(metric.read(stock)) }
+        (sectors.isEmpty() || stock.sector in sectors) &&
+            bounds.all { (metric, bound) -> bound.accepts(metric.read(stock, rangeWeeks)) }
 
     fun encode(): String = buildString {
         append("limit=").append(limit)
+        if (rangeWeeks != BreakoutSignals.BASE_WEEKS) append(";weeks=").append(rangeWeeks)
         for ((metric, bound) in bounds) {
             bound.min?.let { append(';').append(metric.key).append(".min=").append(it) }
             bound.max?.let { append(';').append(metric.key).append(".max=").append(it) }
@@ -98,6 +107,7 @@ data class ScanFilters(
         const val DEFAULT_LIMIT = 100
         private const val SECTOR_SEPARATOR = "|"
         val LIMITS = listOf(25, 50, 100, 200, 0)
+        val RANGE_WEEKS = 1..BreakoutSignals.MAX_RANGE_WEEKS
 
         fun decode(text: String?): ScanFilters {
             var filters = ScanFilters()
@@ -105,6 +115,10 @@ data class ScanFilters(
                 val (key, raw) = part.split('=', limit = 2).takeIf { it.size == 2 } ?: continue
                 if (key == "limit") {
                     raw.toIntOrNull()?.takeIf { it in LIMITS }?.let { filters = filters.copy(limit = it) }
+                    continue
+                }
+                if (key == "weeks") {
+                    raw.toIntOrNull()?.takeIf { it in RANGE_WEEKS }?.let { filters = filters.copy(rangeWeeks = it) }
                     continue
                 }
                 if (key == "sectors") {
