@@ -3,6 +3,14 @@
     "version": "",
     "date": "2026-10-20",
     "items": [
+      "App बनाने वाले के GitHub login पर Menu में \"App का इस्तेमाल\": आज, 7 दिन और 30 दिन में कितने phones पर app चला, किस version पर, और GitHub से कितने downloads",
+      "गिनती के लिए app दिन में एक बार सिर्फ़ एक random ID और अपना version भेजता है"
+    ]
+  },
+  {
+    "version": "1.2.122",
+    "date": "2026-10-20",
+    "items": [
       "Breakout और Support, दोनों scans के Filters से sector के buttons हटाए — sector अब Filters के पास वाले \"सेक्टर\" chip से चुनें"
     ]
   },

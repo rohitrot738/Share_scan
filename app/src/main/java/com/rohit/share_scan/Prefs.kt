@@ -62,6 +62,12 @@ object Prefs {
     /** Firebase uid whose cloud watchlist this phone's watchlist was last merged with. */
     const val WATCHLIST_SYNCED_UID = "watchlist_synced_uid"
 
+    /** Random id this phone counts under in [UsageCounter]; nothing else about the phone goes with it. */
+    const val INSTALL_ID = "install_id"
+
+    /** Epoch day (IST) of this phone's last [UsageCounter] check-in. */
+    const val USAGE_DAY = "usage_day"
+
     /**
      * Prefix of the industries the scan covers on one exchange ([ScanSectors.encode]), followed by the market's name in
      * lower case ("scan_sectors_nse"); missing means every industry.

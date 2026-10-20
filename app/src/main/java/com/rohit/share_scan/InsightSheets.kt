@@ -7,7 +7,9 @@ import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.rohit.share_scan.databinding.ItemDetailStatBinding
 import com.rohit.share_scan.databinding.ItemHelpBinding
 import com.rohit.share_scan.databinding.ItemRecordDayBinding
@@ -17,6 +19,7 @@ import com.rohit.share_scan.databinding.SheetListBinding
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import kotlinx.coroutines.launch
 
 /**
  * How the scan's daily picks went: a summary for 1, 5 and 10 sessions after the pick against Nifty 50, then each
@@ -181,4 +184,79 @@ class SectorSheet(
     }
 
     private fun color(@ColorRes id: Int) = ContextCompat.getColor(activity, id)
+}
+
+/** For the app's maker alone: how many phones use the app ([UsageCounter]), lately and in all. */
+class UsageSheet(
+    private val activity: AppCompatActivity,
+    private val onBack: () -> Unit,
+) {
+    private val ui = SheetListBinding.inflate(activity.layoutInflater)
+
+    fun show(): BottomSheetDialog {
+        ui.listTitle.setText(R.string.usage_title)
+        ui.listSubtitle.text = activity.getString(R.string.usage_subtitle, OWNER_LOGIN)
+        note(activity.getString(R.string.usage_loading_title), activity.getString(R.string.usage_loading_body))
+        activity.lifecycleScope.launch {
+            val report = runCatching { UsageCounter.report(activity) }
+            ui.listItems.removeAllViews()
+            report.onSuccess(::bind).onFailure(::failed)
+        }
+        return activity.showSheet(ui.root, ui.sheetTopBar, onBack, fullHeight = true)
+    }
+
+    private fun bind(report: UsageCounter.Report) {
+        val row = LinearLayout(activity).apply {
+            orientation = LinearLayout.HORIZONTAL
+            isBaselineAligned = false
+        }
+        ui.listItems.addView(row, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+        val stats = report.stats
+        listOf(
+            activity.getString(R.string.usage_today) to stats.today,
+            activity.getString(R.string.usage_days, UsageStats.WEEK_DAYS) to stats.week,
+            activity.getString(R.string.usage_days, UsageStats.MONTH_DAYS) to stats.month,
+        ).forEach { (label, phones) ->
+            val tile = ItemDetailStatBinding.inflate(activity.layoutInflater, row, true)
+            tile.statLabel.text = label
+            tile.statValue.text = StockFormat.count(phones)
+            tile.statNote.isVisible = true
+            tile.statNote.setText(R.string.usage_phones)
+            tile.root.contentDescription = listOf(label, tile.statValue.text, tile.statNote.text).joinToString(", ")
+        }
+        note(
+            activity.getString(R.string.usage_total_title),
+            activity.getString(R.string.usage_total_body, StockFormat.count(report.phones.toInt())) + "\n" +
+                (report.downloads?.let { activity.getString(R.string.usage_downloads, StockFormat.count(it)) }
+                    ?: activity.getString(R.string.usage_downloads_unknown)),
+        )
+        if (stats.versions.isNotEmpty()) {
+            note(
+                activity.getString(R.string.usage_versions_title, UsageStats.MONTH_DAYS),
+                stats.versions.joinToString("\n") { (version, phones) ->
+                    activity.getString(R.string.usage_version_line, version, StockFormat.count(phones))
+                },
+            )
+        }
+        note(activity.getString(R.string.usage_how_title), activity.getString(R.string.usage_how_body))
+    }
+
+    private fun failed(error: Throwable) {
+        val denied = (error as? FirebaseFirestoreException)?.code == FirebaseFirestoreException.Code.PERMISSION_DENIED
+        if (denied) {
+            note(activity.getString(R.string.usage_rules_title), activity.getString(R.string.usage_rules_body))
+        } else {
+            note(activity.getString(R.string.usage_failed_title), activity.getString(R.string.usage_failed_body))
+        }
+    }
+
+    private fun note(title: String, body: String) {
+        val card = ItemHelpBinding.inflate(activity.layoutInflater, ui.listItems, true)
+        card.helpTitle.text = title
+        card.helpBody.text = body
+    }
+
+    private companion object {
+        const val OWNER_LOGIN = "rohitrot738"
+    }
 }
