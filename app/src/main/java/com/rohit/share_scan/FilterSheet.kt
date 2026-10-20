@@ -36,15 +36,13 @@ class FilterSheet(
     private val presetChips = mutableListOf<Pair<Chip, Bound>>()
     private val weekChips = mutableMapOf<Int, Chip>()
     private val limitChips = mutableMapOf<Int, Int>()
-    private val sectorChips = mutableMapOf<String, Chip>()
     private var draft = filters
 
     fun show(): BottomSheetDialog {
-        addSectorChips()
         Metric.entries.forEach(::addRow)
         addLimitChips()
         ui.filterReset.setOnClickListener {
-            draft = defaults
+            draft = resetDraft()
             sync()
         }
         ui.filterApply.wearChipGlass(APPLY_CORNER_DP, tintBoost = 1.8f, ripple = true)
@@ -126,26 +124,8 @@ class FilterSheet(
         }
     }
 
-    /** One chip per industry in the scan, biggest first, plus any picked one the scan no longer has. */
-    private fun addSectorChips() {
-        val counts = pool.filter { it.sector.isNotEmpty() }.groupingBy { it.sector }.eachCount()
-        val sectors = counts.entries.sortedByDescending { it.value }.map { it.key } + (draft.sectors - counts.keys).sorted()
-        val visible = sectors.isNotEmpty()
-        ui.sectorTitle.isVisible = visible
-        ui.sectorHint.isVisible = visible
-        ui.sectorChips.isVisible = visible
-        for (sector in sectors) {
-            val chip = ChipChoiceBinding.inflate(activity.layoutInflater, ui.sectorChips, true).root
-            chip.id = View.generateViewId()
-            chip.text = counts[sector]?.let { activity.getString(R.string.filters_sector_chip, sector, it) } ?: sector
-            chip.isCheckable = true
-            chip.setOnClickListener {
-                draft = draft.copy(sectors = if (sector in draft.sectors) draft.sectors - sector else draft.sectors + sector)
-                syncLabels()
-            }
-            sectorChips[sector] = chip
-        }
-    }
+    /** [defaults] for what this sheet shows; the industries are picked with the main screen's sector chip and stay. */
+    private fun resetDraft(): ScanFilters = defaults.copy(sectors = draft.sectors)
 
     private fun addLimitChips() {
         for (limit in ScanFilters.LIMITS) {
@@ -191,7 +171,6 @@ class FilterSheet(
         val capBound = draft.bound(Metric.MARKET_CAP)
         for ((chip, bound) in presetChips) chip.isChecked = bound == capBound
         for ((weeks, chip) in weekChips) chip.isChecked = weeks == draft.rangeWeeks
-        for ((sector, chip) in sectorChips) chip.isChecked = sector in draft.sectors
 
         val scanned = pool
         if (state.results.isEmpty()) {
@@ -207,7 +186,7 @@ class FilterSheet(
             )
             ui.filterApply.text = activity.getString(R.string.filters_apply_count, StockFormat.count(shown))
         }
-        ui.filterReset.isEnabled = draft != defaults
+        ui.filterReset.isEnabled = draft != resetDraft()
     }
 
     private fun label(metric: Metric, position: Int): String = when (position) {

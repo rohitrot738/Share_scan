@@ -3,6 +3,13 @@
     "version": "",
     "date": "2026-10-20",
     "items": [
+      "Breakout और Support, दोनों scans के Filters से sector के buttons हटाए — sector अब Filters के पास वाले \"सेक्टर\" chip से चुनें"
+    ]
+  },
+  {
+    "version": "1.2.121",
+    "date": "2026-10-20",
+    "items": [
       "About में \"क्या नया है\": app के सभी updates की सूची, हर version के बदलावों के साथ",
       "GitHub पर हर नए release के साथ भी उसके बदलाव लिखे आएँगे"
     ]

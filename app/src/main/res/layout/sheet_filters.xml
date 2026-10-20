@@ -61,35 +61,6 @@
             android:orientation="vertical"
             android:paddingBottom="20dp">
 
-            <!-- Industries in the latest scan; picking some keeps only their stocks, none keeps every industry. -->
-            <TextView
-                android:id="@+id/sectorTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:paddingHorizontal="20dp"
-                android:text="@string/filters_sector"
-                android:textColor="@color/text_primary"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/sectorHint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:paddingHorizontal="20dp"
-                android:text="@string/filters_sector_hint"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/sectorChips"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:paddingHorizontal="20dp" />
-
             <LinearLayout
                 android:id="@+id/filterMetrics"
                 android:layout_width="match_parent"
