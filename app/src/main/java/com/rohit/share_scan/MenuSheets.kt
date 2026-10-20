@@ -155,7 +155,7 @@ class MenuSheet(
     private val theme: ThemeChoice,
     private val onPick: (Entry) -> Unit,
 ) {
-    enum class Entry { ACCOUNT, SCAN, TRACK_RECORD, SECTORS, SETTINGS, THEME, UPDATE, HELP, SHARE, ABOUT }
+    enum class Entry { ACCOUNT, USAGE, SCAN, TRACK_RECORD, SECTORS, SETTINGS, THEME, UPDATE, HELP, SHARE, ABOUT }
 
     fun show(): BottomSheetDialog {
         val ui = SheetMenuBinding.inflate(activity.layoutInflater)
@@ -173,6 +173,10 @@ class MenuSheet(
         }
         val account = AccountManager.summary(activity) ?: activity.getString(R.string.menu_account_signed_out)
         add(Entry.ACCOUNT, R.drawable.ic_account, R.string.menu_account, account)
+        // Only the app's maker, signed in with their GitHub account, sees how many phones use it.
+        if (UsageCounter.isOwner(activity)) {
+            add(Entry.USAGE, R.drawable.ic_trending_up, R.string.menu_usage, activity.getString(R.string.menu_usage_body))
+        }
         add(Entry.SCAN, R.drawable.ic_radar, R.string.menu_scan, activity.getString(R.string.menu_scan_body))
         add(Entry.TRACK_RECORD, R.drawable.ic_history, R.string.menu_track_record, activity.getString(R.string.menu_track_record_body))
         add(Entry.SECTORS, R.drawable.ic_sector, R.string.menu_sectors, activity.getString(R.string.menu_sectors_body))

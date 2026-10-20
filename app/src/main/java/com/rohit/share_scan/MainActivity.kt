@@ -184,6 +184,8 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         // Signed in, the watchlist follows the account; a change from another phone shows here at once.
         CloudWatchlist.start(this) { scan.showWatchlist(it) }
+        // Once a day, this phone counts towards how many use the app (seen by its maker alone).
+        UsageCounter.checkIn(this, updates.installedName)
     }
 
     override fun onStop() {
@@ -759,6 +761,7 @@ class MainActivity : AppCompatActivity() {
     private fun onMenuPick(entry: MenuSheet.Entry) {
         when (entry) {
             MenuSheet.Entry.ACCOUNT -> showMenuSheet { AccountSheet(this, ::openMenu).show() }
+            MenuSheet.Entry.USAGE -> showMenuSheet { UsageSheet(this, ::openMenu).show() }
             MenuSheet.Entry.SCAN -> showMenuSheet {
                 ScanSheet(this, settings, SectorRepository.book(this), scanActions, ::openMenu).show()
             }

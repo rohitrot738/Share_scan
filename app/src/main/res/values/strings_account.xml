@@ -107,4 +107,27 @@
         <item>नवं</item>
         <item>दिसं</item>
     </string-array>
+
+    <!-- Usage (UsageSheet): how many phones use the app, for its maker's GitHub login only. -->
+    <string name="menu_usage">App का इस्तेमाल</string>
+    <string name="menu_usage_body">कितने phones पर app चल रहा है • सिर्फ़ आपको दिखता है</string>
+    <string name="usage_title">App का इस्तेमाल</string>
+    <string name="usage_subtitle">सिर्फ़ %1$s के GitHub login पर दिखता है</string>
+    <string name="usage_loading_title">गिनती आ रही है…</string>
+    <string name="usage_loading_body">Firebase से phones की गिनती ली जा रही है।</string>
+    <string name="usage_today">आज</string>
+    <string name="usage_days">%1$d दिन</string>
+    <string name="usage_phones">phones</string>
+    <string name="usage_total_title">अब तक</string>
+    <string name="usage_total_body">कुल %1$s phones पर app खुला (गिनती शुरू होने से)</string>
+    <string name="usage_downloads">GitHub से APK %1$s बार download हुई</string>
+    <string name="usage_downloads_unknown">GitHub से download की गिनती अभी नहीं मिली</string>
+    <string name="usage_versions_title">किस version पर (पिछले %1$d दिन)</string>
+    <string name="usage_version_line">v%1$s — %2$s phones</string>
+    <string name="usage_how_title">गिनती कैसे होती है</string>
+    <string name="usage_how_body">हर phone दिन में एक बार, app खुलने पर, सिर्फ़ एक random ID और अपना version भेजता है; नाम, नंबर या location नहीं। गिनती इसी version से शुरू हुई, पुराने version वाले phones update के बाद गिने जाएँगे। App हटाकर फिर install करने पर वही phone नया गिना जाता है, और APK downloads में एक इंसान के कई downloads भी गिने जाते हैं।</string>
+    <string name="usage_rules_title">Firestore rules बदलने बाकी हैं</string>
+    <string name="usage_rules_body">Firebase Console → Firestore Database → Rules में docs/LOGIN_SETUP.md (Step 6.5) वाले नए rules paste करके Publish करें, फिर यह फिर खोलें।</string>
+    <string name="usage_failed_title">गिनती नहीं आ पाई</string>
+    <string name="usage_failed_body">Internet देखें और थोड़ी देर बाद फिर खोलें।</string>
 </resources>

@@ -105,9 +105,25 @@ service cloud.firestore {
     match /users/{uid} {
       allow read, write: if request.auth != null && request.auth.uid == uid;
     }
+    // App का इस्तेमाल: हर phone दिन में एक बार devices/{random id} लिखता है — सिर्फ़ version और समय।
+    // पढ़ सिर्फ़ app बनाने वाला सकता है: GitHub account rohitrot738 (id 178737756) से login करके।
+    match /devices/{device} {
+      allow create, update: if device.matches('[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}')
+        && request.resource.data.keys().hasOnly(['v', 'seen'])
+        && request.resource.data.v is string
+        && request.resource.data.v.size() <= 20
+        && request.resource.data.seen == request.time;
+      allow read: if request.auth != null
+        && request.auth.token.firebase.identities['github.com'][0] == '178737756';
+    }
   }
 }
 ```
+
+**App का इस्तेमाल (Menu → App का इस्तेमाल):** ऊपर के `devices` वाले rules से हर phone दिन में एक बार सिर्फ़ एक
+random ID और अपना version लिखता है, और कितने phones पर app चल रहा है यह सिर्फ़ GitHub account rohitrot738 से
+login करने पर Menu में दिखता है। पहले से database है तो Rules tab में बस यह पूरा text फिर से paste करके
+**Publish** करें — watchlist वाले rules वही हैं।
 
 पहली बार किसी phone पर login करने पर phone की watchlist और cloud की watchlist जुड़ जाती हैं (कुछ नहीं हटता)।
 उसके बाद cloud वाली list ही मानी जाती है — एक phone पर ★ लगाएँ या हटाएँ, दूसरे पर भी हो जाएगा।
