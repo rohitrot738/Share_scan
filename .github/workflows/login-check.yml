@@ -1,0 +1,40 @@
+# Temporary: checks the Firebase login secrets without printing them. Remove before merging.
+name: Login secrets check
+on:
+  workflow_dispatch:
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['.github/workflows/login-check.yml']
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check the secrets' shape and ask Firebase about the key (values never printed)
+        env:
+          KEY: ${{ secrets.FIREBASE_API_KEY }}
+          APP: ${{ secrets.FIREBASE_APP_ID }}
+          PROJECT: ${{ secrets.FIREBASE_PROJECT_ID }}
+          WEB: ${{ secrets.FIREBASE_WEB_CLIENT_ID }}
+          SENDER: ${{ secrets.FIREBASE_SENDER_ID }}
+          BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
+        run: |
+          yes_no() { if "$@"; then echo yes; else echo NO; fi; }
+          trimmed() { [ "$1" = "$(printf '%s' "$1" | tr -d '[:space:]\"')" ]; }
+          echo "FIREBASE_API_KEY       set: $(yes_no test -n "$KEY")  starts AIza: $(yes_no test "${KEY#AIza}" != "$KEY")  length 39: $(yes_no test ${#KEY} -eq 39)  no spaces/quotes: $(yes_no trimmed "$KEY")"
+          echo "FIREBASE_APP_ID        set: $(yes_no test -n "$APP")  Android form 1:<n>:android:<hex>: $(yes_no grep -Eq '^1:[0-9]+:android:[0-9a-f]+$' <<<"$APP")"
+          echo "FIREBASE_PROJECT_ID    set: $(yes_no test -n "$PROJECT")  form ok: $(yes_no grep -Eq '^[a-z0-9-]{6,30}$' <<<"$PROJECT")  is share-scan-a8692: $(yes_no test "$PROJECT" = share-scan-a8692)"
+          echo "FIREBASE_WEB_CLIENT_ID set: $(yes_no test -n "$WEB")  form <n>-<id>.apps.googleusercontent.com: $(yes_no grep -Eq '^[0-9]+-[a-z0-9]+\.apps\.googleusercontent\.com$' <<<"$WEB")"
+          NUMBER=$(cut -d: -f2 <<<"$APP")
+          echo "App ID and web client from the same project (number 996481835321): app $(yes_no test "$NUMBER" = 996481835321)  web $(yes_no test "${WEB%%-*}" = 996481835321)"
+          echo "Optional: FIREBASE_SENDER_ID set: $(yes_no test -n "$SENDER")  FIREBASE_STORAGE_BUCKET set: $(yes_no test -n "$BUCKET")"
+          # Ask Firebase Auth whether it takes the key as the Android app would (createAuthUri creates nothing).
+          CODE=$(curl -s -o reply.json -w '%{http_code}' -X POST \
+            -H 'Content-Type: application/json' \
+            -H 'X-Android-Package: com.rohit.share_scan' \
+            -H 'X-Android-Cert: 8BAFB9B3AFE66972236F0B06E2DAA1EE34F9D50D' \
+            -d '{"identifier":"login-check@example.com","continueUri":"http://localhost"}' \
+            "https://identitytoolkit.googleapis.com/v1/accounts:createAuthUri?key=$KEY")
+          echo "Firebase Auth answer to the API key: HTTP $CODE"
+          python3 -c "import json;d=json.load(open('reply.json'));e=d.get('error');print('  error:', e.get('message') if e else 'none'); print('  email sign-in known to this project:', 'error' not in d)"
+          rm -f reply.json
