@@ -53,8 +53,13 @@ jobs:
         run: |
           BUILD=$((GITHUB_RUN_NUMBER + 100))
           cp app/build/outputs/apk/release/app-release.apk ShareScan.apk
+          # The changelog's newest entry, still without a version, is this release's (Changelog.kt); the About sheet
+          # lists it too.
+          jq -r 'if .[0].version == "" then "इस version में:\n" + (.[0].items | map("• " + .) | join("\n")) + "\n" else empty end' \
+            app/src/main/assets/changelog.json > notes.md
+          echo "Phone par install karne ke liye ShareScan.apk download karein. Har release ek hi permanent key se sign hai, isliye naya version purane ke upar install ho jata hai. Hamesha latest: https://github.com/${GITHUB_REPOSITORY}/releases/latest/download/ShareScan.apk" >> notes.md
           gh release create "v1.2.$BUILD" ShareScan.apk \
             --target "$GITHUB_SHA" \
             --title "Share Scan 1.2.$BUILD" \
             --latest \
-            --notes "Phone par install karne ke liye ShareScan.apk download karein. Har release ek hi permanent key se sign hai, isliye naya version purane ke upar install ho jata hai. Hamesha latest: https://github.com/${GITHUB_REPOSITORY}/releases/latest/download/ShareScan.apk"
+            --notes-file notes.md

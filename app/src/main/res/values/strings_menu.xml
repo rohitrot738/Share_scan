@@ -111,6 +111,11 @@
     <string name="about_data_body">Stock lists: NSE (main board और SME) और BSE bhavcopy • Shares: NSE • Daily prices: Yahoo Finance। Data कुछ देर पुराना हो सकता है।</string>
     <string name="about_disclaimer_title">Disclaimer</string>
     <string name="about_releases">GitHub पर सभी versions</string>
+    <string name="about_updates_title">क्या नया है</string>
+    <!-- One update's heading: "v1.2.120 · 20 Oct 2026". -->
+    <string name="about_update_head">v%1$s · %2$s</string>
+    <string name="about_update_head_installed">v%1$s · %2$s • आपका version</string>
+    <string name="about_updates_more">पुराने %1$d updates भी देखें</string>
     <string name="about_open_failed">Browser नहीं खुल पाया</string>
 
     <!-- Share app -->

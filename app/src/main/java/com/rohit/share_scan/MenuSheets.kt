@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -26,6 +27,8 @@ import com.rohit.share_scan.databinding.SheetMenuBinding
 import com.rohit.share_scan.databinding.SheetSettingsBinding
 import com.rohit.share_scan.databinding.SheetThemeBinding
 import com.rohit.share_scan.databinding.SheetTopBarBinding
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 import kotlin.math.roundToInt
 
 @get:StyleRes
@@ -397,6 +400,53 @@ class AboutSheet(
         ui.aboutVersion.text = activity.getString(R.string.about_version, version, build.toInt())
         ui.aboutShare.setOnClickListener { onShare() }
         ui.aboutReleases.setOnClickListener { onReleases() }
+        bindUpdates(ui)
         return activity.showSheet(ui.root, ui.sheetTopBar, onBack)
+    }
+
+    /** The newest [SHOWN_UPDATES] updates, and a button that adds the older ones. */
+    private fun bindUpdates(ui: SheetAboutBinding) {
+        val notes = runCatching {
+            activity.assets.open(Changelog.ASSET).bufferedReader().use { Changelog.parse(it.readText()) }
+        }.getOrDefault(emptyList())
+        ui.aboutUpdatesCard.isVisible = notes.isNotEmpty()
+        notes.take(SHOWN_UPDATES).forEach { addUpdate(ui.aboutUpdates, it) }
+        val older = notes.drop(SHOWN_UPDATES)
+        ui.aboutUpdatesMore.isVisible = older.isNotEmpty()
+        ui.aboutUpdatesMore.text = activity.getString(R.string.about_updates_more, older.size)
+        ui.aboutUpdatesMore.setOnClickListener {
+            older.forEach { addUpdate(ui.aboutUpdates, it) }
+            ui.aboutUpdatesMore.isVisible = false
+        }
+    }
+
+    private fun addUpdate(list: LinearLayout, note: ReleaseNote) {
+        val shown = Changelog.versionOf(note, version)
+        val day = note.date.format(DateTimeFormatter.ofPattern("d MMM yyyy", Locale.forLanguageTag("en-IN")))
+        list.addView(
+            TextView(activity).apply {
+                setTextAppearance(R.style.SettingsRowTitle)
+                textSize = 13f
+                text = activity.getString(
+                    if (shown == version) R.string.about_update_head_installed else R.string.about_update_head,
+                    shown,
+                    day,
+                )
+                setPadding(0, (12 * resources.displayMetrics.density).toInt(), 0, 0)
+            },
+        )
+        list.addView(
+            TextView(activity).apply {
+                setTextAppearance(R.style.SettingsRowBody)
+                text = note.items.joinToString("\n") { "• $it" }
+                setLineSpacing((2 * resources.displayMetrics.density), 1f)
+                setPadding(0, (2 * resources.displayMetrics.density).toInt(), 0, 0)
+            },
+        )
+    }
+
+    private companion object {
+        /** Updates listed before "पुराने … भी देखें". */
+        const val SHOWN_UPDATES = 5
     }
 }
