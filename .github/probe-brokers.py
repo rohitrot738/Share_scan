@@ -17,28 +17,6 @@ def title(html):
     m = re.search(r"<title[^>]*>(.*?)</title>", html, re.S)
     return m.group(1).strip()[:100] if m else "-"
 
-print("== Play Store ==")
-for pkg in ["com.zerodha.kite3", "com.zerodha.kite", "com.msf.angelmobile", "com.angelbroking.angelwealth", "com.nextbillion.groww", "com.groww.app"]:
-    s, u, b = get(f"https://play.google.com/store/apps/details?id={pkg}&hl=en_IN")
-    print(pkg, s, title(b))
-
-print("== assetlinks ==")
-for host in ["groww.in", "kite.zerodha.com", "zerodha.com", "www.angelone.in", "angelone.in", "trade.angelone.in"]:
-    s, u, b = get(f"https://{host}/.well-known/assetlinks.json", "application/json")
-    pk = sorted(set(re.findall(r'"package_name"\s*:\s*"([^"]+)"', b)))
-    print(host, s, pk)
-
-print("== Angel One page patterns ==")
-for p in ["stocks/reliance-industries-ltd", "stocks/reliance-industries-ltd-share-price", "share-price/reliance-industries-ltd", "stocks/RELIANCE"]:
-    s, u, b = get("https://www.angelone.in/" + p)
-    print(p, s, u, title(b))
-
-print("== Groww search API ==")
-for api in ["https://groww.in/v1/api/search/v1/entity?app=false&page=0&q=RELIANCE&size=6",
-            "https://groww.in/v1/api/search/v3/query/global/st_query?query=RELIANCE&size=6"]:
-    s, u, b = get(api, "application/json")
-    print(api, s, b[:700])
-
 s, u, b = get("https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv", "text/csv")
 print("== NSE list ==", s, len(b))
 rows = list(csv.DictReader(io.StringIO(b)))
@@ -63,19 +41,45 @@ def search(sym):
         pass
     return None, b[:120]
 
-random.seed(7)
-must = ["RELIANCE", "M&M", "DRREDDY", "LT", "NAUKRI", "BAJAJ-AUTO", "ONGC", "SBIN", "3MINDIA", "ITC", "HDFCBANK", "UNITDSPR", "ETERNAL", "J&KBANK", "TATAMOTORS"]
-sample = [s for s in must if s in names] + random.sample(sorted(names), min(140, len(names)))
-ok = 0
-bad = []
+def search(q, field, want):
+    s, u, b = get("https://groww.in/v1/api/search/v1/entity?app=false&page=0&q=" + urllib.parse.quote(q) + "&size=10", "application/json")
+    try:
+        for c in json.loads(b).get("content", []):
+            if c.get("entity_type") == "Stocks" and c.get(field) == want:
+                return c.get("search_id") or c.get("id")
+    except Exception as e:
+        return "ERR " + repr(e) + b[:100]
+    return None
+
+def page(slug_):
+    s, u, b = get("https://groww.in/stocks/" + slug_)
+    return s == 200 and "/stocks/" in u
+
+import urllib.parse
+random.seed(11)
+must = ["M&M", "3MINDIA", "ETERNAL", "BAJAJ-AUTO", "J&KBANK", "BNALTD", "KMCSHIL", "VMART", "SIS", "TIKONA", "PHOENIXLTD", "NAUKRI"]
+sample = [s_ for s_ in must if s_ in names] + random.sample(sorted(names), 100)
+found = pages = 0
 for sym in sample:
-    sl = slug(names[sym])
-    s, u, b = get("https://groww.in/stocks/" + sl)
-    if s == 200 and "/stocks/" in u:
-        ok += 1
-    else:
-        bad.append((sym, names[sym], sl, s, u) + search(sym))
-    time.sleep(0.4)
-print(f"== Groww slug hits {ok}/{len(sample)} ==")
-for row in bad:
-    print("MISS", row)
+    sid = search(sym, "nse_scrip_code", sym)
+    good = bool(sid) and not sid.startswith("ERR") and page(sid)
+    found += bool(sid) and not str(sid).startswith("ERR")
+    pages += good
+    if not good: print("NSE MISS", sym, names[sym], sid)
+    time.sleep(0.3)
+print(f"== NSE search ids {found}/{len(sample)}, pages {pages} ==")
+
+s, u, b = get("https://nsearchives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv", "text/csv")
+sme = [{k.strip(): v.strip() for k, v in r.items()} for r in csv.DictReader(io.StringIO(b))] if s == 200 else []
+print("SME list", s, len(sme))
+for r in random.sample(sme, min(25, len(sme))):
+    sym = r["SYMBOL"]
+    sid = search(sym, "nse_scrip_code", sym)
+    print("SME", sym, sid, page(sid) if sid and not sid.startswith("ERR") else "-")
+    time.sleep(0.3)
+
+# BSE-only stocks: Groww's bse_scrip_code is the numeric code.
+for code, sym in [("539410", "MUZALI"), ("500325", "RELIANCE"), ("531254", "x"), ("512068", "x"), ("543942", "x")]:
+    sid = search(code, "bse_scrip_code", code)
+    print("BSE", code, sid, page(sid) if sid and not sid.startswith("ERR") else "-")
+    time.sleep(0.3)
