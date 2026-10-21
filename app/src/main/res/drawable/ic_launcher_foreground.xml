@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Adaptive-icon foreground: a white R over a soft shadow, inside the 66dp safe zone. -->
+<!-- Adaptive-icon foreground: an R whose stem is a gold breakout candle, its wicks past the letter, inside the 66dp safe zone. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Shadow: the letter again, a little lower and to the right -->
-    <group
-        android:translateX="1.2"
-        android:translateY="2.4">
-        <path
-            android:fillColor="#33000000"
-            android:fillType="evenOdd"
-            android:pathData="M36.5,33H56.5C65.3,33 70.5,38.6 70.5,46C70.5,52.1 66.9,56.5 61.3,58.2L71.5,75H61.1L51.9,59H45.5V75H36.5ZM45.5,40.5V51.5H55.8C59.4,51.5 61.6,49.2 61.6,46C61.6,42.8 59.4,40.5 55.8,40.5Z" />
-    </group>
+    <!-- The candle: wick, then a body as tall as the letter -->
+    <path
+        android:fillColor="#FFFACC15"
+        android:pathData="M40.1,27h1.8v54h-1.8z" />
+    <path
+        android:fillColor="#FFFACC15"
+        android:pathData="M36.5,35a2,2 0,0 1,2 -2h5a2,2 0,0 1,2 2v38a2,2 0,0 1,-2 2h-5a2,2 0,0 1,-2 -2z" />
 
+    <!-- Bowl and leg of the R, just off the candle; the counter opens on the candle's side -->
     <path
         android:fillColor="#FFFFFFFF"
         android:fillType="evenOdd"
-        android:pathData="M36.5,33H56.5C65.3,33 70.5,38.6 70.5,46C70.5,52.1 66.9,56.5 61.3,58.2L71.5,75H61.1L51.9,59H45.5V75H36.5ZM45.5,40.5V51.5H55.8C59.4,51.5 61.6,49.2 61.6,46C61.6,42.8 59.4,40.5 55.8,40.5Z" />
+        android:pathData="M47.2,33H56.5C65.3,33 70.5,38.6 70.5,46C70.5,52.1 66.9,56.5 61.3,58.2L71.5,75H61.1L51.9,59H47.2ZM47.2,40.5V51.5H55.8C59.4,51.5 61.6,49.2 61.6,46C61.6,42.8 59.4,40.5 55.8,40.5Z" />
 </vector>
