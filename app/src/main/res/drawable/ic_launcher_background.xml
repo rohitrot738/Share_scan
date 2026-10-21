@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Adaptive-icon background: forest green, a shade lighter at the top. -->
+<!-- Adaptive-icon background: peach cream, a shade lighter at the top. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
     android:width="108dp"
@@ -14,8 +14,8 @@
                 android:startX="54"
                 android:startY="18"
                 android:type="linear">
-                <item android:color="#FF166534" android:offset="0" />
-                <item android:color="#FF052E16" android:offset="1" />
+                <item android:color="#FFFFF7ED" android:offset="0" />
+                <item android:color="#FFF6DFC6" android:offset="1" />
             </gradient>
         </aapt:attr>
     </path>
