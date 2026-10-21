@@ -797,7 +797,39 @@ class StockDetailSheet(
         }
         movingAverage(R.string.detail_stat_sma20, structure.sma20)?.let { stats += it }
         structure.sma50?.let { sma -> movingAverage(R.string.detail_stat_sma50, sma)?.let { stats += it } }
+        structure.rsi14?.takeIf { it.isFinite() }?.let { stats += rsiStat(it) }
+        val macd = structure.macd?.takeIf { it.isFinite() }
+        val signal = structure.macdSignal?.takeIf { it.isFinite() }
+        if (macd != null && signal != null) stats += macdStat(macd, signal, structure.macdCrossAge)
         return stats
+    }
+
+    /** RSI (14) with the zone it is in: overbought, rising, weak or oversold. */
+    private fun rsiStat(rsi: Double): Stat {
+        val (note, tone) = when {
+            rsi >= 70.0 -> R.string.detail_stat_rsi_overbought to R.color.warn
+            rsi >= 50.0 -> R.string.detail_stat_rsi_strong to R.color.bull
+            rsi >= 30.0 -> R.string.detail_stat_rsi_weak to R.color.text_secondary
+            else -> R.string.detail_stat_rsi_oversold to R.color.warn
+        }
+        return Stat(activity.getString(R.string.detail_stat_rsi), StockFormat.score(rsi).removeSuffix(".0"), activity.getString(note), tone)
+    }
+
+    /** MACD against its signal line: rising or falling, when it last crossed above, and which side of zero it is. */
+    private fun macdStat(macd: Double, signal: Double, crossAge: Int?): Stat {
+        val above = macd > signal
+        val cross = if (above && crossAge != null) {
+            activity.getString(R.string.detail_stat_macd_crossed, StockFormat.sessionsAgo(crossAge))
+        } else {
+            activity.getString(R.string.detail_stat_macd_below)
+        }
+        val zero = activity.getString(if (macd >= 0.0) R.string.detail_stat_macd_zero_above else R.string.detail_stat_macd_zero_below)
+        return Stat(
+            activity.getString(R.string.detail_stat_macd),
+            activity.getString(if (above) R.string.detail_stat_macd_bull else R.string.detail_stat_macd_bear),
+            "$cross · $zero",
+            if (above) R.color.bull else R.color.bear,
+        )
     }
 
     private fun movingAverage(@StringRes label: Int, sma: Double): Stat? {

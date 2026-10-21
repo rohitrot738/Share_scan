@@ -66,6 +66,41 @@ class ScanFiltersTest {
     }
 
     @Test
+    fun rsiAndMacdFiltersReadTheIndicators() {
+        val structure = PriceStructure(
+            closes = listOf(98.0, 100.0),
+            high20 = 101.0,
+            low10 = 95.0,
+            atr14 = 2.0,
+            sma20 = 97.0,
+            sma50 = 94.0,
+            rsi14 = 62.0,
+            macd = 1.5,
+            macdSignal = 1.0,
+            macdCrossAge = 2,
+        )
+        val rising = ScanResult("RISING", 100.0, 70.0, 1.5, 3.0, structure = structure)
+        assertEquals(62.0, Metric.RSI.read(rising)!!, 1e-9)
+        assertEquals(0.5, Metric.MACD.read(rising)!!, 1e-9)
+        assertEquals(2.0, Metric.MACD_CROSS.read(rising)!!, 1e-9)
+
+        val freshCross = ScanFilters()
+            .with(Metric.RSI, Bound(min = 50.0, max = 70.0))
+            .with(Metric.MACD, Bound(min = 0.0))
+            .with(Metric.MACD_CROSS, Bound(max = 3.0))
+        assertTrue(freshCross.accepts(rising))
+        assertFalse(freshCross.accepts(rising.copy(structure = structure.copy(rsi14 = 75.0))))
+        assertFalse(freshCross.accepts(rising.copy(structure = structure.copy(macdCrossAge = 8))))
+        // MACD under its signal: no crossover to date, so a crossover limit leaves it out.
+        val falling = rising.copy(structure = structure.copy(macd = 0.5, macdSignal = 1.0, macdCrossAge = null))
+        assertEquals(-0.5, Metric.MACD.read(falling)!!, 1e-9)
+        assertNull(Metric.MACD_CROSS.read(falling))
+        assertFalse(freshCross.accepts(falling))
+        // A scan saved before these were recorded has none of them.
+        assertNull(Metric.RSI.read(rising.copy(structure = structure.copy(rsi14 = null))))
+    }
+
+    @Test
     fun theRangeFilterSpansTheChosenWeeks() {
         val structure = PriceStructure(
             closes = listOf(99.0, 100.0),
@@ -124,6 +159,9 @@ class ScanFiltersTest {
             .with(Metric.FROM_HIGH, Bound(min = -2.0, max = 3.0))
             .with(Metric.BASE_RANGE, Bound(max = 8.0))
             .with(Metric.VS_SMA50, Bound(min = 0.0))
+            .with(Metric.RSI, Bound(min = 50.0, max = 70.0))
+            .with(Metric.MACD, Bound(min = 0.0))
+            .with(Metric.MACD_CROSS, Bound(max = 3.0))
         assertEquals(filters, ScanFilters.decode(filters.encode()))
         assertEquals(Metric.entries.size, Metric.entries.map { it.key }.toSet().size)
         assertEquals(ScanFilters(), ScanFilters.decode(null))

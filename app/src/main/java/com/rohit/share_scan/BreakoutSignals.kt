@@ -181,6 +181,8 @@ object BreakoutSignals {
         val atr14 = mean(trueRange, n - 14, n)
         val sma20 = mean(close, n - 20, n)
         val sma50 = if (n >= 50) mean(close, n - 50, n) else null
+        // Over the whole chart (six months), so the averages behind them have settled by the latest close.
+        val macd = Indicators.macd(close)
         val structure = PriceStructure(
             closes = close.copyOfRange(max(0, n - CHART_CLOSES), n).toList(),
             closeDays = if (days.size == n) days.subList(max(0, n - CHART_CLOSES), n).toList() else emptyList(),
@@ -194,6 +196,10 @@ object BreakoutSignals {
                 val from = n - weeks * WEEK_SESSIONS
                 rangePct(highest(high, from, n), lowest(low, from, n))
             },
+            rsi14 = Indicators.rsi(close),
+            macd = macd?.line,
+            macdSignal = macd?.signal,
+            macdCrossAge = macd?.sessionsSinceBullishCross,
         )
 
         // The stock's normal daily swing: mean true range as a percent of price over up to 50 sessions. It is the

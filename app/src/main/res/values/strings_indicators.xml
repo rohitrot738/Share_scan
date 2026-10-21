@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- RSI and MACD (Indicators): filters, the detail's stat tiles and help. -->
+    <string name="metric_rsi">RSI (14)</string>
+    <string name="metric_macd">MACD, signal से दूरी</string>
+    <string name="metric_macd_cross">MACD crossover</string>
+    <string name="hint_rsi">70 से ऊपर = overbought (बहुत चढ़ा), 30 से नीचे = oversold (बहुत गिरा) • 50–70 = तेज़ी, पर ज़्यादा नहीं</string>
+    <string name="hint_macd" formatted="false">MACD line अपनी signal line से कितनी ऊपर (+) या नीचे (-), भाव के % में • 0% से ऊपर = तेज़ी</string>
+    <string name="hint_macd_cross">MACD ने कितने दिन पहले signal line को नीचे से ऊपर काटा • \"3 दिन पहले\" तक = ताज़ा bullish crossover; signal के नीचे वाले stocks छँट जाते हैं</string>
+
+    <string name="detail_stat_rsi">RSI (14)</string>
+    <string name="detail_stat_rsi_overbought">70+ overbought: बहुत चढ़ा</string>
+    <string name="detail_stat_rsi_strong">50–70: तेज़ी</string>
+    <string name="detail_stat_rsi_weak">30–50: कमज़ोर</string>
+    <string name="detail_stat_rsi_oversold">30 से कम oversold: बहुत गिरा</string>
+    <string name="detail_stat_macd">MACD (12, 26, 9)</string>
+    <string name="detail_stat_macd_bull">तेज़ी</string>
+    <string name="detail_stat_macd_bear">मंदी</string>
+    <string name="detail_stat_macd_crossed">signal को %1$s ऊपर काटा</string>
+    <string name="detail_stat_macd_below">signal line के नीचे</string>
+    <string name="detail_stat_macd_zero_above">zero के ऊपर</string>
+    <string name="detail_stat_macd_zero_below">zero के नीचे</string>
+
+    <string name="help_indicators_title">RSI और MACD</string>
+    <string name="help_indicators_body" formatted="false">दोनों हर stock के 6 महीने के daily भाव से बनते हैं, जैसे chart वाली sites पर। RSI (14) 0 से 100 के बीच: 70 से ऊपर overbought (बहुत चढ़ चुका), 30 से नीचे oversold (बहुत गिर चुका), 50–70 तेज़ी। MACD (12, 26, 9): 12 और 26 दिन के exponential औसत का फ़र्क, और उसकी 9 दिन की signal line। MACD signal के ऊपर = तेज़ी; जिस दिन वह signal को नीचे से ऊपर काटे, वह bullish crossover है। Filters में तीनों हैं: RSI की range, MACD signal से कितनी ऊपर/नीचे (भाव के %), और crossover कितने दिन पहले हुआ (जैसे \"3 दिन पहले\" तक = ताज़ा crossover)। Stock detail में दोनों की आज की value दिखती है। Live बाज़ार में आज का चलता भाव भी गिना जाता है।</string>
+</resources>

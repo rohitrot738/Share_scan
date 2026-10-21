@@ -55,6 +55,13 @@ data class PriceStructure(
      * of the midpoint; empty when not recorded.
      */
     val weekRanges: List<Double> = emptyList(),
+    /** RSI (14) at the latest close ([Indicators.rsi]); null when not recorded. */
+    val rsi14: Double? = null,
+    /** MACD (12, 26, 9) line and signal line at the latest close ([Indicators.macd]); null when not recorded. */
+    val macd: Double? = null,
+    val macdSignal: Double? = null,
+    /** Sessions since the MACD line crossed above its signal (0 = the latest session); null while it is below. */
+    val macdCrossAge: Int? = null,
 )
 
 data class ScanResult(
@@ -88,6 +95,21 @@ data class ScanResult(
 ) {
     /** Rupee value traded in the latest session, in crore. */
     val turnoverCr: Double get() = price * volume / CRORE
+
+    /** RSI (14) at the latest close: above 70 overbought, below 30 oversold. */
+    val rsi14: Double? get() = structure?.rsi14
+
+    /** The MACD line minus its signal line, as a percent of the price; above 0 the MACD is above its signal. */
+    val macdGapPct: Double?
+        get() {
+            val s = structure ?: return null
+            val line = s.macd ?: return null
+            val signal = s.macdSignal ?: return null
+            return if (price > 0.0) (line - signal) / price * 100.0 else null
+        }
+
+    /** Sessions since the MACD crossed above its signal (0 = the latest); null while it is below or unknown. */
+    val macdCrossAge: Int? get() = structure?.macdCrossAge
 
     /** False for a starred stock no chart has come in for yet: a symbol and nothing else to show. */
     val charted: Boolean get() = price > 0.0
