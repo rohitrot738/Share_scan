@@ -4,6 +4,12 @@
   <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
   <!-- Live mode's finds and the watchlist's breakout, target and stop alerts (asked for on Android 13 and later). -->
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+  <!-- The detail sheet's trading-app buttons open these apps (Broker); Android 11 and later hide others' apps unless named. -->
+  <queries>
+    <package android:name="com.nextbillion.groww" />
+    <package android:name="com.msf.angelmobile" />
+    <package android:name="com.zerodha.kite3" />
+  </queries>
   <application
       android:name=".ShareScanApp"
       android:allowBackup="true"
