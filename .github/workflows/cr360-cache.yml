@@ -1,0 +1,63 @@
+name: 360CR cache
+# Builds the app's 360CR file every evening (cr360/build_app_cache.py). The store of every stock's results,
+# shareholding and deals lives in the cr360-data pre-release next to the app's file; each run tops it up, drops what
+# aged out of 360CR's ranges and replaces both files, so the release always holds one copy of each.
+on:
+  schedule:
+    - cron: '37 14 * * *'  # 20:07 IST, after the day's results and NSE's deal files
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: 'Minutes the run may spend (pages are read until 25 minutes before)'
+        default: '320'
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['cr360/**', '.github/workflows/cr360-cache.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr360-cache
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: cr360-data
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Make sure the data release exists
+        # A pre-release that is never "latest", so the app's update check (releases/latest) never sees it.
+        run: |
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --prerelease --latest=false \
+            --title "360CR data (auto)" \
+            --notes "Daily 360CR data for the Share Scan app, built by the 360CR cache workflow. Not an app release."
+      - name: Fetch the previous store
+        run: |
+          gh release download "$TAG" -p cr360-store.json.gz || echo "No store yet, so this run starts the full load."
+      - name: Build
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            # A pushed change is tried on a few pages; the evening run does the rest.
+            python -m cr360.build_app_cache --minutes 30 --limit 40
+          else
+            python -m cr360.build_app_cache --minutes "${{ inputs.minutes || '320' }}"
+          fi
+      - name: Check the files
+        run: |
+          python - <<'PY'
+          import gzip, json
+          app = json.load(gzip.open("cr360.json.gz", "rt"))
+          store = json.load(gzip.open("cr360-store.json.gz", "rt"))
+          read = sum(1 for s in store["stocks"].values() if s.get("quarters"))
+          print("app rows", app["count"], "| stocks read", read, "of", len(store["stocks"]))
+          assert app["v"] == 1 and app["count"] == len(app["stocks"])
+          assert read >= app["count"] > 0
+          PY
+      - name: Publish
+        run: gh release upload "$TAG" cr360-store.json.gz cr360.json.gz --clobber

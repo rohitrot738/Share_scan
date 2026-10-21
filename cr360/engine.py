@@ -33,8 +33,10 @@ def score_financials(x):
 def score_cash_balance(x):
     cf=x.cashflow_quarters[-20:];bs=x.balance_sheet_quarters[-20:];miss=[];ocf=vals(cf,"operating_cash_flow");fcf=vals(cf,"free_cash_flow");pat=vals(x.quarterly_financials,"net_profit");cash=None
     if ocf:
-        conv=50; common=min(len(pat),len(ocf))
-        if common and sum(pat[-common:])!=0:conv=clamp(sum(ocf[-common:])/abs(sum(pat[-common:]))*50)
+        # Yearly cash flows that carry their year's profit (Screener) are compared with it, not with quarters.
+        base=vals(cf,"net_profit") or pat
+        conv=50; common=min(len(base),len(ocf))
+        if common and sum(base[-common:])!=0:conv=clamp(sum(ocf[-common:])/abs(sum(base[-common:]))*50)
         cash=clamp(sum(v>0 for v in ocf)/len(ocf)*60+conv*.4)
     else:miss.append("cashflow")
     debt=vals(bs,"total_debt");equity=vals(bs,"equity");cb=vals(bs,"cash");bscore=None
