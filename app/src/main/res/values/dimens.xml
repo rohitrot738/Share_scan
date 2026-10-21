@@ -3,4 +3,6 @@
     <!-- Theme picker cards: the picked theme gets a thicker outline in its own accent. -->
     <dimen name="theme_card_stroke">1dp</dimen>
     <dimen name="theme_card_stroke_selected">2dp</dimen>
+    <!-- A trading app's icon on the detail sheet's buttons and the Settings chips (Broker.icon). -->
+    <dimen name="broker_icon">18dp</dimen>
 </resources>

@@ -3,6 +3,14 @@
     "version": "",
     "date": "2026-10-21",
     "items": [
+      "Settings → चार्ट में Groww, Angel One और Zerodha भी: चुनें तो stock detail का बड़ा बटन उसी app में खोलेगा",
+      "Groww, Angel One और Zerodha के buttons पर उनके app का icon (app phone में न हो तो उसके रंगों वाला icon)"
+    ]
+  },
+  {
+    "version": "1.2.125",
+    "date": "2026-10-21",
+    "items": [
       "Stock detail में Groww, Angel One और Zerodha के buttons",
       "Groww: सीधे उसी stock का page खुलता है — Groww app हो तो app में",
       "Angel One और Zerodha (Kite): stock का symbol copy होकर app खुलता है, search में paste करें"

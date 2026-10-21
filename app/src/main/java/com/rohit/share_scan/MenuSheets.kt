@@ -113,6 +113,9 @@ val ChartSite.label: Int
         ChartSite.CHARTINK -> R.string.chart_site_chartink
         ChartSite.GOOGLE_FINANCE -> R.string.chart_site_google
         ChartSite.SCREENER -> R.string.chart_site_screener
+        ChartSite.GROWW -> R.string.broker_groww
+        ChartSite.ANGEL_ONE -> R.string.broker_angel_one
+        ChartSite.ZERODHA -> R.string.broker_zerodha
     }
 
 /**
@@ -236,6 +239,12 @@ class SettingsSheet(
             val chip = activity.layoutInflater.inflate(R.layout.chip_choice, ui.settingChart, false) as Chip
             chip.id = android.view.View.generateViewId()
             chip.setText(site.label)
+            site.broker?.let { broker ->
+                chip.chipIcon = broker.icon(activity)
+                chip.chipIconTint = null
+                chip.chipIconSize = activity.resources.getDimension(R.dimen.broker_icon)
+                chip.isChipIconVisible = true
+            }
             chip.isCheckable = true
             chip.isChecked = site == current
             chip.setOnCheckedChangeListener { _, checked -> if (checked) settings.chartSite = site }

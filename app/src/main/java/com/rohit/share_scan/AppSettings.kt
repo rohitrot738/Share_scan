@@ -27,7 +27,19 @@ enum class ChartSite(val key: String) {
     TRADINGVIEW("tradingview"),
     CHARTINK("chartink"),
     GOOGLE_FINANCE("google"),
-    SCREENER("screener");
+    SCREENER("screener"),
+    GROWW("groww"),
+    ANGEL_ONE("angelone"),
+    ZERODHA("zerodha");
+
+    /** The trading app this site stands for, which [BrokerOpener] opens; null for the websites. */
+    val broker: Broker?
+        get() = when (this) {
+            GROWW -> Broker.GROWW
+            ANGEL_ONE -> Broker.ANGEL_ONE
+            ZERODHA -> Broker.ZERODHA
+            TRADINGVIEW, CHARTINK, GOOGLE_FINANCE, SCREENER -> null
+        }
 
     /** Chartink only covers NSE, so BSE-only stocks open on TradingView instead. */
     fun forMarket(market: Market): ChartSite = if (this == CHARTINK && market == Market.BSE) TRADINGVIEW else this
@@ -36,7 +48,8 @@ enum class ChartSite(val key: String) {
     fun url(symbol: String, market: Market = Market.NSE, bseCode: String = ""): String {
         val bse = market == Market.BSE
         return when (forMarket(market)) {
-            TRADINGVIEW -> StockFormat.chartUrl(symbol, if (bse) "BSE" else "NSE")
+            // The trading apps open through BrokerOpener; their web page here is TradingView's.
+            TRADINGVIEW, GROWW, ANGEL_ONE, ZERODHA -> StockFormat.chartUrl(symbol, if (bse) "BSE" else "NSE")
             CHARTINK -> "https://chartink.com/stocks/${encode(symbol.lowercase())}.html"
             GOOGLE_FINANCE ->
                 if (bse) "https://www.google.com/finance/quote/${encode(bseCode.ifEmpty { symbol })}:BOM"

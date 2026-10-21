@@ -471,7 +471,11 @@
             android:text="@string/broker_groww"
             android:textAllCaps="false"
             android:textSize="13sp"
-            app:cornerRadius="14dp" />
+            app:cornerRadius="14dp"
+            app:iconGravity="textStart"
+            app:iconPadding="6dp"
+            app:iconSize="@dimen/broker_icon"
+            app:iconTint="@null" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/detailOpenAngelOne"
@@ -487,7 +491,11 @@
             android:text="@string/broker_angel_one"
             android:textAllCaps="false"
             android:textSize="13sp"
-            app:cornerRadius="14dp" />
+            app:cornerRadius="14dp"
+            app:iconGravity="textStart"
+            app:iconPadding="6dp"
+            app:iconSize="@dimen/broker_icon"
+            app:iconTint="@null" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/detailOpenZerodha"
@@ -503,7 +511,11 @@
             android:text="@string/broker_zerodha"
             android:textAllCaps="false"
             android:textSize="13sp"
-            app:cornerRadius="14dp" />
+            app:cornerRadius="14dp"
+            app:iconGravity="textStart"
+            app:iconPadding="6dp"
+            app:iconSize="@dimen/broker_icon"
+            app:iconTint="@null" />
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
