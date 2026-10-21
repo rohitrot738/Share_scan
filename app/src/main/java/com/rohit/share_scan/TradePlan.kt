@@ -23,6 +23,8 @@ import kotlin.math.roundToLong
  *   ATR stop, so the tighter of the structure stop and the 2-ATR stop wins ([StopKind.MAX_ATR]).
  * - **Risk** (1R) = entry − stop. **Targets** = entry + [TARGET_R] × R, i.e. 1.5R, 2.5R and 4R as in Python.
  * - **Time** to each target: the sessions it typically takes after the entry, from its distance in ATRs ([TargetTimes]).
+ * - **Quick target** = entry + [QUICK_TARGET_R] × R and **wide stop** = entry − [WIDE_STOP_R] × R: the quick target
+ *   came before the stop far more often than Target 1, and more often still before the wide stop ([BreakoutSetup]).
  *
  * [of] returns null when an input is missing or not positive, or when the stop would not be above zero.
  */
@@ -65,6 +67,15 @@ data class TradePlan(
     /** [risk] as a percentage of the entry. */
     val riskPercent: Double get() = risk / entry * 100.0
 
+    /** Nearer than Target 1, and reached before the stop far more often. */
+    val quickTarget: Double get() = entry + QUICK_TARGET_R * risk
+
+    /** About how many sessions after the entry [quickTarget] takes when it is reached. */
+    val quickSessions: IntRange get() = TargetTimes.sessions(QUICK_TARGET_R * risk / atr)
+
+    /** Further than [stop]: the quick target comes first more often, but a loss is [WIDE_STOP_R] times as big. */
+    val wideStop: Double get() = entry - WIDE_STOP_R * risk
+
     /** How many ATRs the price already is above the 20D high (negative below it). */
     val extensionAtr: Double get() = (price - high20) / atr
 
@@ -85,6 +96,8 @@ data class TradePlan(
         const val FALLBACK_ATR_FRACTION = 0.01
         const val EXTENDED_ATR = 2.0
         val TARGET_R = listOf(1.5, 2.5, 4.0)
+        const val QUICK_TARGET_R = 0.75
+        const val WIDE_STOP_R = 1.5
 
         private const val MINUS = "−"
 

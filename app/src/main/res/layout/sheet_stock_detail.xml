@@ -234,6 +234,16 @@
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
 
+                <!-- How this breakout's setup did in the past (BreakoutSetup): volume, and STRONG the day before. -->
+                <TextView
+                    android:id="@+id/detailPlanSetup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:paddingHorizontal="20dp"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
                 <com.google.android.material.card.MaterialCardView
                     style="@style/ShareScanCard"
                     android:layout_width="match_parent"

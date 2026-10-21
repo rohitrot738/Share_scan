@@ -42,12 +42,14 @@
     <string name="notify_live_both">📈 %1$d नए STRONG • 🚀 %2$d breakout</string>
     <string name="notify_live_strong">📈 %1$d नए STRONG stocks</string>
     <string name="notify_live_breakouts">🚀 %1$d stocks का breakout</string>
-    <string name="notify_tag_breakout">breakout</string>
+    <!-- A breakout and its session's volume against the usual: enough (2× or more) or too low. -->
+    <string name="notify_tag_breakout_volume">breakout • volume %1$s× ✓</string>
+    <string name="notify_tag_breakout_low">breakout • volume सिर्फ़ %1$s×, 2× से कम — सावधानी</string>
     <string name="notify_tag_strong">नया STRONG</string>
     <string name="notify_live_line">%1$s · score %2$s · ₹%3$s · %4$s</string>
     <string name="notify_live_more">और %1$d</string>
     <string name="notify_watch_breakout">🚀 %1$s breakout</string>
-    <string name="notify_watch_breakout_body">भाव ₹%1$s ने trigger ₹%2$s पार किया • stop ₹%3$s • target 1 ₹%4$s</string>
+    <string name="notify_watch_breakout_body">भाव ₹%1$s ने trigger ₹%2$s पार किया • stop ₹%3$s • target 1 ₹%4$s • %5$s</string>
     <string name="notify_watch_target">🎯 %1$s target %2$d पूरा</string>
     <string name="notify_watch_target_body">भाव ₹%1$s, target ₹%2$s पर पहुँचा • entry से %3$s</string>
     <string name="notify_watch_stop">⚠️ %1$s stop-loss टूटा</string>

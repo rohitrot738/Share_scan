@@ -37,6 +37,8 @@ object WatchAlerts {
             val entry: Double,
             val stop: Double,
             val target: Double?,
+            /** The breakout session's relative volume; [BreakoutSetup.VOLUME_RVOL] or more held more often. */
+            val rvol: Double = 0.0,
         ) : Event
 
         data class Target(override val symbol: String, override val price: Double, val number: Int, val level: Double, val entry: Double) : Event
@@ -57,7 +59,7 @@ object WatchAlerts {
                 val wasBelow = current.price != null && entry != null && current.price < entry
                 if (wasBelow && entry != null && stop != null && price >= entry) {
                     val trade = State(Phase.IN_TRADE, price, entry, stop, current.targets, hits = 0, since = now)
-                    trade to Event.Breakout(stock.symbol, price, entry, stop, current.targets.firstOrNull())
+                    trade to Event.Breakout(stock.symbol, price, entry, stop, current.targets.firstOrNull(), stock.rvol)
                 } else {
                     waiting(plan, price) to null
                 }

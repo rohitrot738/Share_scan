@@ -105,6 +105,15 @@ class StockAdapter(
             context.getString(R.string.item_support_description, StockFormat.price(it.level), age, it.touches)
         }
 
+        val setup = stock.structure?.let { TradePlan.of(stock.price, it) }?.let { BreakoutSetup.of(stock, it) }
+        val highProbability = setup == BreakoutSetup.Kind.HIGH_PROBABILITY
+        ui.setupLine.isVisible = highProbability
+        val setupDescription = if (highProbability) {
+            context.getString(R.string.item_setup_high, StockFormat.rvol(stock.rvol)).also { ui.setupLine.text = it }
+        } else {
+            null
+        }
+
         // A starred stock no chart has come in for yet: its symbol, and a word that its prices are on their way.
         val charted = stock.charted
         ui.rvol.isVisible = charted
@@ -136,6 +145,7 @@ class StockAdapter(
             },
             context.getString(exchange.description),
             supportDescription,
+            setupDescription,
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,
         ).joinToString(", ")

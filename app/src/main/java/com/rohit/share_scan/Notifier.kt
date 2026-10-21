@@ -57,7 +57,7 @@ object Notifier {
         }
         val lines = finds.take(MAX_LINES).map { find ->
             val tags = listOfNotNull(
-                if (find.breakout) context.getString(R.string.notify_tag_breakout) else null,
+                if (find.breakout) breakoutTag(context, find.rvol) else null,
                 if (find.newStrong) context.getString(R.string.notify_tag_strong) else null,
             ).joinToString(" • ")
             context.getString(R.string.notify_live_line, find.symbol, StockFormat.score(find.score), StockFormat.price(find.price), tags)
@@ -91,6 +91,7 @@ object Notifier {
                     StockFormat.price(event.entry),
                     StockFormat.price(event.stop),
                     event.target?.let(StockFormat::price) ?: "—",
+                    breakoutTag(context, event.rvol),
                 )
             is WatchAlerts.Event.Target -> context.getString(R.string.notify_watch_target, event.symbol, event.number) to
                 context.getString(
@@ -122,6 +123,12 @@ object Notifier {
                 .setAutoCancel(true),
         )
     }
+
+    /** "breakout • volume 2.4× ✓", or the volume marked as too low when it is under [BreakoutSetup.VOLUME_RVOL]. */
+    private fun breakoutTag(context: Context, rvol: Double): String = context.getString(
+        if (rvol >= BreakoutSetup.VOLUME_RVOL) R.string.notify_tag_breakout_volume else R.string.notify_tag_breakout_low,
+        StockFormat.rvol(rvol),
+    )
 
     private fun open(context: Context, symbol: String?, requestCode: Int): PendingIntent {
         val intent = Intent(context, MainActivity::class.java)

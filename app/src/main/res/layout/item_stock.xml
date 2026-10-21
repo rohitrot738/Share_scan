@@ -132,6 +132,20 @@
                     android:maxLines="1"
                     android:textSize="12sp"
                     android:visibility="gone" />
+
+                <!-- A high-probability breakout (BreakoutSetup): today, on twice the usual volume, STRONG the day before. -->
+                <TextView
+                    android:id="@+id/setupLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:fontFeatureSettings="tnum"
+                    android:maxLines="1"
+                    android:textColor="@color/bull"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout

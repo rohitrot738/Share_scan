@@ -31,6 +31,7 @@ class AlertsTest {
         assertTrue(finds.getValue("UP").newStrong)
         assertTrue(finds.getValue("NEW").newStrong)
         assertTrue(finds.getValue("BREAK").breakout)
+        assertEquals(1.0, finds.getValue("BREAK").rvol, 1e-9)
         // Nothing to compare with on the very first scan.
         assertTrue(LiveAlerts.fresh(emptyList(), now, ScanFilters()).isEmpty())
         // Stocks outside the filters do not count.
@@ -50,6 +51,7 @@ class AlertsTest {
         val (trade, breakout) = WatchAlerts.step(waiting, stock("W", 101.0), 2L)
         breakout as WatchAlerts.Event.Breakout
         assertEquals(trigger, breakout.entry, 1e-9)
+        assertEquals(1.0, breakout.rvol, 1e-9)
         assertEquals(WatchAlerts.Phase.IN_TRADE, trade.phase)
         assertEquals(2L, trade.since)
 
