@@ -42,7 +42,7 @@
     <string name="settings_bse">BSE stocks भी स्कैन करें</string>
     <string name="settings_bse_body">NSE चालू हो तो सिर्फ़ BSE वाले ~2,000 stocks जुड़ते हैं, NSE बंद हो तो BSE के सभी ~4,400 • स्कैन लंबा होगा • सिर्फ़ BSE वाले stocks का market cap नहीं दिखता • अगले स्कैन से</string>
     <string name="settings_section_chart">चार्ट</string>
-    <string name="settings_chart_body">Stock detail का चार्ट बटन कहाँ खुले</string>
+    <string name="settings_chart_body">Stock detail का बड़ा बटन कहाँ खुले: chart की site या trading app</string>
     <string name="settings_section_data">डेटा</string>
     <string name="settings_clear_watchlist">Watchlist साफ़ करें (%1$d)</string>
     <string name="settings_reset_filters">सभी Filters reset करें</string>

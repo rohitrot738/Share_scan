@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Groww's colours: a green disc under a blue wave (Broker.badge, when the app is not installed). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#00D09C"
+        android:pathData="M2,12a10,10 0,1 0,20 0a10,10 0,1 0,-20 0z" />
+    <path
+        android:fillColor="#5367FF"
+        android:pathData="M2,12a10,10 0,0 1,20 0c-3.2,-1.6 -5.6,2.8 -9.2,1.6c-2.6,-0.9 -4.2,-3.2 -6.4,-2.3c-1.6,0.7 -2.6,1.2 -4.4,0.7z" />
+</vector>

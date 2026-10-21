@@ -45,6 +45,7 @@ class StockDetailSheet(
     private val ui = SheetStockDetailBinding.inflate(activity.layoutInflater)
     private val structure: PriceStructure? = stock.structure
     private val plan: TradePlan? = structure?.let { TradePlan.of(stock.price, it) }
+    private val brokers = BrokerOpener(activity)
 
     fun show(): BottomSheetDialog {
         bindHeader()
@@ -54,18 +55,26 @@ class StockDetailSheet(
         bindStats()
         ui.detailNoStructure.isVisible = structure == null
         val site = chartSite.forMarket(stock.market)
-        ui.detailOpenChart.text = if (site == ChartSite.SCREENER) {
-            activity.getString(R.string.detail_open_screener)
-        } else {
-            activity.getString(R.string.detail_open_chart_on, activity.getString(site.label))
+        val siteBroker = site.broker
+        ui.detailOpenChart.text = when {
+            site == ChartSite.SCREENER -> activity.getString(R.string.detail_open_screener)
+            siteBroker != null -> activity.getString(R.string.broker_open_description, activity.getString(siteBroker.label))
+            else -> activity.getString(R.string.detail_open_chart_on, activity.getString(site.label))
         }
-        ui.detailOpenChart.setOnClickListener { openChart() }
-        val brokers = BrokerOpener(activity)
+        if (siteBroker != null) {
+            ui.detailOpenChart.icon = siteBroker.icon(activity)
+            ui.detailOpenChart.iconTint = null
+            ui.detailOpenChart.iconSize = activity.resources.getDimensionPixelSize(R.dimen.broker_icon)
+        }
+        ui.detailOpenChart.setOnClickListener { openChart(siteBroker) }
+        // The other trading apps, one tap away; the one the chart button already opens is left out.
         listOf(
             ui.detailOpenGroww to Broker.GROWW,
             ui.detailOpenAngelOne to Broker.ANGEL_ONE,
             ui.detailOpenZerodha to Broker.ZERODHA,
         ).forEach { (button, broker) ->
+            button.isVisible = broker != siteBroker
+            button.icon = broker.icon(activity)
             button.contentDescription = activity.getString(R.string.broker_open_description, activity.getString(broker.label))
             button.setOnClickListener { brokers.open(broker, stock) }
         }
@@ -508,7 +517,11 @@ class StockDetailSheet(
         tile.root.contentDescription = listOfNotNull(stat.label, stat.value, stat.note).joinToString(", ")
     }
 
-    private fun openChart() {
+    private fun openChart(broker: Broker?) {
+        if (broker != null) {
+            brokers.open(broker, stock)
+            return
+        }
         try {
             activity.startActivity(Intent(Intent.ACTION_VIEW, chartSite.url(stock.symbol, stock.market, stock.bseCode).toUri()))
         } catch (error: ActivityNotFoundException) {

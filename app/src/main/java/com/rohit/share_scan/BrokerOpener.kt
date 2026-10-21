@@ -3,12 +3,17 @@ package com.rohit.share_scan
 import android.content.ActivityNotFoundException
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.net.toUri
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
@@ -24,6 +29,22 @@ val Broker.label: Int
         Broker.ANGEL_ONE -> R.string.broker_angel_one
         Broker.ZERODHA -> R.string.broker_zerodha
     }
+
+/** A badge in the app's colours, for phones without the app. */
+@get:DrawableRes
+val Broker.badge: Int
+    get() = when (this) {
+        Broker.GROWW -> R.drawable.ic_broker_groww
+        Broker.ANGEL_ONE -> R.drawable.ic_broker_angel_one
+        Broker.ZERODHA -> R.drawable.ic_broker_zerodha
+    }
+
+/** The app's own icon when it is installed, its [badge] otherwise. */
+fun Broker.icon(context: Context): Drawable? = try {
+    context.packageManager.getApplicationIcon(appId)
+} catch (missing: PackageManager.NameNotFoundException) {
+    AppCompatResources.getDrawable(context, badge)
+}
 
 /**
  * Opens a stock in a [Broker]'s app. Groww: its search finds the stock's page, which the Groww app opens (a browser

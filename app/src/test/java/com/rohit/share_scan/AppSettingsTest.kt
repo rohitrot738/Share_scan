@@ -27,6 +27,15 @@ class AppSettingsTest {
     }
 
     @Test
+    fun tradingAppsOpenThroughTheirBroker() {
+        assertEquals(Broker.GROWW, ChartSite.GROWW.broker)
+        assertEquals(Broker.ANGEL_ONE, ChartSite.ANGEL_ONE.broker)
+        assertEquals(Broker.ZERODHA, ChartSite.ZERODHA.broker)
+        assertEquals(null, ChartSite.TRADINGVIEW.broker)
+        assertEquals(ChartSite.ZERODHA, ChartSite.ZERODHA.forMarket(Market.BSE))
+    }
+
+    @Test
     fun bseOnlyStocksUseBseAddresses() {
         val bse = Market.BSE
         assertEquals(StockFormat.chartUrl("MUZALI", "BSE"), ChartSite.TRADINGVIEW.url("MUZALI", bse, "539410"))
