@@ -63,6 +63,14 @@
     <string name="detail_open_chart_on">%1$s पर चार्ट</string>
     <string name="detail_open_screener">Screener.in पर fundamentals</string>
 
+    <!-- Trading apps (Broker) -->
+    <string name="broker_groww">Groww</string>
+    <string name="broker_angel_one">Angel One</string>
+    <string name="broker_zerodha">Zerodha</string>
+    <string name="broker_open_description">%1$s में खोलें</string>
+    <string name="broker_copied">%1$s copy हो गया — %2$s के search में paste करें</string>
+    <string name="broker_missing">%1$s app इस phone में नहीं मिला</string>
+
     <!-- Themes -->
     <string name="theme_title">थीम चुनें</string>
     <string name="theme_subtitle">टैप करते ही पूरा app नए रंग में</string>

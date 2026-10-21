@@ -26,7 +26,8 @@ import kotlin.math.roundToInt
 
 /**
  * Bottom sheet with everything one scan knows about a stock: header, price chart with the trade-plan
- * levels, the [TradePlan], how the score was built and the key numbers, plus a TradingView button.
+ * levels, the [TradePlan], how the score was built and the key numbers, plus a chart button and buttons that open the
+ * stock in a trading app ([BrokerOpener]).
  * Sections whose data the scan did not provide (no [PriceStructure], no score parts) stay hidden.
  */
 class StockDetailSheet(
@@ -59,6 +60,15 @@ class StockDetailSheet(
             activity.getString(R.string.detail_open_chart_on, activity.getString(site.label))
         }
         ui.detailOpenChart.setOnClickListener { openChart() }
+        val brokers = BrokerOpener(activity)
+        listOf(
+            ui.detailOpenGroww to Broker.GROWW,
+            ui.detailOpenAngelOne to Broker.ANGEL_ONE,
+            ui.detailOpenZerodha to Broker.ZERODHA,
+        ).forEach { (button, broker) ->
+            button.contentDescription = activity.getString(R.string.broker_open_description, activity.getString(broker.label))
+            button.setOnClickListener { brokers.open(broker, stock) }
+        }
 
         val height = (activity.resources.displayMetrics.heightPixels * 0.9f).toInt()
         dialog.setContentView(ui.root, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height))
