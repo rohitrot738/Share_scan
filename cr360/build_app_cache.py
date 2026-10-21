@@ -5,6 +5,9 @@
 Reads the previous store when there is one, drops what aged out of 360CR's ranges, reads the Screener page of every
 stock whose new results may be out (all of them the first time, paced so Screener does not refuse), adds NSE's
 insider trades and bulk/block deals, prices every stock from Yahoo, runs 360CR and writes the store and the app file.
+
+The stocks are the app's: NSE's main board, NSE SME (Emerge) and the BSE shares that do not trade on NSE, chosen by
+the same rules as NseScanner, so every card the app can show has its row under the same symbol.
 """
 from __future__ import annotations
 
@@ -14,6 +17,7 @@ import gzip
 import io
 import json
 import os
+import re
 import time
 import urllib.error
 import urllib.parse
@@ -28,19 +32,30 @@ IST = timezone(timedelta(hours=5, minutes=30))
 APP_UA = "ShareScan (Android)"
 BROWSER_UA = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
 UNIVERSE_URL = "https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv"
+SME_URLS = ("https://nsearchives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv",
+            "https://archives.nseindia.com/emerge/corporates/content/SME_EQUITY_L.csv")
+BSE_BHAVCOPY = "https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_{}_F_0000.CSV"
+SYMBOL = re.compile(r"[A-Z0-9&-]+")
+BSE_NON_EQUITY_GROUPS = {"E", "F", "G", "GS", "IF", "IT", "DT"}  # ETFs, debt and government securities
+ETF_NAME = re.compile(r"\bETF\b|\bBEES\b", re.IGNORECASE)
 SECTORS_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "sectors.json")
 SCREENER_GAP = float(os.environ.get("CR360_SCREENER_GAP", "6"))
-PRICE_RESERVE_MIN = 25  # minutes kept for prices, 360CR and writing the files
+PRICE_RESERVE_MIN = 30  # minutes kept for prices, 360CR and writing the files
 INSIDER_EVERY_DAYS = 7  # a stock's insider trades are topped up weekly
 OLD_QUARTER_DAYS = 200  # a page this far behind the due quarter is checked against the other one
+INSIDER_INDEX = {"nse": "equities", "sme": "sme"}  # NSE's insider filings; BSE-only companies file with BSE
 
 
 def log(*a):
     print(time.strftime("%H:%M:%S"), *a, flush=True)
 
 
-def http_get(url: str, accept: str = "text/html", ua: str = APP_UA, timeout: int = 25) -> tuple[int, str, dict]:
-    req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept": accept, "Accept-Language": "en-IN,en;q=0.9"})
+def http_get(url: str, accept: str = "text/html", ua: str = APP_UA, timeout: int = 25,
+             referer: str | None = None) -> tuple[int, str, dict]:
+    headers = {"User-Agent": ua, "Accept": accept, "Accept-Language": "en-IN,en;q=0.9"}
+    if referer:
+        headers["Referer"] = referer
+    req = urllib.request.Request(url, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=timeout) as r:
             return r.status, r.read().decode("utf-8", "replace"), dict(r.headers)
@@ -64,27 +79,91 @@ def iso_date(v) -> str | None:
 
 # --- sources -------------------------------------------------------------------------------------------------------
 
-def load_universe() -> dict[str, dict]:
-    status, text, _ = http_get(UNIVERSE_URL, "text/csv")
-    if status != 200:
-        raise SystemExit(f"NSE equity list unavailable: {status}")
+def _csv_rows(text: str):
+    for row in csv.DictReader(io.StringIO(text.lstrip("\ufeff"))):
+        yield {k.strip().upper().replace("_", " "): (v or "").strip() for k, v in row.items() if k}
+
+
+def nse_listings(text: str, market: str) -> dict[str, dict]:
+    """EQUITY_L.csv or SME_EQUITY_L.csv (which writes NAME_OF_COMPANY for NAME OF COMPANY)."""
     out = {}
-    for row in csv.DictReader(io.StringIO(text)):
-        row = {k.strip(): (v or "").strip() for k, v in row.items() if k}
-        if row.get("SERIES") in ("EQ", "BE") and row.get("SYMBOL"):
-            out[row["SYMBOL"]] = {"name": row.get("NAME OF COMPANY", ""), "isin": row.get("ISIN NUMBER", "")}
-    if len(out) < 1000:
-        raise SystemExit(f"NSE equity list too short: {len(out)}")
+    for row in _csv_rows(text):
+        sym = row.get("SYMBOL", "")
+        if SYMBOL.fullmatch(sym) and sym not in out:
+            out[sym] = {"name": row.get("NAME OF COMPANY", ""), "isin": row.get("ISIN NUMBER", ""), "market": market, "code": ""}
     return out
 
 
+def bse_listings(text: str) -> dict[str, dict]:
+    """Company shares from a BSE bhavcopy (UDiFF): ETFs, debt and government securities left out by group and name."""
+    out = {}
+    for row in _csv_rows(text):
+        sym = row.get("TCKRSYMB", "").upper()
+        if not SYMBOL.fullmatch(sym) or sym in out or row.get("SCTYSRS", "").upper() in BSE_NON_EQUITY_GROUPS:
+            continue
+        if ETF_NAME.search(row.get("FININSTRMNM", "")) or not row.get("FININSTRMID"):
+            continue
+        out[sym] = {"name": row.get("FININSTRMNM", ""), "isin": row.get("ISIN", ""), "market": "bse", "code": row["FININSTRMID"]}
+    return out
+
+
+def combine(main: dict, sme: dict, bse: dict) -> dict[str, dict]:
+    """NSE's main board, then SME, then the BSE shares not on NSE by ISIN or by symbol (as the app's scan does)."""
+    nse = {**sme, **main}
+    isins = {u["isin"] for u in nse.values()} - {""}
+    return {**nse, **{s: u for s, u in bse.items() if s not in nse and u["isin"] not in isins}}
+
+
+def load_universe(today: date) -> tuple[dict[str, dict], set[str]]:
+    """Every stock the app can show and the markets whose lists loaded. NSE's list is required; SME and BSE are
+    added when their files answer (a market that did not keeps its stocks in the store until it does)."""
+    status, text, _ = http_get(UNIVERSE_URL, "text/csv", BROWSER_UA)
+    main = nse_listings(text, "nse") if status == 200 else {}
+    if len(main) < 1000:
+        raise SystemExit(f"NSE equity list unavailable: {status}, {len(main)} rows")
+    sme = {}
+    for url in SME_URLS:
+        status, text, _ = http_get(url, "text/csv", BROWSER_UA)
+        sme = nse_listings(text, "sme") if status == 200 else {}
+        if len(sme) >= 50:
+            break
+    bse = {}
+    for back in range(8):  # the latest trading day's file; on holidays BSE answers with a web page
+        day = (today - timedelta(days=back)).strftime("%Y%m%d")
+        status, text, _ = http_get(BSE_BHAVCOPY.format(day), "text/csv", BROWSER_UA, 60, "https://www.bseindia.com/")
+        bse = bse_listings(text) if status == 200 else {}
+        if len(bse) >= 500:
+            break
+    markets = {"nse"} | ({"sme"} if len(sme) >= 50 else set()) | ({"bse"} if len(bse) >= 500 else set())
+    log(f"lists: nse {len(main)}, sme {len(sme)}, bse {len(bse)}")
+    return combine(main, sme if "sme" in markets else {}, bse if "bse" in markets else {}), markets
+
+
 def load_sectors(universe: dict[str, dict]) -> dict[str, str]:
+    """Each stock's industry from data/sectors.json, whose maps go by market and ISIN."""
     try:
         data = json.load(open(SECTORS_FILE))
     except OSError:
         return {}
-    names, by_isin = data.get("sectors", []), data.get("nse", {})
-    return {s: names[by_isin[u["isin"]]] for s, u in universe.items() if u["isin"] in by_isin}
+    names = data.get("sectors", [])
+    out = {}
+    for s, u in universe.items():
+        i = (data.get(u.get("market", "nse")) or {}).get(u["isin"])
+        if i is not None:
+            out[s] = names[i]
+    return out
+
+
+def screener_slug(symbol: str, stock: dict) -> str:
+    """Screener knows NSE and SME companies by symbol and BSE-only ones by their BSE code."""
+    return stock["code"] if stock.get("market") == "bse" and stock.get("code") else symbol
+
+
+def yahoo_tickers(symbol: str, stock: dict) -> list[str]:
+    """Yahoo tickers to try, best first: NSE and SME stocks as SYMBOL.NS, BSE ones by symbol and then by code."""
+    if stock.get("market") == "bse":
+        return [f"{symbol}.BO"] + ([f"{stock['code']}.BO"] if stock.get("code") else [])
+    return [f"{symbol}.NS"]
 
 
 class Screener:
@@ -135,14 +214,23 @@ class Screener:
         return best
 
 
-def yahoo_prices(symbol: str) -> list[dict]:
-    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(symbol)}.NS?range=3y&interval=1d"
+def yahoo_prices(tickers: list[str]) -> list[dict]:
+    """Three years of daily prices from the first ticker Yahoo has; [] when none."""
+    for ticker in tickers:
+        rows = _yahoo_chart(ticker)
+        if rows:
+            return rows
+    return []
+
+
+def _yahoo_chart(ticker: str) -> list[dict]:
+    url = f"https://query1.finance.yahoo.com/v8/finance/chart/{urllib.parse.quote(ticker)}?range=3y&interval=1d"
     for _ in range(2):
         status, body, _ = http_get(url, "application/json")
-        if status == 200:
+        if status in (200, 404):  # 404: Yahoo has no such ticker, and asking again will not change that
             break
         time.sleep(2)
-    else:
+    if status != 200:
         return []
     try:
         res = json.loads(body)["chart"]["result"][0]
@@ -157,10 +245,11 @@ def yahoo_prices(symbol: str) -> list[dict]:
         return []
 
 
-def insider_events(nse: NSEPublicAdapter, symbol: str, start: date, end: date) -> list | None:
-    """The stock's insider trades filed between `start` and `end` as [date, side, rupees]; None when NSE failed."""
+def insider_events(nse: NSEPublicAdapter, symbol: str, start: date, end: date, index: str = "equities") -> list | None:
+    """The stock's insider trades filed between `start` and `end` as [date, side, rupees]; None when NSE failed.
+    NSE files SME companies' trades under index "sme"."""
     try:
-        rows = nse._rows(nse._get("/api/corporates-pit", {"index": "equities", "symbol": symbol,
+        rows = nse._rows(nse._get("/api/corporates-pit", {"index": index, "symbol": symbol,
                                                           "from_date": start.strftime("%d-%m-%Y"), "to_date": end.strftime("%d-%m-%Y")}))
     except Exception as e:
         log(f"  nse insider {symbol} failed: {e}")
@@ -233,15 +322,18 @@ def main(argv=None) -> int:
     today = datetime.now(IST).date()
 
     store = read_store(args.store)
-    universe = load_universe()
+    universe, markets = load_universe(today)
+    removed = app_store.prune(store, universe, today, markets)
+    for sym, u in universe.items():  # a stock that moved from SME to the main board reads as main board from now on
+        if sym in store["stocks"]:
+            store["stocks"][sym].update(market=u["market"], code=u["code"])
     sectors = load_sectors(universe)
-    removed = app_store.prune(store, universe, today)
-    log(f"store: {len(store['stocks'])} stocks, universe {len(universe)}, pruned {removed}")
+    log(f"store: {len(store['stocks'])} stocks, universe {len(universe)} ({', '.join(sorted(markets))}), pruned {removed}")
 
     nse = NSEPublicAdapter(timeout=15, retries=2, sleep=.5)
     deals = archive_deals()
     for sym, rows in deals.items():
-        if sym in universe:
+        if universe.get(sym, {}).get("market") in ("nse", "sme"):  # NSE's files; a BSE symbol is another company
             app_store.put_events(store, sym, "deals", rows)
     log(f"deals from today's files: {sum(len(v) for v in deals.values())}")
 
@@ -253,17 +345,19 @@ def main(argv=None) -> int:
     for sym in order:
         if time.time() > deadline or screener.blocked or (args.limit and read >= args.limit):
             break
-        got = screener.page(sym, due_quarter)
+        u = universe[sym]
+        stock = store["stocks"].setdefault(sym, {})
+        stock.update(market=u["market"], code=u["code"])
+        got = screener.page(screener_slug(sym, stock), due_quarter)
         if got is None:
             failed += 1
-            # Not on Screener (or refused): mark it read so it waits a week like the others.
-            store["stocks"].setdefault(sym, {})["checked"] = today.isoformat()
+            if not screener.refusals:  # not on Screener: looked for again later rather than every day
+                stock["checked"] = today.isoformat()
             continue
         page, source = got
         app_store.put_page(store, sym, page, today, source)
-        stock = store["stocks"][sym]
-        if not stock.get("insider_checked"):
-            rows = insider_events(nse, sym, today - timedelta(days=365 * app_store.EVENT_YEARS), today)
+        if not stock.get("insider_checked") and stock["market"] in INSIDER_INDEX:
+            rows = insider_events(nse, sym, today - timedelta(days=365 * app_store.EVENT_YEARS), today, INSIDER_INDEX[stock["market"]])
             if rows is not None:
                 app_store.put_events(store, sym, "insider", rows)
                 stock["insider_checked"] = today.isoformat()
@@ -281,18 +375,21 @@ def main(argv=None) -> int:
         if time.time() > deadline:
             break
         stock = store["stocks"][sym]
-        rows = insider_events(nse, sym, date.fromisoformat(stock["insider_checked"]) - timedelta(days=3), today)
+        rows = insider_events(nse, sym, date.fromisoformat(stock["insider_checked"]) - timedelta(days=3), today,
+                              INSIDER_INDEX.get(stock.get("market", "nse"), "equities"))
         if rows is not None:
             app_store.put_events(store, sym, "insider", rows)
             stock["insider_checked"] = today.isoformat()
             topped += 1
     log(f"insider trades topped up for {topped}/{len(stale)} stocks")
-    app_store.prune(store, universe, today)
+    app_store.prune(store, universe, today, markets)
 
     priced = [s for s, v in store["stocks"].items() if v.get("quarters")]
     with ThreadPoolExecutor(6) as pool:
-        prices = dict(zip(priced, pool.map(yahoo_prices, priced)))
-    last = {s: rows[-1]["close"] for s, rows in prices.items() if rows}
+        prices = dict(zip(priced, pool.map(lambda s: yahoo_prices(yahoo_tickers(s, store["stocks"][s])), priced)))
+    log(f"prices for {sum(1 for v in prices.values() if v)}/{len(priced)} stocks")
+    # A stock Yahoo does not chart is valued at Screener's price.
+    last = {s: rows[-1]["close"] if rows else (store["stocks"][s].get("ratios") or {}).get("price") for s, rows in prices.items()}
     anchors = app_store.sector_anchors(store, last, sectors)
     records = {}
     for sym in priced:

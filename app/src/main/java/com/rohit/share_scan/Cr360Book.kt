@@ -79,6 +79,9 @@ class Cr360Book(
         POSITION_3Y("pos"),
         VOLATILITY("vol"),
         DEBT_TO_EQUITY("de"),
+
+        /** 1 when the company reports half-yearly (most SMEs): [QUARTERS] and [PROFITABLE_QUARTERS] count half-years. */
+        HALF_YEARLY("hy"),
     }
 
     companion object {

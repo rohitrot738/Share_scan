@@ -10,7 +10,7 @@ class Cr360BookTest {
         {"v":1,"updated":"2026-10-21T20:30+05:30","count":2,"stocks":{
           "RELIANCE":{"s":66.4,"st":"POSITIVE","c":100.0,"q":"2026-06-30","d":"2026-10-21",
             "sec":{"fq":92.0,"gr":61.0,"ev":40.0,"xx":5},"f":{"nq":13,"pq":13,"pe":21.8,"up":-4.5}},
-          "NEWCO":{"s":null,"st":"INSUFFICIENT_DATA","c":30.0,"q":null,"d":"2026-10-21","sec":{},"f":{}}
+          "NEWCO":{"s":null,"st":"INSUFFICIENT_DATA","c":30.0,"q":null,"d":"2026-10-21","sec":{},"f":{"nq":4,"hy":1}}
         }}
     """.trimIndent()
 
@@ -27,10 +27,12 @@ class Cr360BookTest {
         assertEquals(mapOf(Cr360Book.Part.FINANCIAL_QUALITY to 92, Cr360Book.Part.GROWTH to 61, Cr360Book.Part.INSIDER_DEALS to 40), r.parts)
         assertEquals(21.8, r.facts[Cr360Book.Fact.PE]!!, 1e-9)
         assertEquals(-4.5, r.facts[Cr360Book.Fact.UPSIDE]!!, 1e-9)
+        assertNull(r.facts[Cr360Book.Fact.HALF_YEARLY])
         val newco = book.of("NEWCO")!!
         assertNull(newco.score)
         assertEquals(Cr360Book.State.INSUFFICIENT_DATA, newco.state)
         assertEquals("", newco.quarter)
+        assertEquals(1.0, newco.facts[Cr360Book.Fact.HALF_YEARLY]!!, 1e-9)
         assertNull(book.of("TCS"))
     }
 

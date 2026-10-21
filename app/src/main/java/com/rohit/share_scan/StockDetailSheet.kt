@@ -432,11 +432,12 @@ class StockDetailSheet(
         fun signed(key: Fact, digits: Int = 1) = f[key]?.let { Cr360Format.signed(it, digits) }
         val lines = ArrayList<String>()
         val quarters = f[Fact.QUARTERS]?.roundToInt()
-        f[Fact.PROFITABLE_QUARTERS]?.let { pq -> quarters?.let { lines += activity.getString(R.string.cr360_fact_profit, it, pq.roundToInt()) } }
+        val periods = activity.getString(if (f[Fact.HALF_YEARLY] == 1.0) R.string.cr360_half_years else R.string.cr360_quarters)
+        f[Fact.PROFITABLE_QUARTERS]?.let { pq -> quarters?.let { lines += activity.getString(R.string.cr360_fact_profit, it, pq.roundToInt(), periods) } }
         if (quarters != null && (f[Fact.REVENUE_CHANGE] != null || f[Fact.PROFIT_CHANGE] != null)) {
             val dash = activity.getString(R.string.stat_empty)
             lines += activity.getString(R.string.cr360_fact_growth,
-                signed(Fact.REVENUE_CHANGE, 0)?.let { "$it%" } ?: dash, signed(Fact.PROFIT_CHANGE, 0)?.let { "$it%" } ?: dash, quarters)
+                signed(Fact.REVENUE_CHANGE, 0)?.let { "$it%" } ?: dash, signed(Fact.PROFIT_CHANGE, 0)?.let { "$it%" } ?: dash, quarters, periods)
         }
         listOfNotNull(
             s(Fact.NET_MARGIN)?.let { activity.getString(R.string.cr360_fact_margin, "$it%") },

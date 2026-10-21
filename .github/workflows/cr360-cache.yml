@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       minutes:
-        description: 'Minutes the run may spend (pages are read until 25 minutes before)'
+        description: 'Minutes the run may spend (pages are read until 30 minutes before)'
         default: '320'
 permissions:
   contents: write

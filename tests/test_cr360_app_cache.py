@@ -4,7 +4,8 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from cr360 import app_store, screener_page
-from cr360.build_app_cache import Screener, deal_rows, iso_date, parse_insider
+from cr360.build_app_cache import (Screener, bse_listings, combine, deal_rows, iso_date, nse_listings, parse_insider,
+                                   screener_slug, yahoo_tickers)
 from cr360.nse_public_adapter import NSEPublicAdapter
 
 FIXTURES = Path(__file__).parent / "fixtures" / "cr360"
@@ -166,3 +167,86 @@ def test_switching_pages_drops_the_other_pages_figures():
     app_store.put_page(store, "R", page("tsc_sme"), today, "standalone")
     assert [q["period"] for q in store["stocks"]["R"]["quarters"]] == [q["period"] for q in page("tsc_sme")["quarters"]]
     assert len(store["stocks"]["R"]["shareholding"]) > len(page("tsc_sme")["shareholding"])  # holders are the same either way
+
+
+def test_half_yearly_reporters_wait_half_a_year_and_late_ones_are_looked_at_monthly():
+    today = date(2026, 10, 21)
+    sme = [{"period": "2025-09-30"}, {"period": "2026-03-31"}]
+    assert app_store.next_results(sme) == date(2026, 9, 29)
+    assert app_store.next_results([{"period": "2026-06-30"}]) == date(2026, 9, 29)
+    assert app_store.next_results([]) is None
+    # September's half-year results are not expected before mid-October.
+    assert not app_store.is_due({"checked": "2026-10-05", "quarters": sme}, date(2026, 10, 15))
+    assert app_store.is_due({"checked": "2026-10-05", "quarters": sme}, today)
+    # Half-yearly results through March 2026: nothing new is due in August.
+    assert not app_store.is_due({"checked": "2026-07-01", "quarters": sme}, date(2026, 8, 20))
+    # Four months late: once a month.
+    late = [{"period": "2025-12-31"}]
+    assert not app_store.is_due({"checked": "2026-10-01", "quarters": late}, today)
+    assert app_store.is_due({"checked": "2026-09-20", "quarters": late}, today)
+    # Not on Screener: once a month too.
+    assert not app_store.is_due({"checked": "2026-10-01"}, today)
+    assert app_store.is_due({"checked": "2026-09-20"}, today)
+
+
+def test_never_read_stocks_go_nse_then_sme_then_bse():
+    universe = {"B": {"market": "bse"}, "S": {"market": "sme"}, "N": {"market": "nse"}, "A": {"market": "bse"}}
+    assert app_store.due_order(app_store.empty(), universe, date(2026, 10, 21)) == ["N", "S", "A", "B"]
+
+
+def test_a_market_whose_list_failed_keeps_its_stocks():
+    store = app_store.empty()
+    store["stocks"] = {"N": {}, "GONE": {}, "S": {"market": "sme"}, "B": {"market": "bse"}}
+    report = app_store.prune(store, {"N": {}}, date(2026, 10, 21), {"nse", "sme"})
+    assert set(store["stocks"]) == {"N", "B"} and report["stocks_removed"] == 2
+
+
+def test_lists_follow_the_apps_rules():
+    main = nse_listings("SYMBOL,NAME OF COMPANY, SERIES, DATE OF LISTING, PAID UP VALUE, MARKET LOT, ISIN NUMBER, FACE VALUE\n"
+                        "RELIANCE,Reliance Industries Limited,EQ,29-NOV-1995,10,1,INE002A01018,10\n"
+                        "ZEEL,Zee Entertainment,BZ,01-JAN-2000,1,1,INE256A01028,1\n"
+                        "bad sym,Nothing,EQ,01-JAN-2000,1,1,INE000000000,1\n", "nse")
+    sme = nse_listings("﻿SYMBOL,NAME_OF_COMPANY,SERIES,DATE_OF_LISTING,PAID_UP_VALUE,MARKET_LOT,ISIN_NUMBER,FACE_VALUE\n"
+                       "TSC,TSC India Limited,SM,25-JUL-2025,10,1200,INE0TSC01017,10\n"
+                       "RELIANCE,Not this one,SM,01-JAN-2020,10,1,INE999999999,10\n", "sme")
+    bse = bse_listings("TradDt,BizDt,Sgmt,Src,FinInstrmTp,FinInstrmId,ISIN,TckrSymb,SctySrs,XpryDt,FininstrmActlXpryDt,StrkPric,OptnTp,FinInstrmNm\n"
+                       "2026-10-20,2026-10-20,CM,BSE,STK,500325,INE002A01018,RELIANCE,A,,,,,RELIANCE INDUSTRIES LTD.\n"
+                       "2026-10-20,2026-10-20,CM,BSE,STK,539410,INE00BS01016,BSEONLY,X,,,,,BSE ONLY LTD\n"
+                       "2026-10-20,2026-10-20,CM,BSE,STK,590001,INE00ZZ01011,TSC,B,,,,,ANOTHER TSC\n"
+                       "2026-10-20,2026-10-20,CM,BSE,STK,543000,INF000000001,GOLDBEES,E,,,,,NIPPON GOLD ETF\n"
+                       "2026-10-20,2026-10-20,CM,BSE,STK,543001,INF000000002,SILVERX,B,,,,,SILVER BEES\n"
+                       "2026-10-20,2026-10-20,CM,BSE,STK,950001,IN0020000001,GSEC26,GS,,,,,GOI 2026\n")
+    assert set(main) == {"RELIANCE", "ZEEL"} and main["RELIANCE"]["isin"] == "INE002A01018"
+    assert sme["TSC"] == {"name": "TSC India Limited", "isin": "INE0TSC01017", "market": "sme", "code": ""}
+    assert set(bse) == {"RELIANCE", "BSEONLY", "TSC"}
+    universe = combine(main, sme, bse)
+    # Dual-listed shares stay NSE's; a BSE scrip under an NSE symbol never takes its place.
+    assert {s: u["market"] for s, u in universe.items()} == {"RELIANCE": "nse", "ZEEL": "nse", "TSC": "sme", "BSEONLY": "bse"}
+    assert universe["BSEONLY"]["code"] == "539410"
+
+
+def test_bse_only_stocks_are_found_by_their_code():
+    nse_stock, bse_stock = {"market": "nse"}, {"market": "bse", "code": "539410"}
+    assert screener_slug("RELIANCE", nse_stock) == "RELIANCE" and screener_slug("BSEONLY", bse_stock) == "539410"
+    assert yahoo_tickers("TSC", {"market": "sme"}) == ["TSC.NS"]
+    assert yahoo_tickers("BSEONLY", bse_stock) == ["BSEONLY.BO", "539410.BO"]
+    assert yahoo_tickers("OLD", {}) == ["OLD.NS"]  # stocks stored before markets were recorded are NSE's
+
+
+def test_without_a_chart_screeners_price_values_the_stock():
+    stock = {"ratios": {"price": 120.0}, "quarters": [{"period": "2026-03-31"}]}
+    assert app_store.research_input("X", stock, [], None).price == 120.0
+
+
+def test_a_half_yearly_reporters_twelve_months_are_two_half_years():
+    today = date(2026, 10, 21)
+    store = app_store.empty()
+    app_store.put_page(store, "TSC", page("tsc_sme"), today, "standalone")
+    stock = store["stocks"]["TSC"]
+    halves = stock["quarters"]
+    assert app_store.half_yearly(halves) and not app_store.half_yearly(page("reliance")["quarters"])
+    assert app_store.eps_ttm(stock) == halves[-1]["eps"] + halves[-2]["eps"]
+    rec = app_store.app_record(stock, app_store.research_input("TSC", stock, [], None))
+    assert rec["f"]["hy"] == 1 and rec["f"]["nq"] == 4
+    assert "hy" not in app_store.app_record(stock | {"quarters": page("reliance")["quarters"]},
+                                            app_store.research_input("R", stock | {"quarters": page("reliance")["quarters"]}, [], None))["f"]

@@ -16,6 +16,8 @@ QUARTERS_KEPT = 20          # quarterly results and shareholding: 5 years
 YEARS_KEPT = 5              # yearly results, balance sheet and cash flow
 EVENT_YEARS = 5             # insider trades and bulk/block deals
 CHECK_EVERY_DAYS = 7        # a stock waiting for its next results is looked at once a week
+LATE_DAYS = 120             # results this late (or never coming) ...
+LATE_CHECK_DAYS = 30        # ... are looked for once a month
 REFRESH_DAYS = 100          # and every page is read again at least this often (restated numbers, book value)
 RESULTS_GRACE_DAYS = 20     # results are not expected sooner than this after a quarter ends
 
@@ -56,24 +58,43 @@ def latest_due_quarter(today: date) -> date:
     return nxt - timedelta(days=1)
 
 
+def half_yearly(quarters: list[dict]) -> bool:
+    """Whether the company reports every six months (most SMEs do); Screener then lists half-years as its quarters."""
+    return len(quarters) >= 2 and (_d(quarters[-1]["period"]) - _d(quarters[-2]["period"])).days > 150
+
+
+def next_results(quarters: list[dict]) -> date | None:
+    """When the period after the latest one ends: a quarter on, or half a year for half-yearly reporters."""
+    if not quarters:
+        return None
+    return _d(quarters[-1]["period"]) + timedelta(days=182 if half_yearly(quarters) else 91)
+
+
 def is_due(stock: dict | None, today: date) -> bool:
-    """Whether the stock's page should be read: never read, a quarter's results may be out, or a long time passed."""
+    """Whether the stock's page should be read: never read, its next results can be out, or a long time passed.
+    A company far behind with its results is looked at monthly rather than weekly."""
     if not stock or not stock.get("checked"):
         return True
     age = (today - _d(stock["checked"])).days
     if age >= REFRESH_DAYS:
         return True
-    if age < CHECK_EVERY_DAYS:
+    nxt = next_results(stock.get("quarters") or [])
+    if nxt is None:  # no results on Screener (or no page): a new listing's first results take a while
+        return age >= LATE_CHECK_DAYS
+    expected = nxt + timedelta(days=RESULTS_GRACE_DAYS)
+    if today < expected:
         return False
-    quarters = stock.get("quarters") or []
-    return not quarters or _d(quarters[-1]["period"]) < latest_due_quarter(today)
+    return age >= (CHECK_EVERY_DAYS if (today - expected).days <= LATE_DAYS else LATE_CHECK_DAYS)
+
+
+MARKET_ORDER = {"nse": 0, "sme": 1, "bse": 2}
 
 
 def due_order(store: dict, universe: dict[str, dict], today: date) -> list[str]:
-    """Stocks to read, those never read first, then the longest unread."""
+    """Stocks to read: those never read first, NSE before SME before BSE, then the longest unread."""
     stocks = store["stocks"]
     due = [s for s in universe if is_due(stocks.get(s), today)]
-    return sorted(due, key=lambda s: (stocks.get(s, {}).get("checked") or "", s))
+    return sorted(due, key=lambda s: (stocks.get(s, {}).get("checked") or "", MARKET_ORDER.get(universe[s].get("market"), 3), s))
 
 
 def put_page(store: dict, symbol: str, page: dict, today: date, source: str) -> None:
@@ -98,9 +119,11 @@ def put_events(store: dict, symbol: str, kind: str, events: list) -> None:
     s[kind] = merge_events(s.get(kind), events)
 
 
-def prune(store: dict, universe: dict[str, dict], today: date) -> dict:
-    """Drops stocks no longer listed and every row older than the ranges 360CR reads; returns what went."""
-    gone = [s for s in store["stocks"] if s not in universe]
+def prune(store: dict, universe: dict[str, dict], today: date, markets: set[str] | None = None) -> dict:
+    """Drops stocks no longer listed and every row older than the ranges 360CR reads; returns what went. With
+    `markets`, only stocks of those markets can be found delisted (a market whose list failed keeps its stocks)."""
+    gone = [s for s, v in store["stocks"].items()
+            if s not in universe and (markets is None or v.get("market", "nse") in markets)]
     for s in gone:
         del store["stocks"][s]
     cutoff = (today - timedelta(days=365 * EVENT_YEARS)).isoformat()
@@ -123,8 +146,11 @@ def prune(store: dict, universe: dict[str, dict], today: date) -> dict:
 # --- 360CR ---------------------------------------------------------------------------------------------------------
 
 def eps_ttm(stock: dict) -> float | None:
-    eps = [q.get("eps") for q in (stock.get("quarters") or [])[-4:]]
-    return sum(eps) if len(eps) == 4 and all(e is not None for e in eps) else None
+    """The last twelve months' EPS: four quarters, or two half-years."""
+    quarters = stock.get("quarters") or []
+    n = 2 if half_yearly(quarters) else 4
+    eps = [q.get("eps") for q in quarters[-n:]]
+    return sum(eps) if len(eps) == n and all(e is not None for e in eps) else None
 
 
 def sector_anchors(store: dict, prices: dict[str, float], sectors: dict[str, str]) -> dict[str, tuple[float, float]]:
@@ -142,7 +168,8 @@ def sector_anchors(store: dict, prices: dict[str, float], sectors: dict[str, str
 
 
 def research_input(symbol: str, stock: dict, price_rows: list[dict], anchor: tuple[float, float] | None) -> ResearchInput:
-    price = price_rows[-1]["close"] if price_rows else None
+    # Without a chart (many SME and BSE-only stocks are not on Yahoo) Screener's price still values the company.
+    price = price_rows[-1]["close"] if price_rows else (stock.get("ratios") or {}).get("price")
     valuation = {}
     eps, book = eps_ttm(stock), (stock.get("ratios") or {}).get("book_value")
     if anchor:
@@ -188,6 +215,7 @@ def app_record(stock: dict, research: ResearchInput) -> dict | None:
         "fv": r.fair_value.get("base"), "up": r.fair_value.get("upside_pct"),
         "pos": r.risk.get("position_156w_pct"), "vol": r.risk.get("annualized_volatility_pct"),
         "de": _r(bal.get("total_debt") / bal["equity"], 2) if bal.get("equity") and bal.get("total_debt") is not None else None,
+        "hy": 1 if half_yearly(stock.get("quarters") or []) else None,  # nq and pq count half-years
     }
     return {
         "s": r.score, "st": r.state, "c": r.confidence,
