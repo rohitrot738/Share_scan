@@ -8,6 +8,8 @@ mkdir -p "$OUT"
 adb shell svc power stayon true
 adb shell settings put system screen_off_timeout 1800000
 adb install -r app/build/outputs/apk/debug/app-debug.apk
+# Alerts ask for notification access on first start; granted here so the dialog does not cover the scan button.
+adb shell pm grant "$PKG" android.permission.POST_NOTIFICATIONS
 
 shot() { sleep "${2:-3}"; adb exec-out screencap -p > "$OUT/$1.png"; echo "shot $1"; }
 launch() { adb shell am force-stop "$PKG"; adb shell am start -W -n "$PKG/.MainActivity" > /dev/null; }
@@ -34,6 +36,7 @@ adb shell cmd uimode night yes
 launch; sleep 4
 tap startButton
 shot 01-scanning 20
+grep -q 'resource-id="[^"]*:id/startButton"[^>]*enabled="true"' /tmp/ui.xml && echo "start button still enabled after the tap"
 
 # The start button is enabled again once the scan has finished or failed.
 for i in $(seq 1 100); do
