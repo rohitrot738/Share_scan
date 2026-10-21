@@ -4,7 +4,7 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from cr360 import app_store, screener_page
-from cr360.build_app_cache import deal_rows, iso_date, parse_insider
+from cr360.build_app_cache import Screener, deal_rows, iso_date, parse_insider
 from cr360.nse_public_adapter import NSEPublicAdapter
 
 FIXTURES = Path(__file__).parent / "fixtures" / "cr360"
@@ -138,3 +138,31 @@ def test_no_results_means_no_row():
     store = app_store.empty()
     stock = store["stocks"].setdefault("X", {})
     assert app_store.app_record(stock, app_store.research_input("X", stock, [], None)) is None
+
+
+def test_an_old_consolidated_page_gives_way_to_a_newer_standalone_one():
+    # Consolidated results up to March 2026, standalone up to June 2026.
+    pages = {"X/consolidated/": (FIXTURES / "screener_tsc_sme.html").read_text(),
+             "X/": (FIXTURES / "screener_reliance.html").read_text()}
+    asked = []
+
+    class Fake(Screener):
+        def _get(self, path):
+            asked.append(path)
+            return 200, pages[path]
+
+    got, source = Fake().page("X", date(2026, 12, 31))
+    assert source == "standalone" and got["quarters"][-1]["period"] == "2026-06-30"
+    assert asked == ["X/consolidated/", "X/"]
+    asked.clear()
+    got, source = Fake().page("X", date(2026, 9, 30))
+    assert source == "consolidated" and asked == ["X/consolidated/"]  # a current consolidated page is enough
+
+
+def test_switching_pages_drops_the_other_pages_figures():
+    store = app_store.empty()
+    today = date(2026, 10, 21)
+    app_store.put_page(store, "R", page("reliance"), today, "consolidated")
+    app_store.put_page(store, "R", page("tsc_sme"), today, "standalone")
+    assert [q["period"] for q in store["stocks"]["R"]["quarters"]] == [q["period"] for q in page("tsc_sme")["quarters"]]
+    assert len(store["stocks"]["R"]["shareholding"]) > len(page("tsc_sme")["shareholding"])  # holders are the same either way

@@ -79,6 +79,10 @@ def due_order(store: dict, universe: dict[str, dict], today: date) -> list[str]:
 def put_page(store: dict, symbol: str, page: dict, today: date, source: str) -> None:
     """Adds one page's reading to the stock, keeping the quarters and years it already had."""
     s = store["stocks"].setdefault(symbol, {})
+    if s.get("source") and s["source"] != source:
+        # Consolidated and standalone figures do not mix: the other page's rows give way.
+        for key in ("quarters", "annual", "balance", "cashflow"):
+            s.pop(key, None)
     s["checked"] = today.isoformat()
     s["source"] = source
     s["quarters"] = merge_periods(s.get("quarters"), page["quarters"], QUARTERS_KEPT)

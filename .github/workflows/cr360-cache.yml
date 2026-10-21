@@ -10,9 +10,6 @@ on:
       minutes:
         description: 'Minutes the run may spend (pages are read until 25 minutes before)'
         default: '320'
-  push:
-    branches: [claude/fervent-turing-3b79hv]
-    paths: ['cr360/**', '.github/workflows/cr360-cache.yml']
 permissions:
   contents: write
 concurrency:
@@ -41,13 +38,7 @@ jobs:
         run: |
           gh release download "$TAG" -p cr360-store.json.gz || echo "No store yet, so this run starts the full load."
       - name: Build
-        run: |
-          if [ "${{ github.event_name }}" = "push" ]; then
-            # A pushed change is tried on a few pages; the evening run does the rest.
-            python -m cr360.build_app_cache --minutes 30 --limit 40
-          else
-            python -m cr360.build_app_cache --minutes "${{ inputs.minutes || '320' }}"
-          fi
+        run: python -m cr360.build_app_cache --minutes "${{ inputs.minutes || '320' }}"
       - name: Check the files
         run: |
           python - <<'PY'

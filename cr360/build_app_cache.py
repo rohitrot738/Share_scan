@@ -32,6 +32,7 @@ SECTORS_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "sectors.js
 SCREENER_GAP = float(os.environ.get("CR360_SCREENER_GAP", "6"))
 PRICE_RESERVE_MIN = 25  # minutes kept for prices, 360CR and writing the files
 INSIDER_EVERY_DAYS = 7  # a stock's insider trades are topped up weekly
+OLD_QUARTER_DAYS = 200  # a page this far behind the due quarter is checked against the other one
 
 
 def log(*a):
@@ -112,9 +113,11 @@ class Screener:
     def blocked(self) -> bool:
         return self.refusals >= 5
 
-    def page(self, symbol: str) -> tuple[dict, str] | None:
-        """The consolidated page, or the standalone one when the consolidated has no results."""
+    def page(self, symbol: str, due_quarter: date) -> tuple[dict, str] | None:
+        """The consolidated page, or the standalone one when the consolidated has no results or stopped two quarters
+        or more before `due_quarter` (some groups stop filing consolidated results); the newer of the two wins."""
         q = urllib.parse.quote(symbol)
+        best = None
         for source, path in (("consolidated", f"{q}/consolidated/"), ("standalone", f"{q}/")):
             status, html = self._get(path)
             if status == 429:
@@ -122,9 +125,14 @@ class Screener:
             if status != 200:
                 continue
             page = screener_page.parse(html)
-            if page["quarters"]:
-                return page, source
-        return None
+            if not page["quarters"]:
+                continue
+            latest = page["quarters"][-1]["period"]
+            if best is None or latest > best[0]["quarters"][-1]["period"]:
+                best = (page, source)
+            if date.fromisoformat(latest) >= due_quarter - timedelta(days=OLD_QUARTER_DAYS):
+                break
+        return best
 
 
 def yahoo_prices(symbol: str) -> list[dict]:
@@ -238,13 +246,14 @@ def main(argv=None) -> int:
     log(f"deals from today's files: {sum(len(v) for v in deals.values())}")
 
     screener = Screener()
+    due_quarter = app_store.latest_due_quarter(today)
     order = app_store.due_order(store, universe, today)
     read = failed = 0
     log(f"due pages: {len(order)}")
     for sym in order:
         if time.time() > deadline or screener.blocked or (args.limit and read >= args.limit):
             break
-        got = screener.page(sym)
+        got = screener.page(sym, due_quarter)
         if got is None:
             failed += 1
             # Not on Screener (or refused): mark it read so it waits a week like the others.
