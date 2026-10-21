@@ -728,6 +728,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/sort_price" />
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/sortCr360"
+                            style="@style/ShareScanChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sort_cr360" />
                     </com.google.android.material.chip.ChipGroup>
                 </LinearLayout>
             </HorizontalScrollView>

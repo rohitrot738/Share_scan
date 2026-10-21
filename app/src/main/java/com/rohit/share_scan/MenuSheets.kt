@@ -388,6 +388,7 @@ class HelpSheet(private val activity: AppCompatActivity, private val onBack: () 
             activity.getString(R.string.help_rvol_body, StockFormat.SPIKE_RVOL.toInt().toString()),
         )
         add(activity.getString(R.string.help_plan_title), activity.getString(R.string.help_plan_body))
+        add(activity.getString(R.string.help_cr360_title), activity.getString(R.string.help_cr360_body))
         add(activity.getString(R.string.help_badges_title), activity.getString(R.string.help_badges_body))
         add(activity.getString(R.string.help_live_title), activity.getString(R.string.help_live_body))
         add(activity.getString(R.string.help_alerts_title), activity.getString(R.string.help_alerts_body))

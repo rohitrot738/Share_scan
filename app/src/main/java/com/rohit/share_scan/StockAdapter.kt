@@ -2,6 +2,9 @@ package com.rohit.share_scan
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
@@ -12,11 +15,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rohit.share_scan.databinding.ItemStockBinding
+import java.util.Locale
 
 class StockAdapter(
     private val onOpen: (ScanResult) -> Unit,
     private val onStar: (ScanResult) -> Unit = {},
 ) : ListAdapter<RankedStock, StockAdapter.Holder>(Diff) {
+
+    /** Every stock's 360CR ([Cr360Book]); the card adds the stock's score to its meta line. */
+    var cr360: Cr360Book = Cr360Book.EMPTY
 
     class Holder(val ui: ItemStockBinding) : RecyclerView.ViewHolder(ui.root) {
         /** The tier whose colour stains the rank circle's and tier pill's glass, so a rebind keeps the same glass. */
@@ -73,11 +80,23 @@ class StockAdapter(
         bindRankBadge(ui.rankBadge, item.badge)
         ui.change.text = context.getString(R.string.item_change, StockFormat.change(stock.change5d))
         ui.change.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
-        ui.meta.text = context.getString(
-            R.string.item_meta,
-            stock.marketCapCr?.let(StockFormat::crore) ?: context.getString(R.string.stat_empty),
-            StockFormat.shares(stock.volume),
+        val meta = SpannableStringBuilder(
+            context.getString(
+                R.string.item_meta,
+                stock.marketCapCr?.let(StockFormat::crore) ?: context.getString(R.string.stat_empty),
+                StockFormat.shares(stock.volume),
+            ),
         )
+        val research = cr360.of(stock.symbol)?.takeIf { it.score != null }
+        val researchDescription = research?.let { entry ->
+            val score = String.format(Locale.US, "%.0f", entry.score)
+            meta.append(" · ")
+            val start = meta.length
+            meta.append(context.getString(R.string.item_cr360, score))
+            meta.setSpan(ForegroundColorSpan(color(entry.state.tone)), start, meta.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            context.getString(R.string.item_cr360_description, score, context.getString(entry.state.label))
+        }
+        ui.meta.text = meta
         ui.price.text = context.getString(R.string.item_price, StockFormat.price(stock.price))
 
         val spike = stock.rvol >= StockFormat.SPIKE_RVOL
@@ -146,6 +165,7 @@ class StockAdapter(
             context.getString(exchange.description),
             supportDescription,
             setupDescription,
+            researchDescription,
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,
         ).joinToString(", ")

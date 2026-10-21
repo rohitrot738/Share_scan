@@ -20,7 +20,7 @@ jobs:
       - run: pip install pytest pandas yfinance requests beautifulsoup4 lxml
       - name: Verify package import
         run: python -c "import cr360; print('cr360 import OK:', cr360.__file__)"
-      - run: python -m pytest -q tests/test_cr360.py tests/test_cr360_collector.py tests/test_nse_public_adapter.py
+      - run: python -m pytest -q tests/test_cr360.py tests/test_cr360_collector.py tests/test_nse_public_adapter.py tests/test_cr360_app_cache.py
       - name: Research-agent candidate diagnostic
         continue-on-error: true
         run: |
@@ -52,4 +52,46 @@ jobs:
           from cr360.validator import validate_360cr_input
           x=collect_identity_safe_360cr('RELIANCE');v=validate_360cr_input(x)
           print('IDENTITY_SAFE_BASELINE',x.metadata.get('identity_safe_counts'),'complete=',v['complete'])
+          PY
+  app-cache-sources:
+    # What the daily 360CR cache reads for SME and BSE-only stocks, from a GitHub runner like the cache's own.
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 20
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Lists, Screener pages, Yahoo charts and NSE insider filings
+        run: |
+          python - <<'PY'
+          from datetime import datetime, timedelta
+          from cr360 import app_store, build_app_cache as b
+          from cr360.nse_public_adapter import NSEPublicAdapter
+          today = datetime.now(b.IST).date()
+          universe, markets = b.load_universe(today)
+          by = {}
+          for s, u in universe.items():
+              by.setdefault(u["market"], []).append(s)
+          print("APP_CACHE markets", sorted(markets), {k: len(v) for k, v in by.items()})
+          screener, nse = b.Screener(), NSEPublicAdapter(timeout=15, retries=2, sleep=.5)
+          due = app_store.latest_due_quarter(today)
+          for m in ("sme", "bse"):
+              names = sorted(by.get(m, []))
+              for sym in names[:: max(1, len(names) // 4)][:4]:
+                  u = universe[sym]
+                  got = screener.page(b.screener_slug(sym, u), due)
+                  periods = [q["period"] for q in got[0]["quarters"]] if got else None
+                  prices = b.yahoo_prices(b.yahoo_tickers(sym, u))
+                  print("APP_CACHE", m, sym, u["code"], "page", got and got[1], periods, "prices", len(prices))
+          for sym in sorted(by.get("sme", []))[:: max(1, len(by.get("sme", [])) // 10)][:10]:
+              counts = {}
+              for index in ("sme", "equities"):
+                  rows = b.insider_events(nse, sym, today - timedelta(days=365 * 5), today, index)
+                  counts[index] = None if rows is None else len(rows)
+              print("APP_CACHE insider", sym, counts)
           PY

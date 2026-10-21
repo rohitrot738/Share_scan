@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- R/S (रोहित सिलेक्शन) is what the app calls 360CR (Cr360Book): the company's research score from the
+         repository's daily file. Only the shown name changed; the code, the file and the release keep "cr360". -->
+    <string name="sort_cr360">R/S</string>
+    <string name="item_cr360">R/S %1$s</string>
+    <string name="item_cr360_description">रोहित सिलेक्शन %1$s, %2$s</string>
+
+    <string name="detail_section_cr360">R/S · रोहित सिलेक्शन</string>
+    <string name="detail_cr360_subtitle">कंपनी के नतीजे, cash flow, कर्ज़, shareholding, insider और bulk deals, valuation और 3 साल का भाव</string>
+    <string name="detail_cr360_score">%1$s / 100</string>
+    <string name="detail_cr360_data">Data %1$d%% · नतीजे %2$s तक · %3$s को पढ़ा</string>
+    <string name="detail_cr360_missing">इस stock का R/S अभी नहीं है — रोज़ शाम का cache इसे जल्द जोड़ेगा</string>
+    <string name="detail_cr360_note">स्रोत: Screener.in, NSE, Yahoo · रोज़ शाम update · निवेश सलाह नहीं</string>
+
+    <string name="cr360_high_conviction">बहुत मज़बूत</string>
+    <string name="cr360_positive">मज़बूत</string>
+    <string name="cr360_neutral">ठीक-ठाक</string>
+    <string name="cr360_caution">सावधानी</string>
+    <string name="cr360_avoid">दूर रहें</string>
+    <string name="cr360_insufficient">Data कम</string>
+
+    <string name="cr360_part_financial_quality">नतीजों की गुणवत्ता</string>
+    <string name="cr360_part_growth">बढ़त</string>
+    <string name="cr360_part_cashflow">Cash flow</string>
+    <string name="cr360_part_balance_sheet">कर्ज़ / balance sheet</string>
+    <string name="cr360_part_ownership">Shareholding</string>
+    <string name="cr360_part_insider_deals">Insider और bulk deals</string>
+    <string name="cr360_part_valuation">Valuation</string>
+    <string name="cr360_part_price">3 साल का भाव</string>
+    <string name="cr360_part_stability">स्थिरता</string>
+    <string name="cr360_part_technical_risk">जोखिम और R:R</string>
+
+    <string name="cr360_quarters">quarters</string>
+    <string name="cr360_half_years">छमाहियों</string>
+    <string name="cr360_fact_profit">%1$d में से %2$d %3$s में मुनाफ़ा</string>
+    <string name="cr360_fact_growth">बिक्री %1$s · मुनाफ़ा %2$s (%3$d %4$s में)</string>
+    <string name="cr360_fact_margin">Net margin %1$s</string>
+    <string name="cr360_fact_debt">कर्ज़/Equity %1$s</string>
+    <string name="cr360_fact_promoter">Promoter %1$s%% (%2$s)</string>
+    <string name="cr360_fact_institutions">FII %1$s · DII %2$s</string>
+    <string name="cr360_fact_institutions_span">FII %1$s%% · DII %2$s%% (%3$d quarters में)</string>
+    <string name="cr360_fact_insider">Insider: ख़रीद ₹%1$s Cr · बिक्री ₹%2$s Cr</string>
+    <string name="cr360_fact_deals">Bulk/Block: ख़रीद ₹%1$s Cr · बिक्री ₹%2$s Cr</string>
+    <string name="cr360_fact_pe">P/E %1$s</string>
+    <string name="cr360_fact_history_pe">अपना 3 साल का आम P/E %1$s</string>
+    <string name="cr360_fact_fair_value">Fair value: %1$s</string>
+    <string name="cr360_fair_sector">sector से ₹%1$s (%2$s)</string>
+    <string name="cr360_fair_history">अपने P/E से ₹%1$s (%2$s)</string>
+    <string name="cr360_fact_position">3 साल के दायरे में %1$s%% पर</string>
+    <string name="cr360_fact_volatility">Volatility %1$s%%</string>
+
+    <!-- R/S history (Cr360History): the tables under the R/S card. -->
+    <string name="detail_section_cr360_history">R/S इतिहास</string>
+    <string name="detail_cr360_history_loading">इतिहास ला रहा है…</string>
+    <string name="detail_cr360_history_subtitle">हर quarter और हर साल का data, जितना cache में है (5 साल तक)</string>
+    <string name="detail_cr360_history_missing">इस stock का इतिहास अभी नहीं मिला — internet हो तो अगली बार खोलने पर आ जाएगा</string>
+    <string name="cr360_history_holders_title" formatted="false">FII / DII की ख़रीद-बिक्री (हिस्सेदारी %)</string>
+    <string name="cr360_history_holders_note" formatted="false">▲ हिस्सा बढ़ा = उस quarter में ख़रीदा · ▼ घटा = बेचा (% points)</string>
+    <string name="cr360_history_holders_summary">%1$s → %2$s: FII %3$s%% → %4$s%% (%5$s) · DII %6$s%% → %7$s%% (%8$s)</string>
+    <string name="cr360_history_quarters_title">Quarterly नतीजे (₹ करोड़)</string>
+    <string name="cr360_history_halves_title">छमाही नतीजे (₹ करोड़)</string>
+    <string name="cr360_history_years_title">सालाना: नतीजे, cash flow, कर्ज़ (₹ करोड़)</string>
+    <string name="cr360_history_quarter">Quarter</string>
+    <string name="cr360_history_half">छमाही</string>
+    <string name="cr360_history_year">साल</string>
+    <string name="cr360_history_promoter">Promoter</string>
+    <string name="cr360_history_public">Public</string>
+    <string name="cr360_history_sales">बिक्री</string>
+    <string name="cr360_history_profit">मुनाफ़ा</string>
+    <string name="cr360_history_eps">EPS ₹</string>
+    <string name="cr360_history_operating_cash">Op. cash</string>
+    <string name="cr360_history_free_cash">Free cash</string>
+    <string name="cr360_history_debt">कर्ज़</string>
+    <string name="cr360_history_chart_title">3 साल का भाव (हर महीने का आख़िरी close)</string>
+    <string name="cr360_history_chart_note">अभी ₹%1$s · सबसे ऊँचा ₹%2$s (%3$s) · सबसे नीचा ₹%4$s (%5$s)</string>
+    <string name="cr360_history_chart_description">%1$s से %2$s तक हर महीने का भाव: नीचा ₹%3$s, ऊँचा ₹%4$s, अभी ₹%5$s</string>
+
+    <string name="help_cr360_title">R/S · रोहित सिलेक्शन</string>
+    <string name="help_cr360_body">R/S (रोहित सिलेक्शन) कंपनी को 10 हिस्सों में जाँचता है: नतीजों की गुणवत्ता (18), बढ़त (12), cash flow (10), कर्ज़ (10), shareholding (12), insider और bulk/block deals (8), valuation (12), 3 साल का भाव (8), स्थिरता (5) और जोखिम (5)। Valuation में आधा वज़न sector के आम P/E और P/B से तुलना का है और आधा कंपनी के अपने पिछले 3 साल के आम P/E का, ताकि हमेशा ऊँचे P/E पर चलने वाली अच्छी कंपनियाँ सिर्फ़ sector से तुलना में सस्ती-महँगी न आँकी जाएँ। 0–100 के score से दर्जा: 75+ बहुत मज़बूत, 62+ मज़बूत, 48+ ठीक-ठाक, 35+ सावधानी, उससे कम दूर रहें; data 40% से कम हो तो \"Data कम\"। NSE, NSE SME और सिर्फ़ BSE पर listed — तीनों के stocks शामिल हैं; SME कंपनियाँ छमाही नतीजे देती हैं, इसलिए उनका हिसाब छमाहियों में है। Data Screener.in, NSE और Yahoo से रोज़ शाम एक बार cache में जुड़ता है — पुराने quarters नहीं बदलते, इसलिए सिर्फ़ नए नतीजे, shareholding और deals जुड़ते हैं, और 20 quarters / 5 साल से पुराना data हट जाता है। App दिन में दो बार तक नई फ़ाइल लेता है और सिर्फ़ एक copy रखता है। Stock detail में \"R/S इतिहास\" हर quarter के नतीजे, FII/DII/promoter की हिस्सेदारी (▲ ख़रीदा, ▼ बेचा), सालाना cash flow और कर्ज़, और 3 साल का भाव दिखाता है; इसकी छोटी फ़ाइल उसी stock को खोलने पर आती है। Bulk/block deals अब से जुड़ने शुरू हुए हैं, उनका इतिहास धीरे-धीरे बनेगा; insider trades और bulk/block deals NSE के हैं, इसलिए सिर्फ़ BSE वाले stocks में ये हिस्सा खाली रहता है। निवेश सलाह नहीं।</string>
+</resources>

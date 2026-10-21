@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,6 +35,14 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         ScanEngine.load(application)
+        // 360CR: the kept file first, then a fresh one when it is half a day old.
+        viewModelScope.launch(Dispatchers.IO) {
+            val book = Cr360Repository.book(application)
+            state.update { it.copy(cr360 = book) }
+            if (runCatching { Cr360Repository.refreshIfStale(application) }.getOrDefault(false)) {
+                state.update { it.copy(cr360 = Cr360Repository.current()) }
+            }
+        }
         viewModelScope.launch {
             combine(ScanEngine.progress, ScanEngine.latest, ScanEngine.failure) { progress, latest, failure ->
                 Triple(progress, latest, failure)
@@ -81,6 +90,8 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
                 narrowed = latest != null && ScanSectors.narrowed(latest.scope),
                 runningAuto = progress.running && progress.trigger == ScanEngine.Trigger.AUTO,
                 earlyStop = !progress.running && lastRun?.stoppedEarly == true,
+                // A scan may have brought a fresh 360CR file (ScanEngine).
+                cr360 = Cr360Repository.current().takeIf { it !== Cr360Book.EMPTY } ?: current.cr360,
             )
         }
     }
