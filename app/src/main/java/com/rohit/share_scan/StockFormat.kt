@@ -65,8 +65,13 @@ object StockFormat {
         Metric.CHANGE, Metric.VS_SMA50 -> (if (value > 0) "+" else "") + short(value) + "%"
         Metric.FROM_HIGH, Metric.BASE_RANGE, Metric.SUPPORT_GAP -> short(value) + "%"
         Metric.SUPPORT_AGE -> months((value / SupportFloors.SESSIONS_PER_MONTH).roundToInt())
-        Metric.SCORE -> short(value)
+        Metric.SCORE, Metric.RSI -> short(value)
+        Metric.MACD -> (if (value > 0) "+" else "") + String.format(Locale.US, "%.2f", value).trimEnd('0').trimEnd('.') + "%"
+        Metric.MACD_CROSS -> sessionsAgo(value.roundToInt())
     }
+
+    /** "आज", "1 दिन पहले", "5 दिन पहले": trading sessions back from the latest. */
+    fun sessionsAgo(count: Int): String = if (count <= 0) "आज" else "$count दिन पहले"
 
     /** "1 महीना", "3 महीने". */
     fun months(count: Int): String = if (count == 1) "1 महीना" else "$count महीने"

@@ -22,6 +22,18 @@ enum class Metric(val key: String, val stops: List<Double>) {
     /** Percent above (+) or below (-) the 50-day average; "≥ 0%" keeps stocks in an uptrend. */
     VS_SMA50("sma50", listOf(-20.0, -10.0, -5.0, 0.0, 5.0, 10.0, 20.0, 30.0, 50.0)),
 
+    /** RSI (14): above 70 overbought, below 30 oversold; "50–70" keeps stocks with momentum that are not stretched. */
+    RSI("rsi", listOf(20.0, 30.0, 40.0, 50.0, 60.0, 70.0, 80.0)),
+
+    /** MACD line minus its signal, as a percent of the price; "≥ 0%" keeps stocks whose MACD is above its signal. */
+    MACD("macd", listOf(-2.0, -1.0, -0.5, -0.25, 0.0, 0.25, 0.5, 1.0, 2.0)),
+
+    /**
+     * Sessions since the MACD crossed above its signal (0 = the latest); "≤ 3" keeps fresh bullish crossovers. A stock
+     * whose MACD is below its signal has no such crossover and fails any limit here.
+     */
+    MACD_CROSS("macdx", listOf(0.0, 1.0, 2.0, 3.0, 5.0, 10.0, 20.0)),
+
     /** Sessions since the support floor was first tested ([SupportFloor.ageSessions]); stops are whole months. */
     SUPPORT_AGE("supage", List(6) { (it + 1) * SupportFloors.SESSIONS_PER_MONTH.toDouble() }),
 
@@ -40,6 +52,9 @@ enum class Metric(val key: String, val stops: List<Double>) {
         FROM_HIGH -> stock.belowHigh20Pct
         BASE_RANGE -> stock.rangePct(rangeWeeks)
         VS_SMA50 -> stock.vsSma50Pct
+        RSI -> stock.rsi14
+        MACD -> stock.macdGapPct
+        MACD_CROSS -> stock.macdCrossAge?.toDouble()
         SUPPORT_AGE -> stock.support?.ageSessions?.toDouble()
         SUPPORT_GAP -> stock.support?.distancePct(stock.price)
         SCORE -> stock.score

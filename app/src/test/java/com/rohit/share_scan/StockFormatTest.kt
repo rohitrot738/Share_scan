@@ -16,6 +16,17 @@ class StockFormatTest {
     }
 
     @Test
+    fun rsiAndMacdLimitsRead() {
+        assertEquals("70", StockFormat.metricValue(Metric.RSI, 70.0))
+        assertEquals("-0.25%", StockFormat.metricValue(Metric.MACD, -0.25))
+        assertEquals("0%", StockFormat.metricValue(Metric.MACD, 0.0))
+        assertEquals("+0.5%", StockFormat.metricValue(Metric.MACD, 0.5))
+        assertEquals("+2%", StockFormat.metricValue(Metric.MACD, 2.0))
+        assertEquals("आज", StockFormat.metricValue(Metric.MACD_CROSS, 0.0))
+        assertEquals("3 दिन पहले", StockFormat.metricValue(Metric.MACD_CROSS, 3.0))
+    }
+
+    @Test
     fun tiersFollowScoreThresholds() {
         assertEquals(StockFormat.Tier.STRONG, StockFormat.tier(75.0))
         assertEquals(StockFormat.Tier.WATCH, StockFormat.tier(74.9))

@@ -189,6 +189,10 @@ class ScanStore(private val file: File) {
         s.sma50?.let { put("s50", num(it)) }
         s.high10?.let { put("h10", num(it)) }
         if (s.weekRanges.isNotEmpty()) put("wr", JSONArray().apply { for (range in s.weekRanges) put(num(range)) })
+        s.rsi14?.let { put("rsi", num(it)) }
+        s.macd?.let { put("macd", num(it)) }
+        s.macdSignal?.let { put("macds", num(it)) }
+        s.macdCrossAge?.let { put("macdx", it) }
     }
 
     private fun structure(json: JSONObject): PriceStructure {
@@ -205,6 +209,10 @@ class ScanStore(private val file: File) {
             high10 = if (json.has("h10")) json.double("h10") else null,
             closeDays = if (days == null) emptyList() else List(days.length()) { days.getLong(it) },
             weekRanges = if (ranges == null) emptyList() else List(ranges.length()) { ranges.doubleAt(it) },
+            rsi14 = if (json.has("rsi")) json.double("rsi") else null,
+            macd = if (json.has("macd")) json.double("macd") else null,
+            macdSignal = if (json.has("macds")) json.double("macds") else null,
+            macdCrossAge = if (json.has("macdx")) json.getInt("macdx") else null,
         )
     }
 
