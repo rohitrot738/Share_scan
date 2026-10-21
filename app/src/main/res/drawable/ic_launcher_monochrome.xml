@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Themed-icon (Android 13+) silhouette: the "R" alone. -->
+<!-- Themed-icon (Android 13+) silhouette: the R and its candle. -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
     android:height="108dp"
@@ -7,6 +7,12 @@
     android:viewportHeight="108">
     <path
         android:fillColor="#FFFFFFFF"
+        android:pathData="M40.1,27h1.8v54h-1.8z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M36.5,35a2,2 0,0 1,2 -2h5a2,2 0,0 1,2 2v38a2,2 0,0 1,-2 2h-5a2,2 0,0 1,-2 -2z" />
+    <path
+        android:fillColor="#FFFFFFFF"
         android:fillType="evenOdd"
-        android:pathData="M36.5,33H56.5C65.3,33 70.5,38.6 70.5,46C70.5,52.1 66.9,56.5 61.3,58.2L71.5,75H61.1L51.9,59H45.5V75H36.5ZM45.5,40.5V51.5H55.8C59.4,51.5 61.6,49.2 61.6,46C61.6,42.8 59.4,40.5 55.8,40.5Z" />
+        android:pathData="M47.2,33H56.5C65.3,33 70.5,38.6 70.5,46C70.5,52.1 66.9,56.5 61.3,58.2L71.5,75H61.1L51.9,59H47.2ZM47.2,40.5V51.5H55.8C59.4,51.5 61.6,49.2 61.6,46C61.6,42.8 59.4,40.5 55.8,40.5Z" />
 </vector>
