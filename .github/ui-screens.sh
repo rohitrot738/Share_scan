@@ -38,10 +38,17 @@ tap startButton
 shot 01-scanning 20
 grep -q 'resource-id="[^"]*:id/startButton"[^>]*enabled="true"' /tmp/ui.xml && echo "start button still enabled after the tap"
 
-# The start button is enabled again once the scan has finished or failed.
-for i in $(seq 1 100); do
-  flags=$(adb shell dumpsys activity top | grep 'id/startButton' | head -1 | awk '{print $2}')
-  case "$flags" in ??E*) echo "scan finished after about $((i * 15)) more seconds"; break ;; esac
+# While scanning, the start button reads "रोकें" (stop); it reads "SCAN" again once the scan is over.
+for i in $(seq 1 120); do
+  adb shell uiautomator dump /sdcard/ui.xml > /dev/null 2>&1
+  adb exec-out cat /sdcard/ui.xml > /tmp/ui.xml
+  if python3 - <<'PY'
+import re, sys
+xml = open('/tmp/ui.xml', encoding='utf-8').read()
+m = re.search(r'<node[^>]*text="([^"]*)"[^>]*resource-id="[^"]*:id/startButton"', xml)
+sys.exit(0 if m and 'रोकें' not in m.group(1) else 1)
+PY
+  then echo "scan finished after about $((i * 15)) seconds"; break; fi
   sleep 15
 done
 shot 02-results 4
