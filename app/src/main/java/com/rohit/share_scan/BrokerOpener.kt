@@ -36,8 +36,9 @@ class BrokerOpener(private val activity: AppCompatActivity) {
 
     private fun openGroww(stock: ScanResult) {
         activity.lifecycleScope.launch {
-            val id = growwPages[stock.symbol]
-                ?: withContext(Dispatchers.IO) { growwSearch(stock) }?.also { growwPages[stock.symbol] = it }
+            val key = "${stock.market}:${stock.symbol}"
+            val id = growwPages[key]
+                ?: withContext(Dispatchers.IO) { growwSearch(stock) }?.also { growwPages[key] = it }
                 ?: Broker.growwGuess(stock.name)
             if (id == null) copyAndLaunch(Broker.GROWW, stock) else view(Broker.growwUrl(id).toUri(), Broker.GROWW)
         }
@@ -92,7 +93,7 @@ class BrokerOpener(private val activity: AppCompatActivity) {
         const val TAG = "ShareScan"
         const val TIMEOUT_MS = 4_000
 
-        /** Page ids Groww's search gave, by symbol, for as long as the app runs. */
+        /** Page ids Groww's search gave, by market and symbol, for as long as the app runs. */
         val growwPages = HashMap<String, String>()
     }
 }
