@@ -53,9 +53,20 @@ jobs:
           x=collect_identity_safe_360cr('RELIANCE');v=validate_360cr_input(x)
           print('IDENTITY_SAFE_BASELINE',x.metadata.get('identity_safe_counts'),'complete=',v['complete'])
           PY
-      - name: App cache sources for SME and BSE-only stocks
-        # The lists, Screener pages, Yahoo charts and NSE insider filings the daily cache reads for these markets.
-        continue-on-error: true
+  app-cache-sources:
+    # What the daily 360CR cache reads for SME and BSE-only stocks, from a GitHub runner like the cache's own.
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    timeout-minutes: 20
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Lists, Screener pages, Yahoo charts and NSE insider filings
         run: |
           python - <<'PY'
           from datetime import datetime, timedelta
