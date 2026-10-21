@@ -21,6 +21,8 @@ object LiveAlerts {
         val breakout: Boolean,
         /** Turned STRONG since the previous scan, or is new to the top of the list as a STRONG stock. */
         val newStrong: Boolean,
+        /** The latest session's relative volume; a breakout on [BreakoutSetup.VOLUME_RVOL] or more held more often. */
+        val rvol: Double = 0.0,
     )
 
     /** Finds in [current] against [previous], best score first; nothing without a previous scan to compare with. */
@@ -35,7 +37,7 @@ object LiveAlerts {
             val newStrong = index < TOP && tier == StockFormat.Tier.STRONG &&
                 (old == null || StockFormat.tier(old.score) != StockFormat.Tier.STRONG)
             val breakout = tier != StockFormat.Tier.WEAK && old != null && crossed(old, stock)
-            if (newStrong || breakout) finds += Find(stock.symbol, stock.score, stock.price, breakout, newStrong)
+            if (newStrong || breakout) finds += Find(stock.symbol, stock.score, stock.price, breakout, newStrong, stock.rvol)
         }
         return finds
     }

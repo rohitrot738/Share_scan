@@ -17,7 +17,7 @@
     <string name="detail_chart_target">T%1$d %2$s</string>
 
     <string name="detail_section_plan">Trade plan</string>
-    <string name="detail_plan_rule_breakout">20 दिन के high के ऊपर breakout होने पर ही entry — तब तक इंतज़ार करें।</string>
+    <string name="detail_plan_rule_breakout">20 दिन के high के ऊपर breakout होने पर ही entry, और बेहतर तब जब उस दिन volume औसत का 2 गुना या ज़्यादा हो — तब तक इंतज़ार करें।</string>
     <string name="detail_plan_rule_market">भाव पहले से 20 दिन के high के ऊपर है — entry अभी के भाव पर।</string>
     <string name="detail_plan_head_level">LEVEL</string>
     <string name="detail_plan_head_price">भाव · अभी से</string>
@@ -30,6 +30,17 @@
     <string name="detail_plan_stop_max_atr">Entry से 2 ATR नीचे (10D low बहुत दूर)</string>
     <string name="detail_plan_stop_min_atr">Entry से 1 ATR नीचे (10D low बहुत पास)</string>
     <string name="detail_plan_target">Target %1$d</string>
+    <!-- The quick target and wide stop (TradePlan.QUICK_TARGET_R, WIDE_STOP_R): "जल्दी target (0.75R)". -->
+    <string name="detail_plan_quick_target">जल्दी target (%1$s)</string>
+    <string name="detail_plan_wide_stop">चौड़ा stop (%1$s)</string>
+    <string name="detail_plan_wide_stop_note">जल्दी target ज़्यादा बार बचता है, पर हार बड़ी: shares कम लें</string>
+    <!-- About how long, then how often it came before the stop and before the wide stop in past plans like this one. -->
+    <string name="detail_plan_quick_time">⏱ entry के बाद लगभग %1$d–%2$d दिन • पिछले data में stop से पहले %3$d%%, चौड़े stop से पहले %4$d%%</string>
+    <!-- BreakoutSetup: how breakouts like this one did; %1$s is the volume against the usual, e.g. "2.40". -->
+    <string name="detail_setup_high">🎯 High-probability: आज breakout, volume %1$s× और कल score STRONG। पिछले data में ऐसे breakouts में जल्दी target %2$d%% बार stop से पहले लगा (चौड़े stop के साथ %3$d%%)।</string>
+    <string name="detail_setup_volume">✓ आज breakout, volume %1$s× (2× या ज़्यादा)। पिछले data में जल्दी target %2$d%% बार stop से पहले लगा (चौड़े stop के साथ %3$d%%)।</string>
+    <string name="detail_setup_low">⚠ आज breakout, पर volume सिर्फ़ %1$s×, 2× से कम। ऐसे breakouts कम टिके: जल्दी target %2$d%% बार stop से पहले लगा (चौड़े stop के साथ %3$d%%)।</string>
+    <string name="detail_setup_waiting">Breakout वाले दिन volume औसत का कम से कम 2× हो, तभी entry बेहतर। ऐसे breakouts में जल्दी target %1$d%% बार stop से पहले लगा (चौड़े stop के साथ %2$d%%)।</string>
     <string name="detail_plan_target_note">मुनाफ़ा ₹%1$s प्रति share</string>
     <!-- About how long a target takes after the entry when it is reached, in trading sessions: "5–15". -->
     <string name="detail_plan_target_time">⏱ entry के बाद लगभग %1$d–%2$d दिन</string>

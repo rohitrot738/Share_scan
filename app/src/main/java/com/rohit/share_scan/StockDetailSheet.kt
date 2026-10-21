@@ -157,6 +157,8 @@ class StockDetailSheet(
         }
         val breakout = plan.entryKind == TradePlan.EntryKind.BREAKOUT
         ui.detailPlanRule.setText(if (breakout) R.string.detail_plan_rule_breakout else R.string.detail_plan_rule_market)
+        val setup = BreakoutSetup.of(stock, plan)
+        bindSetup(setup)
 
         addLevel(
             plan,
@@ -180,6 +182,34 @@ class StockDetailSheet(
             accent = R.color.bear,
             container = R.color.bear_container,
             onContainer = R.color.bear,
+        )
+        if (plan.wideStop > 0.0) {
+            addLevel(
+                plan,
+                plan.wideStop,
+                activity.getString(R.string.detail_plan_wide_stop, multiple(TradePlan.WIDE_STOP_R)),
+                activity.getString(R.string.detail_plan_wide_stop_note),
+                accent = R.color.warn,
+                container = R.color.warn_container,
+                onContainer = R.color.warn,
+            )
+        }
+        addLevel(
+            plan,
+            plan.quickTarget,
+            activity.getString(R.string.detail_plan_quick_target, multiple(TradePlan.QUICK_TARGET_R)),
+            activity.getString(R.string.detail_plan_target_note, StockFormat.price(plan.quickTarget - plan.entry)),
+            accent = R.color.bull,
+            container = R.color.bull_container,
+            onContainer = R.color.bull,
+            time = activity.getString(
+                R.string.detail_plan_quick_time,
+                plan.quickSessions.first,
+                plan.quickSessions.last,
+                setup.quickHits,
+                setup.quickHitsWide,
+            ),
+            multiple = "+" + multiple(TradePlan.QUICK_TARGET_R),
         )
         plan.targets.forEachIndexed { index, target ->
             addLevel(
@@ -206,6 +236,31 @@ class StockDetailSheet(
         }
         bindAlert()
     }
+
+    /** How breakouts like this one did: on volume, STRONG the day before, or still to come. */
+    private fun bindSetup(setup: BreakoutSetup.Kind) {
+        val rvol = StockFormat.rvol(stock.rvol)
+        val (text, tone) = when (setup) {
+            BreakoutSetup.Kind.HIGH_PROBABILITY ->
+                activity.getString(R.string.detail_setup_high, rvol, setup.quickHits, setup.quickHitsWide) to R.color.bull
+            BreakoutSetup.Kind.VOLUME ->
+                activity.getString(R.string.detail_setup_volume, rvol, setup.quickHits, setup.quickHitsWide) to R.color.bull
+            BreakoutSetup.Kind.LOW_VOLUME ->
+                activity.getString(R.string.detail_setup_low, rvol, setup.quickHits, setup.quickHitsWide) to R.color.warn
+            BreakoutSetup.Kind.WAITING -> activity.getString(
+                R.string.detail_setup_waiting,
+                BreakoutSetup.Kind.VOLUME.quickHits,
+                BreakoutSetup.Kind.VOLUME.quickHitsWide,
+            ) to R.color.text_secondary
+            BreakoutSetup.Kind.EXTENDED -> null to R.color.text_secondary
+        }
+        ui.detailPlanSetup.isVisible = text != null
+        ui.detailPlanSetup.text = text.orEmpty()
+        ui.detailPlanSetup.setTextColor(color(tone))
+    }
+
+    /** "0.75R", "1.5R": a multiple of the risk to two places where it has them, unlike [TradePlan.formatR]. */
+    private fun multiple(r: Double): String = r.toBigDecimal().stripTrailingZeros().toPlainString() + "R"
 
     /** What the watchlist alert will do for this stock, or how to get one. */
     private fun bindAlert() {
@@ -242,10 +297,10 @@ class StockDetailSheet(
         @ColorRes container: Int,
         @ColorRes onContainer: Int,
         time: String? = null,
+        multiple: String = TradePlan.formatR(plan.rMultiple(value)),
     ) {
         val row = ItemDetailLevelBinding.inflate(activity.layoutInflater, ui.detailLevels, true)
         val fromPrice = TradePlan.formatPercent(plan.fromPrice(value))
-        val multiple = TradePlan.formatR(plan.rMultiple(value))
         row.levelDot.backgroundTintList = ColorStateList.valueOf(color(accent))
         row.levelName.text = name
         row.levelNote.text = note
