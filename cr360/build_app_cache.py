@@ -127,15 +127,16 @@ def load_universe(today: date) -> tuple[dict[str, dict], set[str]]:
         sme = nse_listings(text, "sme") if status == 200 else {}
         if len(sme) >= 50:
             break
-    bse = {}
+    bse, tried = {}, []
     for back in range(8):  # the latest trading day's file; on holidays BSE answers with a web page
         day = (today - timedelta(days=back)).strftime("%Y%m%d")
         status, text, _ = http_get(BSE_BHAVCOPY.format(day), "text/csv", BROWSER_UA, 60, "https://www.bseindia.com/")
         bse = bse_listings(text) if status == 200 else {}
+        tried.append(f"{day[4:]}:{status}/{len(bse)}")
         if len(bse) >= 500:
             break
     markets = {"nse"} | ({"sme"} if len(sme) >= 50 else set()) | ({"bse"} if len(bse) >= 500 else set())
-    log(f"lists: nse {len(main)}, sme {len(sme)}, bse {len(bse)}")
+    log(f"lists: nse {len(main)}, sme {len(sme)}, bse {len(bse)}" + ("" if "bse" in markets else f" (BSE files {' '.join(tried)})"))
     return combine(main, sme if "sme" in markets else {}, bse if "bse" in markets else {}), markets
 
 
