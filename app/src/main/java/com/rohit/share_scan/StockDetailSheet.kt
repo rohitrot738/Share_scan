@@ -16,6 +16,7 @@ import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.rohit.share_scan.Cr360Book.Fact
 import com.rohit.share_scan.databinding.ItemDetailLevelBinding
 import com.rohit.share_scan.databinding.ItemDetailScoreBinding
 import com.rohit.share_scan.databinding.ItemDetailStatBinding
@@ -40,6 +41,8 @@ class StockDetailSheet(
     private val alerts: Boolean = false,
     /** Where the stock's alerts stand ([WatchAlerts]); null before its first check. */
     private val alert: WatchAlerts.State? = null,
+    /** The stock's 360CR from the daily file; null when the file does not have it (yet). */
+    private val cr360: Cr360Book.Entry? = null,
 ) {
     private val dialog = BottomSheetDialog(activity)
     private val ui = SheetStockDetailBinding.inflate(activity.layoutInflater)
@@ -52,6 +55,7 @@ class StockDetailSheet(
         bindChart()
         bindPlan()
         bindScore()
+        bindCr360()
         bindStats()
         ui.detailNoStructure.isVisible = structure == null
         val site = chartSite.forMarket(stock.market)
@@ -376,6 +380,89 @@ class StockDetailSheet(
                 activity.getString(if (bonus) R.string.detail_part_bonus else R.string.detail_part_weight, weight)
             row.root.contentDescription = activity.getString(R.string.detail_part_description, name, shown, weight)
         }
+    }
+
+    /** The 360CR card: score and verdict, how much data it had, its ten parts and the figures behind them. */
+    private fun bindCr360() {
+        val entry = cr360
+        if (entry == null) {
+            ui.detailCr360Score.text = activity.getString(R.string.stat_empty)
+            ui.detailCr360State.isVisible = false
+            ui.detailCr360Data.text = activity.getString(R.string.detail_cr360_missing)
+            ui.detailCr360Facts.isVisible = false
+            return
+        }
+        val stateLabel = entry.state.label
+        val tone = entry.state.tone
+        ui.detailCr360Score.text = entry.score?.let { activity.getString(R.string.detail_cr360_score, String.format(Locale.US, "%.0f", it)) }
+            ?: activity.getString(R.string.stat_empty)
+        ui.detailCr360Score.setTextColor(color(tone))
+        ui.detailCr360State.text = activity.getString(stateLabel)
+        ui.detailCr360State.setTextColor(color(tone))
+        ui.detailCr360Data.text = activity.getString(
+            R.string.detail_cr360_data,
+            entry.confidence.roundToInt(),
+            Cr360Format.month(entry.quarter),
+            Cr360Format.day(entry.checked),
+        )
+        for (part in Cr360Book.Part.entries) {
+            val value = entry.parts[part] ?: continue
+            val row = ItemDetailScoreBinding.inflate(activity.layoutInflater, ui.detailCr360Parts, true)
+            val name = activity.getString(part.label)
+            val partTone = when (StockFormat.tier(value.toDouble())) {
+                StockFormat.Tier.STRONG -> R.color.bull
+                StockFormat.Tier.WATCH -> R.color.warn
+                StockFormat.Tier.WEAK -> R.color.neutral
+            }
+            row.partName.text = name
+            row.partValue.text = value.toString()
+            row.partValue.setTextColor(color(partTone))
+            row.partBar.setIndicatorColor(color(partTone))
+            row.partBar.setProgressCompat(value.coerceIn(0, 100), false)
+            row.partWeight.text = activity.getString(R.string.detail_part_weight, part.weight)
+            row.root.contentDescription = activity.getString(R.string.detail_part_description, name, value.toString(), part.weight)
+        }
+        val facts = cr360Facts(entry.facts)
+        ui.detailCr360Facts.isVisible = facts.isNotEmpty()
+        ui.detailCr360Facts.text = facts.joinToString("\n") { "• $it" }
+    }
+
+    private fun cr360Facts(f: Map<Fact, Double>): List<String> {
+        fun s(key: Fact, digits: Int = 1) = f[key]?.let { Cr360Format.number(it, digits) }
+        fun signed(key: Fact, digits: Int = 1) = f[key]?.let { Cr360Format.signed(it, digits) }
+        val lines = ArrayList<String>()
+        val quarters = f[Fact.QUARTERS]?.roundToInt()
+        f[Fact.PROFITABLE_QUARTERS]?.let { pq -> quarters?.let { lines += activity.getString(R.string.cr360_fact_profit, it, pq.roundToInt()) } }
+        if (quarters != null && (f[Fact.REVENUE_CHANGE] != null || f[Fact.PROFIT_CHANGE] != null)) {
+            val dash = activity.getString(R.string.stat_empty)
+            lines += activity.getString(R.string.cr360_fact_growth,
+                signed(Fact.REVENUE_CHANGE, 0)?.let { "$it%" } ?: dash, signed(Fact.PROFIT_CHANGE, 0)?.let { "$it%" } ?: dash, quarters)
+        }
+        listOfNotNull(
+            s(Fact.NET_MARGIN)?.let { activity.getString(R.string.cr360_fact_margin, "$it%") },
+            s(Fact.DEBT_TO_EQUITY, 2)?.let { activity.getString(R.string.cr360_fact_debt, it) },
+        ).takeIf { it.isNotEmpty() }?.let { lines += it.joinToString(" · ") }
+        listOfNotNull(
+            s(Fact.PROMOTER, 2)?.let { activity.getString(R.string.cr360_fact_promoter, it, signed(Fact.PROMOTER_CHANGE, 2) ?: "0") },
+            if (f[Fact.FII_CHANGE] != null || f[Fact.DII_CHANGE] != null) activity.getString(
+                R.string.cr360_fact_institutions, signed(Fact.FII_CHANGE, 2) ?: "0", signed(Fact.DII_CHANGE, 2) ?: "0",
+            ) else null,
+        ).takeIf { it.isNotEmpty() }?.let { lines += it.joinToString(" · ") }
+        if (f[Fact.INSIDER_BUY_CR] != null || f[Fact.INSIDER_SELL_CR] != null) {
+            lines += activity.getString(R.string.cr360_fact_insider, s(Fact.INSIDER_BUY_CR) ?: "0", s(Fact.INSIDER_SELL_CR) ?: "0")
+        }
+        if ((f[Fact.DEAL_BUY_CR] ?: 0.0) + (f[Fact.DEAL_SELL_CR] ?: 0.0) > 0.0) {
+            lines += activity.getString(R.string.cr360_fact_deals, s(Fact.DEAL_BUY_CR) ?: "0", s(Fact.DEAL_SELL_CR) ?: "0")
+        }
+        listOfNotNull(
+            s(Fact.PE)?.let { activity.getString(R.string.cr360_fact_pe, it) },
+            f[Fact.FAIR_VALUE]?.let { fv -> activity.getString(R.string.cr360_fact_fair_value, StockFormat.price(fv), signed(Fact.UPSIDE, 0)?.let { "$it%" } ?: "") },
+        ).takeIf { it.isNotEmpty() }?.let { lines += it.joinToString(" · ") }
+        listOfNotNull(
+            s(Fact.POSITION_3Y, 0)?.let { activity.getString(R.string.cr360_fact_position, it) },
+            s(Fact.VOLATILITY, 0)?.let { activity.getString(R.string.cr360_fact_volatility, it) },
+        ).takeIf { it.isNotEmpty() }?.let { lines += it.joinToString(" · ") }
+        return lines
     }
 
     private fun partName(key: String): String = when (key) {

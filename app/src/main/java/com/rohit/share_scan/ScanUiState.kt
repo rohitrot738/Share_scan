@@ -4,8 +4,11 @@ import java.time.LocalDate
 
 enum class ScanPhase { IDLE, LOADING, SCANNING, DONE, FAILED }
 
-/** [SUPPORT] orders by the support floor's strength, then by how close the price sits to it. */
-enum class SortMode { SCORE, RVOL, CHANGE, PRICE, SUPPORT }
+/**
+ * [SUPPORT] orders by the support floor's strength, then by how close the price sits to it; [CR360] by the 360CR score
+ * ([Cr360Book]), stocks without one last.
+ */
+enum class SortMode { SCORE, RVOL, CHANGE, PRICE, SUPPORT, CR360 }
 
 /**
  * Which scan the home screen shows. [BREAKOUT] is the main scan: pre-breakout stocks ranked by score, with the user's
@@ -73,6 +76,8 @@ data class ScanUiState(
     val watchExtras: List<ScanResult> = emptyList(),
     /** The scan in [results] left some industries out (Menu → स्कैन). */
     val narrowed: Boolean = false,
+    /** Every stock's 360CR, from the daily file ([Cr360Repository]); empty until it is read. */
+    val cr360: Cr360Book = Cr360Book.EMPTY,
     /** Live mode's background scan is under way (the list still shows the previous scan). */
     val runningAuto: Boolean = false,
     /** The latest run was stopped before any stock was scored; [results] are the scan before it. */
@@ -172,6 +177,11 @@ data class ScanUiState(
     /** [shown] in the chosen order; this is what the list displays. */
     val sortedResults: List<RankedStock>
         get() {
+            if (sort == SortMode.CR360) {
+                val (scored, unscored) = shown.partition { cr360.of(it.stock.symbol)?.score != null }
+                val highFirst = scored.sortedByDescending { cr360.of(it.stock.symbol)?.score }
+                return (if (ascending) highFirst.reversed() else highFirst) + unscored
+            }
             val highFirst = when (sort) {
                 SortMode.SCORE -> shown
                 SortMode.RVOL -> shown.sortedByDescending { it.stock.rvol }
@@ -181,6 +191,7 @@ data class ScanUiState(
                     compareByDescending<RankedStock> { it.stock.support?.strength ?: -1.0 }
                         .thenBy { it.stock.support?.distancePct(it.stock.price) ?: Double.MAX_VALUE },
                 )
+                SortMode.CR360 -> shown
             }
             return if (ascending) highFirst.reversed() else highFirst
         }

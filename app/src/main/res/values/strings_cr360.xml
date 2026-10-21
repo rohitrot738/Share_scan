@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 360CR (Cr360Book): the company's research score from the repository's daily file. -->
+    <string name="sort_cr360">360CR</string>
+    <string name="item_cr360">360CR %1$s</string>
+    <string name="item_cr360_description">360CR %1$s, %2$s</string>
+
+    <string name="detail_section_cr360">360CR रिसर्च</string>
+    <string name="detail_cr360_subtitle">कंपनी के नतीजे, cash flow, कर्ज़, shareholding, insider और bulk deals, valuation और 3 साल का भाव</string>
+    <string name="detail_cr360_score">%1$s / 100</string>
+    <string name="detail_cr360_data">Data %1$d%% · नतीजे %2$s तक · %3$s को पढ़ा</string>
+    <string name="detail_cr360_missing">इस stock का 360CR अभी नहीं है — रोज़ शाम का cache इसे जल्द जोड़ेगा</string>
+    <string name="detail_cr360_note">स्रोत: Screener.in, NSE, Yahoo · रोज़ शाम update · निवेश सलाह नहीं</string>
+
+    <string name="cr360_high_conviction">बहुत मज़बूत</string>
+    <string name="cr360_positive">मज़बूत</string>
+    <string name="cr360_neutral">ठीक-ठाक</string>
+    <string name="cr360_caution">सावधानी</string>
+    <string name="cr360_avoid">दूर रहें</string>
+    <string name="cr360_insufficient">Data कम</string>
+
+    <string name="cr360_part_financial_quality">नतीजों की गुणवत्ता</string>
+    <string name="cr360_part_growth">बढ़त</string>
+    <string name="cr360_part_cashflow">Cash flow</string>
+    <string name="cr360_part_balance_sheet">कर्ज़ / balance sheet</string>
+    <string name="cr360_part_ownership">Shareholding</string>
+    <string name="cr360_part_insider_deals">Insider और bulk deals</string>
+    <string name="cr360_part_valuation">Valuation</string>
+    <string name="cr360_part_price">3 साल का भाव</string>
+    <string name="cr360_part_stability">स्थिरता</string>
+    <string name="cr360_part_technical_risk">जोखिम और R:R</string>
+
+    <string name="cr360_fact_profit">%1$d में से %2$d quarters मुनाफ़ा</string>
+    <string name="cr360_fact_growth">बिक्री %1$s · मुनाफ़ा %2$s (%3$d quarters में)</string>
+    <string name="cr360_fact_margin">Net margin %1$s</string>
+    <string name="cr360_fact_debt">कर्ज़/Equity %1$s</string>
+    <string name="cr360_fact_promoter">Promoter %1$s%% (%2$s)</string>
+    <string name="cr360_fact_institutions">FII %1$s · DII %2$s</string>
+    <string name="cr360_fact_insider">Insider: ख़रीद ₹%1$s Cr · बिक्री ₹%2$s Cr</string>
+    <string name="cr360_fact_deals">Bulk/Block: ख़रीद ₹%1$s Cr · बिक्री ₹%2$s Cr</string>
+    <string name="cr360_fact_pe">P/E %1$s</string>
+    <string name="cr360_fact_fair_value">Fair value ₹%1$s (%2$s)</string>
+    <string name="cr360_fact_position">3 साल के दायरे में %1$s%% पर</string>
+    <string name="cr360_fact_volatility">Volatility %1$s%%</string>
+
+    <string name="help_cr360_title">360CR रिसर्च</string>
+    <string name="help_cr360_body">360CR (360 Degree Conviction Research) कंपनी को 10 हिस्सों में जाँचता है: नतीजों की गुणवत्ता (18), बढ़त (12), cash flow (10), कर्ज़ (10), shareholding (12), insider और bulk/block deals (8), valuation (12), 3 साल का भाव (8), स्थिरता (5) और जोखिम (5)। 0–100 के score से दर्जा: 75+ बहुत मज़बूत, 62+ मज़बूत, 48+ ठीक-ठाक, 35+ सावधानी, उससे कम दूर रहें; data 40% से कम हो तो \"Data कम\"। Data Screener.in, NSE और Yahoo से रोज़ शाम एक बार cache में जुड़ता है — पुराने quarters नहीं बदलते, इसलिए सिर्फ़ नए नतीजे, shareholding और deals जुड़ते हैं, और 20 quarters / 5 साल से पुराना data हट जाता है। App दिन में दो बार तक नई फ़ाइल लेता है और सिर्फ़ एक copy रखता है। Bulk/block deals अब से जुड़ने शुरू हुए हैं, उनका इतिहास धीरे-धीरे बनेगा। निवेश सलाह नहीं।</string>
+</resources>

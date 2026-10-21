@@ -3,6 +3,15 @@
     "version": "",
     "date": "2026-10-21",
     "items": [
+      "हर stock का 360CR रिसर्च: कंपनी के नतीजे, cash flow, कर्ज़, shareholding, insider और bulk deals, valuation और 3 साल का भाव — 0 से 100 का score और दर्जा",
+      "Card पर 360CR score, stock detail में पूरा हिसाब (10 हिस्से और मुख्य आँकड़े), और 360CR से sort",
+      "360CR का data रोज़ शाम अपने-आप update होता है: पुराना data cache में रहता है, सिर्फ़ नया जुड़ता है और पुराना हटता है"
+    ]
+  },
+  {
+    "version": "1.2.127",
+    "date": "2026-10-21",
+    "items": [
       "नया app icon: हल्के peach-cream रंग पर उभरा हुआ गहरा R, जिसकी खड़ी लकीर हरी breakout candle है"
     ]
   },

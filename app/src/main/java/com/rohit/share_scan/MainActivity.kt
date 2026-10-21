@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
     private var shownSupportReach: Double? = null
     private var shownQuery: String? = null
     private var shownWatchlist: Set<String>? = null
+    private var shownCr360: Cr360Book? = null
     private val closeSearchOnBack = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() = closeSearch()
     }
@@ -400,9 +401,17 @@ class MainActivity : AppCompatActivity() {
         renderEmpty(state)
 
         // A star toggle only rebinds its card; anything that changes which stocks show, or their order, jumps to the top.
+        // A fresh 360CR file redraws the cards' scores, and reorders a list sorted by them.
+        val freshCr360 = state.cr360 !== shownCr360
+        if (freshCr360) {
+            shownCr360 = state.cr360
+            adapter.cr360 = state.cr360
+            adapter.notifyItemRangeChanged(0, adapter.itemCount)
+        }
         val reorder = state.results !== shownResults || state.activeFilters != shownFilters || state.sort != shownSort ||
             state.ascending != shownAscending || state.watchlistOnly != shownWatchlistOnly ||
-            state.scanMode != shownScanMode || state.supportReach != shownSupportReach || state.query != shownQuery
+            state.scanMode != shownScanMode || state.supportReach != shownSupportReach || state.query != shownQuery ||
+            (freshCr360 && state.sort == SortMode.CR360)
         if (reorder || state.watchlist != shownWatchlist) {
             val freshResults = state.results !== shownResults
             // Live mode's fresh prices arrive while the user may be reading: the list keeps its place for them.
@@ -499,6 +508,7 @@ class MainActivity : AppCompatActivity() {
         SortMode.CHANGE -> ui.sortChange
         SortMode.PRICE -> ui.sortPrice
         SortMode.SUPPORT -> ui.sortSupport
+        SortMode.CR360 -> ui.sortCr360
     }
 
     private fun sortLabel(mode: SortMode): Int = when (mode) {
@@ -507,6 +517,7 @@ class MainActivity : AppCompatActivity() {
         SortMode.CHANGE -> R.string.sort_change
         SortMode.PRICE -> R.string.sort_price
         SortMode.SUPPORT -> R.string.sort_support
+        SortMode.CR360 -> R.string.sort_cr360
     }
 
     private fun applyWindowInsets() {
@@ -726,6 +737,7 @@ class MainActivity : AppCompatActivity() {
             starred = stock.symbol in state.watchlist,
             alerts = settings.watchAlerts,
             alert = alert,
+            cr360 = state.cr360.of(stock.symbol),
         ).show()
     }
 

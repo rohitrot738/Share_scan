@@ -196,6 +196,7 @@ object ScanEngine {
         val scope = settings.scanSectors.key(markets)
         val outcome = runCatching {
             runCatching { SectorRepository.refreshIfStale(app) }
+            runCatching { Cr360Repository.refreshIfStale(app) }
             NseScanner.scan(
                 includeNse = settings.includeNse,
                 includeSme = settings.includeSme,
