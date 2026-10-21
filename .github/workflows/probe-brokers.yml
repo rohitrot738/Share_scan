@@ -1,0 +1,12 @@
+# Temporary: checks broker app ids and Groww stock-page slugs. Remove before merging.
+name: Probe brokers
+on:
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['.github/probe-brokers.py', '.github/workflows/probe-brokers.yml']
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 .github/probe-brokers.py
