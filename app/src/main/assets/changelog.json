@@ -6,7 +6,9 @@
       "हर stock का R/S (रोहित सिलेक्शन): कंपनी के नतीजे, cash flow, कर्ज़, shareholding, insider और bulk deals, valuation और 3 साल का भाव — 0 से 100 का score और दर्जा",
       "Card पर R/S score, stock detail में पूरा हिसाब (10 हिस्से और मुख्य आँकड़े), और R/S से sort",
       "R/S का data रोज़ शाम अपने-आप update होता है: पुराना data cache में रहता है, सिर्फ़ नया जुड़ता है और पुराना हटता है",
-      "R/S NSE SME और सिर्फ़ BSE पर listed stocks के लिए भी; SME कंपनियों के छमाही नतीजे छमाही के हिसाब से गिने जाते हैं"
+      "R/S NSE SME और सिर्फ़ BSE पर listed stocks के लिए भी; SME कंपनियों के छमाही नतीजे छमाही के हिसाब से गिने जाते हैं",
+      "Stock detail में R/S इतिहास: हर quarter के नतीजे, FII/DII की ख़रीद-बिक्री (हिस्सेदारी का बदलाव), सालाना cash flow और कर्ज़, और 3 साल का भाव",
+      "R/S का valuation अब कंपनी के अपने पिछले 3 साल के P/E से भी तुलना करता है, सिर्फ़ sector से नहीं — दोनों fair value दिखते हैं"
     ]
   },
   {

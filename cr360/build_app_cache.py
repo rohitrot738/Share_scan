@@ -315,6 +315,7 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--store", default="cr360-store.json.gz")
     ap.add_argument("--out", default="cr360.json.gz")
+    ap.add_argument("--history-dir", default=".", help="where the app's history files cr360-h-NN.json.gz go")
     ap.add_argument("--minutes", type=float, default=280)
     ap.add_argument("--limit", type=int, default=0, help="read at most this many pages (0: as many as time allows)")
     args = ap.parse_args(argv)
@@ -402,6 +403,18 @@ def main(argv=None) -> int:
     store["updated"] = datetime.now(IST).isoformat(timespec="minutes")
     write_json_gz(args.store, store)
     write_json_gz(args.out, {"v": 1, "updated": store["updated"], "count": len(records), "stocks": records})
+    # The history tables go in separate files, a share of the stocks each, so the app fetches only the one for the
+    # stock that is opened rather than every stock's history with the scores.
+    shards: list[dict] = [{} for _ in range(app_store.HISTORY_SHARDS)]
+    for sym in records:
+        history = app_store.history_record(store["stocks"][sym])
+        chart = app_store.monthly_closes(prices.get(sym) or [])
+        if history and chart:
+            history["p"] = chart
+        if history:
+            shards[app_store.history_shard(sym)][sym] = history
+    for i, stocks in enumerate(shards):
+        write_json_gz(os.path.join(args.history_dir, f"cr360-h-{i:02d}.json.gz"), {"v": 1, "updated": store["updated"], "stocks": stocks})
     log(f"wrote {len(records)} records ({os.path.getsize(args.out) // 1024} KB), store {os.path.getsize(args.store) // 1024} KB, "
         f"{(time.time() - started) / 60:.1f} min")
     return 0

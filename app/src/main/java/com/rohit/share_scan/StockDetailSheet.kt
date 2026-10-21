@@ -3,9 +3,20 @@ package com.rohit.share_scan
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.Typeface
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TableLayout
+import android.widget.TableRow
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
@@ -14,13 +25,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.rohit.share_scan.Cr360Book.Fact
+import com.rohit.share_scan.databinding.ItemCr360HistoryChartBinding
+import com.rohit.share_scan.databinding.ItemCr360HistoryTableBinding
 import com.rohit.share_scan.databinding.ItemDetailLevelBinding
 import com.rohit.share_scan.databinding.ItemDetailScoreBinding
 import com.rohit.share_scan.databinding.ItemDetailStatBinding
 import com.rohit.share_scan.databinding.SheetStockDetailBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -56,6 +73,7 @@ class StockDetailSheet(
         bindPlan()
         bindScore()
         bindCr360()
+        bindCr360History()
         bindStats()
         ui.detailNoStructure.isVisible = structure == null
         val site = chartSite.forMarket(stock.market)
@@ -445,9 +463,15 @@ class StockDetailSheet(
         ).takeIf { it.isNotEmpty() }?.let { lines += it.joinToString(" · ") }
         listOfNotNull(
             s(Fact.PROMOTER, 2)?.let { activity.getString(R.string.cr360_fact_promoter, it, signed(Fact.PROMOTER_CHANGE, 2) ?: "0") },
-            if (f[Fact.FII_CHANGE] != null || f[Fact.DII_CHANGE] != null) activity.getString(
-                R.string.cr360_fact_institutions, signed(Fact.FII_CHANGE, 2) ?: "0", signed(Fact.DII_CHANGE, 2) ?: "0",
-            ) else null,
+            if (f[Fact.FII_CHANGE] != null || f[Fact.DII_CHANGE] != null) {
+                val fii = signed(Fact.FII_CHANGE, 2) ?: "0"
+                val dii = signed(Fact.DII_CHANGE, 2) ?: "0"
+                val span = f[Fact.HOLDING_QUARTERS]?.roundToInt()
+                if (span != null) activity.getString(R.string.cr360_fact_institutions_span, fii, dii, span)
+                else activity.getString(R.string.cr360_fact_institutions, fii, dii)
+            } else {
+                null
+            },
         ).takeIf { it.isNotEmpty() }?.let { lines += it.joinToString(" · ") }
         if (f[Fact.INSIDER_BUY_CR] != null || f[Fact.INSIDER_SELL_CR] != null) {
             lines += activity.getString(R.string.cr360_fact_insider, s(Fact.INSIDER_BUY_CR) ?: "0", s(Fact.INSIDER_SELL_CR) ?: "0")
@@ -457,13 +481,206 @@ class StockDetailSheet(
         }
         listOfNotNull(
             s(Fact.PE)?.let { activity.getString(R.string.cr360_fact_pe, it) },
-            f[Fact.FAIR_VALUE]?.let { fv -> activity.getString(R.string.cr360_fact_fair_value, StockFormat.price(fv), signed(Fact.UPSIDE, 0)?.let { "$it%" } ?: "") },
+            s(Fact.HISTORY_PE, 0)?.let { activity.getString(R.string.cr360_fact_history_pe, it) },
         ).takeIf { it.isNotEmpty() }?.let { lines += it.joinToString(" · ") }
+        // Fair value two ways, weighed alike in the score: from the sector's multiples and from the company's own.
+        listOfNotNull(
+            f[Fact.FAIR_VALUE]?.let { activity.getString(R.string.cr360_fair_sector, StockFormat.price(it), signed(Fact.UPSIDE, 0)?.let { u -> "$u%" } ?: "") },
+            f[Fact.HISTORY_FAIR_VALUE]?.let {
+                activity.getString(R.string.cr360_fair_history, StockFormat.price(it), signed(Fact.HISTORY_UPSIDE, 0)?.let { u -> "$u%" } ?: "")
+            },
+        ).takeIf { it.isNotEmpty() }?.let { lines += activity.getString(R.string.cr360_fact_fair_value, it.joinToString(" · ")) }
         listOfNotNull(
             s(Fact.POSITION_3Y, 0)?.let { activity.getString(R.string.cr360_fact_position, it) },
             s(Fact.VOLATILITY, 0)?.let { activity.getString(R.string.cr360_fact_volatility, it) },
         ).takeIf { it.isNotEmpty() }?.let { lines += it.joinToString(" · ") }
         return lines
+    }
+
+    /** The R/S history, fetched off the main thread: its file comes the first time a stock in it is opened. */
+    private fun bindCr360History() {
+        if (cr360 == null) {
+            ui.detailCr360HistorySection.isVisible = false
+            return
+        }
+        activity.lifecycleScope.launch {
+            val history = withContext(Dispatchers.IO) { runCatching { Cr360Repository.history(activity, stock.symbol) }.getOrNull() }
+            showCr360History(history)
+        }
+    }
+
+    private fun showCr360History(history: Cr360History?) {
+        if (history == null || (history.quarters.isEmpty() && history.holders.isEmpty() && history.years.isEmpty())) {
+            ui.detailCr360HistoryStatus.setText(R.string.detail_cr360_history_missing)
+            return
+        }
+        ui.detailCr360HistoryStatus.setText(R.string.detail_cr360_history_subtitle)
+        if (history.holders.isNotEmpty()) addHolders(history.holders)
+        if (history.quarters.isNotEmpty()) addQuarters(history.quarters)
+        if (history.years.isNotEmpty()) addYears(history.years)
+        history.chart?.let { addHistoryChart(it) }
+    }
+
+    /** Shareholding by quarter, newest first; FII and DII show their step from the quarter before (▲ bought, ▼ sold). */
+    private fun addHolders(holders: List<Cr360History.Holding>) {
+        val card = historyCard(R.string.cr360_history_holders_title)
+        historyRow(
+            card.historyTable, header = true,
+            activity.getString(R.string.cr360_history_quarter),
+            activity.getString(R.string.cr360_history_promoter),
+            "FII",
+            "DII",
+            activity.getString(R.string.cr360_history_public),
+        )
+        for (i in holders.indices.reversed()) {
+            val row = holders[i]
+            val before = holders.getOrNull(i - 1)
+            historyRow(
+                card.historyTable, header = false,
+                Cr360History.label(row.period),
+                holding(row.promoter, null),
+                holding(row.fii, before?.fii),
+                holding(row.dii, before?.dii),
+                holding(row.public, null),
+            )
+        }
+        val first = holders.first()
+        val last = holders.last()
+        val summary = if (holders.size >= 2 && first.fii != null && last.fii != null && first.dii != null && last.dii != null) {
+            "\n" + activity.getString(
+                R.string.cr360_history_holders_summary,
+                Cr360History.label(first.period), Cr360History.label(last.period),
+                Cr360Format.number(first.fii, 2), Cr360Format.number(last.fii, 2), Cr360Format.signed(last.fii - first.fii, 2),
+                Cr360Format.number(first.dii, 2), Cr360Format.number(last.dii, 2), Cr360Format.signed(last.dii - first.dii, 2),
+            )
+        } else {
+            ""
+        }
+        card.historyNote.text = activity.getString(R.string.cr360_history_holders_note) + summary
+        card.historyNote.isVisible = true
+    }
+
+    /** A holding in %, with its step from the quarter before under it when there is one. */
+    private fun holding(value: Double?, before: Double?): CharSequence {
+        if (value == null) return activity.getString(R.string.stat_empty)
+        val text = SpannableStringBuilder(Cr360Format.number(value, 2))
+        if (before != null) {
+            val step = value - before
+            val label = Cr360Format.step(step)
+            val start = text.length
+            text.append("\n").append(label)
+            val tone = when {
+                label == "0" -> R.color.text_secondary
+                step > 0 -> R.color.bull
+                else -> R.color.bear
+            }
+            text.setSpan(ForegroundColorSpan(color(tone)), start, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            text.setSpan(RelativeSizeSpan(0.85f), start, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+        return text
+    }
+
+    /** Results by quarter (or half-year), newest first, in ₹ crore; a loss in red. */
+    private fun addQuarters(quarters: List<Cr360History.Quarter>) {
+        val halfYearly = cr360?.facts?.get(Fact.HALF_YEARLY) == 1.0
+        val card = historyCard(if (halfYearly) R.string.cr360_history_halves_title else R.string.cr360_history_quarters_title)
+        historyRow(
+            card.historyTable, header = true,
+            activity.getString(if (halfYearly) R.string.cr360_history_half else R.string.cr360_history_quarter),
+            activity.getString(R.string.cr360_history_sales),
+            activity.getString(R.string.cr360_history_profit),
+            activity.getString(R.string.cr360_history_eps),
+        )
+        for (row in quarters.asReversed()) {
+            historyRow(
+                card.historyTable, header = false,
+                Cr360History.label(row.period),
+                amount(row.sales),
+                amount(row.profit, signedTone = true),
+                row.eps?.let { Cr360Format.number(it, 2) } ?: activity.getString(R.string.stat_empty),
+            )
+        }
+    }
+
+    /** Yearly results, cash flow and debt, newest first, in ₹ crore. */
+    private fun addYears(years: List<Cr360History.Year>) {
+        val card = historyCard(R.string.cr360_history_years_title)
+        historyRow(
+            card.historyTable, header = true,
+            activity.getString(R.string.cr360_history_year),
+            activity.getString(R.string.cr360_history_sales),
+            activity.getString(R.string.cr360_history_profit),
+            activity.getString(R.string.cr360_history_operating_cash),
+            activity.getString(R.string.cr360_history_free_cash),
+            activity.getString(R.string.cr360_history_debt),
+        )
+        for (row in years.asReversed()) {
+            historyRow(
+                card.historyTable, header = false,
+                Cr360History.yearLabel(row.period),
+                amount(row.sales),
+                amount(row.profit, signedTone = true),
+                amount(row.operatingCash, signedTone = true),
+                amount(row.freeCash, signedTone = true),
+                amount(row.debt),
+            )
+        }
+    }
+
+    /** Three years of month-end closes, with the highest and lowest month-end and today's. */
+    private fun addHistoryChart(chart: Cr360History.Chart) {
+        val months = chart.closes.mapIndexedNotNull { i, close ->
+            close?.takeIf { it.isFinite() && it > 0.0 }?.let { Cr360History.monthAfter(chart.firstMonth, i) to it }
+        }
+        if (months.size < 2) return
+        val card = ItemCr360HistoryChartBinding.inflate(activity.layoutInflater, ui.detailCr360History, true)
+        val closes = months.map { it.second }
+        val high = months.maxBy { it.second }
+        val low = months.minBy { it.second }
+        val trend = if (closes.last() >= closes.first()) R.color.bull else R.color.bear
+        card.historyChart.setData(closes, emptyList(), color(trend))
+        card.historyChartNote.text = activity.getString(
+            R.string.cr360_history_chart_note,
+            StockFormat.price(closes.last()),
+            StockFormat.price(high.second), Cr360History.label(high.first),
+            StockFormat.price(low.second), Cr360History.label(low.first),
+        )
+        card.historyChart.contentDescription = activity.getString(
+            R.string.cr360_history_chart_description,
+            Cr360History.label(months.first().first), Cr360History.label(months.last().first),
+            StockFormat.price(low.second), StockFormat.price(high.second), StockFormat.price(closes.last()),
+        )
+    }
+
+    private fun historyCard(@StringRes title: Int): ItemCr360HistoryTableBinding =
+        ItemCr360HistoryTableBinding.inflate(activity.layoutInflater, ui.detailCr360History, true).also { it.historyTitle.setText(title) }
+
+    /** One table row: the first cell is the period, the rest are figures aligned to the right. */
+    private fun historyRow(table: TableLayout, header: Boolean, vararg cells: CharSequence) {
+        val row = TableRow(activity)
+        cells.forEachIndexed { index, cell ->
+            row.addView(
+                TextView(activity).apply {
+                    text = cell
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, if (header) 11f else 12f)
+                    setTextColor(color(if (header) R.color.text_secondary else R.color.text_primary))
+                    if (header) setTypeface(typeface, Typeface.BOLD)
+                    fontFeatureSettings = "tnum"
+                    gravity = if (index == 0) Gravity.START or Gravity.CENTER_VERTICAL else Gravity.END or Gravity.CENTER_VERTICAL
+                    val pad = (4 * resources.displayMetrics.density).roundToInt()
+                    setPadding(pad, pad, pad, pad)
+                },
+            )
+        }
+        table.addView(row)
+    }
+
+    /** A ₹ crore figure; with [signedTone], a negative one (a loss, cash going out) in red. */
+    private fun amount(value: Double?, signedTone: Boolean = false): CharSequence {
+        if (value == null) return activity.getString(R.string.stat_empty)
+        val text = Cr360Format.amount(value)
+        if (!signedTone || value >= 0) return text
+        return SpannableString(text).apply { setSpan(ForegroundColorSpan(color(R.color.bear)), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE) }
     }
 
     private fun partName(key: String): String = when (key) {

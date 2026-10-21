@@ -1,7 +1,7 @@
 name: 360CR cache
 # Builds the app's 360CR file every evening (cr360/build_app_cache.py). The store of every stock's results,
-# shareholding and deals lives in the cr360-data pre-release next to the app's file; each run tops it up, drops what
-# aged out of 360CR's ranges and replaces both files, so the release always holds one copy of each.
+# shareholding and deals lives in the cr360-data pre-release next to the app's file and its 32 history files; each run
+# tops it up, drops what aged out of 360CR's ranges and replaces every file, so the release always holds one copy of each.
 on:
   schedule:
     - cron: '37 14 * * *'  # 20:07 IST, after the day's results and NSE's deal files
@@ -49,6 +49,9 @@ jobs:
           print("app rows", app["count"], "| stocks read", read, "of", len(store["stocks"]))
           assert app["v"] == 1 and app["count"] == len(app["stocks"])
           assert read >= app["count"] > 0
+          shards = [json.load(gzip.open(f"cr360-h-{i:02d}.json.gz", "rt")) for i in range(32)]
+          print("history rows", sum(len(h["stocks"]) for h in shards))
+          assert all(h["v"] == 1 for h in shards) and sum(len(h["stocks"]) for h in shards) <= app["count"]
           PY
       - name: Publish
-        run: gh release upload "$TAG" cr360-store.json.gz cr360.json.gz --clobber
+        run: gh release upload "$TAG" cr360-store.json.gz cr360.json.gz cr360-h-*.json.gz --clobber

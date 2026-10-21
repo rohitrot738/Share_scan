@@ -5,6 +5,7 @@ falls outside the ranges 360CR looks at is dropped, so the cache stays the same 
 The store is plain JSON (see `empty`); `app_record` turns one stock's 360CR into the compact row the app reads."""
 from __future__ import annotations
 
+import zlib
 from datetime import date, timedelta
 from statistics import median
 
@@ -20,6 +21,9 @@ LATE_DAYS = 120             # results this late (or never coming) ...
 LATE_CHECK_DAYS = 30        # ... are looked for once a month
 REFRESH_DAYS = 100          # and every page is read again at least this often (restated numbers, book value)
 RESULTS_GRACE_DAYS = 20     # results are not expected sooner than this after a quarter ends
+RESULTS_LAG_DAYS = 45       # a period's results are public by this many days after it ends (for past P/Es)
+HISTORY_PE_MONTHS = 12      # month-ends with a known P/E needed before the company's own multiple counts
+HISTORY_SHARDS = 32         # the app's history files (cr360-h-00 ... cr360-h-31), fetched one at a time
 
 
 def empty() -> dict:
@@ -147,10 +151,29 @@ def prune(store: dict, universe: dict[str, dict], today: date, markets: set[str]
 
 def eps_ttm(stock: dict) -> float | None:
     """The last twelve months' EPS: four quarters, or two half-years."""
-    quarters = stock.get("quarters") or []
+    return _ttm(stock.get("quarters") or [])
+
+
+def _ttm(quarters: list[dict]) -> float | None:
     n = 2 if half_yearly(quarters) else 4
     eps = [q.get("eps") for q in quarters[-n:]]
     return sum(eps) if len(eps) == n and all(e is not None for e in eps) else None
+
+
+def history_pe(stock: dict, price_rows: list[dict]) -> float | None:
+    """The company's own usual P/E: the median, over the month-ends of its price history, of the close over the
+    twelve months' EPS public by then. None with fewer than HISTORY_PE_MONTHS such months."""
+    quarters = stock.get("quarters") or []
+    month_end: dict[str, tuple[str, float]] = {}
+    for row in price_rows:
+        month_end[row["date"][:7]] = (row["date"], row["close"])
+    pes = []
+    for day, close in month_end.values():
+        known = [q for q in quarters if _d(q["period"]) + timedelta(days=RESULTS_LAG_DAYS) <= _d(day)]
+        ttm = _ttm(known)
+        if ttm and ttm > 0 and close:
+            pes.append(close / ttm)
+    return min(100.0, max(3.0, median(pes))) if len(pes) >= HISTORY_PE_MONTHS else None
 
 
 def sector_anchors(store: dict, prices: dict[str, float], sectors: dict[str, str]) -> dict[str, tuple[float, float]]:
@@ -172,6 +195,9 @@ def research_input(symbol: str, stock: dict, price_rows: list[dict], anchor: tup
     price = price_rows[-1]["close"] if price_rows else (stock.get("ratios") or {}).get("price")
     valuation = {}
     eps, book = eps_ttm(stock), (stock.get("ratios") or {}).get("book_value")
+    own_pe = history_pe(stock, price_rows)
+    if own_pe and eps and eps > 0:
+        valuation["history_fair_value"] = eps * own_pe
     if anchor:
         pe, pb = anchor
         if eps and eps > 0:
@@ -184,7 +210,7 @@ def research_input(symbol: str, stock: dict, price_rows: list[dict], anchor: tup
         quarterly_financials=stock.get("quarters") or [], balance_sheet_quarters=stock.get("balance") or [],
         cashflow_quarters=stock.get("cashflow") or [], shareholding_quarters=stock.get("shareholding") or [],
         insider_transactions=events("insider"), bulk_block_deals=events("deals"), valuation=valuation,
-        metadata={"source": "screener+nse+yahoo", "checked": stock.get("checked")},
+        metadata={"source": "screener+nse+yahoo", "checked": stock.get("checked"), "history_pe": own_pe},
     )
 
 
@@ -209,10 +235,15 @@ def app_record(stock: dict, research: ResearchInput) -> dict | None:
         "rv": _r(fin.get("revenue_20q_change_pct")), "np": _r(fin.get("profit_20q_change_pct")), "nm": _r(fin.get("net_margin_latest")),
         "pm": _r(own.get("promoter_latest"), 2), "pmc": _r(own.get("promoter_change_pp"), 2),
         "fic": _r(own.get("fii_fpi_change_pp"), 2), "dic": _r(own.get("dii_change_pp"), 2),
-        "ib": crore(events.get("insider_buy")), "is": crore(events.get("insider_sell")),
+        "oq": own.get("quarters") or None,  # the quarters those changes span
+        # Insider trades only where NSE's filings were read: a BSE-only company's ₹0 would mean "not looked".
+        **({"ib": crore(events.get("insider_buy")), "is": crore(events.get("insider_sell"))}
+           if stock.get("insider_checked") or stock.get("insider") else {}),
         "bb": crore(events.get("bulk_block_buy")), "bsl": crore(events.get("bulk_block_sell")),
         "pe": _r(research.price / eps_ttm(stock)) if research.price and eps_ttm(stock) and eps_ttm(stock) > 0 else None,
         "fv": r.fair_value.get("base"), "up": r.fair_value.get("upside_pct"),
+        "hpe": _r(research.metadata.get("history_pe")),
+        "fh": r.fair_value.get("history"), "uh": r.fair_value.get("history_upside_pct"),
         "pos": r.risk.get("position_156w_pct"), "vol": r.risk.get("annualized_volatility_pct"),
         "de": _r(bal.get("total_debt") / bal["equity"], 2) if bal.get("equity") and bal.get("total_debt") is not None else None,
         "hy": 1 if half_yearly(stock.get("quarters") or []) else None,  # nq and pq count half-years
@@ -223,3 +254,56 @@ def app_record(stock: dict, research: ResearchInput) -> dict | None:
         "sec": {SECTION_KEYS[k]: _r(v, 0) for k, v in r.sections.items() if k in SECTION_KEYS},
         "f": {k: v for k, v in facts.items() if v is not None},
     }
+
+
+# --- history for the app ---------------------------------------------------------------------------------------------
+
+def _ym(period: str) -> str:
+    """"2026-06-30" -> "2606", the app's short period."""
+    return period[2:4] + period[5:7]
+
+
+def _h(v):
+    return None if v is None else round(v) if abs(v) >= 100 else round(v, 2)
+
+
+def history_record(stock: dict) -> dict | None:
+    """Everything the store keeps on a stock, compact, for the app's history tables: quarterly results
+    [period, sales, profit, EPS], quarterly shareholding [period, promoter, FII, DII, public] and yearly figures
+    [period, sales, profit, operating cash flow, free cash flow, debt]; None when there is nothing."""
+    quarters = [[_ym(q["period"]), _h(q.get("revenue")), _h(q.get("net_profit")), _h(q.get("eps"))]
+                for q in stock.get("quarters") or []]
+    holders = [[_ym(h["period"]), h.get("promoter"), h.get("fii_fpi"), h.get("dii"), h.get("public")]
+               for h in stock.get("shareholding") or []]
+    years: dict[str, list] = {}
+    for key, fields in (("annual", ("revenue", "net_profit")), ("cashflow", ("operating_cash_flow", "free_cash_flow")),
+                        ("balance", ("total_debt",))):
+        offset = {"annual": 1, "cashflow": 3, "balance": 5}[key]
+        for row in stock.get(key) or []:
+            y = years.setdefault(row["period"], [_ym(row["period"]), None, None, None, None, None])
+            for i, f in enumerate(fields):
+                y[offset + i] = _h(row.get(f))
+    out = {"q": quarters, "s": holders, "y": [years[k] for k in sorted(years)]}
+    return out if any(out.values()) else None
+
+
+def monthly_closes(price_rows: list[dict]) -> dict | None:
+    """Each month's last close as {"m": first month "2310", "c": [one close a month, None for a month without
+    trading]} for the app's 3-year chart."""
+    month_end: dict[str, float] = {}
+    for row in price_rows:
+        month_end[row["date"][:7]] = row["close"]
+    if len(month_end) < 2:
+        return None
+    first, last = min(month_end), max(month_end)
+    y, m, closes = int(first[:4]), int(first[5:7]), []
+    while f"{y:04d}-{m:02d}" <= last:  # a month without trading (a suspension) stays as a gap
+        c = month_end.get(f"{y:04d}-{m:02d}")
+        closes.append(None if c is None else round(c, 2))
+        y, m = (y + 1, 1) if m == 12 else (y, m + 1)
+    return {"m": first[2:4] + first[5:7], "c": closes}
+
+
+def history_shard(symbol: str) -> int:
+    """Which history file holds a stock: CRC-32 of its symbol, as the app computes it (Cr360History.shard)."""
+    return zlib.crc32(symbol.encode("utf-8")) % HISTORY_SHARDS

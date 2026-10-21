@@ -69,6 +69,9 @@ class Cr360Book(
         PROMOTER_CHANGE("pmc"),
         FII_CHANGE("fic"),
         DII_CHANGE("dic"),
+
+        /** How many quarters of shareholding the promoter, FII and DII changes span. */
+        HOLDING_QUARTERS("oq"),
         INSIDER_BUY_CR("ib"),
         INSIDER_SELL_CR("is"),
         DEAL_BUY_CR("bb"),
@@ -76,6 +79,11 @@ class Cr360Book(
         PE("pe"),
         FAIR_VALUE("fv"),
         UPSIDE("up"),
+
+        /** The company's own usual P/E over three years, and the price that multiple puts on today's earnings. */
+        HISTORY_PE("hpe"),
+        HISTORY_FAIR_VALUE("fh"),
+        HISTORY_UPSIDE("uh"),
         POSITION_3Y("pos"),
         VOLATILITY("vol"),
         DEBT_TO_EQUITY("de"),

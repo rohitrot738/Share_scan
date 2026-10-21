@@ -507,6 +507,40 @@
                     android:text="@string/detail_cr360_note"
                     android:textColor="@color/text_secondary"
                     android:textSize="11sp" />
+
+                <!-- R/S history (Cr360History): fetched when the sheet opens, its tables filled in code. -->
+                <LinearLayout
+                    android:id="@+id/detailCr360HistorySection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/detail_section_cr360_history"
+                        android:textColor="@color/text_primary"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/detailCr360HistoryStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/detail_cr360_history_loading"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
+
+                    <LinearLayout
+                        android:id="@+id/detailCr360History"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </LinearLayout>
             </LinearLayout>
 
             <!-- Key stats: rows of two tiles, filled in code. -->

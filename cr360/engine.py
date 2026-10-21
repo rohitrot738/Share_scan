@@ -66,13 +66,24 @@ def score_events(x):
     return clamp(50+50*net/scale),ev,[]
 
 def score_valuation(x):
-    p=num(x.price);methods=[];detail={}
+    p=num(x.price);methods=[];detail={};own=num(x.valuation.get("history_fair_value"))
     for k in ("dcf_fair_value","earnings_fair_value","book_fair_value","peer_fair_value","analyst_fair_value"):
         z=num(x.valuation.get(k))
         if z and z>0:methods.append(z);detail[k]=z
-    if not methods:return None,{"low":None,"base":None,"high":None,"upside_pct":None},["fair_value"]
-    methods.sort();base=statistics.median(methods);up=((base/p)-1)*100 if p else None
-    return (clamp(50+(up or 0)*1.5) if p else 50),{"low":round(min(methods),2),"base":round(base,2),"high":round(max(methods),2),"upside_pct":round(up,2) if up is not None else None,"methods":detail},[]
+    own=own if own and own>0 else None
+    if not methods and not own:return None,{"low":None,"base":None,"high":None,"upside_pct":None},["fair_value"]
+    fair={"low":None,"base":None,"high":None,"upside_pct":None};scores=[]
+    if methods:
+        methods.sort();base=statistics.median(methods);up=((base/p)-1)*100 if p else None
+        fair={"low":round(min(methods),2),"base":round(base,2),"high":round(max(methods),2),"upside_pct":round(up,2) if up is not None else None,"methods":detail}
+        scores.append(clamp(50+(up or 0)*1.5) if p else 50)
+    # The company's own past multiple (history_fair_value) weighs as much as the market's, so a business that has
+    # always traded at a premium is judged against that too and not only against its sector.
+    if own:
+        hup=((own/p)-1)*100 if p else None
+        fair.update(history=round(own,2),history_upside_pct=round(hup,2) if hup is not None else None)
+        scores.append(clamp(50+(hup or 0)*1.5) if p else 50)
+    return sum(scores)/len(scores),fair,[]
 
 def score_price(x):
     rows=x.price_history;p=num(x.price) or (num(rows[-1].get("close")) if rows else None);cl=[num(r.get("close")) for r in rows if num(r.get("close")) is not None];hi=[num(r.get("high")) for r in rows if num(r.get("high")) is not None];lo=[num(r.get("low")) for r in rows if num(r.get("low")) is not None]

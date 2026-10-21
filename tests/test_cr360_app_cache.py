@@ -250,3 +250,70 @@ def test_a_half_yearly_reporters_twelve_months_are_two_half_years():
     assert rec["f"]["hy"] == 1 and rec["f"]["nq"] == 4
     assert "hy" not in app_store.app_record(stock | {"quarters": page("reliance")["quarters"]},
                                             app_store.research_input("R", stock | {"quarters": page("reliance")["quarters"]}, [], None))["f"]
+
+
+def _daily(start, days, price):
+    return [{"date": (start + timedelta(days=i)).isoformat(), "close": price(i), "high": price(i), "low": price(i)}
+            for i in range(days)]
+
+
+def test_the_companys_own_pe_is_its_usual_multiple_over_the_price_history():
+    quarters = [{"period": p, "eps": 1.0} for p in ("2024-03-31", "2024-06-30", "2024-09-30", "2024-12-31",
+                                                     "2025-03-31", "2025-06-30", "2025-09-30", "2025-12-31")]
+    stock = {"quarters": quarters}
+    # Twelve months' EPS of 4 is public from mid-February 2025; at 80 the stock trades at 20 times it.
+    prices = _daily(date(2024, 1, 1), 900, lambda i: 80.0)
+    assert app_store.history_pe(stock, prices) == 20.0
+    assert app_store.history_pe(stock, prices[:500]) is None  # under twelve month-ends with a known P/E
+    assert app_store.history_pe({"quarters": quarters[:3]}, prices) is None
+
+
+def test_valuation_weighs_the_sector_and_the_companys_own_history_alike():
+    from cr360.engine import score_valuation
+    from cr360.models import ResearchInput
+    # CDSL on 21 Oct 2026: ₹1,237 against ₹274 from its sector's multiples and ₹1,353 from its own usual P/E of 60.
+    x = ResearchInput(symbol="CDSL", price=1237.2, valuation={"earnings_fair_value": 388.76, "book_fair_value": 159.78,
+                                                                "history_fair_value": 1353.0})
+    score, fair, missing = score_valuation(x)
+    assert fair["base"] == 274.27 and fair["history"] == 1353.0 and round(fair["history_upside_pct"], 1) == 9.4
+    assert round(score, 1) == round((0 + 50 + 9.36 * 1.5) / 2, 1) and not missing
+    only_sector = ResearchInput(symbol="X", price=100.0, valuation={"earnings_fair_value": 120.0})
+    assert score_valuation(only_sector)[0] == 80.0  # as before when there is no history
+    only_history = ResearchInput(symbol="X", price=100.0, valuation={"history_fair_value": 90.0})
+    assert score_valuation(only_history)[0] == 35.0
+
+
+def test_the_app_row_carries_both_fair_values_and_insider_only_when_read():
+    today = date(2026, 10, 21)
+    store = app_store.empty()
+    app_store.put_page(store, "RELIANCE", page("reliance"), today, "consolidated")
+    stock = store["stocks"]["RELIANCE"]
+    prices = _daily(today - timedelta(days=1095), 1095, lambda i: 1200.0 + i * .2)
+    rec = app_store.app_record(stock, app_store.research_input("RELIANCE", stock, prices, (25.0, 3.0)))
+    f = rec["f"]
+    assert f["hpe"] > 0 and f["fh"] > 0 and "uh" in f and f["oq"] == 12
+    assert "ib" not in f and "is" not in f  # NSE's insider filings were never read for it
+    stock["insider_checked"] = "2026-10-21"
+    assert app_store.app_record(stock, app_store.research_input("RELIANCE", stock, prices, None))["f"]["ib"] == 0.0
+
+
+def test_history_rows_are_compact_and_complete():
+    store = app_store.empty()
+    app_store.put_page(store, "RELIANCE", page("reliance"), date(2026, 10, 21), "consolidated")
+    h = app_store.history_record(store["stocks"]["RELIANCE"])
+    assert len(h["q"]) == 13 and h["q"][-1][0] == "2606" and h["q"][-1][2] == 23196
+    assert len(h["s"]) == 12 and h["s"][-1][1] == 50.48
+    assert len(h["y"]) == 5 and all(len(y) == 6 for y in h["y"]) and h["y"][-1][0].endswith("03")
+    assert app_store.history_record({}) is None
+
+
+def test_monthly_closes_keep_a_month_without_trading_as_a_gap():
+    rows = [{"date": "2026-01-30", "close": 10.0}, {"date": "2026-01-31", "close": 11.0}, {"date": "2026-03-31", "close": 12.0}]
+    assert app_store.monthly_closes(rows) == {"m": "2601", "c": [11.0, None, 12.0]}
+    assert app_store.monthly_closes(rows[:1]) is None
+
+
+def test_history_files_are_chosen_as_the_app_chooses_them():
+    # The same numbers are checked in the app (Cr360HistoryTest), so both sides find a stock in the same file.
+    assert {s: app_store.history_shard(s) for s in ("CDSL", "RELIANCE", "TSC", "M&M")} == \
+        {"CDSL": 31, "RELIANCE": 8, "TSC": 3, "M&M": 8}

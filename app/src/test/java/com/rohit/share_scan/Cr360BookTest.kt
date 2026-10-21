@@ -9,7 +9,7 @@ class Cr360BookTest {
     private val json = """
         {"v":1,"updated":"2026-10-21T20:30+05:30","count":2,"stocks":{
           "RELIANCE":{"s":66.4,"st":"POSITIVE","c":100.0,"q":"2026-06-30","d":"2026-10-21",
-            "sec":{"fq":92.0,"gr":61.0,"ev":40.0,"xx":5},"f":{"nq":13,"pq":13,"pe":21.8,"up":-4.5}},
+            "sec":{"fq":92.0,"gr":61.0,"ev":40.0,"xx":5},"f":{"nq":13,"pq":13,"pe":21.8,"up":-4.5,"oq":12,"hpe":60,"fh":1353.0,"uh":9.36}},
           "NEWCO":{"s":null,"st":"INSUFFICIENT_DATA","c":30.0,"q":null,"d":"2026-10-21","sec":{},"f":{"nq":4,"hy":1}}
         }}
     """.trimIndent()
@@ -28,6 +28,10 @@ class Cr360BookTest {
         assertEquals(21.8, r.facts[Cr360Book.Fact.PE]!!, 1e-9)
         assertEquals(-4.5, r.facts[Cr360Book.Fact.UPSIDE]!!, 1e-9)
         assertNull(r.facts[Cr360Book.Fact.HALF_YEARLY])
+        assertEquals(12.0, r.facts[Cr360Book.Fact.HOLDING_QUARTERS]!!, 1e-9)
+        assertEquals(60.0, r.facts[Cr360Book.Fact.HISTORY_PE]!!, 1e-9)
+        assertEquals(1353.0, r.facts[Cr360Book.Fact.HISTORY_FAIR_VALUE]!!, 1e-9)
+        assertEquals(9.36, r.facts[Cr360Book.Fact.HISTORY_UPSIDE]!!, 1e-9)
         val newco = book.of("NEWCO")!!
         assertNull(newco.score)
         assertEquals(Cr360Book.State.INSUFFICIENT_DATA, newco.state)
