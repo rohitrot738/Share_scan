@@ -20,6 +20,9 @@ object Cr360Repository {
 
     @Volatile private var book: Cr360Book? = null
 
+    /** One download at a time: the app's start and a scan can both ask for a fresh file. */
+    private val refreshing = Any()
+
     /** The book already in memory, without reading the file; empty before [book] or a download. */
     fun current(): Cr360Book = book ?: Cr360Book.EMPTY
 
@@ -35,7 +38,9 @@ object Cr360Repository {
     }
 
     /** Downloads a fresh file when the kept one is [REFRESH_MS] old or missing; true when a new book is in use. Call off the main thread. */
-    fun refreshIfStale(context: Context): Boolean {
+    fun refreshIfStale(context: Context): Boolean = synchronized(refreshing) { refresh(context) }
+
+    private fun refresh(context: Context): Boolean {
         val dir = context.applicationContext.filesDir
         val file = File(dir, FILE)
         val temp = File(dir, "$FILE.tmp")

@@ -12,6 +12,7 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.concurrent.thread
 
 /**
  * Runs the app's scans one at a time, whoever starts them (the user's button, or live mode in the background), and
@@ -196,7 +197,8 @@ object ScanEngine {
         val scope = settings.scanSectors.key(markets)
         val outcome = runCatching {
             runCatching { SectorRepository.refreshIfStale(app) }
-            runCatching { Cr360Repository.refreshIfStale(app) }
+            // The R/S file is fetched alongside: a scan never waits for it, and it is in long before the results show.
+            thread(name = "Cr360Refresh", isDaemon = true) { runCatching { Cr360Repository.refreshIfStale(app) } }
             NseScanner.scan(
                 includeNse = settings.includeNse,
                 includeSme = settings.includeSme,
