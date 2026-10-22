@@ -37,8 +37,10 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Collections
 import java.util.Locale
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 
 private const val NSE_CSV = "https://archives.nseindia.com/content/equities/EQUITY_L.csv"
@@ -48,20 +50,26 @@ private val SME_CSVS = listOf(
 )
 private const val BSE_BHAVCOPY = "https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_%s_F_0000.CSV"
 private const val BROWSER = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
+
+/** What the app sends Yahoo: Yahoo answers a browser's agent without its cookies with 429s. */
+private const val APP_AGENT = "ShareScan/1.0 (Android)"
 private val INDIA: ZoneId = ZoneId.of("Asia/Kolkata")
 
 /** Sessions the app's six-month chart holds: each past close is scored on this many sessions, as the app would. */
 private const val WINDOW = 125
 private const val THREADS = 6
 
+/** Stocks after which a run with no chart at all gives up. */
+private const val FIRST_CHARTS = 150
+
 private fun log(message: String) = println("${LocalDate.now(INDIA)} ${java.time.LocalTime.now(INDIA).withNano(0)} $message")
 
-private fun get(url: String, referer: String? = null, timeoutMs: Int = 30_000): Pair<Int, String> {
+private fun get(url: String, referer: String? = null, timeoutMs: Int = 30_000, agent: String = BROWSER): Pair<Int, String> {
     val c = (URL(url).openConnection() as HttpURLConnection).apply {
         connectTimeout = timeoutMs
         readTimeout = timeoutMs
-        setRequestProperty("User-Agent", BROWSER)
-        setRequestProperty("Accept", "*/*")
+        setRequestProperty("User-Agent", agent)
+        setRequestProperty("Accept", if (agent == BROWSER) "*/*" else "application/json,text/plain,*/*")
         referer?.let { setRequestProperty("Referer", it) }
     }
     return try {
@@ -89,19 +97,23 @@ private fun listings(today: LocalDate): List<Listing> {
 
 private class Chart(val days: LongArray, val close: DoubleArray, val high: DoubleArray, val low: DoubleArray, val volume: DoubleArray)
 
+/** Yahoo's answers by HTTP status (-1: no answer), for the log. */
+private val statuses = ConcurrentHashMap<Int, AtomicInteger>()
+
 /** Two years of daily candles from the first ticker Yahoo has, sessions missing a value dropped; null when none. */
 private fun chart(listing: Listing): Chart? {
     for (ticker in NseScanner.yahooTickers(listing)) {
         val url = "https://query1.finance.yahoo.com/v8/finance/chart/$ticker?range=2y&interval=1d"
         var body = ""
         for (attempt in 1..3) {
-            val (status, text) = get(url)
+            val (status, text) = get(url, agent = APP_AGENT)
+            statuses.computeIfAbsent(status) { AtomicInteger() }.incrementAndGet()
             if (status == 200) {
                 body = text
                 break
             }
             if (status == 404) break
-            Thread.sleep(if (status == 429) 20_000L * attempt else 2_000L)
+            Thread.sleep(if (status == 429) 5_000L * attempt else 2_000L)
         }
         if (body.isEmpty()) continue
         val parsed = runCatching { parse(body) }.getOrNull()
@@ -223,21 +235,37 @@ fun main(args: Array<String>) {
     val stocks = listings(today)
     val tally = Tally()
     val done = AtomicInteger()
+    val charted = AtomicInteger()
     val judged = AtomicInteger()
+    val failed = AtomicBoolean()
+    // When Yahoo answers none of the first stocks it is not going to; stop rather than wait out the deadline.
+    val blocked = AtomicBoolean()
     val pool = Executors.newFixedThreadPool(THREADS)
     for (listing in stocks) {
         pool.execute {
-            if (System.currentTimeMillis() > deadline) return@execute
+            if (System.currentTimeMillis() > deadline || blocked.get()) return@execute
             val chart = runCatching { chart(listing) }.getOrNull()
-            if (chart != null && runCatching { judge(listing, chart, tally) }.getOrDefault(0) > 0) judged.incrementAndGet()
+            if (chart != null) {
+                charted.incrementAndGet()
+                val plans = runCatching { judge(listing, chart, tally) }.onFailure { e ->
+                    if (failed.compareAndSet(false, true)) log("judging ${listing.symbol} failed: ${e.stackTraceToString().take(1500)}")
+                }.getOrDefault(0)
+                if (plans > 0) judged.incrementAndGet()
+            }
             val count = done.incrementAndGet()
-            if (count % 250 == 0) log("charts $count/${stocks.size}, stocks with plans ${judged.get()}, plans ${tally.trades.size}")
+            if (count == FIRST_CHARTS && charted.get() == 0) {
+                blocked.set(true)
+                log("no chart in the first $count stocks; Yahoo answered ${answers()}")
+            }
+            if (count % 250 == 0) {
+                log("charts $count/${stocks.size}: charted ${charted.get()}, with plans ${judged.get()}, plans ${tally.trades.size}; Yahoo ${answers()}")
+            }
         }
     }
     pool.shutdown()
     pool.awaitTermination(minutes.toLong() + 5, TimeUnit.MINUTES)
     val trades = tally.trades.toList()
-    log("stocks with plans ${judged.get()} of ${stocks.size}, plans ${trades.size}, closes judged for rallies ${tally.rallies.size}")
+    log("charted ${charted.get()} of ${stocks.size}, with plans ${judged.get()}, plans ${trades.size}, closes judged for rallies ${tally.rallies.size}; Yahoo ${answers()}")
     check(judged.get() >= 500) { "too few stocks charted (${judged.get()}); the book stays as it was" }
 
     val day = today.toEpochDay()
@@ -303,6 +331,9 @@ fun main(args: Array<String>) {
 }
 
 private fun percent(s: SetupMiner.Stats) = "${SetupBook.percent(s)}%"
+
+/** "200×5100, 404×40": Yahoo's answers so far. */
+private fun answers() = statuses.entries.sortedBy { it.key }.joinToString { "${it.key}×${it.value.get()}" }
 
 private fun stopped(s: SetupMiner.Stats) = "${Math.round(s.stopRate * 100)}%"
 
