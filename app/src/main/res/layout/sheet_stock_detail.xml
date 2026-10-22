@@ -244,6 +244,17 @@
                     android:textSize="13sp"
                     android:visibility="gone" />
 
+                <!-- A learned mistake that holds today: how often trades like it failed, and how. -->
+                <TextView
+                    android:id="@+id/detailPlanMistake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/bear"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
                 <com.google.android.material.card.MaterialCardView
                     style="@style/ShareScanCard"
                     android:layout_width="match_parent"

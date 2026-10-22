@@ -146,6 +146,14 @@ class StockAdapter(
             }
         }
 
+        // A mistake learned from trades that went the wrong way, whose conditions all hold today.
+        val mistake = setups.mistake(stock.setupMask)
+        ui.mistakeLine.isVisible = mistake != null
+        val mistakeDescription = mistake?.let {
+            context.getString(R.string.item_setup_mistake, SetupBook.percent(it.all), SetupLabels.describe(context, it.conditions))
+                .also { text -> ui.mistakeLine.text = text }
+        }
+
         // A starred stock no chart has come in for yet: its symbol, and a word that its prices are on their way.
         val charted = stock.charted
         ui.rvol.isVisible = charted
@@ -178,6 +186,7 @@ class StockAdapter(
             context.getString(exchange.description),
             supportDescription,
             setupDescription,
+            mistakeDescription,
             researchDescription,
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,

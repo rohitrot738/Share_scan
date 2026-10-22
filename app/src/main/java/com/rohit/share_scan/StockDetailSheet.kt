@@ -202,6 +202,7 @@ class StockDetailSheet(
         ui.detailPlanRule.setText(if (breakout) R.string.detail_plan_rule_breakout else R.string.detail_plan_rule_market)
         val setup = BreakoutSetup.of(stock, plan)
         if (setups.rules.isNotEmpty()) bindLearnedSetup() else bindSetup(setup)
+        bindMistake()
         // The quick target's record: today's learned figures for breakouts like this one, else the app's own.
         val (quickHits, quickHitsWide) = setups.quickHits(setup) ?: (setup.quickHits to setup.quickHitsWide)
 
@@ -331,6 +332,23 @@ class StockDetailSheet(
         ui.detailPlanSetup.isVisible = true
         ui.detailPlanSetup.text = text
         ui.detailPlanSetup.setTextColor(color(if (learned != null) R.color.bull else R.color.text_secondary))
+    }
+
+    /** A mistake learned from trades that went the wrong way, when one holds today: how often such trades failed, and how. */
+    private fun bindMistake() {
+        val mistake = setups.mistake(stock.setupMask)
+        ui.detailPlanMistake.isVisible = mistake != null
+        if (mistake == null) return
+        val all = mistake.all
+        ui.detailPlanMistake.text = activity.getString(
+            R.string.detail_setup_mistake,
+            SetupLabels.describe(activity, mistake.conditions),
+            all.n,
+            SetupBook.percent(all),
+            SetupBook.percent(setups.holdout.takeIf { it.n > 0 } ?: setups.train),
+            SetupBook.percentOf(all.stops, all.n),
+            SetupBook.percentOf(all.n - all.wins - all.stops, all.n),
+        )
     }
 
     /** "0.75R", "1.5R": a multiple of the risk to two places where it has them, unlike [TradePlan.formatR]. */

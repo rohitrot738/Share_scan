@@ -7,7 +7,8 @@
 // For every stock the app scans, it reads two years of daily candles. At each past close it scores the stock on the
 // six months before (as the app's chart has them), draws the trade plan, and notes the setup conditions and whether
 // Target 1 came within the plan's sessions before the stop. SetupMiner then keeps the setups that won, drops the ones
-// that stopped winning, and the result replaces setups.json.
+// that stopped winning, learns the mistakes (setups whose trades went the wrong way far more often than the market's)
+// and the result replaces setups.json.
 package com.rohit.share_scan.learner
 
 import com.rohit.share_scan.BreakoutSetup
@@ -172,7 +173,12 @@ private fun judge(listing: Listing, chart: Chart, tally: Tally): Int {
         if (plan.isExtended) continue
         val t1 = PlanOutcome.target1(plan, chart.high, chart.low, t)
         if (t1.decided) {
-            tally.samples += SetupMiner.Sample(SetupCondition.mask(s, plan, before), chart.days[t], t1.result == PlanOutcome.Result.WIN)
+            tally.samples += SetupMiner.Sample(
+                SetupCondition.mask(s, plan, before),
+                chart.days[t],
+                win = t1.result == PlanOutcome.Result.WIN,
+                stopped = t1.result == PlanOutcome.Result.STOPPED,
+            )
             plans++
         }
         val stock = ScanResult(
@@ -190,7 +196,7 @@ fun main(args: Array<String>) {
     val deadline = System.currentTimeMillis() + (minutes * 60_000).toLong()
     val today = LocalDate.now(INDIA)
     val previous = SetupBook.parse(if (file.isFile) file.readText() else null)
-    log("previous book: ${previous.rules.size} setups, ${previous.changes.size} changes")
+    log("previous book: ${previous.rules.size} setups, ${previous.avoid.size} mistakes, ${previous.changes.size} changes")
 
     val stocks = listings(today)
     val tally = Tally()
@@ -212,17 +218,34 @@ fun main(args: Array<String>) {
     check(judged.get() >= 500) { "too few stocks charted (${judged.get()}); the book stays as it was" }
 
     val day = today.toEpochDay()
-    val result = SetupMiner.learn(tally.samples.toList(), previous.rules.associate { it.mask to it.since }, day)
+    val result = SetupMiner.learn(
+        tally.samples.toList(),
+        previous.rules.associate { it.mask to it.since },
+        day,
+        previous.avoid.associate { it.mask to it.since },
+    )
     val kinds = tally.kinds.mapValues { (_, a) -> SetupBook.KindStats(SetupMiner.Stats(a[0], a[1]), SetupMiner.Stats(a[2], a[3])) }
     file.writeText(SetupBook.encode(result, kinds, previous, day, judged.get(), tally.samples.size))
 
     log("market: ${percent(result.train)} before the holdout, ${percent(result.holdout)} in it (from ${LocalDate.ofEpochDay(result.holdoutFrom)})")
+    log("market failures: stopped ${stopped(result.train)}, too late ${late(result.train)}; in the holdout ${stopped(result.holdout)} and ${late(result.holdout)}")
     for (r in result.rules) {
         log("setup ${r.conditions.joinToString(" + ")}: ${percent(r.train)} of ${r.train.n}, holdout ${percent(r.holdout)} of ${r.holdout.n}")
     }
-    for (c in result.changes) log("${if (c.added) "added" else if (c.replaced) "replaced" else "removed"} ${SetupCondition.of(c.mask).joinToString(" + ")}")
+    for (r in result.avoid) {
+        log("mistake ${r.conditions.joinToString(" + ")}: ${percent(r.all)} of ${r.all.n} won, stopped ${stopped(r.all)}, too late ${late(r.all)}; holdout ${percent(r.holdout)} of ${r.holdout.n}")
+    }
+    for (c in result.changes) {
+        val what = if (c.added) "added" else if (c.replaced) "replaced" else "removed"
+        log("$what ${if (c.avoid) "mistake" else "setup"} ${SetupCondition.of(c.mask).joinToString(" + ")}")
+    }
     for (k in kinds) log("kind ${k.key}: quick ${percent(k.value.quick)} of ${k.value.quick.n}, wide ${percent(k.value.quickWide)}")
     log("why: " + result.lift.take(8).joinToString { "${it.condition} ×${"%.2f".format(it.lift)}" })
+    log("why stopped: " + result.loseLift.take(8).joinToString { "${it.condition} ×${"%.2f".format(it.lift)}" })
 }
 
 private fun percent(s: SetupMiner.Stats) = "${SetupBook.percent(s)}%"
+
+private fun stopped(s: SetupMiner.Stats) = "${Math.round(s.stopRate * 100)}%"
+
+private fun late(s: SetupMiner.Stats) = "${Math.round((1 - s.rate - s.stopRate) * 100)}%"
