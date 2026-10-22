@@ -1,0 +1,54 @@
+name: Learned setups
+# Learns the app's setups every market evening (learner/Learn.kt): for every stock the app scans, two years of daily
+# candles are scored at each past close with the app's own code, every trade plan is judged by what came after, and
+# the setups that won are kept while the ones that stopped winning are dropped. setups.json lives in the cr360-data
+# pre-release next to the 360CR files and is replaced on each run, so there is always one copy.
+on:
+  schedule:
+    - cron: '41 12 * * 1-5'  # 18:11 IST, after the close
+  workflow_dispatch:
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['learner/**', '.github/workflows/setups-learn.yml']
+permissions:
+  contents: write
+concurrency:
+  group: setups-learn
+  cancel-in-progress: false
+jobs:
+  learn:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: cr360-data
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Kotlin compiler and org.json
+        run: |
+          curl -sSL -o kotlinc.zip https://github.com/JetBrains/kotlin/releases/download/v2.0.21/kotlin-compiler-2.0.21.zip
+          unzip -q kotlinc.zip -d "$RUNNER_TEMP"
+          curl -sSL -o "$RUNNER_TEMP/json.jar" https://repo1.maven.org/maven2/org/json/json/20240303/json-20240303.jar
+      - name: Compile the learner with the app's own scoring code
+        run: |
+          S=app/src/main/java/com/rohit/share_scan
+          files=""
+          for f in BreakoutSignals NseScanner SupportFloor Indicators TradePlan TargetTimes StockFormat MarketClock RateGate \
+                   SectorBook ScanFilters BreakoutSetup SetupConditions PlanOutcome SetupMiner SetupBook; do
+            files="$files $S/$f.kt"
+          done
+          "$RUNNER_TEMP/kotlinc/bin/kotlinc" -jvm-target 17 -nowarn -cp "$RUNNER_TEMP/json.jar" -d out $files learner/Learn.kt
+      - name: Fetch the setups in use
+        run: |
+          gh release download "$TAG" -p setups.json || echo "No setups yet, so this run starts the book."
+      - name: Learn
+        run: |
+          java -Xmx4g -cp "out:$RUNNER_TEMP/json.jar:$RUNNER_TEMP/kotlinc/lib/kotlin-stdlib.jar" \
+            com.rohit.share_scan.learner.LearnKt setups.json 90
+      - name: Publish
+        run: |
+          gh release upload "$TAG" setups.json --clobber
