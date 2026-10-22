@@ -173,4 +173,64 @@ class BreakoutSignalsTest {
         assertTrue(BreakoutSignals.soft(-40.0) < BreakoutSignals.soft(0.0))
         assertEquals(0.0, BreakoutSignals.soft(Double.NaN), 0.0)
     }
+
+    /** Forty quiet sessions between 99 and 101, closing at 100. */
+    private fun flat() = Candles().apply { repeat(40) { add(100.0, 101.0, 99.0, 1_000_000.0) } }
+
+    @Test
+    fun aDipUnderTheLowsThatClosesBackUpIsASweep() {
+        val swept = flat().apply { add(100.6, 101.0, 97.5, 1_800_000.0) }.analyse()!!
+        assertTrue(swept.sweptLow)
+        assertTrue(!swept.weakBreakout && !swept.recentFakeout)
+        // Closing under the old low is a breakdown, not a sweep; so is a close in the lower half of the day.
+        assertTrue(!flat().apply { add(98.0, 100.0, 97.5, 1_800_000.0) }.analyse()!!.sweptLow)
+        assertTrue(!flat().apply { add(99.2, 101.0, 97.5, 1_800_000.0) }.analyse()!!.sweptLow)
+    }
+
+    @Test
+    fun aBreakoutThatCannotHoldIsAFakeout() {
+        // Over the 20-day high of 101 during the day, closing back under it: a weak breakout today.
+        val weak = flat().apply { add(100.5, 103.0, 99.5, 1_500_000.0) }.analyse()!!
+        assertTrue(weak.weakBreakout)
+        // A strong close over it is no warning.
+        assertTrue(!flat().apply { add(102.8, 103.0, 100.5, 1_500_000.0) }.analyse()!!.weakBreakout)
+        // A close over the high two sessions ago, given back today: a recent fakeout.
+        val given = flat().apply {
+            add(102.5, 103.0, 100.5, 1_500_000.0)
+            add(101.5, 102.6, 101.0, 900_000.0)
+            add(100.2, 101.4, 99.8, 900_000.0)
+        }.analyse()!!
+        assertTrue(given.recentFakeout)
+        // Held over it, no fakeout.
+        val held = flat().apply {
+            add(102.5, 103.0, 100.5, 1_500_000.0)
+            add(103.2, 103.8, 102.4, 900_000.0)
+        }.analyse()!!
+        assertTrue(!held.recentFakeout)
+    }
+
+    @Test
+    fun aDipUnderATestedSupportThatClosesBackUpIsAStopHunt() {
+        // Swings between 100 and 110 for four months: the dips to 100 make a floor, then a dip to 98.5 closes at 104.
+        val candles = Candles().apply {
+            for (i in 0 until 84) {
+                val phase = i % 21
+                val close = if (phase < 11) 100.0 + phase else 120.0 - phase
+                add(close, close + 0.8, close - 0.8, 1_000_000.0)
+            }
+            add(104.0, 104.5, 98.5, 2_000_000.0)
+        }
+        assertTrue(candles.analyse()!!.stopHunt)
+        // The same dip closing under the floor broke it; a dip that stays above it hunted nothing.
+        val broke = Candles().apply {
+            candles.closes.dropLast(1).indices.forEach { add(candles.closes[it], candles.highs[it], candles.lows[it], candles.volumes[it]) }
+            add(98.8, 101.0, 98.5, 2_000_000.0)
+        }
+        assertTrue(!broke.analyse()!!.stopHunt)
+        val above = Candles().apply {
+            candles.closes.dropLast(1).indices.forEach { add(candles.closes[it], candles.highs[it], candles.lows[it], candles.volumes[it]) }
+            add(104.0, 104.5, 101.0, 2_000_000.0)
+        }
+        assertTrue(!above.analyse()!!.stopHunt)
+    }
 }

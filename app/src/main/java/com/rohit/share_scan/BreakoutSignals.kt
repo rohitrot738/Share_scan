@@ -64,6 +64,9 @@ object BreakoutSignals {
 
     /** How many past sessions get a score of their own, for the track record; the 50-day average limits it too. */
     const val PAST_SESSIONS = 12
+
+    /** How far back a given-back breakout counts as a recent fakeout. */
+    const val FAKEOUT_SESSIONS = 5
     private const val SMA50_SESSIONS = 50
     private const val BASE_SESSIONS = BASE_WEEKS * WEEK_SESSIONS
     private const val VOLATILITY_SESSIONS = 50
@@ -103,6 +106,20 @@ object BreakoutSignals {
         val dayPosition: Double = 0.5,
         /** Daily ranges of the 10 sessions before the latest against the stock's normal swing; below 1 they calmed. */
         val calm: Double = 1.0,
+        /**
+         * A liquidity sweep: the latest session's low went under the lowest low of the 20 sessions before it, where
+         * stops sit, and it closed back above that low, in the upper half of its range.
+         */
+        val sweptLow: Boolean = false,
+        /**
+         * A stop hunt: the latest low went under the support floor of the sessions before it (tested at least twice),
+         * and it closed back above it, in the upper half of its range.
+         */
+        val stopHunt: Boolean = false,
+        /** The latest high went over the 20-day high, but the close fell back under it or into the lower half of the range. */
+        val weakBreakout: Boolean = false,
+        /** A fakeout: in the [FAKEOUT_SESSIONS] sessions before the latest, a close over its 20-day high was given back. */
+        val recentFakeout: Boolean = false,
     )
 
     /**
@@ -237,6 +254,24 @@ object BreakoutSignals {
         // The floor under the price over the whole chart; its zone is half a normal daily swing either side.
         val support = SupportFloors.find(close, low, SupportFloors.zonePct(swingPct))
 
+        // Sweeps and fakeouts: the latest candle against the levels the sessions before it set.
+        val dayPosition = if (dayRange > 0.0) (price - low[last]) / dayRange else 0.5
+        val low20 = lowest(low, n - 21, last)
+        val sweptLow = low[last] < low20 && price > low20 && dayPosition >= 0.5
+        // Against the floor as it stood before today: today's own dip would otherwise set the floor's level. Looked
+        // for only after a fresh 10-day low that closed in the upper half, so most scores skip it.
+        val stopHunt = dayPosition >= 0.5 && low[last] <= lowest(low, n - 11, last) &&
+            SupportFloors.find(close.copyOf(last), low.copyOf(last), SupportFloors.zonePct(swingPct))?.let { before ->
+                before.touches >= SupportFloors.MIN_TOUCHES && low[last] < before.level && price > before.level
+            } == true
+        val weakBreakout = high[last] > high20 && (price < high20 || dayPosition < 0.5)
+        val recentFakeout = (1..FAKEOUT_SESSIONS).any { back ->
+            val at = last - back
+            if (at < 20) return@any false
+            val level = highest(high, at - 20, at)
+            close[at] > level && (at + 1..last).any { close[it] < level }
+        }
+
         val turnoverCr = DoubleArray(20) { k -> close[n - 20 + k] * volume[n - 20 + k] / CRORE }
         turnoverCr.sort()
         val medianTurnoverCr = (turnoverCr[9] + turnoverCr[10]) / 2.0
@@ -257,8 +292,12 @@ object BreakoutSignals {
             quietVolume = quiet, change20 = change20, medianTurnoverCr = medianTurnoverCr,
             change1d = change1d,
             fromHighPct = (chartHigh - price) / chartHigh * 100.0,
-            dayPosition = if (dayRange > 0.0) (price - low[last]) / dayRange else 0.5,
+            dayPosition = dayPosition,
             calm = calm,
+            sweptLow = sweptLow,
+            stopHunt = stopHunt,
+            weakBreakout = weakBreakout,
+            recentFakeout = recentFakeout,
         )
     }
 
