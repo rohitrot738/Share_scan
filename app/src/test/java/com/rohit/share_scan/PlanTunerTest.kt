@@ -78,6 +78,16 @@ class PlanTunerTest {
         assertEquals(7, results[own])
     }
 
+    @Test
+    fun aBreakoutLockedAtOnePriceIsNotEntered() {
+        // Entry 104.2; the only session over it opens and stays at the 106 circuit.
+        val plan = TradePlan.of(100.0, 104.0, 98.0, 2.0)!!
+        val high = doubleArrayOf(100.0, 106.0, 103.0, 103.0, 103.0, 103.0, 103.0)
+        val low = doubleArrayOf(99.0, 106.0, 101.0, 101.0, 101.0, 101.0, 101.0)
+        assertFalse(PlanTuner.judge(plan, high, low, high, 0, IntArray(PlanTuner.CELLS)))
+        assertNull(PlanTuner.result(own, plan.entry, true, plan.stop, plan.atr, high, low, high, 0))
+    }
+
     private fun indices(cell: Int) = Triple(cell / 6 / 100, cell / 6 % 100, cell % 6)
 
     /** Within one step of [center] in stop, target and time. */

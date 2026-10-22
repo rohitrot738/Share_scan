@@ -1,6 +1,8 @@
 package com.rohit.share_scan
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class PlanOutcomeTest {
@@ -66,5 +68,29 @@ class PlanOutcomeTest {
         assertEquals(PlanOutcome.Result.STOPPED, rally(listOf(106.5), listOf(96.0)).result) // both in one session
         assertEquals(PlanOutcome.Result.EXPIRED, rally(List(20) { 104.0 }, List(20) { 98.0 }).result)
         assertEquals(PlanOutcome.Result.OPEN, rally(List(5) { 104.0 }, List(5) { 98.0 }).result)
+    }
+
+    @Test
+    fun aCloseLockedAtTheUpperCircuitIsSeen() {
+        // Up 5% (a hair under, as bands are rounded to the tick) and closed at the high: locked at the circuit.
+        assertTrue(PlanOutcome.lockedUp(104.95, 104.95, 100.0))
+        assertTrue(PlanOutcome.lockedUp(119.9, 119.9, 100.0))
+        assertTrue(PlanOutcome.lockedUp(102.0, 102.0, 100.0))
+        // Not at the high, or not at a band: tradable.
+        assertFalse(PlanOutcome.lockedUp(104.95, 105.5, 100.0))
+        assertFalse(PlanOutcome.lockedUp(104.0, 104.0, 100.0))
+        assertFalse(PlanOutcome.lockedUp(95.0, 95.0, 100.0))
+        assertTrue(PlanOutcome.untradable(110.0, 110.0))
+        assertFalse(PlanOutcome.untradable(110.0, 109.5))
+    }
+
+    @Test
+    fun aBreakoutIsNotEnteredInASessionLockedAtOnePrice() {
+        // The first session gaps to 106 and stays there all day: no buy-stop at 104.2 fills.
+        assertEquals(PlanOutcome.Result.OPEN, run(highs = listOf(106.0), lows = listOf(106.0)).result)
+        // The next session trades, and the plan is entered there.
+        val later = run(highs = listOf(106.0, 107.0, 111.0), lows = listOf(106.0, 104.5, 106.0))
+        assertEquals(PlanOutcome.Result.WIN, later.result)
+        assertEquals(1, later.sessions)
     }
 }
