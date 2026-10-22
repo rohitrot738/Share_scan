@@ -60,6 +60,8 @@ class StockDetailSheet(
     private val alert: WatchAlerts.State? = null,
     /** The stock's 360CR from the daily file; null when the file does not have it (yet). */
     private val cr360: Cr360Book.Entry? = null,
+    /** The learned setups; once there are some, they take the place of the app's own setups and figures. */
+    private val setups: SetupBook = SetupBook.EMPTY,
 ) {
     private val dialog = BottomSheetDialog(activity)
     private val ui = SheetStockDetailBinding.inflate(activity.layoutInflater)
@@ -199,7 +201,9 @@ class StockDetailSheet(
         val breakout = plan.entryKind == TradePlan.EntryKind.BREAKOUT
         ui.detailPlanRule.setText(if (breakout) R.string.detail_plan_rule_breakout else R.string.detail_plan_rule_market)
         val setup = BreakoutSetup.of(stock, plan)
-        bindSetup(setup)
+        if (setups.rules.isNotEmpty()) bindLearnedSetup() else bindSetup(setup)
+        // The quick target's record: today's learned figures for breakouts like this one, else the app's own.
+        val (quickHits, quickHitsWide) = setups.quickHits(setup) ?: (setup.quickHits to setup.quickHitsWide)
 
         addLevel(
             plan,
@@ -247,8 +251,8 @@ class StockDetailSheet(
                 R.string.detail_plan_quick_time,
                 plan.quickSessions.first,
                 plan.quickSessions.last,
-                setup.quickHits,
-                setup.quickHitsWide,
+                quickHits,
+                quickHitsWide,
             ),
             multiple = "+" + multiple(TradePlan.QUICK_TARGET_R),
         )
@@ -298,6 +302,35 @@ class StockDetailSheet(
         ui.detailPlanSetup.isVisible = text != null
         ui.detailPlanSetup.text = text.orEmpty()
         ui.detailPlanSetup.setTextColor(color(tone))
+    }
+
+    /**
+     * The best learned setup that holds for this stock today, with how often its plans reached Target 1 in time against
+     * every plan's rate; or, when none holds, that rate alone and the setups that do best.
+     */
+    private fun bindLearnedSetup() {
+        val learned = setups.best(stock.setupMask)
+        val market = SetupBook.percent(setups.holdout.takeIf { it.n > 0 } ?: setups.train)
+        val text = if (learned != null) {
+            activity.getString(
+                R.string.detail_setup_learned,
+                SetupLabels.describe(activity, learned.conditions),
+                learned.all.n,
+                SetupBook.percent(learned.all),
+                market,
+            )
+        } else {
+            activity.getString(
+                R.string.detail_setup_learned_none,
+                market,
+                setups.rules.take(2).joinToString(" • ") {
+                    activity.getString(R.string.detail_setup_learned_top, SetupLabels.describe(activity, it.conditions), SetupBook.percent(it.all))
+                },
+            )
+        }
+        ui.detailPlanSetup.isVisible = true
+        ui.detailPlanSetup.text = text
+        ui.detailPlanSetup.setTextColor(color(if (learned != null) R.color.bull else R.color.text_secondary))
     }
 
     /** "0.75R", "1.5R": a multiple of the risk to two places where it has them, unlike [TradePlan.formatR]. */

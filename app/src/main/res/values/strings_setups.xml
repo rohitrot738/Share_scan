@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Learned setups (SetupBook): the daily learner's setups, in place of the app's own. -->
+    <string name="item_setup_learned">🎯 सीखा setup • %1$d%% सफल: %2$s</string>
+    <string name="detail_setup_learned">🎯 सीखा setup: %1$s। पिछले 2 साल में ऐसे %2$d plans में से %3$d%% में Target 1 तय दिनों में stop से पहले लगा (सभी stocks का औसत %4$d%%)।</string>
+    <string name="detail_setup_learned_none">इस stock पर आज कोई सीखा setup लागू नहीं। सभी stocks में Target 1 तय दिनों में %1$d%% बार लगा। सबसे सफल setups: %2$s</string>
+    <string name="detail_setup_learned_top">%1$s (%2$d%%)</string>
+
+    <string name="setup_breakout_today">Breakout आज</string>
+    <string name="setup_near_trigger">Breakout से 1 ATR दूर</string>
+    <string name="setup_volume_2x">volume 2×+</string>
+    <string name="setup_volume_1_5x">volume 1.5×+</string>
+    <string name="setup_quiet_before">पहले 5 दिन volume कम</string>
+    <string name="setup_tight_week">1 हफ्ते का दायरा 5% में</string>
+    <string name="setup_tight_two_weeks">2 हफ्ते का दायरा 8% में</string>
+    <string name="setup_above_sma50">50 DMA के ऊपर</string>
+    <string name="setup_sma20_over_sma50">20 DMA, 50 DMA के ऊपर</string>
+    <string name="setup_up_20_days">20 दिन में ऊपर</string>
+    <string name="setup_up_5_percent_week">5 दिन में 5%+ ऊपर</string>
+    <string name="setup_rsi_50_70">RSI 50–70</string>
+    <string name="setup_rsi_70_plus">RSI 70+</string>
+    <string name="setup_rsi_under_50">RSI 50 से कम</string>
+    <string name="setup_macd_above_signal">MACD signal के ऊपर</string>
+    <string name="setup_macd_fresh_cross">MACD crossover 3 दिन में</string>
+    <string name="setup_macd_above_zero">MACD zero के ऊपर</string>
+    <string name="setup_near_support">Support से 5% में</string>
+    <string name="setup_long_support">पुराना support</string>
+    <string name="setup_liquid_10cr">रोज़ ₹10 Cr+ कारोबार</string>
+    <string name="setup_score_strong">Score STRONG</string>
+    <string name="setup_score_watch">Score WATCH+</string>
+    <string name="setup_prev_strong">कल भी STRONG</string>
+
+    <string name="help_setups_title">सीखे हुए setups</string>
+    <string name="help_setups_body">हर शाम (बाज़ार के दिनों में) app पूरे market के हर stock के पिछले 2 साल के हर दिन पर वही score और trade plan बनाता है जो उस दिन दिखता, और देखता है कि आगे क्या हुआ: Target 1 बताए गए दिनों के अंदर stop से पहले लगा तो सफल; stop पहले लगा या target समय पर नहीं आया तो असफल। फिर 1 से 3 शर्तों के मेल (जैसे Breakout आज + volume 2×+ + RSI 50–70) में से वही setups रखे जाते हैं जो पूरे market के औसत से साफ़ ज़्यादा सफल रहे — पुराने data पर भी और पिछले 60 दिनों पर भी, जिन पर उन्हें चुना नहीं गया था। जो setup आगे चलकर औसत से ऊपर नहीं रहता, वह हट जाता है। Card और stock detail में app के अपने पुराने setup की जगह यही सीखे setups और उनका असली success % दिखता है, और trade plan के जल्दी target के % भी ताज़ा data से आते हैं। ये पिछले data के आँकड़े हैं, आगे की गारंटी नहीं; निवेश सलाह नहीं।</string>
+</resources>

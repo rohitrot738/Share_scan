@@ -92,6 +92,8 @@ data class ScanResult(
     val pastScores: List<DayScore> = emptyList(),
     /** The longest-standing price it has not closed below, over the chart's six months; null without one. */
     val support: SupportFloor? = null,
+    /** The [SetupCondition]s that hold at the latest close, as a mask; 0 when not worked out or too thinly traded. */
+    val setupMask: Long = 0L,
 ) {
     /** Rupee value traded in the latest session, in crore. */
     val turnoverCr: Double get() = price * volume / CRORE
@@ -459,6 +461,12 @@ object NseScanner {
 
     private val SYMBOL = Regex("[A-Z0-9&-]+")
 
+    /** The learned setups' conditions at the latest close, as the daily learner works them out; 0 for thin trading. */
+    internal fun setupMask(signals: BreakoutSignals.Signals): Long {
+        if (signals.medianTurnoverCr < SetupBook.MIN_TURNOVER_CR) return 0L
+        return SetupCondition.mask(signals, TradePlan.of(signals.price, signals.structure), signals.pastScores.firstOrNull()?.score)
+    }
+
     /** Yahoo tickers to try for a listing, best first: BSE stocks by symbol, then by scrip code. */
     internal fun yahooTickers(listing: Listing): List<String> = when (listing.market) {
         Market.NSE, Market.NSE_SME -> listOf("${listing.symbol}.NS")
@@ -486,6 +494,7 @@ object NseScanner {
             live = signals.live,
             pastScores = signals.pastScores,
             support = signals.support,
+            setupMask = setupMask(signals),
         )
     }
 

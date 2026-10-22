@@ -198,7 +198,10 @@ object ScanEngine {
         val outcome = runCatching {
             runCatching { SectorRepository.refreshIfStale(app) }
             // The R/S file is fetched alongside: a scan never waits for it, and it is in long before the results show.
-            thread(name = "Cr360Refresh", isDaemon = true) { runCatching { Cr360Repository.refreshIfStale(app) } }
+            thread(name = "Cr360Refresh", isDaemon = true) {
+                runCatching { Cr360Repository.refreshIfStale(app) }
+                runCatching { SetupRepository.refreshIfStale(app) }
+            }
             NseScanner.scan(
                 includeNse = settings.includeNse,
                 includeSme = settings.includeSme,
