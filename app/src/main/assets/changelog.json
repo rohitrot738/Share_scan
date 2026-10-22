@@ -7,7 +7,7 @@
     ]
   },
   {
-    "version": "1.2.131",
+    "version": "1.2.132",
     "date": "2026-10-22",
     "items": [
       "Liquidity sweep और stop hunt की पहचान: भाव 20 दिन के low या support के नीचे जाकर वापस ऊपर बंद हो तो card और detail में 🎣 संकेत",
