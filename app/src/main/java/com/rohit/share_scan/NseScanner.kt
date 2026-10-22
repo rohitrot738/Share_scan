@@ -146,6 +146,8 @@ data class ScanOutput(
     val stopped: Boolean = false,
     /** Nifty 50's daily closes, the yardstick for the track record; null when Yahoo had none. */
     val benchmark: DailySeries? = null,
+    /** How many stocks the scan set out to check got a chart, and why the rest did not; null when not counted. */
+    val coverage: ScanCoverage? = null,
 ) {
     /** At least one price is from today's session, still trading. */
     val live: Boolean get() = results.any { it.live }
@@ -187,6 +189,7 @@ object NseScanner {
      */
     private val yahoo = RateGate(burst = 2_400, perSecond = 7.5)
     private const val HTTP_TOO_MANY_REQUESTS = 429
+    private const val HTTP_NOT_FOUND = 404
     private const val RATE_LIMIT_TRIES = 6
     private const val RATE_LIMIT_PAUSE_MS = 45_000L
     /** How often a scan waiting on its pool looks for the user's stop. */
@@ -234,12 +237,13 @@ object NseScanner {
         val isinBySymbol = symbols.associate { it.symbol to it.isin }
         onProgress(0, symbols.size)
         val done = AtomicInteger(0)
+        val misses = ScanCoverage.Tally()
         val pool = Executors.newFixedThreadPool(4)
         try {
             val issuedShares = pool.submit(Callable { runCatching { daily("shares") { loadIssuedShares(isStopped) ?: error("no share counts") } }.getOrNull() })
             val benchmark = pool.submit(Callable { runCatching { benchmark(isStopped) }.getOrNull() })
             val scored = runStoppable(pool, symbols, isStopped) { listing ->
-                try { score(listing, isStopped, now) } finally { onProgress(done.incrementAndGet(), symbols.size) }
+                try { score(listing, isStopped, now, misses) } finally { onProgress(done.incrementAndGet(), symbols.size) }
             }
             // After a stop the share counts and Nifty may not have arrived yet; rows then go without them.
             val shares = if (issuedShares.isDone) runCatching { issuedShares.get() }.getOrNull() else null
@@ -253,7 +257,10 @@ object NseScanner {
             // Fewer stocks checked than listed means a stop cut the scan short.
             val stopped = done.get() < symbols.size
             val nifty = if (benchmark.isDone) runCatching { benchmark.get() }.getOrNull() else null
-            return ScanOutput(results.sortedByDescending { it.score }, shares?.first, stopped, nifty)
+            return ScanOutput(
+                results.sortedByDescending { it.score }, shares?.first, stopped, nifty,
+                coverage = misses.coverage(listed = symbols.size, charted = results.size),
+            )
         } finally {
             // Also interrupts the threads a stop left behind, such as one sleeping out Yahoo's limit, so they end now.
             pool.shutdownNow()
@@ -474,11 +481,24 @@ object NseScanner {
     }
 
     /** One chart request per ticker: about 62 daily sessions, enough for the 50-day average. */
-    private fun score(listing: Listing, isStopped: () -> Boolean, now: () -> Long): ScanResult? {
+    /** [listing]'s row from the first of its tickers Yahoo has a chart for; null, with the reason added to [misses], when none. */
+    private fun score(listing: Listing, isStopped: () -> Boolean, now: () -> Long, misses: ScanCoverage.Tally? = null): ScanResult? {
         val symbol = listing.symbol
-        val signals = yahooTickers(listing).firstNotNullOfOrNull { ticker ->
-            runCatching { chart(ticker, isStopped, now) }.getOrNull()
-        } ?: return null
+        var miss: ScanCoverage.Miss? = null
+        var signals: BreakoutSignals.Signals? = null
+        for (ticker in yahooTickers(listing)) {
+            val answer = runCatching { chart(ticker, isStopped, now) }.getOrElse { Answer(miss = ScanCoverage.Miss.FAILED) }
+            if (answer.signals != null) {
+                signals = answer.signals
+                break
+            }
+            answer.miss?.let { if (miss == null || it > miss!!) miss = it }
+        }
+        if (signals == null) {
+            // A stop leaves stocks unchecked, not missing.
+            if (!isStopped()) misses?.add(miss ?: ScanCoverage.Miss.NO_DATA)
+            return null
+        }
         return ScanResult(
             symbol = symbol,
             price = signals.price,
@@ -500,33 +520,44 @@ object NseScanner {
 
     /**
      * [signalsFor] paced by [yahoo]. On a 429 every thread waits [RATE_LIMIT_PAUSE_MS] and this ticker is asked again,
-     * so a scan that runs into Yahoo's limit slows down instead of losing the rest of its stocks. Once [isStopped]
-     * turns true no request or retry goes out and the answer is null.
+     * so a scan that runs into Yahoo's limit slows down instead of losing the rest of its stocks. Without signals the
+     * answer says why: no chart, too few sessions, refused every time, or another failure. Once [isStopped] turns true
+     * no request or retry goes out and the answer is empty.
      */
-    private fun chart(ticker: String, isStopped: () -> Boolean, now: () -> Long): BreakoutSignals.Signals? {
+    private fun chart(ticker: String, isStopped: () -> Boolean, now: () -> Long): Answer {
         repeat(RATE_LIMIT_TRIES) {
-            if (!yahoo.acquire(isStopped)) return null
+            if (!yahoo.acquire(isStopped)) return Answer()
             try {
-                return signalsFor(ticker, now())
-            } catch (limited: HttpStatusException) {
-                if (limited.status != HTTP_TOO_MANY_REQUESTS) throw limited
+                return signalsFor(ticker, now())?.let { Answer(signals = it) } ?: Answer(miss = ScanCoverage.Miss.TOO_NEW)
+            } catch (refused: HttpStatusException) {
+                if (refused.status == HTTP_NOT_FOUND) return Answer(miss = ScanCoverage.Miss.NO_DATA)
+                if (refused.status != HTTP_TOO_MANY_REQUESTS) return Answer(miss = ScanCoverage.Miss.FAILED)
                 yahoo.pause(RATE_LIMIT_PAUSE_MS)
+            } catch (missing: NoChartException) {
+                return Answer(miss = ScanCoverage.Miss.NO_DATA)
             }
         }
-        return null
+        return Answer(miss = ScanCoverage.Miss.LIMITED)
     }
+
+    /** What asking Yahoo for one ticker came to: its signals, or why there are none; neither after a stop. */
+    private class Answer(val signals: BreakoutSignals.Signals? = null, val miss: ScanCoverage.Miss? = null)
+
+    /** Yahoo answered, but with no chart for the ticker. */
+    private class NoChartException : RuntimeException()
 
     /**
      * One of Yahoo's daily arrays; JSON nulls (holidays, a session still forming) stay null for [BreakoutSignals].
      * Each bar is stamped with its session's start, which dates it. While today's regular session (from the chart's
      * `currentTradingPeriod`) is under way, the latest bar is today's and still forming: its volume so far is judged
-     * against the share of a day's volume that normally trades by now ([VolumeCurve]).
+     * against the share of a day's volume that normally trades by now ([VolumeCurve]). Null when the chart has too few
+     * sessions for a score; [NoChartException] when Yahoo has none.
      */
     private fun signalsFor(ticker: String, nowMillis: Long): BreakoutSignals.Signals? {
         // Six months: the support floor ([SupportFloors]) looks that far back; the score needs only the last 60 sessions.
         val url = "https://query1.finance.yahoo.com/v8/finance/chart/$ticker?range=6mo&interval=1d"
-        val chart = JSONObject(get(url)).getJSONObject("chart").optJSONArray("result")?.optJSONObject(0) ?: return null
-        val quote = chart.optJSONObject("indicators")?.optJSONArray("quote")?.optJSONObject(0) ?: return null
+        val chart = JSONObject(get(url)).getJSONObject("chart").optJSONArray("result")?.optJSONObject(0) ?: throw NoChartException()
+        val quote = chart.optJSONObject("indicators")?.optJSONArray("quote")?.optJSONObject(0) ?: throw NoChartException()
         val stamps = chart.optJSONArray("timestamp")
         val days = if (stamps == null) emptyList() else List(stamps.length()) { i ->
             stamps.optLong(i, 0L).takeIf { it > 0L }?.let { MarketClock.dayOf(it).toEpochDay() }

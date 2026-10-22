@@ -55,6 +55,7 @@ class ScanStoreTest {
                 marketCapDate = LocalDate.parse("2026-10-16"),
                 stopped = false,
                 benchmark = DailySeries(listOf(20_741L, 20_742L), listOf(23_000.0, 23_146.15)),
+                coverage = ScanCoverage(listed = 5_268, charted = 4_372, noData = 740, tooNew = 60, limited = 90, failed = 6),
             ),
             finishedAt = 1_792_377_000_000L,
             auto = true,
@@ -71,6 +72,7 @@ class ScanStoreTest {
         assertEquals(saved.scope, back.scope)
         assertEquals(saved.output.marketCapDate, back.output.marketCapDate)
         assertEquals(saved.output.benchmark, back.output.benchmark)
+        assertEquals(saved.output.coverage, back.output.coverage)
         assertEquals(bare, back.output.results[1])
         // Starred stocks outside the scan come back apart from its own rows.
         assertEquals(2, back.output.results.size)
@@ -95,6 +97,8 @@ class ScanStoreTest {
     fun aNewSaveReplacesTheOldOne() {
         val store = ScanStore(File(folder(), "last_scan.gz"))
         store.save(SavedScan(ScanOutput(listOf(full), null), 1L))
+        // A scan saved before scans counted their misses reads as not counted.
+        assertNull(store.load()!!.output.coverage)
         store.save(SavedScan(ScanOutput(listOf(bare), null, stopped = true), 2L))
         val back = store.load()!!
         assertEquals(listOf("123ABC"), back.output.results.map { it.symbol })

@@ -72,6 +72,7 @@ class ScanStore(private val file: File) {
                     marketCapDate = head.optString("capDate").takeIf { it.isNotEmpty() }?.let(LocalDate::parse),
                     stopped = head.optBoolean("stopped"),
                     benchmark = head.optJSONObject("nifty")?.let(::series),
+                    coverage = head.optJSONArray("cov")?.let(::coverage),
                 ),
                 finishedAt = head.optLong("at"),
                 auto = head.optBoolean("auto"),
@@ -94,6 +95,9 @@ class ScanStore(private val file: File) {
         put("stopped", scan.output.stopped)
         scan.output.marketCapDate?.let { put("capDate", it.toString()) }
         scan.output.benchmark?.let { put("nifty", series(it)) }
+        scan.output.coverage?.let { c ->
+            put("cov", JSONArray().put(c.listed).put(c.charted).put(c.noData).put(c.tooNew).put(c.limited).put(c.failed))
+        }
         put("badges", JSONObject().apply {
             for ((symbol, badge) in scan.badges) {
                 put(symbol, if (badge is RankBadge.Moved) badge.places else NEW)
@@ -216,6 +220,12 @@ class ScanStore(private val file: File) {
             macdSignal = if (json.has("macds")) json.double("macds") else null,
             macdCrossAge = if (json.has("macdx")) json.getInt("macdx") else null,
         )
+    }
+
+    /** listed, charted, no data, too new, limited, failed; null when the array is short. */
+    private fun coverage(json: JSONArray): ScanCoverage? {
+        if (json.length() < 6) return null
+        return ScanCoverage(json.optInt(0), json.optInt(1), json.optInt(2), json.optInt(3), json.optInt(4), json.optInt(5))
     }
 
     private fun series(s: DailySeries) = JSONObject().apply {

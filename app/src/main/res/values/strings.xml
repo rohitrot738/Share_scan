@@ -12,6 +12,12 @@
     <string name="status_scanning_body">%1$s / %2$s stocks • %3$s</string>
     <string name="status_done_title">स्कैन पूरा</string>
     <string name="status_done_body">%1$d top candidates • %2$s में</string>
+    <string name="status_coverage">%1$s में से %2$s stocks का data मिला</string>
+    <string name="status_coverage_missing">%1$s • %2$s नहीं: %3$s</string>
+    <string name="coverage_no_data">Yahoo पर नहीं %1$s</string>
+    <string name="coverage_too_new">नए listed %1$s</string>
+    <string name="coverage_limited">Yahoo ने रोका %1$s</string>
+    <string name="coverage_failed">नेटवर्क %1$s</string>
     <string name="status_failed_title">स्कैन असफल</string>
     <string name="status_failed_body">इंटरनेट कनेक्शन जाँचें और दोबारा कोशिश करें।</string>
     <string name="status_failed_detail">%1$s — इंटरनेट कनेक्शन जाँचें और दोबारा कोशिश करें।</string>

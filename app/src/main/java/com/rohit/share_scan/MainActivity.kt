@@ -249,6 +249,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** "आज 11:42" for today, otherwise the day as well: "शुक्र 16 अक्टू 15:30". */
+    /** "5,268 में से 4,372 stocks का data मिला • 896 नहीं: Yahoo पर नहीं 740, नए listed 60, …". */
+    private fun coverageLine(c: ScanCoverage): String {
+        val got = getString(R.string.status_coverage, StockFormat.count(c.listed), StockFormat.count(c.charted))
+        if (c.missing == 0) return got
+        val why = listOf(
+            R.string.coverage_no_data to c.noData,
+            R.string.coverage_too_new to c.tooNew,
+            R.string.coverage_limited to c.limited,
+            R.string.coverage_failed to c.failed,
+        ).filter { it.second > 0 }.joinToString(", ") { (label, count) -> getString(label, StockFormat.count(count)) }
+        return getString(R.string.status_coverage_missing, got, StockFormat.count(c.missing), why)
+    }
+
     private fun whenScanned(millis: Long): String {
         val at = MarketClock.now(millis)
         return if (at.toLocalDate() == MarketClock.now().toLocalDate()) {
@@ -315,11 +328,14 @@ class MainActivity : AppCompatActivity() {
             } else {
                 showStatus(
                     getString(if (state.autoResults) R.string.status_auto_done_title else R.string.status_done_title),
-                    getString(
-                        if (state.narrowed) R.string.status_done_sectors_body else R.string.status_done_saved_body,
-                        state.visible.size,
-                        whenScanned(state.savedAt),
-                    ),
+                    listOfNotNull(
+                        getString(
+                            if (state.narrowed) R.string.status_done_sectors_body else R.string.status_done_saved_body,
+                            state.visible.size,
+                            whenScanned(state.savedAt),
+                        ),
+                        state.coverage?.let(::coverageLine),
+                    ).joinToString("\n"),
                     R.drawable.ic_check,
                     100,
                 )

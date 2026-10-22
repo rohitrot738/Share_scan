@@ -96,6 +96,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
                 autoResults = latest?.auto == true,
                 watchExtras = latest?.watchExtras.orEmpty(),
                 narrowed = latest != null && ScanSectors.narrowed(latest.scope),
+                coverage = latest?.output?.coverage,
                 runningAuto = progress.running && progress.trigger == ScanEngine.Trigger.AUTO,
                 earlyStop = !progress.running && lastRun?.stoppedEarly == true,
                 // A scan may have brought a fresh 360CR file (ScanEngine).

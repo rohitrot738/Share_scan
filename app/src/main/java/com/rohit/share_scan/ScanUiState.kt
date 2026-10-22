@@ -76,6 +76,8 @@ data class ScanUiState(
     val watchExtras: List<ScanResult> = emptyList(),
     /** The scan in [results] left some industries out (Menu → स्कैन). */
     val narrowed: Boolean = false,
+    /** How many stocks the scan in [results] set out to check got a chart, and why the rest did not; null when unknown. */
+    val coverage: ScanCoverage? = null,
     /** Every stock's 360CR, from the daily file ([Cr360Repository]); empty until it is read. */
     val cr360: Cr360Book = Cr360Book.EMPTY,
     /** The learned setups, from the daily learner ([SetupRepository]); empty until read, when the app's own apply. */
