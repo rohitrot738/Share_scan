@@ -25,6 +25,9 @@ class StockAdapter(
     /** Every stock's 360CR ([Cr360Book]); the card adds the stock's score to its meta line. */
     var cr360: Cr360Book = Cr360Book.EMPTY
 
+    /** The learned setups ([SetupBook]); once there are some, the card names the stock's in place of the app's own. */
+    var setups: SetupBook = SetupBook.EMPTY
+
     class Holder(val ui: ItemStockBinding) : RecyclerView.ViewHolder(ui.root) {
         /** The tier whose colour stains the rank circle's and tier pill's glass, so a rebind keeps the same glass. */
         var glassTier: StockFormat.Tier? = null
@@ -124,13 +127,38 @@ class StockAdapter(
             context.getString(R.string.item_support_description, StockFormat.price(it.level), age, it.touches)
         }
 
-        val setup = stock.structure?.let { TradePlan.of(stock.price, it) }?.let { BreakoutSetup.of(stock, it) }
-        val highProbability = setup == BreakoutSetup.Kind.HIGH_PROBABILITY
-        ui.setupLine.isVisible = highProbability
-        val setupDescription = if (highProbability) {
-            context.getString(R.string.item_setup_high, StockFormat.rvol(stock.rvol)).also { ui.setupLine.text = it }
+        val setupDescription = if (setups.rules.isNotEmpty()) {
+            // A learned setup takes the place of the app's own: the best one whose conditions all hold today.
+            // Else the best rally setup: what came before stocks went up.
+            val learned = setups.best(stock.setupMask)
+            val rally = if (learned == null) setups.rallySetup(stock.setupMask) else null
+            ui.setupLine.isVisible = learned != null || rally != null
+            when {
+                learned != null -> context.getString(
+                    R.string.item_setup_learned,
+                    SetupBook.percent(setups.shown(learned)),
+                    SetupLabels.describe(context, learned.conditions),
+                )
+                rally != null -> context.getString(R.string.item_setup_rally, SetupBook.percent(rally.all), SetupLabels.describe(context, rally.conditions))
+                else -> null
+            }?.also { text -> ui.setupLine.text = text }
         } else {
-            null
+            val setup = stock.structure?.let { TradePlan.of(stock.price, it) }?.let { BreakoutSetup.of(stock, it) }
+            val highProbability = setup == BreakoutSetup.Kind.HIGH_PROBABILITY
+            ui.setupLine.isVisible = highProbability
+            if (highProbability) {
+                context.getString(R.string.item_setup_high, StockFormat.rvol(stock.rvol)).also { ui.setupLine.text = it }
+            } else {
+                null
+            }
+        }
+
+        // A mistake learned from trades that went the wrong way, whose conditions all hold today.
+        val mistake = setups.mistake(stock.setupMask)
+        ui.mistakeLine.isVisible = mistake != null
+        val mistakeDescription = mistake?.let {
+            context.getString(R.string.item_setup_mistake, SetupBook.percent(it.all), SetupLabels.describe(context, it.conditions))
+                .also { text -> ui.mistakeLine.text = text }
         }
 
         // A starred stock no chart has come in for yet: its symbol, and a word that its prices are on their way.
@@ -165,6 +193,7 @@ class StockAdapter(
             context.getString(exchange.description),
             supportDescription,
             setupDescription,
+            mistakeDescription,
             researchDescription,
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,

@@ -140,6 +140,7 @@ class ScanStore(private val file: File) {
                     .put(if (floor.unbroken) 1 else 0).put(floor.window),
             )
         }
+        if (row.setupMask != 0L) put("sm", row.setupMask)
     }
 
     private fun stock(json: JSONObject): ScanResult = ScanResult(
@@ -168,6 +169,7 @@ class ScanStore(private val file: File) {
                 DayScore(pair.getLong(0), pair.doubleAt(1))
             }
         }.orEmpty(),
+        setupMask = json.optLong("sm"),
         support = json.optJSONArray("sup")?.let { floor ->
             SupportFloor(
                 level = floor.doubleAt(0),

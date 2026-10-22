@@ -60,11 +60,15 @@ class StockDetailSheet(
     private val alert: WatchAlerts.State? = null,
     /** The stock's 360CR from the daily file; null when the file does not have it (yet). */
     private val cr360: Cr360Book.Entry? = null,
+    /** The learned setups; once there are some, they take the place of the app's own setups and figures. */
+    private val setups: SetupBook = SetupBook.EMPTY,
 ) {
     private val dialog = BottomSheetDialog(activity)
     private val ui = SheetStockDetailBinding.inflate(activity.layoutInflater)
     private val structure: PriceStructure? = stock.structure
-    private val plan: TradePlan? = structure?.let { TradePlan.of(stock.price, it) }
+    /** The learned stop and Target 1 for this stock ([SetupBook.planFor]); null keeps the app's own. */
+    private val learnedPlan: PlanTuner.Choice? = setups.planFor(stock.setupMask)
+    private val plan: TradePlan? = structure?.let { TradePlan.of(stock.price, it, learnedPlan?.shape ?: PlanShape.OWN) }
     private val brokers = BrokerOpener(activity)
 
     fun show(): BottomSheetDialog {
@@ -199,7 +203,12 @@ class StockDetailSheet(
         val breakout = plan.entryKind == TradePlan.EntryKind.BREAKOUT
         ui.detailPlanRule.setText(if (breakout) R.string.detail_plan_rule_breakout else R.string.detail_plan_rule_market)
         val setup = BreakoutSetup.of(stock, plan)
-        bindSetup(setup)
+        bindLearnedPlan(plan)
+        if (setups.rules.isNotEmpty()) bindLearnedSetup() else bindSetup(setup)
+        bindRally(plan)
+        bindMistake()
+        // The quick target's record: today's learned figures for breakouts like this one, else the app's own.
+        val (quickHits, quickHitsWide) = setups.quickHits(setup) ?: (setup.quickHits to setup.quickHitsWide)
 
         addLevel(
             plan,
@@ -214,12 +223,13 @@ class StockDetailSheet(
             TradePlan.StopKind.STRUCTURE -> R.string.detail_plan_stop_structure
             TradePlan.StopKind.MAX_ATR -> R.string.detail_plan_stop_max_atr
             TradePlan.StopKind.MIN_ATR -> R.string.detail_plan_stop_min_atr
+            TradePlan.StopKind.LEARNED -> R.string.detail_plan_stop_learned
         }
         addLevel(
             plan,
             plan.stop,
             activity.getString(R.string.detail_plan_stop),
-            activity.getString(stopNote),
+            if (plan.stopKind == TradePlan.StopKind.LEARNED) activity.getString(stopNote, atrs(plan.risk / plan.atr)) else activity.getString(stopNote),
             accent = R.color.bear,
             container = R.color.bear_container,
             onContainer = R.color.bear,
@@ -243,13 +253,18 @@ class StockDetailSheet(
             accent = R.color.bull,
             container = R.color.bull_container,
             onContainer = R.color.bull,
-            time = activity.getString(
-                R.string.detail_plan_quick_time,
-                plan.quickSessions.first,
-                plan.quickSessions.last,
-                setup.quickHits,
-                setup.quickHitsWide,
-            ),
+            // The quick target's record is the app's own plan's; under a learned stop it would mislead.
+            time = if (plan.stopKind == TradePlan.StopKind.LEARNED || learnedPlan?.shape?.own == false) {
+                activity.getString(R.string.detail_plan_quick_time_learned, plan.quickSessions.first, plan.quickSessions.last)
+            } else {
+                activity.getString(
+                    R.string.detail_plan_quick_time,
+                    plan.quickSessions.first,
+                    plan.quickSessions.last,
+                    quickHits,
+                    quickHitsWide,
+                )
+            },
             multiple = "+" + multiple(TradePlan.QUICK_TARGET_R),
         )
         plan.targets.forEachIndexed { index, target ->
@@ -298,6 +313,114 @@ class StockDetailSheet(
         ui.detailPlanSetup.isVisible = text != null
         ui.detailPlanSetup.text = text.orEmpty()
         ui.detailPlanSetup.setTextColor(color(tone))
+    }
+
+    /**
+     * The best learned setup that holds for this stock today, with how often its plans reached Target 1 in time against
+     * every plan's rate; or, when none holds, that rate alone and the setups that do best.
+     */
+    private fun bindLearnedSetup() {
+        val learned = setups.best(stock.setupMask)
+        val market = SetupBook.percent(setups.holdout.takeIf { it.n > 0 } ?: setups.train)
+        val text = if (learned != null) {
+            val shown = setups.shown(learned)
+            activity.getString(
+                R.string.detail_setup_learned,
+                SetupLabels.describe(activity, learned.conditions),
+                shown.n,
+                SetupBook.percent(shown),
+                market,
+            )
+        } else {
+            activity.getString(
+                R.string.detail_setup_learned_none,
+                market,
+                setups.rules.take(2).joinToString(" • ") {
+                    activity.getString(R.string.detail_setup_learned_top, SetupLabels.describe(activity, it.conditions), SetupBook.percent(setups.shown(it)))
+                },
+            )
+        }
+        ui.detailPlanSetup.isVisible = true
+        ui.detailPlanSetup.text = text
+        ui.detailPlanSetup.setTextColor(color(if (learned != null) R.color.bull else R.color.text_secondary))
+    }
+
+    /**
+     * The stop, Target 1 and time the learner found did best for plans like this one ([plan] is drawn with them), with
+     * their record against the app's own plan; or, when the app's own did best, that it did.
+     */
+    private fun bindLearnedPlan(plan: TradePlan) {
+        val learned = learnedPlan
+        val own = setups.ownPlan
+        ui.detailPlanLearned.isVisible = learned != null
+        if (learned == null) return
+        val record = learned.all
+        ui.detailPlanLearned.text = if (learned.shape.own || own == null) {
+            activity.getString(R.string.detail_plan_learned_own, SetupBook.percent(record.stats), rs(record.averageR))
+        } else {
+            val stop = if (learned.shape.stopAtr > 0.0) {
+                activity.getString(R.string.detail_plan_learned_stop_atr, atrs(learned.shape.stopAtr))
+            } else {
+                activity.getString(R.string.detail_plan_learned_stop_own)
+            }
+            activity.getString(
+                R.string.detail_plan_learned,
+                stop,
+                multiple(learned.shape.targetR),
+                plan.targetSessions.first().last,
+                SetupBook.percent(record.stats),
+                rs(record.averageR),
+                SetupBook.percent(own.all.stats),
+                rs(own.all.averageR),
+            )
+        }
+    }
+
+    /** The learned rally setup that holds for this stock today; or, when none does, what came before rallies most. */
+    private fun bindRally(plan: TradePlan) {
+        val rally = setups.rallySetup(stock.setupMask)
+        val text = when {
+            rally != null -> activity.getString(
+                R.string.detail_rally_setup,
+                SetupLabels.describe(activity, rally.conditions),
+                SetupBook.percent(rally.all),
+                PlanOutcome.RALLY_SESSIONS,
+                atrs(PlanOutcome.RALLY_ATR),
+                percent(PlanOutcome.RALLY_ATR * plan.atr / stock.price * 100.0),
+                SetupBook.percent(setups.rallyBase),
+            )
+            setups.whyUp.isNotEmpty() -> activity.getString(
+                R.string.detail_rally_why,
+                setups.whyUp.filter { it.lift > 1.0 }.take(3).joinToString(", ") { activity.getString(SetupLabels.label(it.condition)) },
+            ).takeIf { setups.whyUp.any { it.lift > 1.0 } }
+            else -> null
+        }
+        ui.detailPlanRally.isVisible = text != null
+        ui.detailPlanRally.text = text.orEmpty()
+        ui.detailPlanRally.setTextColor(color(if (rally != null) R.color.bull else R.color.text_secondary))
+    }
+
+    /** "1.5", "2": ATRs to two places where they have them. */
+    private fun atrs(value: Double): String = (Math.round(value * 100) / 100.0).toBigDecimal().stripTrailingZeros().toPlainString()
+
+    /** "+0.32R", "−0.10R": an average result a trade, in R. */
+    private fun rs(value: Double): String = String.format(Locale.US, "%+.2fR", value).replace("-", "−")
+
+    /** A mistake learned from trades that went the wrong way, when one holds today: how often such trades failed, and how. */
+    private fun bindMistake() {
+        val mistake = setups.mistake(stock.setupMask)
+        ui.detailPlanMistake.isVisible = mistake != null
+        if (mistake == null) return
+        val all = mistake.all
+        ui.detailPlanMistake.text = activity.getString(
+            R.string.detail_setup_mistake,
+            SetupLabels.describe(activity, mistake.conditions),
+            all.n,
+            SetupBook.percent(all),
+            SetupBook.percent(setups.holdout.takeIf { it.n > 0 } ?: setups.train),
+            SetupBook.percentOf(all.stops, all.n),
+            SetupBook.percentOf(all.n - all.wins - all.stops, all.n),
+        )
     }
 
     /** "0.75R", "1.5R": a multiple of the risk to two places where it has them, unlike [TradePlan.formatR]. */

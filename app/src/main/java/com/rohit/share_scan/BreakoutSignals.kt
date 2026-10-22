@@ -89,6 +89,20 @@ object BreakoutSignals {
         val pastScores: List<DayScore> = emptyList(),
         /** The longest-standing floor under the price, over the whole chart; null without one. */
         val support: SupportFloor? = null,
+        /** Volume of the 5 sessions before the latest ÷ the 20-session average: below 1 it dried up. */
+        val quietVolume: Double = 1.0,
+        /** Percent change over the latest 20 sessions. */
+        val change20: Double = 0.0,
+        /** Median rupee value traded a session over the latest 20, in crore. */
+        val medianTurnoverCr: Double = 0.0,
+        /** Percent change from the session before. */
+        val change1d: Double = 0.0,
+        /** Percent under the highest high of the whole chart (six months); 0 at a new high. */
+        val fromHighPct: Double = 100.0,
+        /** Where the latest close sits in the latest session's range: 0 at its low, 1 at its high. */
+        val dayPosition: Double = 0.5,
+        /** Daily ranges of the 10 sessions before the latest against the stock's normal swing; below 1 they calmed. */
+        val calm: Double = 1.0,
     )
 
     /**
@@ -216,6 +230,9 @@ object BreakoutSignals {
 
         val change5d = (price / close[last - 5] - 1.0) * 100.0
         val change20 = (price / close[last - 20] - 1.0) * 100.0
+        val change1d = (price / close[last - 1] - 1.0) * 100.0
+        val chartHigh = highest(high, 0, n)
+        val dayRange = high[last] - low[last]
 
         // The floor under the price over the whole chart; its zone is half a normal daily swing either side.
         val support = SupportFloors.find(close, low, SupportFloors.zonePct(swingPct))
@@ -235,7 +252,14 @@ object BreakoutSignals {
             ScorePart(ScoreKeys.SUPPORT, support?.strength ?: 0.0, SUPPORT_BONUS),
         )
         val total = parts.sumOf { it.value * it.weight }.coerceIn(0.0, 100.0)
-        return Signals(price, traded[last], rvol, change5d, structure, total, parts, support = support)
+        return Signals(
+            price, traded[last], rvol, change5d, structure, total, parts, support = support,
+            quietVolume = quiet, change20 = change20, medianTurnoverCr = medianTurnoverCr,
+            change1d = change1d,
+            fromHighPct = (chartHigh - price) / chartHigh * 100.0,
+            dayPosition = if (dayRange > 0.0) (price - low[last]) / dayRange else 0.5,
+            calm = calm,
+        )
     }
 
     /**

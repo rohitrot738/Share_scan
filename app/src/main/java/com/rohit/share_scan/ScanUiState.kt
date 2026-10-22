@@ -78,6 +78,8 @@ data class ScanUiState(
     val narrowed: Boolean = false,
     /** Every stock's 360CR, from the daily file ([Cr360Repository]); empty until it is read. */
     val cr360: Cr360Book = Cr360Book.EMPTY,
+    /** The learned setups, from the daily learner ([SetupRepository]); empty until read, when the app's own apply. */
+    val setups: SetupBook = SetupBook.EMPTY,
     /** Live mode's background scan is under way (the list still shows the previous scan). */
     val runningAuto: Boolean = false,
     /** The latest run was stopped before any stock was scored; [results] are the scan before it. */

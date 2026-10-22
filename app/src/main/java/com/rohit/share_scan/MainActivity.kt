@@ -403,9 +403,10 @@ class MainActivity : AppCompatActivity() {
         // A star toggle only rebinds its card; anything that changes which stocks show, or their order, jumps to the top.
         // A fresh 360CR file redraws the cards' scores, and reorders a list sorted by them.
         val freshCr360 = state.cr360 !== shownCr360
-        if (freshCr360) {
+        if (freshCr360 || state.setups !== adapter.setups) {
             shownCr360 = state.cr360
             adapter.cr360 = state.cr360
+            adapter.setups = state.setups
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }
         val reorder = state.results !== shownResults || state.activeFilters != shownFilters || state.sort != shownSort ||
@@ -738,6 +739,7 @@ class MainActivity : AppCompatActivity() {
             alerts = settings.watchAlerts,
             alert = alert,
             cr360 = state.cr360.of(stock.symbol),
+            setups = state.setups,
         ).show()
     }
 

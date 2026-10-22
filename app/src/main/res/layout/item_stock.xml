@@ -146,6 +146,20 @@
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:visibility="gone" />
+
+                <!-- A learned mistake (SetupBook.mistake): a setup whose trades failed far more often than the market's. -->
+                <TextView
+                    android:id="@+id/mistakeLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:ellipsize="end"
+                    android:fontFeatureSettings="tnum"
+                    android:maxLines="1"
+                    android:textColor="@color/bear"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <LinearLayout

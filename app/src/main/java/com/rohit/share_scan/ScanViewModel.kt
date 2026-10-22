@@ -36,6 +36,14 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
     init {
         ScanEngine.load(application)
         // 360CR: the kept file first, then a fresh one when it is half a day old.
+        // Learned setups: the same, from the daily learner's file.
+        viewModelScope.launch(Dispatchers.IO) {
+            val setups = SetupRepository.book(application)
+            state.update { it.copy(setups = setups) }
+            if (runCatching { SetupRepository.refreshIfStale(application) }.getOrDefault(false)) {
+                state.update { it.copy(setups = SetupRepository.current()) }
+            }
+        }
         viewModelScope.launch(Dispatchers.IO) {
             val book = Cr360Repository.book(application)
             state.update { it.copy(cr360 = book) }
@@ -92,6 +100,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
                 earlyStop = !progress.running && lastRun?.stoppedEarly == true,
                 // A scan may have brought a fresh 360CR file (ScanEngine).
                 cr360 = Cr360Repository.current().takeIf { it !== Cr360Book.EMPTY } ?: current.cr360,
+                setups = SetupRepository.current().takeIf { it !== SetupBook.EMPTY } ?: current.setups,
             )
         }
     }
