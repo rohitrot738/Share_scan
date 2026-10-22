@@ -89,6 +89,21 @@ enum class SetupCondition(val bit: Int) {
 
     /** Daily ranges of the 10 sessions before today at 70% of normal or less: volatility dried up. */
     CALM_RANGES(26),
+
+    /** A liquidity sweep: under the 20-day low and back above it ([BreakoutSignals.Signals.sweptLow]). */
+    SWEPT_20D_LOW(27),
+
+    /** A stop hunt: under a tested support floor and back above it ([BreakoutSignals.Signals.stopHunt]). */
+    STOP_HUNT_SUPPORT(28),
+
+    /** Over the 20-day high but a weak close: fakeout risk ([BreakoutSignals.Signals.weakBreakout]). */
+    WEAK_BREAKOUT(29),
+
+    /** A breakout given back in the last five sessions ([BreakoutSignals.Signals.recentFakeout]). */
+    RECENT_FAKEOUT(30),
+
+    /** Today's volume under its 20-session average. */
+    VOLUME_BELOW_AVERAGE(31),
     ;
 
     val flag: Long get() = 1L shl bit
@@ -151,6 +166,11 @@ enum class SetupCondition(val bit: Int) {
             set(UP_4_PERCENT_TODAY, signals.change1d >= 4.0)
             set(CLOSE_NEAR_DAY_HIGH, signals.dayPosition >= 0.75)
             set(CALM_RANGES, signals.calm <= 0.7)
+            set(SWEPT_20D_LOW, signals.sweptLow)
+            set(STOP_HUNT_SUPPORT, signals.stopHunt)
+            set(WEAK_BREAKOUT, signals.weakBreakout)
+            set(RECENT_FAKEOUT, signals.recentFakeout)
+            set(VOLUME_BELOW_AVERAGE, signals.rvol < 1.0)
             return mask
         }
     }

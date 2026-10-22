@@ -206,6 +206,7 @@ class StockDetailSheet(
         bindLearnedPlan(plan)
         if (setups.rules.isNotEmpty()) bindLearnedSetup() else bindSetup(setup)
         bindRally(plan)
+        bindPattern()
         bindMistake()
         // The quick target's record: today's learned figures for breakouts like this one, else the app's own.
         val (quickHits, quickHitsWide) = setups.quickHits(setup) ?: (setup.quickHits to setup.quickHitsWide)
@@ -398,6 +399,15 @@ class StockDetailSheet(
         ui.detailPlanRally.isVisible = text != null
         ui.detailPlanRally.text = text.orEmpty()
         ui.detailPlanRally.setTextColor(color(if (rally != null) R.color.bull else R.color.text_secondary))
+    }
+
+    /** A sweep, stop hunt or fakeout in the latest candle, and what it may mean. */
+    private fun bindPattern() {
+        val pattern = SetupLabels.pattern(stock.setupMask)
+        ui.detailPlanPattern.isVisible = pattern != null
+        if (pattern == null) return
+        ui.detailPlanPattern.setText(pattern.detail)
+        ui.detailPlanPattern.setTextColor(color(if (pattern.warning) R.color.warn else R.color.brand_primary))
     }
 
     /** "1.5", "2": ATRs to two places where they have them. */

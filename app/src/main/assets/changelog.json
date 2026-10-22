@@ -3,6 +3,15 @@
     "version": "",
     "date": "2026-10-22",
     "items": [
+      "Liquidity sweep और stop hunt की पहचान: भाव 20 दिन के low या support के नीचे जाकर वापस ऊपर बंद हो तो card और detail में 🎣 संकेत",
+      "Fakeout की पहचान: 20 दिन के high के ऊपर जाकर कमज़ोर close, या हाल में ऊपर बंद होकर वापस नीचे आना — ⚠ चेतावनी के साथ",
+      "Learner इन्हें भी परखता है: sweep, stop hunt, fakeout और कम volume वाले मेल काम करें तो सफल setup, उल्टे जाएँ तो सीखी गलती"
+    ]
+  },
+  {
+    "version": "1.2.130",
+    "date": "2026-10-22",
+    "items": [
       "App अब खुद सीखता है: हर शाम पूरे market के हर stock के पिछले 2 साल के trade plans जाँचकर देखता है कि किस setup में Target 1 बताए दिनों में stop से पहले लगा",
       "जो setups औसत से ज़्यादा सफल रहे वही card और stock detail में दिखते हैं (पुराने setup की जगह), उनके असली success % के साथ; जो fail होने लगें वे अपने-आप हट जाते हैं",
       "Trade plan में जल्दी target के % भी अब ताज़ा data से आते हैं",

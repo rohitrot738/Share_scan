@@ -7,6 +7,11 @@ on:
   schedule:
     - cron: '41 12 * * 1-5'  # 18:11 IST, after the close
   workflow_dispatch:
+    inputs:
+      trial:
+        description: 'Learn and log only: keep the published setups.json as it is'
+        type: boolean
+        default: false
 permissions:
   contents: write
   actions: write
@@ -48,6 +53,7 @@ jobs:
           java -Xmx4g -cp "out:$RUNNER_TEMP/json.jar:$RUNNER_TEMP/kotlinc/lib/kotlin-stdlib.jar" \
             com.rohit.share_scan.learner.LearnKt setups.json 90
       - name: Publish
+        if: ${{ !inputs.trial }}
         run: |
           gh release upload "$TAG" setups.json --clobber
       - name: Keep the evening schedules on

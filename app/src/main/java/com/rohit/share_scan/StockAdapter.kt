@@ -153,6 +153,15 @@ class StockAdapter(
             }
         }
 
+        // A sweep, stop hunt or fakeout in the latest candle.
+        val pattern = SetupLabels.pattern(stock.setupMask)
+        ui.patternLine.isVisible = pattern != null
+        val patternDescription = pattern?.let {
+            ui.patternLine.setText(it.card)
+            ui.patternLine.setTextColor(color(if (it.warning) R.color.warn else R.color.brand_primary))
+            context.getString(it.card)
+        }
+
         // A mistake learned from trades that went the wrong way, whose conditions all hold today.
         val mistake = setups.mistake(stock.setupMask)
         ui.mistakeLine.isVisible = mistake != null
@@ -193,6 +202,7 @@ class StockAdapter(
             context.getString(exchange.description),
             supportDescription,
             setupDescription,
+            patternDescription,
             mistakeDescription,
             researchDescription,
             badgeDescription(context, item.badge),

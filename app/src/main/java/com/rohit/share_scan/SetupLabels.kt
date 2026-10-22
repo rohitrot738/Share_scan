@@ -34,6 +34,28 @@ object SetupLabels {
         SetupCondition.UP_4_PERCENT_TODAY -> R.string.setup_up_4_percent_today
         SetupCondition.CLOSE_NEAR_DAY_HIGH -> R.string.setup_close_near_day_high
         SetupCondition.CALM_RANGES -> R.string.setup_calm_ranges
+        SetupCondition.SWEPT_20D_LOW -> R.string.setup_swept_20d_low
+        SetupCondition.STOP_HUNT_SUPPORT -> R.string.setup_stop_hunt_support
+        SetupCondition.WEAK_BREAKOUT -> R.string.setup_weak_breakout
+        SetupCondition.RECENT_FAKEOUT -> R.string.setup_recent_fakeout
+        SetupCondition.VOLUME_BELOW_AVERAGE -> R.string.setup_volume_below_average
+    }
+
+    /** A sweep, stop hunt or fakeout seen in the latest candle: what the card and the detail say about it. */
+    enum class Pattern(@StringRes val card: Int, @StringRes val detail: Int, val warning: Boolean) {
+        WEAK_BREAKOUT(R.string.item_pattern_weak_breakout, R.string.detail_pattern_weak_breakout, true),
+        RECENT_FAKEOUT(R.string.item_pattern_fakeout, R.string.detail_pattern_fakeout, true),
+        STOP_HUNT(R.string.item_pattern_stop_hunt, R.string.detail_pattern_stop_hunt, false),
+        SWEEP(R.string.item_pattern_sweep, R.string.detail_pattern_sweep, false),
+    }
+
+    /** The pattern [mask] holds, a fakeout's warning before a sweep; null when none does. */
+    fun pattern(mask: Long): Pattern? = when {
+        mask and SetupCondition.WEAK_BREAKOUT.flag != 0L -> Pattern.WEAK_BREAKOUT
+        mask and SetupCondition.RECENT_FAKEOUT.flag != 0L -> Pattern.RECENT_FAKEOUT
+        mask and SetupCondition.STOP_HUNT_SUPPORT.flag != 0L -> Pattern.STOP_HUNT
+        mask and SetupCondition.SWEPT_20D_LOW.flag != 0L -> Pattern.SWEEP
+        else -> null
     }
 
     /** "Breakout आज + volume 2×+ + RSI 50–70". */
