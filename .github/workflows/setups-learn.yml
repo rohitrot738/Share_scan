@@ -7,9 +7,6 @@ on:
   schedule:
     - cron: '41 12 * * 1-5'  # 18:11 IST, after the close
   workflow_dispatch:
-  push:
-    branches: [claude/fervent-turing-3b79hv]
-    paths: ['learner/**', '.github/workflows/setups-learn.yml']
 permissions:
   contents: write
   actions: write
