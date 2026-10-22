@@ -12,6 +12,7 @@ on:
     paths: ['learner/**', '.github/workflows/setups-learn.yml']
 permissions:
   contents: write
+  actions: write
 concurrency:
   group: setups-learn
   cancel-in-progress: false
@@ -38,7 +39,7 @@ jobs:
           S=app/src/main/java/com/rohit/share_scan
           files=""
           for f in BreakoutSignals NseScanner SupportFloor Indicators TradePlan TargetTimes StockFormat MarketClock RateGate \
-                   SectorBook ScanFilters BreakoutSetup SetupConditions PlanOutcome SetupMiner SetupBook; do
+                   SectorBook ScanFilters BreakoutSetup SetupConditions PlanOutcome PlanTuner SetupMiner SetupBook; do
             files="$files $S/$f.kt"
           done
           "$RUNNER_TEMP/kotlinc/bin/kotlinc" -jvm-target 17 -nowarn -cp "$RUNNER_TEMP/json.jar" -d out $files learner/Learn.kt
@@ -52,3 +53,11 @@ jobs:
       - name: Publish
         run: |
           gh release upload "$TAG" setups.json --clobber
+      - name: Keep the evening schedules on
+        # GitHub turns a public repository's schedules off after 60 days without activity; each run turns them on
+        # again, so the daily data keeps coming without anyone touching the repository.
+        if: always()
+        run: |
+          for workflow in setups-learn.yml cr360-cache.yml sector-data.yml; do
+            gh workflow enable "$workflow" --repo "$GITHUB_REPOSITORY" || echo "Could not enable $workflow"
+          done

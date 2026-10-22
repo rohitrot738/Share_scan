@@ -46,11 +46,14 @@ object WatchAlerts {
         data class Stopped(override val symbol: String, override val price: Double, val stop: Double, val entry: Double) : Event
     }
 
-    /** The state after a check that found [stock] at its latest price, and the alert it raises, if any. */
-    fun step(state: State?, stock: ScanResult, now: Long): Pair<State, Event?> {
+    /**
+     * The state after a check that found [stock] at its latest price, and the alert it raises, if any; the plan puts its
+     * stop and targets where [shape] says (the learned ones, [SetupBook.shape]).
+     */
+    fun step(state: State?, stock: ScanResult, now: Long, shape: PlanShape = PlanShape.OWN): Pair<State, Event?> {
         val price = stock.price
         if (!(price > 0.0)) return (state ?: State()) to null
-        val plan = stock.structure?.let { TradePlan.of(price, it) }
+        val plan = stock.structure?.let { TradePlan.of(price, it, shape) }
         val current = state ?: return waiting(plan, price) to null
         return when (current.phase) {
             Phase.WAITING -> {

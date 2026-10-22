@@ -318,9 +318,11 @@ object ScanEngine {
         val now = System.currentTimeMillis()
         val next = HashMap<String, WatchAlerts.State>()
         val events = ArrayList<Pair<WatchAlerts.Event, String>>()
+        // Stops and targets where the learned plan puts them, as the stock's detail shows them.
+        val setups = SetupRepository.book(app)
         for (stock in results) {
             if (stock.symbol !in watchlist) continue
-            val (state, event) = WatchAlerts.step(states[stock.symbol], stock, now)
+            val (state, event) = WatchAlerts.step(states[stock.symbol], stock, now, setups.shape(stock.setupMask))
             next[stock.symbol] = state
             if (event != null) events += event to stock.name
         }

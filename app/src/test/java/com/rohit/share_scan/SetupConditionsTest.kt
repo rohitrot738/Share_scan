@@ -60,6 +60,19 @@ class SetupConditionsTest {
     }
 
     @Test
+    fun whatComesBeforeARallyHasItsConditions() {
+        val s = signals().copy(fromHighPct = 2.0, change1d = 4.5, dayPosition = 0.8, calm = 0.6)
+        val held = SetupCondition.of(SetupCondition.mask(s, TradePlan.of(s.price, structure), previousScore = null))
+        assertTrue(
+            held.containsAll(
+                listOf(SetupCondition.NEAR_6M_HIGH, SetupCondition.UP_4_PERCENT_TODAY, SetupCondition.CLOSE_NEAR_DAY_HIGH, SetupCondition.CALM_RANGES),
+            ),
+        )
+        val quiet = SetupCondition.of(SetupCondition.mask(s.copy(fromHighPct = 3.5, change1d = 3.9, dayPosition = 0.7, calm = 0.75), null, null))
+        assertTrue(quiet.none { it.bit in 23..26 })
+    }
+
+    @Test
     fun bitsAreUniqueAndFitALong() {
         assertEquals(SetupCondition.entries.size, SetupCondition.entries.map { it.bit }.toSet().size)
         assertTrue(SetupCondition.entries.all { it.bit in 0..62 })

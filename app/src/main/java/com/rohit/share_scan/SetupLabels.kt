@@ -30,6 +30,10 @@ object SetupLabels {
         SetupCondition.SCORE_STRONG -> R.string.setup_score_strong
         SetupCondition.SCORE_WATCH -> R.string.setup_score_watch
         SetupCondition.PREV_STRONG -> R.string.setup_prev_strong
+        SetupCondition.NEAR_6M_HIGH -> R.string.setup_near_6m_high
+        SetupCondition.UP_4_PERCENT_TODAY -> R.string.setup_up_4_percent_today
+        SetupCondition.CLOSE_NEAR_DAY_HIGH -> R.string.setup_close_near_day_high
+        SetupCondition.CALM_RANGES -> R.string.setup_calm_ranges
     }
 
     /** "Breakout आज + volume 2×+ + RSI 50–70". */

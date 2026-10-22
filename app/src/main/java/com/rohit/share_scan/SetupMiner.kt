@@ -86,11 +86,15 @@ object SetupMiner {
 
     /**
      * The setups and mistakes to use from [samples], given the ones in use ([previous] and [previousAvoid]: mask to
-     * the day it was added) and today's epoch [day].
+     * the day it was added) and today's epoch [day]; the holdout starts at [holdoutFrom].
      */
-    fun learn(samples: List<Sample>, previous: Map<Long, Long>, day: Long, previousAvoid: Map<Long, Long> = emptyMap()): Result {
-        val days = samples.map { it.day }.distinct().sorted()
-        val holdoutFrom = if (days.size > HOLDOUT_SESSIONS * 2) days[days.size - HOLDOUT_SESSIONS] else Long.MAX_VALUE
+    fun learn(
+        samples: List<Sample>,
+        previous: Map<Long, Long>,
+        day: Long,
+        previousAvoid: Map<Long, Long> = emptyMap(),
+        holdoutFrom: Long = holdoutFrom(samples.map { it.day }),
+    ): Result {
         val n = samples.size
         val train = BitSet(n)
         val holdout = BitSet(n)
@@ -179,6 +183,12 @@ object SetupMiner {
         }.sortedByDescending { it.lift }
 
         return Result(rules, avoid, changes, trainBase, holdoutBase, holdoutFrom, lift, loseLift)
+    }
+
+    /** The first session of the holdout among [days] (epoch days, repeats allowed); none without enough sessions. */
+    fun holdoutFrom(days: Collection<Long>): Long {
+        val sorted = days.distinct().sorted()
+        return if (sorted.size > HOLDOUT_SESSIONS * 2) sorted[sorted.size - HOLDOUT_SESSIONS] else Long.MAX_VALUE
     }
 
     /**

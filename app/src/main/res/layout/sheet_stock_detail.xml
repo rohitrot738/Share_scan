@@ -234,9 +234,30 @@
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
 
+                <!-- The stop and Target 1 the daily learner found did best (PlanTuner), and how they did. -->
+                <TextView
+                    android:id="@+id/detailPlanLearned"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="@color/brand_primary"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
                 <!-- How this breakout's setup did in the past (BreakoutSetup): volume, and STRONG the day before. -->
                 <TextView
                     android:id="@+id/detailPlanSetup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:paddingHorizontal="20dp"
+                    android:textSize="13sp"
+                    android:visibility="gone" />
+
+                <!-- A learned rally setup that holds today, or what came before rallies most often. -->
+                <TextView
+                    android:id="@+id/detailPlanRally"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"

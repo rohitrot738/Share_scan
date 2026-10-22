@@ -137,4 +137,18 @@ class TradePlanTest {
         assertEquals("−6.30%", TradePlan.formatPercent(-6.3))
         assertEquals("0.00%", TradePlan.formatPercent(-0.001))
     }
+
+    @Test
+    fun aLearnedShapeMovesTheStopAndTargets() {
+        // Entry 104.2 at ATR 2; a learned stop 1.5 ATR under it and Target 1 at 2R.
+        val plan = TradePlan.of(100.0, 104.0, 98.0, 2.0, PlanShape(1.5, 2.0))!!
+        assertEquals(TradePlan.StopKind.LEARNED, plan.stopKind)
+        assertEquals(101.2, plan.stop, 1e-9)
+        assertEquals(listOf(110.2, 113.2, 117.7), plan.targets.map { Math.round(it * 100) / 100.0 })
+        // The app's own stop with a learned Target 1.
+        val own = TradePlan.of(100.0, 104.0, 98.0, 2.0, PlanShape(0.0, 1.0))!!
+        assertEquals(TradePlan.StopKind.MAX_ATR, own.stopKind)
+        assertEquals(104.2 + 4.0, own.targets.first(), 1e-9)
+        assertEquals(TradePlan.of(100.0, 104.0, 98.0, 2.0), TradePlan.of(100.0, 104.0, 98.0, 2.0, PlanShape.OWN))
+    }
 }

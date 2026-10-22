@@ -129,12 +129,19 @@ class StockAdapter(
 
         val setupDescription = if (setups.rules.isNotEmpty()) {
             // A learned setup takes the place of the app's own: the best one whose conditions all hold today.
+            // Else the best rally setup: what came before stocks went up.
             val learned = setups.best(stock.setupMask)
-            ui.setupLine.isVisible = learned != null
-            learned?.let {
-                context.getString(R.string.item_setup_learned, SetupBook.percent(it.all), SetupLabels.describe(context, it.conditions))
-                    .also { text -> ui.setupLine.text = text }
-            }
+            val rally = if (learned == null) setups.rallySetup(stock.setupMask) else null
+            ui.setupLine.isVisible = learned != null || rally != null
+            when {
+                learned != null -> context.getString(
+                    R.string.item_setup_learned,
+                    SetupBook.percent(setups.shown(learned)),
+                    SetupLabels.describe(context, learned.conditions),
+                )
+                rally != null -> context.getString(R.string.item_setup_rally, SetupBook.percent(rally.all), SetupLabels.describe(context, rally.conditions))
+                else -> null
+            }?.also { text -> ui.setupLine.text = text }
         } else {
             val setup = stock.structure?.let { TradePlan.of(stock.price, it) }?.let { BreakoutSetup.of(stock, it) }
             val highProbability = setup == BreakoutSetup.Kind.HIGH_PROBABILITY

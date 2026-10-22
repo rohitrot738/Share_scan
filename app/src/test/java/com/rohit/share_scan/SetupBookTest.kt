@@ -86,6 +86,53 @@ class SetupBookTest {
     }
 
     @Test
+    fun learnedPlansAndRalliesReadBack() {
+        val market = PlanTuner.Choice(PlanShape(2.0, 2.0), PlanTuner.Record(40_000, 16_000, 20_000, 6_000.0), PlanTuner.Record(9_000, 3_500, 4_600, 900.0), 20_383L)
+        val own = PlanTuner.Choice(PlanShape.OWN, PlanTuner.Record(40_000, 14_000, 21_000, 2_000.0), PlanTuner.Record(9_000, 3_000, 5_000, 200.0), 20_383L)
+        val best = PlanTuner.Choice(PlanShape(1.5, 3.0), PlanTuner.Record(380, 160, 190, 260.0), PlanTuner.Record(60, 26, 30, 40.0), 20_383L)
+        val rally = SetupMiner.Result(
+            rules = listOf(SetupMiner.Rule(volume or SetupCondition.NEAR_6M_HIGH.flag, stats(3_000, 900), stats(500, 140), 20_383L)),
+            avoid = emptyList(),
+            changes = emptyList(),
+            train = stats(90_000, 13_500),
+            holdout = stats(18_000, 2_700),
+            holdoutFrom = 20_300L,
+            lift = listOf(SetupMiner.Lift(SetupCondition.NEAR_6M_HIGH, 1.8, 0.27, 9_000)),
+            loseLift = emptyList(),
+        )
+        val book = SetupBook.parse(
+            SetupBook.encode(result, emptyMap(), SetupBook.EMPTY, 20_383L, 1, 1, market, own, mapOf((breakout or volume or rsi) to best), rally),
+        )
+        // The best setup's own plan, else every plan's.
+        assertEquals(PlanShape(1.5, 3.0), book.shape(breakout or volume or rsi))
+        assertEquals(PlanShape(2.0, 2.0), book.shape(breakout or volume))
+        assertEquals(PlanShape(2.0, 2.0), book.shape(0L))
+        assertEquals(6_900.0 / 49_000, book.marketPlan!!.all.averageR, 1e-9)
+        assertEquals(PlanShape.OWN, book.ownPlan!!.shape)
+        assertEquals(440, book.shown(book.rules.first()).n) // under its own plan
+        assertEquals(1_020, book.shown(book.rules[1]).n) // under every plan's
+        // What changed: every plan from the app's own to 2 ATR / 2R, the setup's from the app's own to 1.5 ATR / 3R.
+        assertEquals(
+            listOf(PlanShape.OWN to PlanShape(2.0, 2.0), PlanShape.OWN to PlanShape(1.5, 3.0)),
+            book.planLog.map { it.from to it.to },
+        )
+        assertEquals(volume or SetupCondition.NEAR_6M_HIGH.flag, book.rallySetup(volume or SetupCondition.NEAR_6M_HIGH.flag or rsi)!!.mask)
+        assertNull(book.rallySetup(volume))
+        assertEquals(15, SetupBook.percent(book.rallyBase))
+        assertEquals(SetupCondition.NEAR_6M_HIGH, book.whyUp.single().condition)
+
+        // The next day the setup loses its own plan: back to every plan's, and the log says so.
+        val next = SetupBook.parse(SetupBook.encode(result, emptyMap(), book, 20_384L, 1, 1, market, own, emptyMap(), rally))
+        assertEquals(PlanShape(2.0, 2.0), next.shape(breakout or volume or rsi))
+        assertEquals(PlanShape(1.5, 3.0) to PlanShape(2.0, 2.0), next.planLog.first().let { it.from to it.to })
+        assertEquals(3, next.planLog.size)
+
+        // Without learned plans the app keeps its own.
+        assertEquals(PlanShape.OWN, SetupBook.parse(SetupBook.encode(result, emptyMap(), SetupBook.EMPTY, 20_383L, 1, 1)).shape(breakout or volume))
+        assertEquals(PlanShape.OWN, SetupBook.EMPTY.shape(breakout or volume))
+    }
+
+    @Test
     fun brokenFilesAreEmpty() {
         assertSame(SetupBook.EMPTY, SetupBook.parse(null))
         assertSame(SetupBook.EMPTY, SetupBook.parse("<html>"))

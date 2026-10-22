@@ -77,6 +77,18 @@ enum class SetupCondition(val bit: Int) {
 
     /** Score STRONG at the session before. */
     PREV_STRONG(22),
+
+    /** Within 3% of the chart's six-month high. */
+    NEAR_6M_HIGH(23),
+
+    /** Up 4% or more on the day. */
+    UP_4_PERCENT_TODAY(24),
+
+    /** Closed in the top quarter of the day's range: buyers held it to the end. */
+    CLOSE_NEAR_DAY_HIGH(25),
+
+    /** Daily ranges of the 10 sessions before today at 70% of normal or less: volatility dried up. */
+    CALM_RANGES(26),
     ;
 
     val flag: Long get() = 1L shl bit
@@ -135,6 +147,10 @@ enum class SetupCondition(val bit: Int) {
             set(SCORE_STRONG, signals.score >= StockFormat.STRONG_SCORE)
             set(SCORE_WATCH, signals.score >= StockFormat.WATCH_SCORE)
             set(PREV_STRONG, (previousScore ?: 0.0) >= StockFormat.STRONG_SCORE)
+            set(NEAR_6M_HIGH, signals.fromHighPct <= 3.0)
+            set(UP_4_PERCENT_TODAY, signals.change1d >= 4.0)
+            set(CLOSE_NEAR_DAY_HIGH, signals.dayPosition >= 0.75)
+            set(CALM_RANGES, signals.calm <= 0.7)
             return mask
         }
     }
