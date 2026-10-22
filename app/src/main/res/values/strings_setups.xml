@@ -8,7 +8,7 @@
     <string name="item_setup_rally">📈 तेज़ी setup • %1$d%%: %2$s</string>
     <string name="detail_plan_stop_learned">सीखा stop: entry से %1$s ATR नीचे</string>
     <string name="detail_plan_quick_time_learned">⏱ entry के बाद लगभग %1$d–%2$d दिन</string>
-    <string name="detail_plan_learned">🧠 सीखा plan: stop %1$s, Target 1 = +%2$s, %3$d दिन के अंदर। पिछले 2 साल में ऐसे plans में %4$d%% सफल, औसत %5$s प्रति trade — app के पुराने plan से %6$d%% सफल, %7$s।</string>
+    <string name="detail_plan_learned">🧠 सीखा plan: stop %1$s, Target 1 = +%2$s, %3$d दिन के अंदर। पिछले 2 साल में ऐसे plans में %4$d%% सफल, औसत %5$s प्रति trade (सभी stocks पर app का पुराना plan: %6$d%% सफल, %7$s)।</string>
     <string name="detail_plan_learned_stop_atr">entry से %1$s ATR नीचे</string>
     <string name="detail_plan_learned_stop_own">10 दिन के low के नीचे (app का अपना)</string>
     <string name="detail_plan_learned_own">🧠 सीखा: app का अपना stop और target ही अब तक सबसे अच्छा रहा — %1$d%% सफल, औसत %2$s प्रति trade।</string>
