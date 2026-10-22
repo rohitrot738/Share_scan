@@ -170,6 +170,9 @@ private class Trade(
 
 private class Tally {
     val trades: MutableList<Trade> = Collections.synchronizedList(ArrayList())
+
+    /** Closes left out: locked at the upper circuit, or traded at one price. */
+    val locked = AtomicInteger()
     val rallies: MutableList<SetupMiner.Sample> = Collections.synchronizedList(ArrayList())
     val kinds = HashMap<BreakoutSetup.Kind, IntArray>() // n, quick wins, wide n, wide wins
 
@@ -202,6 +205,11 @@ private fun judge(listing: Listing, chart: Chart, tally: Tally): Int {
         val before = previous
         previous = s?.score
         if (s == null || s.medianTurnoverCr < SetupBook.MIN_TURNOVER_CR) continue
+        // Nobody could have bought at a close locked at the upper circuit, or in a session that traded at one price.
+        if (PlanOutcome.lockedUp(chart.close[t], chart.high[t], chart.close[t - 1]) || PlanOutcome.untradable(chart.high[t], chart.low[t])) {
+            tally.locked.incrementAndGet()
+            continue
+        }
         val plan = TradePlan.of(s.price, s.structure)
         val mask = SetupCondition.mask(s, plan, before)
         // Rallies are judged at every close, plan or no plan: what came before a stock went up.
@@ -266,6 +274,7 @@ fun main(args: Array<String>) {
     pool.awaitTermination(minutes.toLong() + 5, TimeUnit.MINUTES)
     val trades = tally.trades.toList()
     log("charted ${charted.get()} of ${stocks.size}, with plans ${judged.get()}, plans ${trades.size}, closes judged for rallies ${tally.rallies.size}; Yahoo ${answers()}")
+    log("closes left out as locked at the upper circuit or traded at one price: ${tally.locked.get()}")
     check(judged.get() >= 500) { "too few stocks charted (${judged.get()}); the book stays as it was" }
 
     val day = today.toEpochDay()

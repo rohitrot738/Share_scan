@@ -92,7 +92,7 @@ object PlanTuner {
         at: Int,
         into: IntArray,
     ): Boolean {
-        val entryAt = entryAt(entry, breakout, high, at) ?: return false
+        val entryAt = entryAt(entry, breakout, high, low, at) ?: return false
         val last = min(min(high.size, low.size), close.size) - 1
         // Sessions after the entry the chart holds, and the lowest low and highest high up to each: a breakout's own
         // session counts (its low first, as PlanOutcome has it), a plan entered at a close starts the session after.
@@ -137,10 +137,15 @@ object PlanTuner {
         return true
     }
 
-    /** The session the plan was entered, or null when it never was within [PlanOutcome.ENTRY_SESSIONS] or the chart ended first. */
-    private fun entryAt(entry: Double, breakout: Boolean, high: DoubleArray, at: Int): Int? {
+    /**
+     * The session the plan was entered, or null when it never was within [PlanOutcome.ENTRY_SESSIONS] or the chart ended
+     * first. As in [PlanOutcome], a session locked at one price fills no breakout entry.
+     */
+    private fun entryAt(entry: Double, breakout: Boolean, high: DoubleArray, low: DoubleArray, at: Int): Int? {
         if (!breakout) return at
-        for (d in at + 1..min(at + PlanOutcome.ENTRY_SESSIONS, high.size - 1)) if (high[d] >= entry) return d
+        for (d in at + 1..min(at + PlanOutcome.ENTRY_SESSIONS, min(high.size, low.size) - 1)) {
+            if (high[d] >= entry && !PlanOutcome.untradable(high[d], low[d])) return d
+        }
         return null
     }
 
@@ -289,7 +294,7 @@ object PlanTuner {
         at: Int,
     ): Int? {
         val shape = shape(cell)
-        val entryAt = entryAt(entry, breakout, high, at) ?: return null
+        val entryAt = entryAt(entry, breakout, high, low, at) ?: return null
         val stop = if (shape.stopAtr == 0.0) ownStop else entry - shape.stopAtr * atr
         val risk = entry - stop
         if (!(stop > 0.0 && risk > 0.0)) return null
