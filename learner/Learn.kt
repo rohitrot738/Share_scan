@@ -6,8 +6,8 @@
 //
 // For every stock the app scans, it reads two years of daily candles. At each past close it scores the stock on the
 // six months before (as the app's chart has them), notes the setup conditions and whether the stock rallied after, and
-// draws the trade plan and judges it under every stop and Target 1 PlanTuner tries. PlanTuner keeps the stop and
-// target that did best; SetupMiner then keeps the setups that won under them, drops the ones that stopped winning,
+// draws the trade plan. Every plan is then judged under the 30,000 stops, Target 1s and time limits PlanTuner tries;
+// it keeps the shape that did best, and SetupMiner keeps the setups that won under it, drops the ones that stopped winning,
 // learns the mistakes (setups whose trades went the wrong way far more often than the market's) and the setups after
 // which stocks rallied. Setups that did better still with a stop and target of their own get them. The result
 // replaces setups.json.
@@ -35,7 +35,6 @@ import java.net.URL
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import java.util.BitSet
 import java.util.Collections
 import java.util.Locale
 import java.util.concurrent.Executors
@@ -141,8 +140,24 @@ private fun parse(body: String): Chart? {
     return Chart(days.toLongArray(), close.toDoubleArray(), high.toDoubleArray(), low.toDoubleArray(), volume.toDoubleArray())
 }
 
+/** A past plan: the chart and close it was drawn at, its conditions, and the app's own entry, stop and ATR. */
+private class Trade(
+    val chart: Chart,
+    val at: Int,
+    val mask: Long,
+    val day: Long,
+    val entry: Double,
+    val breakout: Boolean,
+    val stop: Double,
+    val atr: Double,
+) {
+    fun judge(into: IntArray) = PlanTuner.judge(entry, breakout, stop, atr, chart.high, chart.low, chart.close, at, into)
+
+    fun result(cell: Int) = PlanTuner.result(cell, entry, breakout, stop, atr, chart.high, chart.low, chart.close, at)
+}
+
 private class Tally {
-    val plans = PlanTuner.Grid()
+    val trades: MutableList<Trade> = Collections.synchronizedList(ArrayList())
     val rallies: MutableList<SetupMiner.Sample> = Collections.synchronizedList(ArrayList())
     val kinds = HashMap<BreakoutSetup.Kind, IntArray>() // n, quick wins, wide n, wide wins
 
@@ -186,7 +201,8 @@ private fun judge(listing: Listing, chart: Chart, tally: Tally): Int {
             )
         }
         if (plan == null || plan.isExtended) continue
-        if (tally.plans.add(mask, chart.days[t], PlanTuner.judge(s.price, s.structure, chart.high, chart.low, chart.close, t))) plans++
+        tally.trades += Trade(chart, t, mask, chart.days[t], plan.entry, plan.entryKind == TradePlan.EntryKind.BREAKOUT, plan.stop, plan.atr)
+        plans++
         val stock = ScanResult(
             listing.symbol, s.price, s.score, s.rvol, s.change5d,
             pastScores = before?.let { listOf(DayScore(chart.days[t] - 1, it)) }.orEmpty(),
@@ -215,45 +231,52 @@ fun main(args: Array<String>) {
             val chart = runCatching { chart(listing) }.getOrNull()
             if (chart != null && runCatching { judge(listing, chart, tally) }.getOrDefault(0) > 0) judged.incrementAndGet()
             val count = done.incrementAndGet()
-            if (count % 250 == 0) log("charts $count/${stocks.size}, stocks with plans ${judged.get()}, plans ${tally.plans.size}")
+            if (count % 250 == 0) log("charts $count/${stocks.size}, stocks with plans ${judged.get()}, plans ${tally.trades.size}")
         }
     }
     pool.shutdown()
     pool.awaitTermination(minutes.toLong() + 5, TimeUnit.MINUTES)
-    val grid = tally.plans
-    log("stocks with plans ${judged.get()} of ${stocks.size}, plans ${grid.size}, closes judged for rallies ${tally.rallies.size}")
+    val trades = tally.trades.toList()
+    log("stocks with plans ${judged.get()} of ${stocks.size}, plans ${trades.size}, closes judged for rallies ${tally.rallies.size}")
     check(judged.get() >= 500) { "too few stocks charted (${judged.get()}); the book stays as it was" }
 
     val day = today.toEpochDay()
-    val holdoutFrom = SetupMiner.holdoutFrom((0 until grid.size).map { grid.day(it) })
-    val (train, holdout) = grid.split(holdoutFrom)
-    val every = BitSet(grid.size).apply { set(0, grid.size) }
+    val holdoutFrom = SetupMiner.holdoutFrom(trades.map { it.day })
 
-    // The stop and Target 1 for every plan, then the setups that won under them.
+    // Every plan under every shape, then the shape for every plan, then the setups that won under it.
+    val started = System.currentTimeMillis()
+    val totals = totals(trades, holdoutFrom, 1) { intArrayOf(0) }.single()
+    log("judged ${trades.size} plans under ${PlanTuner.CELLS} shapes in ${(System.currentTimeMillis() - started) / 1000}s")
     val ownCell = PlanTuner.cell(PlanShape.OWN)
-    val ownPlan = PlanTuner.Choice(PlanShape.OWN, PlanTuner.record(grid, ownCell, every, train), PlanTuner.record(grid, ownCell, every, holdout), day)
-    val marketPlan = PlanTuner.choose(grid, every, train, holdout, previous.marketPlan, PlanShape.OWN, day)
+    val ownPlan = PlanTuner.Choice(PlanShape.OWN, totals.record(ownCell, false), totals.record(ownCell, true), day)
+    val marketPlan = PlanTuner.choose(totals, previous.marketPlan, PlanShape.OWN, day)
     val marketCell = PlanTuner.cell(marketPlan.shape)
+    val samples = trades.parallelStream().map { trade ->
+        trade.result(marketCell)?.let { r -> SetupMiner.Sample(trade.mask, trade.day, PlanTuner.won(marketCell, r), PlanTuner.stopped(r)) }
+    }.toList().filterNotNull()
     val result = SetupMiner.learn(
-        grid.samples(marketCell),
+        samples,
         previous.rules.associate { it.mask to it.since },
         day,
         previous.avoid.associate { it.mask to it.since },
         holdoutFrom,
     )
-    // A setup gets a stop and target of its own when they did better for it, still beating the market's success rate.
-    val marketByCell = PlanTuner.SHAPES.indices.map { PlanTuner.record(grid, it, every, train) }
-    val setupPlans = result.rules.mapNotNull { rule ->
-        val choice = PlanTuner.choose(grid, grid.rows(rule.mask), train, holdout, previous.setupPlans[rule.mask], marketPlan.shape, day) { cell, record ->
-            record.stats.rate >= marketByCell[cell].stats.rate + SetupMiner.ADD_MARGIN
+    // A setup gets a shape of its own when one did better for it, still beating the market's success rate under it.
+    val rules = result.rules
+    val bySetup = totals(trades, holdoutFrom, rules.size) { trade ->
+        rules.indices.filter { rules[it].mask and trade.mask == rules[it].mask }.toIntArray()
+    }
+    val setupPlans = rules.indices.mapNotNull { i ->
+        val choice = PlanTuner.choose(bySetup[i], previous.setupPlans[rules[i].mask], marketPlan.shape, day) { cell, record ->
+            record.stats.rate >= totals.record(cell, false).stats.rate + SetupMiner.ADD_MARGIN
         }
-        if (choice.shape == marketPlan.shape) null else rule.mask to choice
+        if (choice.shape == marketPlan.shape) null else rules[i].mask to choice
     }.toMap()
     val rally = SetupMiner.learn(tally.rallies.toList(), previous.rally.associate { it.mask to it.since }, day)
 
     val kinds = tally.kinds.mapValues { (_, a) -> SetupBook.KindStats(SetupMiner.Stats(a[0], a[1]), SetupMiner.Stats(a[2], a[3])) }
     file.writeText(
-        SetupBook.encode(result, kinds, previous, day, judged.get(), grid.size, marketPlan, ownPlan, setupPlans, rally),
+        SetupBook.encode(result, kinds, previous, day, judged.get(), samples.size, marketPlan, ownPlan, setupPlans, rally),
     )
 
     log("plan for every stock: ${shape(marketPlan.shape)} since ${LocalDate.ofEpochDay(marketPlan.since)}: ${plan(marketPlan)}")
@@ -285,7 +308,35 @@ private fun stopped(s: SetupMiner.Stats) = "${Math.round(s.stopRate * 100)}%"
 
 private fun late(s: SetupMiner.Stats) = "${Math.round((1 - s.rate - s.stopRate) * 100)}%"
 
-private fun shape(s: PlanShape) = (if (s.stopAtr > 0.0) "stop ${s.stopAtr} ATR" else "the app's own stop") + ", Target 1 at ${s.targetR}R"
+private fun shape(s: PlanShape) =
+    (if (s.stopAtr > 0.0) "stop ${s.stopAtr} ATR" else "the app's own stop") + ", Target 1 at ${s.targetR}R in ${s.days}x its usual sessions"
+
+/**
+ * Every shape's record over [trades], in [groups] totals: each plan is judged once and added to the totals [groupsOf]
+ * names, before or in the holdout (from [holdoutFrom]). Spread over [THREADS] threads.
+ */
+private fun totals(trades: List<Trade>, holdoutFrom: Long, groups: Int, groupsOf: (Trade) -> IntArray): List<PlanTuner.Totals> {
+    val workers = (0 until THREADS).map { w ->
+        val own = List(groups) { PlanTuner.Totals() }
+        val thread = Thread {
+            val results = IntArray(PlanTuner.CELLS)
+            for (i in w until trades.size step THREADS) {
+                val trade = trades[i]
+                val into = groupsOf(trade)
+                if (into.isEmpty() || !trade.judge(results)) continue
+                for (g in into) own[g].add(results, trade.day >= holdoutFrom)
+            }
+        }
+        thread.start()
+        thread to own
+    }
+    val all = List(groups) { PlanTuner.Totals() }
+    for ((thread, own) in workers) {
+        thread.join()
+        for (g in 0 until groups) all[g].addAll(own[g])
+    }
+    return all
+}
 
 private fun plan(c: PlanTuner.Choice) =
     "${percent(c.all.stats)} won, ${stopped(c.all.stats)} stopped, ${"%+.2f".format(c.all.averageR)}R a plan " +

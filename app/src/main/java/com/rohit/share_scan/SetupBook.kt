@@ -7,8 +7,8 @@ import org.json.JSONObject
  * The learned setups the app uses, from the daily learner's setups.json ([SetupMiner]): each setup's conditions and
  * record, the mistakes learned (setups whose trades went the wrong way far more often than the market's), the setups
  * added and removed lately, which conditions the successes and the stopped trades shared most, and how often the trade
- * plan's quick target came in time for each kind of breakout ([BreakoutSetup.Kind]). It also holds the stop and
- * Target 1 that did best ([PlanTuner]), for every plan and for each setup that did better with its own, and the setups
+ * plan's quick target came in time for each kind of breakout ([BreakoutSetup.Kind]). It also holds the stop, Target 1
+ * and time that did best ([PlanTuner]), for every plan and for each setup that did better with its own, and the setups
  * after which stocks most often rallied ([PlanOutcome.rally]), with the conditions rallies shared. They take the place
  * of the fixed setups, plan and figures the app shipped with; without the file the app keeps those. Free of Android
  * types so it can be unit tested.
@@ -32,11 +32,11 @@ class SetupBook(
     val avoid: List<SetupMiner.Rule> = emptyList(),
     /** Conditions most common among the trades that hit their stop. */
     val loseLift: List<SetupMiner.Lift> = emptyList(),
-    /** The stop and Target 1 for every plan; null keeps the app's own. [rules] and [train] are judged under it. */
+    /** The stop, Target 1 and time for every plan; null keeps the app's own. [rules] and [train] are judged under it. */
     val marketPlan: PlanTuner.Choice? = null,
     /** The app's own plan's record, to compare. */
     val ownPlan: PlanTuner.Choice? = null,
-    /** Setups (by mask) that did better with a stop and Target 1 of their own. */
+    /** Setups (by mask) that did better with a stop, Target 1 and time of their own. */
     val setupPlans: Map<Long, PlanTuner.Choice> = emptyMap(),
     /** Setups after which stocks most often rallied, best first, and every close's rally rate. */
     val rally: List<SetupMiner.Rule> = emptyList(),
@@ -148,8 +148,11 @@ class SetupBook(
                 ownPlan?.let { put("own", choice(it)) }
                 put("planLog", JSONArray().apply {
                     for (c in planLog) {
-                        put(JSONObject().put("d", c.day).put("m", c.mask).put("fs", c.from.stopAtr).put("ft", c.from.targetR)
-                            .put("ts", c.to.stopAtr).put("tt", c.to.targetR))
+                        put(
+                            JSONObject().put("d", c.day).put("m", c.mask)
+                                .put("fs", c.from.stopAtr).put("ft", c.from.targetR).put("fd", c.from.days)
+                                .put("ts", c.to.stopAtr).put("tt", c.to.targetR).put("td", c.to.days),
+                        )
                     }
                 })
                 if (rally != null) {
@@ -195,8 +198,8 @@ class SetupBook(
                     rallyBase = (root.optJSONObject("rallyBase") ?: JSONObject()).let(::statsOf).let { (t, h) -> t + h },
                     whyUp = liftsOf(root.optJSONArray("whyUp")),
                     planLog = objects(root.optJSONArray("planLog")).mapNotNull { o ->
-                        val from = shapeOf(o.optDouble("fs"), o.optDouble("ft")) ?: return@mapNotNull null
-                        val to = shapeOf(o.optDouble("ts"), o.optDouble("tt")) ?: return@mapNotNull null
+                        val from = shapeOf(o.optDouble("fs"), o.optDouble("ft"), o.optDouble("fd", 1.0)) ?: return@mapNotNull null
+                        val to = shapeOf(o.optDouble("ts"), o.optDouble("tt"), o.optDouble("td", 1.0)) ?: return@mapNotNull null
                         PlanChange(o.optLong("d"), o.optLong("m"), from, to)
                     },
                 )
@@ -211,15 +214,15 @@ class SetupBook(
             }
         }
 
-        /** A plan's stop and Target 1, the day it was chosen, and its record before (n, w, s, r) and in the holdout. */
+        /** A plan's stop, Target 1 and time, the day it was chosen, and its record before (n, w, s, r) and in the holdout. */
         private fun choice(c: PlanTuner.Choice) = JSONObject()
-            .put("stop", c.shape.stopAtr).put("target", c.shape.targetR).put("since", c.since)
+            .put("stop", c.shape.stopAtr).put("target", c.shape.targetR).put("days", c.shape.days).put("since", c.since)
             .put("n", c.train.n).put("w", c.train.wins).put("s", c.train.stops).put("r", round(c.train.sumR))
             .put("hn", c.holdout.n).put("hw", c.holdout.wins).put("hs", c.holdout.stops).put("hr", round(c.holdout.sumR))
 
         /** Null for a stop or target this app could not draw. */
         private fun choiceOf(o: JSONObject): PlanTuner.Choice? {
-            val shape = shapeOf(o.optDouble("stop"), o.optDouble("target")) ?: return null
+            val shape = shapeOf(o.optDouble("stop"), o.optDouble("target"), o.optDouble("days", 1.0)) ?: return null
             return PlanTuner.Choice(
                 shape,
                 PlanTuner.Record(o.optInt("n"), o.optInt("w"), o.optInt("s"), o.optDouble("r", 0.0)),
@@ -228,8 +231,11 @@ class SetupBook(
             )
         }
 
-        private fun shapeOf(stop: Double, target: Double): PlanShape? =
-            if (stop.isFinite() && stop >= 0.0 && stop <= 10.0 && target.isFinite() && target > 0.0 && target <= 20.0) PlanShape(stop, target) else null
+        private fun shapeOf(stop: Double, target: Double, days: Double): PlanShape? {
+            val usable = stop.isFinite() && stop >= 0.0 && stop <= 10.0 && target.isFinite() && target > 0.0 && target <= 20.0 &&
+                days.isFinite() && days > 0.0 && days <= 10.0
+            return if (usable) PlanShape(stop, target, days) else null
+        }
 
         /** Setups with a condition this app does not know are left out. */
         private fun rulesOf(array: JSONArray?) = objects(array).map { o ->

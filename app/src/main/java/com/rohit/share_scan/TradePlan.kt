@@ -2,6 +2,8 @@ package com.rohit.share_scan
 
 import java.util.Locale
 import kotlin.math.abs
+import kotlin.math.max
+import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
 /**
@@ -26,9 +28,10 @@ import kotlin.math.roundToLong
  * - **Quick target** = entry + [QUICK_TARGET_R] × R and **wide stop** = entry − [WIDE_STOP_R] × R: the quick target
  *   came before the stop far more often than Target 1, and more often still before the wide stop ([BreakoutSetup]).
  *
- * - **Learned shape**: the daily learner ([PlanTuner]) may find that another stop and Target 1 did better on the
- *   market's own past plans; with a [PlanShape] the stop sits [PlanShape.stopAtr] ATR under the entry
- *   ([StopKind.LEARNED]) and the targets at [PlanShape.targetR], one and two and a half R beyond it.
+ * - **Learned shape**: the daily learner ([PlanTuner]) may find that another stop, Target 1 and time did better on
+ *   the market's own past plans; with a [PlanShape] the stop sits [PlanShape.stopAtr] ATR under the entry
+ *   ([StopKind.LEARNED]), the targets at [PlanShape.targetR], one and two and a half R beyond it, and each target
+ *   gets [PlanShape.days] times its usual sessions.
  *
  * [of] returns null when an input is missing or not positive, or when the stop would not be above zero.
  */
@@ -142,7 +145,7 @@ data class TradePlan(
                 stop = stop,
                 stopKind = stopKind,
                 targets = targets,
-                targetSessions = targets.map { TargetTimes.sessions((it - entry) / atr) },
+                targetSessions = targets.map { shape.sessions(TargetTimes.sessions((it - entry) / atr)) },
             )
         }
 
@@ -177,11 +180,17 @@ data class PlanShape(
     val stopAtr: Double,
     /** Target 1 this many R above the entry. */
     val targetR: Double,
+    /** Each target gets this many times the sessions it usually takes ([TargetTimes]). */
+    val days: Double = 1.0,
 ) {
     /** Target 1, then one and two and a half R beyond it: the app's own 1.5R, 2.5R and 4R. */
     val targetsR: List<Double> get() = listOf(targetR, targetR + 1.0, targetR + 2.5)
 
     val own: Boolean get() = this == OWN
+
+    /** [usual] sessions stretched or shortened by [days]; never under one. */
+    fun sessions(usual: IntRange): IntRange =
+        if (days == 1.0) usual else max(1, (usual.first * days).roundToInt())..max(1, (usual.last * days).roundToInt())
 
     companion object {
         val OWN = PlanShape(0.0, TradePlan.TARGET_R.first())

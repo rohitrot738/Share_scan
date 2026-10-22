@@ -150,5 +150,9 @@ class TradePlanTest {
         assertEquals(TradePlan.StopKind.MAX_ATR, own.stopKind)
         assertEquals(104.2 + 4.0, own.targets.first(), 1e-9)
         assertEquals(TradePlan.of(100.0, 104.0, 98.0, 2.0), TradePlan.of(100.0, 104.0, 98.0, 2.0, PlanShape.OWN))
+        // A learned time limit stretches every target's sessions.
+        val usual = TradePlan.of(100.0, 104.0, 98.0, 2.0, PlanShape(1.5, 2.0))!!.targetSessions.first()
+        val longer = TradePlan.of(100.0, 104.0, 98.0, 2.0, PlanShape(1.5, 2.0, 2.0))!!.targetSessions.first()
+        assertEquals(usual.first * 2..usual.last * 2, longer)
     }
 }

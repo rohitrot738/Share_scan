@@ -203,7 +203,7 @@ class StockDetailSheet(
         val breakout = plan.entryKind == TradePlan.EntryKind.BREAKOUT
         ui.detailPlanRule.setText(if (breakout) R.string.detail_plan_rule_breakout else R.string.detail_plan_rule_market)
         val setup = BreakoutSetup.of(stock, plan)
-        bindLearnedPlan()
+        bindLearnedPlan(plan)
         if (setups.rules.isNotEmpty()) bindLearnedSetup() else bindSetup(setup)
         bindRally(plan)
         bindMistake()
@@ -346,10 +346,10 @@ class StockDetailSheet(
     }
 
     /**
-     * The stop and Target 1 the learner found did best for plans like this one, with their record against the app's own
-     * plan; or, when the app's own did best, that it did.
+     * The stop, Target 1 and time the learner found did best for plans like this one ([plan] is drawn with them), with
+     * their record against the app's own plan; or, when the app's own did best, that it did.
      */
-    private fun bindLearnedPlan() {
+    private fun bindLearnedPlan(plan: TradePlan) {
         val learned = learnedPlan
         val own = setups.ownPlan
         ui.detailPlanLearned.isVisible = learned != null
@@ -367,6 +367,7 @@ class StockDetailSheet(
                 R.string.detail_plan_learned,
                 stop,
                 multiple(learned.shape.targetR),
+                plan.targetSessions.first().last,
                 SetupBook.percent(record.stats),
                 rs(record.averageR),
                 SetupBook.percent(own.all.stats),
