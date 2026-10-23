@@ -73,21 +73,6 @@ class SetupConditionsTest {
     }
 
     @Test
-    fun sweepsStopHuntsAndFakeoutsHaveTheirConditions() {
-        val s = signals(rvol = 0.8).copy(sweptLow = true, stopHunt = true, weakBreakout = true, recentFakeout = true)
-        val held = SetupCondition.of(SetupCondition.mask(s, null, null))
-        assertTrue(
-            held.containsAll(
-                listOf(
-                    SetupCondition.SWEPT_20D_LOW, SetupCondition.STOP_HUNT_SUPPORT, SetupCondition.WEAK_BREAKOUT,
-                    SetupCondition.RECENT_FAKEOUT, SetupCondition.VOLUME_BELOW_AVERAGE,
-                ),
-            ),
-        )
-        assertTrue(SetupCondition.of(SetupCondition.mask(signals(), null, null)).none { it.bit in 27..31 })
-    }
-
-    @Test
     fun bitsAreUniqueAndFitALong() {
         assertEquals(SetupCondition.entries.size, SetupCondition.entries.map { it.bit }.toSet().size)
         assertTrue(SetupCondition.entries.all { it.bit in 0..62 })

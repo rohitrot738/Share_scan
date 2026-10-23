@@ -147,17 +147,6 @@
                     android:textStyle="bold"
                     android:visibility="gone" />
 
-                <!-- A sweep, stop hunt or fakeout in the latest candle (SetupLabels.pattern). -->
-                <TextView
-                    android:id="@+id/patternLine"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:textSize="12sp"
-                    android:visibility="gone" />
-
                 <!-- A learned mistake (SetupBook.mistake): a setup whose trades failed far more often than the market's. -->
                 <TextView
                     android:id="@+id/mistakeLine"
