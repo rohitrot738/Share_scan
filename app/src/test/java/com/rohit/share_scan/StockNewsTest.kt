@@ -93,6 +93,16 @@ class StockNewsTest {
         assertEquals(NewsKind.ROUTINE, kind("Copy of Newspaper Publication"))
         assertEquals(NewsKind.ROUTINE, kind("Certificate under SEBI (Depositories and Participants) Regulations, 2018"))
         assertEquals(NewsKind.OTHER, kind("The company has taken steps in order to improve its processes"))
+        // A lender's debt coming due is routine, record date or not; a bare record date is no dividend.
+        assertEquals(NewsKind.ROUTINE, kind("Record Date. Intimation of Record Date for redemption of Commercial Paper (CP) issued by the Company"))
+        assertEquals(NewsKind.ROUTINE, kind("Updates. Certificate for Payment of Interest (BSE Listed)"))
+        assertEquals(NewsKind.ROUTINE, kind("Capri Global Capital (NSE:CGCL): Why Has a January 2027 CP Redemption Record Date Been Set?"))
+        assertEquals(NewsKind.ROUTINE, kind("General Updates. Redemption of Securities"))
+        assertEquals(NewsKind.ROUTINE, kind("Record Date. Record date for payment of interest and redemption of NCDs"))
+        assertEquals(NewsKind.ROUTINE, kind("Monitoring Agency Report"))
+        assertEquals(NewsKind.OTHER, kind("Record Date. Intimation of record date"))
+        assertEquals(NewsKind.DIVIDEND, kind("Record Date. Record date for the purpose of interim dividend"))
+        assertEquals(NewsKind.FUNDRAISE, kind("Allotment of Securities. Allotment of NCDs on private placement basis"))
         assertTrue(NewsKind.RESULTS.big && !NewsKind.ROUTINE.big && !NewsKind.MEETING.big)
     }
 
