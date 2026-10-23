@@ -17,6 +17,8 @@ jobs:
           python-version: '3.12'
       - name: Probe
         shell: python
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           import http.client, urllib.request, urllib.error
           from cr360 import build_app_cache as b
