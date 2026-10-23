@@ -18,6 +18,11 @@ jobs:
         with:
           distribution: temurin
           java-version: '17'
+      - name: Pick the version
+        run: |
+          # One after the newest release (v1.2.N), so the numbers run on in order; it is also the version code.
+          LAST=$(git ls-remote --tags origin 'refs/tags/v1.2.*' | sed -n 's#.*refs/tags/v1\.2\.\([0-9][0-9]*\)$#\1#p' | sort -n | tail -1)
+          echo "BUILD=$(( ${LAST:-100} + 1 ))" >> "$GITHUB_ENV"
       - name: Check signing secret
         id: secret
         env:
@@ -41,8 +46,7 @@ jobs:
           FIREBASE_STORAGE_BUCKET: ${{ secrets.FIREBASE_STORAGE_BUCKET }}
           FIREBASE_SENDER_ID: ${{ secrets.FIREBASE_SENDER_ID }}
         run: |
-          # Offset keeps release version codes above the debug builds' versionCode 2.
-          export SHARESCAN_VERSION_CODE=$((GITHUB_RUN_NUMBER + 100))
+          export SHARESCAN_VERSION_CODE=$BUILD
           curl -sSL https://services.gradle.org/distributions/gradle-8.10.2-bin.zip -o gradle.zip
           unzip -q gradle.zip -d "$RUNNER_TEMP"
           "$RUNNER_TEMP/gradle-8.10.2/bin/gradle" :app:assembleRelease
@@ -51,7 +55,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          BUILD=$((GITHUB_RUN_NUMBER + 100))
           cp app/build/outputs/apk/release/app-release.apk ShareScan.apk
           # The changelog's newest entry, still without a version, is this release's (Changelog.kt); the About sheet
           # lists it too.
