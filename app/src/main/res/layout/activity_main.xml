@@ -381,6 +381,29 @@
                     app:iconGravity="textStart"
                     app:iconPadding="8dp"
                     app:iconTint="@color/hero_button_text" />
+
+                <!-- Clears the kept scan; shown only with a scan on screen and none running. -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/clearScanButton"
+                    style="@style/Widget.ShareScan.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="10dp"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/action_clear_scan"
+                    android:textAllCaps="false"
+                    android:textColor="@color/hero_text_soft"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:cornerRadius="18dp"
+                    app:icon="@drawable/ic_delete"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    app:iconSize="18dp"
+                    app:iconTint="@color/hero_text_soft"
+                    app:strokeColor="@color/hero_text_muted" />
             </LinearLayout>
         </FrameLayout>
 
@@ -573,18 +596,6 @@
                     android:padding="10dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_share"
-                    android:visibility="gone"
-                    app:tint="@color/brand_primary" />
-
-                <ImageButton
-                    android:id="@+id/clearButton"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="@string/list_clear_open"
-                    android:padding="10dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_delete"
                     android:visibility="gone"
                     app:tint="@color/brand_primary" />
             </LinearLayout>

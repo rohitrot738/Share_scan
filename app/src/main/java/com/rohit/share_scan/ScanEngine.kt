@@ -162,7 +162,7 @@ object ScanEngine {
     }
 
     /**
-     * Forgets the kept scan, as the list's "सारे स्कैन साफ़ करें" asks: the scan on disk with its rank badges, and the
+     * Forgets the kept scan, as the scan board's "Clear scan" asks: the scan on disk with its rank badges, and the
      * ranks the next scan would be compared with, so the screen is back to before any scan and the next one starts
      * afresh. The track record, the watchlist and the filters stay. False while a scan runs, which would bring a scan
      * back.

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper: the main screen's header (app icon, version) and the menu, then the list's clear button.
+# Temporary review helper: the main screen's header (app icon, version) and the menu, then the scan board's Clear scan button.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -65,10 +65,10 @@ for i in $(seq 1 120); do
 done
 shot 03-results 4
 
-# The list's new clear button: its question, the screen once cleared, and the app opened again afterwards.
-tap clearButton
+# The scan board's new "Clear scan" button: its question, the screen once cleared, and the app opened again afterwards.
+tap clearScanButton
 shot 04-clear-ask 2
-tap_text "हाँ, साफ़ करें"
+tap button1
 shot 05-cleared 3
 launch; sleep 6
 shot 06-reopened 2

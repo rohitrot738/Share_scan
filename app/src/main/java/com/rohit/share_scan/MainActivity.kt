@@ -134,6 +134,7 @@ class MainActivity : AppCompatActivity() {
                 scan.startScan()
             }
         }
+        ui.clearScanButton.setOnClickListener { askToClear() }
         ui.filterChip.setOnClickListener {
             filterSheet?.dismiss()
             val state = scan.uiState.value
@@ -357,6 +358,8 @@ class MainActivity : AppCompatActivity() {
         ui.startButton.setIconResource(icon)
         // A running scan's button stops it; it rests only while a stop finishes the requests under way.
         ui.startButton.isEnabled = !state.stopping
+        // Nothing to clear without a scan, nor while one runs: it would put a scan straight back.
+        ui.clearScanButton.isVisible = state.results.isNotEmpty() && !state.isRunning
     }
 
     /** [icon] replaces the percentage in the middle of the progress ring when it is not null. */
@@ -545,7 +548,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /** Watchlist chip, symbol search, share and clear buttons in the pinned results header. */
+    /** Watchlist chip, symbol search and share button in the pinned results header. */
     private fun setUpListTools() {
         // A star toggle rebinds its card in place instead of cross-fading it.
         (ui.results.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
@@ -576,7 +579,6 @@ class MainActivity : AppCompatActivity() {
             search
         }
         ui.shareButton.setOnClickListener { shareShown() }
-        ui.clearButton.setOnClickListener { askToClear() }
     }
 
     private fun renderListTools(state: ScanUiState, hasResults: Boolean) {
@@ -606,8 +608,6 @@ class MainActivity : AppCompatActivity() {
         ui.shareButton.isVisible = scanned
         ui.shareButton.isEnabled = hasResults
         ui.shareButton.alpha = if (hasResults) 1f else 0.38f
-        // Nothing to clear while a scan runs: it would put a scan straight back.
-        ui.clearButton.isVisible = scanned && !state.isRunning
 
         ui.searchBar.isVisible = state.searchOpen
         closeSearchOnBack.isEnabled = state.searchOpen
@@ -673,16 +673,16 @@ class MainActivity : AppCompatActivity() {
     private fun askToClear() {
         clearDialog?.dismiss()
         clearDialog = MaterialAlertDialogBuilder(this)
-            .setTitle(R.string.list_clear_title)
-            .setMessage(R.string.list_clear_body)
+            .setTitle(R.string.clear_scan_title)
+            .setMessage(R.string.clear_scan_body)
             .setNegativeButton(R.string.settings_confirm_no, null)
-            .setPositiveButton(R.string.settings_confirm_yes) { _, _ ->
+            .setPositiveButton(R.string.action_clear_scan) { _, _ ->
                 // A live scan may have started while the question was open.
                 if (scan.clearScans()) {
                     if (scan.uiState.value.searchOpen) closeSearch()
-                    Toast.makeText(this, R.string.list_clear_done, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, R.string.clear_scan_done, Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(this, R.string.list_clear_running, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, R.string.clear_scan_running, Toast.LENGTH_LONG).show()
                 }
             }
             .show()

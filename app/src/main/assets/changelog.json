@@ -4,7 +4,7 @@
     "date": "2026-10-23",
     "items": [
       "App खुलते ही ऊपर (और menu में) अब Share Scan का असली app icon दिखता है, और नाम के बगल में चल रहा version",
-      "नतीजों के ऊपर search और share के बगल में नया 🗑 button: एक बार पूछकर सारे स्कैन साफ़ कर देता है (सूची, सहेजा हुआ स्कैन और NEW / ▲▼ rank history); watchlist, filters और track record बने रहते हैं"
+      "स्कैन बोर्ड पर \"दोबारा स्कैन करें\" के नीचे नया \"Clear scan\" button: एक बार पूछकर सारे स्कैन मिटा देता है (सूची, सहेजा हुआ स्कैन और NEW / ▲▼ rank history); watchlist, filters और track record बने रहते हैं"
     ]
   },
   {
