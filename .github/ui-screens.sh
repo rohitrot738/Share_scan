@@ -60,7 +60,7 @@ shade() { adb shell cmd statusbar expand-notifications; sleep 2; }
 tap() { local xy; xy=$(center id "$1") && adb shell input tap $xy || echo "could not find id $1" | tee -a "$LOG"; }
 tap_text() { local xy; xy=$(center text "$1") && adb shell input tap $xy || echo "could not find text $1" | tee -a "$LOG"; }
 tap_exact() { local xy; xy=$(center exact "$1") && adb shell input tap $xy || echo "could not find exact $1" | tee -a "$LOG"; }
-news() { adb shell am broadcast -f 0x20 -n "$PKG/.NewsTestReceiver" --es kind "$1" --es symbols "${2:-}" > /dev/null; }
+news() { adb shell am broadcast -f 0x20 -n "$PKG/.NewsTestReceiver" --es kind "$1" --es symbols "${2:--}" | tail -1 >> "$LOG"; }
 swipe_up() { adb shell input swipe 540 1900 540 1000 500; sleep 1; }
 # Swipes up until the view with id $1 sits in the upper part of the screen (at most 20 swipes).
 scroll_to() {
@@ -77,6 +77,14 @@ news_notes() {
 adb shell cmd uimode night yes
 adb logcat -c
 launch; sleep 6
+
+# 0. How each news source answers the app on this device.
+news probe
+for i in $(seq 1 30); do
+  sleep 4
+  adb logcat -d -s NewsTest:* | grep -q "probe repo articles" && break
+done
+adb logcat -d -s NewsTest:* | grep probe | tee -a "$LOG"
 
 # 1. A scan, then the list as it comes out of it.
 tap startButton
@@ -108,6 +116,11 @@ for symbol, kind, _ in rows:
 print(','.join(picked))
 PY
 )
+# Without marks (the market feed did not answer), the first stocks of the list and two big names instead.
+if [ -z "$PICK" ]; then
+  launch; sleep 10
+  PICK=$( (texts symbol; echo RELIANCE; echo TCS) | head -5 | paste -sd, -)
+fi
 echo "starred: $PICK" | tee -a "$LOG"
 news star "$PICK"
 sleep 3
