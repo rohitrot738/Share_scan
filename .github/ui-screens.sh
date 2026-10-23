@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+# Temporary review helper: the main screen's header (app icon, version) and the menu, then a stock's R/S parts opened.
+set -uo pipefail
+PKG=com.rohit.share_scan
+OUT=ui-screens
+mkdir -p "$OUT"
+
+adb shell svc power stayon true
+adb shell settings put system screen_off_timeout 1800000
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+
+shot() { sleep "${2:-3}"; adb exec-out screencap -p > "$OUT/$1.png"; echo "shot $1"; }
+launch() { adb shell am force-stop "$PKG"; adb shell am start -W -n "$PKG/.MainActivity" > /dev/null; }
+# The centre of the first view whose resource id is $2 (mode "id") or whose text contains $2 (mode "text").
+center() {
+  for attempt in 1 2 3; do
+    adb shell uiautomator dump /sdcard/ui.xml > /dev/null 2>&1 && break
+    sleep 2
+  done
+  adb exec-out cat /sdcard/ui.xml > /tmp/ui.xml
+  python3 - "$1" "$2" <<'PY'
+import html, re, sys
+mode, want = sys.argv[1], sys.argv[2]
+xml = open('/tmp/ui.xml', encoding='utf-8').read()
+for node in re.finditer(r'<node [^>]*>', xml):
+    n = node.group(0)
+    rid = re.search(r'resource-id="([^"]*)"', n)
+    text = html.unescape(re.search(r' text="([^"]*)"', n).group(1)) if re.search(r' text="([^"]*)"', n) else ''
+    if (mode == 'id' and rid and rid.group(1).endswith(':id/' + want)) or (mode == 'text' and want in text):
+        x1, y1, x2, y2 = map(int, re.search(r'bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', n).groups())
+        if y2 > y1:
+            print((x1 + x2) // 2, (y1 + y2) // 2)
+            sys.exit(0)
+sys.exit(1)
+PY
+}
+tap() { local xy; xy=$(center id "$1") && adb shell input tap $xy || echo "could not find id $1"; }
+tap_text() { local xy; xy=$(center text "$1") && adb shell input tap $xy || echo "could not find text $1"; }
+up() { adb shell input swipe 540 1900 540 1000 500; }
+# Scrolls down (at most $2 swipes) until a view with text $1 is on screen.
+scroll_to() {
+  for i in $(seq 1 "${2:-12}"); do
+    center text "$1" > /dev/null && return 0
+    up; sleep 1
+  done
+  return 1
+}
+
+adb shell cmd uimode night yes
+launch; sleep 6
+shot 01-header 2
+tap menuButton
+shot 02-menu 3
+adb shell input keyevent KEYCODE_BACK
+sleep 2
+
+tap startButton
+# The start button is enabled again once the scan has finished or failed.
+for i in $(seq 1 100); do
+  flags=$(adb shell dumpsys activity top | grep 'id/startButton' | head -1 | awk '{print $2}')
+  case "$flags" in ??E*) echo "scan finished after about $((i * 15)) seconds"; break ;; esac
+  sleep 15
+done
+shot 03-results 4
+
+# The top stock's detail, down to its R/S card; then two of its parts opened in place.
+tap symbol
+sleep 4
+scroll_to "नतीजों की गुणवत्ता" 14 && up && sleep 1
+shot 04-rs-card 2
+tap_text "Insider और bulk deals"
+shot 05-insider-open 4
+up; shot 06-insider-open-more 2
+scroll_to "नतीजों की गुणवत्ता" 1 || { for i in 1 2 3; do adb shell input swipe 540 900 540 1900 500; done; }
+tap_text "नतीजों की गुणवत्ता"
+shot 07-quality-open 4
+up; shot 08-quality-open-more 2
