@@ -20,61 +20,38 @@ jobs:
           def show(label, r, n=400):
               print(f"== {label}: {r.status_code} {r.headers.get('content-type')} {len(r.content)}B", flush=True)
               print("   ", r.text[:n].replace("\n", " "), flush=True)
-          # NSE: cookies from the home page, then the announcements API.
           s = requests.Session()
           s.headers.update({"User-Agent": MOB, "Accept": "*/*", "Accept-Language": "en-IN,en;q=0.9"})
-          try:
-              show("nse home", s.get("https://www.nseindia.com/", timeout=20), 80)
-              for q in ("index=equities", "index=equities&symbol=TCS", "index=sme", "index=equities&symbol=TCS&from_date=01-09-2026&to_date=23-10-2026"):
-                  r = s.get(f"https://www.nseindia.com/api/corporate-announcements?{q}", headers={"Referer": "https://www.nseindia.com/companies-listing/corporate-filings-announcements"}, timeout=30)
-                  show(f"nse ann {q}", r, 200)
-                  try:
-                      data = r.json()
-                      print("    items", len(data), "keys", list(data[0].keys()) if data else None)
-                      for it in data[:3]:
-                          print("    ", {k: it.get(k) for k in ("symbol", "desc", "an_dt", "sort_date", "attchmntText", "attchmntFile", "smIndustry", "sm_name")})
-                  except Exception as e:
-                      print("    json:", repr(e)[:120])
-                  time.sleep(1)
-          except Exception as e:
-              print("nse error", repr(e)[:200])
-          # BSE announcements.
+          r = s.get("https://www.nseindia.com/", timeout=20)
+          print("nse home", r.status_code, "cookies", sorted(s.cookies.keys()), flush=True)
+          ref = {"Referer": "https://www.nseindia.com/companies-listing/corporate-filings-announcements"}
+          for q in ("index=equities&from_date=22-10-2026&to_date=23-10-2026", "index=equities&from_date=23-10-2026&to_date=23-10-2026", "index=sme&from_date=22-10-2026&to_date=23-10-2026"):
+              t = time.time()
+              r = s.get(f"https://www.nseindia.com/api/corporate-announcements?{q}", headers=ref, timeout=60)
+              try:
+                  data = r.json()
+              except Exception:
+                  data = []
+              descs = {}
+              for it in data:
+                  descs[it.get("desc")] = descs.get(it.get("desc"), 0) + 1
+              print(f"== nse {q}: {r.status_code} {len(r.content)}B {round(time.time()-t,1)}s items {len(data)} symbols {len({it.get('symbol') for it in data})}", flush=True)
+              print("    top descs", sorted(descs.items(), key=lambda kv: -kv[1])[:25])
+              time.sleep(1)
+          # The same without cookies, as a phone's first request would be.
+          r = requests.get("https://www.nseindia.com/api/corporate-announcements?index=equities", headers={"User-Agent": MOB, **ref}, timeout=30)
+          print("== nse without cookies:", r.status_code, len(r.content), r.text[:120])
           b = requests.Session()
           b.headers.update({"User-Agent": MOB, "Accept": "application/json, text/plain, */*", "Referer": "https://www.bseindia.com/", "Origin": "https://www.bseindia.com"})
-          for scrip in ("532540", ""):
-              url = ("https://api.bseindia.com/BseIndiaAPI/api/AnnSubCategoryGetData/w?pageno=1&strCat=-1&strPrevDate=20261015"
-                     f"&strScrip={scrip}&strSearch=P&strToDate=20261023&strType=C&subcategory=-1")
+          for url in ("https://api.bseindia.com/BseIndiaAPI/api/AnnGetData/w?strCat=-1&strPrevDate=20261023&strScrip=&strSearch=P&strToDate=20261023&strType=C",
+                      "https://api.bseindia.com/BseIndiaAPI/api/AnnSubCategoryGetData/w?pageno=1&strCat=-1&strPrevDate=20261023&strScrip=&strSearch=P&strToDate=20261023&strType=C&subcategory=-1",
+                      "https://api.bseindia.com/BseIndiaAPI/api/AnnSubCategoryGetData/w?pageno=1&strCat=Result&strPrevDate=20261022&strScrip=&strSearch=P&strToDate=20261023&strType=C&subcategory=-1"):
+              r = b.get(url, timeout=30)
               try:
-                  r = b.get(url, timeout=30)
-                  show(f"bse ann scrip={scrip or 'all'}", r, 200)
                   data = r.json()
                   table = data.get("Table") or []
-                  print("    items", len(table), "keys", list(table[0].keys()) if table else None)
-                  for it in table[:3]:
-                      print("    ", {k: it.get(k) for k in ("SCRIP_CD", "SLONGNAME", "NEWSSUB", "HEADLINE", "NEWS_DT", "DissemDT", "CATEGORYNAME", "ATTACHMENTNAME")})
+                  print("== bse", url[50:120], r.status_code, len(r.content), "items", len(table), "keys", list(data.keys())[:5])
+                  for it in table[:2]:
+                      print("    ", {k: it.get(k) for k in ("SCRIP_CD", "SLONGNAME", "HEADLINE", "NEWS_DT", "CATEGORYNAME")})
               except Exception as e:
-                  print("bse error", repr(e)[:200])
-          # Google News RSS.
-          for hl, q in (("en-IN", '"Tata Consultancy Services" OR "TCS share"'), ("hi", "TCS शेयर"), ("en-IN", '"Steel Strips Wheels"')):
-              ceid = "IN:en" if hl == "en-IN" else "IN:hi"
-              r = requests.get("https://news.google.com/rss/search", params={"q": q + " when:7d", "hl": hl, "gl": "IN", "ceid": ceid}, headers={"User-Agent": MOB}, timeout=30)
-              print(f"== gnews {hl} {q}: {r.status_code} {len(r.content)}B", flush=True)
-              try:
-                  root = ET.fromstring(r.content)
-                  items = root.findall("./channel/item")
-                  print("    items", len(items))
-                  for it in items[:4]:
-                      print("    ", it.findtext("pubDate"), "|", it.findtext("source"), "|", it.findtext("title")[:110], "|", (it.findtext("link") or "")[:60])
-              except Exception as e:
-                  print("    xml:", repr(e)[:120])
-          # Yahoo Finance search news, as the app asks Yahoo for charts.
-          for sym in ("TCS.NS", "SSWL.NS"):
-              r = requests.get("https://query1.finance.yahoo.com/v1/finance/search", params={"q": sym, "newsCount": 8, "quotesCount": 0}, headers={"User-Agent": "ShareScan (Android)", "Accept": "application/json"}, timeout=30)
-              print(f"== yahoo {sym}: {r.status_code} {len(r.content)}B", flush=True)
-              try:
-                  news = r.json().get("news", [])
-                  print("    items", len(news))
-                  for it in news[:4]:
-                      print("    ", it.get("providerPublishTime"), "|", it.get("publisher"), "|", it.get("title", "")[:100], "|", it.get("relatedTickers"))
-              except Exception as e:
-                  print("    json:", repr(e)[:120], r.text[:200])
+                  print("== bse", url[50:120], r.status_code, repr(e)[:80], r.text[:120])
