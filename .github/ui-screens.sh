@@ -8,8 +8,10 @@ mkdir -p "$OUT"
 adb shell svc power stayon true
 adb shell settings put system screen_off_timeout 1800000
 adb install -r app/build/outputs/apk/debug/app-debug.apk
+adb shell pm grant "$PKG" android.permission.POST_NOTIFICATIONS  # no permission dialog over the screens
 
 shot() { sleep "${2:-3}"; adb exec-out screencap -p > "$OUT/$1.png"; echo "shot $1"; }
+rm -f "$OUT"/*.png
 launch() { adb shell am force-stop "$PKG"; adb shell am start -W -n "$PKG/.MainActivity" > /dev/null; }
 # The centre of the first view whose resource id is $2 (mode "id") or whose text contains $2 (mode "text").
 center() {
@@ -55,10 +57,9 @@ adb shell input keyevent KEYCODE_BACK
 sleep 2
 
 tap startButton
-# The start button is enabled again once the scan has finished or failed.
-for i in $(seq 1 100); do
-  flags=$(adb shell dumpsys activity top | grep 'id/startButton' | head -1 | awk '{print $2}')
-  case "$flags" in ??E*) echo "scan finished after about $((i * 15)) seconds"; break ;; esac
+# The scan board says "स्कैन पूरा" once the scan has finished.
+for i in $(seq 1 120); do
+  center text "स्कैन पूरा" > /dev/null && { echo "scan finished after about $((i * 15)) seconds"; break; }
   sleep 15
 done
 shot 03-results 4
