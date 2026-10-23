@@ -6,7 +6,8 @@
       "SCAN दबाने के बाद app से बाहर जाएँ या स्क्रीन बंद करें, स्कैन अब रुकता नहीं: notification में उसकी प्रगति और \"रोकें\" button दिखता है, और पूरा होने पर नतीजे की notification आती है",
       "Update का download अब Android के download manager से होता है, इसलिए app बंद करने पर भी पूरा होता है; पूरा होते ही \"install करने के लिए दबाएँ\" की notification आती है",
       "Menu → स्कैन में नई line \"Background में चलने दें\": एक tap में Android से अनुमति लें, ताकि बाज़ार के समय का auto-scan और alerts battery बचाने के नाम पर रुकें नहीं",
-      "Notification दबाने पर उसका stock app में खुलता है, watchlist के वे stocks भी जो स्कैन की list से बाहर हैं; कई stocks वाली live notification में हर stock का अपना button है"
+      "Notification दबाने पर उसका stock app में खुलता है, app बंद हो तब भी, पूरी list पढ़े जाने का इंतज़ार किए बिना; watchlist के वे stocks भी जो स्कैन की list से बाहर हैं; कई stocks वाली live notification में हर stock का अपना button है",
+      "App खुलते समय पिछला स्कैन पढ़ा जा रहा हो तो खाली screen की जगह \"पिछला स्कैन खुल रहा है…\" दिखता है, और list पहले से जल्दी आती है"
     ]
   },
   {
