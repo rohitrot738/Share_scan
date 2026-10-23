@@ -103,6 +103,10 @@ class StockNewsTest {
         assertEquals(NewsKind.OTHER, kind("Record Date. Intimation of record date"))
         assertEquals(NewsKind.DIVIDEND, kind("Record Date. Record date for the purpose of interim dividend"))
         assertEquals(NewsKind.FUNDRAISE, kind("Allotment of Securities. Allotment of NCDs on private placement basis"))
+        assertEquals(
+            NewsKind.ROUTINE,
+            kind("Allotment of Securities. The approval of allotment of 25,000 equity shares on exercise of options under the Employees Stock Option Scheme 2017"),
+        )
         assertTrue(NewsKind.RESULTS.big && !NewsKind.ROUTINE.big && !NewsKind.MEETING.big)
     }
 

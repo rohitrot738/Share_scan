@@ -74,7 +74,9 @@ object StockNews {
             // Debt serviced on schedule (a lender's commercial paper or NCDs coming due) and compliance returns.
             """commercial paper|\bcps? redemption|redemption of (?:[\w-]+\s){0,3}?(?:securities|debentures|ncds?|bonds|papers?|cps?|preference shares)\b|""" +
             """redemption record date|record date for (?:the )?(?:payment of )?(?:interest|redemption)|(?:payment|servicing) of interest|""" +
-            """interest payment|monitoring agency|statement of deviation|integrated filing|structural digital database|compliance report""",
+            """interest payment|monitoring agency|statement of deviation|integrated filing|structural digital database|compliance report|""" +
+            // Shares issued to staff who exercised their options.
+            """employees?'? stock option|stock options? (?:scheme|plan)|exercise of (?:stock |employee )?options|\besps\b""",
         NewsKind.MEETING to """board meeting intimation|intimation of board meeting|board meeting to consider|prior intimation|meeting of the board .{0,40}(?:will|to) be held""",
         NewsKind.LEGAL to """\bsebi\b|penalt|\bfine\b|\bcourt\b|\bnclt\b|tribunal|litigation|orders? passed|insolvency|fraud|\braid\b|show.cause|income tax|gst demand|\bdefault""",
         NewsKind.RESULTS to """financial results?|quarterly results?|results? for the (?:quarter|half|year)|\bq[1-4]\b|\bq[1-4]fy|net profit|profit (?:rises|jumps|falls|drops|surges|declines|up|down)|\bearnings\b""",
