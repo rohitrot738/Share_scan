@@ -7,7 +7,7 @@ import java.util.zip.CRC32
 
 /**
  * One stock's R/S history, as the daily cache keeps it: quarterly results, quarterly shareholding, yearly results,
- * cash flow and debt, and a month-end close for three years. It comes from one of [SHARDS] history files
+ * cash flow and debt, a month-end close for three years, and every insider trade and bulk/block deal. It comes from one of [SHARDS] history files
  * (cr360-h-00 ... cr360-h-31.json.gz), so the app fetches only the file of the stock that is opened. Periods are
  * short ("2606" = June 2026). Free of Android types so it can be unit tested.
  */
@@ -16,6 +16,8 @@ class Cr360History(
     val holders: List<Holding>,
     val years: List<Year>,
     val chart: Chart?,
+    val insider: List<Trade> = emptyList(),
+    val deals: List<Trade> = emptyList(),
 ) {
     /** Sales, net profit (₹ crore) and EPS (₹) of a quarter, or of a half-year for half-yearly reporters. */
     class Quarter(val period: String, val sales: Double?, val profit: Double?, val eps: Double?)
@@ -35,6 +37,29 @@ class Cr360History(
 
     /** Each month's last close from [firstMonth] on; null for a month without trading. */
     class Chart(val firstMonth: String, val closes: List<Double?>)
+
+    /**
+     * An insider trade or a bulk/block deal: its day ("2026-02-13"; [lastDay] when it ran over several), buy or sell,
+     * rupees and shares, who traded and as what ([who]: "Promoter", "Director"... for an insider, "bulk" or "block"
+     * for a deal), how ([how]: "Market Purchase", "ESOP"...), when NSE published the filing ([filed],
+     * "2026-02-18 19:06"; NSE gives deals no time) and an insider's holding after it in %. Trades the cache kept before
+     * it kept names have only the day, the side and the rupees.
+     */
+    class Trade(
+        val day: String,
+        val lastDay: String?,
+        val buy: Boolean,
+        val rupees: Double?,
+        val shares: Long?,
+        val name: String?,
+        val who: String?,
+        val how: String?,
+        val filed: String?,
+        val holdingAfter: Double?,
+    ) {
+        /** Rupees a share, when both are known. */
+        val price: Double? get() = if (rupees != null && shares != null && shares > 0) rupees / shares else null
+    }
 
     companion object {
         /** How many history files there are; the cache (cr360/app_store.py HISTORY_SHARDS) writes the same. */
@@ -65,6 +90,16 @@ class Cr360History(
                     val closes = p.optJSONArray("c") ?: return@let null
                     Chart(p.optString("m"), List(closes.length()) { closes.num(it) })
                 },
+                // [day, side, rupees, shares, name, category, mode, filed, holding after, last day]
+                insider = rows(stock.optJSONArray("i")) {
+                    Trade(it.period(), it.text(9), it.optString(1) == "buy", it.num(2), it.num(3)?.toLong(), it.text(4),
+                        it.text(5), it.text(6), it.text(7), it.num(8))
+                },
+                // [day, side, rupees, shares, client, "bulk" or "block"]
+                deals = rows(stock.optJSONArray("d")) {
+                    Trade(it.period(), null, it.optString(1) == "buy", it.num(2), it.num(3)?.toLong(), it.text(4),
+                        it.text(5), null, null, null)
+                },
             )
         }
 
@@ -94,5 +129,7 @@ class Cr360History(
 
         private fun JSONArray.num(index: Int): Double? =
             if (isNull(index)) null else optDouble(index).takeIf { it.isFinite() }
+
+        private fun JSONArray.text(index: Int): String? = if (isNull(index)) null else optString(index).takeIf { it.isNotBlank() }
     }
 }
