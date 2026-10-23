@@ -86,6 +86,8 @@ data class ScanUiState(
     val earlyStop: Boolean = false,
     /** The kept scan is still being read from disk, as on a fresh start; [results] are empty until it is in. */
     val reading: Boolean = false,
+    /** Each stock's 📰 mark: its exchange filings of the last day ([NewsRepository.badges]); empty until read. */
+    val news: Map<String, NewsBadge> = emptyMap(),
 ) {
     /** At least one price in [results] is from today's session, still trading. */
     val live: Boolean by lazy { results.any { it.live } }

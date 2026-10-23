@@ -138,6 +138,11 @@ class AppSettings(context: Context) {
         get() = prefs.getBoolean(Prefs.WATCH_ALERTS, true)
         set(value) = prefs.edit { putBoolean(Prefs.WATCH_ALERTS, value) }
 
+    /** Watchlisted stocks' news: the morning's round-up and big filings as they come ([NewsAlerts]). */
+    var newsAlerts: Boolean
+        get() = prefs.getBoolean(Prefs.NEWS_ALERTS, true)
+        set(value) = prefs.edit { putBoolean(Prefs.NEWS_ALERTS, value) }
+
     /** The industries the scan covers on each exchange; an exchange not stored covers every industry. */
     var scanSectors: ScanSectors
         get() = ScanSectors(
