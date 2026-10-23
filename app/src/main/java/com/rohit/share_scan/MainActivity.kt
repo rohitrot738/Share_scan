@@ -41,6 +41,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rohit.share_scan.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.io.File
 import java.time.Instant
@@ -191,16 +192,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * A notification's stock: opened at once when the list holds it, or as soon as the kept scan is read; if it is not
-     * there by then (or a scan under way does not bring it), the user is told rather than left with the bare list.
+     * A notification's stock: opened at once when the list holds it, or as soon as the kept scan is read from disk; if it
+     * is not there by then (or a scan under way does not bring it), the user is told rather than left with the bare list.
      */
     private fun openFromNotification(symbol: String) {
         pendingSymbol = symbol
         // Until the screen is up the list's first render opens it.
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) openPending(scan.uiState.value)
         lifecycleScope.launch {
-            delay(PENDING_WAIT_MS)
-            while (pendingSymbol == symbol && scan.uiState.value.isRunning) delay(PENDING_WAIT_MS)
+            ScanEngine.read.first { it }
+            scan.uiState.first { !it.isRunning }
+            // The list renders the kept or finished scan a moment later.
+            delay(PENDING_GRACE_MS)
             if (pendingSymbol == symbol) {
                 pendingSymbol = null
                 Toast.makeText(this@MainActivity, getString(R.string.notify_open_missing, symbol), Toast.LENGTH_LONG).show()
@@ -966,8 +969,11 @@ class MainActivity : AppCompatActivity() {
         /** The Support scan's stat counts floors this close, percent above. */
         const val NEAR_SUPPORT_PCT = 5.0
 
-        /** How long a notification's stock waits for the kept scan to be read before the user hears it is not there. */
-        const val PENDING_WAIT_MS = 8_000L
+        /**
+         * How long after the kept scan is read a notification's stock may take to reach the list, before the user hears
+         * it is not there.
+         */
+        const val PENDING_GRACE_MS = 2_000L
     }
 
     private fun openReleases() {

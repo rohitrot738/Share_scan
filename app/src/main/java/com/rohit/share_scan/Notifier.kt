@@ -207,7 +207,8 @@ object Notifier {
         val latest = ScanEngine.latest.value
         val (title, body) = when {
             failure != null && !failure.stoppedEarly -> context.getString(R.string.status_failed_title) to
-                (failure.message?.let { context.getString(R.string.status_failed_detail, it) } ?: context.getString(R.string.status_failed_body))
+                (failure.message?.let { context.getString(R.string.status_failed_detail, it) }
+                    ?: context.getString(R.string.status_failed_body))
             failure != null || latest == null -> context.getString(R.string.notify_scan_stopped_early) to
                 context.getString(R.string.notify_scan_stopped_early_body)
             else -> {

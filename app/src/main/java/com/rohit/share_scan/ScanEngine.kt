@@ -47,7 +47,11 @@ object ScanEngine {
     private val progressFlow = MutableStateFlow(Progress())
     private val latestFlow = MutableStateFlow<SavedScan?>(null)
     private val failureFlow = MutableStateFlow<Failure?>(null)
+    private val readFlow = MutableStateFlow(false)
     val progress: StateFlow<Progress> = progressFlow.asStateFlow()
+
+    /** True once the kept scan has been read from disk (or found missing); [latest] is empty until then. */
+    val read: StateFlow<Boolean> = readFlow.asStateFlow()
 
     /** The latest finished scan; it is read from disk on first use. */
     val latest: StateFlow<SavedScan?> = latestFlow.asStateFlow()
@@ -67,6 +71,7 @@ object ScanEngine {
             try {
                 if (latestFlow.value == null) latestFlow.value = store(app).load()
             } finally {
+                readFlow.value = true
                 loadDone.countDown()
             }
         }

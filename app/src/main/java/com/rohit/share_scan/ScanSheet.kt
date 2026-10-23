@@ -62,9 +62,11 @@ class ScanSheet(
     /** Whether Android lets the app run in the background unhindered; live mode's scans and alerts need it. */
     private fun refreshBackground() {
         ui.settingBackgroundRow.isVisible = settings.liveScan || settings.watchAlerts
-        val allowed = activity.getSystemService(PowerManager::class.java)?.isIgnoringBatteryOptimizations(activity.packageName) == true
+        val power = activity.getSystemService(PowerManager::class.java)
+        val allowed = power?.isIgnoringBatteryOptimizations(activity.packageName) == true
         ui.settingBackgroundBody.setText(if (allowed) R.string.settings_background_on else R.string.settings_background_off)
-        ui.settingBackgroundBody.setTextColor(ContextCompat.getColorStateList(activity, if (allowed) R.color.text_secondary else R.color.warn))
+        val color = if (allowed) R.color.text_secondary else R.color.warn
+        ui.settingBackgroundBody.setTextColor(ContextCompat.getColorStateList(activity, color))
         ui.settingBackgroundRow.setOnClickListener { actions.openBackgroundSettings(allowed) }
     }
 

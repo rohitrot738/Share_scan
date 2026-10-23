@@ -175,7 +175,11 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
             } else {
                 withContext(Dispatchers.IO) { UpdateDownload.finish(app, code) }
             }
-            if (apk != null) ready(current, apk, justDownloaded = true) else state.value = current.copy(step = UpdateStep.FAILED, apk = null)
+            if (apk != null) {
+                ready(current, apk, justDownloaded = true)
+            } else {
+                state.value = current.copy(step = UpdateStep.FAILED, apk = null)
+            }
             return
         }
     }
