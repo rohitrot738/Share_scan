@@ -1,0 +1,57 @@
+# One-off: why BSE's bhavcopy answers 404 from runners, and what else lists BSE's shares. Taken out next commit.
+name: BSE probe
+on:
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['.github/workflows/bse-probe.yml']
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Probe
+        shell: python
+        run: |
+          import re, urllib.request, urllib.error, subprocess
+          UA = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
+          DESK = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
+          def get(url, ua=UA, ref="https://www.bseindia.com/", accept="*/*", extra=None):
+              h = {"User-Agent": ua, "Accept": accept, "Accept-Language": "en-IN,en;q=0.9"}
+              if ref: h["Referer"] = ref
+              h.update(extra or {})
+              try:
+                  with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=40) as r:
+                      body = r.read()
+                      return r.status, r.headers.get("Content-Type"), body
+              except urllib.error.HTTPError as e:
+                  return e.code, e.headers.get("Content-Type"), e.read()
+              except Exception as e:
+                  return -1, None, repr(e).encode()
+          def show(label, res):
+              s, ct, b = res
+              print(f"{label}: {s} {ct} {len(b)}B :: {b[:160]!r}", flush=True)
+          for d in ("20261022", "20261021", "20261020", "20261017", "20261010", "20261001", "20250930"):
+              show(f"udiff {d}", get(f"https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_{d}_F_0000.CSV", accept="text/csv"))
+          show("udiff 1022 desktop", get("https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_20261022_F_0000.CSV", ua=DESK,
+               extra={"Sec-Fetch-Site": "same-origin", "Sec-Fetch-Mode": "navigate", "Sec-Fetch-Dest": "document"}))
+          show("udiff 1022 no referer", get("https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_20261022_F_0000.CSV", ref=None))
+          show("old zip 221026", get("https://www.bseindia.com/download/BhavCopy/Equity/EQ221026_CSV.ZIP"))
+          show("home", get("https://www.bseindia.com/", accept="text/html"))
+          s, ct, b = get("https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx", accept="text/html")
+          show("bhavcopy page", (s, ct, b))
+          for link in sorted(set(re.findall(rb"[A-Za-z0-9_/.:-]*BhavCopy[A-Za-z0-9_/.:-]*\.(?:CSV|csv|zip|ZIP)", b)))[:20]:
+              print("  link:", link.decode(), flush=True)
+          api = "https://api.bseindia.com/BseIndiaAPI/api/ListofScripData/w?Group=&Scripcode=&industry=&segment=Equity&status=Active"
+          show("api scrips", get(api, accept="application/json", extra={"Origin": "https://www.bseindia.com"}))
+          show("api scrips desktop", get(api, ua=DESK, accept="application/json", extra={"Origin": "https://www.bseindia.com"}))
+          for d in ("20261022",):
+              out = subprocess.run(["curl", "-sS", "-o", "/tmp/c.csv", "-w", "%{http_code} %{content_type} %{size_download}",
+                                    "-A", DESK, "-e", "https://www.bseindia.com/",
+                                    f"https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_{d}_F_0000.CSV"],
+                                   capture_output=True, text=True)
+              print(f"curl udiff {d}:", out.stdout, out.stderr[:200], open("/tmp/c.csv", "rb").read(160), flush=True)
+          out = subprocess.run(["curl", "-sS", "-I", "https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_20261022_F_0000.CSV",
+                                "-A", DESK], capture_output=True, text=True)
+          print("curl head:\n" + out.stdout[:1200], flush=True)
