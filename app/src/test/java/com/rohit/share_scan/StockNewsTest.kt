@@ -107,6 +107,29 @@ class StockNewsTest {
             NewsKind.ROUTINE,
             kind("Allotment of Securities. The approval of allotment of 25,000 equity shares on exercise of options under the Employees Stock Option Scheme 2017"),
         )
+        assertEquals(NewsKind.ROUTINE, kind("Allotment of Securities. Allotment of Equity Shares Pursuant to Exercise of ESOPs"))
+        // Real filings from NSE's feed of 23 October 2026.
+        val call = "Analysts/Institutional Investor Meet/Con. Call Updates. "
+        assertEquals(NewsKind.INVESTOR, kind(call + "Link of Audio Call Recording for Q2 FY27"))
+        assertEquals(NewsKind.INVESTOR, kind(call + "Earnings call for Q2 and half year ended FY 2026-27"))
+        assertEquals(NewsKind.INVESTOR, kind("Updates. Transcript of Earnings Call for the un-audited Financial Results for the Quarter (Q2) and Half Year ended September 30, 2026"))
+        assertEquals(NewsKind.INVESTOR, kind("Updates. The Intimation of Schedule of Earnings Conference Call on Q2FY27 Results"))
+        assertEquals(NewsKind.RESULTS, kind("Shriram Finance Ltd (Q2 2027) Earnings Call Highlights: Profit Jumps 59% YoY"))
+        assertEquals(NewsKind.ROUTINE, kind("Related Party Transactions. Related Party Transactions for Q2FY2027"))
+        assertEquals(NewsKind.ROUTINE, kind("General Updates. Details of Authorized Persons under Regulation 30(5) of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015"))
+        assertEquals(NewsKind.ROUTINE, kind("Updates. Communication to Shareholders regarding TDS on Interim Dividend FY2026-27"))
+        assertEquals(NewsKind.ROUTINE, kind("Copy of Newspaper Advertisement regarding the opening of Special Window for transfer and dematerialisation of physical shares"))
+        assertEquals(NewsKind.OTHER, kind("General Updates. Sobha Limited has made disclosure to the stock exchange under regulation 30 of SEBI (LODR) Regulations, 2015"))
+        assertEquals(
+            NewsKind.DEAL,
+            kind("Updates. Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 Update on the Scheme of Amalgamation"),
+        )
+        assertEquals(NewsKind.LEGAL, kind("Clarification. The Exchange has sought clarification with respect to news captioned Bombay HC Quashes Rs 329 Crore demand"))
+        assertEquals(NewsKind.LEGAL, kind("SEBI passes order against the promoters"))
+        assertEquals(NewsKind.DEAL, kind("Public Announcement-Open Offer under Regulation 3 of SEBI (Substantial Acquisition of Shares and Takeovers) Regulations"))
+        assertEquals(NewsKind.ROUTINE, kind("Disclosure under Regulation 10(5) of the SEBI (Substantial Acquisition of Shares and Takeovers) Regulations, 2011"))
+        assertEquals(NewsKind.LEGAL, kind("Intimation of order received under section 73 of CGST/SGST Act, 2017"))
+        assertEquals(NewsKind.ROUTINE, kind("Non-Applicability of Submission of Corporate Governance Report under Regulation 27(2)"))
         assertTrue(NewsKind.RESULTS.big && !NewsKind.ROUTINE.big && !NewsKind.MEETING.big)
     }
 

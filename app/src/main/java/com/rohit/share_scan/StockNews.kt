@@ -70,19 +70,27 @@ object StockNews {
 
     /** Rules in order: the first whose pattern the text matches decides the kind. */
     private val RULES: List<Pair<NewsKind, Regex>> = listOf(
-        NewsKind.ROUTINE to """newspaper publication|trading window|74\s?\(5\)|depositories and participants|loss of share certificate|duplicate share|duplicate certificate|compliance certificate|regulation 7\s?\(3\)|reg\. 7\s?\(3\)|investor complaints|registrar and share transfer|\besop\b|\besos\b|s?c?rutini[sz]er|e-voting|voting results|postal ballot|shareholders meeting|book closure|""" +
+        NewsKind.ROUTINE to """newspaper publication|trading window|74\s?\(5\)|depositories and participants|loss of share certificate|duplicate share|duplicate certificate|compliance certificate|regulation 7\s?\(3\)|reg\. 7\s?\(3\)|investor complaints|registrar and share transfer|\besops?\b|\besos\b|s?c?rutini[sz]er|e-voting|voting results|postal ballot|shareholders meeting|book closure|""" +
             // Debt serviced on schedule (a lender's commercial paper or NCDs coming due) and compliance returns.
             """commercial paper|\bcps? redemption|redemption of (?:[\w-]+\s){0,3}?(?:securities|debentures|ncds?|bonds|papers?|cps?|preference shares)\b|""" +
             """redemption record date|record date for (?:the )?(?:payment of )?(?:interest|redemption)|(?:payment|servicing) of interest|""" +
             """interest payment|monitoring agency|statement of deviation|integrated filing|structural digital database|compliance report|""" +
             // Shares issued to staff who exercised their options.
-            """employees?'? stock option|stock options? (?:scheme|plan)|exercise of (?:stock |employee )?options|\besps\b""",
+            """employees?'? stock option|stock options? (?:scheme|plan)|exercise of (?:stock |employee )?options|\besps\b|""" +
+            // Disclosures every company makes: related-party deals, who may speak for it, tax on a dividend, a
+            // newspaper ad or a window for physical shares, a holder's takeover-code return (an open offer is news).
+            """related party transactions?|30\s?\(5\)|authori[sz]ed (?:persons?|kmp)|\btds\b|newspaper advertisement|special window|corporate governance report|non-applicability|""" +
+            """^(?!.*open offer).*substantial acquisition of shares and takeovers""",
+        // An analysts' call (its schedule, recording or transcript) talks about results but is not them.
+        NewsKind.INVESTOR to """analysts?/institutional investor meet|con\. ?call updates|\btranscripts?\b|audio (?:call )?recording|""" +
+            """recording of (?:the )?(?:audio|earnings|conference|analyst|investor)|link of (?:the )?(?:audio|recording)|""" +
+            """(?:schedule|intimation) of .{0,40}(?:earnings|conference) call|(?:earnings|conference) call (?:is )?(?:scheduled|to be held)|an earnings call""",
         NewsKind.MEETING to """board meeting intimation|intimation of board meeting|board meeting to consider|prior intimation|meeting of the board .{0,40}(?:will|to) be held""",
-        NewsKind.LEGAL to """\bsebi\b|penalt|\bfine\b|\bcourt\b|\bnclt\b|tribunal|litigation|orders? passed|insolvency|fraud|\braid\b|show.cause|income tax|gst demand|\bdefault""",
+        NewsKind.LEGAL to """sebi (?:order|has (?:passed|issued)|passes)|order of sebi|by sebi\b|adjudicat|\bhc\b|quash|penalt|\bfine\b|\bcourt\b|\bnclt\b|tribunal|litigation|orders? passed|insolvency|fraud|\braid\b|show.cause|income tax|gst demand|\bcgst\b|tax demand|demand (?:order|notice)|\bdefault""",
         NewsKind.RESULTS to """financial results?|quarterly results?|results? for the (?:quarter|half|year)|\bq[1-4]\b|\bq[1-4]fy|net profit|profit (?:rises|jumps|falls|drops|surges|declines|up|down)|\bearnings\b""",
         NewsKind.DIVIDEND to """dividend|\bbonus\b|stock split|sub-?division|buy-?back""",
         NewsKind.FUNDRAISE to """\bqip\b|preferential|rights issue|fund ?rais|raising of funds|\bwarrants\b|\bncds?\b|debentures|\bipo\b|allotment of (?:equity|shares)""",
-        NewsKind.DEAL to """acquisition|acquires?\b|\bacquired\b|merger|amalgamation|scheme of arrangement|joint venture|\bstake\b|divest|demerger""",
+        NewsKind.DEAL to """acquisition|acquires?\b|\bacquired\b|merger|amalgamation|scheme of arrangement|joint venture|\bstake\b|divest|demerger|open offer""",
         NewsKind.EXPANSION to """\bplant\b|capacity|expansion|\bcapex\b|greenfield|brownfield|new facility|manufacturing facility|commissioning|commercial production""",
         NewsKind.ORDER to """bagging|receiving of orders?|receipt of orders?|\border win|\bbags?\b.{0,30}\border|secures?.{0,30}\b(?:order|contract)|wins?.{0,30}\b(?:order|contract)|orders? worth|order (?:from|of rs|valued)|\bcontracts?\b|letter of (?:award|intent)""",
         NewsKind.MANAGEMENT to """resignation|resigns?\b|appointment|appoints?\b|cessation|managing director|\bceo\b|\bcfo\b|\bkmp\b|key managerial|change in director""",
