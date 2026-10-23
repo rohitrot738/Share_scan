@@ -317,3 +317,60 @@ def test_history_files_are_chosen_as_the_app_chooses_them():
     # The same numbers are checked in the app (Cr360HistoryTest), so both sides find a stock in the same file.
     assert {s: app_store.history_shard(s) for s in ("CDSL", "RELIANCE", "TSC", "M&M")} == \
         {"CDSL": 31, "RELIANCE": 8, "TSC": 3, "M&M": 8}
+
+
+def test_support_and_room_above_come_from_the_sessions_before_today():
+    from cr360.engine import score_price
+    from cr360.models import ResearchInput
+    # A stock swinging between 94 and 106, back at 100 today: its own close was its support and resistance before.
+    swing = [100.0, 103.0, 106.0, 103.0, 100.0, 97.0, 94.0, 97.0]
+    rows = _daily(date(2024, 1, 1), 297, lambda i: swing[i % 8])
+    x = ResearchInput(symbol="X", price=rows[-1]["close"], price_history=rows)
+    _, _, technical, risk, _ = score_price(x)
+    assert risk["price"] == 100.0 and risk["support_proxy"] == 97.0 and risk["resistance_proxy"] == 103.0
+    assert risk["risk_reward_proxy"] == 1.0 and technical > 25  # every stock scored under 25 before
+    # At its lowest close in three years nothing holds it up, and at its highest the three-year high is the room above.
+    low = ResearchInput(symbol="X", price=90.0, price_history=rows[:-1] + [{**rows[-1], "close": 90.0, "low": 90.0}])
+    assert score_price(low)[3]["support_proxy"] is None
+
+
+def test_growth_compares_four_quarters_with_four_and_gives_no_percent_from_nothing():
+    from cr360.engine import change
+    assert change([100, 100, 100, 100, 150, 150, 150, 150]) == (50.0, 75.0)
+    assert change([0.0, 0.0, 0.01, 0.0, 30, 40, 50, 60]) == (None, 100)  # +3,66,200 crore % before
+    assert change([-5, -5, -5, -5, 5, 5, 5, 5]) == (None, 100)  # from a loss into profit
+    assert change([-10, -10, -10, -10, -5, -5, -5, -5]) == (None, 60)  # a loss shrinking
+    assert change([-5, -5, -5, -5, -10, -10, -10, -10]) == (None, 0)
+    assert change([10, 10, 10, 10, -10, -10, -10, -10]) == (-200.0, 0)
+    assert change([4, 6]) == (50.0, 75.0) and change([5]) == (None, None)
+
+
+def test_a_one_off_quarter_does_not_make_the_year_and_unbelievable_earnings_value_nothing():
+    quarters = lambda eps: [{"period": p, "eps": e} for p, e in zip(("2025-09-30", "2025-12-31", "2026-03-31", "2026-06-30"), eps)]
+    # SKF India's misprinted 76,930 in one quarter made its P/E 0.0 and its fair value ₹10 lakh.
+    one_off = {"quarters": quarters([76930.0, -10.13, 24.06, 12.52]), "ratios": {"book_value": 299.0}}
+    assert round(app_store.eps_ttm(one_off), 2) == 44.74  # 76,930 counts as the middle quarter, 18.29
+    x = app_store.research_input("SKFINDUS", one_off | {"ratios": {"book_value": 299.0, "price": 2464.0}}, [], (30.0, 4.0))
+    assert round(x.valuation["earnings_fair_value"]) == 1342
+    assert app_store.eps_ttm({"quarters": quarters([10.0, 12.0, 11.0, 25.0])}) == 58.0  # an ordinary year is its sum
+    # Earnings priced at 0.2 times (a written-off debt in the year) and a loss with a big book value give none.
+    for eps, book, price in (([-2.51, -0.17, 38.72, 20.48], 10.0, 6.42), ([-1.0, -1.0, -1.0, -1.0], 308.0, 12.0)):
+        stock = {"quarters": quarters(eps), "ratios": {"book_value": book, "price": price}}
+        assert app_store.research_input("X", stock, [], (20.0, 2.0)).valuation == {}
+    # A sector needs five believable P/Es: four at 10 times and one at half its year's earnings make none.
+    store = {"stocks": {f"S{i}": {"quarters": quarters([1.0] * 4), "ratios": {"book_value": 10.0}} for i in range(5)}}
+    assert app_store.sector_anchors(store, {f"S{i}": 40.0 for i in range(5)}, {}) == {"": (10.0, 4.0)}
+    assert app_store.sector_anchors(store, {f"S{i}": 40.0 for i in range(4)} | {"S4": 2.0}, {}) == {}
+
+
+def test_lenders_debt_and_cash_flow_are_not_judged():
+    today = date(2026, 10, 21)
+    store = app_store.empty()
+    app_store.put_page(store, "RELIANCE", page("reliance"), today, "consolidated")
+    app_store.put_events(store, "RELIANCE", "insider", [["2026-03-01", "buy", 1.0e7]])
+    stock = store["stocks"]["RELIANCE"]
+    prices = _daily(today - timedelta(days=1095), 1095, lambda i: 1200.0 + i * .2)
+    lender = app_store.app_record(stock, app_store.research_input("X", stock, prices, (25.0, 3.0), financial=True))
+    assert lender["sec"]["cf"] is None and lender["sec"]["bs"] is None and lender["c"] == 100.0  # nothing is missing
+    other = app_store.app_record(stock, app_store.research_input("X", stock, prices, (25.0, 3.0)))
+    assert other["sec"]["cf"] is not None and other["sec"]["bs"] is not None and other["c"] == 100.0

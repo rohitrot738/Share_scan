@@ -3,14 +3,23 @@ import math, statistics
 from .models import ResearchInput, ResearchResult
 
 WEIGHTS={"financial_quality":18,"growth":12,"cashflow":10,"balance_sheet":10,"ownership":12,"insider_deals":8,"valuation":12,"price_156w":8,"stability":5,"technical_risk":5}
+# Lenders and the rest of financial services borrow to lend and pay loans out as operating cash: their debt and cash
+# flow are the business itself, so those parts do not apply to them (metadata "financial").
+NOT_FOR_FINANCIALS={"cashflow","balance_sheet"}
+LEVEL_GAP=.01  # a past close within 1% of today's price is that price, not a support or resistance below or above it
 def num(x):
     try:v=float(x);return v if math.isfinite(v) else None
     except:return None
 def vals(rows,key,n=20):return [v for r in rows[-n:] if (v:=num(r.get(key))) is not None]
 def clamp(x,a=0,b=100):return max(a,min(b,x))
-def trend(xs):
-    if len(xs)<2:return None
-    return (xs[-1]-xs[0])/(abs(xs[0]) or 1e-9)*100
+def change(xs):
+    """The last four periods against the first four (half the periods each when there are under eight): the percent
+    change and its 0-100 score. From a loss or next to nothing a percent says nothing (None); the direction still counts."""
+    k=min(4,len(xs)//2)
+    if k<1:return None,None
+    a,b=sum(xs[:k]),sum(xs[-k:])
+    if a>0 and a>=abs(b)*.05:pct=(b-a)/a*100;return pct,clamp(50+pct/2)
+    return None,((100 if b>0 else 60) if b>a else 0 if b<a else 50)
 
 def score_financials(x):
     q=x.quarterly_financials[-20:];missing=[];ev={};rev=vals(q,"revenue");pat=vals(q,"net_profit");eb=vals(q,"ebitda");eps=vals(q,"eps");marg=[]
@@ -23,14 +32,15 @@ def score_financials(x):
     else:missing.append("financial_quality")
     gp=[]
     for name,s in (("revenue",rev),("profit",pat),("ebitda",eb),("eps",eps)):
-        t=trend(s);ev[name+"_20q_change_pct"]=t
-        if t is not None:gp.append(clamp(50+t/2))
+        t,g=change(s);ev[name+"_20q_change_pct"]=t
+        if g is not None:gp.append(g)
     growth=sum(gp)/len(gp) if gp else None
     if growth is None:missing.append("growth")
     ev.update(quarters=len(q),profitable_quarters=sum(v>0 for v in pat),net_margin_latest=marg[-1] if marg else None)
     return quality,growth,ev,missing
 
 def score_cash_balance(x):
+    if x.metadata.get("financial"):return None,None,{},[]
     cf=x.cashflow_quarters[-20:];bs=x.balance_sheet_quarters[-20:];miss=[];ocf=vals(cf,"operating_cash_flow");fcf=vals(cf,"free_cash_flow");pat=vals(x.quarterly_financials,"net_profit");cash=None
     if ocf:
         # Yearly cash flows that carry their year's profit (Screener) are compared with it, not with quarters.
@@ -90,10 +100,13 @@ def score_price(x):
     if not p or len(cl)<30:return None,None,None,{},["156_week_price_history"]
     window=min(len(cl),780);h=max((hi[-window:] if hi else cl[-window:]));l=min((lo[-window:] if lo else cl[-window:]));pos=(p-l)/(h-l)*100 if h>l else 50;rets=[cl[i]/cl[i-1]-1 for i in range(1,len(cl)) if cl[i-1]>0];vol=statistics.pstdev(rets[-156:])*math.sqrt(252)*100 if len(rets)>5 else None
     ma20=sum(cl[-20:])/min(20,len(cl));ma50=sum(cl[-50:])/min(50,len(cl));ma200=sum(cl[-200:])/min(200,len(cl));price_structure=clamp(35+(20 if p>ma20 else 0)+(20 if p>ma50 else 0)+(25 if p>ma200 else 0));stability=clamp(100-(vol or 50))
-    recent=cl[-60:];support=max([z for z in recent if z<=p],default=min(recent));resistance=min([z for z in recent if z>=p],default=max(recent));down=(p-support)/p*100 if p else None;up=(resistance-p)/p*100 if p else None
-    rr=(up/down) if down and down>0 and up is not None else None
+    # The nearest closes of the 60 sessions before today below and above the price (the 3-year low or high when none):
+    # today's own close counted as both left every stock without support or room above.
+    before=cl[-61:-1];gap=p*LEVEL_GAP;support=max([z for z in before if z<p-gap],default=l if l<p-gap else None);resistance=min([z for z in before if z>p+gap],default=h if h>p+gap else None)
+    down=(p-support)/p*100 if support is not None else None;up=(resistance-p)/p*100 if resistance is not None else None
+    rr=(up/down) if down and up is not None else None
     # Separate risk-quality score: rewards nearby defined support, usable R:R and lower volatility; it is NOT the trend score.
-    support_quality=clamp(100-(down or 20)*8);rr_quality=clamp((rr or 0)*35);vol_quality=clamp(100-(vol or 50));technical_risk=clamp(support_quality*.4+rr_quality*.35+vol_quality*.25)
+    support_quality=clamp(100-(down if down is not None else 20)*8);rr_quality=clamp((rr or 0)*35);vol_quality=clamp(100-(vol or 50));technical_risk=clamp(support_quality*.4+rr_quality*.35+vol_quality*.25)
     risk={"price":p,"156w_high":h,"156w_low":l,"position_156w_pct":round(pos,2),"annualized_volatility_pct":round(vol,2) if vol is not None else None,"ma20":ma20,"ma50":ma50,"ma200":ma200,"support_proxy":support,"resistance_proxy":resistance,"downside_to_support_pct":round(-down,2) if down is not None else None,"upside_to_resistance_pct":round(up,2) if up is not None else None,"risk_reward_proxy":round(rr,2) if rr is not None else None}
     return price_structure,stability,technical_risk,risk,[]
 
@@ -105,7 +118,8 @@ def analyse_360cr(data:ResearchInput|dict)->ResearchResult:
     evt,ev,m=score_events(x);sections["insider_deals"]=evt;evidence["events"]=ev;missing+=m
     val,fair,m=score_valuation(x);sections["valuation"]=val;missing+=m
     priceq,stab,riskq,risk,m=score_price(x);sections.update(price_156w=priceq,stability=stab,technical_risk=riskq);missing+=m
-    available={k:v for k,v in sections.items() if v is not None};covered=sum(WEIGHTS[k] for k in available);total=sum(WEIGHTS.values());score=sum(available[k]*WEIGHTS[k] for k in available)/covered if covered else None;confidence=covered/total*100
+    exempt=NOT_FOR_FINANCIALS if x.metadata.get("financial") else set()
+    available={k:v for k,v in sections.items() if v is not None};covered=sum(WEIGHTS[k] for k in available);total=sum(w for k,w in WEIGHTS.items() if k not in exempt);score=sum(available[k]*WEIGHTS[k] for k in available)/covered if covered else None;confidence=covered/total*100
     if confidence<60:warnings.append("LOW_COVERAGE: conviction must not be treated as complete")
     state="INSUFFICIENT_DATA" if score is None or confidence<40 else("HIGH_CONVICTION" if score>=75 else "POSITIVE" if score>=62 else "NEUTRAL" if score>=48 else "CAUTION" if score>=35 else "AVOID")
     coverage={"score_pct":round(confidence,2),"available_sections":sorted(available),"missing_sections":sorted(set(missing)),"financial_quarters":min(len(x.quarterly_financials),20),"shareholding_quarters":min(len(x.shareholding_quarters),20),"cashflow_quarters":min(len(x.cashflow_quarters),20),"balance_sheet_quarters":min(len(x.balance_sheet_quarters),20),"price_records":len(x.price_history)}

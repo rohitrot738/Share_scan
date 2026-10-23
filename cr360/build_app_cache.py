@@ -39,6 +39,7 @@ SYMBOL = re.compile(r"[A-Z0-9&-]+")
 BSE_NON_EQUITY_GROUPS = {"E", "F", "G", "GS", "IF", "IT", "DT"}  # ETFs, debt and government securities
 ETF_NAME = re.compile(r"\bETF\b|\bBEES\b", re.IGNORECASE)
 SECTORS_FILE = os.path.join(os.path.dirname(__file__), "..", "data", "sectors.json")
+FINANCIAL_SECTOR = "Financial Services"  # banks, NBFCs, insurers, brokers: debt and cash flow not judged (engine.py)
 SCREENER_GAP = float(os.environ.get("CR360_SCREENER_GAP", "6"))
 PRICE_RESERVE_MIN = 30  # minutes kept for prices, 360CR and writing the files
 INSIDER_EVERY_DAYS = 7  # a stock's insider trades are topped up weekly
@@ -397,7 +398,9 @@ def main(argv=None) -> int:
     for sym in priced:
         stock = store["stocks"][sym]
         anchor = anchors.get(sectors.get(sym, "")) or anchors.get("")
-        rec = app_store.app_record(stock, app_store.research_input(sym, stock, prices.get(sym) or [], anchor))
+        research = app_store.research_input(sym, stock, prices.get(sym) or [], anchor,
+                                            financial=sectors.get(sym) == FINANCIAL_SECTOR)
+        rec = app_store.app_record(stock, research)
         if rec:
             records[sym] = rec
     store["updated"] = datetime.now(IST).isoformat(timespec="minutes")

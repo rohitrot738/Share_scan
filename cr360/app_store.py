@@ -23,6 +23,8 @@ REFRESH_DAYS = 100          # and every page is read again at least this often (
 RESULTS_GRACE_DAYS = 20     # results are not expected sooner than this after a quarter ends
 RESULTS_LAG_DAYS = 45       # a period's results are public by this many days after it ends (for past P/Es)
 HISTORY_PE_MONTHS = 12      # month-ends with a known P/E needed before the company's own multiple counts
+MIN_PE = 3.0                # earnings priced under this many times (a one-off still in the year, stale figures) value nothing
+ONE_OFF = 10.0              # a quarter earning over this many times the year's middle quarter is a one-off
 HISTORY_SHARDS = 32         # the app's history files (cr360-h-00 ... cr360-h-31), fetched one at a time
 
 
@@ -157,7 +159,12 @@ def eps_ttm(stock: dict) -> float | None:
 def _ttm(quarters: list[dict]) -> float | None:
     n = 2 if half_yearly(quarters) else 4
     eps = [q.get("eps") for q in quarters[-n:]]
-    return sum(eps) if len(eps) == n and all(e is not None for e in eps) else None
+    if len(eps) != n or any(e is None for e in eps):
+        return None
+    # A one-off gain in one quarter (an asset sold, a debt written off, a misprinted figure) would make the whole year
+    # look far better than the business earns: a quarter over ONE_OFF times the middle one counts as the middle one.
+    mid = median(eps)
+    return sum(mid if mid > 0 and e > ONE_OFF * mid else e for e in eps)
 
 
 def history_pe(stock: dict, price_rows: list[dict]) -> float | None:
@@ -177,11 +184,12 @@ def history_pe(stock: dict, price_rows: list[dict]) -> float | None:
 
 
 def sector_anchors(store: dict, prices: dict[str, float], sectors: dict[str, str]) -> dict[str, tuple[float, float]]:
-    """Each industry's median P/E and P/B over stocks with positive earnings and book value; '' is the market's."""
+    """Each industry's median P/E and P/B over stocks with believable earnings and positive book value; '' is the
+    market's."""
     by_sector: dict[str, list[tuple[float, float]]] = {}
     for sym, s in store["stocks"].items():
         price, eps, book = prices.get(sym), eps_ttm(s), (s.get("ratios") or {}).get("book_value")
-        if not price or not eps or eps <= 0 or not book or book <= 0:
+        if not price or not eps or eps <= 0 or price / eps < MIN_PE or not book or book <= 0:
             continue
         pair = (price / eps, price / book)
         by_sector.setdefault(sectors.get(sym, ""), []).append(pair)
@@ -190,18 +198,22 @@ def sector_anchors(store: dict, prices: dict[str, float], sectors: dict[str, str
     return {k: (median(p for p, _ in v), median(b for _, b in v)) for k, v in by_sector.items() if len(v) >= 5}
 
 
-def research_input(symbol: str, stock: dict, price_rows: list[dict], anchor: tuple[float, float] | None) -> ResearchInput:
+def research_input(symbol: str, stock: dict, price_rows: list[dict], anchor: tuple[float, float] | None,
+                   financial: bool = False) -> ResearchInput:
+    """`financial`: a lender or other financial services company, whose debt and cash flow are not judged."""
     # Without a chart (many SME and BSE-only stocks are not on Yahoo) Screener's price still values the company.
     price = price_rows[-1]["close"] if price_rows else (stock.get("ratios") or {}).get("price")
     valuation = {}
     eps, book = eps_ttm(stock), (stock.get("ratios") or {}).get("book_value")
     own_pe = history_pe(stock, price_rows)
-    if own_pe and eps and eps > 0:
+    # Only earnings the market believes give a fair value: none for a loss (its book is worth less than profitable
+    # peers' P/B says) or for earnings priced under MIN_PE times, which gave fair values hundreds of times the price.
+    believable = bool(price and eps and eps > 0 and price / eps >= MIN_PE)
+    if believable and own_pe:
         valuation["history_fair_value"] = eps * own_pe
-    if anchor:
+    if believable and anchor:
         pe, pb = anchor
-        if eps and eps > 0:
-            valuation["earnings_fair_value"] = eps * min(45.0, max(8.0, pe))
+        valuation["earnings_fair_value"] = eps * min(45.0, max(8.0, pe))
         if book and book > 0:
             valuation["book_fair_value"] = book * min(10.0, max(0.5, pb))
     events = lambda key: [{"date": d, "side": side, "value": v} for d, side, v in stock.get(key) or []]
@@ -210,7 +222,7 @@ def research_input(symbol: str, stock: dict, price_rows: list[dict], anchor: tup
         quarterly_financials=stock.get("quarters") or [], balance_sheet_quarters=stock.get("balance") or [],
         cashflow_quarters=stock.get("cashflow") or [], shareholding_quarters=stock.get("shareholding") or [],
         insider_transactions=events("insider"), bulk_block_deals=events("deals"), valuation=valuation,
-        metadata={"source": "screener+nse+yahoo", "checked": stock.get("checked"), "history_pe": own_pe},
+        metadata={"source": "screener+nse+yahoo", "checked": stock.get("checked"), "history_pe": own_pe, "financial": financial},
     )
 
 
