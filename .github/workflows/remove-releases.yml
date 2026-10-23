@@ -1,0 +1,20 @@
+name: Remove releases
+on:
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['.github/workflows/remove-releases.yml']
+permissions:
+  contents: write
+jobs:
+  remove:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          for tag in v1.2.131 v1.2.132 v1.2.133; do
+            gh release delete "$tag" --cleanup-tag --yes
+          done
+          gh release list --limit 3
+          git ls-remote --tags "https://github.com/$GH_REPO" 'refs/tags/v1.2.13*'
