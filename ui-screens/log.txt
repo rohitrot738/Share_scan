@@ -1,0 +1,23 @@
+scan done after ~65s
+shot 01-list-top
+marks on the first screen: 
+stocks with a mark: 0
+starred: 
+shot 02-watchlist-marks
+marks: 
+opening 
+could not find id symbol
+shot 03-detail-top
+could not scroll to detailNewsSection
+shot 04-detail-news
+titles: 
+kinds:  timing: 
+shot 05-detail-news-more
+shot 06-detail-news-end
+shot 07-digest-shade
+shot 08-alert-shade
+could not find text 📰
+shot 09-alert-opened
+could not find id menuButton
+could not find exact स्कैन
+shot 10-scan-sheet-switch
