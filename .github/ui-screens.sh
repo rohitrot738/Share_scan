@@ -57,9 +57,10 @@ adb shell input keyevent KEYCODE_BACK
 sleep 2
 
 tap startButton
-# The scan board says "स्कैन पूरा" once the scan has finished.
+# The scan board's button reads "दोबारा स्कैन करें" once the scan has finished.
+sleep 30
 for i in $(seq 1 120); do
-  center text "स्कैन पूरा" > /dev/null && { echo "scan finished after about $((i * 15)) seconds"; break; }
+  center text "दोबारा स्कैन करें" > /dev/null && { echo "scan finished after about $((i * 15)) seconds"; break; }
   sleep 15
 done
 shot 03-results 4
