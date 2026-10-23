@@ -1,0 +1,20 @@
+name: Remove the setups book
+on:
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['.github/workflows/remove-setups.yml']
+permissions:
+  contents: write
+jobs:
+  remove:
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          gh release delete-asset cr360-data setups.json --yes
+          if gh release view cr360-data --json assets --jq '.assets[].name' | grep -qx setups.json; then
+            echo "setups.json is still there"; exit 1
+          fi
+          echo "setups.json removed"
