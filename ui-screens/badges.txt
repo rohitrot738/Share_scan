@@ -1,253 +1,253 @@
 --------- beginning of main
-10-23 22:45:04.272  2730  3784 I NewsTest: probe nse-stock: 200 application/json; charset=utf-8 9017B [{"an_dt":"21-Oct-2026 22:44:39","attFileSize":"411.70 KB","attchmntFile":"https://nsearchives.nseindia.com/corporate/kavinavora_21102026224413_SE_21102026.pdf"
-10-23 22:45:05.193  2730  3784 I NewsTest: probe nse-market: 200 application/json; charset=utf-8 419464B [{"an_dt":"24-Oct-2026 01:33:09","attFileSize":"865.02 KB","attchmntFile":"https://nsearchives.nseindia.com/corporate/RCOM_24102026013248_DisclosureNCLTAGMRCOM2
-10-23 22:45:05.665  2730  3784 I NewsTest: probe nse-home: 200 text/html; charset=utf-8 170899B <!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="viewport" content="
-10-23 22:45:05.665  2730  3784 I NewsTest: probe cookie names: [AKA_A2, _abck, ak_bmsc, bm_mi, bm_sz]
-10-23 22:45:05.750  2730  3784 I NewsTest: probe nse-market-cookie: 200 application/json; charset=utf-8 419464B [{"an_dt":"24-Oct-2026 01:33:09","attFileSize":"865.02 KB","attchmntFile":"https://nsearchives.nseindia.com/corporate/RCOM_24102026013248_DisclosureNCLTAGMRCOM2
-10-23 22:45:06.299  2730  3784 I NewsTest: probe bse-stock: 200 application/json; charset=utf-8 13335B {"Table":[{"NEWSID":"bf30a59b-8e78-4017-bcfc-867b22b7b601","SCRIP_CD":500325,"XML_NAME":"ANN_500325_BF30A59B-8E78-4017-BCFC-867B22B7B601","NEWSSUB":"Media State
-10-23 22:45:07.000  2730  3784 I NewsTest: probe google: 200 application/xml; charset=utf-8 204717B <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><generator>NFE/5.0</generator><ti
-10-23 22:45:08.863  2730  3784 I NewsTest: probe repo market: 658
-10-23 22:45:09.292  2730  3784 I NewsTest: probe repo nse stock: 13
-10-23 22:45:09.354  2730  3784 I NewsTest: probe repo bse stock: 12
-10-23 22:45:10.573  2730  3784 I NewsTest: probe repo articles: 85
-10-23 22:48:26.161  2730  6554 I NewsTest: badge RCOM LEGAL 1
-10-23 22:48:26.161  2730  6554 I NewsTest: badge DIGISPICE OTHER 1
-10-23 22:48:26.161  2730  6554 I NewsTest: badge PANACHE RESULTS 4
-10-23 22:48:26.161  2730  6554 I NewsTest: badge RAYMONDREL FUNDRAISE 1
-10-23 22:48:26.161  2730  6554 I NewsTest: badge IDEAFORGE DEAL 1
-10-23 22:48:26.161  2730  6554 I NewsTest: badge TMCV RESULTS 2
-10-23 22:48:26.161  2730  6554 I NewsTest: badge SOBHA LEGAL 1
-10-23 22:48:26.161  2730  6554 I NewsTest: badge DRREDDY RESULTS 4
-10-23 22:48:26.161  2730  6554 I NewsTest: badge RECLTD OTHER 1
-10-23 22:48:26.161  2730  6554 I NewsTest: badge SIS DIVIDEND 1
-10-23 22:48:26.161  2730  6554 I NewsTest: badge LEMONTREE OTHER 1
-10-23 22:48:26.161  2730  6554 I NewsTest: badge NETWORK18 LEGAL 1
-10-23 22:48:26.161  2730  6554 I NewsTest: badge ZEELEARN OTHER 2
-10-23 22:48:26.162  2730  6554 I NewsTest: badge YESBANK RESULTS 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge DOMS DEAL 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge SETCO RESULTS 2
-10-23 22:48:26.162  2730  6554 I NewsTest: badge GESHIP ORDER 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge SHADOWFAX RESULTS 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge NATCOPHARM FUNDRAISE 2
-10-23 22:48:26.162  2730  6554 I NewsTest: badge TRUALT RESULTS 2
-10-23 22:48:26.162  2730  6554 I NewsTest: badge THEMISMED OTHER 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge GUFICBIO EXPANSION 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge HILINFRA ORDER 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge OFSS RESULTS 2
-10-23 22:48:26.162  2730  6554 I NewsTest: badge ACMESOLAR EXPANSION 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge TRIVENIPT RESULTS 4
-10-23 22:48:26.162  2730  6554 I NewsTest: badge INDUSINDBK RESULTS 5
-10-23 22:48:26.162  2730  6554 I NewsTest: badge PFC OTHER 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge JINDALPHOT OTHER 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge UCOBANK MANAGEMENT 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge KISSHT FUNDRAISE 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge INFY RESULTS 3
-10-23 22:48:26.162  2730  6554 I NewsTest: badge ASMS FUNDRAISE 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge TITAN RESULTS 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge AEROENTER DEAL 1
-10-23 22:48:26.162  2730  6554 I NewsTest: badge UTIAMC RESULTS 2
-10-23 22:48:26.162  2730  6554 I NewsTest: badge CROMPTON LEGAL 3
-10-23 22:48:26.162  2730  6554 I NewsTest: badge TRENT DEAL 2
-10-23 22:48:26.162  2730  6554 I NewsTest: badge RPGLIFE LEGAL 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge SPLPETRO RESULTS 3
-10-23 22:48:26.164  2730  6554 I NewsTest: badge SHAKTIPUMP RESULTS 2
-10-23 22:48:26.164  2730  6554 I NewsTest: badge INDIANB MANAGEMENT 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge RAMCOSYS RESULTS 2
-10-23 22:48:26.164  2730  6554 I NewsTest: badge BPCL RESULTS 2
-10-23 22:48:26.164  2730  6554 I NewsTest: badge UNIECOM RESULTS 3
-10-23 22:48:26.164  2730  6554 I NewsTest: badge EMBDL FUNDRAISE 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge TVSHLTD MANAGEMENT 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge SWELECTES OTHER 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge NESCO RESULTS 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge TIKONA RESULTS 2
-10-23 22:48:26.164  2730  6554 I NewsTest: badge GEOJITFSL RESULTS 3
-10-23 22:48:26.164  2730  6554 I NewsTest: badge SINTERCOM RATING 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge JKTYRE RESULTS 3
-10-23 22:48:26.164  2730  6554 I NewsTest: badge SKIPPER OTHER 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge SMT LEGAL 3
-10-23 22:48:26.164  2730  6554 I NewsTest: badge EPL OTHER 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge ARIS LEGAL 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge ARCIL RESULTS 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge PATANJALI OTHER 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge TREEHOUSE RESULTS 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge FEDFINA OTHER 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge TORNTPOWER RATING 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge SBICARD RESULTS 3
-10-23 22:48:26.164  2730  6554 I NewsTest: badge IFBIND RATING 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge GRADIENTE RESULTS 2
-10-23 22:48:26.164  2730  6554 I NewsTest: badge RAMKY RATING 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge STUDDS OTHER 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge SCHAEFFLER OTHER 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge SAGILITY DIVIDEND 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge BANKBARODA MANAGEMENT 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge GANESHHOU RESULTS 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge KELLTONTEC FUNDRAISE 2
-10-23 22:48:26.164  2730  6554 I NewsTest: badge ARIHANTSUP MANAGEMENT 4
-10-23 22:48:26.164  2730  6554 I NewsTest: badge ZOTA RESULTS 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge RUNWALENTR RESULTS 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge GOPAL DIVIDEND 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge GRASIM FUNDRAISE 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge KOLTEPATIL OTHER 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge SBIFUNDS RESULTS 3
-10-23 22:48:26.164  2730  6554 I NewsTest: badge DPABHUSHAN OTHER 2
-10-23 22:48:26.164  2730  6554 I NewsTest: badge SUNPHARMA OTHER 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge ICICIBANK RESULTS 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge RELAXO DEAL 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge GERMAN OTHER 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge HNDFDS LEGAL 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge BANKINDIA RESULTS 5
-10-23 22:48:26.164  2730  6554 I NewsTest: badge JLHL OTHER 3
-10-23 22:48:26.164  2730  6554 I NewsTest: badge UNITECH LEGAL 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge TI LEGAL 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge OBEROIRLTY RESULTS 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge ZENITHEXPO OTHER 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge COFORGE RESULTS 4
-10-23 22:48:26.164  2730  6554 I NewsTest: badge GOLDTECH MANAGEMENT 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge DCBBANK RESULTS 6
-10-23 22:48:26.164  2730  6554 I NewsTest: badge WHIRLPOOL OTHER 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge SHRIRAMFIN RESULTS 7
-10-23 22:48:26.164  2730  6554 I NewsTest: badge CRISIL RESULTS 4
-10-23 22:48:26.164  2730  6554 I NewsTest: badge BBTC LEGAL 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge NTPC MANAGEMENT 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge ARSSINFRA ORDER 2
-10-23 22:48:26.164  2730  6554 I NewsTest: badge AERONEU DEAL 1
-10-23 22:48:26.164  2730  6554 I NewsTest: badge XCHANGING MANAGEMENT 2
-10-23 22:48:26.164  2730  6554 I NewsTest: badge MAITHANALL DEAL 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge BAJAJHFL MANAGEMENT 2
-10-23 22:48:26.165  2730  6554 I NewsTest: badge POWERGRID EXPANSION 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge JSFB RESULTS 5
-10-23 22:48:26.165  2730  6554 I NewsTest: badge SUKHJITS RESULTS 3
-10-23 22:48:26.165  2730  6554 I NewsTest: badge GODREJCP EXPANSION 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge EMUDHRA RATING 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge KRONOX OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge TORNTPHARM RESULTS 2
-10-23 22:48:26.165  2730  6554 I NewsTest: badge CENTRALBK RESULTS 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge TONBO LEGAL 2
-10-23 22:48:26.165  2730  6554 I NewsTest: badge DAVANGERE FUNDRAISE 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge SAKUMA OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge SOLARA RESULTS 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge RACLGEAR OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge CUBEXTUB RESULTS 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge ADOR OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge THEINVEST MANAGEMENT 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge NACLIND OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge GLAND OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge XTRANET DEAL 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge JWL OTHER 2
-10-23 22:48:26.165  2730  6554 I NewsTest: badge INDOUS LEGAL 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge WAAREERTL ORDER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge QPOWER FUNDRAISE 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge ASHIMASYN OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge PVSL MANAGEMENT 4
-10-23 22:48:26.165  2730  6554 I NewsTest: badge GRAPHITE DEAL 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge COLPAL OTHER 2
-10-23 22:48:26.165  2730  6554 I NewsTest: badge REPRO RESULTS 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge ASAL RESULTS 2
-10-23 22:48:26.165  2730  6554 I NewsTest: badge ZETWERK LEGAL 3
-10-23 22:48:26.165  2730  6554 I NewsTest: badge SECURKLOUD LEGAL 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge PARADEEP OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge TATACOMM OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge NEWGEN RESULTS 4
-10-23 22:48:26.165  2730  6554 I NewsTest: badge ABREL OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge MASTEK OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge AVANTEL OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge HDFCLIFE RESULTS 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge GRANULES OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge VIPULLTD OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge BONFIG MANAGEMENT 4
-10-23 22:48:26.165  2730  6554 I NewsTest: badge BAJAJFINSV OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge KILITCH OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge JINDALSTEL RESULTS 2
-10-23 22:48:26.165  2730  6554 I NewsTest: badge NAUKRI DEAL 2
-10-23 22:48:26.165  2730  6554 I NewsTest: badge TEAMLEASE LEGAL 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge CMPDI RESULTS 4
-10-23 22:48:26.165  2730  6554 I NewsTest: badge MANBA OTHER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge WEWIN ORDER 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge JSWSTEEL RESULTS 2
-10-23 22:48:26.165  2730  6554 I NewsTest: badge CGPOWER RESULTS 5
-10-23 22:48:26.165  2730  6554 I NewsTest: badge PIRAMALFIN RESULTS 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge KUSUMGAR RATING 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge MAHLOG RESULTS 2
-10-23 22:48:26.165  2730  6554 I NewsTest: badge ADANIPOWER RESULTS 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge NAVKARCORP RESULTS 2
-10-23 22:48:26.165  2730  6554 I NewsTest: badge TEMBO EXPANSION 2
-10-23 22:48:26.165  2730  6554 I NewsTest: badge INTERARCH DIVIDEND 1
-10-23 22:48:26.165  2730  6554 I NewsTest: badge JYOTISTRUC ORDER 2
-10-23 22:48:26.166  2730  6554 I NewsTest: badge 5PAISA RESULTS 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge ATUL RESULTS 3
-10-23 22:48:26.166  2730  6554 I NewsTest: badge PONNIERODE RESULTS 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge APTECHT LEGAL 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge BANSALWIRE RESULTS 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge CSBBANK RESULTS 2
-10-23 22:48:26.166  2730  6554 I NewsTest: badge GNA RESULTS 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge VASWANI FUNDRAISE 2
-10-23 22:48:26.166  2730  6554 I NewsTest: badge OSIAHYPER LEGAL 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SHREDIGCEM RESULTS 2
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SHALBY RESULTS 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge ONGC MANAGEMENT 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SEPC OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge PNBHOUSING FUNDRAISE 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SYMPHONY RESULTS 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge STLTECH RESULTS 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge GKENERGY ORDER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge WESTLIFE RESULTS 2
-10-23 22:48:26.166  2730  6554 I NewsTest: badge URJA OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge KEC ORDER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge KSOLVES RESULTS 3
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SGIL RESULTS 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SSWL RESULTS 7
-10-23 22:48:26.166  2730  6554 I NewsTest: badge HTEL EXPANSION 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SHREECEM RESULTS 4
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SOLEX OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SKMEGGPROD RESULTS 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge GODREJPROP RESULTS 2
-10-23 22:48:26.166  2730  6554 I NewsTest: badge DELHIVERY RESULTS 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge LOKESHMACH ORDER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge KALPATARU RESULTS 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge HONASA OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SAKAR RESULTS 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge GUJTHEM OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge MEDICAMEQ FUNDRAISE 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge HEXT OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge CYBERMEDIA OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge HERITGFOOD DEAL 2
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SPENCERS OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge GENCON OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge MTNL OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge LTM OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge ZYDUSWELL OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge DCMSRIND OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge LUPIN MANAGEMENT 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge ASIANENE ORDER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge MCLOUD OTHER 2
-10-23 22:48:26.166  2730  6554 I NewsTest: badge OIL OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge VIKRAMSOLR OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge PARKHOSPS LEGAL 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SHYAMMETL LEGAL 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge WELCORP ORDER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge CIPLA EXPANSION 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge E2ERAIL LEGAL 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SATKARTAR EXPANSION 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge RILINFRA ORDER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge PATILAUTOM FUNDRAISE 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SHAIVAL DEAL 4
-10-23 22:48:26.166  2730  6554 I NewsTest: badge ESCONET RESULTS 3
-10-23 22:48:26.166  2730  6554 I NewsTest: badge MAXPOSURE OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge VIVIDEL RESULTS 3
-10-23 22:48:26.166  2730  6554 I NewsTest: badge OPTIVALUE MANAGEMENT 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge BRANDMAN OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge SURANI FUNDRAISE 2
-10-23 22:48:26.166  2730  6554 I NewsTest: badge FORCAS OTHER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge GREENLEAF ORDER 1
-10-23 22:48:26.166  2730  6554 I NewsTest: badge UTSSAV DIVIDEND 2
-10-23 22:48:26.166  2730  6554 I NewsTest: badge DIVYADHAN MANAGEMENT 3
-10-23 22:48:26.167  2730  6554 I NewsTest: badge SIMCA RESULTS 1
-10-23 22:48:26.167  2730  6554 I NewsTest: badge CELLECOR MANAGEMENT 1
-10-23 22:48:26.167  2730  6554 I NewsTest: badge MVKAGRO RATING 1
-10-23 22:48:26.167  2730  6554 I NewsTest: badge SIDDHIKA LEGAL 1
-10-23 22:48:26.167  2730  6554 I NewsTest: badge VINYAS FUNDRAISE 1
-10-23 22:48:26.167  2730  6554 I NewsTest: badge EMKAYTOOLS OTHER 1
-10-23 22:48:26.167  2730  6554 I NewsTest: badge JAINIK OTHER 1
-10-23 22:48:26.167  2730  6554 I NewsTest: badge INNOMET LEGAL 1
-10-23 22:48:26.167  2730  6554 I NewsTest: badge STRIDERS LEGAL 1
-10-23 22:48:26.167  2730  6554 I NewsTest: badge CMRSL OTHER 1
+10-23 22:59:25.865  2994  3772 I NewsTest: probe nse-stock: 200 application/json; charset=utf-8 9017B [{"an_dt":"21-Oct-2026 22:44:39","attFileSize":"411.70 KB","attchmntFile":"https://nsearchives.nseindia.com/corporate/kavinavora_21102026224413_SE_21102026.pdf"
+10-23 22:59:26.305  2994  3772 I NewsTest: probe nse-market: 200 application/json; charset=utf-8 419464B [{"an_dt":"24-Oct-2026 01:33:09","attFileSize":"865.02 KB","attchmntFile":"https://nsearchives.nseindia.com/corporate/RCOM_24102026013248_DisclosureNCLTAGMRCOM2
+10-23 22:59:26.646  2994  3772 I NewsTest: probe nse-home: 200 text/html; charset=utf-8 170899B <!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="viewport" content="
+10-23 22:59:26.655  2994  3772 I NewsTest: probe cookie names: [AKA_A2, _abck, ak_bmsc, bm_mi, bm_sz]
+10-23 22:59:26.805  2994  3772 I NewsTest: probe nse-market-cookie: 200 application/json; charset=utf-8 419464B [{"an_dt":"24-Oct-2026 01:33:09","attFileSize":"865.02 KB","attchmntFile":"https://nsearchives.nseindia.com/corporate/RCOM_24102026013248_DisclosureNCLTAGMRCOM2
+10-23 22:59:27.551  2994  3772 I NewsTest: probe bse-stock: 200 application/json; charset=utf-8 13335B {"Table":[{"NEWSID":"bf30a59b-8e78-4017-bcfc-867b22b7b601","SCRIP_CD":500325,"XML_NAME":"ANN_500325_BF30A59B-8E78-4017-BCFC-867B22B7B601","NEWSSUB":"Media State
+10-23 22:59:28.337  2994  3772 I NewsTest: probe google: 200 application/xml; charset=utf-8 204717B <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><generator>NFE/5.0</generator><ti
+10-23 22:59:34.647  2994  3772 I NewsTest: probe repo market: 658
+10-23 22:59:34.774  2994  3772 I NewsTest: probe repo nse stock: 13
+10-23 22:59:34.850  2994  3772 I NewsTest: probe repo bse stock: 12
+10-23 22:59:36.189  2994  3772 I NewsTest: probe repo articles: 84
+10-23 23:03:56.866  2994  6590 I NewsTest: badge RCOM LEGAL 1 Action(s) taken or orders passed
+10-23 23:03:56.866  2994  6590 I NewsTest: badge DIGISPICE OTHER 1 Granting/withdrawal/surrender/cancellation/suspension of key licenses/ regulatory approvals
+10-23 23:03:56.866  2994  6590 I NewsTest: badge PANACHE RESULTS 4 A press release dated October 23, 2026, titled "Press Release with respect to financial results for the quarter and half year ended Septembe
+10-23 23:03:56.866  2994  6590 I NewsTest: badge RAYMONDREL FUNDRAISE 1 In-principle approval from BSE and NSE of Preferential Issue of convertible warrants on a private placement basis
+10-23 23:03:56.866  2994  6590 I NewsTest: badge IDEAFORGE DEAL 1 Termination of Joint Venture Agreement between ideaForge Technology Inc.(wholly-owned subsidiary of ideaForge Technology Limited) and First 
+10-23 23:03:56.866  2994  6590 I NewsTest: badge TMCV RESULTS 2 Link of Audio Call Recording for Q2 FY27
+10-23 23:03:56.866  2994  6590 I NewsTest: badge SOBHA LEGAL 1 Sobha Limited has made disclosure to the stock exchange under regulation 30 of SEBI (LODR) Regulations, 2015
+10-23 23:03:56.866  2994  6590 I NewsTest: badge DRREDDY RESULTS 4 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.866  2994  6590 I NewsTest: badge RECLTD OTHER 1 Intimation of incorporation of subsidiary companies
+10-23 23:03:56.866  2994  6590 I NewsTest: badge SIS DIVIDEND 1 SIS Limited has informed that 3,28,540 equity shares of face value of Rs. 5/- each have been extinguished pursuant to the buyback through th
+10-23 23:03:56.867  2994  6590 I NewsTest: badge LEMONTREE OTHER 1 A press release dated October 23, 2026, titled "The Company has signed a License Agreement viz. Keys Lite by Lemon Tree Hotels, Bhilwara
+10-23 23:03:56.867  2994  6590 I NewsTest: badge NETWORK18 LEGAL 1 Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015 Update on the Scheme of Amalg
+10-23 23:03:56.867  2994  6590 I NewsTest: badge ZEELEARN OTHER 2 Change in Management
+10-23 23:03:56.867  2994  6590 I NewsTest: badge YESBANK RESULTS 1 Transcript of Earnings Call for the un-audited Financial Results for the Quarter (Q2) and Half Year ended September 30, 2026
+10-23 23:03:56.867  2994  6590 I NewsTest: badge DOMS DEAL 1 Incorporation of Wholly Owned Subsidiary
+10-23 23:03:56.867  2994  6590 I NewsTest: badge SETCO RESULTS 2 , the financial results for the period ended Jun 30, 2026
+10-23 23:03:56.867  2994  6590 I NewsTest: badge GESHIP ORDER 1 A press release dated October 23, 2026, titled "GE Shipping contracts to buy a secondhand Very Large Gas Carrier
+10-23 23:03:56.867  2994  6590 I NewsTest: badge SHADOWFAX RESULTS 1 Schedule of meet-Intimation of Earnings Call in respect of financial results for the quarter and half year ended September 30, 2026
+10-23 23:03:56.867  2994  6590 I NewsTest: badge NATCOPHARM FUNDRAISE 2 The approval of allotment of 17058082 Equity shares pursuant to Rights Issue by the Fund-Raising Committee at its meeting held on October 23
+10-23 23:03:56.867  2994  6590 I NewsTest: badge TRUALT RESULTS 2 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.867  2994  6590 I NewsTest: badge THEMISMED OTHER 1 General Updates
+10-23 23:03:56.867  2994  6590 I NewsTest: badge GUFICBIO EXPANSION 1 Intimation regarding USFDA Pre-Approval Inspection at the Company s Manufacturing facility situated at Indore, Madhya Pradesh
+10-23 23:03:56.867  2994  6590 I NewsTest: badge HILINFRA ORDER 1 Bagging/Receiving of orders/contracts
+10-23 23:03:56.867  2994  6590 I NewsTest: badge OFSS RESULTS 2 A press release dated October 23, 2026, titled "Press release on the financial results for the quarter and half year ended September 30, 202
+10-23 23:03:56.867  2994  6590 I NewsTest: badge ACMESOLAR EXPANSION 1 An update on commissioning of Battery Energy Storage System (BESS) Project at Rajasthan
+10-23 23:03:56.867  2994  6590 I NewsTest: badge TRIVENIPT RESULTS 4 A press release dated October 23, 2026, titled "Press Release for Financial Results Q2 & H1 FY27
+10-23 23:03:56.867  2994  6590 I NewsTest: badge INDUSINDBK RESULTS 5 Link of Audio Recording of Earnings Call
+10-23 23:03:56.867  2994  6590 I NewsTest: badge PFC OTHER 1 Incorporation of two wholly owned Subsidiaries of PFC Consulting Limited (a wholly owned Subsidiary of Power Finance Corporation Limited)- (
+10-23 23:03:56.867  2994  6590 I NewsTest: badge JINDALPHOT OTHER 1 General Updates
+10-23 23:03:56.867  2994  6590 I NewsTest: badge UCOBANK MANAGEMENT 1 Change in Director(s) of the company
+10-23 23:03:56.868  2994  6590 I NewsTest: badge KISSHT FUNDRAISE 1 Allotment of 26493882 securities pursuant to Preferential Issue at its meeting held on October 23, 2026
+10-23 23:03:56.868  2994  6590 I NewsTest: badge INFY RESULTS 3 , Financial Results for the quarter and half year ended September 30, 2026 and declaration of interim dividend
+10-23 23:03:56.868  2994  6590 I NewsTest: badge ASMS FUNDRAISE 1 Board of Directors at its meeting held on October 23, 2026, has decided to issue equity shares on rights basis in the ratio of 0 : 0, i.e 0 
+10-23 23:03:56.868  2994  6590 I NewsTest: badge TITAN RESULTS 1 Earnings call for Q2 and half year ended FY 2026-27
+10-23 23:03:56.868  2994  6590 I NewsTest: badge AEROENTER DEAL 1 Update on Acquisition of Equity Stake in Stilonn Valves and Controls Private Limited ("Stilonn") by Aeroflex Neu Limited, Material Subsidiar
+10-23 23:03:56.868  2994  6590 I NewsTest: badge UTIAMC RESULTS 2 A press release dated October 23, 2026, titled "UTI Asset Management Company Limited announced its Q2 & H1 FY27 Financial and Business Perfo
+10-23 23:03:56.868  2994  6590 I NewsTest: badge CROMPTON LEGAL 3 Action(s) taken or orders passed
+10-23 23:03:56.868  2994  6590 I NewsTest: badge TRENT DEAL 2 Nahar Retail Trading Services Limited ( Nahar ), a wholly owned subsidiary of the Company, has entered into a binding term sheet dated 22nd 
+10-23 23:03:56.868  2994  6590 I NewsTest: badge RPGLIFE LEGAL 1 Pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015, and any other applicable provisio
+10-23 23:03:56.868  2994  6590 I NewsTest: badge SPLPETRO RESULTS 3 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.868  2994  6590 I NewsTest: badge SHAKTIPUMP RESULTS 2 The earnings and operational update for the quarter and half year ended September 30, 2026
+10-23 23:03:56.868  2994  6590 I NewsTest: badge INDIANB MANAGEMENT 1 Change in Director(s) of the company
+10-23 23:03:56.869  2994  6590 I NewsTest: badge RAMCOSYS RESULTS 2 A press release dated October 23, 2026, titled "Ramco Systems posts Q2 revenue of USD 19.20m, up 4% QoQ
+10-23 23:03:56.869  2994  6590 I NewsTest: badge BPCL RESULTS 2 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.869  2994  6590 I NewsTest: badge UNIECOM RESULTS 3 A press release dated October 23, 2026, titled "Audited (Standalone and Consolidated) Financial Results for the quarter and half year ended 
+10-23 23:03:56.869  2994  6590 I NewsTest: badge EMBDL FUNDRAISE 1 Allotment of an aggregate of 1,10,00,000 Equity Shares of the Company pursuant to the conversion of Warrants
+10-23 23:03:56.869  2994  6590 I NewsTest: badge TVSHLTD MANAGEMENT 1 Cessation of Ms Sasikala Varadachari as Non- Executive Independent Director of the company w.e.f. October 23, 2026 consequent to Completion 
+10-23 23:03:56.869  2994  6590 I NewsTest: badge SWELECTES OTHER 1 Transfer of equity shares held in ESG Green Energy Private Limited
+10-23 23:03:56.869  2994  6590 I NewsTest: badge NESCO RESULTS 1 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.869  2994  6590 I NewsTest: badge TIKONA RESULTS 2 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.869  2994  6590 I NewsTest: badge GEOJITFSL RESULTS 3 A press release dated October 23, 2026, titled "Q2 & H1FY27 Earnings Release
+10-23 23:03:56.869  2994  6590 I NewsTest: badge SINTERCOM RATING 1 Credit Rating- Revision
+10-23 23:03:56.870  2994  6590 I NewsTest: badge JKTYRE RESULTS 3 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.870  2994  6590 I NewsTest: badge SKIPPER OTHER 1 General Updates
+10-23 23:03:56.870  2994  6590 I NewsTest: badge SMT LEGAL 3 Disclosure under Regulation 30(5) of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015
+10-23 23:03:56.870  2994  6590 I NewsTest: badge EPL OTHER 1 Submission of Application for reclassification of Epsilon Bidco Pte. Ltd. from promoter category to public category by EPL Limited
+10-23 23:03:56.870  2994  6590 I NewsTest: badge ARIS LEGAL 1 Notice of NCLT Convened Meeting of Secured Creditors to be held on November 25, 2026
+10-23 23:03:56.870  2994  6590 I NewsTest: badge ARCIL RESULTS 1 An earnings call for analysts and investors scheduled on Friday, October 30, 2026 at 09:00 a.m. (IST)
+10-23 23:03:56.870  2994  6590 I NewsTest: badge PATANJALI OTHER 1 General Updates
+10-23 23:03:56.870  2994  6590 I NewsTest: badge TREEHOUSE RESULTS 1 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.871  2994  6590 I NewsTest: badge FEDFINA OTHER 1 Options to purchase securities
+10-23 23:03:56.871  2994  6590 I NewsTest: badge TORNTPOWER RATING 1 Credit Rating
+10-23 23:03:56.871  2994  6590 I NewsTest: badge SBICARD RESULTS 3 A press release dated October 23, 2026, titled "Financial Results of the Company for the quarter ended September 30, 2026
+10-23 23:03:56.871  2994  6590 I NewsTest: badge IFBIND RATING 1 Credit Rating- Revision
+10-23 23:03:56.871  2994  6590 I NewsTest: badge GRADIENTE RESULTS 2 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.871  2994  6590 I NewsTest: badge RAMKY RATING 1 ESG Rating Disclosure regarding ESG Rating by NSE Sustainability Ratings & Analytics Limited
+10-23 23:03:56.871  2994  6590 I NewsTest: badge STUDDS OTHER 1 Newspaper Advertisement regarding the opening of Special Window for transfer and dematerialisation of physical shares
+10-23 23:03:56.871  2994  6590 I NewsTest: badge SCHAEFFLER OTHER 1 General Updates
+10-23 23:03:56.872  2994  6590 I NewsTest: badge SAGILITY DIVIDEND 1 Communication to Shareholders regarding TDS on Interim Dividend FY2026-27
+10-23 23:03:56.872  2994  6590 I NewsTest: badge BANKBARODA MANAGEMENT 1 Change in Director(s) of the company
+10-23 23:03:56.872  2994  6590 I NewsTest: badge GANESHHOU RESULTS 1 Schedule of Q2 FY 27 Earnings Conference Call to be held on Monday, November 02, 2026 at 1600 hrs IST (4:00 PM IST)
+10-23 23:03:56.872  2994  6590 I NewsTest: badge KELLTONTEC FUNDRAISE 2 Allotment of Equity Shares Pursuant to Exercise of ESOPs
+10-23 23:03:56.872  2994  6590 I NewsTest: badge ARIHANTSUP MANAGEMENT 4 Appointment of Mr. Pradeep Mehta as Independent Director of the company w.e.f. October 23, 2026
+10-23 23:03:56.872  2994  6590 I NewsTest: badge ZOTA RESULTS 1 The Intimation of Schedule of Earnings Conference Call on Q2FY27 Results
+10-23 23:03:56.872  2994  6590 I NewsTest: badge RUNWALENTR RESULTS 1 , the financial results for the period ended June 30, 2026
+10-23 23:03:56.872  2994  6590 I NewsTest: badge GOPAL DIVIDEND 1 Record date for the purpose of Dividend is 06-Nov-2026
+10-23 23:03:56.872  2994  6590 I NewsTest: badge GRASIM FUNDRAISE 1 The Exchange has sought clarification from Grasim Industries Limited with respect to recent news item captioned Bombay HC Quashes Rs 329 Cro
+10-23 23:03:56.873  2994  6590 I NewsTest: badge KOLTEPATIL OTHER 1 Significant increase in volume has been observed in Kolte - Patil Developers Limited. The Exchange, in order to ensure that investors have l
+10-23 23:03:56.873  2994  6590 I NewsTest: badge SBIFUNDS RESULTS 3 A press release dated October 23, 2026, titled "SBI FUNDS MANAGEMENT ANNOUNCES FINANCIAL RESULTS FOR THE QUARTER ENDED SEPTEMBER 30, 2026
+10-23 23:03:56.873  2994  6590 I NewsTest: badge DPABHUSHAN OTHER 2 Corrigendum to Notice of Extra Ordinary General Meeting to be held on October 29, 2026
+10-23 23:03:56.873  2994  6590 I NewsTest: badge SUNPHARMA OTHER 1 A press release dated October 23, 2026
+10-23 23:03:56.873  2994  6590 I NewsTest: badge ICICIBANK RESULTS 1 Transcript of the call with media and of earnings call with analysts and investors on the financial results for the quarter and six months e
+10-23 23:03:56.873  2994  6590 I NewsTest: badge RELAXO DEAL 1 The acquisition of 26% of the paid-up equity share capital of Clean Max MUOI Private Limited ('SPV')
+10-23 23:03:56.873  2994  6590 I NewsTest: badge GERMAN OTHER 1 Intimation regarding Change in Corporate Identification Number (CIN) and Listing Status of German Green Steel and Power Limited ( Company )
+10-23 23:03:56.873  2994  6590 I NewsTest: badge HNDFDS LEGAL 1 Intimation of order received under section 73 of CGST/SGST Act, 2017
+10-23 23:03:56.874  2994  6590 I NewsTest: badge BANKINDIA RESULTS 5 Related Party Transactions for Q2FY2027
+10-23 23:03:56.874  2994  6590 I NewsTest: badge JLHL OTHER 3 Agreements
+10-23 23:03:56.874  2994  6590 I NewsTest: badge UNITECH LEGAL 1 Details of Authorized Persons under Regulation 30(5) of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015
+10-23 23:03:56.874  2994  6590 I NewsTest: badge TI LEGAL 1 A disclosure under Regulation 30 of SEBI Listing Regulations
+10-23 23:03:56.874  2994  6590 I NewsTest: badge OBEROIRLTY RESULTS 1 Transcript of the Conference Call on Q2FY27 results and business updates
+10-23 23:03:56.874  2994  6590 I NewsTest: badge ZENITHEXPO OTHER 1 General Updates
+10-23 23:03:56.874  2994  6590 I NewsTest: badge COFORGE RESULTS 4 A press release dated October 23, 2026, titled "Press release on financial results
+10-23 23:03:56.875  2994  6590 I NewsTest: badge GOLDTECH MANAGEMENT 1 Appointment of Chief Growth Officer (CGO) & Senior Management Personnel(SMP)
+10-23 23:03:56.875  2994  6590 I NewsTest: badge DCBBANK RESULTS 6 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.875  2994  6590 I NewsTest: badge WHIRLPOOL OTHER 1 Change in Management
+10-23 23:03:56.875  2994  6590 I NewsTest: badge SHRIRAMFIN RESULTS 7 Approved and taken on record the unaudited standalone and consolidated financial results of the Company for the second quarter and half-year
+10-23 23:03:56.875  2994  6590 I NewsTest: badge CRISIL RESULTS 4 A press release dated October 23, 2026, titled "Unaudited financial results for the third quarter ended September 30, 2026
+10-23 23:03:56.876  2994  6590 I NewsTest: badge BBTC LEGAL 1 Disclosure under Regulation 10 (5) of the Securities and Exchange Board of India (Substantial Acquisition of Shares and Takeovers) Regulatio
+10-23 23:03:56.876  2994  6590 I NewsTest: badge NTPC MANAGEMENT 1 Appointment of Mr Shri Diwakar Nath Misra as Non- Executive Director of the company w.e.f. October 23, 2026
+10-23 23:03:56.876  2994  6590 I NewsTest: badge ARSSINFRA ORDER 2 Bagging/Receiving of orders/contracts
+10-23 23:03:56.876  2994  6590 I NewsTest: badge AERONEU DEAL 1 Update on Acquisition of Equity Stake in Stilonn Valves and Controls Private Limited
+10-23 23:03:56.876  2994  6590 I NewsTest: badge XCHANGING MANAGEMENT 2 Resignation of Director/KMP/SMP
+10-23 23:03:56.876  2994  6590 I NewsTest: badge MAITHANALL DEAL 1 Acquisition of Equity Shares through Stock Exchange
+10-23 23:03:56.876  2994  6590 I NewsTest: badge BAJAJHFL MANAGEMENT 2 Resignation of Director/KMP/SMP
+10-23 23:03:56.877  2994  6590 I NewsTest: badge POWERGRID EXPANSION 1 Commissioning of project namely Transmission Scheme for integration of Renewable Energy Zone (Phase-II) in Koppal-II (Phase-A & B) and Gadag
+10-23 23:03:56.877  2994  6590 I NewsTest: badge JSFB RESULTS 5 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.877  2994  6590 I NewsTest: badge SUKHJITS RESULTS 3 A press release dated October 23, 2026, titled "Press Release for Unaudited Financial Results for period ended September,2026
+10-23 23:03:56.877  2994  6590 I NewsTest: badge GODREJCP EXPANSION 1 Commencement of commercial production/operations
+10-23 23:03:56.877  2994  6590 I NewsTest: badge EMUDHRA RATING 1 Credit Rating- Revision by ICRA Limited
+10-23 23:03:56.877  2994  6590 I NewsTest: badge KRONOX OTHER 1 General Updates
+10-23 23:03:56.877  2994  6590 I NewsTest: badge TORNTPHARM RESULTS 2 A press release dated October 23, 2026, titled "A Press Release on Financial Results which is being submitted to the media is also enclosedh
+10-23 23:03:56.878  2994  6590 I NewsTest: badge CENTRALBK RESULTS 1 Transcript of Bank's Conference/Earnings call held on 19th October, 2026
+10-23 23:03:56.878  2994  6590 I NewsTest: badge TONBO LEGAL 2 Disclosure under Regulation 30(5) of SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015
+10-23 23:03:56.878  2994  6590 I NewsTest: badge DAVANGERE FUNDRAISE 1 Intimation of receipt of in-principle approval for issue of warrants on preferential basis
+10-23 23:03:56.878  2994  6590 I NewsTest: badge SAKUMA OTHER 1 Outcome of Board Meeting held on October 23, 2026
+10-23 23:03:56.878  2994  6590 I NewsTest: badge SOLARA RESULTS 1 Transcript of Earnings Conference call pertaining to financial results of the Company for the quarter ended September 30, 2026
+10-23 23:03:56.879  2994  6590 I NewsTest: badge RACLGEAR OTHER 1 Updates
+10-23 23:03:56.879  2994  6590 I NewsTest: badge CUBEXTUB RESULTS 1 Un-Audited Financial Results
+10-23 23:03:56.879  2994  6590 I NewsTest: badge ADOR OTHER 1 Communication to Shareholders
+10-23 23:03:56.879  2994  6590 I NewsTest: badge THEINVEST MANAGEMENT 1 Resignation of Chief Financial Officer (Key Managerial Personnel) of the Company
+10-23 23:03:56.879  2994  6590 I NewsTest: badge NACLIND OTHER 1 News Paper Publication
+10-23 23:03:56.880  2994  6590 I NewsTest: badge GLAND OTHER 1 Conclusion of USFDA Unannounced Inspection at Company s Formulation Facility at Dundigal, Hyderabad
+10-23 23:03:56.880  2994  6590 I NewsTest: badge XTRANET DEAL 1 Incorporation of a Wholly Owned Subsidiary company
+10-23 23:03:56.880  2994  6590 I NewsTest: badge JWL OTHER 2 A press release dated October 23, 2026, titled "Please find the enclosed a copy of Press Release to be issued by the Company
+10-23 23:03:56.880  2994  6590 I NewsTest: badge INDOUS LEGAL 1 General Updates_regarding Directors cum Promoters and other Promoter visit to China Disclosure under Regulation 30 of SEBI (Listing Obligati
+10-23 23:03:56.880  2994  6590 I NewsTest: badge WAAREERTL ORDER 1 Bagging/Receiving of orders/contracts
+10-23 23:03:56.881  2994  6590 I NewsTest: badge QPOWER FUNDRAISE 1 Addendum report to the valuation report in respect of the preferential issue of Equity Shares for consideration other than cash
+10-23 23:03:56.881  2994  6590 I NewsTest: badge ASHIMASYN OTHER 1 General Updates
+10-23 23:03:56.881  2994  6590 I NewsTest: badge PVSL MANAGEMENT 4 Resignation of Director/KMP/SMP
+10-23 23:03:56.881  2994  6590 I NewsTest: badge GRAPHITE DEAL 1 Acquisition
+10-23 23:03:56.881  2994  6590 I NewsTest: badge COLPAL OTHER 2 General Updates
+10-23 23:03:56.882  2994  6590 I NewsTest: badge REPRO RESULTS 1 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.882  2994  6590 I NewsTest: badge ASAL RESULTS 2 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.882  2994  6590 I NewsTest: badge ZETWERK LEGAL 3 Intimation under Regulation 7(1) of SEBI(LODR)
+10-23 23:03:56.882  2994  6590 I NewsTest: badge SECURKLOUD LEGAL 1 Action(s) taken or orders passed
+10-23 23:03:56.883  2994  6590 I NewsTest: badge PARADEEP OTHER 1 A press release dated October 23, 2026
+10-23 23:03:56.883  2994  6590 I NewsTest: badge TATACOMM OTHER 1 Grant of stock options under Tata Communications Limited - Stock Unit Plan 2023
+10-23 23:03:56.883  2994  6590 I NewsTest: badge NEWGEN RESULTS 4 A press release dated October 23, 2026, titled "Financial Results for the quarter and half year ended 30th September 2026
+10-23 23:03:56.883  2994  6590 I NewsTest: badge ABREL OTHER 1 A press release of Birla Estates Private Limited, a wholly owned subsidiary, titled "Birla Estates Expands Pune Portfolio with Premium resid
+10-23 23:03:56.884  2994  6590 I NewsTest: badge MASTEK OTHER 1 Outcome of the Board Meeting for the quarter and half year ended September 30, 2026
+10-23 23:03:56.884  2994  6590 I NewsTest: badge AVANTEL OTHER 1 The Amendment to AOA/MOA of the company
+10-23 23:03:56.884  2994  6590 I NewsTest: badge HDFCLIFE RESULTS 1 Transcript of Earnings Conference Call H1 FY 27
+10-23 23:03:56.884  2994  6590 I NewsTest: badge GRANULES OTHER 1 General Updates
+10-23 23:03:56.885  2994  6590 I NewsTest: badge VIPULLTD OTHER 1 Record date for the purpose of Meeting is 05-Nov-2026
+10-23 23:03:56.885  2994  6590 I NewsTest: badge BONFIG MANAGEMENT 4 Details of Key Managerial Personnel authorised to determine materiality of an event or information
+10-23 23:03:56.885  2994  6590 I NewsTest: badge BAJAJFINSV OTHER 1 A press release issued by our material unlisted subsidiary i.e. Bajaj General Insurance Limited
+10-23 23:03:56.885  2994  6590 I NewsTest: badge KILITCH OTHER 1 A press release dated October 23, 2026, titled "Press release for Disvestment of entire state in KEB, Ethiopian Subsidiary
+10-23 23:03:56.886  2994  6590 I NewsTest: badge JINDALSTEL RESULTS 2 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.886  2994  6590 I NewsTest: badge NAUKRI DEAL 2 Disclosure under Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 
+10-23 23:03:56.886  2994  6590 I NewsTest: badge TEAMLEASE LEGAL 1 TeamLease - Intimation on receipt of Order dated October 22, 2026 passed by the Hon ble High Court of Gujarat on the Interlocutory Applicati
+10-23 23:03:56.886  2994  6590 I NewsTest: badge CMPDI RESULTS 4 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.887  2994  6590 I NewsTest: badge MANBA OTHER 1 General Updates
+10-23 23:03:56.887  2994  6590 I NewsTest: badge WEWIN ORDER 1 Awarding of order(s)/contract(s) for Establishment and Operation of the Integrated 104 Health Helpline, Telemedical Consultation, and Grieva
+10-23 23:03:56.887  2994  6590 I NewsTest: badge JSWSTEEL RESULTS 2 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.887  2994  6590 I NewsTest: badge CGPOWER RESULTS 5 A press release dated October 23, 2026, titled "Press Release- Q2 FY 2026-27 - Financial Results
+10-23 23:03:56.888  2994  6590 I NewsTest: badge PIRAMALFIN RESULTS 1 Transcript of conference call on the Unaudited Financial Results (Standalone and Consolidated) for the quarter and half year ended 30th Sept
+10-23 23:03:56.888  2994  6590 I NewsTest: badge KUSUMGAR RATING 1 Clarification for Credit Rating
+10-23 23:03:56.888  2994  6590 I NewsTest: badge MAHLOG RESULTS 2 A press release dated October 23, 2026, titled "Q2 FY27 Revenue up by 24% YoY at Rs. 2,095 cr, PAT at Rs 26.2 cr
+10-23 23:03:56.888  2994  6590 I NewsTest: badge ADANIPOWER RESULTS 1 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.889  2994  6590 I NewsTest: badge NAVKARCORP RESULTS 2 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.889  2994  6590 I NewsTest: badge TEMBO EXPANSION 2 A press release dated October 23, 2026, titled "Tembo Global Industries Performs BhoomiPoojan for Its Defence Manufacturing Facility in Amra
+10-23 23:03:56.889  2994  6590 I NewsTest: badge INTERARCH DIVIDEND 1 Record date for the purpose of Split/Subdivision is 30-Nov-2026
+10-23 23:03:56.889  2994  6590 I NewsTest: badge JYOTISTRUC ORDER 2 A press release dated October 23, 2026, titled "Press Release on Winning the GETCO Order for the 765 kV Transmission Line Project in Gujarat
+10-23 23:03:56.889  2994  6590 I NewsTest: badge 5PAISA RESULTS 1 Transcript of Earnings Conference Call for Q2 FY 2026-27
+10-23 23:03:56.889  2994  6590 I NewsTest: badge ATUL RESULTS 3 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.889  2994  6590 I NewsTest: badge PONNIERODE RESULTS 1 , the Unaudited Financial results for the quarter and six months ended September 30, 2026
+10-23 23:03:56.889  2994  6590 I NewsTest: badge APTECHT LEGAL 1 Disclosure under Regulation 30 of SEBI (Listing Obligations and Disclosure Requirements)Regulations, 2015 ( SEBI LODR )
+10-23 23:03:56.889  2994  6590 I NewsTest: badge BANSALWIRE RESULTS 1 Link of the audio recording of Earnings Conference call held on Friday, October 23, 2026 on the Un-Audited financial results of the Company 
+10-23 23:03:56.889  2994  6590 I NewsTest: badge CSBBANK RESULTS 2 A press release dated October 23, 2026, titled "Press Release - Unaudited Financial Results for the quarter and half year ended September 30
+10-23 23:03:56.889  2994  6590 I NewsTest: badge GNA RESULTS 1 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.889  2994  6590 I NewsTest: badge VASWANI FUNDRAISE 2 Allotment of 1645000 securities pursuant to Preferential Issue at its meeting held on October 23, 2026
+10-23 23:03:56.890  2994  6590 I NewsTest: badge OSIAHYPER LEGAL 1 Osia Hyper Retail Limited has convened 8th CoC meeting on 22nd October 2026, 3:00 p.m. as per the provisions of the Insolvency and Bankruptc
+10-23 23:03:56.890  2994  6590 I NewsTest: badge SHREDIGCEM RESULTS 2 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.890  2994  6590 I NewsTest: badge SHALBY RESULTS 1 Schedule of Earnings Conference Call to discuss Q2FY2027 earnings
+10-23 23:03:56.890  2994  6590 I NewsTest: badge ONGC MANAGEMENT 1 Letter from Ministry of Petroleum and Natural Gas conveying that ACC has approved the appointment of Shri Sunil Kumar to the post of Chairma
+10-23 23:03:56.890  2994  6590 I NewsTest: badge SEPC OTHER 1 General Updates
+10-23 23:03:56.890  2994  6590 I NewsTest: badge PNBHOUSING FUNDRAISE 1 Allotment of 25365 NCDs
+10-23 23:03:56.890  2994  6590 I NewsTest: badge SYMPHONY RESULTS 1 Intimation for schedule of Results Conference Call - Q2FY27
+10-23 23:03:56.890  2994  6590 I NewsTest: badge STLTECH RESULTS 1 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.890  2994  6590 I NewsTest: badge GKENERGY ORDER 1 The Company has received a letter of Award from Maharashtra State Electricity Distribution Company Limited for 14,000 Off-Grid Solar Photovo
+10-23 23:03:56.890  2994  6590 I NewsTest: badge WESTLIFE RESULTS 2 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.890  2994  6590 I NewsTest: badge URJA OTHER 1 Report on Transfer Request of Physical Shares Re-Lodged under the Special Window
+10-23 23:03:56.891  2994  6590 I NewsTest: badge KEC ORDER 1 KEC International wins New Orders of Rs. 1,006 crores
+10-23 23:03:56.891  2994  6590 I NewsTest: badge KSOLVES RESULTS 3 A press release dated October 23, 2026, titled "Press Release Q2'FY27
+10-23 23:03:56.891  2994  6590 I NewsTest: badge SGIL RESULTS 1 Updated Intimation of Earnings Call for Q2 of FY 2026-27 of Synergy Green Industries Limited
+10-23 23:03:56.891  2994  6590 I NewsTest: badge SSWL RESULTS 7 , the financial results for the period ended September 30, 2026 and Interim Dividend, Change in SMP & new Manufacturing facility set up
+10-23 23:03:56.891  2994  6590 I NewsTest: badge HTEL EXPANSION 1 Receipt of Eligibility Certificate for claiming government subsidy towards a manufacturing plant in Shirwal, Maharashtra
+10-23 23:03:56.891  2994  6590 I NewsTest: badge SHREECEM RESULTS 4 A press release dated October 23, 2026, titled "Financial Results for Quarter ended 30th September, 2026
+10-23 23:03:56.891  2994  6590 I NewsTest: badge SOLEX OTHER 1 A press release dated October 22, 2026, titled "Solex Energy to Unveil India s First N-Type Quarter Cell Solar Module at REI 2026
+10-23 23:03:56.891  2994  6590 I NewsTest: badge SKMEGGPROD RESULTS 1 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.891  2994  6590 I NewsTest: badge GODREJPROP RESULTS 2 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.891  2994  6590 I NewsTest: badge DELHIVERY RESULTS 1 Delhivery Limited will host earnings conference call on Friday, October 30, 2026, at 06:00 P.M. (IST) to discuss its Unaudited Standalone & 
+10-23 23:03:56.891  2994  6590 I NewsTest: badge LOKESHMACH ORDER 1 Bagging/Receiving of orders/contracts
+10-23 23:03:56.891  2994  6590 I NewsTest: badge KALPATARU RESULTS 1 Earnings conference call scheduled to be held on Friday, October 30, 2026 at 10.00 A.M. (IST) to discuss the results and developments for th
+10-23 23:03:56.891  2994  6590 I NewsTest: badge HONASA OTHER 1 Update on Senior Management
+10-23 23:03:56.891  2994  6590 I NewsTest: badge SAKAR RESULTS 1 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.891  2994  6590 I NewsTest: badge GUJTHEM OTHER 1 General Updates
+10-23 23:03:56.891  2994  6590 I NewsTest: badge MEDICAMEQ FUNDRAISE 1 Outcome of the Meeting of Preferential Issue Committee of the Board of Directors of Medicamen Biotech Limited ( the Company ) in accordance 
+10-23 23:03:56.891  2994  6590 I NewsTest: badge HEXT OTHER 1 Hexaware Hosts Greater Manchester and West Yorkshire Mayoral Delegation, Deepens Partnership with University of Leeds
+10-23 23:03:56.891  2994  6590 I NewsTest: badge CYBERMEDIA OTHER 1 General Updates
+10-23 23:03:56.891  2994  6590 I NewsTest: badge HERITGFOOD DEAL 2 A press release dated October 23, 2026, titled "Press release with regards to the amalgamation of wholly owned subsidiary, Heritage Novandie
+10-23 23:03:56.891  2994  6590 I NewsTest: badge SPENCERS OTHER 1 Significant movement in price has been observed in Spencer's Retail Limited. The Exchange, in order to ensure that investors have latest rel
+10-23 23:03:56.892  2994  6590 I NewsTest: badge GENCON OTHER 1 Significant movement in price has been observed in Generic Engineering Construction and Projects Limited. The Exchange, in order to ensure t
+10-23 23:03:56.892  2994  6590 I NewsTest: badge MTNL OTHER 1 Significant increase in volume has been observed in Mahanagar Telephone Nigam Limited. The Exchange, in order to ensure that investors have 
+10-23 23:03:56.892  2994  6590 I NewsTest: badge LTM OTHER 1 A press release dated October 23, 2026, titled "LTM Launches BlueVerse Industrial AI Lab in Chennai Helping Enterprises Scale AI Across Phys
+10-23 23:03:56.892  2994  6590 I NewsTest: badge ZYDUSWELL OTHER 1 The Exchange has sought clarification from Zydus Wellness Limited with respect to recent news item captioned FSSAI issues notices to Nestle 
+10-23 23:03:56.892  2994  6590 I NewsTest: badge DCMSRIND OTHER 1 Significant movement in price has been observed in Dcm Shriram Industries Limited. The Exchange, in order to ensure that investors have late
+10-23 23:03:56.892  2994  6590 I NewsTest: badge LUPIN MANAGEMENT 1 A press release dated October 23, 2026, titled "Lupin Appoints Brian Savage as President, Chief Legal Officer
+10-23 23:03:56.892  2994  6590 I NewsTest: badge ASIANENE ORDER 1 Execution of Revenue Sharing Contract for Contract Area GK/OSDSF/GKOSN/2025 under DSF Bid Round-IV
+10-23 23:03:56.892  2994  6590 I NewsTest: badge MCLOUD OTHER 2 Magellanic Cloud Limited s Wholly Owned Subsidiary, Provigil Surveillance Limited, Receives Letter of Acceptance Worth &#8377;3,16,00,452.60
+10-23 23:03:56.892  2994  6590 I NewsTest: badge OIL OTHER 1 A press release dated October 23, 2026, titled "Discovery of Natural Gas in the Shallow Offshore Block KG-DSF/ GSKW/2018 of Krishna Godavari
+10-23 23:03:56.892  2994  6590 I NewsTest: badge VIKRAMSOLR OTHER 1 A press release dated October 23, 2026, which is self explanatory
+10-23 23:03:56.892  2994  6590 I NewsTest: badge PARKHOSPS LEGAL 1 Disclosure under Regulation 30 of SEBI (LODR) Regulations, 2015
+10-23 23:03:56.892  2994  6590 I NewsTest: badge SHYAMMETL LEGAL 1 A press release dated October 23, 2026, titled "Shyam Metalics Subsidiary Shyam Sel and Power Limited Secures NCLT Sanction for Merger of Sh
+10-23 23:03:56.892  2994  6590 I NewsTest: badge WELCORP ORDER 1 Bagging/Receiving of orders/contracts - Welspun Corp Awarded a Very Large and Prestigious Order, Valued at approx ( approx. Rs.5,500 crore) 
+10-23 23:03:56.892  2994  6590 I NewsTest: badge CIPLA EXPANSION 1 USFDA inspection at InvaGen manufacturing facility in Hauppauge, Long Island, New York, USA
+10-23 23:03:56.892  2994  6590 I NewsTest: badge E2ERAIL LEGAL 1 Pendency of Litigation(s)/dispute(s) or the outcome impacting the Company
+10-23 23:03:56.892  2994  6590 I NewsTest: badge SATKARTAR EXPANSION 1 Proposal to establish a New Day Care Therapy Centre in Gurugram, Haryana
+10-23 23:03:56.892  2994  6590 I NewsTest: badge RILINFRA ORDER 1 Awarding of order(s)/contract(s)
+10-23 23:03:56.892  2994  6590 I NewsTest: badge PATILAUTOM FUNDRAISE 1 Allotment of 3900600 securities pursuant to Preferential Issue at its meeting held on October 23, 2026
+10-23 23:03:56.892  2994  6590 I NewsTest: badge SHAIVAL DEAL 4 Public Announcement under Regulation 3(1) and 3(3) read with Regulations 13, 14 and 15(1) of the Securities and Exchange Board of India (Sub
+10-23 23:03:56.893  2994  6590 I NewsTest: badge ESCONET RESULTS 3 Presentation on Financial Results for the Quarter and Half year ended 30th September 2026
+10-23 23:03:56.893  2994  6590 I NewsTest: badge MAXPOSURE OTHER 1 A press release dated October 23, 2026, titled "Neutral Digital helps British Airways reveal its redesigned A380 cabin experience Digital st
+10-23 23:03:56.893  2994  6590 I NewsTest: badge VIVIDEL RESULTS 3 , the unaudited financial results for the half year ended on September 30, 2026
+10-23 23:03:56.893  2994  6590 I NewsTest: badge OPTIVALUE MANAGEMENT 1 Resignation of Mr Keshavamurthy Rajendra as Non- Executive Independent Director of the company w.e.f. October 08, 2026
+10-23 23:03:56.893  2994  6590 I NewsTest: badge BRANDMAN OTHER 1 Non-applicability of Corporate Governance for the half year ended on 30th september 2026
+10-23 23:03:56.893  2994  6590 I NewsTest: badge SURANI FUNDRAISE 2 Outcome of Preferential Issue Committee Meeting held on October 23, 2026
+10-23 23:03:56.893  2994  6590 I NewsTest: badge FORCAS OTHER 1 A press release dated October 23, 2026, titled "Press Release on Key Financial Highlights of H1 FY27 Performance
+10-23 23:03:56.893  2994  6590 I NewsTest: badge GREENLEAF ORDER 1 Bagging/Receiving of orders/contracts
+10-23 23:03:56.893  2994  6590 I NewsTest: badge UTSSAV DIVIDEND 2 The Board of Directors at its meeting held on October 23, 2026, have considered and approved bonus at the ratio of 1 : 1, i.e 1 Equity Share
+10-23 23:03:56.893  2994  6590 I NewsTest: badge DIVYADHAN MANAGEMENT 3 Resignation of Director/KMP/SMP
+10-23 23:03:56.893  2994  6590 I NewsTest: badge SIMCA RESULTS 1 , the financial results for the period ended September 30, 2026
+10-23 23:03:56.893  2994  6590 I NewsTest: badge CELLECOR MANAGEMENT 1 A press release dated October 23, 2026, titled "Submission of Media Release Appoints Arvind Kumar Verma as Head - ECommerce
+10-23 23:03:56.893  2994  6590 I NewsTest: badge MVKAGRO RATING 1 Credit Rating
+10-23 23:03:56.893  2994  6590 I NewsTest: badge SIDDHIKA LEGAL 1 Submission of Disclosure received under Regulation 29(2) of SEBI (Substantial Acquisition of Shares and Takeovers) Regulations, 2011
+10-23 23:03:56.893  2994  6590 I NewsTest: badge VINYAS FUNDRAISE 1 General Updates regarding receipt of Trading approval for 91000 Equity shares allotted pursuant to conversion of share warrants
+10-23 23:03:56.893  2994  6590 I NewsTest: badge EMKAYTOOLS OTHER 1 Outcome of Board Meeting held on October 23, 2026
+10-23 23:03:56.893  2994  6590 I NewsTest: badge JAINIK OTHER 1 A press release dated October 23, 2026, titled "Investment in Advanced 54-Wire High-Speed Rigid Stranding Machine
+10-23 23:03:56.893  2994  6590 I NewsTest: badge INNOMET LEGAL 1 We write further to our previous intimation(s) regarding the approval of the Board of Directors and the Members of the Company for the issue
+10-23 23:03:56.894  2994  6590 I NewsTest: badge STRIDERS LEGAL 1 Non-Applicability of Submission of Corporate Governance Report under Regulation 27(2) of the SEBI (Listing Obligations and Disclosure Requir
+10-23 23:03:56.894  2994  6590 I NewsTest: badge CMRSL OTHER 1 General Updates
