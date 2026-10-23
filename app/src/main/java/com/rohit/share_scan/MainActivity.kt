@@ -19,6 +19,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -37,6 +38,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rohit.share_scan.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -78,6 +80,7 @@ class MainActivity : AppCompatActivity() {
     /** A notification's stock, opened once the list holds it. */
     private var pendingSymbol: String? = null
     private var sectorSheet: BottomSheetDialog? = null
+    private var clearDialog: AlertDialog? = null
     private val notifyPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -204,6 +207,7 @@ class MainActivity : AppCompatActivity() {
         detailSheet?.dismiss()
         menuSheet?.dismiss()
         sectorSheet?.dismiss()
+        clearDialog?.dismiss()
         super.onDestroy()
     }
 
@@ -541,7 +545,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /** Watchlist chip, symbol search and share button in the pinned results header. */
+    /** Watchlist chip, symbol search, share and clear buttons in the pinned results header. */
     private fun setUpListTools() {
         // A star toggle rebinds its card in place instead of cross-fading it.
         (ui.results.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
@@ -572,6 +576,7 @@ class MainActivity : AppCompatActivity() {
             search
         }
         ui.shareButton.setOnClickListener { shareShown() }
+        ui.clearButton.setOnClickListener { askToClear() }
     }
 
     private fun renderListTools(state: ScanUiState, hasResults: Boolean) {
@@ -601,6 +606,8 @@ class MainActivity : AppCompatActivity() {
         ui.shareButton.isVisible = scanned
         ui.shareButton.isEnabled = hasResults
         ui.shareButton.alpha = if (hasResults) 1f else 0.38f
+        // Nothing to clear while a scan runs: it would put a scan straight back.
+        ui.clearButton.isVisible = scanned && !state.isRunning
 
         ui.searchBar.isVisible = state.searchOpen
         closeSearchOnBack.isEnabled = state.searchOpen
@@ -661,6 +668,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun keyboard() = WindowCompat.getInsetsController(window, ui.searchField)
+
+    /** Asks first, then clears the kept scan and its ranks, so the screen is back to before any scan. */
+    private fun askToClear() {
+        clearDialog?.dismiss()
+        clearDialog = MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.list_clear_title)
+            .setMessage(R.string.list_clear_body)
+            .setNegativeButton(R.string.settings_confirm_no, null)
+            .setPositiveButton(R.string.settings_confirm_yes) { _, _ ->
+                // A live scan may have started while the question was open.
+                if (scan.clearScans()) {
+                    if (scan.uiState.value.searchOpen) closeSearch()
+                    Toast.makeText(this, R.string.list_clear_done, Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, R.string.list_clear_running, Toast.LENGTH_LONG).show()
+                }
+            }
+            .show()
+    }
 
     /** Shares the top of the list exactly as shown, so filters, watchlist, search and sort all apply. */
     private fun shareShown() {

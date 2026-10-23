@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper: the main screen's header (app icon, version) and the menu, then a stock's R/S parts opened.
+# Temporary review helper: the main screen's header (app icon, version) and the menu, then the list's clear button.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -65,15 +65,10 @@ for i in $(seq 1 120); do
 done
 shot 03-results 4
 
-# The top stock's detail, down to its R/S card; then two of its parts opened in place.
-tap symbol
-sleep 4
-scroll_to "नतीजों की गुणवत्ता" 14 && up && sleep 1
-shot 04-rs-card 2
-tap_text "Insider और bulk deals"
-shot 05-insider-open 4
-up; shot 06-insider-open-more 2
-scroll_to "नतीजों की गुणवत्ता" 1 || { for i in 1 2 3; do adb shell input swipe 540 900 540 1900 500; done; }
-tap_text "नतीजों की गुणवत्ता"
-shot 07-quality-open 4
-up; shot 08-quality-open-more 2
+# The list's new clear button: its question, the screen once cleared, and the app opened again afterwards.
+tap clearButton
+shot 04-clear-ask 2
+tap_text "हाँ, साफ़ करें"
+shot 05-cleared 3
+launch; sleep 6
+shot 06-reopened 2

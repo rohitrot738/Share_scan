@@ -34,4 +34,11 @@
     <!-- %1$d position, %2$s symbol, %3$s price, %4$s score, %5$s RVOL; ShareTextTest reads this line. -->
     <string name="list_share_line">%1$d. %2$s ₹%3$s • score %4$s • RVOL %5$s×</string>
     <string name="list_share_failed">शेयर करने के लिए कोई app नहीं मिला</string>
+
+    <!-- Clear the kept scan -->
+    <string name="list_clear_open">सारे स्कैन साफ़ करें</string>
+    <string name="list_clear_title">सारे स्कैन साफ़ करें?</string>
+    <string name="list_clear_body">स्क्रीन की सूची, सहेजा हुआ आख़िरी स्कैन और NEW / ▲▼ rank history मिट जाएँगे; app ऐसे खुलेगा जैसे अभी तक कोई स्कैन हुआ ही न हो। Watchlist, filters और track record बने रहेंगे।</string>
+    <string name="list_clear_done">स्कैन साफ़ हो गए</string>
+    <string name="list_clear_running">स्कैन चल रहा है — उसके पूरा होने या रोकने के बाद साफ़ करें</string>
 </resources>
