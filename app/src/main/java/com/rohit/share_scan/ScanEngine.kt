@@ -77,6 +77,14 @@ object ScanEngine {
         }
     }
 
+    /**
+     * One stock's row of the kept scan, read on its own while the whole scan may still be on its way from disk; for
+     * background work, never the main thread.
+     */
+    fun peek(context: Context, symbol: String): ScanResult? =
+        latestFlow.value?.let { kept -> (kept.output.results + kept.watchExtras).firstOrNull { it.symbol == symbol } }
+            ?: store(context.applicationContext).find(symbol)
+
     /** The kept scan, waiting (briefly) for it to be read from disk; for background work, never the main thread. */
     fun loaded(context: Context): SavedScan? {
         load(context)

@@ -92,6 +92,22 @@ class ScanStoreTest {
     }
 
     @Test
+    fun aLongListKeepsItsOrderAndOneRowIsFoundAlone() {
+        val store = ScanStore(File(folder(), "last_scan.gz"))
+        val rows = List(700) { bare.copy(symbol = "S$it", score = 700.0 - it) } + full
+        store.save(SavedScan(ScanOutput(rows, null), 1L, watchExtras = listOf(bare.copy(symbol = "STARRED"))))
+        val back = store.load()!!
+        assertEquals(rows.map { it.symbol }, back.output.results.map { it.symbol })
+        assertEquals(listOf("STARRED"), back.watchExtras.map { it.symbol })
+        // One stock, read on its own: "S7" is not "S70", and a starred extra is found too.
+        assertEquals("S7", store.find("S7")!!.symbol)
+        assertEquals(full.structure, store.find("M&M")!!.structure)
+        assertEquals("STARRED", store.find("STARRED")!!.symbol)
+        assertNull(store.find("S"))
+        assertNull(ScanStore(File(folder(), "none.gz")).find("S7"))
+    }
+
+    @Test
     fun aNewSaveReplacesTheOldOne() {
         val store = ScanStore(File(folder(), "last_scan.gz"))
         store.save(SavedScan(ScanOutput(listOf(full), null), 1L))

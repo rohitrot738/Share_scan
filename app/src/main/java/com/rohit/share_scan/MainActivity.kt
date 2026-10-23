@@ -35,14 +35,18 @@ import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.withStarted
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rohit.share_scan.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.withTimeoutOrNull
 import java.io.File
 import java.time.Instant
 import java.time.LocalDate
@@ -200,6 +204,22 @@ class MainActivity : AppCompatActivity() {
         // Until the screen is up the list's first render opens it.
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) openPending(scan.uiState.value)
         lifecycleScope.launch {
+            // On a fresh start the whole list takes seconds to read; the stock's own row is found first, and opens
+            // once the R/S and learned-setup files are in (or a moment has passed without them).
+            if (!ScanEngine.read.value) {
+                val row = withContext(Dispatchers.IO) { ScanEngine.peek(this@MainActivity, symbol) }
+                if (row != null && pendingSymbol == symbol) {
+                    withTimeoutOrNull(BOOKS_WAIT_MS) {
+                        scan.uiState.first { it.cr360 !== Cr360Book.EMPTY && it.setups !== SetupBook.EMPTY }
+                    }
+                    lifecycle.withStarted {
+                        if (pendingSymbol == symbol) {
+                            pendingSymbol = null
+                            openChart(row)
+                        }
+                    }
+                }
+            }
             ScanEngine.read.first { it }
             scan.uiState.first { !it.isRunning }
             // The list renders the kept or finished scan a moment later.
@@ -985,6 +1005,9 @@ class MainActivity : AppCompatActivity() {
          * it is not there.
          */
         const val PENDING_GRACE_MS = 2_000L
+
+        /** How long a notification's stock, found on its own, waits for the R/S and learned-setup files. */
+        const val BOOKS_WAIT_MS = 3_000L
     }
 
     private fun openReleases() {

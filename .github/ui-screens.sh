@@ -95,64 +95,53 @@ launch; sleep 6
 now() { date +%s.%N; }
 since() { python3 -c "print(round($(now) - $1, 1))"; }
 # The running scan's notification text as Android holds it (not the shade's drawing of it).
-scan_text() { adb shell dumpsys notification --noredact | grep -oE "android.text=String \([^)]*stocks[^)]*\)" | head -1; }
+scan_text() { adb shell dumpsys notification --noredact | grep -ioE "android.text=String \([^)]*stocks[^)]*\)" | head -1; }
 
-# 1. The user's scan with the app sent Home right after SCAN; its notification's text every 5 seconds.
+# 1. The user's scan with the app sent Home right after SCAN; its notification's text every 5 seconds until it ends.
 tap startButton
 sleep 4
 adb shell input keyevent KEYCODE_HOME
 T=$(now)
-for i in $(seq 1 60); do
+for i in $(seq 1 120); do
   sleep 5
-  line=$(scan_text)
-  echo "+$(since "$T")s ${line:-no scan notification}" >> "$LOG"
-  adb shell dumpsys notification --noredact | grep -q "स्कैन पूरा" && break
+  echo "+$(since "$T")s $(scan_text)" >> "$LOG"
+  adb shell dumpsys notification --noredact | grep -q "top candidates" && break
 done
 echo "scan ended out of sight after $(since "$T")s" | tee -a "$LOG"
 shade; shot 01-scan-done-shade 1
 adb shell cmd statusbar collapse
 adb shell run-as "$PKG" ls -l files >> "$LOG" 2>&1
 
-# 2. A fresh start (process killed): how long the kept scan takes to be read, and what shows meanwhile.
+# 2. A fresh start (process killed): what shows while the kept scan is read, and how long it takes.
 adb shell am kill "$PKG"; sleep 2
+echo "pid after kill: $(adb shell pidof $PKG || echo none)" >> "$LOG"
 adb shell am start -n "$PKG/.MainActivity" > /dev/null
 T=$(now)
-sleep 1; shot 02-fresh-start-1s 0
-for i in $(seq 1 40); do
+shot 02-fresh-start-2s 2
+for i in $(seq 1 60); do
   center text "दोबारा स्कैन करें" > /dev/null && break
   sleep 1
 done
 echo "fresh start: list in after $(since "$T")s" | tee -a "$LOG"
 shot 03-fresh-start-list 0
 mapfile -t SYMS < <(texts symbol)
-A=${SYMS[0]:-RELIANCE}
-echo "first stock: $A" | tee -a "$LOG"
+A=${SYMS[1]:-RELIANCE}
+echo "second stock: $A" | tee -a "$LOG"
 
 # 3. A watchlist alert tapped with the app's process killed: how long until its stock opens.
 adb shell input keyevent KEYCODE_HOME; sleep 3
 notify watch "$A"
 sleep 4
 adb shell am kill "$PKG"; sleep 3
-state "killed, before tapping"
+echo "pid after kill: $(adb shell pidof $PKG || echo none)" >> "$LOG"
 shade
 tap_text "$A stop-loss"
 T=$(now)
-sleep 1; shot 04-closed-tap-1s 0
-for i in $(seq 1 40); do
+for i in $(seq 1 60); do
   center id detailSymbol > /dev/null && break
   sleep 1
 done
 echo "closed-app alert: $A opened after $(since "$T")s" | tee -a "$LOG"
-shot 05-closed-tap-opened 0
-adb shell input keyevent KEYCODE_BACK; sleep 2
-
-# 4. Menu → स्कैन: Android's dialog, its Allow button, and the line once allowed.
-tap menuButton; sleep 2
-tap_text "live auto-scan"; sleep 3
-tap_text "Background में चलने दें"; sleep 3
-xy=$(button "Allow") && adb shell input tap $xy || echo "no Allow button" | tee -a "$LOG"
-sleep 3
-shot 06-scan-sheet-allowed 1
-adb shell dumpsys deviceidle whitelist | grep -i share_scan >> "$LOG"
-
-adb logcat -d -s AndroidRuntime:E | grep -iE "share_scan|FATAL|Exception" | tail -20 >> "$LOG"
+shot 04-closed-tap-opened 0
+adb shell input keyevent KEYCODE_BACK; sleep 3
+shot 05-closed-tap-list 0
