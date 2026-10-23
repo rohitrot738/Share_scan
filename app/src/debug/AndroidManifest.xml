@@ -1,0 +1,8 @@
+<!-- Temporary, debug builds only: lets the emulator review post the app's real alerts. Removed before merging. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+  <application>
+    <receiver
+        android:name=".NotifyTestReceiver"
+        android:exported="true" />
+  </application>
+</manifest>
