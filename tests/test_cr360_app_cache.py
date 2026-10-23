@@ -108,10 +108,13 @@ def test_nse_rows_become_dated_signed_values():
     nse = NSEPublicAdapter()
     rows = json.loads((FIXTURES / "nse_pit_reliance.json").read_text())["data"]
     parsed = [parse_insider(nse, r) for r in rows]
-    assert ["2026-02-13", "sell", 3294168.0] in parsed
+    # Who traded, how many shares, how, when NSE published it and what they held after.
+    assert ["2026-02-13", "sell", 3294168.0, 2320, "BALANADU NARAYAN", "Other", "Off Market", "2026-02-18 19:06", 0.0,
+            None] in parsed
+    assert parsed[-1] is None  # a pledge revoked is neither a buy nor a sell
     deals = deal_rows("Date,Symbol,Security Name,Client Name,Buy/Sell,Quantity Traded,Trade Price / Wght. Avg. Price,Remarks\n"
-                      "19-OCT-2026,COMSYN,Commercial Syn Bags Ltd,ARIHANT,BUY,235877,256.03,-\n")
-    assert deals == {"COMSYN": [["2026-10-19", "buy", round(235877 * 256.03, 2)]]}
+                      "19-OCT-2026,COMSYN,Commercial Syn Bags Ltd,ARIHANT,BUY,235877,256.03,-\n", "block")
+    assert deals == {"COMSYN": [["2026-10-19", "buy", round(235877 * 256.03, 2), 235877, "ARIHANT", "block"]]}
     assert iso_date("18-Feb-2026 19:06") == "2026-02-18"
     assert iso_date("01-10-2026") == "2026-10-01"
     assert iso_date("nonsense") is None
@@ -374,3 +377,50 @@ def test_lenders_debt_and_cash_flow_are_not_judged():
     assert lender["sec"]["cf"] is None and lender["sec"]["bs"] is None and lender["c"] == 100.0  # nothing is missing
     other = app_store.app_record(stock, app_store.research_input("X", stock, prices, (25.0, 3.0)))
     assert other["sec"]["cf"] is not None and other["sec"]["bs"] is not None and other["c"] == 100.0
+
+
+def test_a_named_trade_takes_the_place_of_the_same_trade_kept_without_a_name():
+    old = [["2026-02-13", "sell", 3294168.0], ["2026-03-01", "buy", 1.0e7]]
+    named = ["2026-02-13", "sell", 3294168.0, 2320, "BALANADU NARAYAN", "Other", "Off Market", "2026-02-18 19:06", 0.0, None]
+    same_day_other = ["2026-02-13", "sell", 3294168.0, 2320, "SOMEONE ELSE", "Other", "Off Market", "2026-02-18 19:07", 0.0, None]
+    merged = app_store.merge_events(old, [named, same_day_other])
+    assert merged == [named, same_day_other, ["2026-03-01", "buy", 1.0e7]]
+    assert app_store.merge_events(merged, [named]) == merged  # read again: no repeats
+    assert app_store.merge_events([named], old[:1]) == [named]  # an old row read after the named one adds nothing
+
+
+def test_history_carries_every_insider_trade_and_deal():
+    stock = {"quarters": [{"period": "2026-06-30", "revenue": 1.0, "net_profit": 1.0, "eps": 1.0}],
+             "insider": [["2026-02-13", "sell", 3294168.0, 2320, "A", "Other", "Off Market", "2026-02-18 19:06", 0.0, None]],
+             "deals": [["2026-10-19", "buy", 6.0e7, 235877, "ARIHANT", "bulk"]]}
+    h = app_store.history_record(stock)
+    assert h["i"] == stock["insider"] and h["d"] == stock["deals"]
+    assert "i" not in app_store.history_record({"quarters": stock["quarters"]})
+
+
+def test_insider_trades_are_topped_up_first_and_old_rows_read_again_in_full(monkeypatch):
+    from cr360 import build_app_cache as b
+    today = date(2026, 10, 23)
+    named = ["2026-10-20", "buy", 5.0e6, 100, "A", "Promoter", "Market Purchase", "2026-10-21 18:30", 51.2, None]
+    store = {"stocks": {
+        "OLD": {"insider_checked": "2026-10-22", "insider": [["2026-01-05", "sell", 1.0e6]]},  # checked yesterday, no names
+        "WEEK": {"insider_checked": "2026-10-10", "insider": []},
+        "FRESH": {"insider_checked": "2026-10-20", "insider": []},
+    }}
+    asked = []
+
+    def fake(nse, sym, start, end, index="equities"):
+        asked.append((sym, start))
+        return [["2026-01-05", "sell", 1.0e6, 10, "B", "Director", "Market Sale", "2026-01-06 20:00", 1.0, None]] if sym == "OLD" else [named]
+    monkeypatch.setattr(b, "insider_events", fake)
+    monkeypatch.setattr(b, "INSIDER_GAP", 0)
+    b.top_up_insiders(store, None, today, until=float("inf"))
+    assert asked == [("OLD", today - timedelta(days=365 * 5)), ("WEEK", date(2026, 10, 7))]  # FRESH waits its week
+    assert store["stocks"]["OLD"]["insider"][0][4] == "B" and len(store["stocks"]["OLD"]["insider"]) == 1
+    assert store["stocks"]["WEEK"]["insider"] == [named] and store["stocks"]["WEEK"]["insider_checked"] == "2026-10-23"
+    # NSE refusing stock after stock ends the top-up for the run.
+    asked.clear()
+    monkeypatch.setattr(b, "insider_events", lambda *a, **k: asked.append(a[1]) or None)
+    many = {"stocks": {f"S{i}": {"insider_checked": "2026-10-01", "insider": []} for i in range(9)}}
+    b.top_up_insiders(many, None, today, until=float("inf"))
+    assert len(asked) == b.INSIDER_FAILURES

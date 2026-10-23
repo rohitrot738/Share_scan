@@ -43,6 +43,9 @@ FINANCIAL_SECTOR = "Financial Services"  # banks, NBFCs, insurers, brokers: debt
 SCREENER_GAP = float(os.environ.get("CR360_SCREENER_GAP", "6"))
 PRICE_RESERVE_MIN = 30  # minutes kept for prices, 360CR and writing the files
 INSIDER_EVERY_DAYS = 7  # a stock's insider trades are topped up weekly
+INSIDER_MINUTES = 60    # the most of a run the insider top-up may take, before the pages
+INSIDER_GAP = 1.0       # seconds between two stocks' insider requests to NSE
+INSIDER_FAILURES = 5    # NSE refusing this many stocks in a row ends the top-up for the run
 OLD_QUARTER_DAYS = 200  # a page this far behind the due quarter is checked against the other one
 INSIDER_INDEX = {"nse": "equities", "sme": "sme"}  # NSE's insider filings; BSE-only companies file with BSE
 
@@ -248,7 +251,7 @@ def _yahoo_chart(ticker: str) -> list[dict]:
 
 
 def insider_events(nse: NSEPublicAdapter, symbol: str, start: date, end: date, index: str = "equities") -> list | None:
-    """The stock's insider trades filed between `start` and `end` as [date, side, rupees]; None when NSE failed.
+    """The stock's insider trades filed between `start` and `end` as `parse_insider` rows; None when NSE failed.
     NSE files SME companies' trades under index "sme"."""
     try:
         rows = nse._rows(nse._get("/api/corporates-pit", {"index": index, "symbol": symbol,
@@ -259,8 +262,9 @@ def insider_events(nse: NSEPublicAdapter, symbol: str, start: date, end: date, i
     return [e for e in (parse_insider(nse, r) for r in rows) if e]
 
 
-def deal_rows(text: str) -> dict[str, list]:
-    """One of NSE's daily bulk.csv / block.csv files as [date, side, rupees] rows by symbol."""
+def deal_rows(text: str, kind: str = "bulk") -> dict[str, list]:
+    """One of NSE's daily bulk.csv / block.csv files as [date, side, rupees, shares, client, kind] rows by symbol.
+    NSE's files carry no time of day."""
     out: dict[str, list] = {}
     for row in csv.DictReader(io.StringIO(text)):
         row = {k.strip(): (v or "").strip() for k, v in row.items() if k}
@@ -268,30 +272,75 @@ def deal_rows(text: str) -> dict[str, list]:
         qty = screener_page.number(row.get("Quantity Traded"))
         price = screener_page.number(row.get("Trade Price / Wght. Avg. Price"))
         if sym and d and side in ("buy", "sell") and qty and price:
-            out.setdefault(sym, []).append([d, side, round(qty * price, 2)])
+            out.setdefault(sym, []).append([d, side, round(qty * price, 2), int(qty), row.get("Client Name") or None, kind])
     return out
 
 
 def archive_deals() -> dict[str, list]:
     """The latest session's bulk and block deals of every stock, from NSE's daily files."""
     out: dict[str, list] = {}
-    for name in ("bulk.csv", "block.csv"):
-        status, text, _ = http_get("https://archives.nseindia.com/content/equities/" + name, "text/csv", BROWSER_UA)
+    for kind in ("bulk", "block"):
+        status, text, _ = http_get(f"https://archives.nseindia.com/content/equities/{kind}.csv", "text/csv", BROWSER_UA)
         if status != 200:
-            log(f"  nse {name}: {status}")
+            log(f"  nse {kind}.csv: {status}")
             continue
-        for sym, rows in deal_rows(text).items():
+        for sym, rows in deal_rows(text, kind).items():
             out.setdefault(sym, []).extend(rows)
     return out
 
 
 def parse_insider(nse: NSEPublicAdapter, r: dict) -> list | None:
-    """One PIT row: 'tdpTransactionType' Buy or Sell, 'secVal' in rupees, 'acqfromDt' the trade's day."""
+    """One PIT row as [date, side, rupees, shares, name, category, mode, filed, holding after %, last date]:
+    'acqfromDt' to 'acqtoDt' the days traded, 'tdpTransactionType' Buy or Sell, 'secVal' in rupees, 'secAcq' the
+    shares, 'acqName' and 'personCategory' who traded, 'acqMode' how (market, off market, ESOP...), 'date' when NSE
+    published the filing ("18-Feb-2026 19:06" -> "2026-02-18 19:06") and 'afterAcqSharesPer' their holding after it."""
     side = str(nse._pick(r, "tdpTransactionType", "acqMode", "transactionType") or "").lower()
     side = "buy" if any(x in side for x in ("buy", "purchase")) else "sell" if any(x in side for x in ("sell", "sale")) else ""
     value = nse._num(nse._pick(r, "secVal", "value"))
     d = iso_date(nse._pick(r, "acqfromDt", "date", "intimDt"))
-    return [d, side, round(value, 2)] if d and side and value else None
+    if not (d and side and value):
+        return None
+
+    def text(key):
+        v = nse._pick(r, key)
+        return None if v is None or str(v).strip() in ("", "-") else str(v).strip()
+
+    shares = nse._num(nse._pick(r, "secAcq"))
+    filed = iso_date(text("date"))
+    clock = re.search(r"\b(\d{1,2}):(\d{2})\b", text("date") or "")
+    last = iso_date(nse._pick(r, "acqtoDt"))
+    return [d, side, round(value, 2), int(shares) if shares else None, text("acqName"), text("personCategory"),
+            text("acqMode"), f"{filed} {int(clock[1]):02d}:{clock[2]}" if filed and clock else filed,
+            nse._num(nse._pick(r, "afterAcqSharesPer")), last if last and last != d else None]
+
+
+def top_up_insiders(store: dict, nse: NSEPublicAdapter, today: date, until: float) -> None:
+    """Each week's new insider filings of every stock already read, and the whole five years again for a stock whose
+    trades were kept before names and times were; stale ones first, until `until`."""
+    def unnamed(v):
+        return any(len(e) < 5 for e in v.get("insider") or [])
+    stale = sorted((s for s, v in store["stocks"].items() if v.get("insider_checked") and (
+        unnamed(v) or (today - date.fromisoformat(v["insider_checked"])).days >= INSIDER_EVERY_DAYS)),
+        key=lambda s: (not unnamed(store["stocks"][s]), store["stocks"][s]["insider_checked"]))
+    topped = failures = 0
+    for sym in stale:
+        if time.time() > until or failures >= INSIDER_FAILURES:
+            break
+        stock = store["stocks"][sym]
+        since = (today - timedelta(days=365 * app_store.EVENT_YEARS) if unnamed(stock)
+                 else date.fromisoformat(stock["insider_checked"]) - timedelta(days=3))
+        rows = insider_events(nse, sym, since, today, INSIDER_INDEX.get(stock.get("market", "nse"), "equities"))
+        if rows is None:
+            failures += 1
+        else:
+            failures = 0
+            app_store.put_events(store, sym, "insider", rows)
+            if rows and unnamed(stock):  # the five years read again: what NSE no longer lists goes
+                stock["insider"] = [e for e in stock["insider"] if len(e) >= 5]
+            stock["insider_checked"] = today.isoformat()
+            topped += 1
+        time.sleep(INSIDER_GAP)
+    log(f"insider trades topped up for {topped}/{len(stale)} stocks")
 
 
 # --- run -----------------------------------------------------------------------------------------------------------
@@ -339,6 +388,7 @@ def main(argv=None) -> int:
         if universe.get(sym, {}).get("market") in ("nse", "sme"):  # NSE's files; a BSE symbol is another company
             app_store.put_events(store, sym, "deals", rows)
     log(f"deals from today's files: {sum(len(v) for v in deals.values())}")
+    top_up_insiders(store, nse, today, min(deadline, time.time() + INSIDER_MINUTES * 60))
 
     screener = Screener()
     due_quarter = app_store.latest_due_quarter(today)
@@ -370,21 +420,6 @@ def main(argv=None) -> int:
             write_json_gz(args.store, store)  # progress survives a cancelled run
     log(f"pages read {read}, failed {failed}, screener blocked: {screener.blocked}")
 
-    topped = 0
-    stale = sorted((s for s, v in store["stocks"].items() if v.get("insider_checked")
-                    and (today - date.fromisoformat(v["insider_checked"])).days >= INSIDER_EVERY_DAYS),
-                   key=lambda s: store["stocks"][s]["insider_checked"])
-    for sym in stale:
-        if time.time() > deadline:
-            break
-        stock = store["stocks"][sym]
-        rows = insider_events(nse, sym, date.fromisoformat(stock["insider_checked"]) - timedelta(days=3), today,
-                              INSIDER_INDEX.get(stock.get("market", "nse"), "equities"))
-        if rows is not None:
-            app_store.put_events(store, sym, "insider", rows)
-            stock["insider_checked"] = today.isoformat()
-            topped += 1
-    log(f"insider trades topped up for {topped}/{len(stale)} stocks")
     app_store.prune(store, universe, today, markets)
 
     priced = [s for s, v in store["stocks"].items() if v.get("quarters")]
