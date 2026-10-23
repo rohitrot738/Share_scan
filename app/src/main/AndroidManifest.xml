@@ -4,6 +4,12 @@
   <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
   <!-- Live mode's finds and the watchlist's breakout, target and stop alerts (asked for on Android 13 and later). -->
   <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+  <!-- The user's scan keeps going with the app out of sight (ScanService), the CPU awake with the screen off. -->
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+  <uses-permission android:name="android.permission.WAKE_LOCK" />
+  <!-- Menu → स्कैन → "Background में चलने दें": asks Android to stop holding live mode back to save battery. -->
+  <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
   <!-- The detail sheet's trading-app buttons open these apps (Broker); Android 11 and later hide others' apps unless named. -->
   <queries>
     <package android:name="com.nextbillion.groww" />
@@ -30,6 +36,18 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <service
+        android:name=".ScanService"
+        android:exported="false"
+        android:foregroundServiceType="dataSync" />
+    <!-- Android's download manager says here when the update's APK is in (UpdateDownload). -->
+    <receiver
+        android:name=".UpdateDownloadReceiver"
+        android:exported="true">
+      <intent-filter>
+        <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+      </intent-filter>
+    </receiver>
     <provider
         android:name="androidx.core.content.FileProvider"
         android:authorities="${applicationId}.updates"

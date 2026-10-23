@@ -15,3 +15,11 @@ class ShareScanApp : Application() {
         LiveSchedule.sync(this)
     }
 }
+
+/**
+ * Whether the app's screen is up; work that ends with the app out of sight ([ScanService], [UpdateDownload]) says so in
+ * a notification.
+ */
+object AppScreen {
+    @Volatile var open: Boolean = false
+}

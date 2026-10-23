@@ -1,6 +1,7 @@
 package com.rohit.share_scan
 
 import android.Manifest
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -13,18 +14,32 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 
 /**
- * The app's notifications: live mode's finds (stocks newly STRONG or breaking out) and watchlist alerts (breakout,
- * target, stop). Tapping one opens the app; a single stock's alert opens its detail sheet.
+ * The app's notifications: live mode's finds (stocks newly STRONG or breaking out), watchlist alerts (breakout,
+ * target, stop), the user's scan while it runs in the background ([ScanService]) and how it ended, and an update
+ * downloaded in the background ([UpdateDownload]). Tapping one opens the app; a stock's alert opens its detail sheet.
  */
 object Notifier {
     private const val CHANNEL_LIVE = "live_finds"
     private const val CHANNEL_WATCH = "watch_alerts"
+    private const val CHANNEL_SCAN = "scan_progress"
+    private const val CHANNEL_SCAN_DONE = "scan_done"
+    private const val CHANNEL_UPDATE = "update_ready"
     private const val ID_LIVE = 1
+
+    /** The running scan's notification, which [ScanService] runs in the foreground under. */
+    const val ID_SCAN = 2
+    private const val ID_SCAN_DONE = 3
+    private const val ID_UPDATE = 4
     /** Each stock's alerts replace its previous one. */
     private const val ID_WATCH_BASE = 1_000
+    /** Request codes of the live finds' per-stock buttons: one after another from here. */
+    private const val LIVE_ACTION_BASE = 100
 
     /** The intent extra a notification passes to [MainActivity]: the stock to open. */
     const val EXTRA_SYMBOL = "symbol"
+
+    /** The intent extra of the "update ready" notification: hand the downloaded APK to the installer. */
+    const val EXTRA_INSTALL = "install_update"
 
     fun canPost(context: Context): Boolean =
         Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
@@ -41,6 +56,19 @@ object Notifier {
         manager.createNotificationChannel(
             NotificationChannel(CHANNEL_WATCH, context.getString(R.string.notify_channel_watch), NotificationManager.IMPORTANCE_HIGH)
                 .apply { description = context.getString(R.string.notify_channel_watch_body) },
+        )
+        // Quiet: it changes every second while the scan runs.
+        manager.createNotificationChannel(
+            NotificationChannel(CHANNEL_SCAN, context.getString(R.string.notify_channel_scan), NotificationManager.IMPORTANCE_LOW)
+                .apply { description = context.getString(R.string.notify_channel_scan_body) },
+        )
+        manager.createNotificationChannel(
+            NotificationChannel(CHANNEL_SCAN_DONE, context.getString(R.string.notify_channel_scan_done), NotificationManager.IMPORTANCE_DEFAULT)
+                .apply { description = context.getString(R.string.notify_channel_scan_done_body) },
+        )
+        manager.createNotificationChannel(
+            NotificationChannel(CHANNEL_UPDATE, context.getString(R.string.notify_channel_update), NotificationManager.IMPORTANCE_DEFAULT)
+                .apply { description = context.getString(R.string.notify_channel_update_body) },
         )
     }
 
@@ -66,18 +94,20 @@ object Notifier {
         val style = NotificationCompat.InboxStyle()
         lines.forEach(style::addLine)
         if (more > 0) style.setSummaryText(context.getString(R.string.notify_live_more, more))
-        val single = finds.singleOrNull()?.symbol
-        post(
-            context,
-            ID_LIVE,
-            NotificationCompat.Builder(context, CHANNEL_LIVE)
-                .setSmallIcon(R.drawable.ic_trending_up)
-                .setContentTitle(title)
-                .setContentText(finds.joinToString(", ") { it.symbol })
-                .setStyle(style)
-                .setContentIntent(open(context, single, ID_LIVE))
-                .setAutoCancel(true),
-        )
+        // A tap opens the best find; with several, a button for each of the first few opens that one.
+        val builder = NotificationCompat.Builder(context, CHANNEL_LIVE)
+            .setSmallIcon(R.drawable.ic_trending_up)
+            .setContentTitle(title)
+            .setContentText(finds.joinToString(", ") { it.symbol })
+            .setStyle(style)
+            .setContentIntent(open(context, finds.first().symbol, ID_LIVE))
+            .setAutoCancel(true)
+        if (finds.size > 1) {
+            finds.take(MAX_ACTIONS).forEachIndexed { index, find ->
+                builder.addAction(0, find.symbol, open(context, find.symbol, LIVE_ACTION_BASE + index))
+            }
+        }
+        post(context, ID_LIVE, builder)
     }
 
     /** A watchlisted stock's alert. */
@@ -124,6 +154,111 @@ object Notifier {
         )
     }
 
+    /** The ongoing notification of a scan the user started: how far it has got, and a button that stops it. */
+    fun scanProgress(context: Context, progress: ScanEngine.Progress): Notification {
+        val builder = NotificationCompat.Builder(context, CHANNEL_SCAN)
+            .setSmallIcon(R.drawable.ic_radar)
+            .setOngoing(true)
+            .setOnlyAlertOnce(true)
+            .setSilent(true)
+            .setCategory(NotificationCompat.CATEGORY_PROGRESS)
+            .setForegroundServiceBehavior(NotificationCompat.FOREGROUND_SERVICE_IMMEDIATE)
+            .setContentIntent(open(context, null, ID_SCAN))
+        when {
+            progress.stopping -> builder.setContentTitle(context.getString(R.string.notify_scan_stopping)).setProgress(0, 0, true)
+            progress.loading || progress.total <= 0 -> builder
+                .setContentTitle(context.getString(R.string.notify_scan_title))
+                .setContentText(context.getString(R.string.notify_scan_loading))
+                .setProgress(0, 0, true)
+            else -> builder
+                .setContentTitle(context.getString(R.string.notify_scan_title))
+                .setContentText(
+                    context.getString(
+                        R.string.notify_scan_body,
+                        StockFormat.count(progress.done),
+                        StockFormat.count(progress.total),
+                        (progress.done * 100 / progress.total).coerceIn(0, 100),
+                    ),
+                )
+                .setProgress(progress.total, progress.done.coerceAtMost(progress.total), false)
+        }
+        if (!progress.stopping) {
+            builder.addAction(R.drawable.ic_stop, context.getString(R.string.action_stop), ScanService.stopIntent(context))
+        }
+        return builder.build()
+    }
+
+    /** Shows [notification] as the running scan's, in place of the one before. */
+    fun showScan(context: Context, notification: Notification) {
+        if (!canPost(context)) return
+        try {
+            NotificationManagerCompat.from(context).notify(ID_SCAN, notification)
+        } catch (denied: SecurityException) {
+            // The permission was taken back between the check and the post.
+        }
+    }
+
+    /**
+     * How the user's scan [runId] ended, for when it ended with the app out of sight: how many stocks made the list
+     * (the filters on the home screen, Top limit included) and which is first, or that it stopped or failed.
+     */
+    fun scanDone(context: Context, runId: Int) {
+        val failure = ScanEngine.failure.value?.takeIf { it.runId == runId }
+        val latest = ScanEngine.latest.value
+        val (title, body) = when {
+            failure != null && !failure.stoppedEarly -> context.getString(R.string.status_failed_title) to
+                (failure.message?.let { context.getString(R.string.status_failed_detail, it) }
+                    ?: context.getString(R.string.status_failed_body))
+            failure != null || latest == null -> context.getString(R.string.notify_scan_stopped_early) to
+                context.getString(R.string.notify_scan_stopped_early_body)
+            else -> {
+                val prefs = context.getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE)
+                val filters = ScanFilters.decode(prefs.getString(Prefs.FILTERS, null))
+                val inside = latest.output.results.filter(filters::accepts)
+                val listed = if (filters.limit > 0) minOf(inside.size, filters.limit) else inside.size
+                val top = inside.firstOrNull()
+                context.getString(if (latest.output.stopped) R.string.notify_scan_stopped else R.string.notify_scan_done, listed) to
+                    (top?.let { context.getString(R.string.notify_scan_top, it.symbol, StockFormat.score(it.score)) }
+                        ?: context.getString(R.string.notify_scan_none))
+            }
+        }
+        post(
+            context,
+            ID_SCAN_DONE,
+            NotificationCompat.Builder(context, CHANNEL_SCAN_DONE)
+                .setSmallIcon(R.drawable.ic_check)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setStyle(NotificationCompat.BigTextStyle().bigText(body))
+                .setContentIntent(open(context, null, ID_SCAN_DONE))
+                .setAutoCancel(true),
+        )
+    }
+
+    /** The app is open again: the scan's result is on the screen. */
+    fun cancelScanDone(context: Context) = NotificationManagerCompat.from(context).cancel(ID_SCAN_DONE)
+
+    /** An update [versionName] finished downloading with the app out of sight; a tap hands it to the installer. */
+    fun updateReady(context: Context, versionName: String) {
+        val intent = Intent(context, MainActivity::class.java)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            .putExtra(EXTRA_INSTALL, true)
+        val tap = PendingIntent.getActivity(context, ID_UPDATE, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        post(
+            context,
+            ID_UPDATE,
+            NotificationCompat.Builder(context, CHANNEL_UPDATE)
+                .setSmallIcon(R.drawable.ic_check)
+                .setContentTitle(context.getString(R.string.notify_update_ready, versionName))
+                .setContentText(context.getString(R.string.notify_update_ready_body))
+                .setContentIntent(tap)
+                .setAutoCancel(true),
+        )
+    }
+
+    /** The update is being installed, or was put off. */
+    fun cancelUpdateReady(context: Context) = NotificationManagerCompat.from(context).cancel(ID_UPDATE)
+
     /** "breakout • volume 2.4× ✓", or the volume marked as too low when it is under [BreakoutSetup.VOLUME_RVOL]. */
     private fun breakoutTag(context: Context, rvol: Double): String = context.getString(
         if (rvol >= BreakoutSetup.VOLUME_RVOL) R.string.notify_tag_breakout_volume else R.string.notify_tag_breakout_low,
@@ -153,4 +288,7 @@ object Notifier {
     }
 
     private const val MAX_LINES = 6
+
+    /** Android shows at most three buttons on a notification. */
+    private const val MAX_ACTIONS = 3
 }

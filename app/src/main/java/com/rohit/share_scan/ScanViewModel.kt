@@ -52,13 +52,16 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
         viewModelScope.launch {
-            combine(ScanEngine.progress, ScanEngine.latest, ScanEngine.failure) { progress, latest, failure ->
-                Triple(progress, latest, failure)
-            }.collect { (progress, latest, failure) -> show(progress, latest, failure) }
+            combine(
+                ScanEngine.progress,
+                ScanEngine.latest,
+                ScanEngine.failure,
+                ScanEngine.read,
+            ) { progress, latest, failure, read -> show(progress, latest, failure, reading = !read) }.collect {}
         }
     }
 
-    private fun show(progress: ScanEngine.Progress, latest: SavedScan?, failure: ScanEngine.Failure?) {
+    private fun show(progress: ScanEngine.Progress, latest: SavedScan?, failure: ScanEngine.Failure?, reading: Boolean) {
         val results = latest?.output?.results.orEmpty()
         val lastRun = failure?.takeIf { it.runId == progress.runId }
         val phase = when {
@@ -98,6 +101,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
                 narrowed = latest != null && ScanSectors.narrowed(latest.scope),
                 runningAuto = progress.running && progress.trigger == ScanEngine.Trigger.AUTO,
                 earlyStop = !progress.running && lastRun?.stoppedEarly == true,
+                reading = reading && latest == null,
                 // A scan may have brought a fresh 360CR file (ScanEngine).
                 cr360 = Cr360Repository.current().takeIf { it !== Cr360Book.EMPTY } ?: current.cr360,
                 setups = SetupRepository.current().takeIf { it !== SetupBook.EMPTY } ?: current.setups,
@@ -105,8 +109,9 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /** Starts the user's scan, run in a foreground service so it goes on with the app out of sight ([ScanService]). */
     fun startScan() {
-        ScanEngine.start(getApplication(), ScanEngine.Trigger.USER)
+        if (ScanEngine.start(getApplication(), ScanEngine.Trigger.USER)) ScanService.start(getApplication())
     }
 
     /**

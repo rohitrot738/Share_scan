@@ -13,7 +13,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,7 +24,6 @@ import kotlinx.coroutines.withContext
 import java.io.File
 import java.net.HttpURLConnection
 import java.net.URL
-import kotlin.coroutines.coroutineContext
 
 enum class UpdateStep { AVAILABLE, DOWNLOADING, READY, FAILED }
 
@@ -47,13 +46,16 @@ data class UpdateOffer(
 )
 
 /**
- * Looks for a newer signed release on launch and, when the user asks, downloads its APK into the cache
- * so the system installer can put it over this one. The launch check can be switched off in Settings; the menu
- * checks on demand. Debug builds never check: they carry a different key.
+ * Looks for a newer signed release on launch and, when the user asks, downloads its APK through Android's download
+ * manager ([UpdateDownload]), which goes on with the app closed, so the system installer can put it over this one. The
+ * launch check can be switched off in Settings; the menu checks on demand. Debug builds never check: they carry a
+ * different key.
  */
 class UpdateViewModel(application: Application) : AndroidViewModel(application) {
     private val prefs = application.getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE)
     private val folder = File(application.cacheDir, UPDATE_FOLDER)
+    /** A notification asked to install once the APK is ready ([installWhenReady]). */
+    private var installAsked = false
     private val state = MutableStateFlow<UpdateOffer?>(null)
     private val installs = Channel<File>(Channel.CONFLATED)
     private val checks = Channel<UpdateCheck>(Channel.BUFFERED)
@@ -107,13 +109,28 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
         val apk = withContext(Dispatchers.IO) { keepOnly(release) }
         if (release == null) return UpdateCheck.UpToDate(installedName)
         if (!manual && prefs.getInt(Prefs.UPDATE_DISMISSED, 0) == release.versionCode) return UpdateCheck.Found
-        state.value = UpdateOffer(
-            release = release,
-            installedName = installedName,
-            step = if (apk != null) UpdateStep.READY else UpdateStep.AVAILABLE,
-            apk = apk,
-        )
+        val offer = UpdateOffer(release = release, installedName = installedName)
+        when {
+            apk != null -> ready(offer, apk, justDownloaded = false)
+            // A download started before the app was closed: follow it again.
+            withContext(Dispatchers.IO) { UpdateDownload.status(getApplication(), release.versionCode) } != null -> {
+                state.value = offer.copy(step = UpdateStep.DOWNLOADING)
+                downloadJob?.cancel()
+                downloadJob = viewModelScope.launch { follow(offer) }
+            }
+            else -> state.value = offer
+        }
         return UpdateCheck.Found
+    }
+
+    /**
+     * The "update ready" notification was tapped: install as soon as the APK is known to be here (the launch check
+     * finds it a moment later on a fresh start).
+     */
+    fun installWhenReady() {
+        val current = state.value
+        val apk = current?.apk
+        if (current?.step == UpdateStep.READY && apk != null && apk.isFile) installs.trySend(apk) else installAsked = true
     }
 
     /** The banner's main button: downloads the APK, or hands it to the installer again once downloaded. */
@@ -130,21 +147,61 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
 
     private fun download(current: UpdateOffer) {
         state.value = current.copy(step = UpdateStep.DOWNLOADING, percent = 0, apk = null)
+        downloadJob?.cancel()
         downloadJob = viewModelScope.launch {
-            val apk = withContext(Dispatchers.IO) { runCatching { fetchApk(current.release) }.getOrNull() }
-            state.value = if (apk != null) {
-                current.copy(step = UpdateStep.READY, percent = 100, apk = apk)
+            if (withContext(Dispatchers.IO) { UpdateDownload.start(getApplication(), current.release) }) {
+                follow(current)
             } else {
-                current.copy(step = UpdateStep.FAILED, apk = null)
+                state.value = current.copy(step = UpdateStep.FAILED, apk = null)
             }
-            if (apk != null) installs.trySend(apk)
         }
     }
 
-    /** "बाद में": hides the banner until a release newer than this one comes out. */
+    /** Shows the download manager's progress twice a second until the APK is in, checked and moved, or failed. */
+    private suspend fun follow(current: UpdateOffer) {
+        val app = getApplication<Application>()
+        val code = current.release.versionCode
+        while (true) {
+            val status = withContext(Dispatchers.IO) { UpdateDownload.status(app, code) }
+            if (status is UpdateDownload.Status.Running) {
+                state.value = current.copy(step = UpdateStep.DOWNLOADING, percent = status.percent)
+                delay(PROGRESS_MS)
+                continue
+            }
+            // Done here, or already moved by the download manager's broadcast (nothing remembered then).
+            val apk = if (status == UpdateDownload.Status.Failed) {
+                withContext(Dispatchers.IO) { UpdateDownload.cancel(app) }
+                null
+            } else {
+                withContext(Dispatchers.IO) { UpdateDownload.finish(app, code) }
+            }
+            if (apk != null) {
+                ready(current, apk, justDownloaded = true)
+            } else {
+                state.value = current.copy(step = UpdateStep.FAILED, apk = null)
+            }
+            return
+        }
+    }
+
+    /**
+     * The APK is here: the banner offers to install it. The installer opens at once when a notification asked for it, or
+     * when the download [justDownloaded] with the app on the screen; an APK kept from before waits for the button.
+     */
+    private fun ready(current: UpdateOffer, apk: File, justDownloaded: Boolean) {
+        state.value = current.copy(step = UpdateStep.READY, percent = 100, apk = apk)
+        if (installAsked || (justDownloaded && AppScreen.open)) {
+            installAsked = false
+            installs.trySend(apk)
+        }
+    }
+
+    /** "बाद में": hides the banner until a release newer than this one comes out, and drops a download under way. */
     fun dismiss() {
         val current = state.value ?: return
         downloadJob?.cancel()
+        UpdateDownload.cancel(getApplication())
+        Notifier.cancelUpdateReady(getApplication())
         prefs.edit { putInt(Prefs.UPDATE_DISMISSED, current.release.versionCode) }
         state.value = null
     }
@@ -160,60 +217,6 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
         }
     }
 
-    /** Downloads to a .part file and keeps it only when it is the expected version of this app. */
-    private suspend fun fetchApk(release: ReleaseInfo): File? {
-        folder.mkdirs()
-        val target = apkFile(release)
-        val partial = File(folder, target.name + ".part")
-        try {
-            val connection = connect(release.apkUrl)
-            try {
-                if (connection.responseCode != HttpURLConnection.HTTP_OK) return null
-                val total = connection.contentLengthLong
-                var copied = 0L
-                connection.inputStream.use { input ->
-                    partial.outputStream().use { output ->
-                        val buffer = ByteArray(64 * 1024)
-                        while (true) {
-                            coroutineContext.ensureActive()
-                            val read = input.read(buffer)
-                            if (read < 0) break
-                            output.write(buffer, 0, read)
-                            copied += read
-                            if (total > 0) showPercent((copied * 100 / total).toInt())
-                        }
-                    }
-                }
-                if (total > 0 && copied != total) return null
-            } finally {
-                connection.disconnect()
-            }
-            if (!isApkOf(partial, release) || !partial.renameTo(target)) return null
-            return target
-        } finally {
-            partial.delete()
-        }
-    }
-
-    private fun showPercent(percent: Int) {
-        val current = state.value ?: return
-        if (current.step == UpdateStep.DOWNLOADING && percent > current.percent) {
-            state.value = current.copy(percent = percent.coerceAtMost(99))
-        }
-    }
-
-    private fun isApkOf(apk: File, release: ReleaseInfo): Boolean {
-        val manager = getApplication<Application>().packageManager
-        val info = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            manager.getPackageArchiveInfo(apk.path, PackageManager.PackageInfoFlags.of(0))
-        } else {
-            @Suppress("DEPRECATION")
-            manager.getPackageArchiveInfo(apk.path, 0)
-        } ?: return false
-        return info.packageName == getApplication<Application>().packageName &&
-            PackageInfoCompat.getLongVersionCode(info) == release.versionCode.toLong()
-    }
-
     /**
      * Deletes every cached APK except [release]'s, which it returns when already downloaded,
      * so installed or skipped versions do not pile up in the cache.
@@ -224,7 +227,7 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
         return keep?.takeIf { it.isFile }
     }
 
-    private fun apkFile(release: ReleaseInfo) = File(folder, "ShareScan-${release.versionCode}.apk")
+    private fun apkFile(release: ReleaseInfo) = UpdateDownload.apkFile(getApplication(), release.versionCode)
 
     private fun packageInfo(): PackageInfo? {
         val app = getApplication<Application>()
@@ -247,5 +250,6 @@ class UpdateViewModel(application: Application) : AndroidViewModel(application) 
     companion object {
         /** Cache sub-folder the FileProvider in the manifest shares with the installer (res/xml/update_paths.xml). */
         const val UPDATE_FOLDER = "updates"
+        private const val PROGRESS_MS = 500L
     }
 }

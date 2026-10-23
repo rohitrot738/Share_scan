@@ -4,6 +4,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 import java.time.LocalDate
+import java.util.stream.Collectors
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
 
@@ -61,10 +62,13 @@ class ScanStore(private val file: File) {
             if (head.optInt("v") != VERSION) return null
             val results = ArrayList<ScanResult>()
             val extras = ArrayList<ScanResult>()
-            for (line in iterator) {
-                if (line.isBlank()) continue
-                val json = JSONObject(line)
-                if (json.optInt(WATCH_EXTRA) == 1) extras += stock(json) else results += stock(json)
+            // Reading the JSON is most of the time a fresh start waits for the list (seconds on a phone), so batches
+            // of lines are read on every core; their order stays.
+            for (batch in iterator.asSequence().filter { it.isNotBlank() }.chunked(BATCH)) {
+                val rows = batch.parallelStream()
+                    .map { line -> JSONObject(line).let { (it.optInt(WATCH_EXTRA) == 1) to stock(it) } }
+                    .collect(Collectors.toList())
+                for ((extra, row) in rows) if (extra) extras += row else results += row
             }
             SavedScan(
                 output = ScanOutput(
@@ -79,6 +83,21 @@ class ScanStore(private val file: File) {
                 scope = head.optString("scope"),
                 watchExtras = extras,
             )
+        }
+    }.getOrNull()
+
+    /**
+     * The row of [symbol] alone, the scan's or a starred extra, found without reading the rest: on a fresh start a
+     * notification's stock opens while the whole list is still being read. Null when the file has none.
+     */
+    fun find(symbol: String): ScanResult? = runCatching {
+        if (!file.isFile) return null
+        // The key and value exactly as [save] writes them; no other key is "s".
+        val key = "\"s\":" + JSONObject.quote(symbol)
+        GZIPInputStream(file.inputStream().buffered()).bufferedReader().useLines { lines ->
+            val iterator = lines.iterator()
+            if (!iterator.hasNext() || JSONObject(iterator.next()).optInt("v") != VERSION) return null
+            iterator.asSequence().firstOrNull { key in it }?.let { stock(JSONObject(it)) }
         }
     }.getOrNull()
 
@@ -236,6 +255,9 @@ class ScanStore(private val file: File) {
 
         /** Marks a line of [SavedScan.watchExtras]; the other stock lines are the scan's own. */
         const val WATCH_EXTRA = "w"
+
+        /** Stock lines read together, on every core; a few hundred keep the text held at once small. */
+        const val BATCH = 256
 
         /** JSON has no NaN or infinity; such a value is written as null and read back as NaN. */
         fun num(value: Double): Any = if (value.isFinite()) value else JSONObject.NULL

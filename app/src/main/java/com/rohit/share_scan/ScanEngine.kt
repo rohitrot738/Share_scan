@@ -47,7 +47,11 @@ object ScanEngine {
     private val progressFlow = MutableStateFlow(Progress())
     private val latestFlow = MutableStateFlow<SavedScan?>(null)
     private val failureFlow = MutableStateFlow<Failure?>(null)
+    private val readFlow = MutableStateFlow(false)
     val progress: StateFlow<Progress> = progressFlow.asStateFlow()
+
+    /** True once the kept scan has been read from disk (or found missing); [latest] is empty until then. */
+    val read: StateFlow<Boolean> = readFlow.asStateFlow()
 
     /** The latest finished scan; it is read from disk on first use. */
     val latest: StateFlow<SavedScan?> = latestFlow.asStateFlow()
@@ -67,10 +71,19 @@ object ScanEngine {
             try {
                 if (latestFlow.value == null) latestFlow.value = store(app).load()
             } finally {
+                readFlow.value = true
                 loadDone.countDown()
             }
         }
     }
+
+    /**
+     * One stock's row of the kept scan, read on its own while the whole scan may still be on its way from disk; for
+     * background work, never the main thread.
+     */
+    fun peek(context: Context, symbol: String): ScanResult? =
+        latestFlow.value?.let { kept -> (kept.output.results + kept.watchExtras).firstOrNull { it.symbol == symbol } }
+            ?: store(context.applicationContext).find(symbol)
 
     /** The kept scan, waiting (briefly) for it to be read from disk; for background work, never the main thread. */
     fun loaded(context: Context): SavedScan? {
