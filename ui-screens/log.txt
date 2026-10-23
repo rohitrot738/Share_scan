@@ -1,0 +1,44 @@
+scan finished after about 120 seconds
+shot 01-results
+symbols on screen: SSWL CYIENT
+shot 02-onscreen-watch-shade
+--- after tapping SSWL stop-loss: pid 2970
+    topResumedActivity=ActivityRecord{69f8d7d u0 com.rohit.share_scan/.MainActivity t8}
+  ResumedActivity: ActivityRecord{69f8d7d u0 com.rohit.share_scan/.MainActivity t8}
+shot 02-onscreen-watch
+--- home, before tapping: pid 2970
+      topResumedActivity=ActivityRecord{2e6f219 u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
+  ResumedActivity: ActivityRecord{2e6f219 u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
+shot 03-background-watch-shade
+--- after tapping CYIENT stop-loss: pid 2970
+    topResumedActivity=ActivityRecord{69f8d7d u0 com.rohit.share_scan/.MainActivity t8}
+  ResumedActivity: ActivityRecord{69f8d7d u0 com.rohit.share_scan/.MainActivity t8}
+shot 03-background-watch
+--- killed, before tapping: pid none
+      topResumedActivity=ActivityRecord{2e6f219 u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
+  ResumedActivity: ActivityRecord{2e6f219 u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
+shot 04-closed-watch-shade
+--- after tapping INFY stop-loss: pid 6498
+    topResumedActivity=ActivityRecord{69f8d7d u0 com.rohit.share_scan/.MainActivity t8}
+  ResumedActivity: ActivityRecord{69f8d7d u0 com.rohit.share_scan/.MainActivity t8}
+shot 04-closed-watch
+shot 05-live-three-shade
+--- after tapping नए STRONG: pid 6498
+    topResumedActivity=ActivityRecord{dbb09e u0 com.rohit.share_scan/.MainActivity t9}
+  ResumedActivity: ActivityRecord{dbb09e u0 com.rohit.share_scan/.MainActivity t9}
+shot 05-live-three
+shot 06-live-one-shade
+--- after tapping नए STRONG: pid 6498
+    topResumedActivity=ActivityRecord{33deb60 u0 com.rohit.share_scan/.MainActivity t10}
+  ResumedActivity: ActivityRecord{33deb60 u0 com.rohit.share_scan/.MainActivity t10}
+shot 06-live-one
+10-23 13:10:16.493   522  2296 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.rohit.share_scan/.MainActivity} with LAUNCH_SINGLE_TOP from uid 2000 (BAL_ALLOW_PERMISSION) result code=0
+10-23 13:10:23.693   522   539 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +6s492ms
+10-23 13:14:35.413   522  2314 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10167) (BAL_ALLOW_VISIBLE_WINDOW) result code=3
+10-23 13:14:56.866   522  2318 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10167) (BAL_ALLOW_PENDING_INTENT) result code=2
+10-23 13:15:26.096   522  1433 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10167) (BAL_ALLOW_PENDING_INTENT) result code=2
+10-23 13:15:29.054   522   539 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +2s960ms
+10-23 13:15:48.914   522  2318 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10167) (BAL_ALLOW_PENDING_INTENT) result code=0
+10-23 13:15:50.111   522   539 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +1s224ms
+10-23 13:16:10.942   522  2316 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10167) (BAL_ALLOW_PENDING_INTENT) result code=0
+10-23 13:16:13.293   522   539 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +2s320ms
