@@ -19,6 +19,11 @@
 
     <string name="action_start">SCAN</string>
     <string name="action_rescan">दोबारा स्कैन करें</string>
+    <string name="action_clear_scan">Clear scan</string>
+    <string name="clear_scan_title">Clear scan?</string>
+    <string name="clear_scan_body">स्क्रीन की सूची, सहेजा हुआ आख़िरी स्कैन और NEW / ▲▼ rank history मिट जाएँगे; app ऐसे खुलेगा जैसे अभी तक कोई स्कैन हुआ ही न हो। Watchlist, filters और track record बने रहेंगे।</string>
+    <string name="clear_scan_done">Scan clear हो गया</string>
+    <string name="clear_scan_running">स्कैन चल रहा है — उसके पूरा होने या रोकने के बाद Clear scan करें</string>
     <string name="action_retry">फिर से कोशिश करें</string>
 
     <string name="stat_scanned">स्कैन हुए</string>

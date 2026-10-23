@@ -161,6 +161,31 @@ object ScanEngine {
         }
     }
 
+    /**
+     * Forgets the kept scan, as the scan board's "Clear scan" asks: the scan on disk with its rank badges, and the
+     * ranks the next scan would be compared with, so the screen is back to before any scan and the next one starts
+     * afresh. The track record, the watchlist and the filters stay. False while a scan runs, which would bring a scan
+     * back.
+     */
+    fun clear(context: Context): Boolean {
+        val app = context.applicationContext
+        synchronized(lock) {
+            if (progressFlow.value.running) return false
+            // Queued under the lock, so a scan claimed after it runs after it.
+            worker.execute {
+                runCatching { store(app).clear() }
+                prefs(app).edit {
+                    remove(Prefs.LAST_RANKS)
+                    remove(Prefs.LAST_RANKS_SCOPE)
+                }
+                latestFlow.value = null
+                failureFlow.value = null
+                progressFlow.update { if (it.running) it else it.copy(done = 0, total = 0, startedAt = 0L, endedAt = 0L) }
+            }
+        }
+        return true
+    }
+
     /** The track record as kept on disk. */
     fun journal(context: Context): PickJournal =
         PickJournal.decode(runCatching { journalFile(context.applicationContext).readText() }.getOrNull())

@@ -165,6 +165,9 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         ScanEngine.clearBadges(getApplication())
     }
 
+    /** Clears the kept scan and its ranks ([ScanEngine.clear]); false while a scan runs. */
+    fun clearScans(): Boolean = ScanEngine.clear(getApplication())
+
     fun setWatchlistOnly(only: Boolean) {
         state.update { it.copy(watchlistOnly = only) }
     }

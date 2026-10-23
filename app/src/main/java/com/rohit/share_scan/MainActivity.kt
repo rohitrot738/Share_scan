@@ -19,6 +19,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -37,6 +38,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rohit.share_scan.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -78,6 +80,7 @@ class MainActivity : AppCompatActivity() {
     /** A notification's stock, opened once the list holds it. */
     private var pendingSymbol: String? = null
     private var sectorSheet: BottomSheetDialog? = null
+    private var clearDialog: AlertDialog? = null
     private val notifyPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,12 +96,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(ui.root)
         ui.galaxySky.palette = settings.theme.skyPalette
         ui.galaxySky.animate = settings.skyAnimation
+        // The version running, beside the name.
+        updates.installedName.takeIf { it.isNotEmpty() }?.let {
+            ui.appVersion.text = getString(R.string.header_version, it)
+            ui.appVersion.isVisible = true
+        }
         ui.hero.clipToOutline = true
-        // The scan board, its button, the stat cards, the logo and the empty-state circle wear the Filters chip's glass;
+        // The scan board, its button, the stat cards and the empty-state circle wear the Filters chip's glass;
         // so do the stock cards (StockAdapter) and the filter sheet's sliders and button (FilterSheet).
         ui.hero.wearChipGlass(HERO_CORNER_DP, tintBoost = 1.5f)
         ui.startButton.wearChipGlass(START_BUTTON_CORNER_DP, tintBoost = 1.8f, ripple = true)
-        ui.logoTile.wearChipGlass(LOGO_CORNER_DP, tintBoost = 3f)
         ui.emptyCircle.wearChipGlass(null, tintBoost = 2f)
         listOf(ui.statCardScanned, ui.statCardTop, ui.statCardSpikes).forEach { it.wearCardGlass() }
         // Frosted glass: the sky behind the scan board is drawn blurred, and follows the board as the bar scrolls.
@@ -127,6 +134,7 @@ class MainActivity : AppCompatActivity() {
                 scan.startScan()
             }
         }
+        ui.clearScanButton.setOnClickListener { askToClear() }
         ui.filterChip.setOnClickListener {
             filterSheet?.dismiss()
             val state = scan.uiState.value
@@ -200,6 +208,7 @@ class MainActivity : AppCompatActivity() {
         detailSheet?.dismiss()
         menuSheet?.dismiss()
         sectorSheet?.dismiss()
+        clearDialog?.dismiss()
         super.onDestroy()
     }
 
@@ -349,6 +358,8 @@ class MainActivity : AppCompatActivity() {
         ui.startButton.setIconResource(icon)
         // A running scan's button stops it; it rests only while a stop finishes the requests under way.
         ui.startButton.isEnabled = !state.stopping
+        // Nothing to clear without a scan, nor while one runs: it would put a scan straight back.
+        ui.clearScanButton.isVisible = state.results.isNotEmpty() && !state.isRunning
     }
 
     /** [icon] replaces the percentage in the middle of the progress ring when it is not null. */
@@ -657,6 +668,25 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun keyboard() = WindowCompat.getInsetsController(window, ui.searchField)
+
+    /** Asks first, then clears the kept scan and its ranks, so the screen is back to before any scan. */
+    private fun askToClear() {
+        clearDialog?.dismiss()
+        clearDialog = MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.clear_scan_title)
+            .setMessage(R.string.clear_scan_body)
+            .setNegativeButton(R.string.settings_confirm_no, null)
+            .setPositiveButton(R.string.action_clear_scan) { _, _ ->
+                // A live scan may have started while the question was open.
+                if (scan.clearScans()) {
+                    if (scan.uiState.value.searchOpen) closeSearch()
+                    Toast.makeText(this, R.string.clear_scan_done, Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, R.string.clear_scan_running, Toast.LENGTH_LONG).show()
+                }
+            }
+            .show()
+    }
 
     /** Shares the top of the list exactly as shown, so filters, watchlist, search and sort all apply. */
     private fun shareShown() {

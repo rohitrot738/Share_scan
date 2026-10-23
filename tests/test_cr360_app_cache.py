@@ -4,8 +4,8 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from cr360 import app_store, screener_page
-from cr360.build_app_cache import (Screener, bse_listings, combine, deal_rows, iso_date, nse_listings, parse_insider,
-                                   screener_slug, yahoo_tickers)
+from cr360.build_app_cache import (BSE_ROUND_GAP, BSE_ROUNDS, Screener, bse_listings, combine, deal_rows, iso_date,
+                                   latest_bse, nse_listings, parse_insider, screener_slug, yahoo_tickers)
 from cr360.nse_public_adapter import NSEPublicAdapter
 
 FIXTURES = Path(__file__).parent / "fixtures" / "cr360"
@@ -226,6 +226,27 @@ def test_lists_follow_the_apps_rules():
     # Dual-listed shares stay NSE's; a BSE scrip under an NSE symbol never takes its place.
     assert {s: u["market"] for s, u in universe.items()} == {"RELIANCE": "nse", "ZEEL": "nse", "TSC": "sme", "BSEONLY": "bse"}
     assert universe["BSEONLY"]["code"] == "539410"
+
+
+def test_bse_list_is_asked_for_again_after_a_round_of_404s():
+    header = "TradDt,BizDt,Sgmt,Src,FinInstrmTp,FinInstrmId,ISIN,TckrSymb,SctySrs,XpryDt,FininstrmActlXpryDt,StrkPric,OptnTp,FinInstrmNm\n"
+    file = header + "".join(f"2026-10-22,2026-10-22,CM,BSE,STK,{500000 + i},INE{i:06d}01,STOCK{i},A,,,,,STOCK {i} LTD\n"
+                            for i in range(600))
+    asked, waits = [], []
+
+    def get(url, *_):
+        asked.append(url[-19:-11])
+        # BSE's site answers 404 for every file through the first round (eight days), then serves them.
+        return (404, "", {}) if len(asked) <= 8 else (200, file, {})
+
+    bse, tried = latest_bse(date(2026, 10, 23), get, waits.append)
+    assert len(bse) == 600 and waits == [BSE_ROUND_GAP]
+    assert asked[:2] == ["20261023", "20261022"] and asked[8] == "20261023" and len(asked) == 9
+    assert tried[0] == "1023:404/0" and tried[8:] == ["|", "1023:200/600"]
+    # A BSE that never answers: every round tried, nothing kept.
+    waits.clear()
+    assert latest_bse(date(2026, 10, 23), lambda *_: (404, "", {}), waits.append)[0] == {}
+    assert waits == [BSE_ROUND_GAP] * (BSE_ROUNDS - 1)
 
 
 def test_bse_only_stocks_are_found_by_their_code():
