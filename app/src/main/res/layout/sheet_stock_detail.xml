@@ -265,16 +265,6 @@
                     android:textSize="13sp"
                     android:visibility="gone" />
 
-                <!-- A sweep, stop hunt or fakeout in the latest candle, explained. -->
-                <TextView
-                    android:id="@+id/detailPlanPattern"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:paddingHorizontal="20dp"
-                    android:textSize="13sp"
-                    android:visibility="gone" />
-
                 <!-- A learned mistake that holds today: how often trades like it failed, and how. -->
                 <TextView
                     android:id="@+id/detailPlanMistake"

@@ -8,8 +8,7 @@ import kotlin.math.min
  * above its trigger is entered at that close; then it succeeds when the target is reached within the sessions the plan
  * gives it ([TradePlan.targetSessions], [TradePlan.quickSessions]) and before the stop. A stop touched first, or the
  * target not reached in time, is a failure. When a session touches both the stop and the target, its order is unknown
- * and it counts as the stop. A session that traded at one price ([untradable], locked at a circuit limit) fills no
- * breakout entry. Free of Android types so it can be unit tested.
+ * and it counts as the stop. Free of Android types so it can be unit tested.
  */
 object PlanOutcome {
     /** A breakout plan not entered within this many sessions lapses; by then the next sessions draw their own. */
@@ -55,7 +54,7 @@ object PlanOutcome {
         if (plan.entryKind == TradePlan.EntryKind.BREAKOUT) {
             entryAt = -1
             for (d in at + 1..min(at + ENTRY_SESSIONS, last)) {
-                if (high[d] >= plan.entry && !untradable(high[d], low[d])) {
+                if (high[d] >= plan.entry) {
                     entryAt = d
                     break
                 }
@@ -81,29 +80,6 @@ object PlanOutcome {
     /** The quick target within its sessions, before the plan's stop, or before the wide stop when [wide]. */
     fun quick(plan: TradePlan, high: DoubleArray, low: DoubleArray, at: Int, wide: Boolean = false): Outcome =
         of(plan, high, low, at, plan.quickTarget, plan.quickSessions.last, if (wide) plan.wideStop else plan.stop)
-
-    /** A session whose high and low lie within this share of each other traded at one price. */
-    const val LOCK_TOLERANCE = 0.0005
-
-    /** NSE and BSE price bands, in percent: a day's move stops at one of them. */
-    val CIRCUIT_BANDS = listOf(2.0, 5.0, 10.0, 20.0)
-
-    /**
-     * A session that traded at one price: locked at a circuit limit from the open, or barely traded. No order could be
-     * filled at a price of one's choosing in it.
-     */
-    fun untradable(high: Double, low: Double): Boolean = high - low <= high * LOCK_TOLERANCE
-
-    /**
-     * A close at the day's high, up by about a price band ([CIRCUIT_BANDS]) on [previousClose]: locked at the upper
-     * circuit, with buyers queued and no sellers, so nobody could buy at that close. Bands are on the previous close
-     * and rounded to the tick, so the move sits a little under the band.
-     */
-    fun lockedUp(close: Double, high: Double, previousClose: Double): Boolean {
-        if (!(previousClose > 0.0) || close < high * (1 - LOCK_TOLERANCE)) return false
-        val change = (close / previousClose - 1.0) * 100.0
-        return CIRCUIT_BANDS.any { band -> change >= band - 0.3 && change <= band + 0.1 }
-    }
 
     /** A rise of this many ATR above the close… */
     const val RALLY_ATR = 3.0
