@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
@@ -49,6 +50,15 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
             state.update { it.copy(cr360 = book) }
             if (runCatching { Cr360Repository.refreshIfStale(application) }.getOrDefault(false)) {
                 state.update { it.copy(cr360 = Cr360Repository.current()) }
+            }
+        }
+        // The list's 📰 marks: NSE's filings of the last day, read again every 15 minutes while the screen lives.
+        viewModelScope.launch(Dispatchers.IO) {
+            while (true) {
+                val badges = runCatching { NewsRepository.badges() }.getOrDefault(emptyMap())
+                // A failed read keeps the marks there were.
+                if (badges.isNotEmpty()) state.update { it.copy(news = badges) }
+                delay(NEWS_REFRESH_MS)
             }
         }
         viewModelScope.launch {
@@ -198,5 +208,10 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
 
     fun closeSearch() {
         state.update { it.copy(searchOpen = false, query = "") }
+    }
+
+    private companion object {
+        /** How often the list's 📰 marks are read again; NSE's day of filings is about half a megabyte. */
+        const val NEWS_REFRESH_MS = 15L * 60 * 1000
     }
 }

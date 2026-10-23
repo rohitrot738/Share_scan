@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
             intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let(::openFromNotification)
             if (intent.getBooleanExtra(Notifier.EXTRA_INSTALL, false)) updates.installWhenReady()
         }
-        if ((settings.liveScan && settings.liveAlerts) || settings.watchAlerts) askToNotify(again = false)
+        if ((settings.liveScan && settings.liveAlerts) || settings.watchAlerts || settings.newsAlerts) askToNotify(again = false)
 
         ui.startButton.setOnClickListener {
             // While a scan runs the same button stops it.
@@ -472,10 +472,11 @@ class MainActivity : AppCompatActivity() {
         // A star toggle only rebinds its card; anything that changes which stocks show, or their order, jumps to the top.
         // A fresh 360CR file redraws the cards' scores, and reorders a list sorted by them.
         val freshCr360 = state.cr360 !== shownCr360
-        if (freshCr360 || state.setups !== adapter.setups) {
+        if (freshCr360 || state.setups !== adapter.setups || state.news !== adapter.news) {
             shownCr360 = state.cr360
             adapter.cr360 = state.cr360
             adapter.setups = state.setups
+            adapter.news = state.news
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }
         val reorder = state.results !== shownResults || state.activeFilters != shownFilters || state.sort != shownSort ||

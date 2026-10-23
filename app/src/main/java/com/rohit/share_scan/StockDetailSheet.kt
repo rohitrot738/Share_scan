@@ -36,6 +36,7 @@ import com.rohit.share_scan.databinding.ItemCr360HistoryTableBinding
 import com.rohit.share_scan.databinding.ItemDetailLevelBinding
 import com.rohit.share_scan.databinding.ItemDetailScoreBinding
 import com.rohit.share_scan.databinding.ItemDetailStatBinding
+import com.rohit.share_scan.databinding.ItemNewsBinding
 import com.rohit.share_scan.databinding.SheetStockDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -82,6 +83,7 @@ class StockDetailSheet(
         bindHeader()
         bindChart()
         bindPlan()
+        bindNews()
         bindScore()
         bindCr360()
         bindCr360History()
@@ -824,6 +826,89 @@ class StockDetailSheet(
     }
 
     /** The R/S history, fetched off the main thread: its file comes the first time a stock in it is opened. */
+    /** The stock's news: its exchange filings and newspapers' articles ([NewsRepository]), newest first. */
+    private fun bindNews() {
+        activity.lifecycleScope.launch {
+            val news = withContext(Dispatchers.IO) { runCatching { NewsRepository.stock(stock) }.getOrNull() }
+            showNews(news)
+        }
+    }
+
+    /**
+     * The first few items, then the rest behind "और N ख़बरें"; routine filings (notices in newspapers, trading
+     * windows, certificates) fold away at the end.
+     */
+    private fun showNews(news: NewsRepository.Result?) {
+        val list = ui.detailNews
+        list.removeAllViews()
+        if (news == null || news.failed) {
+            ui.detailNewsStatus.setText(R.string.news_failed)
+            return
+        }
+        if (news.items.isEmpty()) {
+            ui.detailNewsStatus.setText(R.string.news_none)
+            return
+        }
+        ui.detailNewsStatus.setText(R.string.news_subtitle)
+        val now = System.currentTimeMillis()
+        val (routine, shown) = news.items.partition { it.official && it.kind == NewsKind.ROUTINE }
+        shown.take(NEWS_SHOWN).forEach { addNews(list, it, now) }
+        foldedNews(list, shown.drop(NEWS_SHOWN), now) { activity.getString(R.string.news_more, it) }
+        foldedNews(list, routine, now) { activity.getString(R.string.news_routine, it) }
+    }
+
+    /** [items] behind a line that opens them in place; nothing when there are none. */
+    private fun foldedNews(parent: LinearLayout, items: List<NewsItem>, now: Long, label: (Int) -> String) {
+        if (items.isEmpty()) return
+        val box = LinearLayout(activity).apply {
+            orientation = LinearLayout.VERTICAL
+            isVisible = false
+        }
+        val more = TextView(activity).apply {
+            text = label(items.size)
+            setTextColor(ContextCompat.getColor(activity, R.color.brand_primary))
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+            setTypeface(typeface, Typeface.BOLD)
+            val pad = (8 * resources.displayMetrics.density).roundToInt()
+            setPadding(pad, pad, pad, pad)
+            val ripple = TypedValue().also { activity.theme.resolveAttribute(android.R.attr.selectableItemBackground, it, true) }
+            setBackgroundResource(ripple.resourceId)
+        }
+        more.setOnClickListener {
+            if (box.childCount == 0) items.forEach { addNews(box, it, now) }
+            box.isVisible = true
+            more.isVisible = false
+        }
+        parent.addView(more)
+        parent.addView(box)
+    }
+
+    private fun addNews(parent: LinearLayout, item: NewsItem, now: Long) {
+        val row = ItemNewsBinding.inflate(activity.layoutInflater, parent, true)
+        val (kindText, kindContainer) = NewsLabels.colors(item.kind)
+        row.newsKind.setText(NewsLabels.label(item.kind))
+        row.newsKind.setTextColor(ContextCompat.getColor(activity, kindText))
+        row.newsKind.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(activity, kindContainer))
+        val timing = StockNews.timing(item.at, now)
+        row.newsTiming.isVisible = timing != null
+        timing?.let {
+            val (text, container) = NewsLabels.timingColors(it)
+            row.newsTiming.setText(NewsLabels.timing(it))
+            row.newsTiming.setTextColor(ContextCompat.getColor(activity, text))
+            row.newsTiming.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(activity, container))
+        }
+        row.newsWhen.text = NewsLabels.whenText(activity, item.at, now)
+        row.newsTitle.text = item.title
+        row.newsSource.text = if (item.official) activity.getString(R.string.news_source_filing, item.source) else item.source
+        row.root.setOnClickListener {
+            try {
+                activity.startActivity(Intent(Intent.ACTION_VIEW, item.url.toUri()))
+            } catch (error: ActivityNotFoundException) {
+                Toast.makeText(activity, R.string.news_open_failed, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun bindCr360History() {
         if (cr360 == null) {
             ui.detailCr360HistorySection.isVisible = false
@@ -1225,5 +1310,8 @@ class StockDetailSheet(
     private companion object {
         /** Targets drawn on the chart; all of them are listed in the plan card. */
         const val CHART_TARGETS = 2
+
+        /** News items shown at once; the rest open behind "और N ख़बरें". */
+        const val NEWS_SHOWN = 6
     }
 }

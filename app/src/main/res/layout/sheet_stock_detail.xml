@@ -395,6 +395,42 @@
                     android:visibility="gone" />
             </LinearLayout>
 
+            <!-- Stock news (NewsRepository): the exchange's filings and newspapers' articles, filled in code. -->
+            <LinearLayout
+                android:id="@+id/detailNewsSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:paddingHorizontal="20dp"
+                    android:text="@string/detail_section_news"
+                    android:textColor="@color/text_primary"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/detailNewsStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:paddingHorizontal="20dp"
+                    android:text="@string/news_loading"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
+
+                <LinearLayout
+                    android:id="@+id/detailNews"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="12dp" />
+            </LinearLayout>
+
             <!-- Score breakdown -->
             <LinearLayout
                 android:id="@+id/detailScoreSection"

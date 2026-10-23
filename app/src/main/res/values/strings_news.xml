@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- What a piece of news is about (NewsKind) -->
+    <string name="news_kind_results">नतीजे</string>
+    <string name="news_kind_order">Order</string>
+    <string name="news_kind_dividend">Dividend / Bonus</string>
+    <string name="news_kind_fundraise">Fund raising</string>
+    <string name="news_kind_deal">Acquisition</string>
+    <string name="news_kind_expansion">विस्तार</string>
+    <string name="news_kind_management">प्रबंधन</string>
+    <string name="news_kind_rating">Rating</string>
+    <string name="news_kind_legal">कानूनी</string>
+    <string name="news_kind_meeting">बोर्ड बैठक</string>
+    <string name="news_kind_investor">Analyst meet</string>
+    <string name="news_kind_other">ख़बर</string>
+    <string name="news_kind_routine">सामान्य सूचना</string>
+
+    <!-- When it came against the session (StockNews.Timing) -->
+    <string name="news_pre_open">प्री-मार्केट</string>
+    <string name="news_live">लाइव</string>
+    <string name="news_today">आज %1$s</string>
+    <string name="news_yesterday">कल %1$s</string>
+
+    <!-- Detail sheet -->
+    <string name="detail_section_news">खबरें</string>
+    <string name="news_loading">NSE/BSE की घोषणाएँ और अख़बारों की ख़बरें आ रही हैं…</string>
+    <string name="news_subtitle">Exchange की घोषणाएँ (30 दिन) और अख़बारों की ख़बरें (7 दिन) • दबाकर पूरी ख़बर पढ़ें</string>
+    <string name="news_none">पिछले 30 दिन में इस stock की कोई घोषणा या ख़बर नहीं मिली</string>
+    <string name="news_failed">ख़बरें नहीं आ पाईं — इंटरनेट जाँचें और sheet दोबारा खोलें</string>
+    <string name="news_source_filing">%1$s घोषणा • PDF</string>
+    <string name="news_more">और %1$d ख़बरें दिखाएँ</string>
+    <string name="news_routine">+%1$d सामान्य सूचनाएँ (अख़बार में notice, trading window, certificates…)</string>
+    <string name="news_open_failed">ख़बर खोलने के लिए कोई browser नहीं मिला</string>
+
+    <!-- Card -->
+    <string name="item_news_badge">📰 %1$s</string>
+    <string name="item_news_badge_more">📰 %1$s +%2$d</string>
+    <string name="item_news_description">पिछले 24 घंटे में %1$d घोषणाएँ, सबसे अहम: %2$s</string>
+
+    <!-- Menu → स्कैन -->
+    <string name="settings_news_alerts">Watchlist की ख़बरें</string>
+    <string name="settings_news_alerts_body">सुबह 8 से 9:15 के बीच ★ वाले stocks की रात भर की ख़बरें एक notification में, और दिन में (सुबह 7 से रात 10) नतीजे, order, dividend जैसी बड़ी घोषणा आते ही notification</string>
+
+    <!-- Notifications -->
+    <string name="notify_channel_news">Watchlist की ख़बरें</string>
+    <string name="notify_channel_news_body">★ वाले stocks की सुबह की ख़बरें और बड़ी घोषणाएँ</string>
+    <string name="notify_news_alert">📰 %1$s: %2$s</string>
+    <string name="notify_news_read">पूरी ख़बर</string>
+    <string name="notify_news_digest">🗞 सुबह की ख़बरें • %1$d stocks</string>
+    <string name="notify_news_digest_line">%1$s · %2$s: %3$s</string>
+
+    <!-- Help -->
+    <string name="help_news_title">खबरें</string>
+    <string name="help_news_body">हर stock के detail में "खबरें" हिस्सा है: NSE (सिर्फ़ BSE पर listed stock के लिए BSE) की पिछले 30 दिन की घोषणाएँ और पिछले हफ़्ते की अख़बारों की ख़बरें (Google News से, अंग्रेज़ी और हिंदी), सबसे नई ऊपर। हर ख़बर पर उसका प्रकार (नतीजे, order, dividend, विस्तार, कानूनी…) लिखा है, और "प्री-मार्केट" (पिछले बंद के बाद आई, अगला session इसी पर खुलेगा) या "लाइव" (आज बाज़ार के दौरान आई)। दबाने पर पूरी ख़बर या घोषणा की PDF खुलती है। List में 📰 का निशान बताता है कि उस stock की पिछले 24 घंटे में exchange पर कोई घोषणा आई है। Menu → स्कैन में "Watchlist की ख़बरें" चालू हो तो ★ वाले stocks की सुबह की ख़बरें और दिन की बड़ी घोषणाएँ notification में आती हैं। ख़बर अच्छी है या बुरी, app यह नहीं बताता — पढ़कर खुद तय करें।</string>
+</resources>
