@@ -1,44 +1,60 @@
-scan finished after about 120 seconds
-shot 01-results
+  * ServiceRecord{349d582 u0 com.rohit.share_scan/.ScanService}
+    isForeground=true foregroundId=2 types=00000001 foregroundNoti=Notification(channel=scan_progress shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x4a color=0x00000000 category=progress groupKey=silent actions=1 vis=PRIVATE)
+shot 01-scan-progress
+text="170 / 2,613 stocks • 6%"
+text="170 / 2,613 stocks • 6%"
+text="170 / 2,613 stocks • 6%"
+scan done notification seen: yes after about 50 seconds out of sight
+shot 02-scan-done-shade
+--- after tapping the scan's result: pid 2625
+    topResumedActivity=ActivityRecord{80010e u0 com.rohit.share_scan/.MainActivity t8}
+  ResumedActivity: ActivityRecord{80010e u0 com.rohit.share_scan/.MainActivity t8}
+shot 03-scan-done-opened
 symbols on screen: SSWL CYIENT
-shot 02-onscreen-watch-shade
---- after tapping SSWL stop-loss: pid 2970
-    topResumedActivity=ActivityRecord{69f8d7d u0 com.rohit.share_scan/.MainActivity t8}
-  ResumedActivity: ActivityRecord{69f8d7d u0 com.rohit.share_scan/.MainActivity t8}
-shot 02-onscreen-watch
---- home, before tapping: pid 2970
-      topResumedActivity=ActivityRecord{2e6f219 u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
-  ResumedActivity: ActivityRecord{2e6f219 u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
-shot 03-background-watch-shade
---- after tapping CYIENT stop-loss: pid 2970
-    topResumedActivity=ActivityRecord{69f8d7d u0 com.rohit.share_scan/.MainActivity t8}
-  ResumedActivity: ActivityRecord{69f8d7d u0 com.rohit.share_scan/.MainActivity t8}
-shot 03-background-watch
+shot 04-onscreen-watch-shade
+--- after tapping SSWL stop-loss: pid 2625
+    topResumedActivity=ActivityRecord{80010e u0 com.rohit.share_scan/.MainActivity t8}
+  ResumedActivity: ActivityRecord{80010e u0 com.rohit.share_scan/.MainActivity t8}
+shot 04-onscreen-watch
+shot 05-background-watch-shade
+--- after tapping CYIENT stop-loss: pid 2625
+    topResumedActivity=ActivityRecord{80010e u0 com.rohit.share_scan/.MainActivity t8}
+  ResumedActivity: ActivityRecord{80010e u0 com.rohit.share_scan/.MainActivity t8}
+shot 05-background-watch
 --- killed, before tapping: pid none
-      topResumedActivity=ActivityRecord{2e6f219 u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
-  ResumedActivity: ActivityRecord{2e6f219 u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
-shot 04-closed-watch-shade
---- after tapping INFY stop-loss: pid 6498
-    topResumedActivity=ActivityRecord{69f8d7d u0 com.rohit.share_scan/.MainActivity t8}
-  ResumedActivity: ActivityRecord{69f8d7d u0 com.rohit.share_scan/.MainActivity t8}
-shot 04-closed-watch
-shot 05-live-three-shade
---- after tapping नए STRONG: pid 6498
-    topResumedActivity=ActivityRecord{dbb09e u0 com.rohit.share_scan/.MainActivity t9}
-  ResumedActivity: ActivityRecord{dbb09e u0 com.rohit.share_scan/.MainActivity t9}
-shot 05-live-three
-shot 06-live-one-shade
---- after tapping नए STRONG: pid 6498
-    topResumedActivity=ActivityRecord{33deb60 u0 com.rohit.share_scan/.MainActivity t10}
-  ResumedActivity: ActivityRecord{33deb60 u0 com.rohit.share_scan/.MainActivity t10}
-shot 06-live-one
-10-23 13:10:16.493   522  2296 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.rohit.share_scan/.MainActivity} with LAUNCH_SINGLE_TOP from uid 2000 (BAL_ALLOW_PERMISSION) result code=0
-10-23 13:10:23.693   522   539 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +6s492ms
-10-23 13:14:35.413   522  2314 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10167) (BAL_ALLOW_VISIBLE_WINDOW) result code=3
-10-23 13:14:56.866   522  2318 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10167) (BAL_ALLOW_PENDING_INTENT) result code=2
-10-23 13:15:26.096   522  1433 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10167) (BAL_ALLOW_PENDING_INTENT) result code=2
-10-23 13:15:29.054   522   539 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +2s960ms
-10-23 13:15:48.914   522  2318 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10167) (BAL_ALLOW_PENDING_INTENT) result code=0
-10-23 13:15:50.111   522   539 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +1s224ms
-10-23 13:16:10.942   522  2316 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10167) (BAL_ALLOW_PENDING_INTENT) result code=0
-10-23 13:16:13.293   522   539 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +2s320ms
+      topResumedActivity=ActivityRecord{81bfbcd u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
+  ResumedActivity: ActivityRecord{81bfbcd u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
+shot 06-closed-watch-shade
+--- after tapping SSWL stop-loss: pid 6533
+    topResumedActivity=ActivityRecord{80010e u0 com.rohit.share_scan/.MainActivity t8}
+  ResumedActivity: ActivityRecord{80010e u0 com.rohit.share_scan/.MainActivity t8}
+shot 06-closed-watch
+shot 07-live-two-tap-shade
+--- after tapping नए STRONG: pid 6533
+    topResumedActivity=ActivityRecord{cbc6d50 u0 com.rohit.share_scan/.MainActivity t9}
+  ResumedActivity: ActivityRecord{cbc6d50 u0 com.rohit.share_scan/.MainActivity t9}
+shot 07-live-two-tap
+shot 08-live-two-buttons-shade
+--- after the CYIENT button: pid 6533
+    topResumedActivity=ActivityRecord{cbc6d50 u0 com.rohit.share_scan/.MainActivity t9}
+  ResumedActivity: ActivityRecord{cbc6d50 u0 com.rohit.share_scan/.MainActivity t9}
+shot 08-live-two-button-b
+shot 09-missing-stock
+shot 10-scan-sheet
+shot 11-battery-dialog
+shot 12-scan-sheet-allowed
+shot 13-update-downloading
+update ready notification seen: yes
+shot 14-update-ready
+ls: /data/data/com.rohit.share_scan/cache/updates/: Permission denied
+10-23 13:23:39.684   523  2252 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.rohit.share_scan/.MainActivity} with LAUNCH_SINGLE_TOP from uid 2000 (BAL_ALLOW_PERMISSION) result code=0
+10-23 13:23:44.501   523   540 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +5s68ms
+10-23 13:26:02.277   523   961 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10169) (BAL_ALLOW_PENDING_INTENT) result code=2
+10-23 13:26:20.127   523  1773 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10169) (BAL_ALLOW_VISIBLE_WINDOW) result code=3
+10-23 13:26:41.159   523  2001 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10169) (BAL_ALLOW_PENDING_INTENT) result code=2
+10-23 13:27:10.226   523   945 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10169) (BAL_ALLOW_PENDING_INTENT) result code=2
+10-23 13:27:12.772   523   540 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +2s550ms
+10-23 13:27:32.536   523   824 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10169) (BAL_ALLOW_PENDING_INTENT) result code=0
+10-23 13:27:34.854   523   540 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +2s332ms
+10-23 13:27:53.595   523   824 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10169) (BAL_ALLOW_PENDING_INTENT) result code=2
+10-23 13:28:13.326   523  2216 I ActivityTaskManager: START u0 {flg=0x34000000 cmp=com.rohit.share_scan/.MainActivity (has extras)} with LAUNCH_SINGLE_TOP from uid 10192 (realCallingUid=10169) (BAL_ALLOW_PENDING_INTENT) result code=2
