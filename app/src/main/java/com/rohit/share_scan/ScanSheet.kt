@@ -1,9 +1,13 @@
 package com.rohit.share_scan
 
+import android.os.PowerManager
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
 import com.rohit.share_scan.databinding.ItemScanMarketBinding
@@ -26,6 +30,12 @@ class ScanSheet(
 
         /** Opens the system's notification settings for the app. */
         fun openNotificationSettings()
+
+        /**
+         * Asks Android to let the app run in the background without battery limits, or, when it already does, opens
+         * the app's info page (battery, and autostart on some phones).
+         */
+        fun openBackgroundSettings(allowed: Boolean)
     }
 
     private val ui = SheetScanBinding.inflate(activity.layoutInflater)
@@ -39,7 +49,23 @@ class ScanSheet(
         } else {
             activity.getString(R.string.scan_sector_note_missing)
         }
-        return activity.showSheet(ui.root, ui.sheetTopBar, onBack, fullHeight = true)
+        val sheet = activity.showSheet(ui.root, ui.sheetTopBar, onBack, fullHeight = true)
+        // Back from Android's battery dialog or settings, the background line says how it stands now.
+        val back = LifecycleEventObserver { _, event -> if (event == Lifecycle.Event.ON_RESUME) refreshBackground() }
+        activity.lifecycle.addObserver(back)
+        sheet.lifecycle.addObserver(LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_DESTROY) activity.lifecycle.removeObserver(back)
+        })
+        return sheet
+    }
+
+    /** Whether Android lets the app run in the background unhindered; live mode's scans and alerts need it. */
+    private fun refreshBackground() {
+        ui.settingBackgroundRow.isVisible = settings.liveScan || settings.watchAlerts
+        val allowed = activity.getSystemService(PowerManager::class.java)?.isIgnoringBatteryOptimizations(activity.packageName) == true
+        ui.settingBackgroundBody.setText(if (allowed) R.string.settings_background_on else R.string.settings_background_off)
+        ui.settingBackgroundBody.setTextColor(ContextCompat.getColorStateList(activity, if (allowed) R.color.text_secondary else R.color.warn))
+        ui.settingBackgroundRow.setOnClickListener { actions.openBackgroundSettings(allowed) }
     }
 
     /** Live mode's switch and interval, and the two kinds of alerts. */
@@ -52,6 +78,7 @@ class ScanSheet(
             ui.settingLiveAlertsRow.alpha = if (live) 1f else DISABLED_ALPHA
             val notifying = (live && settings.liveAlerts) || settings.watchAlerts
             ui.settingNotifyBlocked.isVisible = notifying && !Notifier.canPost(activity)
+            refreshBackground()
         }
         fun changed() {
             refresh()

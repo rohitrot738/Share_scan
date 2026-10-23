@@ -122,7 +122,10 @@ class MainActivity : AppCompatActivity() {
         ui.updateLater.setOnClickListener { updates.dismiss() }
         ui.menuButton.setOnClickListener { openMenu() }
         ui.sectorChip.setOnClickListener { openSectors(fromMenu = false) }
-        if (savedInstanceState == null) pendingSymbol = intent.getStringExtra(Notifier.EXTRA_SYMBOL)
+        if (savedInstanceState == null) {
+            intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let(::openFromNotification)
+            if (intent.getBooleanExtra(Notifier.EXTRA_INSTALL, false)) updates.installWhenReady()
+        }
         if ((settings.liveScan && settings.liveAlerts) || settings.watchAlerts) askToNotify(again = false)
 
         ui.startButton.setOnClickListener {
@@ -183,14 +186,33 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let {
-            pendingSymbol = it
-            openPending(scan.uiState.value)
+        intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let(::openFromNotification)
+        if (intent.getBooleanExtra(Notifier.EXTRA_INSTALL, false)) updates.installWhenReady()
+    }
+
+    /**
+     * A notification's stock: opened at once when the list holds it, or as soon as the kept scan is read; if it is not
+     * there by then (or a scan under way does not bring it), the user is told rather than left with the bare list.
+     */
+    private fun openFromNotification(symbol: String) {
+        pendingSymbol = symbol
+        // Until the screen is up the list's first render opens it.
+        if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) openPending(scan.uiState.value)
+        lifecycleScope.launch {
+            delay(PENDING_WAIT_MS)
+            while (pendingSymbol == symbol && scan.uiState.value.isRunning) delay(PENDING_WAIT_MS)
+            if (pendingSymbol == symbol) {
+                pendingSymbol = null
+                Toast.makeText(this@MainActivity, getString(R.string.notify_open_missing, symbol), Toast.LENGTH_LONG).show()
+            }
         }
     }
 
     override fun onStart() {
         super.onStart()
+        AppScreen.open = true
+        // The scan's result is on the screen now.
+        Notifier.cancelScanDone(this)
         // Signed in, the watchlist follows the account; a change from another phone shows here at once.
         CloudWatchlist.start(this) { scan.showWatchlist(it) }
         // Once a day, this phone counts towards how many use the app (seen by its maker alone).
@@ -198,6 +220,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onStop() {
+        AppScreen.open = false
         CloudWatchlist.stop(this)
         super.onStop()
     }
@@ -221,10 +244,12 @@ class MainActivity : AppCompatActivity() {
         openPending(state)
     }
 
-    /** Opens the stock a notification named, once the list holds it. */
+    /** Opens the stock a notification named, once the list (or the watchlist's stocks outside it) holds it. */
     private fun openPending(state: ScanUiState) {
         val symbol = pendingSymbol ?: return
-        val stock = state.results.firstOrNull { it.symbol == symbol } ?: return
+        val stock = state.results.firstOrNull { it.symbol == symbol }
+            ?: state.watchExtras.firstOrNull { it.symbol == symbol }
+            ?: return
         pendingSymbol = null
         openChart(stock)
     }
@@ -741,6 +766,8 @@ class MainActivity : AppCompatActivity() {
      * installer itself offers the setting and carries on with the install when the user comes back.
      */
     private fun install(apk: File) {
+        // Its "ready to install" notification has done its job.
+        Notifier.cancelUpdateReady(this)
         val uri = FileProvider.getUriForFile(this, "$packageName.${UpdateViewModel.UPDATE_FOLDER}", apk)
         val view = Intent(Intent.ACTION_VIEW)
             .setDataAndType(uri, AppUpdate.APK_MIME)
@@ -876,6 +903,24 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, R.string.about_open_failed, Toast.LENGTH_SHORT).show()
             }
         }
+
+        /** Android's own "let it run in the background?" dialog; App info (battery, autostart) once allowed or without it. */
+        override fun openBackgroundSettings(allowed: Boolean) {
+            val app = "package:$packageName".toUri()
+            val tries = listOfNotNull(
+                if (allowed) null else Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS, app),
+                Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, app),
+            )
+            for (open in tries) {
+                try {
+                    startActivity(open)
+                    return
+                } catch (error: ActivityNotFoundException) {
+                    // Some phones leave the dialog out; App info comes next.
+                }
+            }
+            Toast.makeText(this@MainActivity, R.string.about_open_failed, Toast.LENGTH_SHORT).show()
+        }
     }
 
     /** Saves the theme and rebuilds the screen in it; the scan and its results live on in the view model. */
@@ -920,6 +965,9 @@ class MainActivity : AppCompatActivity() {
 
         /** The Support scan's stat counts floors this close, percent above. */
         const val NEAR_SUPPORT_PCT = 5.0
+
+        /** How long a notification's stock waits for the kept scan to be read before the user hears it is not there. */
+        const val PENDING_WAIT_MS = 8_000L
     }
 
     private fun openReleases() {

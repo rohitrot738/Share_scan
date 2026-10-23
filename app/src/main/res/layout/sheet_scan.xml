@@ -160,6 +160,33 @@
                 android:textColor="@color/warn"
                 android:visibility="gone" />
 
+            <!-- Live mode needs Android to let the app run in the background; tapping asks for it, or opens App info. -->
+            <LinearLayout
+                android:id="@+id/settingBackgroundRow"
+                style="@style/SettingsRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/SettingsRowTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_background" />
+
+                    <TextView
+                        android:id="@+id/settingBackgroundBody"
+                        style="@style/SettingsRowBody"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+
             <TextView
                 style="@style/SettingsSection"
                 android:layout_width="wrap_content"

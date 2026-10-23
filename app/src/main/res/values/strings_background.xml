@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The user's scan in the background (ScanService) -->
+    <string name="notify_channel_scan">चल रहा स्कैन</string>
+    <string name="notify_channel_scan_body">आपका स्कैन app बंद होने पर भी चलता रहे, इसके लिए उसकी प्रगति</string>
+    <string name="notify_channel_scan_done">स्कैन पूरा</string>
+    <string name="notify_channel_scan_done_body">App से बाहर रहते स्कैन पूरा हो तो उसका नतीजा</string>
+    <string name="notify_scan_title">स्कैन चल रहा है</string>
+    <string name="notify_scan_loading">Stocks की list आ रही है…</string>
+    <!-- %1$s stocks checked, %2$s stocks in all, %3$d percent -->
+    <string name="notify_scan_body">%1$s / %2$s stocks • %3$d%%</string>
+    <string name="notify_scan_stopping">स्कैन रोक रहे हैं…</string>
+    <string name="notify_scan_done">✅ स्कैन पूरा • %1$d top candidates</string>
+    <string name="notify_scan_stopped">⏹ स्कैन रोका गया • %1$d top candidates</string>
+    <string name="notify_scan_stopped_early">⏹ स्कैन रोका गया</string>
+    <string name="notify_scan_stopped_early_body">कोई stock check होने से पहले रुका — पिछला स्कैन वैसा ही है</string>
+    <string name="notify_scan_top">सबसे ऊपर %1$s • score %2$s — देखने के लिए दबाएँ</string>
+    <string name="notify_scan_none">कोई stock आपके filters में नहीं आया — देखने के लिए दबाएँ</string>
+
+    <!-- A notification's stock that the list does not hold -->
+    <string name="notify_open_missing">%1$s अभी की list में नहीं है — नया scan चलाएँ</string>
+
+    <!-- The update's download in the background (UpdateDownload) -->
+    <string name="notify_channel_update">App update</string>
+    <string name="notify_channel_update_body">नया version download होकर install के लिए तैयार हो</string>
+    <string name="update_download_title">Share Scan %1$s</string>
+    <string name="update_download_body">नया version download हो रहा है</string>
+    <string name="notify_update_ready">Share Scan %1$s तैयार</string>
+    <string name="notify_update_ready_body">Download पूरा — install करने के लिए दबाएँ</string>
+
+    <!-- Menu → स्कैन: letting Android run the app in the background -->
+    <string name="settings_background">Background में चलने दें</string>
+    <string name="settings_background_off">⚠ अभी Android battery बचाने के लिए auto-scan और alerts को देर से चला सकता है या रोक सकता है। यहाँ दबाकर “Allow / अनुमति दें” चुनें। Xiaomi, Redmi, Vivo, Oppo, Realme पर App info में “Autostart” भी चालू करें।</string>
+    <string name="settings_background_on">✓ चालू — Android battery के नाम पर इस app का auto-scan और alerts नहीं रोकेगा। Xiaomi, Redmi, Vivo, Oppo, Realme पर App info में “Autostart” भी चालू रखें (यहाँ दबाकर खोलें)।</string>
+
+    <!-- Help -->
+    <string name="help_background_title">Background में स्कैन</string>
+    <string name="help_background_body">SCAN दबाने के बाद app से बाहर जाएँ या स्क्रीन बंद कर दें, स्कैन चलता रहता है — notification में उसकी प्रगति और “रोकें” का button दिखता है, और पूरा होने पर नतीजे की notification आती है। Update का download भी Android के download manager से होता है, इसलिए app बंद करने पर भी पूरा होता है और फिर “install करने के लिए दबाएँ” की notification आती है। बाज़ार के समय का auto-scan Android खुद चलाता है: Menu → स्कैन में “Background में चलने दें” दबाकर अनुमति दें, नहीं तो battery बचाने के लिए Android उसे देर से चला सकता है या रोक सकता है। Xiaomi, Redmi, Vivo, Oppo, Realme जैसे फ़ोनों पर App info में “Autostart” भी चालू करें।</string>
+</resources>

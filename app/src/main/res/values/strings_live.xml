@@ -91,7 +91,7 @@
 
     <!-- Help -->
     <string name="help_live_title">लाइव बाज़ार और auto-scan</string>
-    <string name="help_live_body">बाज़ार खुला रहने पर (सोम–शुक्र 9:15–3:30) app चुने समय पर अपने-आप पूरा scan करता है, app बंद हो तब भी। दिन के बीच आज का volume अधूरा होता है, इसलिए RVOL उसे पूरे दिन के अनुमान में बदलकर गिना जाता है — सुबह volume ज़्यादा होता है, यह भी ध्यान में रखा जाता है (card पर ≈ का निशान)। नए STRONG stocks और breakouts की notification आती है। फ़ोन battery saver में हो तो Android scan को थोड़ा देर से चला सकता है।</string>
+    <string name="help_live_body">बाज़ार खुला रहने पर (सोम–शुक्र 9:15–3:30) app चुने समय पर अपने-आप पूरा scan करता है, app बंद हो तब भी। दिन के बीच आज का volume अधूरा होता है, इसलिए RVOL उसे पूरे दिन के अनुमान में बदलकर गिना जाता है — सुबह volume ज़्यादा होता है, यह भी ध्यान में रखा जाता है (card पर ≈ का निशान)। नए STRONG stocks और breakouts की notification आती है। Android battery बचाने के लिए इसे देर से चला सकता है या रोक सकता है — Menu → स्कैन में “Background में चलने दें” से अनुमति दें।</string>
     <string name="help_alerts_title">Watchlist alerts</string>
     <string name="help_alerts_body">★ वाले हर stock के trade plan पर नज़र रहती है। भाव breakout trigger पार करे तो notification, फिर वही plan पक्का हो जाता है: हर target पर और stop-loss टूटने पर notification। पहली बार देखते समय stock पहले से trigger के ऊपर हो तो alert तभी आएगा जब वह नीचे आकर फिर breakout करे।</string>
     <string name="help_record_title">Track record</string>

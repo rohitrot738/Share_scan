@@ -105,8 +105,9 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /** Starts the user's scan, run in a foreground service so it goes on with the app out of sight ([ScanService]). */
     fun startScan() {
-        ScanEngine.start(getApplication(), ScanEngine.Trigger.USER)
+        if (ScanEngine.start(getApplication(), ScanEngine.Trigger.USER)) ScanService.start(getApplication())
     }
 
     /**

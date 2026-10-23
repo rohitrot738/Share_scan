@@ -34,7 +34,7 @@
     <string name="settings_updates">App खुलने पर update check करें</string>
     <string name="settings_updates_body">नया version आते ही ऊपर banner दिखेगा</string>
     <string name="settings_screen">स्कैन के दौरान स्क्रीन ऑन रखें</string>
-    <string name="settings_screen_body">बंद करने पर स्क्रीन बंद हो सकती है और स्कैन रुक सकता है</string>
+    <string name="settings_screen_body">बंद करें तो स्क्रीन बंद हो जाने पर भी स्कैन background में notification के साथ चलता रहेगा</string>
     <string name="settings_section_scan">स्कैन में क्या शामिल हो</string>
     <string name="settings_nse">NSE stocks स्कैन करें</string>
     <string name="settings_nse_body">NSE main board के ~2,600 stocks • बंद करने पर सिर्फ़ SME और/या BSE स्कैन होंगे</string>
