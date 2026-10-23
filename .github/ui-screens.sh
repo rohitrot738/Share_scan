@@ -62,11 +62,13 @@ tap_text() { local xy; xy=$(center text "$1") && adb shell input tap $xy || echo
 tap_exact() { local xy; xy=$(center exact "$1") && adb shell input tap $xy || echo "could not find exact $1" | tee -a "$LOG"; }
 news() { adb shell am broadcast -f 0x20 -n "$PKG/.NewsTestReceiver" --es kind "$1" --es symbols "${2:--}" | tail -1 >> "$LOG"; }
 swipe_up() { adb shell input swipe 540 1900 540 1000 500; sleep 1; }
-# Swipes up until the view with id $1 sits in the upper part of the screen (at most 20 swipes).
+# A slow drag that moves the page about 600 px without a fling.
+drag_up() { adb shell input swipe 540 1700 540 1100 1500; sleep 1; }
+# Drags up until the view with id $1 sits in the top half of the screen (at most 30 drags).
 scroll_to() {
-  for i in $(seq 1 20); do
-    local xy; xy=$(center id "$1") && [ "${xy#* }" -lt 1300 ] && return 0
-    swipe_up
+  for i in $(seq 1 30); do
+    local xy; xy=$(center id "$1") && [ "${xy#* }" -lt 1000 ] && return 0
+    drag_up
   done
   echo "could not scroll to $1" | tee -a "$LOG"
 }
@@ -129,40 +131,42 @@ tap watchlistChip
 shot 02-watchlist-marks 10
 echo "marks: $(texts newsBadge | tr '\n' '|')" | tee -a "$LOG"
 
-# 3. The first starred stock's detail, down to its खबरें.
-mapfile -t SYMS < <(texts symbol)
-FIRST=${SYMS[0]:-${PICK%%,*}}
+drag_up; drag_up
+shot 03-watchlist-marks-more 2
+echo "marks: $(texts newsBadge | tr '\n' '|')" | tee -a "$LOG"
+
+# 3. The stock with the weightiest news (the first picked), down to its खबरें.
+FIRST=${PICK%%,*}
 echo "opening $FIRST" | tee -a "$LOG"
-tap symbol
+xy=$(center exact "$FIRST") && adb shell input tap $xy || tap symbol
 sleep 10
-shot 03-detail-top 0
 scroll_to detailNewsSection
 shot 04-detail-news 6
 echo "titles: $(texts newsTitle | head -12 | tr '\n' '|')" | tee -a "$LOG"
 echo "kinds: $(texts newsKind | tr '\n' '|') timing: $(texts newsTiming | tr '\n' '|')" | tee -a "$LOG"
-swipe_up
+drag_up; drag_up
 shot 05-detail-news-more 2
-swipe_up
-shot 06-detail-news-end 2
 adb shell input keyevent KEYCODE_BACK; sleep 2
 
-# 4. The morning round-up and a big filing's alert, with the app out of sight.
+# 4. A big filing's alert and what tapping it opens, then the morning round-up, with the app out of sight.
+adb shell input keyevent KEYCODE_HOME; sleep 3
+news alert "$FIRST"
+sleep 15
+shade
+shot 06-alert-shade 1
+news_notes
+tap_text "📰"
+sleep 8
+shot 07-alert-opened 0
+adb shell input keyevent KEYCODE_BACK; sleep 2
 adb shell input keyevent KEYCODE_HOME; sleep 3
 news digest
 sleep 40
 shade
-shot 07-digest-shade 1
+shot 08-digest-shade 1
 news_notes
 adb shell cmd statusbar collapse; sleep 2
-news alert "$FIRST"
-sleep 15
-shade
-shot 08-alert-shade 1
-news_notes
-tap_text "📰"
-sleep 8
-shot 09-alert-opened 0
-adb shell input keyevent KEYCODE_BACK; sleep 2
+launch; sleep 8
 
 # 5. Menu → स्कैन: the switch.
 tap menuButton
@@ -174,5 +178,5 @@ for i in $(seq 1 12); do
   swipe_up
 done
 swipe_up
-shot 10-scan-sheet-switch 2
+shot 09-scan-sheet-switch 2
 adb logcat -d -s NewsTest:* >> "$LOG"
