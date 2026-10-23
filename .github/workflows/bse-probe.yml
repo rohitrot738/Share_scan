@@ -11,73 +11,36 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          distribution: temurin
-          java-version: '17'
+          python-version: '3.12'
       - name: Probe
+        shell: python
         run: |
-          U=https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_20261022_F_0000.CSV
-          MOB="Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
-          DESK="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
-          c() { echo "$1: $(curl -sS -o /dev/null -w '%{http_version} %{http_code} %{size_download}' "${@:2}" "$U")"; }
-          c "h2 desk"                 -A "$DESK" -e https://www.bseindia.com/
-          c "h1.1 desk"               --http1.1 -A "$DESK" -e https://www.bseindia.com/
-          c "h2 mob"                  -A "$MOB" -e https://www.bseindia.com/
-          c "h2 mob lang"             -A "$MOB" -e https://www.bseindia.com/ -H "Accept-Language: en-IN,en;q=0.9"
-          c "h2 mob identity"         -A "$MOB" -e https://www.bseindia.com/ -H "Accept-Encoding: identity"
-          c "h1.1 mob close"          --http1.1 -A "$MOB" -e https://www.bseindia.com/ -H "Connection: close"
-          c "h1.1 mob identity"       --http1.1 -A "$MOB" -e https://www.bseindia.com/ -H "Accept-Encoding: identity"
-          c "h1.1 mob lang"           --http1.1 -A "$MOB" -e https://www.bseindia.com/ -H "Accept-Language: en-IN,en;q=0.9"
-          c "h1.1 android-like"       --http1.1 -A "$MOB" -e https://www.bseindia.com/ -H "Accept: text/csv,application/gzip,application/octet-stream,*/*" -H "Accept-Encoding: gzip" -H "Connection: Keep-Alive"
-          c "h1.1 no ua"              --http1.1 -A "" -e https://www.bseindia.com/
-          c "h1.1 python ua"          --http1.1 -A "Python-urllib/3.12" -e https://www.bseindia.com/
-          c "h1.1 app ua"             --http1.1 -A "ShareScan (Android)"
-          cat > /tmp/P.java <<'EOF'
-          import java.net.*; import java.net.http.*; import java.io.*;
-          public class P {
-            public static void main(String[] a) throws Exception {
-              String u = a[0];
-              HttpURLConnection c = (HttpURLConnection) new URL(u).openConnection();
-              c.setRequestProperty("User-Agent", a[1]);
-              c.setRequestProperty("Referer", "https://www.bseindia.com/");
-              c.setRequestProperty("Accept", "text/csv,application/gzip,application/octet-stream,*/*");
-              int s = c.getResponseCode();
-              InputStream in = s < 300 ? c.getInputStream() : c.getErrorStream();
-              System.out.println("java HttpURLConnection: " + s + " " + (in == null ? 0 : in.readAllBytes().length));
-              for (HttpClient.Version v : HttpClient.Version.values()) {
-                HttpClient h = HttpClient.newBuilder().version(v).build();
-                HttpResponse<byte[]> r = h.send(HttpRequest.newBuilder(URI.create(u)).header("User-Agent", a[1])
-                    .header("Referer", "https://www.bseindia.com/").build(), HttpResponse.BodyHandlers.ofByteArray());
-                System.out.println("java HttpClient " + v + ": " + r.version() + " " + r.statusCode() + " " + r.body().length);
-              }
-            }
-          }
-          EOF
-          java /tmp/P.java "$U" "$MOB"
-          python3 - "$U" <<'EOF'
-          import sys, urllib.request, urllib.error, http.client
-          u = sys.argv[1]
+          import http.client, urllib.request, urllib.error
+          from cr360 import build_app_cache as b
+          U = b.BSE_BHAVCOPY.format("20261022")
+          MOB = b.BROWSER_UA
+          REF = "https://www.bseindia.com/"
           def t(label, h):
               try:
-                  with urllib.request.urlopen(urllib.request.Request(u, headers=h), timeout=40) as r:
-                      print(label, r.status, len(r.read()))
+                  with urllib.request.urlopen(urllib.request.Request(U, headers=h), timeout=40) as r:
+                      print(label, r.status, len(r.read()), flush=True)
               except urllib.error.HTTPError as e:
-                  print(label, e.code)
-          MOB = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
-          t("py urllib ua+ref", {"User-Agent": MOB, "Referer": "https://www.bseindia.com/"})
-          t("py urllib ua only", {"User-Agent": MOB})
-          c = http.client.HTTPSConnection("www.bseindia.com", timeout=40)
-          c.request("GET", u.split("bseindia.com")[1], headers={"User-Agent": MOB, "Referer": "https://www.bseindia.com/", "Accept": "*/*"})
-          r = c.getresponse(); print("py http.client keep-alive", r.status, len(r.read()))
-          EOF
-          pip -q install requests httpx[http2] >/dev/null 2>&1
-          python3 - "$U" <<'EOF'
-          import sys, requests, httpx
-          u = sys.argv[1]
-          MOB = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
-          r = requests.get(u, headers={"User-Agent": MOB, "Referer": "https://www.bseindia.com/"}, timeout=40); print("py requests", r.status_code, len(r.content))
-          r = httpx.get(u, headers={"User-Agent": MOB, "Referer": "https://www.bseindia.com/"}, timeout=40); print("py httpx h1", r.http_version, r.status_code, len(r.content))
-          with httpx.Client(http2=True) as h:
-              r = h.get(u, headers={"User-Agent": MOB, "Referer": "https://www.bseindia.com/"}, timeout=40); print("py httpx h2", r.http_version, r.status_code, len(r.content))
-          EOF
+                  print(label, e.code, flush=True)
+          for round in (1, 2):
+              t("urllib ua+ref", {"User-Agent": MOB, "Referer": REF})
+              t("urllib +accept csv", {"User-Agent": MOB, "Referer": REF, "Accept": "text/csv"})
+              t("urllib +accept-language", {"User-Agent": MOB, "Referer": REF, "Accept-Language": "en-IN,en;q=0.9"})
+              t("urllib all three", {"User-Agent": MOB, "Referer": REF, "Accept": "text/csv", "Accept-Language": "en-IN,en;q=0.9"})
+              for name in ("Accept-Language", "Accept-language"):
+                  c = http.client.HTTPSConnection("www.bseindia.com", timeout=40)
+                  c.putrequest("GET", U.split("bseindia.com")[1])
+                  for k, v in (("User-Agent", MOB), ("Referer", REF), ("Accept", "text/csv"), (name, "en-IN,en;q=0.9")):
+                      c.putheader(k, v)
+                  c.endheaders()
+                  r = c.getresponse()
+                  print(f"http.client {name}", r.status, len(r.read()), flush=True)
+              s, text, _ = b.http_get(U, "text/csv", b.BROWSER_UA, 60, REF)
+              print("builder http_get", s, len(text), len(b.bse_listings(text)) if s == 200 else 0, flush=True)
