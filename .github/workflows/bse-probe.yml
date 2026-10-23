@@ -11,47 +11,73 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
       - name: Probe
-        shell: python
         run: |
-          import re, urllib.request, urllib.error, subprocess
-          UA = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
-          DESK = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
-          def get(url, ua=UA, ref="https://www.bseindia.com/", accept="*/*", extra=None):
-              h = {"User-Agent": ua, "Accept": accept, "Accept-Language": "en-IN,en;q=0.9"}
-              if ref: h["Referer"] = ref
-              h.update(extra or {})
+          U=https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_20261022_F_0000.CSV
+          MOB="Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
+          DESK="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
+          c() { echo "$1: $(curl -sS -o /dev/null -w '%{http_version} %{http_code} %{size_download}' "${@:2}" "$U")"; }
+          c "h2 desk"                 -A "$DESK" -e https://www.bseindia.com/
+          c "h1.1 desk"               --http1.1 -A "$DESK" -e https://www.bseindia.com/
+          c "h2 mob"                  -A "$MOB" -e https://www.bseindia.com/
+          c "h2 mob lang"             -A "$MOB" -e https://www.bseindia.com/ -H "Accept-Language: en-IN,en;q=0.9"
+          c "h2 mob identity"         -A "$MOB" -e https://www.bseindia.com/ -H "Accept-Encoding: identity"
+          c "h1.1 mob close"          --http1.1 -A "$MOB" -e https://www.bseindia.com/ -H "Connection: close"
+          c "h1.1 mob identity"       --http1.1 -A "$MOB" -e https://www.bseindia.com/ -H "Accept-Encoding: identity"
+          c "h1.1 mob lang"           --http1.1 -A "$MOB" -e https://www.bseindia.com/ -H "Accept-Language: en-IN,en;q=0.9"
+          c "h1.1 android-like"       --http1.1 -A "$MOB" -e https://www.bseindia.com/ -H "Accept: text/csv,application/gzip,application/octet-stream,*/*" -H "Accept-Encoding: gzip" -H "Connection: Keep-Alive"
+          c "h1.1 no ua"              --http1.1 -A "" -e https://www.bseindia.com/
+          c "h1.1 python ua"          --http1.1 -A "Python-urllib/3.12" -e https://www.bseindia.com/
+          c "h1.1 app ua"             --http1.1 -A "ShareScan (Android)"
+          cat > /tmp/P.java <<'EOF'
+          import java.net.*; import java.net.http.*; import java.io.*;
+          public class P {
+            public static void main(String[] a) throws Exception {
+              String u = a[0];
+              HttpURLConnection c = (HttpURLConnection) new URL(u).openConnection();
+              c.setRequestProperty("User-Agent", a[1]);
+              c.setRequestProperty("Referer", "https://www.bseindia.com/");
+              c.setRequestProperty("Accept", "text/csv,application/gzip,application/octet-stream,*/*");
+              int s = c.getResponseCode();
+              InputStream in = s < 300 ? c.getInputStream() : c.getErrorStream();
+              System.out.println("java HttpURLConnection: " + s + " " + (in == null ? 0 : in.readAllBytes().length));
+              for (HttpClient.Version v : HttpClient.Version.values()) {
+                HttpClient h = HttpClient.newBuilder().version(v).build();
+                HttpResponse<byte[]> r = h.send(HttpRequest.newBuilder(URI.create(u)).header("User-Agent", a[1])
+                    .header("Referer", "https://www.bseindia.com/").build(), HttpResponse.BodyHandlers.ofByteArray());
+                System.out.println("java HttpClient " + v + ": " + r.version() + " " + r.statusCode() + " " + r.body().length);
+              }
+            }
+          }
+          EOF
+          java /tmp/P.java "$U" "$MOB"
+          python3 - "$U" <<'EOF'
+          import sys, urllib.request, urllib.error, http.client
+          u = sys.argv[1]
+          def t(label, h):
               try:
-                  with urllib.request.urlopen(urllib.request.Request(url, headers=h), timeout=40) as r:
-                      body = r.read()
-                      return r.status, r.headers.get("Content-Type"), body
+                  with urllib.request.urlopen(urllib.request.Request(u, headers=h), timeout=40) as r:
+                      print(label, r.status, len(r.read()))
               except urllib.error.HTTPError as e:
-                  return e.code, e.headers.get("Content-Type"), e.read()
-              except Exception as e:
-                  return -1, None, repr(e).encode()
-          def show(label, res):
-              s, ct, b = res
-              print(f"{label}: {s} {ct} {len(b)}B :: {b[:160]!r}", flush=True)
-          for d in ("20261022", "20261021", "20261020", "20261017", "20261010", "20261001", "20250930"):
-              show(f"udiff {d}", get(f"https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_{d}_F_0000.CSV", accept="text/csv"))
-          show("udiff 1022 desktop", get("https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_20261022_F_0000.CSV", ua=DESK,
-               extra={"Sec-Fetch-Site": "same-origin", "Sec-Fetch-Mode": "navigate", "Sec-Fetch-Dest": "document"}))
-          show("udiff 1022 no referer", get("https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_20261022_F_0000.CSV", ref=None))
-          show("old zip 221026", get("https://www.bseindia.com/download/BhavCopy/Equity/EQ221026_CSV.ZIP"))
-          show("home", get("https://www.bseindia.com/", accept="text/html"))
-          s, ct, b = get("https://www.bseindia.com/markets/MarketInfo/BhavCopy.aspx", accept="text/html")
-          show("bhavcopy page", (s, ct, b))
-          for link in sorted(set(re.findall(rb"[A-Za-z0-9_/.:-]*BhavCopy[A-Za-z0-9_/.:-]*\.(?:CSV|csv|zip|ZIP)", b)))[:20]:
-              print("  link:", link.decode(), flush=True)
-          api = "https://api.bseindia.com/BseIndiaAPI/api/ListofScripData/w?Group=&Scripcode=&industry=&segment=Equity&status=Active"
-          show("api scrips", get(api, accept="application/json", extra={"Origin": "https://www.bseindia.com"}))
-          show("api scrips desktop", get(api, ua=DESK, accept="application/json", extra={"Origin": "https://www.bseindia.com"}))
-          for d in ("20261022",):
-              out = subprocess.run(["curl", "-sS", "-o", "/tmp/c.csv", "-w", "%{http_code} %{content_type} %{size_download}",
-                                    "-A", DESK, "-e", "https://www.bseindia.com/",
-                                    f"https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_{d}_F_0000.CSV"],
-                                   capture_output=True, text=True)
-              print(f"curl udiff {d}:", out.stdout, out.stderr[:200], open("/tmp/c.csv", "rb").read(160), flush=True)
-          out = subprocess.run(["curl", "-sS", "-I", "https://www.bseindia.com/download/BhavCopy/Equity/BhavCopy_BSE_CM_0_0_0_20261022_F_0000.CSV",
-                                "-A", DESK], capture_output=True, text=True)
-          print("curl head:\n" + out.stdout[:1200], flush=True)
+                  print(label, e.code)
+          MOB = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
+          t("py urllib ua+ref", {"User-Agent": MOB, "Referer": "https://www.bseindia.com/"})
+          t("py urllib ua only", {"User-Agent": MOB})
+          c = http.client.HTTPSConnection("www.bseindia.com", timeout=40)
+          c.request("GET", u.split("bseindia.com")[1], headers={"User-Agent": MOB, "Referer": "https://www.bseindia.com/", "Accept": "*/*"})
+          r = c.getresponse(); print("py http.client keep-alive", r.status, len(r.read()))
+          EOF
+          pip -q install requests httpx[http2] >/dev/null 2>&1
+          python3 - "$U" <<'EOF'
+          import sys, requests, httpx
+          u = sys.argv[1]
+          MOB = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
+          r = requests.get(u, headers={"User-Agent": MOB, "Referer": "https://www.bseindia.com/"}, timeout=40); print("py requests", r.status_code, len(r.content))
+          r = httpx.get(u, headers={"User-Agent": MOB, "Referer": "https://www.bseindia.com/"}, timeout=40); print("py httpx h1", r.http_version, r.status_code, len(r.content))
+          with httpx.Client(http2=True) as h:
+              r = h.get(u, headers={"User-Agent": MOB, "Referer": "https://www.bseindia.com/"}, timeout=40); print("py httpx h2", r.http_version, r.status_code, len(r.content))
+          EOF
