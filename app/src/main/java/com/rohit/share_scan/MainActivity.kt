@@ -93,12 +93,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(ui.root)
         ui.galaxySky.palette = settings.theme.skyPalette
         ui.galaxySky.animate = settings.skyAnimation
+        // The version running, beside the name.
+        updates.installedName.takeIf { it.isNotEmpty() }?.let {
+            ui.appVersion.text = getString(R.string.header_version, it)
+            ui.appVersion.isVisible = true
+        }
         ui.hero.clipToOutline = true
-        // The scan board, its button, the stat cards, the logo and the empty-state circle wear the Filters chip's glass;
+        // The scan board, its button, the stat cards and the empty-state circle wear the Filters chip's glass;
         // so do the stock cards (StockAdapter) and the filter sheet's sliders and button (FilterSheet).
         ui.hero.wearChipGlass(HERO_CORNER_DP, tintBoost = 1.5f)
         ui.startButton.wearChipGlass(START_BUTTON_CORNER_DP, tintBoost = 1.8f, ripple = true)
-        ui.logoTile.wearChipGlass(LOGO_CORNER_DP, tintBoost = 3f)
         ui.emptyCircle.wearChipGlass(null, tintBoost = 2f)
         listOf(ui.statCardScanned, ui.statCardTop, ui.statCardSpikes).forEach { it.wearCardGlass() }
         // Frosted glass: the sky behind the scan board is drawn blurred, and follows the board as the bar scrolls.

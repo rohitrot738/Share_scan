@@ -3,6 +3,13 @@
     "version": "",
     "date": "2026-10-23",
     "items": [
+      "App खुलते ही ऊपर (और menu में) अब Share Scan का असली app icon दिखता है, और नाम के बगल में चल रहा version"
+    ]
+  },
+  {
+    "version": "1.2.133",
+    "date": "2026-10-23",
+    "items": [
       "R/S card के हर हिस्से पर tap करते ही उसके नीचे उसका पूरा data खुलता है: नतीजों की गुणवत्ता और बढ़त पर हर quarter के नतीजे, cash flow और कर्ज़ पर सालाना table, shareholding पर promoter/FII/DII, insider पर सारे सौदे, valuation पर P/E और fair value, और भाव, स्थिरता व जोखिम पर 3 साल का chart; दोबारा tap करने पर बंद"
     ]
   },

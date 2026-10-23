@@ -130,9 +130,6 @@ const val HERO_CORNER_DP = 28f
 /** The SCAN button's corners (activity_main.xml, app:cornerRadius). */
 const val START_BUTTON_CORNER_DP = 18f
 
-/** The header logo tile's corners, as bg_logo*.xml draws them. */
-const val LOGO_CORNER_DP = 14f
-
 /** ShareScanCard's corners (cardCornerRadius): the stat cards and the stock cards. */
 const val CARD_CORNER_DP = 20f
 
