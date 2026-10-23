@@ -17,6 +17,11 @@
     <string name="notify_scan_top">सबसे ऊपर %1$s • score %2$s — देखने के लिए दबाएँ</string>
     <string name="notify_scan_none">कोई stock आपके filters में नहीं आया — देखने के लिए दबाएँ</string>
 
+    <!-- A fresh start, while the kept scan is read from disk -->
+    <string name="status_reading_title">पिछला स्कैन खुल रहा है…</string>
+    <string name="status_reading_body">सहेजी हुई list पढ़ी जा रही है — एक पल</string>
+    <string name="empty_reading_body">आख़िरी स्कैन की list आ रही है; notification से खोला stock भी उसके साथ खुलेगा।</string>
+
     <!-- A notification's stock that the list does not hold -->
     <string name="notify_open_missing">%1$s अभी की list में नहीं है — नया scan चलाएँ</string>
 

@@ -84,6 +84,8 @@ data class ScanUiState(
     val runningAuto: Boolean = false,
     /** The latest run was stopped before any stock was scored; [results] are the scan before it. */
     val earlyStop: Boolean = false,
+    /** The kept scan is still being read from disk, as on a fresh start; [results] are empty until it is in. */
+    val reading: Boolean = false,
 ) {
     /** At least one price in [results] is from today's session, still trading. */
     val live: Boolean by lazy { results.any { it.live } }

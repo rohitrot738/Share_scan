@@ -302,12 +302,22 @@ class MainActivity : AppCompatActivity() {
         val support = state.scanMode == ScanMode.SUPPORT
         val clock = StockFormat.duration(state.elapsedAt(SystemClock.elapsedRealtime()))
         when (state.phase) {
-            ScanPhase.IDLE -> showStatus(
-                getString(if (support) R.string.support_ready_title else R.string.status_ready_title),
-                getString(if (support) R.string.support_ready_body else R.string.status_ready_body),
-                if (support) R.drawable.ic_support else R.drawable.ic_radar,
-                0,
-            )
+            // A fresh start: the kept scan is on its way from disk, not missing.
+            ScanPhase.IDLE -> if (state.reading) {
+                showStatus(
+                    getString(R.string.status_reading_title),
+                    getString(R.string.status_reading_body),
+                    R.drawable.ic_radar,
+                    0,
+                )
+            } else {
+                showStatus(
+                    getString(if (support) R.string.support_ready_title else R.string.status_ready_title),
+                    getString(if (support) R.string.support_ready_body else R.string.status_ready_body),
+                    if (support) R.drawable.ic_support else R.drawable.ic_radar,
+                    0,
+                )
+            }
             ScanPhase.LOADING -> showStatus(
                 getString(if (state.runningAuto) R.string.status_auto_title else R.string.status_loading_title),
                 getString(R.string.status_loading_body, clock),
@@ -489,6 +499,7 @@ class MainActivity : AppCompatActivity() {
                     if (settings.keepScreenOn) R.string.empty_scanning_body else R.string.empty_scanning_body_screen_off,
                     R.drawable.ic_radar,
                 )
+                state.reading -> Triple(R.string.status_reading_title, R.string.empty_reading_body, R.drawable.ic_radar)
                 state.phase == ScanPhase.IDLE -> Triple(R.string.empty_title, R.string.empty_body, R.drawable.ic_trending_up)
                 state.stopped -> Triple(R.string.empty_stopped_title, R.string.empty_stopped_body, R.drawable.ic_stop)
                 else -> Triple(R.string.empty_failed_title, R.string.empty_failed_body, R.drawable.ic_error)
@@ -498,7 +509,7 @@ class MainActivity : AppCompatActivity() {
             ui.emptyIcon.setImageResource(icon)
         }
 
-        val spin = state.isRunning && ui.emptyScroll.isVisible
+        val spin = (state.isRunning || state.reading) && ui.emptyScroll.isVisible
         if (spin && radarSpin == null) {
             radarSpin = ObjectAnimator.ofFloat(ui.emptyIcon, View.ROTATION, 0f, 360f).apply {
                 duration = 2_400
