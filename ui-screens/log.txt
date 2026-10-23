@@ -1,20 +1,36 @@
-+6.4s no scan notification
-scan ended out of sight after 7.5s
++5.0s android.text=String (9 / 2,613 stocks • 0%)
++10.7s android.text=String (87 / 2,613 stocks • 3%)
++15.8s android.text=String (194 / 2,613 stocks • 7%)
++21.0s android.text=String (353 / 2,613 stocks • 13%)
++26.1s android.text=String (508 / 2,613 stocks • 19%)
++31.4s android.text=String (638 / 2,613 stocks • 24%)
++36.6s android.text=String (795 / 2,613 stocks • 30%)
++41.8s android.text=String (964 / 2,613 stocks • 36%)
++46.9s android.text=String (1,143 / 2,613 stocks • 43%)
++52.1s android.text=String (1,352 / 2,613 stocks • 51%)
++57.2s android.text=String (1,522 / 2,613 stocks • 58%)
++62.4s android.text=String (1,691 / 2,613 stocks • 64%)
++67.6s android.text=String (1,850 / 2,613 stocks • 70%)
++72.8s android.text=String (2,017 / 2,613 stocks • 77%)
++77.9s android.text=String (2,202 / 2,613 stocks • 84%)
++83.0s android.text=String (2,389 / 2,613 stocks • 91%)
++88.0s android.text=String (2,578 / 2,613 stocks • 98%)
++93.1s 
+scan ended out of sight after 93.2s
 shot 01-scan-done-shade
-total 396
--rw------- 1 u0_a192 u0_a192 295065 2026-10-23 13:38 cr360.json.gz
--rw------- 1 u0_a192 u0_a192     24 2026-10-23 13:38 profileInstalled
--rw------- 1 u0_a192 u0_a192  77154 2026-10-23 13:38 sectors.json
--rw------- 1 u0_a192 u0_a192   5517 2026-10-23 13:38 setups.json
-shot 02-fresh-start-1s
-fresh start: list in after 264.1s
+total 2036
+-rw------- 1 u0_a192 u0_a192  295065 2026-10-23 13:53 cr360.json.gz
+-rw------- 1 u0_a192 u0_a192 1648730 2026-10-23 13:55 last_scan.gz
+-rw------- 1 u0_a192 u0_a192      24 2026-10-23 13:53 profileInstalled
+-rw------- 1 u0_a192 u0_a192   77154 2026-10-23 13:53 sectors.json
+-rw------- 1 u0_a192 u0_a192    5517 2026-10-23 13:53 setups.json
+-rw------- 1 u0_a192 u0_a192   17219 2026-10-23 13:55 track_record.json
+pid after kill: none
+shot 02-fresh-start-2s
+fresh start: list in after 10.9s
 shot 03-fresh-start-list
-first stock: SSWL
---- killed, before tapping: pid none
-      topResumedActivity=ActivityRecord{2c736e2 u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
-  ResumedActivity: ActivityRecord{2c736e2 u0 com.google.android.apps.nexuslauncher/.NexusLauncherActivity t7}
-shot 04-closed-tap-1s
-closed-app alert: SSWL opened after 16.6s
-shot 05-closed-tap-opened
-shot 06-scan-sheet-allowed
-user,com.rohit.share_scan,10192
+second stock: CYIENT
+pid after kill: none
+closed-app alert: CYIENT opened after 9.8s
+shot 04-closed-tap-opened
+shot 05-closed-tap-list
