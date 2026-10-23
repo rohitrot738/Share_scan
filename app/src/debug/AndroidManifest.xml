@@ -1,8 +1,0 @@
-<!-- Temporary, debug builds only: lets the emulator review star stocks and run the news alerts. Removed before merging. -->
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
-  <application>
-    <receiver
-        android:name=".NewsTestReceiver"
-        android:exported="true" />
-  </application>
-</manifest>
