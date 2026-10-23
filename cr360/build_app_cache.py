@@ -48,6 +48,8 @@ INSIDER_GAP = 1.0       # seconds between two stocks' insider requests to NSE
 INSIDER_FAILURES = 5    # NSE refusing this many stocks in a row ends the top-up for the run
 OLD_QUARTER_DAYS = 200  # a page this far behind the due quarter is checked against the other one
 INSIDER_INDEX = {"nse": "equities", "sme": "sme"}  # NSE's insider filings; BSE-only companies file with BSE
+BSE_ROUNDS = 3          # BSE's site answers 404 for every file for minutes at a time, so the week is asked for again
+BSE_ROUND_GAP = 120     # seconds between those rounds
 
 
 def log(*a):
@@ -131,17 +133,30 @@ def load_universe(today: date) -> tuple[dict[str, dict], set[str]]:
         sme = nse_listings(text, "sme") if status == 200 else {}
         if len(sme) >= 50:
             break
-    bse, tried = {}, []
-    for back in range(8):  # the latest trading day's file; on holidays BSE answers with a web page
-        day = (today - timedelta(days=back)).strftime("%Y%m%d")
-        status, text, _ = http_get(BSE_BHAVCOPY.format(day), "text/csv", BROWSER_UA, 60, "https://www.bseindia.com/")
-        bse = bse_listings(text) if status == 200 else {}
-        tried.append(f"{day[4:]}:{status}/{len(bse)}")
-        if len(bse) >= 500:
-            break
+    bse, tried = latest_bse(today)
     markets = {"nse"} | ({"sme"} if len(sme) >= 50 else set()) | ({"bse"} if len(bse) >= 500 else set())
     log(f"lists: nse {len(main)}, sme {len(sme)}, bse {len(bse)}" + ("" if "bse" in markets else f" (BSE files {' '.join(tried)})"))
     return combine(main, sme if "sme" in markets else {}, bse if "bse" in markets else {}), markets
+
+
+def latest_bse(today: date, get=None, wait=time.sleep) -> tuple[dict[str, dict], list[str]]:
+    """The latest trading day's BSE shares from the last week's bhavcopies (on holidays BSE answers with a web page),
+    asking again after a pause when none loads, as BSE's site at times answers 404 for every file. Also returns each
+    day tried as "MMDD:status/rows", the rounds apart by "|", for the log."""
+    get = get or http_get
+    tried: list[str] = []
+    for round_ in range(BSE_ROUNDS):
+        if round_:
+            tried.append("|")
+            wait(BSE_ROUND_GAP)
+        for back in range(8):
+            day = (today - timedelta(days=back)).strftime("%Y%m%d")
+            status, text, _ = get(BSE_BHAVCOPY.format(day), "text/csv", BROWSER_UA, 60, "https://www.bseindia.com/")
+            bse = bse_listings(text) if status == 200 else {}
+            tried.append(f"{day[4:]}:{status}/{len(bse)}")
+            if len(bse) >= 500:
+                return bse, tried
+    return {}, tried
 
 
 def load_sectors(universe: dict[str, dict]) -> dict[str, str]:
