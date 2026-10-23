@@ -64,10 +64,10 @@ news() { adb shell am broadcast -f 0x20 -n "$PKG/.NewsTestReceiver" --es kind "$
 swipe_up() { adb shell input swipe 540 1900 540 1000 500; sleep 1; }
 # A slow drag that moves the page about 600 px without a fling.
 drag_up() { adb shell input swipe 540 1700 540 1100 1500; sleep 1; }
-# Drags up until the view with id $1 sits in the top half of the screen (at most 30 drags).
+# Drags up until the view whose text is exactly $1 sits in the upper half of the screen (at most 30 drags).
 scroll_to() {
   for i in $(seq 1 30); do
-    local xy; xy=$(center id "$1") && [ "${xy#* }" -lt 1000 ] && return 0
+    local xy; xy=$(center exact "$1") && [ "${xy#* }" -lt 1100 ] && return 0
     drag_up
   done
   echo "could not scroll to $1" | tee -a "$LOG"
@@ -140,7 +140,7 @@ FIRST=${PICK%%,*}
 echo "opening $FIRST" | tee -a "$LOG"
 xy=$(center exact "$FIRST") && adb shell input tap $xy || tap symbol
 sleep 10
-scroll_to detailNewsSection
+scroll_to "खबरें"
 shot 04-detail-news 6
 echo "titles: $(texts newsTitle | head -12 | tr '\n' '|')" | tee -a "$LOG"
 echo "kinds: $(texts newsKind | tr '\n' '|') timing: $(texts newsTiming | tr '\n' '|')" | tee -a "$LOG"

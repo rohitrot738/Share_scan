@@ -24,8 +24,12 @@ class NewsTestReceiver : BroadcastReceiver() {
             try {
                 when (intent.getStringExtra("kind")) {
                     "probe" -> probe()
-                    "badges" -> NewsRepository.badges().forEach { (symbol, badge) ->
-                        Log.i(TAG, "badge $symbol ${badge.kind} ${badge.count}")
+                    "badges" -> {
+                        val items = NewsRepository.market().orEmpty()
+                        NewsRepository.badges().forEach { (symbol, badge) ->
+                            val top = items.firstOrNull { it.symbol == symbol && it.kind == badge.kind }
+                            Log.i(TAG, "badge $symbol ${badge.kind} ${badge.count} ${top?.title?.take(140)}")
+                        }
                     }
                     "star" -> app.getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE).edit {
                         putStringSet(Prefs.WATCHLIST, symbols.toSet())
