@@ -517,16 +517,15 @@
                             android:layout_marginTop="6dp"
                             android:orientation="vertical" />
 
-                        <TextView
+                        <!-- The figures behind the score, a line each (StockDetailSheet.cr360Facts); the insider and deals
+                             lines open into every trade behind them. -->
+                        <LinearLayout
                             android:id="@+id/detailCr360Facts"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
-                            android:fontFeatureSettings="tnum"
-                            android:lineSpacingExtra="4dp"
-                            android:paddingHorizontal="16dp"
-                            android:textColor="@color/text_primary"
-                            android:textSize="13sp" />
+                            android:orientation="vertical"
+                            android:paddingHorizontal="16dp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- A cell of the insider trades and deals sheets (StockDetailSheet): thin grid lines, as in a spreadsheet. -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <stroke android:width="0.5dp" android:color="?attr/colorOutline" />
-</shape>

@@ -1,10 +1,8 @@
 package com.rohit.share_scan
 
 import android.content.ActivityNotFoundException
-import android.content.ClipData
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.graphics.Rect
 import android.graphics.Typeface
 import android.text.SpannableString
 import android.text.SpannableStringBuilder
@@ -15,6 +13,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -25,16 +24,15 @@ import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.color.MaterialColors
 import com.rohit.share_scan.Cr360Book.Fact
 import com.rohit.share_scan.databinding.ItemCr360HistoryChartBinding
 import com.rohit.share_scan.databinding.ItemCr360HistoryTableBinding
-import com.rohit.share_scan.databinding.ItemCr360TradesBinding
 import com.rohit.share_scan.databinding.ItemDetailLevelBinding
 import com.rohit.share_scan.databinding.ItemDetailScoreBinding
 import com.rohit.share_scan.databinding.ItemDetailStatBinding
@@ -42,7 +40,6 @@ import com.rohit.share_scan.databinding.SheetStockDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.io.File
 import java.util.Locale
 import kotlin.math.abs
 import kotlin.math.roundToInt
@@ -78,10 +75,8 @@ class StockDetailSheet(
     /** The R/S history once its file came (null before, or when there is none). */
     private var history: Cr360History? = null
     private var historyCame = false
-    /** The insider trades and deals sheets in the R/S history; opened from the R/S card's insider part too. */
-    private val tradeSheets = ArrayList<TradesSheet>()
-    /** The R/S card asked for the trades before the history file came: they open when it does. */
-    private var tradesWanted = false
+    /** The R/S card's insider and deals lines, which open into every trade behind them. */
+    private val tradeLines = ArrayList<TradesLine>()
 
     fun show(): BottomSheetDialog {
         bindHeader()
@@ -574,23 +569,29 @@ class StockDetailSheet(
             row.partBar.setProgressCompat(value.coerceIn(0, 100), false)
             row.partWeight.text = activity.getString(R.string.detail_part_weight, part.weight)
             row.root.contentDescription = activity.getString(R.string.detail_part_description, name, value.toString(), part.weight)
-            if (part == Cr360Book.Part.INSIDER_DEALS) {
-                // A tap opens every insider trade and deal behind the score, in the R/S history below.
-                row.partName.text = activity.getString(R.string.cr360_part_open, name)
-                val ripple = TypedValue().also { activity.theme.resolveAttribute(android.R.attr.selectableItemBackground, it, true) }
-                row.root.setBackgroundResource(ripple.resourceId)
-                row.root.setOnClickListener { openTrades() }
-            }
         }
         val facts = cr360Facts(entry.facts)
         ui.detailCr360Facts.isVisible = facts.isNotEmpty()
-        ui.detailCr360Facts.text = facts.joinToString("\n") { "• $it" }
+        for (fact in facts) {
+            if (fact.trades != null) {
+                tradeLines += TradesLine(fact.text, fact.trades)
+            } else {
+                ui.detailCr360Facts.addView(factView("• ${fact.text}"))
+            }
+        }
     }
 
-    private fun cr360Facts(f: Map<Fact, Double>): List<String> {
+    /** A line of the R/S card's figures; the insider and deals lines open into their [trades]. */
+    private class FactLine(val text: String, val trades: TradeKind? = null)
+
+    private enum class TradeKind { INSIDER, DEALS }
+
+    private fun cr360Facts(f: Map<Fact, Double>): List<FactLine> {
         fun s(key: Fact, digits: Int = 1) = f[key]?.let { Cr360Format.number(it, digits) }
         fun signed(key: Fact, digits: Int = 1) = f[key]?.let { Cr360Format.signed(it, digits) }
         val lines = ArrayList<String>()
+        var insiderLine = -1
+        var dealsLine = -1
         val quarters = f[Fact.QUARTERS]?.roundToInt()
         val periods = activity.getString(if (f[Fact.HALF_YEARLY] == 1.0) R.string.cr360_half_years else R.string.cr360_quarters)
         f[Fact.PROFITABLE_QUARTERS]?.let { pq -> quarters?.let { lines += activity.getString(R.string.cr360_fact_profit, it, pq.roundToInt(), periods) } }
@@ -616,9 +617,11 @@ class StockDetailSheet(
             },
         ).takeIf { it.isNotEmpty() }?.let { lines += it.joinToString(" · ") }
         if (f[Fact.INSIDER_BUY_CR] != null || f[Fact.INSIDER_SELL_CR] != null) {
+            insiderLine = lines.size
             lines += activity.getString(R.string.cr360_fact_insider, s(Fact.INSIDER_BUY_CR) ?: "0", s(Fact.INSIDER_SELL_CR) ?: "0")
         }
         if ((f[Fact.DEAL_BUY_CR] ?: 0.0) + (f[Fact.DEAL_SELL_CR] ?: 0.0) > 0.0) {
+            dealsLine = lines.size
             lines += activity.getString(R.string.cr360_fact_deals, s(Fact.DEAL_BUY_CR) ?: "0", s(Fact.DEAL_SELL_CR) ?: "0")
         }
         listOfNotNull(
@@ -636,7 +639,93 @@ class StockDetailSheet(
             s(Fact.POSITION_3Y, 0)?.let { activity.getString(R.string.cr360_fact_position, it) },
             s(Fact.VOLATILITY, 0)?.let { activity.getString(R.string.cr360_fact_volatility, it) },
         ).takeIf { it.isNotEmpty() }?.let { lines += it.joinToString(" · ") }
-        return lines
+        return lines.mapIndexed { i, text ->
+            FactLine(text, if (i == insiderLine) TradeKind.INSIDER else if (i == dealsLine) TradeKind.DEALS else null)
+        }
+    }
+
+    private fun factView(text: CharSequence): TextView = TextView(activity).apply {
+        this.text = text
+        setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+        setTextColor(color(R.color.text_primary))
+        fontFeatureSettings = "tnum"
+        setLineSpacing(4 * resources.displayMetrics.density, 1f)
+    }
+
+    /**
+     * The insider (or deals) line of the R/S card: a tap opens, right under it, every trade behind it as a sheet
+     * ([TradeTableView], newest first, scrolling sideways), and closes it again. The trades come with the R/S
+     * history file; opened before it came, the sheet fills once it does.
+     */
+    private inner class TradesLine(private val text: String, private val kind: TradeKind) {
+        private val line = factView("")
+        private val status = factView("").apply {
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
+            setTextColor(color(R.color.text_secondary))
+        }
+        private val table = TradeTableView(activity)
+        private val sheet = HorizontalScrollView(activity).apply {
+            isFillViewport = false
+            isScrollbarFadingEnabled = false
+            addView(table)
+        }
+        private val body = LinearLayout(activity).apply {
+            orientation = LinearLayout.VERTICAL
+            isVisible = false
+            val gap = (6 * resources.displayMetrics.density).roundToInt()
+            setPadding(0, gap, 0, gap)
+            addView(sheet)
+            addView(status)
+        }
+        private var filled = false
+
+        init {
+            val ripple = TypedValue().also { activity.theme.resolveAttribute(android.R.attr.selectableItemBackground, it, true) }
+            line.setBackgroundResource(ripple.resourceId)
+            line.setOnClickListener { open(!body.isVisible) }
+            ui.detailCr360Facts.addView(line)
+            ui.detailCr360Facts.addView(body)
+            open(false)
+        }
+
+        private fun open(open: Boolean) {
+            body.isVisible = open
+            val mark = if (open) " ▴" else " ▾"
+            line.text = SpannableStringBuilder("• $text").apply {
+                val start = length
+                append(mark)
+                setSpan(ForegroundColorSpan(MaterialColors.getColor(line, androidx.appcompat.R.attr.colorPrimary)), start, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+            if (open) fill()
+        }
+
+        /** Puts the trades in the sheet once the history is here; till then, or without any, says so. */
+        fun fill() {
+            if (filled || !body.isVisible) return
+            val deal = kind == TradeKind.DEALS
+            val trades = history?.let { if (deal) it.deals else it.insider }.orEmpty()
+            if (trades.isEmpty()) {
+                sheet.isVisible = false
+                status.setText(if (historyCame) R.string.cr360_trades_none else R.string.cr360_trades_loading)
+                return
+            }
+            val buy = activity.getString(R.string.cr360_trades_buy)
+            val sell = activity.getString(R.string.cr360_trades_sell)
+            val dash = activity.getString(R.string.stat_empty)
+            val rows = TradeSheet.newestFirst(trades)
+            table.show(
+                header = activity.resources.getStringArray(
+                    if (deal) R.array.cr360_trades_deals_columns else R.array.cr360_trades_insider_columns,
+                ).toList(),
+                rows = rows.map { TradeSheet.cells(it, deal, buy, sell, dash) },
+                buys = rows.map { it.buy },
+                figures = if (deal) TradeSheet.DEALS_FIGURES else TradeSheet.INSIDER_FIGURES,
+                side = if (deal) TradeSheet.DEALS_SIDE else TradeSheet.INSIDER_SIDE,
+            )
+            sheet.isVisible = true
+            status.setText(if (deal) R.string.cr360_trades_deals_note else R.string.cr360_trades_insider_note)
+            filled = true
+        }
     }
 
     /** The R/S history, fetched off the main thread: its file comes the first time a stock in it is opened. */
@@ -653,155 +742,18 @@ class StockDetailSheet(
 
     private fun showCr360History(history: Cr360History?) {
         historyCame = true
+        this.history = history
+        tradeLines.forEach { it.fill() }  // an insider or deals line opened before the file came
         if (history == null || (history.quarters.isEmpty() && history.holders.isEmpty() && history.years.isEmpty())) {
             ui.detailCr360HistoryStatus.setText(R.string.detail_cr360_history_missing)
-            if (tradesWanted) toast(R.string.cr360_trades_none)
             return
         }
-        this.history = history
         ui.detailCr360HistoryStatus.setText(R.string.detail_cr360_history_subtitle)
-        if (history.insider.isNotEmpty()) tradeSheets += TradesSheet(history.insider, deals = false)
-        if (history.deals.isNotEmpty()) tradeSheets += TradesSheet(history.deals, deals = true)
-        if (tradesWanted) openTrades()
         if (history.holders.isNotEmpty()) addHolders(history.holders)
         if (history.quarters.isNotEmpty()) addQuarters(history.quarters)
         if (history.years.isNotEmpty()) addYears(history.years)
         history.chart?.let { addHistoryChart(it) }
     }
-
-    /** Opens the insider trades and deals sheets and brings the first into view; when the history is still coming, once it has. */
-    private fun openTrades() {
-        if (!historyCame) {
-            tradesWanted = true
-            toast(R.string.cr360_trades_loading)
-            return
-        }
-        tradesWanted = false
-        val first = tradeSheets.firstOrNull() ?: return toast(R.string.cr360_trades_none)
-        tradeSheets.forEach { it.open(true) }
-        first.card.root.post { first.card.root.requestRectangleOnScreen(Rect(0, 0, first.card.root.width, first.card.root.height), false) }
-    }
-
-    /**
-     * Insider trades or bulk/block deals: what was bought and sold, opening on a tap into the whole sheet, newest
-     * first and [TradeSheet.PAGE] rows at a time, every column a spreadsheet would have; the whole goes to Excel too.
-     */
-    private inner class TradesSheet(trades: List<Cr360History.Trade>, private val deals: Boolean) {
-        val card: ItemCr360TradesBinding = ItemCr360TradesBinding.inflate(activity.layoutInflater, ui.detailCr360History, true)
-        private val rows = TradeSheet.newestFirst(trades)
-        private var shown = 0
-        /** The columns with figures, aligned to the right: shares, price, rupees (and an insider's holding after). */
-        private val figures = if (deals) setOf(4, 5, 6) else setOf(5, 6, 7, 9)
-
-        init {
-            card.tradesTitle.text = activity.getString(
-                if (deals) R.string.cr360_trades_deals_title else R.string.cr360_trades_insider_title, rows.size,
-            )
-            val (bought, sold) = TradeSheet.totals(rows)
-            card.tradesSummary.text = activity.getString(
-                R.string.cr360_trades_summary, TradeSheet.rupees(bought), TradeSheet.rupees(sold),
-                TradeSheet.day(rows.last().day), TradeSheet.day(rows.first().day),
-            )
-            card.tradesNote.setText(if (deals) R.string.cr360_trades_deals_note else R.string.cr360_trades_insider_note)
-            card.tradesHeader.setOnClickListener { open(!card.tradesBody.isVisible) }
-            card.tradesMore.setOnClickListener { more() }
-            card.tradesExport.setOnClickListener { exportTrades() }
-            open(false)
-        }
-
-        fun open(open: Boolean) {
-            card.tradesBody.isVisible = open
-            card.tradesToggle.setText(if (open) R.string.cr360_trades_close else R.string.cr360_trades_open)
-            if (open && shown == 0) {
-                val columns = activity.resources.getStringArray(
-                    if (deals) R.array.cr360_trades_deals_columns else R.array.cr360_trades_insider_columns,
-                )
-                sheetRow(card.tradesTable, header = true, columns.toList(), figures)
-                more()
-            }
-        }
-
-        /** The next [TradeSheet.PAGE] rows. */
-        private fun more() {
-            val next = rows.subList(shown, minOf(rows.size, shown + TradeSheet.PAGE))
-            for (trade in next) sheetRow(card.tradesTable, header = false, cells(trade), figures)
-            shown += next.size
-            val left = rows.size - shown
-            card.tradesMore.isVisible = left > 0
-            card.tradesMore.text = activity.getString(R.string.cr360_trades_more, minOf(TradeSheet.PAGE, left), left)
-        }
-
-        private fun cells(trade: Cr360History.Trade): List<CharSequence> {
-            val dash = activity.getString(R.string.stat_empty)
-            val side = SpannableString(activity.getString(if (trade.buy) R.string.cr360_trades_buy else R.string.cr360_trades_sell)).apply {
-                setSpan(ForegroundColorSpan(color(if (trade.buy) R.color.bull else R.color.bear)), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-            }
-            val shares = trade.shares?.let(TradeSheet::shares) ?: dash
-            val price = trade.price?.let(StockFormat::price) ?: dash
-            val rupees = trade.rupees?.let(TradeSheet::rupees) ?: dash
-            return if (deals) {
-                listOf(TradeSheet.days(trade), trade.who?.replaceFirstChar { it.uppercaseChar() } ?: dash, trade.name ?: dash, side,
-                    shares, price, rupees)
-            } else {
-                listOf(TradeSheet.days(trade), trade.filed?.let(TradeSheet::filed) ?: dash, trade.name ?: dash, trade.who ?: dash,
-                    side, shares, price, rupees, trade.how ?: dash,
-                    trade.holdingAfter?.let { Cr360Format.number(it, 2) + "%" } ?: dash)
-            }
-        }
-    }
-
-    /** One sheet row: every cell boxed like a spreadsheet's, the columns in [figures] aligned to the right. */
-    private fun sheetRow(table: TableLayout, header: Boolean, cells: List<CharSequence>, figures: Set<Int>) {
-        val row = TableRow(activity)
-        val density = activity.resources.displayMetrics.density
-        cells.forEachIndexed { index, cell ->
-            row.addView(
-                TextView(activity).apply {
-                    text = cell
-                    setTextSize(TypedValue.COMPLEX_UNIT_SP, if (header) 11f else 12f)
-                    setTextColor(color(if (header) R.color.text_secondary else R.color.text_primary))
-                    if (header) setTypeface(typeface, Typeface.BOLD)
-                    fontFeatureSettings = "tnum"
-                    maxWidth = (180 * density).roundToInt()
-                    setBackgroundResource(R.drawable.bg_sheet_cell)
-                    gravity = (if (index in figures) Gravity.END else Gravity.START) or Gravity.CENTER_VERTICAL
-                    setPadding((8 * density).roundToInt(), (6 * density).roundToInt(), (8 * density).roundToInt(), (6 * density).roundToInt())
-                },
-                TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.MATCH_PARENT),
-            )
-        }
-        table.addView(row)
-    }
-
-    /** Every insider trade and deal of the stock as a CSV file, handed to Excel, Sheets or a chat. */
-    private fun exportTrades() {
-        val trades = history ?: return
-        val csv = TradeSheet.csv(
-            activity.resources.getStringArray(R.array.cr360_trades_csv_columns).toList(),
-            activity.getString(R.string.cr360_trades_csv_insider),
-            activity.getString(R.string.cr360_trades_buy),
-            activity.getString(R.string.cr360_trades_sell),
-            trades.insider,
-            trades.deals,
-        )
-        val file = runCatching {
-            File(File(activity.cacheDir, EXPORT_FOLDER).apply { mkdirs() }, "${stock.symbol}-insider-deals.csv").apply { writeText(csv) }
-        }.getOrNull() ?: return toast(R.string.cr360_trades_share_failed)
-        val uri = FileProvider.getUriForFile(activity, "${activity.packageName}.${UpdateViewModel.UPDATE_FOLDER}", file)
-        val send = Intent(Intent.ACTION_SEND)
-            .setType("text/csv")
-            .putExtra(Intent.EXTRA_STREAM, uri)
-            .putExtra(Intent.EXTRA_SUBJECT, activity.getString(R.string.cr360_trades_share_subject, stock.symbol))
-            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        send.clipData = ClipData.newRawUri(file.name, uri)
-        try {
-            activity.startActivity(Intent.createChooser(send, activity.getString(R.string.cr360_trades_export)))
-        } catch (_: ActivityNotFoundException) {
-            toast(R.string.cr360_trades_share_failed)
-        }
-    }
-
-    private fun toast(@StringRes text: Int) = Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
 
     /** Shareholding by quarter, newest first; FII and DII show their step from the quarter before (▲ bought, ▼ sold). */
     private fun addHolders(holders: List<Cr360History.Holding>) {
@@ -1163,8 +1115,5 @@ class StockDetailSheet(
     private companion object {
         /** Targets drawn on the chart; all of them are listed in the plan card. */
         const val CHART_TARGETS = 2
-
-        /** Cache folder of the insider trades and deals CSVs; shared through the app's file provider (update_paths.xml). */
-        const val EXPORT_FOLDER = "exports"
     }
 }

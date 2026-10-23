@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Downloaded release APKs (UpdateViewModel.UPDATE_FOLDER), shared read-only with the package installer, and the
-     insider trades and deals sheets (StockDetailSheet.EXPORT_FOLDER) shared with Excel, Sheets or a chat. -->
+<!-- Downloaded release APKs (UpdateViewModel.UPDATE_FOLDER), shared read-only with the package installer. -->
 <paths>
     <cache-path name="updates" path="updates/" />
-    <cache-path name="exports" path="exports/" />
 </paths>

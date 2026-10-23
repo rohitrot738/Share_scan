@@ -50,25 +50,14 @@
     <string name="cr360_fact_position">3 साल के दायरे में %1$s%% पर</string>
     <string name="cr360_fact_volatility">Volatility %1$s%%</string>
 
-    <!-- Insider trades and bulk/block deals (Cr360History.Trade, TradeSheet): cards in the R/S history that open
-         into the whole sheet, and the same as a CSV file for Excel. -->
-    <string name="cr360_part_open">%1$s ›</string>
-    <string name="cr360_trades_insider_title">Insider trades · %1$d सौदे</string>
-    <string name="cr360_trades_deals_title">Bulk/Block deals · %1$d सौदे</string>
-    <string name="cr360_trades_open">खोलें ▾</string>
-    <string name="cr360_trades_close">बंद करें ▴</string>
-    <string name="cr360_trades_summary">ख़रीद %1$s · बिक्री %2$s · %3$s से %4$s तक</string>
+    <!-- Insider trades and bulk/block deals (Cr360History.Trade, TradeSheet): the R/S card's insider and deals lines
+         open, on a tap, into a sheet of every trade (TradeTableView). -->
     <string name="cr360_trades_buy">ख़रीद</string>
     <string name="cr360_trades_sell">बिक्री</string>
-    <string name="cr360_trades_more">और %1$d दिखाएँ (%2$d बाकी)</string>
-    <string name="cr360_trades_export">Excel में भेजें</string>
-    <string name="cr360_trades_insider_note">तारीख = जिस दिन सौदा हुआ · NSE पर आया = filing NSE पर आने की तारीख और समय · बाद में हिस्सा = सौदे के बाद उस व्यक्ति की कंपनी में हिस्सेदारी · 5 साल तक के सौदे। Table को दाएँ-बाएँ खिसकाकर सारे कॉलम देखें।</string>
-    <string name="cr360_trades_deals_note">NSE bulk/block deals का सिर्फ़ दिन देता है, समय नहीं। Deals NSE की रोज़ की files से जुड़ते हैं, इसलिए इनका इतिहास इन्हीं दिनों से बनना शुरू हुआ है। Table को दाएँ-बाएँ खिसकाकर सारे कॉलम देखें।</string>
-    <string name="cr360_trades_none">इस stock के insider या bulk/block सौदे नहीं मिले</string>
-    <string name="cr360_trades_loading">R/S इतिहास आ रहा है, आते ही सौदे खुल जाएँगे</string>
-    <string name="cr360_trades_csv_insider">Insider</string>
-    <string name="cr360_trades_share_subject">%1$s: insider trades और bulk/block deals</string>
-    <string name="cr360_trades_share_failed">Excel file नहीं बन पाई</string>
+    <string name="cr360_trades_insider_note">तारीख = जिस दिन सौदा हुआ · NSE पर आया = filing NSE पर आने का दिन और समय · बाद में हिस्सा = सौदे के बाद उस व्यक्ति की हिस्सेदारी · सबसे नया ऊपर, 5 साल तक। Table को दाएँ-बाएँ खिसकाकर सारे कॉलम देखें।</string>
+    <string name="cr360_trades_deals_note">NSE bulk/block deals का सिर्फ़ दिन देता है, समय नहीं · सबसे नया ऊपर। Table को दाएँ-बाएँ खिसकाकर सारे कॉलम देखें।</string>
+    <string name="cr360_trades_none">इस stock के सौदों की सूची अभी नहीं मिली</string>
+    <string name="cr360_trades_loading">सौदे आ रहे हैं…</string>
     <string-array name="cr360_trades_insider_columns">
         <item>तारीख</item>
         <item>NSE पर आया</item>
@@ -89,21 +78,6 @@
         <item>शेयर</item>
         <item>भाव ₹</item>
         <item>रकम</item>
-    </string-array>
-    <!-- The CSV's twelve columns, in TradeSheet.csv's order. -->
-    <string-array name="cr360_trades_csv_columns">
-        <item>प्रकार</item>
-        <item>सौदे की तारीख</item>
-        <item>आख़िरी तारीख</item>
-        <item>NSE पर आया</item>
-        <item>नाम</item>
-        <item>कौन</item>
-        <item>ख़रीद/बिक्री</item>
-        <item>शेयर</item>
-        <item>भाव ₹</item>
-        <item>रकम ₹</item>
-        <item>तरीका</item>
-        <item>बाद में हिस्सा (प्रतिशत)</item>
     </string-array>
 
     <!-- R/S history (Cr360History): the tables under the R/S card. -->
@@ -133,5 +107,5 @@
     <string name="cr360_history_chart_description">%1$s से %2$s तक हर महीने का भाव: नीचा ₹%3$s, ऊँचा ₹%4$s, अभी ₹%5$s</string>
 
     <string name="help_cr360_title">R/S · रोहित सिलेक्शन</string>
-    <string name="help_cr360_body">R/S (रोहित सिलेक्शन) कंपनी को 10 हिस्सों में जाँचता है: नतीजों की गुणवत्ता (18), बढ़त (12), cash flow (10), कर्ज़ (10), shareholding (12), insider और bulk/block deals (8), valuation (12), 3 साल का भाव (8), स्थिरता (5) और जोखिम (5)। Valuation में आधा वज़न sector के आम P/E और P/B से तुलना का है और आधा कंपनी के अपने पिछले 3 साल के आम P/E का, ताकि हमेशा ऊँचे P/E पर चलने वाली अच्छी कंपनियाँ सिर्फ़ sector से तुलना में सस्ती-महँगी न आँकी जाएँ। घाटे वाली कंपनियों और 3 से कम P/E वाली कंपनियों (साल में एक-बार का मुनाफ़ा या पुराने आँकड़े) का valuation नहीं बनता, और किसी quarter की कमाई साल के बीच वाले quarter से 10 गुना से ज़्यादा हो तो वह एक-बार की मानी जाती है। बढ़त में आख़िरी 4 quarters के जोड़ की शुरुआती 4 quarters के जोड़ से तुलना होती है; शुरुआत घाटे या लगभग शून्य से हो तो % नहीं दिखता। Bank, NBFC, insurance जैसी financial कंपनियों में कर्ज़ और cash flow के हिस्से नहीं गिने जाते, क्योंकि उधार लेकर उधार देना ही उनका कारोबार है। 0–100 के score से दर्जा: 75+ बहुत मज़बूत, 62+ मज़बूत, 48+ ठीक-ठाक, 35+ सावधानी, उससे कम दूर रहें; data 40% से कम हो तो \"Data कम\"। NSE, NSE SME और सिर्फ़ BSE पर listed — तीनों के stocks शामिल हैं; SME कंपनियाँ छमाही नतीजे देती हैं, इसलिए उनका हिसाब छमाहियों में है। Data Screener.in, NSE और Yahoo से रोज़ शाम एक बार cache में जुड़ता है — पुराने quarters नहीं बदलते, इसलिए सिर्फ़ नए नतीजे, shareholding और deals जुड़ते हैं, और 20 quarters / 5 साल से पुराना data हट जाता है। App दिन में दो बार तक नई फ़ाइल लेता है और सिर्फ़ एक copy रखता है। Stock detail में \"R/S इतिहास\" हर quarter के नतीजे, FII/DII/promoter की हिस्सेदारी (▲ ख़रीदा, ▼ बेचा), सालाना cash flow और कर्ज़, और 3 साल का भाव दिखाता है; इसकी छोटी फ़ाइल उसी stock को खोलने पर आती है। उसी में insider trades और bulk/block deals की पूरी table है: तारीख, NSE पर आने का समय, नाम, कौन, ख़रीद/बिक्री, शेयर, भाव, रकम, तरीका और सौदे के बाद हिस्सेदारी। R/S card में \"Insider और bulk deals\" पर tap करने से यह खुलती है, और \"Excel में भेजें\" पूरी सूची Excel या Google Sheets की file में भेजता है। Bulk/block deals अब से जुड़ने शुरू हुए हैं, उनका इतिहास धीरे-धीरे बनेगा; insider trades और bulk/block deals NSE के हैं, इसलिए सिर्फ़ BSE वाले stocks में ये हिस्सा खाली रहता है। निवेश सलाह नहीं।</string>
+    <string name="help_cr360_body">R/S (रोहित सिलेक्शन) कंपनी को 10 हिस्सों में जाँचता है: नतीजों की गुणवत्ता (18), बढ़त (12), cash flow (10), कर्ज़ (10), shareholding (12), insider और bulk/block deals (8), valuation (12), 3 साल का भाव (8), स्थिरता (5) और जोखिम (5)। Valuation में आधा वज़न sector के आम P/E और P/B से तुलना का है और आधा कंपनी के अपने पिछले 3 साल के आम P/E का, ताकि हमेशा ऊँचे P/E पर चलने वाली अच्छी कंपनियाँ सिर्फ़ sector से तुलना में सस्ती-महँगी न आँकी जाएँ। घाटे वाली कंपनियों और 3 से कम P/E वाली कंपनियों (साल में एक-बार का मुनाफ़ा या पुराने आँकड़े) का valuation नहीं बनता, और किसी quarter की कमाई साल के बीच वाले quarter से 10 गुना से ज़्यादा हो तो वह एक-बार की मानी जाती है। बढ़त में आख़िरी 4 quarters के जोड़ की शुरुआती 4 quarters के जोड़ से तुलना होती है; शुरुआत घाटे या लगभग शून्य से हो तो % नहीं दिखता। Bank, NBFC, insurance जैसी financial कंपनियों में कर्ज़ और cash flow के हिस्से नहीं गिने जाते, क्योंकि उधार लेकर उधार देना ही उनका कारोबार है। 0–100 के score से दर्जा: 75+ बहुत मज़बूत, 62+ मज़बूत, 48+ ठीक-ठाक, 35+ सावधानी, उससे कम दूर रहें; data 40% से कम हो तो \"Data कम\"। NSE, NSE SME और सिर्फ़ BSE पर listed — तीनों के stocks शामिल हैं; SME कंपनियाँ छमाही नतीजे देती हैं, इसलिए उनका हिसाब छमाहियों में है। Data Screener.in, NSE और Yahoo से रोज़ शाम एक बार cache में जुड़ता है — पुराने quarters नहीं बदलते, इसलिए सिर्फ़ नए नतीजे, shareholding और deals जुड़ते हैं, और 20 quarters / 5 साल से पुराना data हट जाता है। App दिन में दो बार तक नई फ़ाइल लेता है और सिर्फ़ एक copy रखता है। Stock detail में \"R/S इतिहास\" हर quarter के नतीजे, FII/DII/promoter की हिस्सेदारी (▲ ख़रीदा, ▼ बेचा), सालाना cash flow और कर्ज़, और 3 साल का भाव दिखाता है; इसकी छोटी फ़ाइल उसी stock को खोलने पर आती है। R/S card में \"Insider\" और \"Bulk/Block\" वाली line पर tap करते ही उसके नीचे सारे सौदों की table खुलती है: तारीख, NSE पर आने का दिन और समय, नाम, कौन, ख़रीद/बिक्री, शेयर, भाव, रकम, तरीका और सौदे के बाद हिस्सेदारी; दोबारा tap करने पर बंद। Bulk/block deals अब से जुड़ने शुरू हुए हैं, उनका इतिहास धीरे-धीरे बनेगा; insider trades और bulk/block deals NSE के हैं, इसलिए सिर्फ़ BSE वाले stocks में ये हिस्सा खाली रहता है। निवेश सलाह नहीं।</string>
 </resources>

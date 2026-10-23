@@ -40,11 +40,8 @@ class TradeSheetTest {
     }
 
     @Test
-    fun newestFirstAndTotals() {
+    fun newestFirst() {
         assertEquals(listOf("2026-02-18 19:07", "2026-02-18 19:06", null), TradeSheet.newestFirst(history.insider).map { it.filed })
-        val (bought, sold) = TradeSheet.totals(history.insider)
-        assertEquals(4430088.0, bought, 1e-9)
-        assertEquals(4294168.0, sold, 1e-9)
     }
 
     @Test
@@ -60,19 +57,22 @@ class TradeSheetTest {
     }
 
     @Test
-    fun theSheetHasEveryTradeWithPlainNumbersAndQuotedNames() {
-        val csv = TradeSheet.csv(
-            List(12) { "c$it" }, "Insider", "ख़रीद", "बिक्री", history.insider, history.deals,
-        )
-        val lines = csv.removePrefix("﻿").split("\r\n").filter { it.isNotEmpty() }
-        assertEquals(5, lines.size)
-        assertEquals("c0,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11", lines[0])
+    fun everyColumnOfARow() {
         assertEquals(
-            "Insider,2026-02-13,2026-02-15,2026-02-18 19:07,\"Shah, \"\"Raj\"\"\",Immediate relative,ख़रीद,3120,1419.90,4430088,Off Market,0.01",
-            lines[1],
+            listOf("13 Feb 26", "18 Feb 26, 19:06", "BALANADU NARAYAN", "Other", "बिक्री", "2,320", "1,419.90", "₹32.94 लाख", "Off Market", "0%"),
+            TradeSheet.cells(history.insider.first(), deal = false, buy = "ख़रीद", sell = "बिक्री", dash = "—"),
         )
-        assertEquals("Insider,2026-02-13,,2026-02-18 19:06,BALANADU NARAYAN,Other,बिक्री,2320,1419.90,3294168,Off Market,0", lines[2])
-        assertEquals("Insider,2025-01-05,,,,,बिक्री,,,1000000,,", lines[3])
-        assertEquals("Block,2026-10-19,,,ARIHANT CAPITAL,,ख़रीद,235877,256.03,60391588,,", lines[4])
+        // A trade kept before names were: only what is known.
+        assertEquals(
+            listOf("5 Jan 25", "—", "—", "—", "बिक्री", "—", "—", "₹10 लाख", "—", "—"),
+            TradeSheet.cells(history.insider.last(), deal = false, buy = "ख़रीद", sell = "बिक्री", dash = "—"),
+        )
+        assertEquals(
+            // Android groups lakhs ("2,35,877"), a plain JVM thousands: the test takes whichever it runs on.
+            listOf("19 Oct 26", "Block", "ARIHANT CAPITAL", "ख़रीद", TradeSheet.shares(235877), "256.03", "₹6.04 Cr"),
+            TradeSheet.cells(history.deals.single(), deal = true, buy = "ख़रीद", sell = "बिक्री", dash = "—"),
+        )
+        assertEquals("ख़रीद", TradeSheet.cells(history.deals.single(), true, "ख़रीद", "बिक्री", "—")[TradeSheet.DEALS_SIDE])
+        assertEquals("बिक्री", TradeSheet.cells(history.insider.first(), false, "ख़रीद", "बिक्री", "—")[TradeSheet.INSIDER_SIDE])
     }
 }
