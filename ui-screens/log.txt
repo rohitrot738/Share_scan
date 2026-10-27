@@ -1,0 +1,227 @@
+scan done after ~65s
+shot 01-list
+shot 02-ICICIBANK-card
+== ICICIBANK
+NSE · EQUITY
+ICICIBANK
+ICICI Bank · Financial Services
+₹1,403.00
+▲ 0.43% · 5D
+WATCH
+68.9 / 100
+जानकारी
+खबरें · 87
+Support bonus ▾
++5 तक
+79
+R/S · रोहित सिलेक्शन
+कंपनी के नतीजे, cash flow, कर्ज़, shareholding, insider और bulk deals, valuation और 3 साल का भाव
+72 / 100
+मज़बूत
+Data 90% · नतीजे Sep 2026 तक · 28 Oct को पढ़ा
+असली कीमत ₹1,785.78 · खरीद भाव ₹1,428.62
+Bank/NBFC: adjusted P/B · Margin of safety 20% (large cap)
+भाव ₹1,403.00, खरीद भाव से 1.8% नीचे ✓
+⭐ सबसे अच्छा मौका: भाव खरीद भाव से नीचे, और weekly demand zone की liquidity sweep
+✅ Buy Zone: भाव 200-दिन EMA ₹1364.77 के ऊपर, bullish FVG ₹1361.2 – ₹1380 पर
+🎯 Weekly sweep: इस या पिछले हफ़्ते ₹1,391.50 के weekly swing low के नीचे जाकर ऊपर बंद हुआ
+ये सिर्फ़ price-volume पर आधारित अनुमान हैं — निवेश सलाह नहीं।
+Groww
+Angel One
+Zerodha
+TradingView पर चार्ट
+shot 02-ICICIBANK-calc
+shot 02-ICICIBANK-calc-more
+• Weekly sweep: ₹1,391.50 का weekly swing low तोड़कर ऊपर बंद
+• सबसे अच्छा मौका = भाव खरीद भाव से नीचे + weekly sweep + कोई रोक नहीं
+shot 03-SBIN-card
+== SBIN
+NSE · EQUITY
+SBIN
+State Bank of India · Financial Services
+₹960.80
+▼ 0.19% · 5D
+WEAK
+56.7 / 100
+जानकारी
+खबरें · 27
+R/S · रोहित सिलेक्शन
+कंपनी के नतीजे, cash flow, कर्ज़, shareholding, insider और bulk deals, valuation और 3 साल का भाव
+67 / 100
+मज़बूत
+Data 100% · नतीजे Jun 2026 तक · 28 Oct को पढ़ा
+असली कीमत ₹1,124.06 · खरीद भाव ₹899.25
+Bank/NBFC: adjusted P/B · Margin of safety 20% (large cap)
+भाव ₹960.80, खरीद भाव से 6.8% ऊपर
+🎯 Weekly sweep: इस या पिछले हफ़्ते ₹944.45 के weekly swing low के नीचे जाकर ऊपर बंद हुआ
+Framework का पूरा हिसाब ▾
+नतीजों की गुणवत्ता ▾
+वज़न 18%
+96
+बढ़त ▾
+वज़न 12%
+47
+ये सिर्फ़ price-volume पर आधारित अनुमान हैं — निवेश सलाह नहीं।
+Groww
+Angel One
+Zerodha
+TradingView पर चार्ट
+shot 03-SBIN-calc
+shot 03-SBIN-calc-more
+• सबसे अच्छा मौका = भाव खरीद भाव से नीचे + weekly sweep + कोई रोक नहीं
+shot 04-TATASTEEL-card
+== TATASTEEL
+NSE · EQUITY
+TATASTEEL
+Tata Steel · Metals & Mining
+₹169.94
+▼ 3.17% · 5D
+WEAK
+34.7 / 100
+जानकारी
+खबरें · 69
+R/S · रोहित सिलेक्शन
+कंपनी के नतीजे, cash flow, कर्ज़, shareholding, insider और bulk deals, valuation और 3 साल का भाव
+78 / 100
+बहुत मज़बूत
+Data 100% · नतीजे Jun 2026 तक · 28 Oct को पढ़ा
+असली कीमत ₹241.49 · खरीद भाव ₹193.19
+Mid-cycle EV/EBITDA · Margin of safety 20% (large cap)
+भाव ₹169.94, खरीद भाव से 12% नीचे ✓
+⚠ Cyclical: metal और oil में कम P/E अक्सर कमाई का शिखर होता है, इसलिए mid-cycle EBITDA पर आँका
+Framework का पूरा हिसाब ▾
+नतीजों की गुणवत्ता ▾
+वज़न 18%
+88
+बढ़त ▾
+वज़न 12%
+84
+ये सिर्फ़ price-volume पर आधारित अनुमान हैं — निवेश सलाह नहीं।
+Groww
+Angel One
+Zerodha
+TradingView पर चार्ट
+shot 04-TATASTEEL-calc
+shot 04-TATASTEEL-calc-more
+• 3 साल का operating cash ÷ मुनाफ़ा = 8.58 (0.6 से कम = कमाई पर शक)
+• 200-दिन EMA ₹186.39: भाव उसके नीचे
+• पिछले 60 सत्र में भाव के पास कोई unfilled bullish FVG नहीं
+• इस या पिछले हफ़्ते कोई weekly liquidity sweep नहीं
+• सबसे अच्छा मौका = भाव खरीद भाव से नीचे + weekly sweep + कोई रोक नहीं
+could not scroll to R/S · रोहित सिलेक्शन
+shot 05-LT-card
+== LT
+NSE · EQUITY
+LT
+Larsen & Toubro · Construction
+₹3,680.00
+▲ 1.46% · 5D
+WEAK
+43.7 / 100
+जानकारी
+खबरें · 39
+₹3,592.90
+12 दिन से · 2 बार परखा · भाव 2.4% ऊपर
+₹3,907.00
+High से 5.8% नीचे
+ATR (14)
+₹78.96
+रोज़ाना range, भाव का 2.1%
+SMA 20
+₹3,693.09
+भाव नीचे ▼ 0.4%
+SMA 50
+₹3,866.27
+भाव नीचे ▼ 4.8%
+RSI (14)
+44.1
+30–50: कमज़ोर
+MACD (12, 26, 9)
+तेज़ी
+signal को 2 दिन पहले ऊपर काटा · zero के नीचे
+ये सिर्फ़ price-volume पर आधारित अनुमान हैं — निवेश सलाह नहीं।
+Groww
+Angel One
+Zerodha
+TradingView पर चार्ट
+could not scroll to Framework का पूरा हिसाब
+could not find text Framework का पूरा हिसाब
+shot 05-LT-calc
+shot 05-LT-calc-more
+shot 06-TCS-card
+== TCS
+NSE · EQUITY
+TCS
+Tata Consultancy Services · Information Technology
+₹2,535.00
+▲ 2.84% · 5D
+WATCH
+66.8 / 100
+जानकारी
+खबरें · 43
+R/S · रोहित सिलेक्शन
+कंपनी के नतीजे, cash flow, कर्ज़, shareholding, insider और bulk deals, valuation और 3 साल का भाव
+62 / 100
+मज़बूत
+Data 100% · नतीजे Sep 2026 तक · 28 Oct को पढ़ा
+असली कीमत ₹1,624.50 · खरीद भाव ₹1,299.60
+PEG · Margin of safety 20% (large cap)
+भाव ₹2,535.00, खरीद भाव से 95.1% ऊपर
+✅ Buy Zone: भाव 200-दिन EMA ₹2465.1 के ऊपर, bullish FVG ₹2386.7 – ₹2432.1 पर
+⚠ PEG 3.12: 2 से ऊपर, बढ़त के हिसाब से महँगा
+Framework का पूरा हिसाब ▾
+नतीजों की गुणवत्ता ▾
+वज़न 18%
+98
+ये सिर्फ़ price-volume पर आधारित अनुमान हैं — निवेश सलाह नहीं।
+Groww
+Angel One
+Zerodha
+TradingView पर चार्ट
+shot 06-TCS-calc
+shot 06-TCS-calc-more
+• 3 साल का operating cash ÷ मुनाफ़ा = 1.01 (0.6 से कम = कमाई पर शक)
+• 200-दिन EMA ₹2,465.10: भाव उसके ऊपर
+• Unfilled bullish FVG ₹2,386.70 – ₹2,432.10; भाव उसमें या उससे 5% तक ऊपर
+• इस या पिछले हफ़्ते कोई weekly liquidity sweep नहीं
+• सबसे अच्छा मौका = भाव खरीद भाव से नीचे + weekly sweep + कोई रोक नहीं
+could not scroll to R/S · रोहित सिलेक्शन
+shot 07-HINDUNILVR-card
+== HINDUNILVR
+NSE · EQUITY
+HINDUNILVR
+Hindustan Unilever · Fast Moving Consumer Goods
+₹1,818.60
+▼ 3.97% · 5D
+WEAK
+34.8 / 100
+जानकारी
+खबरें · 20
+₹1,810.60
+16 दिन से · 3 बार परखा · भाव 0.4% ऊपर
+₹1,953.00
+High से 6.9% नीचे
+ATR (14)
+₹42.14
+रोज़ाना range, भाव का 2.3%
+SMA 20
+₹1,863.28
+भाव नीचे ▼ 2.4%
+SMA 50
+₹1,936.97
+भाव नीचे ▼ 6.1%
+RSI (14)
+37.3
+30–50: कमज़ोर
+MACD (12, 26, 9)
+मंदी
+signal line के नीचे · zero के नीचे
+ये सिर्फ़ price-volume पर आधारित अनुमान हैं — निवेश सलाह नहीं।
+Groww
+Angel One
+Zerodha
+TradingView पर चार्ट
+could not scroll to Framework का पूरा हिसाब
+could not find text Framework का पूरा हिसाब
+shot 07-HINDUNILVR-calc
+shot 07-HINDUNILVR-calc-more
