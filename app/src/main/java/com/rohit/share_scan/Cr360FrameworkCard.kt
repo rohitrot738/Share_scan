@@ -142,11 +142,14 @@ class Cr360FrameworkCard(
                 val shares = fw[Fact.SHARES_CR]
                 if (ebitda != null) line(get(if (fw.model == Model.CYCLICAL) R.string.fw_calc_ebitda_mid else R.string.fw_calc_ebitda, crore(ebitda)))
                 if (own != null && ebitda != null && debt != null && shares != null && shares > 0) {
-                    val before = (own * ebitda - debt) / shares
-                    line(get(R.string.fw_calc_ev_value, num(own, 2), crore(ebitda), crore(debt), Cr360Format.amount(shares), price(before)))
+                    // The model's own result (before the ROCE cut) rather than the product of the rounded figures shown,
+                    // so it is the same value the lines below carry on from.
+                    val cut = Penalty.ROCE in fw.penalties
+                    val before = raw?.let { if (cut) it / (1 - Penalty.ROCE.cutPct / 100.0) else it } ?: ((own * ebitda - debt) / shares)
+                    line(get(R.string.fw_calc_ev_value, num(own, 2), crore(ebitda), crore(debt), shareCount(shares), price(before)))
                     line(get(R.string.fw_calc_ev_note), R.color.text_secondary)
                     fw[Fact.ROCE]?.let { roce ->
-                        if (Penalty.ROCE in fw.penalties) line(get(R.string.fw_calc_roce_cut, num(roce, 1), price(raw ?: before * 0.8)), R.color.warn)
+                        if (Penalty.ROCE in fw.penalties) line(get(R.string.fw_calc_roce_cut, num(roce, 1), price(raw ?: before * (1 - Penalty.ROCE.cutPct / 100.0))), R.color.warn)
                         else line(get(R.string.fw_calc_roce_ok, num(roce, 1)))
                     }
                 }
@@ -237,6 +240,10 @@ class Cr360FrameworkCard(
             Model.CASH -> R.string.fw_model_cash
         },
     )
+
+    /** Shares in crore as the calculation needs them: "1,353.2", "137.5", "6". */
+    private fun shareCount(value: Double): String =
+        java.text.NumberFormat.getNumberInstance(Locale.forLanguageTag("en-IN")).apply { maximumFractionDigits = 2 }.format(value)
 
     /** A fact's rupee figure as prices read ("1,364.77"); "—" when missing. */
     private fun rupees(key: Fact): String = framework[key]?.let { price(it) } ?: "—"
