@@ -1,4 +1,4 @@
-# One-off: runs the valuation framework's new NSE reads and a few stocks' verdicts on live data. Taken out next commit.
+# One-off (run 2): runs the valuation framework's new NSE reads and a few stocks' verdicts on live data. Taken out next commit.
 name: Framework probe
 on:
   push:
@@ -18,6 +18,8 @@ jobs:
       - run: pip install requests
       - name: Probe
         shell: python
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
           import time
           from datetime import datetime
