@@ -8,8 +8,8 @@
     <string name="score_soft_note">85 से ऊपर और 15 से नीचे के अंक धीरे-धीरे 100 और 0 की ओर दबाए जाते हैं, ताकि सबसे अच्छे stocks का क्रम बना रहे</string>
 
     <!-- Breakout के क़रीब -->
-    <string name="score_breakout_high">20 दिन का high ₹%1$s; भाव ₹%2$s उससे %3$s%% नीचे, यानी रोज़ की चाल का %4$s गुना → %5$s अंक (हिस्सा 55%%)</string>
-    <string name="score_breakout_high_above">20 दिन का high ₹%1$s; भाव ₹%2$s उससे %3$s%% ऊपर निकल चुका, रोज़ की चाल का %4$s गुना → %5$s अंक (हिस्सा 55%%)</string>
+    <string name="score_breakout_high">आख़िरी सत्र से पहले के 20 दिन का high ₹%1$s; भाव ₹%2$s उससे %3$s%% नीचे, यानी रोज़ की चाल का %4$s गुना → %5$s अंक (हिस्सा 55%%)</string>
+    <string name="score_breakout_high_above">आख़िरी सत्र से पहले के 20 दिन का high ₹%1$s; भाव ₹%2$s उससे %3$s%% ऊपर निकल चुका, रोज़ की चाल का %4$s गुना → %5$s अंक (हिस्सा 55%%)</string>
     <string name="score_breakout_high_rule">High के ठीक नीचे से उसके एक रोज़-चाल ऊपर तक पूरे 100 अंक; उससे हर एक रोज़-चाल दूर पर 20 अंक कम</string>
     <string name="score_breakout_base">पिछले 10 दिन का base ₹%1$s – ₹%2$s, चौड़ाई %3$s%%, यानी रोज़ की चाल का %4$s गुना (2 गुना या कम = तंग) → %5$s अंक</string>
     <string name="score_breakout_calm">उन दिनों की रोज़ की range आम चाल की %1$s गुना (0.6 या कम = पूरी तरह शांत) → %2$s अंक</string>

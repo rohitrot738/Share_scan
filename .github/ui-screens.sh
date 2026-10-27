@@ -77,7 +77,7 @@ done
 echo "scan done after ~$((i * 5))s" | tee -a "$LOG"
 shot 01-list 6
 
-# 2. The top stock's detail, down to "Score कैसे बना"; then each part opened in turn, and closed again.
+# 2. The top stock's detail, down to "Score कैसे बना"; then each part opened in turn, going down (each stays open).
 tap symbol
 sleep 8
 scroll_to "Score कैसे बना"
@@ -91,8 +91,6 @@ for part in "Breakout के क़रीब" "Trend (रुझान)" "Volume 
   all_texts | grep "^•" >> "$LOG"
   drag_up; drag_up; drag_up
   shot "$(printf '%02d' $n)-$(echo "$part" | cut -d' ' -f1 | tr 'A-Z' 'a-z')-more" 1
-  scroll_to "$part"
-  tap_text "$part"
-  sleep 1
+  all_texts | grep -E "^(दिन|[0-9]+ [A-Z][a-z]{2})" | head -3 >> "$LOG"
   n=$((n + 1))
 done
