@@ -1,6 +1,7 @@
 package com.rohit.share_scan
 
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -143,6 +144,27 @@ class StockNewsTest {
         )
         // Two filings under the same words both stay; the same headline from two papers stays once.
         assertEquals(listOf("nse:2", "g:2", "nse:1"), merged.map { it.id })
+    }
+
+    @Test
+    fun fillsTheNewsTabToTenWithRoutineNoticesOnlyWhenThin() {
+        fun item(id: String, at: Long, kind: NewsKind, official: Boolean = true) = NewsItem("X", at, id, "NSE", "u", kind, official, id)
+        val routine = (1..6).map { item("r$it", it * 10L, NewsKind.ROUTINE) }
+        // A paper's headline read as routine is still news.
+        val news = (1..7).map { item("n$it", it * 10L + 5, NewsKind.RESULTS) } + item("g", 3, NewsKind.ROUTINE, official = false)
+
+        // Eight items that are not routine notices: the two newest notices fill in to ten, all newest first.
+        val (shown, folded) = StockNews.forTab(news + routine)
+        assertEquals(listOf("n7", "n6", "r6", "n5", "r5", "n4", "n3", "n2", "n1", "g"), shown.map { it.id })
+        assertEquals(listOf("r4", "r3", "r2", "r1"), folded.map { it.id })
+        assertTrue(StockNews.thin(news + routine))
+
+        // Ten or more: the notices all fold away.
+        val busy = news + (8..10).map { item("n$it", it * 10L + 5, NewsKind.ORDER) }
+        val (all, notices) = StockNews.forTab(busy + routine)
+        assertEquals(busy.sortedByDescending { it.at }.map { it.id }, all.map { it.id })
+        assertEquals(6, notices.size)
+        assertFalse(StockNews.thin(busy + routine))
     }
 
     @Test

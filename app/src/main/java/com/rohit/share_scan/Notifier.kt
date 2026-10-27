@@ -46,6 +46,9 @@ object Notifier {
     /** The intent extra a notification passes to [MainActivity]: the stock to open. */
     const val EXTRA_SYMBOL = "symbol"
 
+    /** Set by the news notifications: the stock opens on its खबरें tab. */
+    const val EXTRA_NEWS = "news"
+
     /** The intent extra of the "update ready" notification: hand the downloaded APK to the installer. */
     const val EXTRA_INSTALL = "install_update"
 
@@ -105,7 +108,7 @@ object Notifier {
                 .setWhen(item.at)
                 .setShowWhen(true)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(open(context, item.symbol, id))
+                .setContentIntent(open(context, item.symbol, id, news = true))
                 .addAction(0, context.getString(R.string.notify_news_read), read)
                 .setAutoCancel(true),
         )
@@ -133,11 +136,11 @@ object Notifier {
                 context.getString(R.string.notify_news_digest_line, firstSymbol, context.getString(NewsLabels.label(lead.kind)), lead.title),
             )
             .setStyle(style)
-            .setContentIntent(open(context, firstSymbol, ID_NEWS_DIGEST))
+            .setContentIntent(open(context, firstSymbol, ID_NEWS_DIGEST, news = true))
             .setAutoCancel(true)
         if (byStock.size > 1) {
             byStock.take(MAX_ACTIONS).forEachIndexed { index, (symbol, _) ->
-                builder.addAction(0, symbol, open(context, symbol, DIGEST_ACTION_BASE + index))
+                builder.addAction(0, symbol, open(context, symbol, DIGEST_ACTION_BASE + index, news = true))
             }
         }
         post(context, ID_NEWS_DIGEST, builder)
@@ -336,10 +339,11 @@ object Notifier {
         StockFormat.rvol(rvol),
     )
 
-    private fun open(context: Context, symbol: String?, requestCode: Int): PendingIntent {
+    private fun open(context: Context, symbol: String?, requestCode: Int, news: Boolean = false): PendingIntent {
         val intent = Intent(context, MainActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         if (symbol != null) intent.putExtra(EXTRA_SYMBOL, symbol)
+        if (news) intent.putExtra(EXTRA_NEWS, true)
         return PendingIntent.getActivity(
             context,
             requestCode,

@@ -58,7 +58,11 @@ class MainActivity : AppCompatActivity() {
     private val updates: UpdateViewModel by viewModels()
     private lateinit var settings: AppSettings
     private lateinit var ui: ActivityMainBinding
-    private val adapter = StockAdapter(::openChart) { stock -> scan.toggleStar(stock.symbol) }
+    private val adapter = StockAdapter(
+        onOpen = { openChart(it) },
+        onStar = { scan.toggleStar(it.symbol) },
+        onNews = { openChart(it, onNews = true) },
+    )
     private var shownResults: List<ScanResult>? = null
     private var shownFilters: ScanFilters? = null
     private var shownSort: SortMode? = null
@@ -84,6 +88,8 @@ class MainActivity : AppCompatActivity() {
     private var radarSpin: ObjectAnimator? = null
     /** A notification's stock, opened once the list holds it. */
     private var pendingSymbol: String? = null
+    /** The pending stock opens on its खबरें tab (a news notification's). */
+    private var pendingNews = false
     private var sectorSheet: BottomSheetDialog? = null
     private var clearDialog: AlertDialog? = null
     private val notifyPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
@@ -128,7 +134,7 @@ class MainActivity : AppCompatActivity() {
         ui.menuButton.setOnClickListener { openMenu() }
         ui.sectorChip.setOnClickListener { openSectors(fromMenu = false) }
         if (savedInstanceState == null) {
-            intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let(::openFromNotification)
+            intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let { openFromNotification(it, intent.getBooleanExtra(Notifier.EXTRA_NEWS, false)) }
             if (intent.getBooleanExtra(Notifier.EXTRA_INSTALL, false)) updates.installWhenReady()
         }
         if ((settings.liveScan && settings.liveAlerts) || settings.watchAlerts || settings.newsAlerts) askToNotify(again = false)
@@ -191,7 +197,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
-        intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let(::openFromNotification)
+        intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let { openFromNotification(it, intent.getBooleanExtra(Notifier.EXTRA_NEWS, false)) }
         if (intent.getBooleanExtra(Notifier.EXTRA_INSTALL, false)) updates.installWhenReady()
     }
 
@@ -199,8 +205,9 @@ class MainActivity : AppCompatActivity() {
      * A notification's stock: opened at once when the list holds it, or as soon as the kept scan is read from disk; if it
      * is not there by then (or a scan under way does not bring it), the user is told rather than left with the bare list.
      */
-    private fun openFromNotification(symbol: String) {
+    private fun openFromNotification(symbol: String, news: Boolean) {
         pendingSymbol = symbol
+        pendingNews = news
         // Until the screen is up the list's first render opens it.
         if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) openPending(scan.uiState.value)
         lifecycleScope.launch {
@@ -215,7 +222,7 @@ class MainActivity : AppCompatActivity() {
                     lifecycle.withStarted {
                         if (pendingSymbol == symbol) {
                             pendingSymbol = null
-                            openChart(row)
+                            openChart(row, onNews = news)
                         }
                     }
                 }
@@ -274,7 +281,7 @@ class MainActivity : AppCompatActivity() {
             ?: state.watchExtras.firstOrNull { it.symbol == symbol }
             ?: return
         pendingSymbol = null
-        openChart(stock)
+        openChart(stock, onNews = pendingNews)
     }
 
     /**
@@ -814,8 +821,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /** Opens the stock's detail sheet; its button leads on to the chart site picked in Settings. */
-    private fun openChart(stock: ScanResult) {
+    /**
+     * Opens the stock's detail sheet, on its जानकारी tab or ([onNews]) its खबरें tab; its button leads on to the chart
+     * site picked in Settings.
+     */
+    private fun openChart(stock: ScanResult, onNews: Boolean = false) {
         if (!stock.charted) {
             Toast.makeText(this, getString(R.string.item_no_data_toast, stock.symbol), Toast.LENGTH_SHORT).show()
             return
@@ -832,6 +842,7 @@ class MainActivity : AppCompatActivity() {
             alert = alert,
             cr360 = state.cr360.of(stock.symbol),
             setups = state.setups,
+            openOnNews = onNews,
         ).show()
     }
 

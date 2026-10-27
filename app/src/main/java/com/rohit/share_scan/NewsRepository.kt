@@ -15,8 +15,11 @@ import java.util.concurrent.ConcurrentHashMap
  * again or a list drawn again asks nothing new. Blocking: call it off the main thread.
  */
 object NewsRepository {
-    /** A stock's news for its detail sheet; [failed] when no source answered (the list is then empty). */
-    data class Result(val items: List<NewsItem>, val failed: Boolean)
+    /**
+     * A stock's news for its detail sheet; [failed] when no source answered (the list is then empty); [wide] when it
+     * reaches back a year, the stock's last month and week being too quiet.
+     */
+    data class Result(val items: List<NewsItem>, val failed: Boolean, val wide: Boolean = false)
 
     private const val NSE_API = "https://www.nseindia.com/api/corporate-announcements"
     private const val NSE_HOME = "https://www.nseindia.com/"
@@ -29,6 +32,8 @@ object NewsRepository {
     /** How far back a stock's filings and articles go. */
     private const val FILING_DAYS = 30L
     private const val ARTICLE_DAYS = 7
+    /** How far back a quiet stock's go, so that its tab has [StockNews.TAB_MIN] items. */
+    private const val WIDE_DAYS = 365L
     private const val STOCK_FRESH_MS = 10L * 60 * 1000
     private const val MARKET_FRESH_MS = 15L * 60 * 1000
 
@@ -41,15 +46,25 @@ object NewsRepository {
     @Volatile private var market: Pair<Long, List<NewsItem>>? = null
 
     /**
-     * [stock]'s filings of the last 30 days and the articles of the last week that name it, newest first. Filings
-     * come from NSE, or BSE for a BSE-only stock; articles from Google News, in English and Hindi.
+     * [stock]'s filings of the last 30 days and the articles of the last week that name it, newest first; for a quiet
+     * stock (fewer than [StockNews.TAB_MIN] that are not routine notices) those of the past year. Filings come from
+     * NSE, or BSE for a BSE-only stock; articles from Google News, in English and Hindi.
      */
     fun stock(stock: ScanResult, now: Long = System.currentTimeMillis()): Result {
         stocks[stock.symbol]?.let { (at, kept) -> if (now - at < STOCK_FRESH_MS && !kept.failed) return kept }
         val today = MarketClock.now(now).toLocalDate()
         val filings = official(stock.symbol, stock.market, stock.bseCode, today.minusDays(FILING_DAYS), today)
         val articles = articles(stock)
-        val result = Result(StockNews.merge(filings.orEmpty(), articles.orEmpty()), failed = filings == null && articles == null)
+        var result = Result(StockNews.merge(filings.orEmpty(), articles.orEmpty()), failed = filings == null && articles == null)
+        if (!result.failed && StockNews.thin(result.items)) {
+            val yearAgo = now - WIDE_DAYS * StockNews.DAY_MS
+            val older = official(stock.symbol, stock.market, stock.bseCode, today.minusDays(WIDE_DAYS), today)
+            // Google News' search without a time limit, its most fitting articles of any age; the past year's stay.
+            val olderArticles = articles(stock, days = null)?.filter { it.at >= yearAgo }
+            if (older != null || olderArticles != null) {
+                result = Result(StockNews.merge(older ?: filings.orEmpty(), articles.orEmpty(), olderArticles.orEmpty()), failed = false, wide = true)
+            }
+        }
         stocks[stock.symbol] = now to result
         return result
     }
@@ -90,13 +105,17 @@ object NewsRepository {
     /** The 📰 marks for the list's cards: each stock's filings of the last day ([StockNews.badges]). */
     fun badges(now: Long = System.currentTimeMillis()): Map<String, NewsBadge> = StockNews.badges(market(now).orEmpty(), now)
 
-    /** Google News' articles of the last week naming [stock], English and Hindi together; null when neither answered. */
-    fun articles(stock: ScanResult, days: Int = ARTICLE_DAYS): List<NewsItem>? {
+    /**
+     * Google News' articles of the last [days] naming [stock] (any age when null), English and Hindi together; null when
+     * neither answered.
+     */
+    fun articles(stock: ScanResult, days: Int? = ARTICLE_DAYS): List<NewsItem>? {
         val short = StockSearch.shortName(stock.name).ifBlank { stock.symbol }
         // The symbol counts as a name when it reads as a word (TCS, SSWL), not a BSE code.
         val names = listOf(short, stock.symbol).filter { name -> name.any { it.isLetter() } }.distinct()
-        val english = rss("\"$short\" when:${days}d", "en-IN", "IN:en")?.let { StockNews.googleNews(it, stock.symbol, names) }
-        val hindi = rss("\"$short\" शेयर when:${days}d", "hi", "IN:hi")?.let { StockNews.googleNews(it, stock.symbol, names) }
+        val within = days?.let { " when:${it}d" }.orEmpty()
+        val english = rss("\"$short\"$within", "en-IN", "IN:en")?.let { StockNews.googleNews(it, stock.symbol, names) }
+        val hindi = rss("\"$short\" शेयर$within", "hi", "IN:hi")?.let { StockNews.googleNews(it, stock.symbol, names) }
         if (english == null && hindi == null) return null
         return english.orEmpty() + hindi.orEmpty()
     }

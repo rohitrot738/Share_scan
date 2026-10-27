@@ -21,11 +21,14 @@
     <string name="news_today">आज %1$s</string>
     <string name="news_yesterday">कल %1$s</string>
 
-    <!-- Detail sheet -->
-    <string name="detail_section_news">खबरें</string>
+    <!-- Detail sheet: its two tabs, and the खबरें tab -->
+    <string name="detail_tab_overview">जानकारी</string>
+    <string name="detail_tab_news">खबरें</string>
+    <string name="detail_tab_news_count">खबरें · %1$d</string>
     <string name="news_loading">NSE/BSE की घोषणाएँ और अख़बारों की ख़बरें आ रही हैं…</string>
-    <string name="news_subtitle">Exchange की घोषणाएँ (30 दिन) और अख़बारों की ख़बरें (7 दिन) • दबाकर पूरी ख़बर पढ़ें</string>
-    <string name="news_none">पिछले 30 दिन में इस stock की कोई घोषणा या ख़बर नहीं मिली</string>
+    <string name="news_subtitle">Exchange की घोषणाएँ (30 दिन) और अख़बारों की ख़बरें (7 दिन) • सबसे नई ऊपर • दबाकर पूरी ख़बर पढ़ें</string>
+    <string name="news_subtitle_wide">इस stock की ख़बरें कम आती हैं, इसलिए पिछले 1 साल तक की घोषणाएँ और ख़बरें • सबसे नई ऊपर • दबाकर पूरी ख़बर पढ़ें</string>
+    <string name="news_none">पिछले 1 साल में इस stock की कोई घोषणा या ख़बर नहीं मिली</string>
     <string name="news_failed">ख़बरें नहीं आ पाईं — इंटरनेट जाँचें और sheet दोबारा खोलें</string>
     <string name="news_source_filing">%1$s घोषणा • PDF</string>
     <string name="news_more">और %1$d ख़बरें दिखाएँ</string>
@@ -51,5 +54,5 @@
 
     <!-- Help -->
     <string name="help_news_title">खबरें</string>
-    <string name="help_news_body">हर stock के detail में "खबरें" हिस्सा है: NSE (सिर्फ़ BSE पर listed stock के लिए BSE) की पिछले 30 दिन की घोषणाएँ और पिछले हफ़्ते की अख़बारों की ख़बरें (Google News से, अंग्रेज़ी और हिंदी), सबसे नई ऊपर। हर ख़बर पर उसका प्रकार (नतीजे, order, dividend, विस्तार, कानूनी…) लिखा है, और "प्री-मार्केट" (पिछले बंद के बाद आई, अगला session इसी पर खुलेगा) या "लाइव" (आज बाज़ार के दौरान आई)। दबाने पर पूरी ख़बर या घोषणा की PDF खुलती है। List में 📰 का निशान बताता है कि उस stock की पिछले 24 घंटे में exchange पर कोई घोषणा आई है। Menu → स्कैन में "Watchlist की ख़बरें" चालू हो तो ★ वाले stocks की सुबह की ख़बरें और दिन की बड़ी घोषणाएँ notification में आती हैं। ख़बर अच्छी है या बुरी, app यह नहीं बताता — पढ़कर खुद तय करें।</string>
+    <string name="help_news_body">हर stock के detail में अलग "खबरें" tab है: NSE (सिर्फ़ BSE पर listed stock के लिए BSE) की पिछले 30 दिन की घोषणाएँ और पिछले हफ़्ते की अख़बारों की ख़बरें (Google News से, अंग्रेज़ी और हिंदी), सबसे नई ऊपर। कम से कम 10 ख़बरें दिखती हैं: जिस stock की ख़बरें कम आती हैं, उसकी पिछले 1 साल तक की घोषणाएँ और ख़बरें आती हैं। ताज़ा ख़बर हो तो tab पर बिंदु दिखता है। हर ख़बर पर उसका प्रकार (नतीजे, order, dividend, विस्तार, कानूनी…) लिखा है, और "प्री-मार्केट" (पिछले बंद के बाद आई, अगला session इसी पर खुलेगा) या "लाइव" (आज बाज़ार के दौरान आई)। दबाने पर पूरी ख़बर या घोषणा की PDF खुलती है। List में 📰 का निशान बताता है कि उस stock की पिछले 24 घंटे में exchange पर कोई घोषणा आई है; उसे दबाने पर stock सीधे "खबरें" tab पर खुलता है, और ख़बरों वाले notification भी। Menu → स्कैन में "Watchlist की ख़बरें" चालू हो तो ★ वाले stocks की सुबह की ख़बरें और दिन की बड़ी घोषणाएँ notification में आती हैं। ख़बर अच्छी है या बुरी, app यह नहीं बताता — पढ़कर खुद तय करें।</string>
 </resources>

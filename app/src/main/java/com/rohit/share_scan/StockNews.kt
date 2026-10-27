@@ -37,7 +37,10 @@ data class NewsItem(
     val kind: NewsKind,
     val official: Boolean,
     val id: String,
-)
+) {
+    /** An exchange's routine notice (a newspaper ad, a trading window, a certificate…), kept out of the way. */
+    val routine: Boolean get() = official && kind == NewsKind.ROUTINE
+}
 
 /** A card's 📰 mark: the weightiest kind among a stock's recent filings, how many there are and when the latest came. */
 data class NewsBadge(val kind: NewsKind, val count: Int, val latest: Long)
@@ -187,6 +190,19 @@ object StockNews {
     }
 
     /**
+     * A stock's news as its खबरें tab lists it, newest first: everything but the exchange's routine notices, with the
+     * newest of those filling in up to [min] for a quiet stock. Second, the routine notices left over.
+     */
+    fun forTab(items: List<NewsItem>, min: Int = TAB_MIN): Pair<List<NewsItem>, List<NewsItem>> {
+        val (routine, rest) = items.partition { it.routine }
+        val fill = routine.sortedByDescending { it.at }.take((min - rest.size).coerceAtLeast(0)).toSet()
+        return (rest + fill).sortedByDescending { it.at } to routine.filter { it !in fill }.sortedByDescending { it.at }
+    }
+
+    /** Whether a stock's news is too thin for its tab (fewer than [min] items that are not routine notices). */
+    fun thin(items: List<NewsItem>, min: Int = TAB_MIN): Boolean = items.count { !it.routine } < min
+
+    /**
      * [at] against the session, as of [now]: news since the latest close (evening, night, weekend, or the morning
      * before the open) is what the next session opens on; news while today's session runs is live. Older news gets
      * neither.
@@ -215,7 +231,7 @@ object StockNews {
      */
     fun badges(items: List<NewsItem>, now: Long, window: Long = DAY_MS): Map<String, NewsBadge> =
         items.asSequence()
-            .filter { it.official && it.kind != NewsKind.ROUTINE && it.kind != NewsKind.INVESTOR && it.at in (now - window)..now }
+            .filter { it.official && !it.routine && it.kind != NewsKind.INVESTOR && it.at in (now - window)..now }
             .groupBy { it.symbol }
             .mapValues { (_, news) -> NewsBadge(news.minOf { it.kind }, news.size, news.maxOf { it.at }) }
 
@@ -228,6 +244,9 @@ object StockNews {
             .sortedBy { it.at }
 
     const val DAY_MS = 24L * 60 * 60 * 1000
+
+    /** The fewest items a stock's खबरें tab shows when there are that many in the past year. */
+    const val TAB_MIN = 10
 
     /** A filing's own words without the "<Company> has informed the Exchange about" opening; its category without words. */
     fun cleanFiling(text: String, category: String): String {

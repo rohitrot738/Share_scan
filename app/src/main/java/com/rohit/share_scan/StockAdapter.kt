@@ -20,6 +20,8 @@ import java.util.Locale
 class StockAdapter(
     private val onOpen: (ScanResult) -> Unit,
     private val onStar: (ScanResult) -> Unit = {},
+    /** The card's 📰 mark: the stock on its खबरें tab. */
+    private val onNews: (ScanResult) -> Unit = onOpen,
 ) : ListAdapter<RankedStock, StockAdapter.Holder>(Diff) {
 
     /** Every stock's 360CR ([Cr360Book]); the card adds the stock's score to its meta line. */
@@ -42,6 +44,10 @@ class StockAdapter(
         holder.ui.root.setOnClickListener {
             val position = holder.bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) onOpen(getItem(position).stock)
+        }
+        holder.ui.newsBadge.setOnClickListener {
+            val position = holder.bindingAdapterPosition
+            if (position != RecyclerView.NO_POSITION) onNews(getItem(position).stock)
         }
         holder.ui.star.setOnClickListener {
             val position = holder.bindingAdapterPosition

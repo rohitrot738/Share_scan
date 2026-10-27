@@ -9,7 +9,152 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <!-- Header: symbol, price and 5D change, then tier and score. -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detailExchange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.12"
+                android:text="@string/detail_exchange"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/detailSymbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:ellipsize="end"
+                android:letterSpacing="0.02"
+                android:maxLines="1"
+                android:textColor="@color/text_primary"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/detailName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/text_secondary"
+                android:textSize="13sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/detailPrice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFeatureSettings="tnum"
+                android:maxLines="1"
+                android:textColor="@color/text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/detailChange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFeatureSettings="tnum"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp">
+
+        <TextView
+            android:id="@+id/detailTier"
+            style="@style/Pill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:letterSpacing="0.08"
+            android:minWidth="64dp"
+            android:textSize="10sp" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/detailScoreBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_weight="1"
+            android:max="1000"
+            app:trackColor="@color/track"
+            app:trackCornerRadius="4dp"
+            app:trackThickness="8dp" />
+
+        <TextView
+            android:id="@+id/detailScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFeatureSettings="tnum"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- The stock's facts or its news, one at a time (StockDetailSheet.showTab). -->
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/detailTabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/brand_primary"
+        app:tabIndicatorFullWidth="false"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/text_primary"
+        app:tabTextColor="@color/text_secondary">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_tab_overview" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_tab_news" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/colorOutline" />
+
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/detailScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -20,403 +165,493 @@
             android:orientation="vertical"
             android:paddingBottom="20dp">
 
-            <!-- Header: symbol, price and 5D change, then tier and score. -->
+            <!-- The जानकारी tab: chart, plan, score, R/S and the key numbers. -->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:gravity="bottom"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/detailExchange"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:letterSpacing="0.12"
-                        android:text="@string/detail_exchange"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="11sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/detailSymbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:ellipsize="end"
-                        android:letterSpacing="0.02"
-                        android:maxLines="1"
-                        android:textColor="@color/text_primary"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/detailName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ellipsize="end"
-                        android:maxLines="2"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:gravity="end"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/detailPrice"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFeatureSettings="tnum"
-                        android:maxLines="1"
-                        android:textColor="@color/text_primary"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/detailChange"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:fontFeatureSettings="tnum"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingHorizontal="20dp">
-
-                <TextView
-                    android:id="@+id/detailTier"
-                    style="@style/Pill"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:letterSpacing="0.08"
-                    android:minWidth="64dp"
-                    android:textSize="10sp" />
-
-                <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/detailScoreBar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
-                    android:layout_weight="1"
-                    android:max="1000"
-                    app:trackColor="@color/track"
-                    app:trackCornerRadius="4dp"
-                    app:trackThickness="8dp" />
-
-                <TextView
-                    android:id="@+id/detailScore"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFeatureSettings="tnum"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Shown instead of the chart, plan and technical stats when the scan had no price structure. -->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/detailNoStructure"
-                style="@style/ShareScanCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="20dp"
-                android:visibility="gone"
-                app:cardBackgroundColor="@color/neutral_container"
-                app:strokeWidth="0dp">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="16dp"
-                    android:text="@string/detail_no_structure"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="13sp" />
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Chart -->
-            <LinearLayout
-                android:id="@+id/detailChartSection"
+                android:id="@+id/detailOverview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <LinearLayout
+                <!-- Shown instead of the chart, plan and technical stats when the scan had no price structure. -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/detailNoStructure"
+                    style="@style/ShareScanCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:baselineAligned="true"
-                    android:orientation="horizontal"
-                    android:paddingHorizontal="20dp">
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="20dp"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="@color/neutral_container"
+                    app:strokeWidth="0dp">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="@string/detail_section_chart"
+                        android:padding="16dp"
+                        android:text="@string/detail_no_structure"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Chart -->
+                <LinearLayout
+                    android:id="@+id/detailChartSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:baselineAligned="true"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="20dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/detail_section_chart"
+                            android:textColor="@color/text_primary"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/detailChartPeriod"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:fontFeatureSettings="tnum"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/ShareScanCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="10dp">
+
+                        <com.rohit.share_scan.PriceChartView
+                            android:id="@+id/detailChart"
+                            android:layout_width="match_parent"
+                            android:layout_height="220dp"
+                            android:importantForAccessibility="yes"
+                            android:paddingStart="12dp"
+                            android:paddingTop="14dp"
+                            android:paddingEnd="10dp"
+                            android:paddingBottom="12dp" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- Trade plan -->
+                <LinearLayout
+                    android:id="@+id/detailPlanSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/detail_section_plan"
                         android:textColor="@color/text_primary"
                         android:textSize="17sp"
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/detailChartPeriod"
+                        android:id="@+id/detailPlanRule"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="12dp"
-                        android:fontFeatureSettings="tnum"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
+                        android:layout_marginTop="2dp"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
 
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/ShareScanCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="10dp">
+                    <!-- The stop and Target 1 the daily learner found did best (PlanTuner), and how they did. -->
+                    <TextView
+                        android:id="@+id/detailPlanLearned"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/brand_primary"
+                        android:textSize="13sp"
+                        android:visibility="gone" />
 
-                    <com.rohit.share_scan.PriceChartView
-                        android:id="@+id/detailChart"
-                        android:layout_width="match_parent"
-                        android:layout_height="220dp"
-                        android:importantForAccessibility="yes"
-                        android:paddingStart="12dp"
-                        android:paddingTop="14dp"
-                        android:paddingEnd="10dp"
-                        android:paddingBottom="12dp" />
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
+                    <!-- How this breakout's setup did in the past (BreakoutSetup): volume, and STRONG the day before. -->
+                    <TextView
+                        android:id="@+id/detailPlanSetup"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:paddingHorizontal="20dp"
+                        android:textSize="13sp"
+                        android:visibility="gone" />
 
-            <!-- Trade plan -->
-            <LinearLayout
-                android:id="@+id/detailPlanSection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                    <!-- A learned rally setup that holds today, or what came before rallies most often. -->
+                    <TextView
+                        android:id="@+id/detailPlanRally"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:paddingHorizontal="20dp"
+                        android:textSize="13sp"
+                        android:visibility="gone" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:paddingHorizontal="20dp"
-                    android:text="@string/detail_section_plan"
-                    android:textColor="@color/text_primary"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                    <!-- A learned mistake that holds today: how often trades like it failed, and how. -->
+                    <TextView
+                        android:id="@+id/detailPlanMistake"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/bear"
+                        android:textSize="13sp"
+                        android:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/detailPlanRule"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:paddingHorizontal="20dp"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="13sp" />
-
-                <!-- The stop and Target 1 the daily learner found did best (PlanTuner), and how they did. -->
-                <TextView
-                    android:id="@+id/detailPlanLearned"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:paddingHorizontal="20dp"
-                    android:textColor="@color/brand_primary"
-                    android:textSize="13sp"
-                    android:visibility="gone" />
-
-                <!-- How this breakout's setup did in the past (BreakoutSetup): volume, and STRONG the day before. -->
-                <TextView
-                    android:id="@+id/detailPlanSetup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:paddingHorizontal="20dp"
-                    android:textSize="13sp"
-                    android:visibility="gone" />
-
-                <!-- A learned rally setup that holds today, or what came before rallies most often. -->
-                <TextView
-                    android:id="@+id/detailPlanRally"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:paddingHorizontal="20dp"
-                    android:textSize="13sp"
-                    android:visibility="gone" />
-
-                <!-- A learned mistake that holds today: how often trades like it failed, and how. -->
-                <TextView
-                    android:id="@+id/detailPlanMistake"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:paddingHorizontal="20dp"
-                    android:textColor="@color/bear"
-                    android:textSize="13sp"
-                    android:visibility="gone" />
-
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/ShareScanCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="10dp">
-
-                    <LinearLayout
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/ShareScanCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingBottom="12dp">
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="10dp">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:importantForAccessibility="noHideDescendants"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="16dp"
-                            android:paddingTop="12dp"
-                            android:paddingBottom="8dp">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:letterSpacing="0.08"
-                                android:text="@string/detail_plan_head_level"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="11sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/detail_plan_head_price"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="11sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
-                                android:gravity="center"
-                                android:minWidth="58dp"
-                                android:text="@string/detail_plan_head_r"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="11sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginHorizontal="16dp"
-                            android:background="?attr/colorOutline" />
-
-                        <LinearLayout
-                            android:id="@+id/detailLevels"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:paddingVertical="4dp" />
+                            android:paddingBottom="12dp">
 
-                        <View
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:importantForAccessibility="noHideDescendants"
+                                android:orientation="horizontal"
+                                android:paddingHorizontal="16dp"
+                                android:paddingTop="12dp"
+                                android:paddingBottom="8dp">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:letterSpacing="0.08"
+                                    android:text="@string/detail_plan_head_level"
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/detail_plan_head_price"
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:gravity="center"
+                                    android:minWidth="58dp"
+                                    android:text="@string/detail_plan_head_r"
+                                    android:textColor="@color/text_secondary"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginHorizontal="16dp"
+                                android:background="?attr/colorOutline" />
+
+                            <LinearLayout
+                                android:id="@+id/detailLevels"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:paddingVertical="4dp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginHorizontal="16dp"
+                                android:background="?attr/colorOutline" />
+
+                            <TextView
+                                android:id="@+id/detailPlanRisk"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:fontFeatureSettings="tnum"
+                                android:paddingHorizontal="16dp"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="12sp" />
+
+                            <!-- How the targets' times are estimated. -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:paddingHorizontal="16dp"
+                                android:text="@string/detail_plan_time_note"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/detailPlanExtended"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/warn"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+
+                    <!-- The watchlist alert this plan drives: waiting for the breakout, or the trade under way. -->
+                    <TextView
+                        android:id="@+id/detailAlert"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:drawablePadding="6dp"
+                        android:gravity="center_vertical"
+                        android:lineSpacingExtra="2dp"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <!-- Score breakdown -->
+                <LinearLayout
+                    android:id="@+id/detailScoreSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/detail_section_score"
+                        android:textColor="@color/text_primary"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/detail_score_subtitle"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/ShareScanCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="10dp">
+
+                        <LinearLayout
+                            android:id="@+id/detailScoreParts"
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginHorizontal="16dp"
-                            android:background="?attr/colorOutline" />
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingVertical="6dp" />
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- 360CR (Cr360Book): the company's research score from the daily file, its parts and the figures behind it. -->
+                <LinearLayout
+                    android:id="@+id/detailCr360Section"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/detail_section_cr360"
+                        android:textColor="@color/text_primary"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/detail_cr360_subtitle"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
+
+                    <com.google.android.material.card.MaterialCardView
+                        style="@style/ShareScanCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingVertical="12dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
+                                android:paddingHorizontal="16dp">
+
+                                <TextView
+                                    android:id="@+id/detailCr360Score"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFeatureSettings="tnum"
+                                    android:textColor="@color/text_primary"
+                                    android:textSize="24sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/detailCr360State"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="12dp"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/detailCr360Data"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="2dp"
+                                android:paddingHorizontal="16dp"
+                                android:textColor="@color/text_secondary"
+                                android:textSize="12sp" />
+
+                            <LinearLayout
+                                android:id="@+id/detailCr360Parts"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:orientation="vertical" />
+
+                            <!-- The figures behind the score, a line each (StockDetailSheet.cr360Facts); the insider and deals
+                                 lines open into every trade behind them. -->
+                            <LinearLayout
+                                android:id="@+id/detailCr360Facts"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:orientation="vertical"
+                                android:paddingHorizontal="16dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/detailCr360Note"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/detail_cr360_note"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="11sp" />
+
+                    <!-- R/S history (Cr360History): fetched when the sheet opens, its tables filled in code. -->
+                    <LinearLayout
+                        android:id="@+id/detailCr360HistorySection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/detailPlanRisk"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:fontFeatureSettings="tnum"
-                            android:paddingHorizontal="16dp"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
+                            android:layout_marginTop="24dp"
+                            android:paddingHorizontal="20dp"
+                            android:text="@string/detail_section_cr360_history"
+                            android:textColor="@color/text_primary"
+                            android:textSize="17sp"
+                            android:textStyle="bold" />
 
-                        <!-- How the targets' times are estimated. -->
                         <TextView
+                            android:id="@+id/detailCr360HistoryStatus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:paddingHorizontal="16dp"
-                            android:text="@string/detail_plan_time_note"
+                            android:layout_marginTop="2dp"
+                            android:paddingHorizontal="20dp"
+                            android:text="@string/detail_cr360_history_loading"
                             android:textColor="@color/text_secondary"
-                            android:textSize="11sp" />
+                            android:textSize="13sp" />
+
+                        <LinearLayout
+                            android:id="@+id/detailCr360History"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical" />
                     </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/detailPlanExtended"
-                    android:layout_width="wrap_content"
+                <!-- Key stats: rows of two tiles, filled in code. -->
+                <LinearLayout
+                    android:id="@+id/detailStatsSection"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:paddingHorizontal="20dp"
-                    android:textColor="@color/warn"
-                    android:textSize="12sp"
-                    android:visibility="gone" />
+                    android:orientation="vertical">
 
-                <!-- The watchlist alert this plan drives: waiting for the breakout, or the trade under way. -->
-                <TextView
-                    android:id="@+id/detailAlert"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:drawablePadding="6dp"
-                    android:gravity="center_vertical"
-                    android:lineSpacingExtra="2dp"
-                    android:paddingHorizontal="20dp"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="12sp"
-                    android:visibility="gone" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/detail_section_stats"
+                        android:textColor="@color/text_primary"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/detailStats"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="12dp" />
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- Stock news (NewsRepository): the exchange's filings and newspapers' articles, filled in code. -->
+            <!-- The खबरें tab (NewsRepository): the exchange's filings and newspapers' articles, filled in code. -->
             <LinearLayout
                 android:id="@+id/detailNewsSection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:paddingHorizontal="20dp"
-                    android:text="@string/detail_section_news"
-                    android:textColor="@color/text_primary"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/detailNewsStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="16dp"
                     android:paddingHorizontal="20dp"
                     android:text="@string/news_loading"
                     android:textColor="@color/text_secondary"
@@ -427,211 +662,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="12dp" />
-            </LinearLayout>
-
-            <!-- Score breakdown -->
-            <LinearLayout
-                android:id="@+id/detailScoreSection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:paddingHorizontal="20dp"
-                    android:text="@string/detail_section_score"
-                    android:textColor="@color/text_primary"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:paddingHorizontal="20dp"
-                    android:text="@string/detail_score_subtitle"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="13sp" />
-
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/ShareScanCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="10dp">
-
-                    <LinearLayout
-                        android:id="@+id/detailScoreParts"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingVertical="6dp" />
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
-
-            <!-- 360CR (Cr360Book): the company's research score from the daily file, its parts and the figures behind it. -->
-            <LinearLayout
-                android:id="@+id/detailCr360Section"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:paddingHorizontal="20dp"
-                    android:text="@string/detail_section_cr360"
-                    android:textColor="@color/text_primary"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:paddingHorizontal="20dp"
-                    android:text="@string/detail_cr360_subtitle"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="13sp" />
-
-                <com.google.android.material.card.MaterialCardView
-                    style="@style/ShareScanCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="10dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingVertical="12dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal"
-                            android:paddingHorizontal="16dp">
-
-                            <TextView
-                                android:id="@+id/detailCr360Score"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFeatureSettings="tnum"
-                                android:textColor="@color/text_primary"
-                                android:textSize="24sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:id="@+id/detailCr360State"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
-                                android:textSize="15sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/detailCr360Data"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:paddingHorizontal="16dp"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
-
-                        <LinearLayout
-                            android:id="@+id/detailCr360Parts"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:orientation="vertical" />
-
-                        <!-- The figures behind the score, a line each (StockDetailSheet.cr360Facts); the insider and deals
-                             lines open into every trade behind them. -->
-                        <LinearLayout
-                            android:id="@+id/detailCr360Facts"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:orientation="vertical"
-                            android:paddingHorizontal="16dp" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <TextView
-                    android:id="@+id/detailCr360Note"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:paddingHorizontal="20dp"
-                    android:text="@string/detail_cr360_note"
-                    android:textColor="@color/text_secondary"
-                    android:textSize="11sp" />
-
-                <!-- R/S history (Cr360History): fetched when the sheet opens, its tables filled in code. -->
-                <LinearLayout
-                    android:id="@+id/detailCr360HistorySection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:paddingHorizontal="20dp"
-                        android:text="@string/detail_section_cr360_history"
-                        android:textColor="@color/text_primary"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/detailCr360HistoryStatus"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:paddingHorizontal="20dp"
-                        android:text="@string/detail_cr360_history_loading"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
-
-                    <LinearLayout
-                        android:id="@+id/detailCr360History"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Key stats: rows of two tiles, filled in code. -->
-            <LinearLayout
-                android:id="@+id/detailStatsSection"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:paddingHorizontal="20dp"
-                    android:text="@string/detail_section_stats"
-                    android:textColor="@color/text_primary"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    android:id="@+id/detailStats"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
                     android:orientation="vertical"
                     android:paddingHorizontal="12dp" />
             </LinearLayout>

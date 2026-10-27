@@ -30,6 +30,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.tabs.TabLayout
 import com.rohit.share_scan.Cr360Book.Fact
 import com.rohit.share_scan.databinding.ItemCr360HistoryChartBinding
 import com.rohit.share_scan.databinding.ItemCr360HistoryTableBinding
@@ -46,9 +47,9 @@ import kotlin.math.abs
 import kotlin.math.roundToInt
 
 /**
- * Bottom sheet with everything one scan knows about a stock: header, price chart with the trade-plan
- * levels, the [TradePlan], how the score was built and the key numbers, plus a chart button and buttons that open the
- * stock in a trading app ([BrokerOpener]).
+ * Bottom sheet with everything one scan knows about a stock: header, then two tabs, जानकारी (price chart with the
+ * trade-plan levels, the [TradePlan], how the score was built and the key numbers) and खबरें (its filings and articles,
+ * [NewsRepository]), plus a chart button and buttons that open the stock in a trading app ([BrokerOpener]).
  * Sections whose data the scan did not provide (no [PriceStructure], no score parts) stay hidden.
  */
 class StockDetailSheet(
@@ -65,6 +66,8 @@ class StockDetailSheet(
     private val cr360: Cr360Book.Entry? = null,
     /** The learned setups; once there are some, they take the place of the app's own setups and figures. */
     private val setups: SetupBook = SetupBook.EMPTY,
+    /** Opens on the खबरें tab (from a 📰 mark or a news notification) rather than on जानकारी. */
+    private val openOnNews: Boolean = false,
 ) {
     private val dialog = BottomSheetDialog(activity)
     private val ui = SheetStockDetailBinding.inflate(activity.layoutInflater)
@@ -81,6 +84,7 @@ class StockDetailSheet(
 
     fun show(): BottomSheetDialog {
         bindHeader()
+        bindTabs()
         bindChart()
         bindPlan()
         bindNews()
@@ -825,7 +829,22 @@ class StockDetailSheet(
         parent.addView(noteView(if (deal) R.string.cr360_trades_deals_note else R.string.cr360_trades_insider_note))
     }
 
-    /** The R/S history, fetched off the main thread: its file comes the first time a stock in it is opened. */
+    /** जानकारी or खबरें; picking the tab already open goes back to its top. */
+    private fun bindTabs() {
+        ui.detailTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) = showTab(news = tab.position == TAB_NEWS)
+            override fun onTabUnselected(tab: TabLayout.Tab) = Unit
+            override fun onTabReselected(tab: TabLayout.Tab) = ui.detailScroll.smoothScrollTo(0, 0)
+        })
+        if (openOnNews) ui.detailTabs.getTabAt(TAB_NEWS)?.select() else showTab(news = false)
+    }
+
+    private fun showTab(news: Boolean) {
+        ui.detailOverview.isVisible = !news
+        ui.detailNewsSection.isVisible = news
+        ui.detailScroll.scrollTo(0, 0)
+    }
+
     /** The stock's news: its exchange filings and newspapers' articles ([NewsRepository]), newest first. */
     private fun bindNews() {
         activity.lifecycleScope.launch {
@@ -835,8 +854,9 @@ class StockDetailSheet(
     }
 
     /**
-     * The first few items, then the rest behind "और N ख़बरें"; routine filings (notices in newspapers, trading
-     * windows, certificates) fold away at the end.
+     * At least [StockNews.TAB_MIN] items ([StockNews.forTab]), up to [NEWS_SHOWN], then the rest behind "और N
+     * ख़बरें"; routine filings (notices in newspapers, trading windows, certificates) fold away at the end. The tab
+     * names how many there are, with a dot when one came since the last close.
      */
     private fun showNews(news: NewsRepository.Result?) {
         val list = ui.detailNews
@@ -849,12 +869,18 @@ class StockDetailSheet(
             ui.detailNewsStatus.setText(R.string.news_none)
             return
         }
-        ui.detailNewsStatus.setText(R.string.news_subtitle)
+        ui.detailNewsStatus.setText(if (news.wide) R.string.news_subtitle_wide else R.string.news_subtitle)
         val now = System.currentTimeMillis()
-        val (routine, shown) = news.items.partition { it.official && it.kind == NewsKind.ROUTINE }
+        val (shown, routine) = StockNews.forTab(news.items)
         shown.take(NEWS_SHOWN).forEach { addNews(list, it, now) }
         foldedNews(list, shown.drop(NEWS_SHOWN), now) { activity.getString(R.string.news_more, it) }
         foldedNews(list, routine, now) { activity.getString(R.string.news_routine, it) }
+        ui.detailTabs.getTabAt(TAB_NEWS)?.let { tab ->
+            tab.text = activity.getString(R.string.detail_tab_news_count, news.items.size)
+            if (shown.any { !it.routine && StockNews.timing(it.at, now) != null }) {
+                tab.orCreateBadge.backgroundColor = color(R.color.brand_primary)
+            }
+        }
     }
 
     /** [items] behind a line that opens them in place; nothing when there are none. */
@@ -909,6 +935,7 @@ class StockDetailSheet(
         }
     }
 
+    /** The R/S history, fetched off the main thread: its file comes the first time a stock in it is opened. */
     private fun bindCr360History() {
         if (cr360 == null) {
             ui.detailCr360HistorySection.isVisible = false
@@ -1312,6 +1339,9 @@ class StockDetailSheet(
         const val CHART_TARGETS = 2
 
         /** News items shown at once; the rest open behind "और N ख़बरें". */
-        const val NEWS_SHOWN = 6
+        const val NEWS_SHOWN = 20
+
+        /** The खबरें tab's place; जानकारी is first. */
+        const val TAB_NEWS = 1
     }
 }
