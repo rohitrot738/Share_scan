@@ -548,6 +548,36 @@
                                 android:textColor="@color/text_secondary"
                                 android:textSize="12sp" />
 
+                            <!-- The valuation framework: value, buy price, flags (Cr360FrameworkCard); its full calculation
+                                 opens from the line after it. -->
+                            <LinearLayout
+                                android:id="@+id/detailCr360Framework"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:orientation="vertical"
+                                android:paddingHorizontal="16dp"
+                                android:visibility="gone" />
+
+                            <TextView
+                                android:id="@+id/detailCr360FrameworkOpen"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="6dp"
+                                android:text="@string/fw_open"
+                                android:textColor="@color/text_primary"
+                                android:textSize="13sp"
+                                android:visibility="gone" />
+
+                            <LinearLayout
+                                android:id="@+id/detailCr360FrameworkBody"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:paddingHorizontal="16dp"
+                                android:visibility="gone" />
+
                             <LinearLayout
                                 android:id="@+id/detailCr360Parts"
                                 android:layout_width="match_parent"

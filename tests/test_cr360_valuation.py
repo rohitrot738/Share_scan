@@ -86,13 +86,20 @@ def test_a_bonus_issue_does_not_halve_a_lenders_past_price_to_book():
     assert 2.0 < out["pb"] < 3.0 and out["roa"] > 1.0
 
 
-def test_peg_values_steady_growers_at_a_peg_of_one():
+def test_peg_values_growers_at_their_own_pe_up_to_a_peg_of_two():
     stock = {"annual": [{"period": f"{y}-03-31", "eps": e} for y, e in ((2022, 10.0), (2023, 12.0), (2024, 14.4), (2025, 17.28))]}
-    out = v.peg_value(stock, 345.6, 17.28)
-    assert round(out["growth"], 6) == 20.0 and round(out["pe"], 6) == 20.0
-    assert round(out["peg"], 6) == 1.0 and round(out["iv"], 6) == 345.6
+    out = v.peg_value(stock, 345.6, 17.28, own_pe=30.0)
+    assert round(out["growth"], 6) == 20.0 and round(out["pe"], 6) == 20.0 and round(out["peg"], 6) == 1.0
+    # Its own usual P/E of 30 is under the cap of 2 × 20 = 40.
+    assert out["fair_pe"] == 30.0 and round(out["iv"], 6) == round(17.28 * 30, 6) and not out["base_sector"]
+    # A usual P/E of 60 is capped at a PEG of 2; the sector's stands in without a history; with neither, PEG 1.5.
+    assert round(v.peg_value(stock, 345.6, 17.28, own_pe=60.0)["fair_pe"], 6) == 40.0
+    sector = v.peg_value(stock, 345.6, 17.28, sector_pe=25.0)
+    assert sector["fair_pe"] == 25.0 and sector["base_sector"]
+    assert round(v.peg_value(stock, 345.6, 17.28)["fair_pe"], 6) == 30.0
     # Growth over 40% a year counts as 40; under 5% PEG says nothing and gives no value.
-    assert round(v.peg_value(stock, 345.6, 17.28 * 3)["iv"], 4) != 0
+    fast = {"annual": [{"period": f"{y}-03-31", "eps": e} for y, e in ((2022, 1.0), (2023, 2.0), (2024, 4.0), (2025, 8.0))]}
+    assert round(v.peg_value(fast, 400.0, 8.0, own_pe=200.0)["pe_cap"], 6) == 80.0
     slow = {"annual": [{"period": f"{y}-03-31", "eps": 10.0} for y in range(2022, 2026)]}
     assert "iv" not in v.peg_value(slow, 200.0, 10.0)
     assert v.peg_value(stock, 345.6, -1.0) is None and v.peg_value({"annual": stock["annual"][1:]}, 345.6, 17.28) is None

@@ -8,7 +8,8 @@ companies, and penalties for governance and risk, applied to the intrinsic value
   per share; 20% off when ROCE is under 12%.
 - Metals, mining, oil and gas: the same on mid-cycle EBITDA (the years' average), with a warning that a low P/E there
   is often peak earnings.
-- IT, FMCG and pharma: PEG, the P/E over the three-year EPS growth; the intrinsic value is the price at a PEG of 1.
+- IT, FMCG and pharma: PEG, the P/E over the three-year EPS growth; the intrinsic value is the earnings at the
+  company's own usual P/E, but never above a PEG of 2, where the spec calls a stock overvalued.
 - The rest: 360CR's own blend (sector P/E and P/B, the company's own P/E).
 
 Pure functions over the store's rows (Screener's figures in ₹ crore; EPS and book value per share in ₹) and the
@@ -199,9 +200,13 @@ def ev_value(stock: dict, price_rows: list[dict], price: float | None, mid_cycle
     return out
 
 
-def peg_value(stock: dict, price: float | None, eps: float | None) -> dict | None:
+def peg_value(stock: dict, price: float | None, eps: float | None, own_pe: float | None = None,
+              sector_pe: float | None = None) -> dict | None:
     """PEG: today's P/E over the yearly EPS growth of the last three years (the expected growth the spec asks for is
-    not published freely; the past three years stand in for it). The intrinsic value is the price at a PEG of 1."""
+    not published freely; the past three years stand in for it). The intrinsic value is the earnings at a fair P/E:
+    the company's own usual P/E (its sector's without a history), capped at a PEG of 2, where the spec calls a stock
+    overvalued; with neither, the middle of the spec's fair band, a PEG of 1.5. (The price at a PEG of 1 put
+    steady growers like TCS and HUL at a third of their price.)"""
     years = [a.get("eps") for a in stock.get("annual") or []]
     if not price or not eps or eps <= 0 or len(years) <= GROWTH_YEARS:
         return None
@@ -213,7 +218,10 @@ def peg_value(stock: dict, price: float | None, eps: float | None) -> dict | Non
     out = {"pe": pe, "growth": growth}
     if growth >= MIN_GROWTH:
         g = min(growth, MAX_GROWTH)
-        out.update(peg=pe / g, iv=eps * g)
+        base = own_pe or sector_pe
+        fair_pe = min(base, PEG_DEAR * g) if base else (PEG_CHEAP + PEG_DEAR) / 2 * g
+        out.update(peg=pe / g, base_pe=base, base_sector=not own_pe and bool(sector_pe), pe_cap=PEG_DEAR * g,
+                   fair_pe=fair_pe, iv=eps * fair_pe)
     return out
 
 
@@ -334,7 +342,8 @@ def penalties(stock: dict, financial: bool, today: date) -> tuple[float, int]:
 # --- all of it ------------------------------------------------------------------------------------------------------
 
 def assess(stock: dict, price_rows: list[dict], price: float | None, sector: str, eps: float | None,
-           general_iv: float | None, mos: float, today: date, sector_pb: float | None = None) -> dict:
+           general_iv: float | None, mos: float, today: date, sector_pb: float | None = None,
+           own_pe: float | None = None, sector_pe: float | None = None) -> dict:
     """The framework's verdict on one stock: the model that valued it, its intrinsic value before and after the
     penalties, the buy price under the margin of safety, the flags and the figures behind them."""
     model = SECTOR_MODEL.get(sector, GENERAL)
@@ -345,7 +354,7 @@ def assess(stock: dict, price_rows: list[dict], price: float | None, sector: str
     elif model in (ASSET, CYCLICAL):
         detail = ev_value(stock, price_rows, price, mid_cycle=model == CYCLICAL) or {}
     elif model == CASH:
-        detail = peg_value(stock, price, eps) or {}
+        detail = peg_value(stock, price, eps, own_pe, sector_pe) or {}
     raw, used = detail.get("iv"), model
     if not raw or raw <= 0:
         # The sector's model had too little to go on (a short price history, a loss, growth too slow for PEG): the

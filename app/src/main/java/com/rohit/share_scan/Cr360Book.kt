@@ -90,6 +90,49 @@ class Cr360Book(
 
         /** 1 when the company reports half-yearly (most SMEs): [QUARTERS] and [PROFITABLE_QUARTERS] count half-years. */
         HALF_YEARLY("hy"),
+
+        // The sector-wise valuation framework ([Cr360Framework]); [FAIR_VALUE] is its intrinsic value after penalties.
+        MODEL("mdl"),
+        SECTOR_MODEL("smd"),
+        RAW_VALUE("ivr"),
+        BUY_PRICE("bp"),
+        MARGIN_OF_SAFETY("mos"),
+        FLAGS("flg"),
+        PENALTIES("pf"),
+
+        /** The day a statutory auditor resigned within the penalty's year, as 20260501. */
+        AUDITOR_RESIGNED("adr"),
+        PLEDGE("pl"),
+        INTEREST_COVER("icr"),
+        CASH_TO_PROFIT("cfp"),
+        BOOK_VALUE("bv"),
+        NET_NPA("nnpa"),
+        ADJUSTED_BOOK("abv"),
+        PRICE_TO_BOOK("pbo"),
+
+        /** 1 when a lender's P/B is its sector's, its own history being too short. */
+        SECTOR_PB("pbs"),
+        ROA("roa"),
+        EV_EBITDA_OWN("evo"),
+        EV_EBITDA_NOW("evn"),
+        EBITDA_CR("eb"),
+        DEBT_CR("dt"),
+        SHARES_CR("sh"),
+        ROCE("roce"),
+        EPS_GROWTH("eg"),
+        PEG("peg"),
+
+        /** The P/E a PEG stock's value starts from: its own usual one, or its sector's when [SECTOR_PE] is 1. */
+        BASE_PE("bpe"),
+        SECTOR_PE("pes"),
+
+        /** The P/E at a PEG of 2, the most a PEG stock is valued at, and the fair P/E it is valued at. */
+        PE_CAP("pcap"),
+        FAIR_PE("fpe"),
+        EMA_200("e200"),
+        GAP_LOW("fvb"),
+        GAP_HIGH("fvt"),
+        SWEPT_LOW("wsl"),
     }
 
     companion object {

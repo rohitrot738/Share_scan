@@ -243,7 +243,7 @@ def research_input(symbol: str, stock: dict, price_rows: list[dict], anchor: tup
     blend = [v for v in (median(market) if market else None, valuation.get("history_fair_value")) if v]
     verdict = framework.assess(stock, price_rows, price, sector, eps if believable else None,
                                sum(blend) / len(blend) if blend else None, mos, today or date.today(),
-                               sector_pb=anchor[1] if anchor else None)
+                               sector_pb=anchor[1] if anchor else None, own_pe=own_pe, sector_pe=anchor[0] if anchor else None)
     if verdict["iv"]:
         valuation["framework_fair_value"] = verdict["iv"]
     events = lambda key: [{"date": e[0], "side": e[1], "value": e[2]} for e in stock.get(key) or []]
@@ -311,7 +311,9 @@ def framework_facts(fw: dict) -> dict:
     return {
         "mdl": framework.MODEL_CODE.get(fw.get("model")), "smd": framework.MODEL_CODE.get(fw.get("sector_model")),
         "ivr": _r(fw.get("raw_iv"), 2), "bp": _r(fw.get("buy"), 2), "mos": pct(fw.get("mos")),
-        "flg": fw.get("flags") or None, "pf": fw.get("penalties") or None, "adr": fw.get("auditor"),
+        "flg": fw.get("flags") or None, "pf": fw.get("penalties") or None,
+        # The day an auditor resigned in the penalty's year, as a number (20260501): the app's facts are numbers.
+        "adr": int(fw["auditor"].replace("-", "")) if fw.get("auditor") else None,
         "pl": _r(fw.get("pledge"), 2), "icr": _r(fw.get("icr"), 2), "cfp": _r(fw.get("cfo_pat"), 2),
         # Banks: book value, net bad loans, adjusted book, the P/B it is valued at (sector's: "pbs") and ROA.
         "bv": _r(fw.get("bvps"), 2), "nnpa": _r(fw.get("net_npa"), 2), "abv": _r(fw.get("adjusted_bvps"), 2),
@@ -320,8 +322,10 @@ def framework_facts(fw: dict) -> dict:
         # Makers and cyclicals: their own and today's EV/EBITDA, the EBITDA and debt (₹ Cr), shares (Cr) and ROCE.
         "evo": _r(fw.get("ev_ebitda_own"), 2), "evn": _r(fw.get("ev_ebitda_now"), 2), "eb": _r(fw.get("ebitda"), 1),
         "dt": _r(fw.get("debt"), 1), "sh": _r(fw.get("shares"), 4), "roce": _r(fw.get("roce"), 1),
-        # IT, FMCG, pharma: three-year EPS growth and PEG.
-        "eg": _r(fw.get("growth"), 1), "peg": _r(fw.get("peg"), 2),
+        # IT, FMCG, pharma: three-year EPS growth, PEG, the P/E it starts from (the sector's: "pes"), the cap at a
+        # PEG of 2 and the fair P/E the earnings are valued at.
+        "eg": _r(fw.get("growth"), 1), "peg": _r(fw.get("peg"), 2), "bpe": _r(fw.get("base_pe"), 1),
+        "pes": 1 if fw.get("base_sector") else None, "pcap": _r(fw.get("pe_cap"), 1), "fpe": _r(fw.get("fair_pe"), 2),
         # The chart: 200-day EMA, the bullish fair-value gap and the weekly swing low swept.
         "e200": _r(fw.get("ema200"), 2), "fvb": _r(gap[0], 2), "fvt": _r(gap[1], 2), "wsl": _r(fw.get("sweep"), 2),
     }
