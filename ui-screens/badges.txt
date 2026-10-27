@@ -1,0 +1,210 @@
+--------- beginning of main
+10-27 15:06:28.787  3033  3732 I NewsTest: probe nse-stock: 200 application/json; charset=utf-8 8689B [{"an_dt":"27-Oct-2026 19:17:10","attFileSize":"250.61 KB","attchmntFile":"https://nsearchives.nseindia.com/corporate/kavinavora_27102026191700_SE_27102026.pdf"
+10-27 15:06:28.927  3033  3732 I NewsTest: probe nse-market: 200 application/json; charset=utf-8 818250B [{"an_dt":"27-Oct-2026 20:30:49","attFileSize":"291.86 KB","attchmntFile":"https://nsearchives.nseindia.com/corporate/MARUTIASHISH_27102026202705_SubmissionofAu
+10-27 15:06:29.395  3033  3732 I NewsTest: probe nse-home: 200 text/html; charset=utf-8 170896B <!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="viewport" content="
+10-27 15:06:29.416  3033  3732 I NewsTest: probe cookie names: [AKA_A2, _abck, ak_bmsc, bm_mi, bm_sz]
+10-27 15:06:29.567  3033  3732 I NewsTest: probe nse-market-cookie: 200 application/json; charset=utf-8 818250B [{"an_dt":"27-Oct-2026 20:30:49","attFileSize":"291.86 KB","attchmntFile":"https://nsearchives.nseindia.com/corporate/MARUTIASHISH_27102026202705_SubmissionofAu
+10-27 15:06:30.761  3033  3732 I NewsTest: probe bse-stock: 200 application/json; charset=utf-8 15402B {"Table":[{"NEWSID":"e70ee0c0-22ad-4428-a23a-2da1f60f735f","SCRIP_CD":500325,"XML_NAME":"ANN_500325_E70EE0C0-22AD-4428-A23A-2DA1F60F735F","NEWSSUB":"Announcemen
+10-27 15:06:31.719  3033  3732 I NewsTest: probe google: 200 application/xml; charset=utf-8 123788B <?xml version="1.0" encoding="UTF-8" standalone="yes"?><rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/"><channel><generator>NFE/5.0</generator><ti
+10-27 15:06:43.273  3033  3732 I NewsTest: probe repo market: 1304
+10-27 15:06:43.424  3033  3732 I NewsTest: probe repo nse stock: 12
+10-27 15:06:44.123  3033  3732 I NewsTest: probe repo bse stock: 13
+10-27 15:06:45.214  3033  3732 I NewsTest: probe repo articles: 61
+10-27 15:10:58.056  3033  6514 I NewsTest: badge ABDL RESULTS 3 A press release dated October 27, 2026, titled "ABD Delivers Strong Topline Growth in Q2FY27
+10-27 15:10:58.056  3033  6514 I NewsTest: badge ICICIAMC MANAGEMENT 3 Resignation of Director/KMP/SMP
+10-27 15:10:58.057  3033  6514 I NewsTest: badge WAAREEENER DEAL 2 Acquisition
+10-27 15:10:58.057  3033  6514 I NewsTest: badge SYNGENE RESULTS 2 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.057  3033  6514 I NewsTest: badge GULFOILLUB OTHER 1 We enclose herewith, intimation regarding a fire incident at one of the Company's Warehouse
+10-27 15:10:58.057  3033  6514 I NewsTest: badge ASIANHOTNR LEGAL 1 Action(s) taken or orders passed
+10-27 15:10:58.057  3033  6514 I NewsTest: badge KNACK RESULTS 3 A press release dated October 27, 2026, titled "Press Release on Un-Audited Financial Results for the Q2 FY2027
+10-27 15:10:58.057  3033  6514 I NewsTest: badge SHAHINVEST RESULTS 5 , the financial results for the period ended June 30, 2026
+10-27 15:10:58.058  3033  6514 I NewsTest: badge VERTOZ OTHER 1 A press release dated October 27, 2026, titled "Vertoz Introduces AI Connectivity for Advertisers and Publishers
+10-27 15:10:58.058  3033  6514 I NewsTest: badge KANPRPLA RESULTS 3 A press release dated October 27, 2026, titled "Media Release on Financial Results for the Quarter and Half Year ended September 30, 2026
+10-27 15:10:58.058  3033  6514 I NewsTest: badge SCHAEFFLER RESULTS 4 , the Unaudited financial results (Standalone and Consolidated) for the quarter ended September 30, 2026
+10-27 15:10:58.058  3033  6514 I NewsTest: badge TMCV OTHER 3 A press release dated October 27, 2026, titled "TML CV Holdings B.V., an Indirect Wholly Owned Subsidiary of Tata Motors Limited (formerly T
+10-27 15:10:58.058  3033  6514 I NewsTest: badge FDC RESULTS 4 Financial Results for the period ended 30th September 2026
+10-27 15:10:58.058  3033  6514 I NewsTest: badge JSWCEMENT EXPANSION 4 This is to inform you that the Board of Directors of JSW Cement Limited has, in its meetingheld today i.e. Tuesday, 27th October, 2026 appro
+10-27 15:10:58.058  3033  6514 I NewsTest: badge HAVELLS MANAGEMENT 2 Resignation of Director/KMP/SMP
+10-27 15:10:58.058  3033  6514 I NewsTest: badge KPITTECH OTHER 1 The grant of 54,100 Options to the eligible employees covered under the KPIT Technologies Limited - Restricted Stock Unit Plan 2022
+10-27 15:10:58.058  3033  6514 I NewsTest: badge NEPHROPLUS OTHER 1 Agreements
+10-27 15:10:58.058  3033  6514 I NewsTest: badge MOREPENLAB RESULTS 3 A press release dated October 27, 2026, titled "Morepen hits record Q2 revenue of Rs. 755 Cr; EBITDA surges 273% to Rs. 132 Cr; CDMO momentu
+10-27 15:10:58.058  3033  6514 I NewsTest: badge PGEL RESULTS 2 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.059  3033  6514 I NewsTest: badge PFS RESULTS 2 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.059  3033  6514 I NewsTest: badge MOTHERSON LEGAL 2 Samvardhana Motherson International Limited has voluntarily submitted a disclosure on receipt of rescission notice on penalty, initially dis
+10-27 15:10:58.059  3033  6514 I NewsTest: badge CONCORDBIO RESULTS 2 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.059  3033  6514 I NewsTest: badge SECMARK RESULTS 2 Pursuant to Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015, we wish to inform you that the Bo
+10-27 15:10:58.059  3033  6514 I NewsTest: badge ACMESOLAR EXPANSION 1 An update on the commissioning of its Battery Energy Storage System (BESS) Project
+10-27 15:10:58.059  3033  6514 I NewsTest: badge TANLA RESULTS 5 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.059  3033  6514 I NewsTest: badge MFSL RESULTS 3 Approval of unaudited standalone and consolidated financial results of the Company for the quarter and half year ended September 30, 2026
+10-27 15:10:58.059  3033  6514 I NewsTest: badge ASHIANA FUNDRAISE 1 Upward Revision in Issuer Rating and Rating of NCDs (listed on BSE Ltd.) by Care Edge
+10-27 15:10:58.059  3033  6514 I NewsTest: badge VISHWARAJ OTHER 2 Reconciliation of Share Capital under Regulation 76 of SEBI (DP), 2018
+10-27 15:10:58.059  3033  6514 I NewsTest: badge AEROENTER OTHER 1 The Amendment to AOA/MOA of the company
+10-27 15:10:58.059  3033  6514 I NewsTest: badge INDUSTOWER RESULTS 3 A Press Release dated October 27, 2026, titled "Press Release w.r.t. Audited Financial Results for the second quarter (Q2) and half year end
+10-27 15:10:58.059  3033  6514 I NewsTest: badge VISL RESULTS 3 Please refer the enclosed press release of Q2 for FY 2027
+10-27 15:10:58.060  3033  6514 I NewsTest: badge SBILIFE RESULTS 2 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.060  3033  6514 I NewsTest: badge RADICO RESULTS 4 , the financial results for the quarter and half year ended September 30, 2026
+10-27 15:10:58.060  3033  6514 I NewsTest: badge AVALON OTHER 1 Outcome of Board Meeting held on October 27, 2026
+10-27 15:10:58.060  3033  6514 I NewsTest: badge SHK LEGAL 1 The Company has received Exchange Letters (Cautionary) from BSE Limited and National Stock Exchange of India Limited today i.e. October 27, 
+10-27 15:10:58.060  3033  6514 I NewsTest: badge ARIS ORDER 3 Receiving of orders through its Subsidiary Entity
+10-27 15:10:58.060  3033  6514 I NewsTest: badge STEAMHOUSE OTHER 1 A press release dated October 27, 2026, titled "Disclosure under Regulation 30 of the SEBI (Listing Obligations and Disclosure Requirements)
+10-27 15:10:58.060  3033  6514 I NewsTest: badge IFBIND RESULTS 1 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.060  3033  6514 I NewsTest: badge INFOMEDIA OTHER 1 Regulation 30 & 33 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015 Outcome
+10-27 15:10:58.060  3033  6514 I NewsTest: badge MANBA RESULTS 5 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.062  3033  6514 I NewsTest: badge GANDHAR RESULTS 3 A press release dated October 27, 2026, titled "Press Release on Un-audited Financial Results (Standalone and Consolidated) for the quarter 
+10-27 15:10:58.062  3033  6514 I NewsTest: badge LT RESULTS 3 Analyst Presentation.- Q2 / H1 FY27
+10-27 15:10:58.062  3033  6514 I NewsTest: badge CRAMC MANAGEMENT 3 Change in Director(s) of the company
+10-27 15:10:58.063  3033  6514 I NewsTest: badge ORKLAINDIA MANAGEMENT 3 Appointment of Ms Maria Syse Nybraaten as Chairperson of the company w.e.f. October 27, 2026
+10-27 15:10:58.063  3033  6514 I NewsTest: badge KIRLOSBROS RESULTS 2 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.063  3033  6514 I NewsTest: badge HEROMOTOCO OTHER 2 The Nomination and Remuneration Committee of the Company at its meeting held today i.e. i.e. October 27, 2026 has (i) allotted 20,615 equity
+10-27 15:10:58.063  3033  6514 I NewsTest: badge EFCIL DEAL 1 Final Date of Hearing of the Petition of Scheme of Arrangement (Demerger) between EFC Limited and EFC (I) Limited
+10-27 15:10:58.063  3033  6514 I NewsTest: badge LLOYDSME DEAL 1 Update on Acquisitions
+10-27 15:10:58.063  3033  6514 I NewsTest: badge STERTOOLS RESULTS 4 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.064  3033  6514 I NewsTest: badge PREMIER LEGAL 10 Post-Facto Intimation of the Twenty-Fifth Meeting of Committee of Creditors ( CoC ) of Premier Limited, the Corporate Debtor was held on Thu
+10-27 15:10:58.064  3033  6514 I NewsTest: badge ACEVECTOR OTHER 3 The Amendment to AOA/MOA of the company
+10-27 15:10:58.064  3033  6514 I NewsTest: badge GRAVITA RESULTS 4 The financial results for the quarter and half year ended 30th September 2026
+10-27 15:10:58.064  3033  6514 I NewsTest: badge RNBDENIMS MANAGEMENT 3 Resignation of Director/KMP/SMP
+10-27 15:10:58.064  3033  6514 I NewsTest: badge MEDPLUS OTHER 1 Outcome of Board meeting under SEBI (Listing Obligation and Disclosure requirements)Regulations 2015 (Listing Regulations)
+10-27 15:10:58.064  3033  6514 I NewsTest: badge HOMEFIRST RESULTS 3 , the financial results for the period ended September 30, 2026 and other matters
+10-27 15:10:58.064  3033  6514 I NewsTest: badge LTFOODS RESULTS 3 A press release dated October 27, 2026, titled "Please find enclosed copy of Press Release on the Un-Audited financial results of the Compan
+10-27 15:10:58.064  3033  6514 I NewsTest: badge SHAREINDIA LEGAL 2 We are pleased to inform you that the Company has received the certified true copy of the Rectification Order dated 12.10.2026 passed by the
+10-27 15:10:58.064  3033  6514 I NewsTest: badge RAYMONDREL RESULTS 2 A press release dated October 27, 2026, titled "Press Release for the financial results for the second quarter and half year ended September
+10-27 15:10:58.065  3033  6514 I NewsTest: badge VSSL RESULTS 3 A media release dated October 27, 2026, titled "Media Release - Q2 FY27 Results
+10-27 15:10:58.065  3033  6514 I NewsTest: badge SICALLOG OTHER 1 Outcome of Board Meeting held on October 27, 2026 regarding the Availing of Lease Facility & Working Capital Demand Loan Facility from Tata 
+10-27 15:10:58.065  3033  6514 I NewsTest: badge RAJSREESUG OTHER 1 Intimation of receipt of cautionary communication from BSE Limited
+10-27 15:10:58.065  3033  6514 I NewsTest: badge DBOL OTHER 1 Dhampur Bio Organics Limited has updated the information provided to the Exchange regarding Demise of Mr. Surendra Rai Kapur, Cost Auditor o
+10-27 15:10:58.066  3033  6514 I NewsTest: badge MAZDOCK RESULTS 5 , the Unaudited Financial Results (Standalone & Consolidated) of the Company for the quarter and period ended on 30 September 2026
+10-27 15:10:58.066  3033  6514 I NewsTest: badge MUKKA OTHER 1 US FDA Registration
+10-27 15:10:58.067  3033  6514 I NewsTest: badge BANSWRAS OTHER 1 Strikes/lockouts/disturbances
+10-27 15:10:58.067  3033  6514 I NewsTest: badge EXIDEIND OTHER 1 Further investment in Exide Energy Solutions Limited, Wholly Owned Subsidiary of the Company
+10-27 15:10:58.067  3033  6514 I NewsTest: badge ZAGGLE OTHER 1 Significant increase in volume has been observed in Zaggle Prepaid Ocean Services Limited. The Exchange, in order to ensure that investors h
+10-27 15:10:58.067  3033  6514 I NewsTest: badge OPTIEMUS OTHER 1 Agreements
+10-27 15:10:58.068  3033  6514 I NewsTest: badge JAGRAN OTHER 1 Jagran Prakashan Limited has informed the Stock Exchange about disclosure Under Regulation 30 of the SEBI (Listing Obligations and Disclosur
+10-27 15:10:58.068  3033  6514 I NewsTest: badge NAVKARCORP OTHER 1 A press release dated October 27, 2026, titled "Media Release
+10-27 15:10:58.068  3033  6514 I NewsTest: badge TCI RESULTS 4 A press release dated October 27, 2026, titled "Press Release on Unaudited Financial Results (Standalone and Consolidated) for the second qu
+10-27 15:10:58.069  3033  6514 I NewsTest: badge IOB MANAGEMENT 1 Appointment of Mr Akshit Choudhary as Chief Financial Officer of the company w.e.f. November 01, 2026
+10-27 15:10:58.069  3033  6514 I NewsTest: badge TNTELE OTHER 1 Significant movement in price has been observed in Tamilnadu Telecommunication Limited. The Exchange, in order to ensure that investors have
+10-27 15:10:58.069  3033  6514 I NewsTest: badge SUBROS ORDER 1 Bagging/Receiving of orders/contracts
+10-27 15:10:58.070  3033  6514 I NewsTest: badge MARALOVER RESULTS 3 , the financial results for the period ended September 30, 2026 along with in principle approval of capex plan and update on acquisition in 
+10-27 15:10:58.070  3033  6514 I NewsTest: badge BAJAJ-AUTO RESULTS 7 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.070  3033  6514 I NewsTest: badge SIEMENS OTHER 1 Reduction of share capital of C&S Electric Limited (a subsidiary of Siemens Limited): Receipt of the Certificate from Registrar of Companies
+10-27 15:10:58.071  3033  6514 I NewsTest: badge CHOICEIN OTHER 2 A press release dated October 27, 2026, titled "Press release on investment by NH Investment & Securities Co., Ltd. amounting to Rs. 900 Cro
+10-27 15:10:58.071  3033  6514 I NewsTest: badge GULFPETRO RESULTS 4 A press release dated October 27, 2026, titled "GP Petroleums Q2 FY27 PAT rises 179% YoY to &#8377;15.3 crore, Revenue from Operations for Q
+10-27 15:10:58.071  3033  6514 I NewsTest: badge DMART LEGAL 1 Action(s) initiated or orders passed
+10-27 15:10:58.072  3033  6514 I NewsTest: badge RKFORGE DIVIDEND 1 Record date for the purpose of 1st Interim Dividend for the financial year 2026-27 is 06-Nov-2026
+10-27 15:10:58.072  3033  6514 I NewsTest: badge NIITLTD RESULTS 3 A press release dated October 27, 2026, titled "Press Release for Unaudited Financial Results for the quarter ended September30, 2026
+10-27 15:10:58.072  3033  6514 I NewsTest: badge TATACAP RESULTS 3 A press release dated October 27, 2026, titled "Tata Capital Limited has informed the Exchange about Press Release on Unaudited Standalone a
+10-27 15:10:58.073  3033  6514 I NewsTest: badge AWL RESULTS 2 A press release dated October 27, 2026, titled "Press Release on the Unaudited Financial Results for the quarter and half year ended on 30th
+10-27 15:10:58.073  3033  6514 I NewsTest: badge MIDHANI EXPANSION 1 A press release dated October 27, 2026, titled "MIDHANI signs MoU with HWB and BARC for recovery of Nickel and Cobalt from plant reverts
+10-27 15:10:58.073  3033  6514 I NewsTest: badge SGMART RESULTS 3 A press release dated October 27, 2026, titled "Q2FY27 Result Highlights
+10-27 15:10:58.074  3033  6514 I NewsTest: badge OMAXE RESULTS 2 , the financial results for the period ended on September 30, 2026
+10-27 15:10:58.074  3033  6514 I NewsTest: badge CANFINHOME OTHER 1 Outcome of Board Meeting held on October 27, 2026
+10-27 15:10:58.074  3033  6514 I NewsTest: badge AGL OTHER 1 Monthly Business Updates for the month of September 2026
+10-27 15:10:58.075  3033  6514 I NewsTest: badge RAYMOND RESULTS 2 A press release dated October 27, 2026, titled "Raymond Limited reports a stellar Q2 FY27 performance
+10-27 15:10:58.075  3033  6514 I NewsTest: badge JSWINFRA RESULTS 2 A press release dated October 27, 2026, titled "Media Release on Unaudited Standalone and Consolidated Financial Results of the Company for 
+10-27 15:10:58.075  3033  6514 I NewsTest: badge CINEVISTA RESULTS 1 To consider and Approve Financial Results (Standalone & Consolidated) for the Quarter and year ended 30th September, 2026
+10-27 15:10:58.076  3033  6514 I NewsTest: badge EMBDL FUNDRAISE 1 Allotment of an aggregate of 1,22,00,000 Equity Shares of the Company pursuant to the conversion of Warrants
+10-27 15:10:58.076  3033  6514 I NewsTest: badge TBZ RESULTS 2 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.077  3033  6514 I NewsTest: badge BPCL RATING 1 Credit Rating
+10-27 15:10:58.077  3033  6514 I NewsTest: badge INFY OTHER 1 Infosys Successfully Delivers Syngenta s Global SAP S/4HANA Transformation for Crop Protection Business
+10-27 15:10:58.078  3033  6514 I NewsTest: badge SIYSIL RESULTS 5 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.078  3033  6514 I NewsTest: badge CANBK OTHER 1 . Exercising of Call Option of Basel III Compliant Additional Tier I Bond (ISIN: INE476A08134)-RBI Approval
+10-27 15:10:58.079  3033  6514 I NewsTest: badge UGARSUGAR RESULTS 1 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.079  3033  6514 I NewsTest: badge CSLFINANCE OTHER 1 Change in Management
+10-27 15:10:58.080  3033  6514 I NewsTest: badge PAYTM RESULTS 8 The Earnings Release for the quarter and half year ended September 30, 2026
+10-27 15:10:58.080  3033  6514 I NewsTest: badge CPPLUS OTHER 1 A press release dated October 27, 2026, titled "Ranveer Singh Joins CP PLUS as Brand Ambassador, India s Leading Brand in Smart Security Rev
+10-27 15:10:58.080  3033  6514 I NewsTest: badge KARAMTARA ORDER 1 A press release dated October 27, 2026, titled "Karamtara Engineering Limited has informed the exchange regarding a press release "Company S
+10-27 15:10:58.081  3033  6514 I NewsTest: badge HONAUT RESULTS 2 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.081  3033  6514 I NewsTest: badge INDIAMART RESULTS 3 A press release dated October 27, 2026, titled "Press Release on the Audited Consolidated and Standalone Financial Results of the Company fo
+10-27 15:10:58.081  3033  6514 I NewsTest: badge INDOCO RESULTS 2 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.081  3033  6514 I NewsTest: badge MARUTI RESULTS 3 A press release dated October 27, 2026, titled "Maruti Suzuki India Limited Financial Results Q2 and H1 FY 2026-27
+10-27 15:10:58.082  3033  6514 I NewsTest: badge GPTINFRA MANAGEMENT 1 Appointment of Cygnus Partners Private Limited for providing Investor Relations Advisory Services to the Company
+10-27 15:10:58.082  3033  6514 I NewsTest: badge ATUL DIVIDEND 1 Public Announcement - Buyback of Shares
+10-27 15:10:58.082  3033  6514 I NewsTest: badge APLLTD OTHER 1 Alembic Pharmaceuticals Limited receives USFDA Final Approval for Valganciclovir for Oral Solution, 50 mg/mL
+10-27 15:10:58.083  3033  6514 I NewsTest: badge DHARSUGAR LEGAL 1 Discl.default Loans including revolving like cash credit from banks Default
+10-27 15:10:58.083  3033  6514 I NewsTest: badge GPTHEALTH MANAGEMENT 1 Appointment of Cygnus Partners Private Limited for providing Investor Relations Advisory Services
+10-27 15:10:58.083  3033  6514 I NewsTest: badge ACC RESULTS 2 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.083  3033  6514 I NewsTest: badge LGEINDIA OTHER 1 A press release dated October 27, 2026, titled "LG Introduces its Ultra-Large 292 cm (115'')QNED evo Al Mini LED TV in India-The Giant of En
+10-27 15:10:58.084  3033  6514 I NewsTest: badge FISCHER OTHER 1 Fischer Medical Ventures Limited has informed that Mr. Chan Sing En has been appointed as an Independent Director on the Board of Directors 
+10-27 15:10:58.084  3033  6514 I NewsTest: badge BALAJITELE OTHER 1 Stock Options granted to eligible employees
+10-27 15:10:58.084  3033  6514 I NewsTest: badge WAAREERTL ORDER 1 Bagging/Receiving of orders/contracts
+10-27 15:10:58.084  3033  6514 I NewsTest: badge VENUSPIPES FUNDRAISE 1 Allotment of 2227544 securities pursuant to Preferential Issue at its meeting held on October 27, 2026
+10-27 15:10:58.085  3033  6514 I NewsTest: badge AKSHAR RESULTS 1 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.085  3033  6514 I NewsTest: badge PIDILITIND OTHER 1 General Updates
+10-27 15:10:58.085  3033  6514 I NewsTest: badge JUBLINGREA OTHER 2 Change in Management
+10-27 15:10:58.086  3033  6514 I NewsTest: badge PRAXIS OTHER 1 Loan Agreement
+10-27 15:10:58.086  3033  6514 I NewsTest: badge HUHTAMAKI RESULTS 2 A press release dated October 27, 2026, titled "Press Release for Q3 results
+10-27 15:10:58.086  3033  6514 I NewsTest: badge KHANDSE RESULTS 1 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.087  3033  6514 I NewsTest: badge KIRLPNU RESULTS 3 A press release dated October 27, 2026, titled "Press Release on Unaudited Financial Results
+10-27 15:10:58.087  3033  6514 I NewsTest: badge VIKRAMSOLR ORDER 1 A press release dated October 27, 2026, titled "Vikram Solar Secures Major 289.87 MWp Order for Grid-Scale Solar in Rajasthan from NLC India
+10-27 15:10:58.087  3033  6514 I NewsTest: badge CENTENKA RESULTS 1 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.088  3033  6514 I NewsTest: badge BBL RESULTS 1 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.088  3033  6514 I NewsTest: badge LEAPIND RESULTS 4 A press release dated October 26, 2026, titled "Press Release for Unaudited Financial Results for the quarter and half year ended September 
+10-27 15:10:58.088  3033  6514 I NewsTest: badge EIMCOELECO OTHER 1 Product launch - DW-220 Hydraulic Diaphragm Wall Grab
+10-27 15:10:58.088  3033  6514 I NewsTest: badge SUPREMEENG FUNDRAISE 1 Supreme Engineering Limited Receipt of In-Principle Approval from the Stock Exchanges for Preferential Issue
+10-27 15:10:58.089  3033  6514 I NewsTest: badge RIR RESULTS 1 A press release dated October 27, 2026, titled "RIR Power Electronics Limited Announces Q2 FY27 Results
+10-27 15:10:58.089  3033  6514 I NewsTest: badge DEEPAKFERT MANAGEMENT 2 Appointment of Mr Pankaj Gupta as Company Secretary & Compliance Officer of the company w.e.f. November 01, 2026
+10-27 15:10:58.089  3033  6514 I NewsTest: badge CIPLA RESULTS 5 A press release dated October 27, 2026, titled "Q2FY27 Financial Results
+10-27 15:10:58.090  3033  6514 I NewsTest: badge CMLL OTHER 1 Outcome of Board Meeting held on October 27, 2026
+10-27 15:10:58.090  3033  6514 I NewsTest: badge BHARATSE RESULTS 2 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.090  3033  6514 I NewsTest: badge MCL LEGAL 1 Action(s) taken or orders passed
+10-27 15:10:58.091  3033  6514 I NewsTest: badge BANDHANBNK OTHER 1 Rumour Verification - Regulation 30(11)
+10-27 15:10:58.091  3033  6514 I NewsTest: badge DYCL RESULTS 3 A press release dated October 27, 2026, titled "Press release on the Un-Audited Financial Results of the Company for the quarter and half ye
+10-27 15:10:58.091  3033  6514 I NewsTest: badge 3IINFOLTD LEGAL 1 Pendency of Litigation(s)/dispute(s) or the outcome impacting the Company
+10-27 15:10:58.092  3033  6514 I NewsTest: badge IRISDOREME RESULTS 3 A press release dated October 27, 2026, titled "Iris Clothings Delivers Strong Q2 FY27 with Robust Growth of 40.3% in Revenue; H1 EBITDA Jum
+10-27 15:10:58.092  3033  6514 I NewsTest: badge ACUTAAS RESULTS 2 A press release dated October 27, 2026, titled "Q2 & H1 FY27 Results
+10-27 15:10:58.092  3033  6514 I NewsTest: badge ODIGMA RESULTS 1 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.092  3033  6514 I NewsTest: badge COALINDIA EXPANSION 1 A press release dated October 27, 2026, titled "Press Release on Coal India Logs 27% Growth in Capex During H1 FY 27; Achieves 109% of Plann
+10-27 15:10:58.092  3033  6514 I NewsTest: badge CNL OTHER 1 Creative Newtech s Subsidiary Secure Connection Limited Wins New Rising Star Award for WOZOYO at Amazon Ads Global Peak Season Ads Summit 20
+10-27 15:10:58.092  3033  6514 I NewsTest: badge TATAPOWER OTHER 1 A press release dated October 27, 2026, titled "Tata Power Signs MoU with BPCL to Develop 110 kV Power Infrastructure for its Landmark PRFCC
+10-27 15:10:58.092  3033  6514 I NewsTest: badge KNRCON OTHER 2 Financial Closure
+10-27 15:10:58.093  3033  6514 I NewsTest: badge LCCINFOTEC MANAGEMENT 2 Appointment of Mr. Deepak Sundarji Saushi as Executive Director of the company w.e.f. October 27, 2026
+10-27 15:10:58.093  3033  6514 I NewsTest: badge BAJAJELEC RESULTS 1 Revised Intimation regarding the Technical Issue with the Link for the Q2FY27 Earnings Call
+10-27 15:10:58.093  3033  6514 I NewsTest: badge MAHLIFE OTHER 1 A press release dated October 27, 2026, titled "Mahindra Lifespaces to develop 10.05 acre land parcel in North Bengaluru with INR 1250 crore
+10-27 15:10:58.093  3033  6514 I NewsTest: badge MARINE ORDER 1 Bagging/Receiving of orders/contracts
+10-27 15:10:58.093  3033  6514 I NewsTest: badge TARIL OTHER 1 A press release dated October 27, 2026, titled "Press Release - Update on Manufacturing Facilities at Chiyada, Gujarat
+10-27 15:10:58.093  3033  6514 I NewsTest: badge ONEPOINT OTHER 1 A press release dated October 27, 2026, titled "Intimation of Press Release regarding international recognition at WORLDCOB's THE BIZZ Award
+10-27 15:10:58.094  3033  6514 I NewsTest: badge HESTERBIO MANAGEMENT 1 Completion of Tenure of Independent Director Mr Ameetkumar Desai as Non- Executive Independent Director of the company w.e.f. October 27, 20
+10-27 15:10:58.094  3033  6514 I NewsTest: badge ONESOURCE RESULTS 3 A press release dated October 27, 2026, titled "OneSource Announces Strong Q2FY27 ResultsRevenue up 37% YoY and EBITDA up 53% YoY
+10-27 15:10:58.094  3033  6514 I NewsTest: badge KFINTECH OTHER 1 The Grant of Foreign Business License to KFin Technologies (Thailand) Limited, a subsidiary of the Company
+10-27 15:10:58.094  3033  6514 I NewsTest: badge LTM OTHER 1 A press release dated October 27, 2026, titled "LTM Secures Strategic Engagement with a Global Banking and Financial Services Firm
+10-27 15:10:58.094  3033  6514 I NewsTest: badge COFORGE OTHER 1 A press release dated October 27, 2026, titled ""Coforge Partners with Driving Forward to Expand Career Pathways for First-Generation and Un
+10-27 15:10:58.094  3033  6514 I NewsTest: badge RAILTEL ORDER 2 Bagging/Receiving of orders/contracts
+10-27 15:10:58.094  3033  6514 I NewsTest: badge WABAG EXPANSION 1 Bagging of Order/Contract - WABAG secures order from RIL to deliver Mega Desalination Plant and Remineralisation Plant at Jamnagar
+10-27 15:10:58.094  3033  6514 I NewsTest: badge HDFCBANK MANAGEMENT 1 Disclosure under Regulation 30 and other applicable regulations of the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2
+10-27 15:10:58.094  3033  6514 I NewsTest: badge PERSISTENT OTHER 2 Allotment of 7683981 securities pursuant to Qualified Institution Placement at its meeting held on October 26, 2026
+10-27 15:10:58.094  3033  6514 I NewsTest: badge APOLLO OTHER 2 General Updates
+10-27 15:10:58.095  3033  6514 I NewsTest: badge WEWORK RESULTS 4 Shareholders' Letter for H1 & Q2 FY27
+10-27 15:10:58.095  3033  6514 I NewsTest: badge HEGAM MANAGEMENT 1 Appointment/reappointment/change in designation of Directors by Malana Power Company Limited and AD Hydro Power Limited subsidiaries of the 
+10-27 15:10:58.095  3033  6514 I NewsTest: badge ARE&M OTHER 1 Change in Management
+10-27 15:10:58.095  3033  6514 I NewsTest: badge RSYSTEMS MANAGEMENT 1 Appointment of Mr Vikas Basra as Chief AI Officer of the company w.e.f. October 26, 2026
+10-27 15:10:58.095  3033  6514 I NewsTest: badge SMCGLOBAL RESULTS 1 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.095  3033  6514 I NewsTest: badge AAVAS OTHER 1 General Updates
+10-27 15:10:58.095  3033  6514 I NewsTest: badge PARACABLES RESULTS 1 A press release dated 26th October, 2026, titled "Press Release on the Unaudited Financial Results of the Company under Regulation 30 of SEB
+10-27 15:10:58.095  3033  6514 I NewsTest: badge KMEW OTHER 2 General Updates
+10-27 15:10:58.095  3033  6514 I NewsTest: badge SUNTECK RESULTS 2 A press release dated October 26, 2026, titled "Press Release on Financial Results for the quarter and half year ended 30th September 2026
+10-27 15:10:58.095  3033  6514 I NewsTest: badge SHREEDHAR RESULTS 1 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.095  3033  6514 I NewsTest: badge URBAN DEAL 2 JOINT VENTURE Agreements
+10-27 15:10:58.095  3033  6514 I NewsTest: badge OPTIMYSTIX RESULTS 1 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.095  3033  6514 I NewsTest: badge AMBANIORGO FUNDRAISE 2 Issue of up to 43,92,500 (Forty-Three Lakhs Ninety-Two Thousand Five Hundred) Convertible Warrants, each convertible into one Equity Share o
+10-27 15:10:58.095  3033  6514 I NewsTest: badge NEOCHEM RESULTS 1 , the Unaudited Half Yearly financial results for the period ended September 30, 2026
+10-27 15:10:58.095  3033  6514 I NewsTest: badge KALANA OTHER 1 General Updates
+10-27 15:10:58.096  3033  6514 I NewsTest: badge SAJHOTELS RESULTS 2 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.096  3033  6514 I NewsTest: badge KARNIKA OTHER 1 Outcome of Board Meeting held on October 27, 2026
+10-27 15:10:58.096  3033  6514 I NewsTest: badge AUSL LEGAL 1 Action(s) initiated or orders passed
+10-27 15:10:58.096  3033  6514 I NewsTest: badge MOS OTHER 1 A press release dated October 27, 2026, titled "MOS Utility Limited and Bharat Co-operative Bank (Mumbai) Limited Partner to Enable Digital 
+10-27 15:10:58.096  3033  6514 I NewsTest: badge USASEEDS MANAGEMENT 2 Appointment of Mr Dhavalkumar Rameshchandra Doshi as Other of the company w.e.f. October 27, 2026
+10-27 15:10:58.096  3033  6514 I NewsTest: badge ANLON DIVIDEND 1 Record date for the purpose of Bonus is 02-Nov-2026
+10-27 15:10:58.096  3033  6514 I NewsTest: badge MASON LEGAL 1 The Intimation under Regulation 30 read with Para A of Part A of Schedule III of the Securities and Exchange Board of India (Listing Obligat
+10-27 15:10:58.096  3033  6514 I NewsTest: badge DIVYADHAN OTHER 1 Alteration/revision(s)
+10-27 15:10:58.096  3033  6514 I NewsTest: badge BIKEWO OTHER 1 A press release dated October 27, 2026, titled "BikeWo GreenTech Signs Strategic MoU with Green Drive Mobility to Scale Electric Logistics t
+10-27 15:10:58.096  3033  6514 I NewsTest: badge OSELDEVICE OTHER 1 General Updates
+10-27 15:10:58.096  3033  6514 I NewsTest: badge KAYTEX MANAGEMENT 1 Appointment of Mr Rakesh Chawla as Additional Director in the category of Non-Executive Independent Director of the company w.e.f. October 2
+10-27 15:10:58.096  3033  6514 I NewsTest: badge UNIHEALTH OTHER 1 A press release dated October 27, 2026, titled "UMC Hospitals, Navi Mumbai, in Association with USER Foundation and UniHealth Foundation, Br
+10-27 15:10:58.096  3033  6514 I NewsTest: badge EXCELLENT RESULTS 1 , the financial results for the period ended September 30, 2026
+10-27 15:10:58.097  3033  6514 I NewsTest: badge KLL OTHER 1 General Updates
+10-27 15:10:58.097  3033  6514 I NewsTest: badge SONUINFRA MANAGEMENT 2 Appointment of Mr. Mahesh Kumar Sharma as Company Secretary & Compliance Officer of the company w.e.f. October 27, 2026
+10-27 15:10:58.097  3033  6514 I NewsTest: badge JAINIK EXPANSION 1 A press release dated October 27, 2026, titled "Successfully Commissions 400 kW Solar Power Plant at Its Sonipat Manufacturing Facility
+10-27 15:10:58.097  3033  6514 I NewsTest: badge LAKSHYA ORDER 1 Bagging/Receiving of orders/contracts
+10-27 15:10:58.097  3033  6514 I NewsTest: badge DIGIKORE MANAGEMENT 1 Resignation of Mr. Rakesh Nikalje as Chief Financial Officer of the company w.e.f. May 01, 2026
+10-27 15:10:58.097  3033  6514 I NewsTest: badge TAURIAN FUNDRAISE 1 Outcome of Fund raising committee meeting of the Board held on today i.e. Monday, October 26, 2026
+10-27 15:10:58.097  3033  6514 I NewsTest: badge HIGREEN OTHER 1 The sanction of incentive under the Madhya Pradesh MSME Development Policy 2025 for Shantol Recycling Private Limited, a Wholly Owned Subsid
