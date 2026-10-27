@@ -138,6 +138,18 @@ class Cr360Book(
     companion object {
         val EMPTY = Cr360Book("", emptyMap())
 
+        /** The industry whose debt and cash flow 360CR does not judge (cr360/engine.py NOT_FOR_FINANCIALS). */
+        const val FINANCIAL_SECTOR = "Financial Services"
+
+        /**
+         * The parts of [entry] without data, in 360CR's order; a financial company's cash flow and debt are not judged
+         * at all, so they are not missing. Each counts as the middle 50 in the score.
+         */
+        fun unknownParts(entry: Entry, sector: String): List<Part> {
+            val exempt = if (sector == FINANCIAL_SECTOR) setOf(Part.CASHFLOW, Part.BALANCE_SHEET) else emptySet()
+            return Part.entries.filter { it !in entry.parts && it !in exempt }
+        }
+
         private val STATES = State.entries.associateBy { it.key }
         private val PARTS = Part.entries.associateBy { it.key }
         private val FACTS = Fact.entries.associateBy { it.key }

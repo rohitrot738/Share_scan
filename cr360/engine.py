@@ -7,6 +7,7 @@ WEIGHTS={"financial_quality":18,"growth":12,"cashflow":10,"balance_sheet":10,"ow
 # Lenders and the rest of financial services borrow to lend and pay loans out as operating cash: their debt and cash
 # flow are the business itself, so those parts do not apply to them (metadata "financial").
 NOT_FOR_FINANCIALS={"cashflow","balance_sheet"}
+UNKNOWN_PART=50  # what a part without data scores in the total: the middle, as it is not known to be good or bad
 LEVEL_GAP=.01  # a past close within 1% of today's price is that price, not a support or resistance below or above it
 def num(x):
     try:v=float(x);return v if math.isfinite(v) else None
@@ -131,7 +132,11 @@ def analyse_360cr(data:ResearchInput|dict)->ResearchResult:
     flags=(x.metadata.get("framework") or {}).get("flags") or 0
     if flags&(REJECT|HIGH_RISK|MANIPULATION) and sections.get("valuation") is not None:sections["valuation"]=min(sections["valuation"],40)
     exempt=NOT_FOR_FINANCIALS if x.metadata.get("financial") else set()
-    available={k:v for k,v in sections.items() if v is not None};covered=sum(WEIGHTS[k] for k in available);total=sum(w for k,w in WEIGHTS.items() if k not in exempt);score=sum(available[k]*WEIGHTS[k] for k in available)/covered if covered else None;confidence=covered/total*100
+    available={k:v for k,v in sections.items() if v is not None};covered=sum(WEIGHTS[k] for k in available);total=sum(w for k,w in WEIGHTS.items() if k not in exempt)
+    # A part without data counts as UNKNOWN_PART (neither good nor bad) at its full weight: averaging only the parts
+    # found let a company strong in two of ten parts outscore one judged on all ten.
+    unknown=sum(w for k,w in WEIGHTS.items() if k not in exempt and k not in available)
+    score=(sum(available[k]*WEIGHTS[k] for k in available)+UNKNOWN_PART*unknown)/(covered+unknown) if covered else None;confidence=covered/total*100
     if confidence<60:warnings.append("LOW_COVERAGE: conviction must not be treated as complete")
     state="INSUFFICIENT_DATA" if score is None or confidence<40 else("HIGH_CONVICTION" if score>=75 else "POSITIVE" if score>=62 else "NEUTRAL" if score>=48 else "CAUTION" if score>=35 else "AVOID")
     if state!="INSUFFICIENT_DATA":

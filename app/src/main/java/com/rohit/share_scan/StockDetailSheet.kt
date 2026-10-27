@@ -759,12 +759,19 @@ class StockDetailSheet(
         ui.detailCr360Score.setTextColor(color(tone))
         ui.detailCr360State.text = activity.getString(stateLabel)
         ui.detailCr360State.setTextColor(color(tone))
-        ui.detailCr360Data.text = activity.getString(
+        val data = activity.getString(
             R.string.detail_cr360_data,
             entry.confidence.roundToInt(),
             Cr360Format.month(entry.quarter),
             Cr360Format.day(entry.checked),
         )
+        // Since the framework's file, a part without data counts as the middle 50 in the score; say which ones.
+        val unknown = if (framework != null) Cr360Book.unknownParts(entry, stock.sector) else emptyList()
+        ui.detailCr360Data.text = if (unknown.isEmpty()) {
+            data
+        } else {
+            data + "\n" + activity.getString(R.string.detail_cr360_unknown, unknown.joinToString(", ") { activity.getString(it.label) })
+        }
         framework?.let { card ->
             ui.detailCr360Framework.isVisible = true
             card.bind(ui.detailCr360Framework)

@@ -63,6 +63,18 @@ class Cr360FrameworkTest {
     }
 
     @Test
+    fun partsWithoutDataAreNamedButALendersDebtAndCashFlowAreNot() {
+        val all = Cr360Book.Part.entries
+        // HDFC Bank's row has no parts; a lender's cash flow and debt are not judged, so not missing either.
+        assertEquals(
+            all - setOf(Cr360Book.Part.CASHFLOW, Cr360Book.Part.BALANCE_SHEET),
+            Cr360Book.unknownParts(book.of("HDFCBANK")!!, Cr360Book.FINANCIAL_SECTOR),
+        )
+        // Tata Steel's has its valuation only.
+        assertEquals(all - Cr360Book.Part.VALUATION, Cr360Book.unknownParts(book.of("TATASTEEL")!!, "Metals & Mining"))
+    }
+
+    @Test
     fun priceAgainstTheBuyPrice() {
         val bank = of("HDFCBANK")!!
         assertEquals((704.0 / 604.51 - 1) * 100, bank.fromBuy(704.0)!!, 1e-9)

@@ -275,3 +275,19 @@ def test_statutory_auditor_resignations_are_found_in_nse_announcements():
         {"symbol": "EEE", "desc": "Board Meeting Outcome", "sort_date": "2026-10-21", "attchmntText": "resignation of director"},
     ]
     assert auditor_resignations(rows) == {"AAA": {"2026-10-20"}, "BBB": {"2026-10-21"}}
+
+
+def test_parts_without_data_count_as_the_middle_not_as_left_out():
+    from cr360.engine import UNKNOWN_PART, WEIGHTS
+    # Only a cheap price and a steady chart: three or four strong parts, the rest unknown.
+    rows = [{"date": (TODAY - timedelta(days=400 - i)).isoformat(), "close": 100.0 + i * .1, "high": 100.5 + i * .1,
+             "low": 99.5 + i * .1} for i in range(400)]
+    r = analyse_360cr(ResearchInput(symbol="FEW", price=rows[-1]["close"], price_history=rows,
+                                    valuation={"framework_fair_value": 300.0}))
+    found = {k: v for k, v in r.sections.items() if v is not None}
+    assert 0 < len(found) < len(WEIGHTS)
+    found_only = sum(v * WEIGHTS[k] for k, v in found.items()) / sum(WEIGHTS[k] for k in found)
+    expected = (sum(v * WEIGHTS[k] for k, v in found.items()) + UNKNOWN_PART * sum(w for k, w in WEIGHTS.items() if k not in found)) / 100
+    assert round(r.score, 2) == round(expected, 2)
+    # Strong where it was judged, it no longer scores as if it were strong everywhere.
+    assert found_only > 75 and r.score < found_only - 10 and r.state != "HIGH_CONVICTION"
