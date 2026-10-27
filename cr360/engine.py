@@ -1,6 +1,7 @@
 from __future__ import annotations
 import math, statistics
 from .models import ResearchInput, ResearchResult
+from .valuation import HIGH_RISK, MANIPULATION, REJECT
 
 WEIGHTS={"financial_quality":18,"growth":12,"cashflow":10,"balance_sheet":10,"ownership":12,"insider_deals":8,"valuation":12,"price_156w":8,"stability":5,"technical_risk":5}
 # Lenders and the rest of financial services borrow to lend and pay loans out as operating cash: their debt and cash
@@ -93,6 +94,13 @@ def score_valuation(x):
         hup=((own/p)-1)*100 if p else None
         fair.update(history=round(own,2),history_upside_pct=round(hup,2) if hup is not None else None)
         scores.append(clamp(50+(hup or 0)*1.5) if p else 50)
+    # The sector-wise framework's intrinsic value (valuation.assess), its penalties applied, is the one that counts
+    # when there is one; the blend's figures stay alongside for the app.
+    fw=num(x.valuation.get("framework_fair_value"))
+    if fw and fw>0:
+        up=((fw/p)-1)*100 if p else None
+        fair.update(base=round(fw,2),upside_pct=round(up,2) if up is not None else None)
+        return (clamp(50+up*1.5) if up is not None else 50),fair,[]
     return sum(scores)/len(scores),fair,[]
 
 def score_price(x):
@@ -118,10 +126,18 @@ def analyse_360cr(data:ResearchInput|dict)->ResearchResult:
     evt,ev,m=score_events(x);sections["insider_deals"]=evt;evidence["events"]=ev;missing+=m
     val,fair,m=score_valuation(x);sections["valuation"]=val;missing+=m
     priceq,stab,riskq,risk,m=score_price(x);sections.update(price_156w=priceq,stability=stab,technical_risk=riskq);missing+=m
+    # The framework's universal screen overrides a cheap valuation: a rejected or flagged company's price counts as
+    # no bargain, and its verdict is held down below.
+    flags=(x.metadata.get("framework") or {}).get("flags") or 0
+    if flags&(REJECT|HIGH_RISK|MANIPULATION) and sections.get("valuation") is not None:sections["valuation"]=min(sections["valuation"],40)
     exempt=NOT_FOR_FINANCIALS if x.metadata.get("financial") else set()
     available={k:v for k,v in sections.items() if v is not None};covered=sum(WEIGHTS[k] for k in available);total=sum(w for k,w in WEIGHTS.items() if k not in exempt);score=sum(available[k]*WEIGHTS[k] for k in available)/covered if covered else None;confidence=covered/total*100
     if confidence<60:warnings.append("LOW_COVERAGE: conviction must not be treated as complete")
     state="INSUFFICIENT_DATA" if score is None or confidence<40 else("HIGH_CONVICTION" if score>=75 else "POSITIVE" if score>=62 else "NEUTRAL" if score>=48 else "CAUTION" if score>=35 else "AVOID")
+    if state!="INSUFFICIENT_DATA":
+        if flags&REJECT:state="AVOID";warnings.append("REJECT: promoter pledge over 15%")
+        elif flags&(HIGH_RISK|MANIPULATION) and state in ("HIGH_CONVICTION","POSITIVE","NEUTRAL"):
+            state="CAUTION";warnings.append("FLAGGED: interest cover under 2.5 or operating cash under 60% of profit")
     coverage={"score_pct":round(confidence,2),"available_sections":sorted(available),"missing_sections":sorted(set(missing)),"financial_quarters":min(len(x.quarterly_financials),20),"shareholding_quarters":min(len(x.shareholding_quarters),20),"cashflow_quarters":min(len(x.cashflow_quarters),20),"balance_sheet_quarters":min(len(x.balance_sheet_quarters),20),"price_records":len(x.price_history)}
     return ResearchResult(x.symbol,round(score,2) if score is not None else None,round(confidence,2),state,coverage,sections,fair,risk,evidence,warnings,sorted(set(missing)))
 def analyse_many_360cr(items):return [analyse_360cr(x).to_dict() for x in items]
