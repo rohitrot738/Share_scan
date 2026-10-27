@@ -53,6 +53,15 @@ object Prefs {
     /** [WatchAlerts.encode] text: each watchlisted stock's alert state. */
     const val WATCH_STATES = "watch_states"
 
+    /** Watchlisted stocks' news alerts ([NewsAlerts]); on by default. */
+    const val NEWS_ALERTS = "news_alerts"
+
+    /** Ids of the filings a news alert or round-up already covered, with when they came ("id@millis" lines). */
+    const val NEWS_SEEN = "news_seen"
+
+    /** Epoch day (IST) of the latest morning round-up of the watchlist's news. */
+    const val NEWS_DIGEST_DAY = "news_digest_day"
+
     /** The app asked once for permission to post notifications. */
     const val NOTIFY_ASKED = "notify_asked"
 

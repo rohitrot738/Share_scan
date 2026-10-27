@@ -12,8 +12,8 @@ import androidx.work.WorkerParameters
 import java.util.concurrent.TimeUnit
 
 /**
- * Live mode in the background. Android runs this every 15 minutes or so, app open or not; outside market hours it
- * does nothing. In market hours it runs a full scan once the latest one is [AppSettings.liveInterval] minutes old,
+ * Live mode in the background. Android runs this every 15 minutes or so, app open or not. Each run first looks for
+ * the watchlist's news ([NewsAlerts], hours of its own); beyond that, outside market hours it does nothing. In market hours it runs a full scan once the latest one is [AppSettings.liveInterval] minutes old,
  * and in between it only refreshes the watchlist's prices for their alerts. The scan, its alerts and the track record
  * are [ScanEngine]'s, as for a scan the user starts.
  */
@@ -21,6 +21,8 @@ class LiveScanWorker(context: Context, params: WorkerParameters) : Worker(contex
     override fun doWork(): Result {
         val app = applicationContext
         val settings = AppSettings(app)
+        // The watchlist's news first: it keeps hours of its own, morning and evening included.
+        if (settings.newsAlerts) runCatching { NewsAlerts.check(app) }
         if (!settings.liveScan && !settings.watchAlerts) return Result.success()
         val now = MarketClock.now()
         if (!LiveSchedule.inHours(now)) return Result.success()
@@ -77,11 +79,11 @@ object LiveSchedule {
     fun looksClosed(at: java.time.ZonedDateTime, output: ScanOutput): Boolean =
         MarketClock.isOpen(at) && MarketClock.minutesSinceOpen(at) > 20.0 && output.results.isNotEmpty() && !output.live
 
-    /** Schedules the work when live scans or watchlist alerts are on, and cancels it when both are off. */
+    /** Schedules the work when live scans, watchlist alerts or news alerts are on, and cancels it when all are off. */
     fun sync(context: Context) {
         val settings = AppSettings(context)
         val work = WorkManager.getInstance(context)
-        if (!settings.liveScan && !settings.watchAlerts) {
+        if (!settings.liveScan && !settings.watchAlerts && !settings.newsAlerts) {
             work.cancelUniqueWork(WORK)
             return
         }

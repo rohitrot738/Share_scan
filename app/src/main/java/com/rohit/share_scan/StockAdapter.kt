@@ -20,6 +20,8 @@ import java.util.Locale
 class StockAdapter(
     private val onOpen: (ScanResult) -> Unit,
     private val onStar: (ScanResult) -> Unit = {},
+    /** The card's 📰 mark: the stock on its खबरें tab. */
+    private val onNews: (ScanResult) -> Unit = onOpen,
 ) : ListAdapter<RankedStock, StockAdapter.Holder>(Diff) {
 
     /** Every stock's 360CR ([Cr360Book]); the card adds the stock's score to its meta line. */
@@ -27,6 +29,9 @@ class StockAdapter(
 
     /** The learned setups ([SetupBook]); once there are some, the card names the stock's in place of the app's own. */
     var setups: SetupBook = SetupBook.EMPTY
+
+    /** Each stock's 📰 mark: its exchange filings of the last day ([NewsRepository.badges]). */
+    var news: Map<String, NewsBadge> = emptyMap()
 
     class Holder(val ui: ItemStockBinding) : RecyclerView.ViewHolder(ui.root) {
         /** The tier whose colour stains the rank circle's and tier pill's glass, so a rebind keeps the same glass. */
@@ -39,6 +44,10 @@ class StockAdapter(
         holder.ui.root.setOnClickListener {
             val position = holder.bindingAdapterPosition
             if (position != RecyclerView.NO_POSITION) onOpen(getItem(position).stock)
+        }
+        holder.ui.newsBadge.setOnClickListener {
+            val position = holder.bindingAdapterPosition
+            if (position != RecyclerView.NO_POSITION) onNews(getItem(position).stock)
         }
         holder.ui.star.setOnClickListener {
             val position = holder.bindingAdapterPosition
@@ -81,6 +90,7 @@ class StockAdapter(
         ui.exchange.setTextColor(color(exchange.text))
         ui.exchange.backgroundTintList = ColorStateList.valueOf(color(exchange.container))
         bindRankBadge(ui.rankBadge, item.badge)
+        val newsDescription = bindNewsBadge(ui.newsBadge, news[stock.symbol])
         ui.change.text = context.getString(R.string.item_change, StockFormat.change(stock.change5d))
         ui.change.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
         val meta = SpannableStringBuilder(
@@ -195,6 +205,7 @@ class StockAdapter(
             setupDescription,
             mistakeDescription,
             researchDescription,
+            newsDescription,
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,
         ).joinToString(", ")
@@ -219,6 +230,23 @@ class StockAdapter(
         view.text = text
         view.setTextColor(ContextCompat.getColor(context, textColor))
         view.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, container))
+    }
+
+    /** "📰 नतीजे", or "📰 नतीजे +2" with more filings; returns what a screen reader says for it. */
+    private fun bindNewsBadge(view: TextView, badge: NewsBadge?): String? {
+        view.isVisible = badge != null
+        badge ?: return null
+        val context = view.context
+        val label = context.getString(NewsLabels.label(badge.kind))
+        view.text = if (badge.count > 1) {
+            context.getString(R.string.item_news_badge_more, label, badge.count - 1)
+        } else {
+            context.getString(R.string.item_news_badge, label)
+        }
+        val (text, container) = NewsLabels.colors(badge.kind)
+        view.setTextColor(ContextCompat.getColor(context, text))
+        view.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, container))
+        return context.getString(R.string.item_news_description, badge.count, label)
     }
 
     private fun badgeDescription(context: Context, badge: RankBadge?): String? = when (badge) {

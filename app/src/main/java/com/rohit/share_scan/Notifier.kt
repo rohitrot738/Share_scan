@@ -12,6 +12,7 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 
 /**
  * The app's notifications: live mode's finds (stocks newly STRONG or breaking out), watchlist alerts (breakout,
@@ -24,12 +25,19 @@ object Notifier {
     private const val CHANNEL_SCAN = "scan_progress"
     private const val CHANNEL_SCAN_DONE = "scan_done"
     private const val CHANNEL_UPDATE = "update_ready"
+    private const val CHANNEL_NEWS = "stock_news"
     private const val ID_LIVE = 1
 
     /** The running scan's notification, which [ScanService] runs in the foreground under. */
     const val ID_SCAN = 2
     private const val ID_SCAN_DONE = 3
     private const val ID_UPDATE = 4
+    private const val ID_NEWS_DIGEST = 5
+    /** Each stock's news alert replaces its previous one; its "पूरी ख़बर" button counts on from [NEWS_READ_BASE]. */
+    private const val ID_NEWS_BASE = 70_000
+    private const val NEWS_READ_BASE = 140_000
+    /** Request codes of the morning round-up's per-stock buttons. */
+    private const val DIGEST_ACTION_BASE = 300
     /** Each stock's alerts replace its previous one. */
     private const val ID_WATCH_BASE = 1_000
     /** Request codes of the live finds' per-stock buttons: one after another from here. */
@@ -37,6 +45,9 @@ object Notifier {
 
     /** The intent extra a notification passes to [MainActivity]: the stock to open. */
     const val EXTRA_SYMBOL = "symbol"
+
+    /** Set by the news notifications: the stock opens on its खबरें tab. */
+    const val EXTRA_NEWS = "news"
 
     /** The intent extra of the "update ready" notification: hand the downloaded APK to the installer. */
     const val EXTRA_INSTALL = "install_update"
@@ -70,6 +81,69 @@ object Notifier {
             NotificationChannel(CHANNEL_UPDATE, context.getString(R.string.notify_channel_update), NotificationManager.IMPORTANCE_DEFAULT)
                 .apply { description = context.getString(R.string.notify_channel_update_body) },
         )
+        manager.createNotificationChannel(
+            NotificationChannel(CHANNEL_NEWS, context.getString(R.string.notify_channel_news), NotificationManager.IMPORTANCE_HIGH)
+                .apply { description = context.getString(R.string.notify_channel_news_body) },
+        )
+    }
+
+    /** A big filing on a watchlisted stock ([NewsAlerts]): a tap opens the stock, the button the filing itself. */
+    fun newsAlert(context: Context, item: NewsItem, name: String) {
+        val id = ID_NEWS_BASE + (item.symbol.hashCode() and 0xFFFF)
+        val read = PendingIntent.getActivity(
+            context,
+            NEWS_READ_BASE + (item.symbol.hashCode() and 0xFFFF),
+            Intent(Intent.ACTION_VIEW, item.url.toUri()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
+        post(
+            context,
+            id,
+            NotificationCompat.Builder(context, CHANNEL_NEWS)
+                .setSmallIcon(R.drawable.ic_trending_up)
+                .setContentTitle(context.getString(R.string.notify_news_alert, item.symbol, context.getString(NewsLabels.label(item.kind))))
+                .setContentText(item.title)
+                .setSubText(StockSearch.shortName(name).ifEmpty { item.source })
+                .setStyle(NotificationCompat.BigTextStyle().bigText(item.title))
+                .setWhen(item.at)
+                .setShowWhen(true)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(open(context, item.symbol, id, news = true))
+                .addAction(0, context.getString(R.string.notify_news_read), read)
+                .setAutoCancel(true),
+        )
+    }
+
+    /**
+     * The morning's round-up of the watchlist's news: a line per stock (its weightiest item), most telling first. A tap
+     * opens the first stock; a button for each of the first three opens that one.
+     */
+    fun newsDigest(context: Context, byStock: List<Pair<String, List<NewsItem>>>) {
+        if (byStock.isEmpty()) return
+        val style = NotificationCompat.InboxStyle()
+        byStock.take(MAX_LINES).forEach { (symbol, news) ->
+            val top = news.first()
+            style.addLine(context.getString(R.string.notify_news_digest_line, symbol, context.getString(NewsLabels.label(top.kind)), top.title))
+        }
+        val more = byStock.size - MAX_LINES
+        if (more > 0) style.setSummaryText(context.getString(R.string.notify_live_more, more))
+        val (firstSymbol, firstNews) = byStock.first()
+        val lead = firstNews.first()
+        val builder = NotificationCompat.Builder(context, CHANNEL_NEWS)
+            .setSmallIcon(R.drawable.ic_trending_up)
+            .setContentTitle(context.getString(R.string.notify_news_digest, byStock.size))
+            .setContentText(
+                context.getString(R.string.notify_news_digest_line, firstSymbol, context.getString(NewsLabels.label(lead.kind)), lead.title),
+            )
+            .setStyle(style)
+            .setContentIntent(open(context, firstSymbol, ID_NEWS_DIGEST, news = true))
+            .setAutoCancel(true)
+        if (byStock.size > 1) {
+            byStock.take(MAX_ACTIONS).forEachIndexed { index, (symbol, _) ->
+                builder.addAction(0, symbol, open(context, symbol, DIGEST_ACTION_BASE + index, news = true))
+            }
+        }
+        post(context, ID_NEWS_DIGEST, builder)
     }
 
     /** One notification for everything a live scan found, best first. */
@@ -265,10 +339,11 @@ object Notifier {
         StockFormat.rvol(rvol),
     )
 
-    private fun open(context: Context, symbol: String?, requestCode: Int): PendingIntent {
+    private fun open(context: Context, symbol: String?, requestCode: Int, news: Boolean = false): PendingIntent {
         val intent = Intent(context, MainActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         if (symbol != null) intent.putExtra(EXTRA_SYMBOL, symbol)
+        if (news) intent.putExtra(EXTRA_NEWS, true)
         return PendingIntent.getActivity(
             context,
             requestCode,

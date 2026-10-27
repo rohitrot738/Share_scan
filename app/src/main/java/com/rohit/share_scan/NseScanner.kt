@@ -94,6 +94,8 @@ data class ScanResult(
     val support: SupportFloor? = null,
     /** The [SetupCondition]s that hold at the latest close, as a mask; 0 when not worked out or too thinly traded. */
     val setupMask: Long = 0L,
+    /** What each part of [score] was made of ([ScoreFactors]); null in a scan saved before they were kept. */
+    val factors: ScoreFactors? = null,
 ) {
     /** Rupee value traded in the latest session, in crore. */
     val turnoverCr: Double get() = price * volume / CRORE
@@ -495,6 +497,7 @@ object NseScanner {
             pastScores = signals.pastScores,
             support = signals.support,
             setupMask = setupMask(signals),
+            factors = signals.factors,
         )
     }
 

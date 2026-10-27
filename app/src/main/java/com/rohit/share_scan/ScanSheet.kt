@@ -61,7 +61,7 @@ class ScanSheet(
 
     /** Whether Android lets the app run in the background unhindered; live mode's scans and alerts need it. */
     private fun refreshBackground() {
-        ui.settingBackgroundRow.isVisible = settings.liveScan || settings.watchAlerts
+        ui.settingBackgroundRow.isVisible = settings.liveScan || settings.watchAlerts || settings.newsAlerts
         val power = activity.getSystemService(PowerManager::class.java)
         val allowed = power?.isIgnoringBatteryOptimizations(activity.packageName) == true
         ui.settingBackgroundBody.setText(if (allowed) R.string.settings_background_on else R.string.settings_background_off)
@@ -78,13 +78,13 @@ class ScanSheet(
             ui.settingLiveAlerts.isEnabled = live
             ui.settingLiveAlertsRow.isEnabled = live
             ui.settingLiveAlertsRow.alpha = if (live) 1f else DISABLED_ALPHA
-            val notifying = (live && settings.liveAlerts) || settings.watchAlerts
+            val notifying = (live && settings.liveAlerts) || settings.watchAlerts || settings.newsAlerts
             ui.settingNotifyBlocked.isVisible = notifying && !Notifier.canPost(activity)
             refreshBackground()
         }
         fun changed() {
             refresh()
-            actions.liveChanged((settings.liveScan && settings.liveAlerts) || settings.watchAlerts)
+            actions.liveChanged((settings.liveScan && settings.liveAlerts) || settings.watchAlerts || settings.newsAlerts)
         }
         ui.settingLive.isChecked = settings.liveScan
         ui.settingLive.setOnCheckedChangeListener { _, on ->
@@ -118,6 +118,12 @@ class ScanSheet(
             changed()
         }
         ui.settingWatchAlertsRow.setOnClickListener { ui.settingWatchAlerts.toggle() }
+        ui.settingNewsAlerts.isChecked = settings.newsAlerts
+        ui.settingNewsAlerts.setOnCheckedChangeListener { _, on ->
+            settings.newsAlerts = on
+            changed()
+        }
+        ui.settingNewsAlertsRow.setOnClickListener { ui.settingNewsAlerts.toggle() }
         ui.settingNotifyBlocked.setOnClickListener { actions.openNotificationSettings() }
         refresh()
     }

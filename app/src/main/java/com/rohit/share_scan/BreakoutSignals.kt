@@ -11,6 +11,59 @@ import kotlin.math.min
 data class DayScore(val day: Long, val score: Double)
 
 /**
+ * What each part of the score was made of, for the detail sheet: the figures [BreakoutSignals] measured and the
+ * points each gave, by its formulas. Distances are in the stock's normal daily swing ([swingPct]); a part's raw points
+ * go through [BreakoutSignals.soft] to become its 0–100 value.
+ */
+data class ScoreFactors(
+    /** The stock's normal daily swing: mean true range as a percent of price over up to 50 sessions. */
+    val swingPct: Double,
+    /** Breakout: price under the 20-day high in daily swings (negative above it), and the points for it (55%). */
+    val highGap: Double,
+    val proximity: Double,
+    /** Breakout: the 10-session base's width as a percent of its midpoint, and the points for its narrowness. */
+    val baseWidthPct: Double,
+    val narrow: Double,
+    /** Breakout: the daily ranges of the 10 sessions before the latest against the normal swing, and its points. */
+    val calm: Double,
+    val calmed: Double,
+    /** Breakout: the base's tightness, the mean of [narrow] and [calmed], at most 110 (30%). */
+    val tightness: Double,
+    /** Breakout: where price sits in the base, 0 at its low and 100 at its high (15%). */
+    val position: Double,
+    val breakoutRaw: Double,
+    /**
+     * Trend, in daily swings and held within their limits: price against the 20-day average, that average's slope
+     * over 5 sessions, price against the 50-day and the 20-day against the 50-day; the last two null without 50
+     * sessions.
+     */
+    val above20: Double,
+    val slope20: Double,
+    val above50: Double?,
+    val stacked: Double?,
+    val trendRaw: Double,
+    /**
+     * Volume: the average of the 20 sessions before the latest (shares), the 5 before the latest against it, and the
+     * points for the latest session's relative volume (60%) and for that dry-up (40%).
+     */
+    val average20: Double,
+    val quiet: Double,
+    val expansion: Double,
+    val dryUp: Double,
+    val volumeRaw: Double,
+    /** Liquidity: the median rupee value traded a session over the latest 20, in crore, and its points. */
+    val medianTurnoverCr: Double,
+    val liquidityRaw: Double,
+    /** Momentum: the 20-session change (the 5-session one is the stock's own) and the points. */
+    val change20: Double,
+    val momentumRaw: Double,
+    /** The latest [BreakoutSignals.RECENT_SESSIONS], oldest first: highs, lows and shares traded (closes are the chart's). */
+    val highs: List<Double>,
+    val lows: List<Double>,
+    val volumes: List<Double>,
+)
+
+/**
  * Pre-breakout signals from daily candles. This is the Kotlin port of the Python scanner's whole-market prefilter
  * (`live_scan.daily_prefilter_score` and `scanner.baseline_daily`) together with the base and trend features of
  * `pattern_engine`. It is pure Kotlin so it can be unit tested without a device.
@@ -62,6 +115,9 @@ object BreakoutSignals {
 
     private const val CHART_CLOSES = 60
 
+    /** The latest sessions whose highs, lows and volumes [ScoreFactors] keeps for the detail sheet. */
+    const val RECENT_SESSIONS = 10
+
     /** How many past sessions get a score of their own, for the track record; the 50-day average limits it too. */
     const val PAST_SESSIONS = 12
     private const val SMA50_SESSIONS = 50
@@ -103,6 +159,8 @@ object BreakoutSignals {
         val dayPosition: Double = 0.5,
         /** Daily ranges of the 10 sessions before the latest against the stock's normal swing; below 1 they calmed. */
         val calm: Double = 1.0,
+        /** What each part was made of. */
+        val factors: ScoreFactors? = null,
     )
 
     /**
@@ -241,13 +299,66 @@ object BreakoutSignals {
         turnoverCr.sort()
         val medianTurnoverCr = (turnoverCr[9] + turnoverCr[10]) / 2.0
 
+        // Breakout: proximity to the 20-day high (55%), tightness of the latest 10-session base (30%) and where price
+        // closes inside it (15%). Full proximity marks from the resistance itself up to one daily swing above it (a
+        // fresh breakout); 20 points off for every swing below it, or for every swing it has run beyond that.
+        val highGap = (high20 - price) / unit
+        val proximity = if (highGap >= 0.0) 100.0 - 20.0 * highGap else 100.0 - 20.0 * max(0.0, -highGap - 1.0)
+        // A random walk's 10-session range is about 3.4 daily swings wide; 2 or fewer is a tight base.
+        val baseWidth = rangePct(high10, low10)
+        val narrow = 100.0 - 30.0 * (baseWidth / swingPct - 2.0)
+        // Daily ranges at 60% of normal or less mean volatility has dried up; at the normal swing it scores 60.
+        val calmed = 100.0 - 100.0 * (calm - 0.6)
+        // Capped at 110 so a stock that has simply stopped trading does not outrank a genuinely coiled base.
+        val tightness = min(110.0, 0.5 * narrow + 0.5 * calmed)
+        val position = if (high10 > low10) (price - low10) / (high10 - low10) * 100.0 else 50.0
+        val breakoutRaw = 0.55 * proximity + 0.30 * tightness + 0.15 * position
+
+        // Trend: price against the 20- and 50-day averages and the 5-session slope of the 20-day average, all in daily
+        // swings. Without 50 sessions the 20-day terms carry the whole weight.
+        val above20 = ((price - sma20) / unit).coerceIn(-3.0, 3.0)
+        val slope20 = if (n >= 25) ((sma20 - mean(close, n - 25, n - 5)) / unit).coerceIn(-2.0, 2.0) else 0.0
+        val above50 = sma50?.let { ((price - it) / unit).coerceIn(-4.0, 4.0) }
+        val stacked = sma50?.let { ((sma20 - it) / unit).coerceIn(-2.0, 2.0) }
+        val trendRaw = if (above50 != null && stacked != null) {
+            50.0 + 6.0 * above20 + 8.0 * slope20 + 4.0 * above50 + 5.0 * stacked
+        } else {
+            50.0 + 1.75 * (6.0 * above20 + 8.0 * slope20)
+        }
+
+        // Volume: relative volume on a log scale (1× is 50 points, 2× is 75, 4× is 100) for 60%, and the Python dry-up
+        // score for 40%: the five sessions before the latest at half their 20-session average or less score 100, at
+        // 1.15× or more score 0.
+        val expansion = 50.0 + 25.0 * log2(max(rvol, 1.0 / 64.0))
+        val dryUp = ((1.15 - quiet) / 0.65 * 100.0).coerceIn(0.0, 100.0)
+        val volumeRaw = 0.6 * expansion + 0.4 * dryUp
+
+        // ₹10 lakh a day scores 0 raw points, ₹1 Cr 33, ₹10 Cr 67 and ₹100 Cr 100.
+        val liquidityRaw = 100.0 / 3.0 * (log10(max(medianTurnoverCr, 1e-6)) + 1.0)
+        val momentumRaw = 50.0 + change5d * 4.0 + change20 * 1.5
+
+        val recent = max(0, n - RECENT_SESSIONS)
+        val factors = ScoreFactors(
+            swingPct = swingPct,
+            highGap = highGap, proximity = proximity,
+            baseWidthPct = baseWidth, narrow = narrow,
+            calm = calm, calmed = calmed,
+            tightness = tightness, position = position, breakoutRaw = breakoutRaw,
+            above20 = above20, slope20 = slope20, above50 = above50, stacked = stacked, trendRaw = trendRaw,
+            average20 = average20, quiet = quiet, expansion = expansion, dryUp = dryUp, volumeRaw = volumeRaw,
+            medianTurnoverCr = medianTurnoverCr, liquidityRaw = liquidityRaw,
+            change20 = change20, momentumRaw = momentumRaw,
+            highs = high.copyOfRange(recent, n).toList(),
+            lows = low.copyOfRange(recent, n).toList(),
+            volumes = traded.copyOfRange(recent, n).toList(),
+        )
+
         val parts = listOf(
-            ScorePart(ScoreKeys.BREAKOUT, breakoutPart(price, high20, high10, low10, unit, swingPct, calm), WEIGHTS.getValue(ScoreKeys.BREAKOUT)),
-            ScorePart(ScoreKeys.TREND, trendPart(close, price, sma20, sma50, unit), WEIGHTS.getValue(ScoreKeys.TREND)),
-            ScorePart(ScoreKeys.VOLUME, volumePart(rvol, quiet), WEIGHTS.getValue(ScoreKeys.VOLUME)),
-            // ₹10 lakh a day scores 0 raw points, ₹1 Cr 33, ₹10 Cr 67 and ₹100 Cr 100.
-            ScorePart(ScoreKeys.LIQUIDITY, soft(100.0 / 3.0 * (log10(max(medianTurnoverCr, 1e-6)) + 1.0)), WEIGHTS.getValue(ScoreKeys.LIQUIDITY)),
-            ScorePart(ScoreKeys.MOMENTUM, soft(50.0 + change5d * 4.0 + change20 * 1.5), WEIGHTS.getValue(ScoreKeys.MOMENTUM)),
+            ScorePart(ScoreKeys.BREAKOUT, soft(breakoutRaw), WEIGHTS.getValue(ScoreKeys.BREAKOUT)),
+            ScorePart(ScoreKeys.TREND, soft(trendRaw), WEIGHTS.getValue(ScoreKeys.TREND)),
+            ScorePart(ScoreKeys.VOLUME, soft(volumeRaw), WEIGHTS.getValue(ScoreKeys.VOLUME)),
+            ScorePart(ScoreKeys.LIQUIDITY, soft(liquidityRaw), WEIGHTS.getValue(ScoreKeys.LIQUIDITY)),
+            ScorePart(ScoreKeys.MOMENTUM, soft(momentumRaw), WEIGHTS.getValue(ScoreKeys.MOMENTUM)),
             // The bonus: its weight is on top of the others', which add up to 1.
             ScorePart(ScoreKeys.SUPPORT, support?.strength ?: 0.0, SUPPORT_BONUS),
         )
@@ -259,64 +370,8 @@ object BreakoutSignals {
             fromHighPct = (chartHigh - price) / chartHigh * 100.0,
             dayPosition = if (dayRange > 0.0) (price - low[last]) / dayRange else 0.5,
             calm = calm,
+            factors = factors,
         )
-    }
-
-    /**
-     * Proximity to the 20-day high (55%), tightness of the latest 10-session base (30%) and where price closes
-     * inside that base (15%). Tightness is judged against the stock's normal daily swing: half the width of the
-     * base, half how calm its daily ranges were.
-     */
-    private fun breakoutPart(
-        price: Double,
-        high20: Double,
-        high10: Double,
-        low10: Double,
-        unit: Double,
-        swingPct: Double,
-        calm: Double,
-    ): Double {
-        // Full marks from the resistance itself up to one daily swing above it (a fresh breakout); 20 points off
-        // for every swing below it, or for every swing it has run beyond that (chasing an extended move).
-        val gap = (high20 - price) / unit
-        val proximity = if (gap >= 0.0) 100.0 - 20.0 * gap else 100.0 - 20.0 * max(0.0, -gap - 1.0)
-        // A random walk's 10-session range is about 3.4 daily swings wide; 2 or fewer is a tight base.
-        val narrow = 100.0 - 30.0 * (rangePct(high10, low10) / swingPct - 2.0)
-        // Daily ranges at 60% of normal or less mean volatility has dried up; at the normal swing it scores 60.
-        val calmed = 100.0 - 100.0 * (calm - 0.6)
-        // Capped at 110 so a stock that has simply stopped trading does not outrank a genuinely coiled base.
-        val tightness = min(110.0, 0.5 * narrow + 0.5 * calmed)
-        val position = if (high10 > low10) (price - low10) / (high10 - low10) * 100.0 else 50.0
-        return soft(0.55 * proximity + 0.30 * tightness + 0.15 * position)
-    }
-
-    /**
-     * Price against the 20- and 50-day averages and the 5-session slope of the 20-day average, all in daily swings.
-     * Without 50 sessions the 20-day terms carry the whole weight.
-     */
-    private fun trendPart(close: DoubleArray, price: Double, sma20: Double, sma50: Double?, unit: Double): Double {
-        val n = close.size
-        val above20 = ((price - sma20) / unit).coerceIn(-3.0, 3.0)
-        val slope20 = if (n >= 25) ((sma20 - mean(close, n - 25, n - 5)) / unit).coerceIn(-2.0, 2.0) else 0.0
-        val points = if (sma50 != null) {
-            val above50 = ((price - sma50) / unit).coerceIn(-4.0, 4.0)
-            val stacked = ((sma20 - sma50) / unit).coerceIn(-2.0, 2.0)
-            50.0 + 6.0 * above20 + 8.0 * slope20 + 4.0 * above50 + 5.0 * stacked
-        } else {
-            50.0 + 1.75 * (6.0 * above20 + 8.0 * slope20)
-        }
-        return soft(points)
-    }
-
-    /**
-     * Relative volume on a log scale (1× is 50 points, 2× is 75, 4× is 100) for 60%, and the Python dry-up score
-     * for 40%: the five sessions before the latest at half their 20-session average or less score 100, at 1.15× or
-     * more score 0.
-     */
-    private fun volumePart(rvol: Double, quiet: Double): Double {
-        val expansion = 50.0 + 25.0 * log2(max(rvol, 1.0 / 64.0))
-        val dryUp = ((1.15 - quiet) / 0.65 * 100.0).coerceIn(0.0, 100.0)
-        return soft(0.6 * expansion + 0.4 * dryUp)
     }
 
     /** Width of a high–low range as a percent of its midpoint, like the Python `consolidation_range_pct`. */

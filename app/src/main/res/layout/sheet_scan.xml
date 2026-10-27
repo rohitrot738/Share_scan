@@ -147,6 +147,40 @@
                     android:contentDescription="@string/settings_watch_alerts" />
             </LinearLayout>
 
+            <!-- The watchlist's news: the morning's round-up and big filings as they come (NewsAlerts). -->
+            <LinearLayout
+                android:id="@+id/settingNewsAlertsRow"
+                style="@style/SettingsRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/SettingsRowTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_news_alerts" />
+
+                    <TextView
+                        style="@style/SettingsRowBody"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_news_alerts_body" />
+                </LinearLayout>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/settingNewsAlerts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/settings_news_alerts" />
+            </LinearLayout>
+
             <!-- Shown while Android blocks the app's notifications; tapping it opens their system settings. -->
             <TextView
                 android:id="@+id/settingNotifyBlocked"

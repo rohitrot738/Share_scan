@@ -90,6 +90,21 @@
                         android:paddingBottom="1dp"
                         android:textSize="10sp"
                         android:visibility="gone" />
+
+                    <!-- A filing on the exchange in the last day (NewsBadge): its weightiest kind. -->
+                    <TextView
+                        android:id="@+id/newsBadge"
+                        style="@style/Pill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:maxLines="1"
+                        android:paddingStart="6dp"
+                        android:paddingTop="1dp"
+                        android:paddingEnd="6dp"
+                        android:paddingBottom="1dp"
+                        android:textSize="10sp"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <TextView

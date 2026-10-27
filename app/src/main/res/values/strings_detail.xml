@@ -51,7 +51,7 @@
     <string name="detail_plan_level_time_description">%1$s, %2$s</string>
 
     <string name="detail_section_score">Score कैसे बना</string>
-    <string name="detail_score_subtitle">हर हिस्सा 0 से 100 · वज़न = कुल score में हिस्सा</string>
+    <string name="detail_score_subtitle">हर हिस्सा 0 से 100 · वज़न = कुल score में हिस्सा · दबाकर पूरा हिसाब देखें</string>
     <string name="detail_part_liquidity">Liquidity (तरलता)</string>
     <string name="detail_part_volume">Volume उछाल</string>
     <string name="detail_part_momentum">Momentum (तेज़ी)</string>

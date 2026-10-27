@@ -42,6 +42,15 @@ class ScanStoreTest {
         pastScores = listOf(DayScore(20_741L, 79.0), DayScore(20_740L, 70.5)),
         support = SupportFloor(level = 2_890.0, ageSessions = 118, touches = 4, unbroken = true, window = 124),
         setupMask = SetupCondition.BREAKOUT_TODAY.flag or SetupCondition.VOLUME_2X.flag,
+        // Figures within the decimals the store keeps, so they come back exactly; no 50-day terms.
+        factors = ScoreFactors(
+            swingPct = 2.125, highGap = 0.4, proximity = 92.0, baseWidthPct = 3.5, narrow = 110.6, calm = 0.8125,
+            calmed = 78.75, tightness = 94.675, position = 81.5, breakoutRaw = 89.1513, above20 = 1.25, slope20 = 0.5,
+            above50 = null, stacked = null, trendRaw = 70.125, average20 = 512_345.0, quiet = 0.6125, expansion = 81.5,
+            dryUp = 82.6923, volumeRaw = 81.9769, medianTurnoverCr = 164.75, liquidityRaw = 107.3887, change20 = 6.25,
+            momentumRaw = 53.375, highs = listOf(3_220.55, 3_240.0), lows = listOf(3_150.1, 3_190.25),
+            volumes = listOf(1_000_000.0, 1_234_567.0),
+        ),
     )
 
     private val bare = ScanResult(symbol = "123ABC", price = 10.0, score = 40.0, rvol = 0.5, change5d = 2.0, market = Market.BSE, bseCode = "543210")
