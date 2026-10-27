@@ -1,0 +1,43 @@
+scan done after ~60s
+shot 01-list
+shot 02-score-parts
+shot 03-breakout
+• इस stock की आम रोज़ की चाल (पिछले 50 दिन की औसत high–low range): 3.81% — दूरियाँ इसी के गुना में नापी जाती हैं
+• 20 दिन का high ₹1,458.00; भाव ₹1,464.00 उससे 0.4% ऊपर निकल चुका, रोज़ की चाल का 0.1 गुना → 100 अंक (हिस्सा 55%)
+• पिछले 10 दिन का base ₹1,362.80 – ₹1,475.80, चौड़ाई 8%, यानी रोज़ की चाल का 2.1 गुना (2 गुना या कम = तंग) → 97 अंक
+• उन दिनों की रोज़ की range आम चाल की 0.89 गुना (0.6 या कम = पूरी तरह शांत) → 71 अंक
+• Base की तंगी: ऊपर के दोनों का औसत (110 तक) → 84 अंक (हिस्सा 30%)
+• Base में भाव कहाँ: 90/100 (0 = सबसे नीचे, 100 = सबसे ऊपर) (हिस्सा 15%)
+shot 03-breakout-more
+could not scroll to Breakout के क़रीब
+could not find text Breakout के क़रीब
+could not scroll to Trend (रुझान)
+could not find text Trend (रुझान)
+shot 04-trend
+shot 04-trend-more
+could not scroll to Trend (रुझान)
+could not find text Trend (रुझान)
+could not scroll to Volume उछाल
+could not find text Volume उछाल
+shot 05-volume
+shot 05-volume-more
+could not scroll to Volume उछाल
+could not find text Volume उछाल
+could not scroll to Liquidity (तरलता)
+could not find text Liquidity (तरलता)
+shot 06-liquidity
+shot 06-liquidity-more
+could not scroll to Liquidity (तरलता)
+could not find text Liquidity (तरलता)
+could not scroll to Momentum (तेज़ी)
+could not find text Momentum (तेज़ी)
+shot 07-momentum
+shot 07-momentum-more
+could not scroll to Momentum (तेज़ी)
+could not find text Momentum (तेज़ी)
+could not scroll to Support bonus
+could not find text Support bonus
+shot 08-support
+shot 08-support-more
+could not scroll to Support bonus
+could not find text Support bonus
