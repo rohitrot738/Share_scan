@@ -89,13 +89,13 @@ object StockNews {
             """recording of (?:the )?(?:audio|earnings|conference|analyst|investor)|link of (?:the )?(?:audio|recording)|""" +
             """(?:schedule|intimation) of .{0,40}(?:earnings|conference) call|(?:earnings|conference) call (?:is )?(?:scheduled|to be held)|an earnings call""",
         NewsKind.MEETING to """board meeting intimation|intimation of board meeting|board meeting to consider|prior intimation|meeting of the board .{0,40}(?:will|to) be held""",
-        NewsKind.LEGAL to """sebi (?:order|has (?:passed|issued)|passes)|order of sebi|by sebi\b|adjudicat|\bhc\b|quash|penalt|\bfine\b|\bcourt\b|\bnclt\b|tribunal|litigation|orders? passed|insolvency|fraud|\braid\b|show.cause|income tax|gst demand|\bcgst\b|tax demand|demand (?:order|notice)|\bdefault""",
+        NewsKind.LEGAL to """sebi (?:order|has (?:passed|issued)|passes)|order of sebi|by sebi\b|adjudicat|\bhc\b|quash|non-?submission|non-?compliance|penalt|\bfine\b|\bcourt\b|\bnclt\b|tribunal|litigation|orders? passed|insolvency|fraud|\braid\b|show.cause|income tax|gst demand|\bcgst\b|tax demand|demand (?:order|notice)|\bdefault""",
         NewsKind.RESULTS to """financial results?|quarterly results?|results? for the (?:quarter|half|year)|\bq[1-4]\b|\bq[1-4]fy|net profit|profit (?:rises|jumps|falls|drops|surges|declines|up|down)|\bearnings\b""",
         NewsKind.DIVIDEND to """dividend|\bbonus\b|stock split|sub-?division|buy-?back""",
         NewsKind.FUNDRAISE to """\bqip\b|preferential|rights issue|fund ?rais|raising of funds|\bwarrants\b|\bncds?\b|debentures|\bipo\b|allotment of (?:equity|shares)""",
         NewsKind.DEAL to """acquisition|acquires?\b|\bacquired\b|merger|amalgamation|scheme of arrangement|joint venture|\bstake\b|divest|demerger|open offer""",
         NewsKind.EXPANSION to """\bplant\b|capacity|expansion|\bcapex\b|greenfield|brownfield|new facility|manufacturing facility|commissioning|commercial production""",
-        NewsKind.ORDER to """bagging|receiving of orders?|receipt of orders?|\border win|\bbags?\b.{0,30}\border|secures?.{0,30}\b(?:order|contract)|wins?.{0,30}\b(?:order|contract)|orders? worth|order (?:from|of rs|valued)|\bcontracts?\b|letter of (?:award|intent)""",
+        NewsKind.ORDER to """bagging|receiving of orders?|receipt of orders?|\border win|\bbags?\b.{0,30}\b(?:order|contract|mandate)|secures?.{0,30}\b(?:order|contract|mandate)|wins?.{0,30}\b(?:order|contract|mandate)|orders? worth|order (?:from|of rs|valued)|\bcontracts?\b|letter of (?:award|intent)""",
         NewsKind.MANAGEMENT to """resignation|resigns?\b|appointment|appoints?\b|cessation|managing director|\bceo\b|\bcfo\b|\bkmp\b|key managerial|change in director""",
         NewsKind.RATING to """credit rating|\brating\b|\bupgrade|\bdowngrade""",
         NewsKind.INVESTOR to """analyst|investors? meet|institutional investor|con\. ?call|conference call|earnings call|investor presentation|\bpresentation\b""",
@@ -250,7 +250,7 @@ object StockNews {
 
     /** A filing's own words without the "<Company> has informed the Exchange about" opening; its category without words. */
     fun cleanFiling(text: String, category: String): String {
-        val words = text.trim().replace(Regex("""\s+"""), " ")
+        val words = unescape(text).trim().replace(Regex("""\s+"""), " ")
         val cleaned = words.replace(INFORMED, "").trim().removeSuffix(".").trim('\'', '"', '‘', '’', '“', '”').removeSuffix(".").trim()
         val result = cleaned.ifEmpty { category.trim() }
         return result.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ENGLISH) else it.toString() }

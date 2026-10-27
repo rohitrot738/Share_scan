@@ -40,6 +40,10 @@ class StockNewsTest {
         assertEquals(ist("2026-10-23T23:53:32"), items[2].at)
         assertEquals(NewsKind.ROUTINE, items[2].kind)
         assertEquals(emptyList<NewsItem>(), StockNews.nse("<html>blocked</html>"))
+        // NSE writes some characters as HTML entities.
+        val rupee = """[{"sort_date":"2026-10-27 18:45:00","symbol":"ARIS","seq_id":"9","desc":"Press Release",
+            "attchmntText":"ARIS Unitern Bags Mandate for &#8377;250 Cr GDV &amp; more"}]"""
+        assertEquals("ARIS Unitern Bags Mandate for ₹250 Cr GDV & more", StockNews.nse(rupee).single().title)
     }
 
     @Test
@@ -130,6 +134,8 @@ class StockNewsTest {
         assertEquals(NewsKind.DEAL, kind("Public Announcement-Open Offer under Regulation 3 of SEBI (Substantial Acquisition of Shares and Takeovers) Regulations"))
         assertEquals(NewsKind.ROUTINE, kind("Disclosure under Regulation 10(5) of the SEBI (Substantial Acquisition of Shares and Takeovers) Regulations, 2011"))
         assertEquals(NewsKind.LEGAL, kind("Intimation of order received under section 73 of CGST/SGST Act, 2017"))
+        assertEquals(NewsKind.ORDER, kind("Press Release. A press release titled \"ARIS Unitern Bags Third Transcon Mandate for ₹250 Cr GDV\""))
+        assertEquals(NewsKind.LEGAL, kind("Non-Submission of Unaudited Financial Results for the Quarter Ended June 30, 2026 under Regulation 33"))
         assertEquals(NewsKind.ROUTINE, kind("Non-Applicability of Submission of Corporate Governance Report under Regulation 27(2)"))
         assertTrue(NewsKind.RESULTS.big && !NewsKind.ROUTINE.big && !NewsKind.MEETING.big)
     }
