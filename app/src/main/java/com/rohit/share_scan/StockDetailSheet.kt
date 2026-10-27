@@ -925,7 +925,11 @@ class StockDetailSheet(
         }
         row.newsWhen.text = NewsLabels.whenText(activity, item.at, now)
         row.newsTitle.text = item.title
-        row.newsSource.text = if (item.official) activity.getString(R.string.news_source_filing, item.source) else item.source
+        row.newsSource.text = when {
+            !item.official -> item.source
+            item.pdf -> activity.getString(R.string.news_source_filing, item.source)
+            else -> activity.getString(R.string.news_source_filing_page, item.source)
+        }
         row.root.setOnClickListener {
             try {
                 activity.startActivity(Intent(Intent.ACTION_VIEW, item.url.toUri()))

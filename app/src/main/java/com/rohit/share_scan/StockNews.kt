@@ -2,6 +2,7 @@ package com.rohit.share_scan
 
 import org.json.JSONArray
 import org.json.JSONObject
+import java.net.URLEncoder
 import java.time.LocalDateTime
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -40,6 +41,9 @@ data class NewsItem(
 ) {
     /** An exchange's routine notice (a newspaper ad, a trading window, a certificate…), kept out of the way. */
     val routine: Boolean get() = official && kind == NewsKind.ROUTINE
+
+    /** Opens the filing's own document; otherwise a page (an article, or the stock's page at the exchange). */
+    val pdf: Boolean get() = url.substringBefore('?').endsWith(".pdf", ignoreCase = true)
 }
 
 /** A card's 📰 mark: the weightiest kind among a stock's recent filings, how many there are and when the latest came. */
@@ -64,6 +68,8 @@ object StockNews {
     private val NSE_SHOWN_TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("dd-MMM-yyyy HH:mm:ss", Locale.ENGLISH)
     private val RSS_TIME: DateTimeFormatter = DateTimeFormatter.RFC_1123_DATE_TIME
     private const val BSE_FILES = "https://www.bseindia.com/xml-data/corpfiling/AttachLive/"
+    /** A stock's page at NSE, with its announcements: where a filing without a document leads. */
+    private const val NSE_QUOTE = "https://www.nseindia.com/get-quotes/equity?symbol="
 
     /** "<Company> has informed the Exchange about …", the opening most filings' text shares. */
     private val INFORMED = Regex(
@@ -119,7 +125,8 @@ object StockNews {
                 at = at,
                 title = title,
                 source = "NSE",
-                url = row.optString("attchmntFile").trim(),
+                url = row.optString("attchmntFile").trim().takeIf { it.startsWith("http") }
+                    ?: (NSE_QUOTE + URLEncoder.encode(symbol, "UTF-8")),
                 kind = classify("$category. $title"),
                 official = true,
                 id = "nse:" + row.optString("seq_id").ifBlank { "$symbol:$at:${title.hashCode()}" },

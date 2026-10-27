@@ -31,6 +31,7 @@
     <string name="news_none">पिछले 1 साल में इस stock की कोई घोषणा या ख़बर नहीं मिली</string>
     <string name="news_failed">ख़बरें नहीं आ पाईं — इंटरनेट जाँचें और sheet दोबारा खोलें</string>
     <string name="news_source_filing">%1$s घोषणा • PDF</string>
+    <string name="news_source_filing_page">%1$s घोषणा</string>
     <string name="news_more">और %1$d ख़बरें दिखाएँ</string>
     <string name="news_routine">+%1$d सामान्य सूचनाएँ (अख़बार में notice, trading window, certificates…)</string>
     <string name="news_open_failed">ख़बर खोलने के लिए कोई browser नहीं मिला</string>

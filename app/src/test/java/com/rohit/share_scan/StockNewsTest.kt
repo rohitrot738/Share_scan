@@ -39,11 +39,16 @@ class StockNewsTest {
         // No sort_date: the shown date is read instead.
         assertEquals(ist("2026-10-23T23:53:32"), items[2].at)
         assertEquals(NewsKind.ROUTINE, items[2].kind)
+        // A filing with its document opens that; one without leads to the stock's page at NSE.
+        assertTrue(tcs.pdf)
+        assertEquals("https://www.nseindia.com/get-quotes/equity?symbol=SHRIPISTON", items[2].url)
+        assertFalse(items[2].pdf)
         assertEquals(emptyList<NewsItem>(), StockNews.nse("<html>blocked</html>"))
         // NSE writes some characters as HTML entities.
         val rupee = """[{"sort_date":"2026-10-27 18:45:00","symbol":"ARIS","seq_id":"9","desc":"Press Release",
             "attchmntText":"ARIS Unitern Bags Mandate for &#8377;250 Cr GDV &amp; more"}]"""
         assertEquals("ARIS Unitern Bags Mandate for ₹250 Cr GDV & more", StockNews.nse(rupee).single().title)
+        assertEquals("https://www.nseindia.com/get-quotes/equity?symbol=M%26M", StockNews.nse(rupee.replace("ARIS\",", "M&M\",")).single().url)
     }
 
     @Test
