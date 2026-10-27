@@ -1,43 +1,50 @@
-scan done after ~60s
+scan done after ~75s
 shot 01-list
 shot 02-score-parts
 shot 03-breakout
 • इस stock की आम रोज़ की चाल (पिछले 50 दिन की औसत high–low range): 3.81% — दूरियाँ इसी के गुना में नापी जाती हैं
-• 20 दिन का high ₹1,458.00; भाव ₹1,464.00 उससे 0.4% ऊपर निकल चुका, रोज़ की चाल का 0.1 गुना → 100 अंक (हिस्सा 55%)
+• आख़िरी सत्र से पहले के 20 दिन का high ₹1,458.00; भाव ₹1,464.00 उससे 0.4% ऊपर निकल चुका, रोज़ की चाल का 0.1 गुना → 100 अंक (हिस्सा 55%)
 • पिछले 10 दिन का base ₹1,362.80 – ₹1,475.80, चौड़ाई 8%, यानी रोज़ की चाल का 2.1 गुना (2 गुना या कम = तंग) → 97 अंक
 • उन दिनों की रोज़ की range आम चाल की 0.89 गुना (0.6 या कम = पूरी तरह शांत) → 71 अंक
 • Base की तंगी: ऊपर के दोनों का औसत (110 तक) → 84 अंक (हिस्सा 30%)
-• Base में भाव कहाँ: 90/100 (0 = सबसे नीचे, 100 = सबसे ऊपर) (हिस्सा 15%)
 shot 03-breakout-more
-could not scroll to Breakout के क़रीब
-could not find text Breakout के क़रीब
-could not scroll to Trend (रुझान)
-could not find text Trend (रुझान)
+दिन
+27 Oct
+26 Oct
 shot 04-trend
+• इस stock की आम रोज़ की चाल (पिछले 50 दिन की औसत high–low range): 3.81% — दूरियाँ इसी के गुना में नापी जाती हैं
+• भाव, 20-दिन औसत ₹1,340.40 से ऊपर (+) / नीचे (−): +2.2 रोज़-चाल → 6 × +2.2 = +13.3 अंक
+• 20-दिन औसत की ढलान, पिछले 5 दिन में: +0.5 रोज़-चाल → 8 × +0.5 = +4.2 अंक
+• भाव, 50-दिन औसत ₹1,278.13 से ऊपर (+) / नीचे (−): +3.3 रोज़-चाल → 4 × +3.3 = +13.3 अंक
+• 20-दिन औसत, 50-दिन औसत से ऊपर (+) / नीचे (−): +1.1 रोज़-चाल → 5 × +1.1 = +5.6 अंक
+• कुल: 50 + 13.3 + 4.2 + 13.3 + 5.6 = 86.5 अंक → 86
 shot 04-trend-more
-could not scroll to Trend (रुझान)
-could not find text Trend (रुझान)
-could not scroll to Volume उछाल
-could not find text Volume उछाल
 shot 05-volume
+• पिछले सत्र का volume 10.7 L shares, उससे पहले के 20 सत्रों के औसत 8 L का 1.33 गुना (RVOL) → 60 अंक (1 गुना = 50, 2 = 75, 4 = 100) (हिस्सा 60%)
+• उससे पहले के 5 सत्र: औसत का 0.77 गुना (0.5 या कम = volume सूखा, 1.15 या ज़्यादा = नहीं) → 58 अंक (हिस्सा 40%)
+• कुल: 0.6 × 60 + 0.4 × 58 = 59.4 अंक → 59
 shot 05-volume-more
-could not scroll to Volume उछाल
-could not find text Volume उछाल
-could not scroll to Liquidity (तरलता)
-could not find text Liquidity (तरलता)
+16 Oct
+15 Oct
+14 Oct
 shot 06-liquidity
+• पिछले 20 सत्रों में रोज़ के कारोबार (भाव × volume) का median ₹83.7 Cr
+• कुल: 97.4 अंक → 93
 shot 06-liquidity-more
-could not scroll to Liquidity (तरलता)
-could not find text Liquidity (तरलता)
-could not scroll to Momentum (तेज़ी)
-could not find text Momentum (तेज़ी)
+16 Oct
+15 Oct
+14 Oct
 shot 07-momentum
+• 5 सत्र में +4.4% → 4 × +4.4 = +17.7 अंक
+• 20 सत्र में +16.7% → 1.5 × +16.7 = +25 अंक
+• कुल: 50 + 17.7 + 25 = 92.7 अंक → 91
 shot 07-momentum-more
-could not scroll to Momentum (तेज़ी)
-could not find text Momentum (तेज़ी)
-could not scroll to Support bonus
-could not find text Support bonus
+16 Oct
+15 Oct
+14 Oct
 shot 08-support
+• Support ₹934.20; भाव उससे 56.7% ऊपर
+• 106 सत्र (5 महीने) से इसके नीचे बंद नहीं हुआ → 62/70 अंक (6 महीने पर पूरे)
+• 3 बार यहाँ तक आकर लौटा → 18/30 अंक (5 बार पर पूरे)
+• ताक़त 80/100 → bonus 4 अंक (ज़्यादा से ज़्यादा 5)
 shot 08-support-more
-could not scroll to Support bonus
-could not find text Support bonus
