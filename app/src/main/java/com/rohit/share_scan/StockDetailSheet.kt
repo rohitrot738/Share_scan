@@ -601,7 +601,7 @@ class StockDetailSheet(
                 val stacked = f.stacked
                 fun term(label: String, swings: Double, weight: Double) = line(
                     activity.getString(
-                        R.string.score_trend_term, label, Cr360Format.signed(swings, 1), Cr360Format.number(weight, 2),
+                        R.string.score_trend_term, label, Cr360Format.signed(swings, 2), Cr360Format.number(weight, 2),
                         Cr360Format.signed(weight * swings, 1),
                     ),
                 )
@@ -643,8 +643,8 @@ class StockDetailSheet(
                 sessionsTable(body, f, s)
             }
             ScoreKeys.MOMENTUM -> {
-                line(activity.getString(R.string.score_momentum_5d, Cr360Format.signed(stock.change5d, 1), Cr360Format.signed(4.0 * stock.change5d, 1)))
-                line(activity.getString(R.string.score_momentum_20d, Cr360Format.signed(f.change20, 1), Cr360Format.signed(1.5 * f.change20, 1)))
+                line(activity.getString(R.string.score_momentum_5d, Cr360Format.signed(stock.change5d, 2), Cr360Format.signed(4.0 * stock.change5d, 1)))
+                line(activity.getString(R.string.score_momentum_20d, Cr360Format.signed(f.change20, 2), Cr360Format.signed(1.5 * f.change20, 1)))
                 total("50 " + addend(4.0 * stock.change5d) + " " + addend(1.5 * f.change20), f.momentumRaw)
                 sessionsTable(body, f, s)
             }
