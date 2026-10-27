@@ -39,11 +39,11 @@
     <string name="fw_calc_fallback">%1$s के लिए data कम था (कम इतिहास, घाटा या धीमी बढ़त), इसलिए sector P/E–P/B वाला हिसाब लगा</string>
     <string name="fw_calc_bank_book">Book value ₹%1$s/share − ख़राब loans ₹%2$s/share (net NPA loans का %3$s%%) = adjusted book ₹%4$s</string>
     <string name="fw_calc_bank_no_npa">Book value ₹%1$s/share; net NPA नहीं मिला (consolidated page पर नहीं होता), इसलिए पूरी book गिनी</string>
-    <string name="fw_calc_bank_pb">अपने 3 साल का median P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_bank_pb">अपना 3 साल का median P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
     <string name="fw_calc_bank_pb_sector">अपना इतिहास छोटा, इसलिए sector का P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
     <string name="fw_calc_roa">ROA (12 महीने का मुनाफ़ा ÷ कुल assets) %1$s%%; 1%% से ऊपर चाहिए</string>
-    <string name="fw_calc_ev_multiple">अपने 3 साल का median EV/EBITDA %1$s (आज %2$s)</string>
-    <string name="fw_calc_ev_multiple_only">अपने 3 साल का median EV/EBITDA %1$s</string>
+    <string name="fw_calc_ev_multiple">अपना 3 साल का median EV/EBITDA %1$s (आज %2$s)</string>
+    <string name="fw_calc_ev_multiple_only">अपना 3 साल का median EV/EBITDA %1$s</string>
     <string name="fw_calc_ebitda">EBITDA (12 महीने): %1$s</string>
     <string name="fw_calc_ebitda_mid">Mid-cycle EBITDA (सालाना EBITDA का औसत): %1$s</string>
     <string name="fw_calc_ev_value">(%1$s × %2$s − कर्ज़ %3$s) ÷ %4$s Cr shares = ₹%5$s</string>

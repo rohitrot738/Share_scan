@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper: the valuation framework in the R/S card of a few stocks' detail sheets. Removed before merging.
+# Temporary review helper (run 2): the valuation framework in the R/S card of a few stocks' detail sheets. Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -53,10 +53,10 @@ PY
 }
 tap() { local xy; xy=$(center id "$1") && adb shell input tap $xy || echo "could not find id $1" | tee -a "$LOG"; }
 tap_text() { local xy; xy=$(center text "$1") && adb shell input tap $xy || echo "could not find text $1" | tee -a "$LOG"; }
-drag_up() { adb shell input swipe 540 1700 540 1300 1200; sleep 1; }
+drag_up() { adb shell input swipe 540 1700 540 1400 1500; sleep 1; }
 scroll_to() {
   for i in $(seq 1 40); do
-    local xy; xy=$(center text "$1") && [ "${xy#* }" -lt 1100 ] && return 0
+    local xy; xy=$(center text "$1") && [ "${xy#* }" -lt 1500 ] && return 0
     drag_up
   done
   echo "could not scroll to $1" | tee -a "$LOG"

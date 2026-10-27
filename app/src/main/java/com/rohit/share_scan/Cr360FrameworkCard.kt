@@ -82,7 +82,7 @@ class Cr360FrameworkCard(
         if (fw.best(red)) {
             box.addView(view(get(R.string.fw_flag_best), 13f, R.color.bull).apply { setTypeface(typeface, Typeface.BOLD) })
         }
-        if (fw.has(Flag.BUY_ZONE)) line(R.string.fw_flag_buy_zone, R.color.bull, fact(Fact.EMA_200, 2), fact(Fact.GAP_LOW, 2), fact(Fact.GAP_HIGH, 2))
+        if (fw.has(Flag.BUY_ZONE)) line(R.string.fw_flag_buy_zone, R.color.bull, rupees(Fact.EMA_200), rupees(Fact.GAP_LOW), rupees(Fact.GAP_HIGH))
         if (fw.has(Flag.WEEKLY_SWEEP)) fw[Fact.SWEPT_LOW]?.let { line(R.string.fw_flag_sweep, R.color.bull, price(it)) }
         if (fw.has(Flag.CYCLICAL_WARNING)) line(R.string.fw_flag_cyclical, R.color.warn)
         if (fw.has(Flag.PEG_LOW)) line(R.string.fw_flag_peg_low, R.color.bull, fact(Fact.PEG, 2))
@@ -103,14 +103,17 @@ class Cr360FrameworkCard(
         box.isVisible = box.childCount > 0
     }
 
-    /** The full calculation, into [body]: the model's working, the penalties, the margin of safety, the screen, the chart. */
-    fun calculation(body: LinearLayout) {
+    /**
+     * The full calculation, into [body]: the model's working, the penalties, the margin of safety, the screen, the
+     * chart; under its own heading unless it opens from the line that already says so ([titled] false).
+     */
+    fun calculation(body: LinearLayout, titled: Boolean = true) {
         val fw = framework
         fun line(text: String, @ColorRes tone: Int = R.color.text_primary) = body.addView(view("• $text", 13f, tone))
         fun heading(@StringRes id: Int) = body.addView(view(get(id), 13f).apply { setTypeface(typeface, Typeface.BOLD) })
         val raw = fw.rawValue
 
-        heading(R.string.fw_open)
+        if (titled) heading(R.string.fw_open)
         line(get(R.string.fw_calc_model, modelName(fw.model), stock.sector.ifEmpty { modelName(fw.sectorModel) }))
         if (fw.model != fw.sectorModel) line(get(R.string.fw_calc_fallback, modelName(fw.sectorModel)), R.color.warn)
         when (fw.model) {
@@ -140,7 +143,7 @@ class Cr360FrameworkCard(
                 if (ebitda != null) line(get(if (fw.model == Model.CYCLICAL) R.string.fw_calc_ebitda_mid else R.string.fw_calc_ebitda, crore(ebitda)))
                 if (own != null && ebitda != null && debt != null && shares != null && shares > 0) {
                     val before = (own * ebitda - debt) / shares
-                    line(get(R.string.fw_calc_ev_value, num(own, 2), crore(ebitda), crore(debt), num(shares, 2), price(before)))
+                    line(get(R.string.fw_calc_ev_value, num(own, 2), crore(ebitda), crore(debt), Cr360Format.amount(shares), price(before)))
                     line(get(R.string.fw_calc_ev_note), R.color.text_secondary)
                     fw[Fact.ROCE]?.let { roce ->
                         if (Penalty.ROCE in fw.penalties) line(get(R.string.fw_calc_roce_cut, num(roce, 1), price(raw ?: before * 0.8)), R.color.warn)
@@ -234,6 +237,9 @@ class Cr360FrameworkCard(
             Model.CASH -> R.string.fw_model_cash
         },
     )
+
+    /** A fact's rupee figure as prices read ("1,364.77"); "—" when missing. */
+    private fun rupees(key: Fact): String = framework[key]?.let { price(it) } ?: "—"
 
     private fun fact(key: Fact, digits: Int): String = framework[key]?.let { num(it, digits) } ?: "—"
 

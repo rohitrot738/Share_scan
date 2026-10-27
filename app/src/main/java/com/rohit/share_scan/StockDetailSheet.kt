@@ -771,7 +771,7 @@ class StockDetailSheet(
             ui.detailCr360FrameworkOpen.isVisible = true
             val label = activity.getString(R.string.fw_open)
             openers += Opener(ui.detailCr360FrameworkOpen, ui.detailCr360FrameworkOpen, label, ui.detailCr360FrameworkBody, waits = false) {
-                card.calculation(it)
+                card.calculation(it, titled = false)
             }
         }
         val facts = cr360Facts(entry.facts)
