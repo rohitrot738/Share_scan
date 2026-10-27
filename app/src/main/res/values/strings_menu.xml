@@ -88,7 +88,7 @@
 
     <!-- Score guide -->
     <string name="help_title">Score कैसे बनता है</string>
-    <string name="help_subtitle">हर stock को 0–100 का pre-breakout score</string>
+    <string name="help_subtitle">हर stock को 0–100 का pre-breakout score • stock के detail में "Score कैसे बना" का हर हिस्सा दबाकर उसका पूरा हिसाब देखें</string>
     <string name="help_part_breakout">Breakout setup • 35%</string>
     <string name="help_part_breakout_body">Price 20 दिन के high के कितना पास है, पिछले 10 sessions का base कितना tight और शांत है, और close base में कहाँ है। दूरी stock की अपनी औसत daily range (ATR) में नापी जाती है, इसलिए छोटे और बड़े stocks बराबर तौले जाते हैं।</string>
     <string name="help_part_trend">Trend • 20%</string>

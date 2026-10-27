@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- A score part opened in the detail sheet (StockDetailSheet.scoreDetail): what it was made of. -->
+    <string name="score_detail_old">इस हिस्से का पूरा हिसाब पिछले स्कैन में नहीं रखा गया था — दोबारा स्कैन करने पर दिखेगा</string>
+    <string name="score_swing">इस stock की आम रोज़ की चाल (पिछले 50 दिन की औसत high–low range): %1$s%% — दूरियाँ इसी के गुना में नापी जाती हैं</string>
+    <string name="score_total">कुल: %1$s = %2$s अंक → %3$s</string>
+    <string name="score_total_simple">कुल: %1$s अंक → %2$s</string>
+    <string name="score_soft_note">85 से ऊपर और 15 से नीचे के अंक धीरे-धीरे 100 और 0 की ओर दबाए जाते हैं, ताकि सबसे अच्छे stocks का क्रम बना रहे</string>
+
+    <!-- Breakout के क़रीब -->
+    <string name="score_breakout_high">20 दिन का high ₹%1$s; भाव ₹%2$s उससे %3$s%% नीचे, यानी रोज़ की चाल का %4$s गुना → %5$s अंक (हिस्सा 55%%)</string>
+    <string name="score_breakout_high_above">20 दिन का high ₹%1$s; भाव ₹%2$s उससे %3$s%% ऊपर निकल चुका, रोज़ की चाल का %4$s गुना → %5$s अंक (हिस्सा 55%%)</string>
+    <string name="score_breakout_high_rule">High के ठीक नीचे से उसके एक रोज़-चाल ऊपर तक पूरे 100 अंक; उससे हर एक रोज़-चाल दूर पर 20 अंक कम</string>
+    <string name="score_breakout_base">पिछले 10 दिन का base ₹%1$s – ₹%2$s, चौड़ाई %3$s%%, यानी रोज़ की चाल का %4$s गुना (2 गुना या कम = तंग) → %5$s अंक</string>
+    <string name="score_breakout_calm">उन दिनों की रोज़ की range आम चाल की %1$s गुना (0.6 या कम = पूरी तरह शांत) → %2$s अंक</string>
+    <string name="score_breakout_tight">Base की तंगी: ऊपर के दोनों का औसत (110 तक) → %1$s अंक (हिस्सा 30%%)</string>
+    <string name="score_breakout_position">Base में भाव कहाँ: %1$s/100 (0 = सबसे नीचे, 100 = सबसे ऊपर) (हिस्सा 15%%)</string>
+    <string name="score_breakout_total">कुल: 0.55 × %1$s + 0.30 × %2$s + 0.15 × %3$s = %4$s अंक → %5$s</string>
+    <string name="score_base_title">पिछले 10 सत्र का base</string>
+
+    <!-- Trend (रुझान) -->
+    <string name="score_trend_term">%1$s: %2$s रोज़-चाल → %3$s × %2$s = %4$s अंक</string>
+    <string name="score_trend_above20">भाव, 20-दिन औसत ₹%1$s से ऊपर (+) / नीचे (−)</string>
+    <string name="score_trend_slope">20-दिन औसत की ढलान, पिछले 5 दिन में</string>
+    <string name="score_trend_above50">भाव, 50-दिन औसत ₹%1$s से ऊपर (+) / नीचे (−)</string>
+    <string name="score_trend_stacked">20-दिन औसत, 50-दिन औसत से ऊपर (+) / नीचे (−)</string>
+    <string name="score_trend_limits">हर हिस्सा एक हद तक ही गिना जाता है: 20-दिन ±3, ढलान ±2, 50-दिन ±4 और दोनों औसतों का फ़र्क़ ±2 रोज़-चाल</string>
+    <string name="score_trend_short">50 दिन का data नहीं, इसलिए 20-दिन वाले दोनों हिस्से 1.75 गुना गिने गए</string>
+
+    <!-- Volume उछाल -->
+    <string name="score_volume_rvol">पिछले सत्र का volume %1$s shares, उससे पहले के 20 सत्रों के औसत %2$s का %3$s गुना (RVOL) → %4$s अंक (1 गुना = 50, 2 = 75, 4 = 100) (हिस्सा 60%%)</string>
+    <string name="score_volume_live">बाज़ार अभी चालू है: आज का अब तक का volume, दिन के इस समय तक आम तौर पर होने वाले हिस्से के हिसाब से पूरे दिन का मानकर गिना गया</string>
+    <string name="score_volume_quiet">उससे पहले के 5 सत्र: औसत का %1$s गुना (0.5 या कम = volume सूखा, 1.15 या ज़्यादा = नहीं) → %2$s अंक (हिस्सा 40%%)</string>
+    <string name="score_volume_total">कुल: 0.6 × %1$s + 0.4 × %2$s = %3$s अंक → %4$s</string>
+
+    <!-- Liquidity (तरलता) -->
+    <string name="score_liquidity_median">पिछले 20 सत्रों में रोज़ के कारोबार (भाव × volume) का median %1$s</string>
+    <string name="score_liquidity_scale">पैमाना: ₹10 लाख = 0, ₹1 Cr = 33, ₹10 Cr = 67, ₹100 Cr = 100 अंक</string>
+
+    <!-- Momentum (तेज़ी) -->
+    <string name="score_momentum_5d">5 सत्र में %1$s%% → 4 × %1$s = %2$s अंक</string>
+    <string name="score_momentum_20d">20 सत्र में %1$s%% → 1.5 × %1$s = %2$s अंक</string>
+
+    <!-- Support bonus -->
+    <string name="score_support_level">Support ₹%1$s; भाव उससे %2$s%% ऊपर</string>
+    <string name="score_support_age">%1$d सत्र (%2$s) से इसके नीचे बंद नहीं हुआ → %3$s/70 अंक (6 महीने पर पूरे)</string>
+    <string name="score_support_touches">%1$d बार यहाँ तक आकर लौटा → %2$s/30 अंक (5 बार पर पूरे)</string>
+    <string name="score_support_total">ताक़त %1$s/100 → bonus %2$s अंक (ज़्यादा से ज़्यादा 5)</string>
+    <string name="score_support_none">पिछले 6 महीने के chart में कोई टिकाऊ support नहीं मिला — bonus 0 (score से कुछ कटता नहीं)</string>
+
+    <!-- The latest sessions' table -->
+    <string name="score_recent_title">पिछले 10 सत्र</string>
+    <string name="score_col_day">दिन</string>
+    <string name="score_col_close">भाव</string>
+    <string name="score_col_change">बदलाव</string>
+    <string name="score_col_volume">Volume</string>
+    <string name="score_col_times">× औसत</string>
+    <string name="score_col_turnover">₹ Cr</string>
+    <string name="score_col_high">High</string>
+    <string name="score_col_low">Low</string>
+    <string name="score_recent_note">× औसत: उस दिन का volume, आज से पहले के 20 सत्रों के औसत का कितने गुना; ₹ Cr: उस दिन का कारोबार</string>
+</resources>

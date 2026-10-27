@@ -84,6 +84,33 @@ class BreakoutSignalsTest {
     }
 
     @Test
+    fun factorsRebuildEveryPartByItsFormula() {
+        for (signals in listOf(tightBase().analyse()!!, sloppyDowntrend().analyse()!!)) {
+            val f = signals.factors!!
+            fun soft(points: Double) = BreakoutSignals.soft(points)
+            assertEquals(soft(0.55 * f.proximity + 0.30 * f.tightness + 0.15 * f.position), signals.part(ScoreKeys.BREAKOUT), 1e-9)
+            assertEquals(Math.min(110.0, (f.narrow + f.calmed) / 2.0), f.tightness, 1e-9)
+            assertEquals(
+                soft(50.0 + 6.0 * f.above20 + 8.0 * f.slope20 + 4.0 * f.above50!! + 5.0 * f.stacked!!),
+                signals.part(ScoreKeys.TREND),
+                1e-9,
+            )
+            assertEquals(50.0 + 25.0 * kotlin.math.log2(signals.rvol), f.expansion, 1e-9)
+            assertEquals(soft(0.6 * f.expansion + 0.4 * f.dryUp), signals.part(ScoreKeys.VOLUME), 1e-9)
+            assertEquals(soft(f.liquidityRaw), signals.part(ScoreKeys.LIQUIDITY), 1e-9)
+            assertEquals(soft(50.0 + 4.0 * signals.change5d + 1.5 * f.change20), signals.part(ScoreKeys.MOMENTUM), 1e-9)
+            assertEquals(signals.quietVolume, f.quiet, 1e-12)
+            assertEquals(signals.medianTurnoverCr, f.medianTurnoverCr, 1e-12)
+            assertEquals(signals.volume / f.average20, signals.rvol, 1e-9)
+            // The latest ten sessions, the latest last.
+            assertEquals(BreakoutSignals.RECENT_SESSIONS, f.volumes.size)
+            assertEquals(signals.volume, f.volumes.last(), 0.0)
+            assertEquals(BreakoutSignals.RECENT_SESSIONS, f.highs.size)
+            assertTrue(f.highs.zip(f.lows).all { (high, low) -> high >= low })
+        }
+    }
+
+    @Test
     fun structureFollowsItsDefinition() {
         val candles = Candles()
         for (i in 0 until 70) {

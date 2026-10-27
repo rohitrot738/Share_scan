@@ -42,8 +42,10 @@ import com.rohit.share_scan.databinding.SheetStockDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
 import java.util.Locale
 import kotlin.math.abs
+import kotlin.math.min
 import kotlin.math.roundToInt
 
 /**
@@ -533,8 +535,210 @@ class StockDetailSheet(
             row.partWeight.text =
                 activity.getString(if (bonus) R.string.detail_part_bonus else R.string.detail_part_weight, weight)
             row.root.contentDescription = activity.getString(R.string.detail_part_description, name, shown, weight)
+            Opener(row.root, row.partName, name, detailBody(ui.detailScoreParts, inset = true), waits = false) {
+                scoreDetail(part.key, value, it)
+            }
         }
     }
+
+    /**
+     * What a part of the score opens into: the figures behind it and the points each gave ([ScoreFactors]), then the
+     * latest sessions where they show; the support bonus from its floor. A scan saved before the figures were kept
+     * says so.
+     */
+    private fun scoreDetail(key: String, value: Double, body: LinearLayout) {
+        fun line(text: String) = body.addView(factView("• $text"))
+        fun total(expression: String, raw: Double) {
+            line(activity.getString(R.string.score_total, expression, Cr360Format.number(raw, 1), points(value)))
+            if (raw < SOFT_LOW || raw > SOFT_HIGH) body.addView(noteView(R.string.score_soft_note))
+        }
+        if (key == ScoreKeys.SUPPORT) {
+            supportDetail(::line)
+            return
+        }
+        val f = stock.factors
+        val s = structure
+        if (f == null || s == null) {
+            body.addView(noteView(R.string.score_detail_old))
+            return
+        }
+        val swing = activity.getString(R.string.score_swing, Cr360Format.number(f.swingPct, 2))
+        when (key) {
+            ScoreKeys.BREAKOUT -> {
+                line(swing)
+                val gapPct = (s.high20 - stock.price) / s.high20 * 100.0
+                line(
+                    activity.getString(
+                        if (f.highGap >= 0.0) R.string.score_breakout_high else R.string.score_breakout_high_above,
+                        StockFormat.price(s.high20), StockFormat.price(stock.price), Cr360Format.number(abs(gapPct), 1),
+                        Cr360Format.number(abs(f.highGap), 1), points(f.proximity),
+                    ),
+                )
+                body.addView(noteView(R.string.score_breakout_high_rule))
+                s.high10?.let { high10 ->
+                    line(
+                        activity.getString(
+                            R.string.score_breakout_base, StockFormat.price(s.low10), StockFormat.price(high10),
+                            Cr360Format.number(f.baseWidthPct, 1), Cr360Format.number(f.baseWidthPct / f.swingPct, 1), points(f.narrow),
+                        ),
+                    )
+                }
+                line(activity.getString(R.string.score_breakout_calm, Cr360Format.number(f.calm, 2), points(f.calmed)))
+                line(activity.getString(R.string.score_breakout_tight, points(f.tightness)))
+                line(activity.getString(R.string.score_breakout_position, points(f.position)))
+                line(
+                    activity.getString(
+                        R.string.score_breakout_total, points(f.proximity), points(f.tightness), points(f.position),
+                        Cr360Format.number(f.breakoutRaw, 1), points(value),
+                    ),
+                )
+                if (f.breakoutRaw < SOFT_LOW || f.breakoutRaw > SOFT_HIGH) body.addView(noteView(R.string.score_soft_note))
+                baseTable(body, f, s)
+            }
+            ScoreKeys.TREND -> {
+                line(swing)
+                val above50 = f.above50
+                val stacked = f.stacked
+                fun term(label: String, swings: Double, weight: Double) = line(
+                    activity.getString(
+                        R.string.score_trend_term, label, Cr360Format.signed(swings, 1), Cr360Format.number(weight, 2),
+                        Cr360Format.signed(weight * swings, 1),
+                    ),
+                )
+                term(activity.getString(R.string.score_trend_above20, StockFormat.price(s.sma20)), f.above20, 6.0)
+                term(activity.getString(R.string.score_trend_slope), f.slope20, 8.0)
+                val expression = if (above50 != null && stacked != null && s.sma50 != null) {
+                    term(activity.getString(R.string.score_trend_above50, StockFormat.price(s.sma50)), above50, 4.0)
+                    term(activity.getString(R.string.score_trend_stacked), stacked, 5.0)
+                    "50 " + listOf(6.0 * f.above20, 8.0 * f.slope20, 4.0 * above50, 5.0 * stacked).joinToString(" ") { addend(it) }
+                } else {
+                    body.addView(noteView(R.string.score_trend_short))
+                    "50 + 1.75 × (" + Cr360Format.number(6.0 * f.above20, 1) + " " + addend(8.0 * f.slope20) + ")"
+                }
+                body.addView(noteView(R.string.score_trend_limits))
+                total(expression, f.trendRaw)
+            }
+            ScoreKeys.VOLUME -> {
+                line(
+                    activity.getString(
+                        R.string.score_volume_rvol, StockFormat.shares(stock.volume), StockFormat.shares(f.average20),
+                        Cr360Format.number(stock.rvol, 2), points(f.expansion),
+                    ),
+                )
+                if (stock.live) body.addView(noteView(R.string.score_volume_live))
+                line(activity.getString(R.string.score_volume_quiet, Cr360Format.number(f.quiet, 2), points(f.dryUp)))
+                line(
+                    activity.getString(
+                        R.string.score_volume_total, points(f.expansion), points(f.dryUp), Cr360Format.number(f.volumeRaw, 1), points(value),
+                    ),
+                )
+                if (f.volumeRaw < SOFT_LOW || f.volumeRaw > SOFT_HIGH) body.addView(noteView(R.string.score_soft_note))
+                sessionsTable(body, f, s)
+            }
+            ScoreKeys.LIQUIDITY -> {
+                line(activity.getString(R.string.score_liquidity_median, StockFormat.crore(f.medianTurnoverCr)))
+                body.addView(noteView(R.string.score_liquidity_scale))
+                line(activity.getString(R.string.score_total_simple, Cr360Format.number(f.liquidityRaw, 1), points(value)))
+                if (f.liquidityRaw < SOFT_LOW || f.liquidityRaw > SOFT_HIGH) body.addView(noteView(R.string.score_soft_note))
+                sessionsTable(body, f, s)
+            }
+            ScoreKeys.MOMENTUM -> {
+                line(activity.getString(R.string.score_momentum_5d, Cr360Format.signed(stock.change5d, 1), Cr360Format.signed(4.0 * stock.change5d, 1)))
+                line(activity.getString(R.string.score_momentum_20d, Cr360Format.signed(f.change20, 1), Cr360Format.signed(1.5 * f.change20, 1)))
+                total("50 " + addend(4.0 * stock.change5d) + " " + addend(1.5 * f.change20), f.momentumRaw)
+                sessionsTable(body, f, s)
+            }
+        }
+    }
+
+    /** The support bonus: the floor, how long it stood and how often it held, and what that adds. */
+    private fun supportDetail(line: (String) -> Unit) {
+        val floor = stock.support
+        if (floor == null) {
+            line(activity.getString(R.string.score_support_none))
+            return
+        }
+        val agePoints = min(floor.ageSessions / SupportFloors.FULL_AGE, 1.0) * 70.0
+        val touchPoints = min(floor.touches / SupportFloors.FULL_TOUCHES, 1.0) * 30.0
+        line(activity.getString(R.string.score_support_level, StockFormat.price(floor.level), Cr360Format.number(floor.distancePct(stock.price), 1)))
+        line(activity.getString(R.string.score_support_age, floor.ageSessions, StockFormat.supportAge(floor), points(agePoints)))
+        line(activity.getString(R.string.score_support_touches, floor.touches, points(touchPoints)))
+        line(
+            activity.getString(
+                R.string.score_support_total, points(floor.strength), Cr360Format.number(floor.strength * BreakoutSignals.SUPPORT_BONUS, 1),
+            ),
+        )
+    }
+
+    /** The latest sessions' close, change, volume against the 20-session average and rupee value, newest first. */
+    private fun sessionsTable(parent: LinearLayout, f: ScoreFactors, s: PriceStructure) {
+        val count = minOf(f.volumes.size, s.closes.size - 1)
+        if (count <= 0) return
+        val card = historyCard(parent, R.string.score_recent_title)
+        historyRow(
+            card.historyTable, header = true,
+            activity.getString(R.string.score_col_day), activity.getString(R.string.score_col_close),
+            activity.getString(R.string.score_col_change), activity.getString(R.string.score_col_volume),
+            activity.getString(R.string.score_col_times), activity.getString(R.string.score_col_turnover),
+        )
+        val closes = s.closes
+        for (back in 0 until count) {
+            val i = closes.size - 1 - back
+            val volume = f.volumes[f.volumes.size - 1 - back]
+            val change = (closes[i] / closes[i - 1] - 1.0) * 100.0
+            // The latest session's multiple is the score's own: a live day's volume is judged as a full day's.
+            val times = if (back == 0) stock.rvol else if (f.average20 > 0.0) volume / f.average20 else Double.NaN
+            historyRow(
+                card.historyTable, header = false,
+                sessionDay(s, i, back), StockFormat.price(closes[i]), toned(Cr360Format.signed(change, 1) + "%", change),
+                StockFormat.shares(volume), if (times.isFinite()) Cr360Format.number(times, 2) else activity.getString(R.string.stat_empty),
+                Cr360Format.amount(closes[i] * volume / CRORE),
+            )
+        }
+        card.historyNote.setText(R.string.score_recent_note)
+        card.historyNote.isVisible = true
+    }
+
+    /** The latest 10-session base: each session's high, low and close, newest first. */
+    private fun baseTable(parent: LinearLayout, f: ScoreFactors, s: PriceStructure) {
+        val count = minOf(f.highs.size, f.lows.size, s.closes.size)
+        if (count <= 0) return
+        val card = historyCard(parent, R.string.score_base_title)
+        historyRow(
+            card.historyTable, header = true,
+            activity.getString(R.string.score_col_day), activity.getString(R.string.score_col_high),
+            activity.getString(R.string.score_col_low), activity.getString(R.string.score_col_close),
+        )
+        for (back in 0 until count) {
+            val i = s.closes.size - 1 - back
+            historyRow(
+                card.historyTable, header = false,
+                sessionDay(s, i, back), StockFormat.price(f.highs[f.highs.size - 1 - back]),
+                StockFormat.price(f.lows[f.lows.size - 1 - back]), StockFormat.price(s.closes[i]),
+            )
+        }
+    }
+
+    /** A session's date ("27 Oct") from the chart's dates, or how many sessions back when the scan had none. */
+    private fun sessionDay(s: PriceStructure, index: Int, back: Int): String =
+        s.closeDays.getOrNull(index)?.takeIf { s.closeDays.size == s.closes.size }?.let { Cr360Format.day(LocalDate.ofEpochDay(it).toString()) }
+            ?: StockFormat.sessionsAgo(back)
+
+    /** A change in green when up, red when down. */
+    private fun toned(text: String, change: Double): CharSequence = SpannableString(text).apply {
+        val tone = when {
+            change > 0.0 -> R.color.bull
+            change < 0.0 -> R.color.bear
+            else -> return@apply
+        }
+        setSpan(ForegroundColorSpan(color(tone)), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+    }
+
+    /** Whole points, with a true minus sign: "92", "−40". */
+    private fun points(value: Double): String = Cr360Format.number(value, 0)
+
+    /** A term of a sum: "+ 7.2", "− 3.1". */
+    private fun addend(value: Double): String = if (value < 0) "− " + Cr360Format.number(abs(value), 1) else "+ " + Cr360Format.number(value, 1)
 
     /** The 360CR card: score and verdict, how much data it had, its ten parts and the figures behind them. */
     private fun bindCr360() {
@@ -711,6 +915,8 @@ class StockDetailSheet(
         private val label: TextView,
         private val text: CharSequence,
         private val body: LinearLayout,
+        /** Waits for the R/S history file; a score part has its data at hand. */
+        private val waits: Boolean = true,
         private val build: (LinearLayout) -> Unit,
     ) {
         private var built = false
@@ -735,7 +941,7 @@ class StockDetailSheet(
         fun fill() {
             if (built || !body.isVisible) return
             body.removeAllViews()
-            if (!historyCame) {
+            if (waits && !historyCame) {
                 body.addView(noteView(R.string.cr360_open_loading))
                 return
             }
@@ -1341,6 +1547,10 @@ class StockDetailSheet(
     private companion object {
         /** Targets drawn on the chart; all of them are listed in the plan card. */
         const val CHART_TARGETS = 2
+
+        /** Raw points outside these are eased towards 0 and 100 ([BreakoutSignals.soft]). */
+        const val SOFT_LOW = 15.0
+        const val SOFT_HIGH = 85.0
 
         /** News items shown at once; the rest open behind "और N ख़बरें". */
         const val NEWS_SHOWN = 20

@@ -7,6 +7,7 @@ import java.time.LocalDate
 import java.util.stream.Collectors
 import java.util.zip.GZIPInputStream
 import java.util.zip.GZIPOutputStream
+import kotlin.math.pow
 
 /** A finished scan as kept on disk: what it found, when it finished and whether live mode ran it on its own. */
 data class SavedScan(
@@ -160,6 +161,35 @@ class ScanStore(private val file: File) {
             )
         }
         if (row.setupMask != 0L) put("sm", row.setupMask)
+        row.factors?.let { f ->
+            put("sf", JSONArray().apply { for (value in factorValues(f)) put(fixed(value, FACTOR_DIGITS)) })
+            put("sfh", JSONArray().apply { for (high in f.highs) put(fixed(high, PRICE_DIGITS)) })
+            put("sfl", JSONArray().apply { for (low in f.lows) put(fixed(low, PRICE_DIGITS)) })
+            put("sfv", JSONArray().apply { for (volume in f.volumes) put(fixed(volume, 0)) })
+        }
+    }
+
+    /** [ScoreFactors]' figures in the order the kept scan lists them; a missing 50-day term is NaN. */
+    private fun factorValues(f: ScoreFactors) = listOf(
+        f.swingPct, f.highGap, f.proximity, f.baseWidthPct, f.narrow, f.calm, f.calmed, f.tightness, f.position, f.breakoutRaw,
+        f.above20, f.slope20, f.above50 ?: Double.NaN, f.stacked ?: Double.NaN, f.trendRaw,
+        f.average20, f.quiet, f.expansion, f.dryUp, f.volumeRaw,
+        f.medianTurnoverCr, f.liquidityRaw, f.change20, f.momentumRaw,
+    )
+
+    private fun factors(json: JSONObject): ScoreFactors? {
+        val values = json.optJSONArray("sf")?.takeIf { it.length() == FACTOR_COUNT } ?: return null
+        fun v(index: Int) = values.doubleAt(index)
+        fun list(key: String): List<Double> = json.optJSONArray(key)?.let { a -> List(a.length()) { a.doubleAt(it) } }.orEmpty()
+        return ScoreFactors(
+            swingPct = v(0), highGap = v(1), proximity = v(2), baseWidthPct = v(3), narrow = v(4),
+            calm = v(5), calmed = v(6), tightness = v(7), position = v(8), breakoutRaw = v(9),
+            above20 = v(10), slope20 = v(11), above50 = v(12).takeIf { it.isFinite() }, stacked = v(13).takeIf { it.isFinite() },
+            trendRaw = v(14),
+            average20 = v(15), quiet = v(16), expansion = v(17), dryUp = v(18), volumeRaw = v(19),
+            medianTurnoverCr = v(20), liquidityRaw = v(21), change20 = v(22), momentumRaw = v(23),
+            highs = list("sfh"), lows = list("sfl"), volumes = list("sfv"),
+        )
     }
 
     private fun stock(json: JSONObject): ScanResult = ScanResult(
@@ -198,6 +228,7 @@ class ScanStore(private val file: File) {
                 window = floor.getInt(4),
             )
         },
+        factors = factors(json),
     )
 
     private fun structure(s: PriceStructure) = JSONObject().apply {
@@ -259,8 +290,20 @@ class ScanStore(private val file: File) {
         /** Stock lines read together, on every core; a few hundred keep the text held at once small. */
         const val BATCH = 256
 
+        /** [ScoreFactors]' figures in a line ([factorValues]), and the decimals they and the prices are kept to. */
+        const val FACTOR_COUNT = 24
+        const val FACTOR_DIGITS = 4
+        const val PRICE_DIGITS = 2
+
         /** JSON has no NaN or infinity; such a value is written as null and read back as NaN. */
         fun num(value: Double): Any = if (value.isFinite()) value else JSONObject.NULL
+
+        /** [value] to [digits] decimals, which is all the detail sheet shows; null when not a number. */
+        fun fixed(value: Double, digits: Int): Any {
+            if (!value.isFinite()) return JSONObject.NULL
+            val scale = 10.0.pow(digits)
+            return Math.round(value * scale) / scale
+        }
 
         fun JSONObject.double(key: String): Double = if (isNull(key)) Double.NaN else getDouble(key)
 
