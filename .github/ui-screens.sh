@@ -137,13 +137,18 @@ shot 02-list-aurora-sky 6
 
 # The Filters and sector sheets in the flat look.
 tap filterChip
-shot 03-filters 4
+sleep 3
+tap_text "Large"
+shot 03-filters 2
 adb shell input swipe 540 1800 540 700 700
 shot 04-filters-more 2
 adb shell input keyevent KEYCODE_BACK
 sleep 2
+# The sector chip sits past the bar's end; the menu opens the same sheet.
 front
-tap sectorChip
+tap compactMenu
+sleep 2
+tap_text "सेक्टर की ताकत"
 shot 05-sectors 4
 adb shell input keyevent KEYCODE_BACK
 sleep 2

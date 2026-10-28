@@ -1,6 +1,7 @@
 package com.rohit.share_scan
 
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
@@ -172,6 +173,14 @@ class FilterSheet(
             val bound = draft.bound(metric)
             row.metricRange.text = StockFormat.range(metric, bound, any)
             val active = bound.isActive
+            if (flat) {
+                // The flat look's pill: the accent once a range is set, a faint grey while any value goes.
+                val accent = activity.flatAccent()
+                row.metricRange.backgroundTintList =
+                    ColorStateList.valueOf(if (active) accent.withAlpha(0.18f) else Color.WHITE.withAlpha(0.06f))
+                row.metricRange.setTextColor(if (active) accent else activity.flatMuted())
+                continue
+            }
             row.metricRange.backgroundTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(activity, if (active) R.color.primary_container else R.color.neutral_container),
             )
