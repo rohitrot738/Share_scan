@@ -510,7 +510,8 @@ class MainActivity : AppCompatActivity() {
 
         // The tools into the floating bar, with sharing at their end; the list keeps room under its last line.
         ui.resultsSection.removeView(ui.listToolsScroll)
-        ui.listToolsScroll.updatePadding(left = (10 * dp).roundToInt(), right = (10 * dp).roundToInt())
+        // Inset by the bar, not by its own padding: the chips would draw unfaded in the padding past the fading edges.
+        ui.listToolsScroll.updatePadding(left = 0, right = 0)
         // The sort chips run past the bar's end; its edges fade to show there is more to scroll to.
         ui.listToolsScroll.isHorizontalFadingEdgeEnabled = true
         ui.listToolsScroll.setFadingEdgeLength((20 * dp).roundToInt())
