@@ -178,18 +178,28 @@ def parse(html: str) -> dict:
             "ebitda": ("Operating Profit", "Financing Profit"),
             "net_profit": ("Net Profit",),
             "eps": ("EPS in Rs",),
+            # For interest cover (valuation.screen); a lender's interest is its cost of funds and is not judged so.
+            "interest": ("Interest",),
+            "pbt": ("Profit before tax",),
+            # Banks and NBFCs: bad loans as a percent of loans, for their adjusted book value.
+            "net_npa": ("Net NPA %",),
         })
     pl = first_table("profit-loss")
     if pl:
         periods, rows = _rows(pl)
-        out["annual"] = _series(periods, rows, {"revenue": ("Sales", "Revenue"), "net_profit": ("Net Profit",), "eps": ("EPS in Rs",)})
+        out["annual"] = _series(periods, rows, {"revenue": ("Sales", "Revenue"), "net_profit": ("Net Profit",), "eps": ("EPS in Rs",),
+                                                "ebitda": ("Operating Profit", "Financing Profit")})
     bs = first_table("balance-sheet")
     if bs:
         periods, rows = _rows(bs)
         out["balance"] = [
             {"period": r["period"], "total_debt": r["borrowings"],
-             "equity": (r["capital"] or 0) + (r["reserves"] or 0) if r["capital"] is not None or r["reserves"] is not None else None}
-            for r in _series(periods, rows, {"capital": ("Equity Capital",), "reserves": ("Reserves",), "borrowings": ("Borrowings", "Borrowing")})
+             "equity": (r["capital"] or 0) + (r["reserves"] or 0) if r["capital"] is not None or r["reserves"] is not None else None,
+             # Share capital (with the face value, the share count), everything owned, and for a lender "Other
+             # Assets", where Screener puts its loans.
+             "capital": r["capital"], "total_assets": r["total_assets"], "other_assets": r["other_assets"]}
+            for r in _series(periods, rows, {"capital": ("Equity Capital",), "reserves": ("Reserves",), "borrowings": ("Borrowings", "Borrowing"),
+                                              "total_assets": ("Total Assets",), "other_assets": ("Other Assets",)})
         ]
     cf = first_table("cash-flow")
     if cf:
@@ -210,6 +220,7 @@ def parse(html: str) -> dict:
         "dividend_yield": number(r.get("Dividend Yield")),
         "roce": number(r.get("ROCE")),
         "roe": number(r.get("ROE")),
+        "face_value": number(r.get("Face Value")),
     }
     # The annual net profit next to each year's cash flow lets 360CR compare like with like.
     profit = {a["period"]: a["net_profit"] for a in out["annual"]}

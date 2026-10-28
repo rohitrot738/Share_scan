@@ -83,6 +83,8 @@ class StockDetailSheet(
     private var historyCame = false
     /** The R/S card's parts and its insider and deals lines, each opening into the data behind it. */
     private val openers = ArrayList<Opener>()
+    /** The valuation framework's part of the R/S card; null for a file built before the framework. */
+    private val framework: Cr360FrameworkCard? = cr360?.let { Cr360Framework.of(it.facts) }?.let { Cr360FrameworkCard(activity, it, stock) }
 
     fun show(): BottomSheetDialog {
         bindHeader()
@@ -757,12 +759,28 @@ class StockDetailSheet(
         ui.detailCr360Score.setTextColor(color(tone))
         ui.detailCr360State.text = activity.getString(stateLabel)
         ui.detailCr360State.setTextColor(color(tone))
-        ui.detailCr360Data.text = activity.getString(
+        val data = activity.getString(
             R.string.detail_cr360_data,
             entry.confidence.roundToInt(),
             Cr360Format.month(entry.quarter),
             Cr360Format.day(entry.checked),
         )
+        // Since the framework's file, a part without data counts as the middle 50 in the score; say which ones.
+        val unknown = if (framework != null) Cr360Book.unknownParts(entry, stock.sector) else emptyList()
+        ui.detailCr360Data.text = if (unknown.isEmpty()) {
+            data
+        } else {
+            data + "\n" + activity.getString(R.string.detail_cr360_unknown, unknown.joinToString(", ") { activity.getString(it.label) })
+        }
+        framework?.let { card ->
+            ui.detailCr360Framework.isVisible = true
+            card.bind(ui.detailCr360Framework)
+            ui.detailCr360FrameworkOpen.isVisible = true
+            val label = activity.getString(R.string.fw_open)
+            openers += Opener(ui.detailCr360FrameworkOpen, ui.detailCr360FrameworkOpen, label, ui.detailCr360FrameworkBody, waits = false) {
+                card.calculation(it, titled = false)
+            }
+        }
         val facts = cr360Facts(entry.facts)
         for (part in Cr360Book.Part.entries) {
             val value = entry.parts[part] ?: continue
@@ -871,9 +889,12 @@ class StockDetailSheet(
             },
             pe = s(Fact.PE)?.let { activity.getString(R.string.cr360_fact_pe, it) },
             historyPe = s(Fact.HISTORY_PE, 0)?.let { activity.getString(R.string.cr360_fact_history_pe, it) },
-            // Fair value two ways, weighed alike in the score: from the sector's multiples and from the company's own.
+            // The framework's intrinsic value (the score's), or before it the sector's multiples; and the company's own P/E.
             fair = listOfNotNull(
-                f[Fact.FAIR_VALUE]?.let { activity.getString(R.string.cr360_fair_sector, StockFormat.price(it), signed(Fact.UPSIDE, 0)?.let { u -> "$u%" } ?: "") },
+                f[Fact.FAIR_VALUE]?.let {
+                    val id = if (Fact.MODEL in f) R.string.cr360_fair_framework else R.string.cr360_fair_sector
+                    activity.getString(id, StockFormat.price(it), signed(Fact.UPSIDE, 0)?.let { u -> "$u%" } ?: "")
+                },
                 f[Fact.HISTORY_FAIR_VALUE]?.let {
                     activity.getString(R.string.cr360_fair_history, StockFormat.price(it), signed(Fact.HISTORY_UPSIDE, 0)?.let { u -> "$u%" } ?: "")
                 },
@@ -984,7 +1005,10 @@ class StockDetailSheet(
                     addTrades(body, deal = true)
                 }
             }
-            Cr360Book.Part.VALUATION -> lines(facts.pe, facts.historyPe, facts.fair)
+            Cr360Book.Part.VALUATION -> {
+                lines(facts.pe, facts.historyPe, facts.fair)
+                framework?.calculation(body)
+            }
             Cr360Book.Part.PRICE -> {
                 lines(facts.position)
                 chart?.let { addHistoryChart(body, it) }
@@ -1056,6 +1080,8 @@ class StockDetailSheet(
         activity.lifecycleScope.launch {
             val news = withContext(Dispatchers.IO) { runCatching { NewsRepository.stock(stock) }.getOrNull() }
             showNews(news)
+            // A volume spike with no news is the framework's operator red flag.
+            framework?.news(news?.takeUnless { it.failed }?.items)
         }
     }
 

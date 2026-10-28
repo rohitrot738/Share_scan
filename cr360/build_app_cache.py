@@ -25,7 +25,7 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date, datetime, timedelta, timezone
 
-from . import app_store, screener_page
+from . import app_store, screener_page, valuation
 from .nse_public_adapter import NSEPublicAdapter
 
 IST = timezone(timedelta(hours=5, minutes=30))
@@ -50,6 +50,11 @@ OLD_QUARTER_DAYS = 200  # a page this far behind the due quarter is checked agai
 INSIDER_INDEX = {"nse": "equities", "sme": "sme"}  # NSE's insider filings; BSE-only companies file with BSE
 BSE_ROUNDS = 3          # BSE's site answers 404 for every file for minutes at a time, so the week is asked for again
 BSE_ROUND_GAP = 120     # seconds between those rounds
+NSE_INDEX = {"equities": "nse", "sme": "sme"}  # NSE's index of each market's filings
+AUDITOR_CHUNK_DAYS = 7  # market-wide announcements asked for a week at a time (about 2 MB)
+AUDITOR_MINUTES = 15    # the most of a run reading announcements may take (the first run reads a year)
+RESIGNED = re.compile(r"\bresign", re.IGNORECASE)
+OTHER_AUDITOR = re.compile(r"\b(internal|cost|secretarial|tax|branch)\s+auditor", re.IGNORECASE)
 
 
 def log(*a):
@@ -358,6 +363,88 @@ def top_up_insiders(store: dict, nse: NSEPublicAdapter, today: date, until: floa
     log(f"insider trades topped up for {topped}/{len(stale)} stocks")
 
 
+def company_key(name: str) -> str:
+    """A company's name as NSE's files are matched by: lower case, letters and digits only, no Limited or Ltd."""
+    key = re.sub(r"[^a-z0-9]", "", str(name).lower().replace("&", "and"))
+    return re.sub(r"(limited|ltd)$", "", key)
+
+
+def pledge_rows(rows: list[dict], names: dict[str, str]) -> dict[str, float]:
+    """NSE's pledge data as each stock's share of its promoters' holding pledged or otherwise encumbered, %
+    ('percPromoterShares'; 'percSharesPledged' counts every holder's pledges, brokers' margin pledges among them).
+    `names` maps company_key to symbol; a company listed twice keeps its latest shareholding ('shp')."""
+    out: dict[str, tuple[str, float]] = {}
+    for r in rows:
+        sym = names.get(company_key(r.get("comName") or ""))
+        pct = screener_page.number(r.get("percPromoterShares"))
+        shp = iso_date(r.get("shp")) or ""
+        if sym and pct is not None and (sym not in out or shp >= out[sym][0]):
+            out[sym] = (shp, pct)
+    return {s: pct for s, (_, pct) in out.items()}
+
+
+def top_up_pledges(store: dict, nse: NSEPublicAdapter, universe: dict[str, dict]) -> None:
+    """Every NSE and SME company's promoter pledge, from NSE's pledge data (one request a market)."""
+    for index, market in NSE_INDEX.items():
+        try:
+            rows = nse._rows(nse._get("/api/corporate-pledgedata", {"index": index}))
+        except Exception as e:
+            log(f"  nse pledge data ({index}) failed: {e}")
+            continue
+        names = {company_key(u["name"]): s for s, u in universe.items() if u.get("market") == market}
+        pledges = pledge_rows(rows, names)
+        for sym, pct in pledges.items():
+            store["stocks"].setdefault(sym, {})["pledge"] = pct
+        log(f"promoter pledge ({index}): {len(pledges)} of {len(rows)} rows matched, "
+            f"over {valuation.PLEDGE_REJECT:g}%: {sum(p > valuation.PLEDGE_REJECT for p in pledges.values())}")
+
+
+def auditor_resignations(rows: list[dict]) -> dict[str, set[str]]:
+    """NSE announcements as each symbol's days a statutory auditor resigned: filed as "Resignation of Statutory
+    Auditor", or as "Change in Auditors" whose text tells of a resignation (an internal, cost, secretarial, tax or
+    branch auditor's left out unless the text names the statutory one)."""
+    out: dict[str, set[str]] = {}
+    for r in rows:
+        desc, text = str(r.get("desc") or "").lower(), str(r.get("attchmntText") or "")
+        if "resignation of statutory auditor" in desc:
+            hit = True
+        elif "change in auditor" in desc:
+            hit = bool(RESIGNED.search(text)) and ("statutory" in text.lower() or not OTHER_AUDITOR.search(text))
+        else:
+            hit = False
+        day = iso_date(r.get("sort_date") or r.get("an_dt"))
+        sym = str(r.get("symbol") or "").upper()
+        if hit and day and sym:
+            out.setdefault(sym, set()).add(day)
+    return out
+
+
+def top_up_auditors(store: dict, nse: NSEPublicAdapter, universe: dict[str, dict], today: date, until: float) -> None:
+    """Statutory auditors' resignations from NSE's market-wide announcements, a week at a time from where the last
+    run stopped ("auditor_until"; a year back the first time), until `until`."""
+    done = store.setdefault("auditor_until", {})
+    for index, market in NSE_INDEX.items():
+        start = (date.fromisoformat(done[index]) - timedelta(days=2) if done.get(index)
+                 else today - timedelta(days=valuation.AUDITOR_DAYS))
+        found = 0
+        while start <= today and time.time() < until:
+            end = min(today, start + timedelta(days=AUDITOR_CHUNK_DAYS - 1))
+            try:
+                rows = nse._rows(nse._get("/api/corporate-announcements", {
+                    "index": index, "from_date": start.strftime("%d-%m-%Y"), "to_date": end.strftime("%d-%m-%Y")}))
+            except Exception as e:
+                log(f"  nse announcements ({index}) {start}..{end} failed: {e}")
+                break
+            for sym, days in auditor_resignations(rows).items():
+                if universe.get(sym, {}).get("market") == market:
+                    stock = store["stocks"].setdefault(sym, {})
+                    stock["auditor_resigned"] = sorted(set(stock.get("auditor_resigned") or []) | days)
+                    found += len(days)
+            done[index] = end.isoformat()
+            start = end + timedelta(days=1)
+        log(f"auditor resignations ({index}): {found} found, read up to {done.get(index)}")
+
+
 # --- run -----------------------------------------------------------------------------------------------------------
 
 def read_store(path: str) -> dict:
@@ -404,6 +491,8 @@ def main(argv=None) -> int:
             app_store.put_events(store, sym, "deals", rows)
     log(f"deals from today's files: {sum(len(v) for v in deals.values())}")
     top_up_insiders(store, nse, today, min(deadline, time.time() + INSIDER_MINUTES * 60))
+    top_up_pledges(store, nse, universe)
+    top_up_auditors(store, nse, universe, today, min(deadline, time.time() + AUDITOR_MINUTES * 60))
 
     screener = Screener()
     due_quarter = app_store.latest_due_quarter(today)
@@ -444,12 +533,14 @@ def main(argv=None) -> int:
     # A stock Yahoo does not chart is valued at Screener's price.
     last = {s: rows[-1]["close"] if rows else (store["stocks"][s].get("ratios") or {}).get("price") for s, rows in prices.items()}
     anchors = app_store.sector_anchors(store, last, sectors)
+    ranks = app_store.size_ranks(store, last)
     records = {}
     for sym in priced:
         stock = store["stocks"][sym]
         anchor = anchors.get(sectors.get(sym, "")) or anchors.get("")
         research = app_store.research_input(sym, stock, prices.get(sym) or [], anchor,
-                                            financial=sectors.get(sym) == FINANCIAL_SECTOR)
+                                            financial=sectors.get(sym) == FINANCIAL_SECTOR, sector=sectors.get(sym, ""),
+                                            mos=valuation.size_mos(ranks.get(sym)), today=today)
         rec = app_store.app_record(stock, research)
         if rec:
             records[sym] = rec

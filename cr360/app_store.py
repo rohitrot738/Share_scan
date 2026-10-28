@@ -9,10 +9,12 @@ import zlib
 from datetime import date, timedelta
 from statistics import median
 
+from . import valuation as framework
 from .engine import analyse_360cr
 from .models import ResearchInput
 
 VERSION = 1
+PAGE_VERSION = 2            # what a page reading keeps; a stock read before a change is read again (2: the framework's rows)
 QUARTERS_KEPT = 20          # quarterly results and shareholding: 5 years
 YEARS_KEPT = 5              # yearly results, balance sheet and cash flow
 EVENT_YEARS = 5             # insider trades and bulk/block deals
@@ -82,6 +84,8 @@ def is_due(stock: dict | None, today: date) -> bool:
     A company far behind with its results is looked at monthly rather than weekly."""
     if not stock or not stock.get("checked"):
         return True
+    if stock.get("source") and stock.get("pv", 1) != PAGE_VERSION:
+        return True
     age = (today - _d(stock["checked"])).days
     if age >= REFRESH_DAYS:
         return True
@@ -113,6 +117,7 @@ def put_page(store: dict, symbol: str, page: dict, today: date, source: str) -> 
             s.pop(key, None)
     s["checked"] = today.isoformat()
     s["source"] = source
+    s["pv"] = PAGE_VERSION
     s["quarters"] = merge_periods(s.get("quarters"), page["quarters"], QUARTERS_KEPT)
     s["shareholding"] = merge_periods(s.get("shareholding"), page["shareholding"], QUARTERS_KEPT)
     for key in ("annual", "balance", "cashflow"):
@@ -147,6 +152,8 @@ def prune(store: dict, universe: dict[str, dict], today: date, markets: set[str]
             kept = [e for e in rows if e[0] >= cutoff]
             dropped += len(rows) - len(kept)
             s[key] = kept
+        if s.get("auditor_resigned"):
+            s["auditor_resigned"] = [d for d in s["auditor_resigned"] if d >= cutoff]
     return {"stocks_removed": len(gone), "rows_removed": dropped}
 
 
@@ -199,9 +206,23 @@ def sector_anchors(store: dict, prices: dict[str, float], sectors: dict[str, str
     return {k: (median(p for p, _ in v), median(b for _, b in v)) for k, v in by_sector.items() if len(v) >= 5}
 
 
+def size_ranks(store: dict, prices: dict[str, float]) -> dict[str, int]:
+    """Each stock's rank by market value today (1 the largest), for the margin of safety by size: its shares at
+    today's price, or Screener's market cap when the shares are not known."""
+    caps = {}
+    for sym, s in store["stocks"].items():
+        shares, price = framework.shares_cr(s), prices.get(sym)
+        cap = shares * price if shares and price else (s.get("ratios") or {}).get("market_cap_cr")
+        if cap and cap > 0:
+            caps[sym] = cap
+    return {sym: i + 1 for i, sym in enumerate(sorted(caps, key=lambda k: -caps[k]))}
+
+
 def research_input(symbol: str, stock: dict, price_rows: list[dict], anchor: tuple[float, float] | None,
-                   financial: bool = False) -> ResearchInput:
-    """`financial`: a lender or other financial services company, whose debt and cash flow are not judged."""
+                   financial: bool = False, sector: str = "", mos: float = framework.MOS["small"],
+                   today: date | None = None) -> ResearchInput:
+    """`financial`: a lender or other financial services company, whose debt and cash flow are not judged. `sector`
+    picks the valuation framework's model ([framework.SECTOR_MODEL]) and `mos` its margin of safety."""
     # Without a chart (many SME and BSE-only stocks are not on Yahoo) Screener's price still values the company.
     price = price_rows[-1]["close"] if price_rows else (stock.get("ratios") or {}).get("price")
     valuation = {}
@@ -217,13 +238,22 @@ def research_input(symbol: str, stock: dict, price_rows: list[dict], anchor: tup
         valuation["earnings_fair_value"] = eps * min(45.0, max(8.0, pe))
         if book and book > 0:
             valuation["book_fair_value"] = book * min(10.0, max(0.5, pb))
+    # The blend 360CR scored with before the framework: the market's multiples and the company's own, weighed alike.
+    market = [v for k, v in valuation.items() if k in ("earnings_fair_value", "book_fair_value")]
+    blend = [v for v in (median(market) if market else None, valuation.get("history_fair_value")) if v]
+    verdict = framework.assess(stock, price_rows, price, sector, eps if believable else None,
+                               sum(blend) / len(blend) if blend else None, mos, today or date.today(),
+                               sector_pb=anchor[1] if anchor else None, own_pe=own_pe, sector_pe=anchor[0] if anchor else None)
+    if verdict["iv"]:
+        valuation["framework_fair_value"] = verdict["iv"]
     events = lambda key: [{"date": e[0], "side": e[1], "value": e[2]} for e in stock.get(key) or []]
     return ResearchInput(
         symbol=symbol, price=price, price_history=price_rows,
         quarterly_financials=stock.get("quarters") or [], balance_sheet_quarters=stock.get("balance") or [],
         cashflow_quarters=stock.get("cashflow") or [], shareholding_quarters=stock.get("shareholding") or [],
         insider_transactions=events("insider"), bulk_block_deals=events("deals"), valuation=valuation,
-        metadata={"source": "screener+nse+yahoo", "checked": stock.get("checked"), "history_pe": own_pe, "financial": financial},
+        metadata={"source": "screener+nse+yahoo", "checked": stock.get("checked"), "history_pe": own_pe, "financial": financial,
+                  "framework": verdict},
     )
 
 
@@ -260,12 +290,44 @@ def app_record(stock: dict, research: ResearchInput) -> dict | None:
         "pos": r.risk.get("position_156w_pct"), "vol": r.risk.get("annualized_volatility_pct"),
         "de": _r(bal.get("total_debt") / bal["equity"], 2) if bal.get("equity") and bal.get("total_debt") is not None else None,
         "hy": 1 if half_yearly(stock.get("quarters") or []) else None,  # nq and pq count half-years
+        **framework_facts(research.metadata.get("framework") or {}),
     }
     return {
         "s": r.score, "st": r.state, "c": r.confidence,
         "q": (stock.get("quarters") or [{}])[-1].get("period"), "d": stock.get("checked"),
         "sec": {SECTION_KEYS[k]: _r(v, 0) for k, v in r.sections.items() if k in SECTION_KEYS},
         "f": {k: v for k, v in facts.items() if v is not None},
+    }
+
+
+def framework_facts(fw: dict) -> dict:
+    """The valuation framework's verdict (valuation.assess) as the app's facts: the model ("mdl", and "smd" the
+    sector's own when it fell back), the value before penalties ("ivr"; "fv" is the value after them), the buy price
+    and margin of safety, the flag and penalty bits and the figures each model and check used."""
+    if not fw:
+        return {}
+    gap = fw.get("fvg") or (None, None)
+    pct = lambda v: _r(v * 100, 1) if v is not None else None
+    return {
+        "mdl": framework.MODEL_CODE.get(fw.get("model")), "smd": framework.MODEL_CODE.get(fw.get("sector_model")),
+        "ivr": _r(fw.get("raw_iv"), 2), "bp": _r(fw.get("buy"), 2), "mos": pct(fw.get("mos")),
+        "flg": fw.get("flags") or None, "pf": fw.get("penalties") or None,
+        # The day an auditor resigned in the penalty's year, as a number (20260501): the app's facts are numbers.
+        "adr": int(fw["auditor"].replace("-", "")) if fw.get("auditor") else None,
+        "pl": _r(fw.get("pledge"), 2), "icr": _r(fw.get("icr"), 2), "cfp": _r(fw.get("cfo_pat"), 2),
+        # Banks: book value, net bad loans, adjusted book, the P/B it is valued at (sector's: "pbs") and ROA.
+        "bv": _r(fw.get("bvps"), 2), "nnpa": _r(fw.get("net_npa"), 2), "abv": _r(fw.get("adjusted_bvps"), 2),
+        "pbo": _r(fw.get("pb"), 2), "pbs": 1 if fw.get("model") == framework.BANK and not fw.get("own_history") else None,
+        "roa": _r(fw.get("roa"), 2),
+        # Makers and cyclicals: their own and today's EV/EBITDA, the EBITDA and debt (₹ Cr), shares (Cr) and ROCE.
+        "evo": _r(fw.get("ev_ebitda_own"), 2), "evn": _r(fw.get("ev_ebitda_now"), 2), "eb": _r(fw.get("ebitda"), 1),
+        "dt": _r(fw.get("debt"), 1), "sh": _r(fw.get("shares"), 4), "roce": _r(fw.get("roce"), 1),
+        # IT, FMCG, pharma: three-year EPS growth, PEG, the P/E it starts from (the sector's: "pes"), the cap at a
+        # PEG of 2 and the fair P/E the earnings are valued at.
+        "eg": _r(fw.get("growth"), 1), "peg": _r(fw.get("peg"), 2), "bpe": _r(fw.get("base_pe"), 1),
+        "pes": 1 if fw.get("base_sector") else None, "pcap": _r(fw.get("pe_cap"), 1), "fpe": _r(fw.get("fair_pe"), 2),
+        # The chart: 200-day EMA, the bullish fair-value gap and the weekly swing low swept.
+        "e200": _r(fw.get("ema200"), 2), "fvb": _r(gap[0], 2), "fvt": _r(gap[1], 2), "wsl": _r(fw.get("sweep"), 2),
     }
 
 

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The sector-wise valuation framework in the R/S card (Cr360Framework, Cr360FrameworkCard): the intrinsic value,
+         the buy price, the screen's flags, and the full calculation behind them. -->
+    <string name="fw_value_line">असली कीमत ₹%1$s · खरीद भाव ₹%2$s</string>
+    <string name="fw_value_only">असली कीमत ₹%1$s</string>
+    <string name="fw_summary">%1$s · Margin of safety %2$s%% (%3$s)</string>
+    <string name="fw_price_above">भाव ₹%1$s, खरीद भाव से %2$s%% ऊपर</string>
+    <string name="fw_price_below">भाव ₹%1$s, खरीद भाव से %2$s%% नीचे ✓</string>
+    <string name="fw_model_general">Sector P/E–P/B का हिसाब</string>
+    <string name="fw_model_bank">Bank/NBFC: adjusted P/B</string>
+    <string name="fw_model_asset">EV/EBITDA</string>
+    <string name="fw_model_cyclical">Mid-cycle EV/EBITDA</string>
+    <string name="fw_model_cash">PEG</string>
+    <string name="fw_size_large">large cap</string>
+    <string name="fw_size_mid">mid cap</string>
+    <string name="fw_size_small">small cap</string>
+    <string name="fw_open">Framework का पूरा हिसाब</string>
+
+    <string name="fw_flag_reject">⛔ Reject: promoters ने अपने %1$s%% शेयर गिरवी रखे हैं (15%% से ज़्यादा)</string>
+    <string name="fw_flag_high_risk">⚠ High Risk: ब्याज का cover सिर्फ़ %1$s गुना (2.5 से कम)</string>
+    <string name="fw_flag_manipulation">⚠ कमाई पर शक: 3 साल का operating cash मुनाफ़े का सिर्फ़ %1$s गुना (0.6 से कम)</string>
+    <string name="fw_flag_low_roa">⚠ ROA %1$s%%: bank/NBFC के लिए 1%% से कम, खरीद नहीं</string>
+    <string name="fw_flag_red">🚩 Red Flag: volume औसत का %1$s गुना, पर 3 दिन में कोई filing या ख़बर नहीं — operator का खेल हो सकता है</string>
+    <string name="fw_flag_blocked">इन वजहों से framework अभी खरीद रोकता है</string>
+    <string name="fw_flag_best">⭐ सबसे अच्छा मौका: भाव खरीद भाव से नीचे, और weekly demand zone की liquidity sweep</string>
+    <string name="fw_flag_buy_zone">✅ Buy Zone: भाव 200-दिन EMA ₹%1$s के ऊपर, bullish FVG ₹%2$s – ₹%3$s पर</string>
+    <string name="fw_flag_sweep">🎯 Weekly sweep: इस या पिछले हफ़्ते ₹%1$s के weekly swing low के नीचे जाकर ऊपर बंद हुआ</string>
+    <string name="fw_flag_cyclical">⚠ Cyclical: metal और oil में कम P/E अक्सर कमाई का शिखर होता है, इसलिए mid-cycle EBITDA पर आँका</string>
+    <string name="fw_flag_peg_low">✅ PEG %1$s: 1 से कम, बढ़त के हिसाब से सस्ता</string>
+    <string name="fw_flag_peg_high">⚠ PEG %1$s: 2 से ऊपर, बढ़त के हिसाब से महँगा</string>
+    <string name="fw_penalties">Penalty: %1$s</string>
+    <string name="fw_penalty_auditor">auditor का इस्तीफ़ा −40%%</string>
+    <string name="fw_penalty_debt">कर्ज़ −20%%</string>
+    <string name="fw_penalty_institutions">FII/DII की बिकवाली −10%%</string>
+    <string name="fw_penalty_roce">ROCE कम −20%%</string>
+
+    <string name="fw_calc_model">%1$s का हिसाब (%2$s)</string>
+    <string name="fw_calc_fallback">%1$s के लिए data कम था (कम इतिहास, घाटा या धीमी बढ़त), इसलिए sector P/E–P/B वाला हिसाब लगा</string>
+    <string name="fw_calc_bank_book">Book value ₹%1$s/share − ख़राब loans ₹%2$s/share (net NPA loans का %3$s%%) = adjusted book ₹%4$s</string>
+    <string name="fw_calc_bank_no_npa">Book value ₹%1$s/share; net NPA नहीं मिला (consolidated page पर नहीं होता), इसलिए पूरी book गिनी</string>
+    <string name="fw_calc_bank_pb">अपना 3 साल का median P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_bank_pb_sector">अपना इतिहास छोटा, इसलिए sector का P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_roa">ROA (12 महीने का मुनाफ़ा ÷ कुल assets) %1$s%%; 1%% से ऊपर चाहिए</string>
+    <string name="fw_calc_ev_multiple">अपना 3 साल का median EV/EBITDA %1$s (आज %2$s)</string>
+    <string name="fw_calc_ev_multiple_only">अपना 3 साल का median EV/EBITDA %1$s</string>
+    <string name="fw_calc_ebitda">EBITDA (12 महीने): %1$s</string>
+    <string name="fw_calc_ebitda_mid">Mid-cycle EBITDA (सालाना EBITDA का औसत): %1$s</string>
+    <string name="fw_calc_ev_value">(%1$s × %2$s − कर्ज़ %3$s) ÷ %4$s Cr shares = ₹%5$s</string>
+    <string name="fw_calc_ev_note">EV = market value + कर्ज़ (Screener के सार में cash अलग नहीं मिलता, इसलिए दोनों तरफ़ ऐसे ही)</string>
+    <string name="fw_calc_roce_cut">ROCE %1$s%%, 12%% से कम → 20%% कम: ₹%2$s</string>
+    <string name="fw_calc_roce_ok">ROCE %1$s%% (12%% या ज़्यादा) ✓</string>
+    <string name="fw_calc_peg">P/E %1$s ÷ EPS की 3 साल की सालाना बढ़त %2$s%% = PEG %3$s (1 से कम सस्ता, 2 से ऊपर महँगा)</string>
+    <string name="fw_calc_peg_fair">Fair P/E: %1$s %2$s, पर PEG 2 की हद (2 × बढ़त) %3$s → %4$s</string>
+    <string name="fw_calc_peg_own">अपना 3 साल का आम P/E</string>
+    <string name="fw_calc_peg_sector">sector का आम P/E (अपना इतिहास छोटा)</string>
+    <string name="fw_calc_peg_band">Fair P/E: अपना या sector का P/E नहीं मिला, इसलिए PEG 1.5 पर: %1$s</string>
+    <string name="fw_calc_peg_value">असली कीमत = EPS ₹%1$s × fair P/E %2$s = ₹%3$s</string>
+    <string name="fw_calc_peg_slow">EPS की 3 साल की सालाना बढ़त %1$s%%: 5%% से कम पर PEG कुछ नहीं बताता</string>
+    <string name="fw_calc_general">Sector के P/E–P/B और कंपनी के अपने P/E से निकले भाव का औसत = ₹%1$s</string>
+    <string name="fw_calc_penalty_auditor">Statutory auditor ने %1$s को इस्तीफ़ा दिया → −40%%</string>
+    <string name="fw_calc_penalty_debt">कर्ज़ equity के 1.5 गुना से ज़्यादा → −20%%</string>
+    <string name="fw_calc_penalty_institutions">FII + DII की हिस्सेदारी लगातार 3 quarter घटी → −10%%</string>
+    <string name="fw_calc_after_penalties">Penalty के बाद असली कीमत: ₹%1$s × %2$s = ₹%3$s</string>
+    <string name="fw_calc_no_penalties">कोई penalty नहीं (auditor, कर्ज़, FII/DII ठीक) → असली कीमत ₹%1$s</string>
+    <string name="fw_calc_margin">Margin of safety %1$s%% (%2$s) → खरीद भाव ₹%3$s × %4$s = ₹%5$s</string>
+    <string name="fw_calc_screen">Universal screen</string>
+    <string name="fw_calc_pledge">Promoter pledge %1$s%% (15%% से ज़्यादा = Reject)</string>
+    <string name="fw_calc_pledge_none">Promoter pledge: NSE पर नहीं मिला</string>
+    <string name="fw_calc_icr">ब्याज cover: (12 महीने का PBT + ब्याज) ÷ ब्याज = %1$s गुना (2.5 से कम = High Risk)</string>
+    <string name="fw_calc_cash">3 साल का operating cash ÷ मुनाफ़ा = %1$s (0.6 से कम = कमाई पर शक)</string>
+    <string name="fw_calc_lender">Bank/NBFC के ब्याज और cash flow से यह जाँच नहीं होती</string>
+    <string name="fw_calc_chart">Chart (SMC)</string>
+    <string name="fw_calc_ema_above">200-दिन EMA ₹%1$s: भाव उसके ऊपर</string>
+    <string name="fw_calc_ema_below">200-दिन EMA ₹%1$s: भाव उसके नीचे</string>
+    <string name="fw_calc_gap">Unfilled bullish FVG ₹%1$s – ₹%2$s; भाव उसमें या उससे 5%% तक ऊपर</string>
+    <string name="fw_calc_no_gap">पिछले 60 सत्र में भाव के पास कोई unfilled bullish FVG नहीं</string>
+    <string name="fw_calc_sweep">Weekly sweep: ₹%1$s का weekly swing low तोड़कर ऊपर बंद</string>
+    <string name="fw_calc_no_sweep">इस या पिछले हफ़्ते कोई weekly liquidity sweep नहीं</string>
+    <string name="fw_calc_best_rule">सबसे अच्छा मौका = भाव खरीद भाव से नीचे + weekly sweep + कोई रोक नहीं</string>
+    <string name="fw_cr">₹%1$s Cr</string>
+
+    <string name="help_framework_title">R/S का valuation framework (असली कीमत और खरीद भाव)</string>
+    <string name="help_framework_body">R/S हर कंपनी की असली कीमत (intrinsic value) उसके sector के हिसाब से निकालता है। Bank, NBFC और दूसरी financial कंपनियाँ: book value में से net NPA (ख़राब loans) प्रति share घटाकर, उस पर कंपनी का अपना पिछले 3 साल का median P/B (इतिहास छोटा हो तो sector का); ROA 1% से कम हो तो खरीद नहीं। Capital goods, auto, chemicals, construction, power जैसी मशीन और कारख़ाने वाली कंपनियाँ: अपना 3 साल का median EV/EBITDA × आज का EBITDA, उसमें से कर्ज़ घटाकर प्रति share; ROCE 12% से कम हो तो 20% कम। Metal, mining, oil और gas: यही हिसाब, पर सालों के औसत (mid-cycle) EBITDA पर, और चेतावनी कि वहाँ कम P/E अक्सर कमाई का शिखर होता है। IT, FMCG और pharma: PEG = P/E ÷ EPS की पिछले 3 साल की सालाना बढ़त (आगे की बढ़त का अनुमान मुफ़्त में नहीं मिलता); 1 से कम सस्ता, 2 से ऊपर महँगा; असली कीमत = EPS × कंपनी का अपना आम P/E, पर PEG 2 वाले P/E (2 × बढ़त) से ज़्यादा नहीं। बाक़ी sectors, या जिनका data कम हो: पुराना sector P/E–P/B और अपने P/E वाला हिसाब। फिर penalty: पिछले 1 साल में statutory auditor का इस्तीफ़ा −40%, कर्ज़ equity के 1.5 गुना से ज़्यादा −20%, FII + DII की हिस्सेदारी लगातार 3 quarter घटी −10%। खरीद भाव = असली कीमत × (1 − margin of safety): बाज़ार मूल्य में पहली 100 कंपनियों (large cap) पर 20%, 101–250 (mid cap) पर 27.5% और बाक़ी (small cap) पर 35%। हर कंपनी की universal जाँच भी होती है: promoters ने अपने 15% से ज़्यादा शेयर गिरवी रखे हों तो Reject (R/S \"दूर रहें\"); ब्याज का cover 2.5 गुना से कम हो तो High Risk, और 3 साल का operating cash मुनाफ़े के 0.6 गुना से कम हो तो कमाई पर शक (दोनों में R/S ज़्यादा से ज़्यादा \"सावधानी\")। Chart पर: भाव 200-दिन EMA के ऊपर और किसी unfilled bullish FVG पर हो तो Buy Zone; इस या पिछले हफ़्ते भाव किसी weekly swing low के नीचे जाकर ऊपर बंद हुआ हो तो weekly sweep। भाव खरीद भाव से नीचे हो, weekly sweep हो और कोई रोक न हो तो ⭐ सबसे अच्छा मौका। Stock खोलने पर उसकी ख़बरें भी देखी जाती हैं: volume औसत का 3 गुना या ज़्यादा हो पर पिछले 3 दिन में कोई filing या ख़बर न हो तो 🚩 Red Flag (operator का खेल हो सकता है) और framework खरीद रोकता है। Promoter pledge और auditor के इस्तीफ़े NSE से आते हैं, इसलिए सिर्फ़ BSE वाले stocks में ये जाँच नहीं होती। R/S card में असली कीमत, खरीद भाव, flags दिखते हैं और \"Framework का पूरा हिसाब\" दबाने पर हर क़दम का हिसाब। नए आँकड़े हर stock का Screener page दोबारा पढ़ने पर आते हैं, इसमें कुछ दिन लगेंगे; तब तक कुछ stocks पुराने हिसाब पर रहेंगे। निवेश सलाह नहीं।</string>
+</resources>
