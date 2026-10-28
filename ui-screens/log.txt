@@ -10,9 +10,8 @@ scan done after ~45s
 shot 02-list-aurora-sky
 shot 03-filters
 shot 04-filters-more
-could not find id sectorChip
 shot 05-sectors
-app was not in front
+could not find id compactMenu
 shot 06-menu
 shot 07-background-picker
 shot 08-background-picker-end
