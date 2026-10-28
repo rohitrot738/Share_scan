@@ -6,13 +6,19 @@ import android.animation.ValueAnimator
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
 import android.provider.Settings
 import android.view.View
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.view.animation.LinearInterpolator
 import android.view.inputmethod.EditorInfo
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
@@ -30,6 +36,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
@@ -37,7 +44,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.withStarted
 import androidx.recyclerview.widget.SimpleItemAnimator
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDragHandleView
 import com.google.android.material.chip.Chip
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rohit.share_scan.databinding.ActivityMainBinding
@@ -52,6 +61,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
+import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
     private val scan: ScanViewModel by viewModels()
@@ -85,6 +95,12 @@ class MainActivity : AppCompatActivity() {
     /** The menu or whichever of its sheets is open; only one shows at a time. */
     private var menuSheet: BottomSheetDialog? = null
     private var shownRing = -1
+    /** The list as a compact table (Settings → Compact list), read when the screen is created. */
+    private var compact = false
+    /** The compact list's scan controls (the Breakout/Support chips and the scan board), shown in [scanPanel]. */
+    private var panelContent: LinearLayout? = null
+    private var scanPanel: BottomSheetDialog? = null
+    private var compactShare: Chip? = null
     private var radarSpin: ObjectAnimator? = null
     /** A notification's stock, opened once the list holds it. */
     private var pendingSymbol: String? = null
@@ -105,8 +121,15 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         ui = ActivityMainBinding.inflate(layoutInflater)
         setContentView(ui.root)
+        // Space Glass paints its own background; every other theme its Milky Way (the hidden view never bakes).
+        val ownSky = settings.theme.ownSky
+        ui.galaxySky.isVisible = !ownSky
+        ui.spaceSky.isVisible = ownSky
+        compact = settings.compactList
+        adapter.compact = compact
         ui.galaxySky.palette = settings.theme.skyPalette
         ui.galaxySky.animate = settings.skyAnimation
+        ui.spaceSky.animate = settings.skyAnimation
         // The version running, beside the name.
         updates.installedName.takeIf { it.isNotEmpty() }?.let {
             ui.appVersion.text = getString(R.string.header_version, it)
@@ -120,13 +143,16 @@ class MainActivity : AppCompatActivity() {
         ui.emptyCircle.wearChipGlass(null, tintBoost = 2f)
         listOf(ui.statCardScanned, ui.statCardTop, ui.statCardSpikes).forEach { it.wearCardGlass() }
         // Frosted glass: the sky behind the scan board is drawn blurred, and follows the board as the bar scrolls.
-        if (settings.glassEnabled) {
+        // The compact list keeps the board in its scan panel, off the screen behind it.
+        if (settings.glassEnabled && !compact) {
             val glass = settings.glassStyle
             val corner = HERO_CORNER_DP * resources.displayMetrics.density
-            ui.galaxySky.frost(ui.hero, glass.heroFrost, glass.heroShade, corner)
+            if (ownSky) ui.spaceSky.frost(ui.hero, glass.heroFrost, glass.heroShade, corner)
+            else ui.galaxySky.frost(ui.hero, glass.heroFrost, glass.heroShade, corner)
         }
-        ui.appBar.addOnOffsetChangedListener { _, _ -> ui.galaxySky.invalidate() }
+        ui.appBar.addOnOffsetChangedListener { _, _ -> (if (ownSky) ui.spaceSky else ui.galaxySky).invalidate() }
         ui.results.adapter = adapter
+        if (compact) setUpCompact()
         applyWindowInsets()
         setUpListTools()
         ui.updateAction.setOnClickListener { updates.proceed() }
@@ -262,6 +288,7 @@ class MainActivity : AppCompatActivity() {
         menuSheet?.dismiss()
         sectorSheet?.dismiss()
         clearDialog?.dismiss()
+        scanPanel?.dismiss()
         super.onDestroy()
     }
 
@@ -425,6 +452,105 @@ class MainActivity : AppCompatActivity() {
         ui.startButton.isEnabled = !state.stopping
         // Nothing to clear without a scan, nor while one runs: it would put a scan straight back.
         ui.clearScanButton.isVisible = state.results.isNotEmpty() && !state.isRunning
+        if (compact) renderPill(state)
+    }
+
+    /** The compact header's status pill: what the scan is doing, with a dot green while live or scanning. */
+    private fun renderPill(state: ScanUiState) {
+        val count = StockFormat::count
+        val now = MarketClock.now()
+        val open = MarketClock.phase(now) == MarketClock.Phase.OPEN
+        val today = state.savedAt > 0 && MarketClock.now(state.savedAt).toLocalDate() == now.toLocalDate()
+        val (text, dot) = when (state.phase) {
+            ScanPhase.IDLE -> getString(if (state.reading) R.string.pill_reading else R.string.pill_idle) to R.color.neutral
+            ScanPhase.LOADING -> getString(R.string.pill_loading) to R.color.bull
+            ScanPhase.SCANNING ->
+                getString(R.string.pill_scanning, state.percent, count(state.done), count(state.total)) to R.color.bull
+            ScanPhase.DONE -> if (state.stopped) {
+                getString(R.string.pill_stopped, state.percent, count(state.done), count(state.total)) to R.color.warn
+            } else {
+                val stocks = count(if (state.total > 0) state.total else state.results.size)
+                when {
+                    state.scanMode == ScanMode.SUPPORT -> getString(R.string.pill_support_done, stocks)
+                    open && state.live && today -> getString(R.string.pill_live_done, stocks)
+                    else -> getString(R.string.pill_done, stocks)
+                } to (if (open) R.color.bull else R.color.warn)
+            }
+            ScanPhase.FAILED -> getString(R.string.pill_failed) to R.color.bear
+        }
+        ui.statusPillText.text = text
+        ui.statusDot.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(this, dot))
+        ui.statusPill.contentDescription = getString(R.string.pill_description, text)
+    }
+
+    /**
+     * The compact list (Settings → Compact list): a slim pinned header with the scan's status pill in place of the
+     * brand header, scan board and stats, the table's column names, and the list's tools in a floating bar at the
+     * bottom. The scan board and the Breakout/Support chips move into a panel the pill opens ([openScanPanel]).
+     */
+    private fun setUpCompact() {
+        val dp = resources.displayMetrics.density
+        ui.brandHeader.isVisible = false
+        ui.statsRow.isVisible = false
+        ui.resultsHeading.isVisible = false
+        ui.resultsSection.updatePadding(top = 0, bottom = 0)
+        ui.compactHeader.isVisible = true
+        ui.compactColumns.isVisible = true
+        updates.installedName.takeIf { it.isNotEmpty() }?.let { ui.compactVersion.text = getString(R.string.header_version, it) }
+        ui.statusPill.setOnClickListener { openScanPanel() }
+        ui.compactSearch.setOnClickListener { openSearch() }
+        ui.compactMenu.setOnClickListener { openMenu() }
+
+        // The tools into the floating bar, with sharing at their end; the list keeps room under its last line.
+        ui.resultsSection.removeView(ui.listToolsScroll)
+        ui.listToolsScroll.updatePadding(left = (10 * dp).roundToInt(), right = (10 * dp).roundToInt())
+        ui.bottomBarTools.addView(ui.listToolsScroll, FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT))
+        compactShare = (layoutInflater.inflate(R.layout.chip_share, ui.listTools, false) as Chip).also {
+            it.setOnClickListener { shareShown() }
+            ui.listTools.addView(it)
+        }
+        ui.bottomBar.isVisible = true
+        ui.results.updatePadding(bottom = resources.getDimensionPixelSize(R.dimen.compact_list_bottom))
+
+        val panel = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            updatePadding(bottom = (24 * dp).roundToInt())
+        }
+        for (view in listOf(ui.modeScroll, ui.hero)) {
+            (view.parent as ViewGroup).removeView(view)
+            panel.addView(
+                view,
+                LinearLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
+                    if (view === ui.hero) {
+                        marginStart = (16 * dp).roundToInt()
+                        marginEnd = (16 * dp).roundToInt()
+                    } else {
+                        bottomMargin = (6 * dp).roundToInt()
+                    }
+                },
+            )
+        }
+        panelContent = panel
+    }
+
+    /** The scan's controls in a sheet: Breakout or Support, the scan board with its SCAN / Stop and Clear buttons. */
+    private fun openScanPanel() {
+        val content = panelContent ?: return
+        scanPanel?.dismiss()
+        (content.parent as? ViewGroup)?.removeView(content)
+        val root = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            addView(BottomSheetDragHandleView(this@MainActivity))
+            addView(content)
+        }
+        scanPanel = BottomSheetDialog(this).apply {
+            setContentView(root)
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.skipCollapsed = true
+            // The board goes back to waiting for the next time the pill is tapped.
+            setOnDismissListener { root.removeView(content) }
+            show()
+        }
     }
 
     /** [icon] replaces the percentage in the middle of the progress ring when it is not null. */
@@ -605,8 +731,11 @@ class MainActivity : AppCompatActivity() {
         val bars = WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
         // The app bar handles the status bar itself (fitsSystemWindows + statusBarForeground in the layout),
         // so content scrolled under the status bar stays hidden.
+        val barBottom = (ui.bottomBar.layoutParams as ViewGroup.MarginLayoutParams).bottomMargin
         ViewCompat.setOnApplyWindowInsetsListener(ui.listContainer) { _, insets ->
             val inset = insets.getInsets(bars)
+            // The compact list's floating bar stays clear of the navigation bar.
+            ui.bottomBar.updateLayoutParams<ViewGroup.MarginLayoutParams> { bottomMargin = barBottom + inset.bottom }
             // While the search keyboard is up, the last cards can still scroll above it.
             val bottom = maxOf(inset.bottom, insets.getInsets(WindowInsetsCompat.Type.ime()).bottom)
             ui.results.updatePadding(left = inset.left, right = inset.right, bottom = listBottom + bottom)
@@ -675,6 +804,12 @@ class MainActivity : AppCompatActivity() {
         ui.shareButton.isVisible = scanned
         ui.shareButton.isEnabled = hasResults
         ui.shareButton.alpha = if (hasResults) 1f else 0.38f
+        compactShare?.let {
+            it.isVisible = scanned
+            it.isEnabled = hasResults
+        }
+        ui.compactSearch.isEnabled = scanned
+        ui.compactSearch.alpha = if (scanned) 1f else 0.38f
 
         ui.searchBar.isVisible = state.searchOpen
         closeSearchOnBack.isEnabled = state.searchOpen
@@ -911,8 +1046,14 @@ class MainActivity : AppCompatActivity() {
             renderEmpty(scan.uiState.value)
         }
 
+        override fun compactListChanged(on: Boolean) {
+            settings.compactList = on
+            recreate()
+        }
+
         override fun skyAnimationChanged(on: Boolean) {
             ui.galaxySky.animate = on
+            ui.spaceSky.animate = on
         }
 
         /** Like [applyTheme]: the scan and its results live on in the view model. */
@@ -971,6 +1112,8 @@ class MainActivity : AppCompatActivity() {
 
     /** Saves the theme and rebuilds the screen in it; the scan and its results live on in the view model. */
     private fun applyTheme(theme: ThemeChoice) {
+        // Space Glass comes with the compact table it was designed with; Settings can turn the cards back on.
+        if (theme == ThemeChoice.SPACE_GLASS && settings.theme != theme) settings.compactList = true
         settings.theme = theme
         recreate()
     }

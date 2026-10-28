@@ -39,6 +39,7 @@ object Prefs {
 
     /** Whether the sky behind the home screen moves; on by default. */
     const val SKY_ANIMATION = "sky_animation"
+    const val COMPACT_LIST = "compact_list"
 
     /** Live mode: scan through market hours in the background (on by default), and how often, in minutes. */
     const val LIVE_SCAN = "live_scan"

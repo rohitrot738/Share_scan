@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        The compact list (Settings → Compact list; StockAdapter, item_stock_compact.xml): the table's column widths,
+        shared by the rows and the header so they line up, and its hairlines and pill.
+    -->
+    <dimen name="compact_rank_width">26dp</dimen>
+    <dimen name="compact_price_width">80dp</dimen>
+    <dimen name="compact_change_width">70dp</dimen>
+    <dimen name="compact_score_width">68dp</dimen>
+    <!-- Room under the list for the floating bar, so the last line can scroll clear of it. -->
+    <dimen name="compact_list_bottom">84dp</dimen>
+
+    <color name="compact_divider">#14FFFFFF</color>
+    <color name="compact_pill_fill">#1F10B981</color>
+    <color name="compact_pill_rim">#9910B981</color>
+
+    <style name="CompactColumn">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:letterSpacing">0.05</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

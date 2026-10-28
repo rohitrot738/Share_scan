@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Window background for the Space Glass theme: what shows for the moment before SpaceGlassSkyView draws, and
+    behind the sheets. Deep space with the view's cyan light up right and emerald light low left.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:dither="true" android:shape="rectangle">
+            <gradient
+                android:angle="270"
+                android:centerColor="@color/space_glass_space_mid"
+                android:endColor="@color/space_glass_space_bottom"
+                android:startColor="@color/space_glass_bg"
+                android:type="linear" />
+        </shape>
+    </item>
+    <item
+        android:width="480dp"
+        android:height="480dp"
+        android:end="-200dp"
+        android:gravity="top|end"
+        android:top="40dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#0A38BDF8"
+                android:endColor="#0038BDF8"
+                android:gradientRadius="50%"
+                android:startColor="#1E38BDF8"
+                android:type="radial" />
+        </shape>
+    </item>
+    <item
+        android:width="420dp"
+        android:height="420dp"
+        android:bottom="-60dp"
+        android:gravity="bottom|start"
+        android:start="-190dp">
+        <shape android:dither="true" android:shape="oval">
+            <gradient
+                android:centerColor="#0810B981"
+                android:endColor="#0010B981"
+                android:gradientRadius="50%"
+                android:startColor="#1810B981"
+                android:type="radial" />
+        </shape>
+    </item>
+</layer-list>

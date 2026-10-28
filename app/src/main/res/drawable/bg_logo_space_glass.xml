@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Header logo tile for the Space Glass theme: bg_logo.xml with this theme's colours. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="44dp"
+    android:height="44dp"
+    android:viewportWidth="44"
+    android:viewportHeight="44">
+    <path android:pathData="M14,0h16a14,14 0,0 1,14 14v16a14,14 0,0 1,-14 14h-16a14,14 0,0 1,-14 -14v-16a14,14 0,0 1,14 -14z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:endX="44"
+                android:endY="0"
+                android:startX="0"
+                android:startY="44"
+                android:type="linear">
+                <item android:color="@color/space_glass_hero_start" android:offset="0" />
+                <item android:color="@color/space_glass_hero_mid" android:offset="0.55" />
+                <item android:color="@color/space_glass_hero_end" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+    <group>
+        <clip-path android:pathData="M14,0h16a14,14 0,0 1,14 14v16a14,14 0,0 1,-14 14h-16a14,14 0,0 1,-14 -14v-16a14,14 0,0 1,14 -14z" />
+        <path android:pathData="M-18,36a26,26 0,1 0,52 0a26,26 0,1 0,-52 0z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:centerX="8"
+                    android:centerY="36"
+                    android:gradientRadius="26"
+                    android:type="radial">
+                    <item android:color="#5910B981" android:offset="0" />
+                    <item android:color="#0010B981" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+        <path android:pathData="M18,6a22,22 0,1 0,44 0a22,22 0,1 0,-44 0z">
+            <aapt:attr name="android:fillColor">
+                <gradient
+                    android:centerX="40"
+                    android:centerY="6"
+                    android:gradientRadius="22"
+                    android:type="radial">
+                    <item android:color="#6638BDF8" android:offset="0" />
+                    <item android:color="#0038BDF8" android:offset="1" />
+                </gradient>
+            </aapt:attr>
+        </path>
+    </group>
+    <path
+        android:fillAlpha="0.9"
+        android:fillColor="@color/galaxy_star"
+        android:pathData="M7.2,10a0.8,0.8 0,1 0,1.6 0a0.8,0.8 0,1 0,-1.6 0zM31.4,36.5a0.6,0.6 0,1 0,1.2 0a0.6,0.6 0,1 0,-1.2 0z" />
+    <path
+        android:fillAlpha="0.6"
+        android:fillColor="@color/galaxy_star"
+        android:pathData="M35.4,10.5a0.6,0.6 0,1 0,1.2 0a0.6,0.6 0,1 0,-1.2 0zM9.5,31a0.5,0.5 0,1 0,1 0a0.5,0.5 0,1 0,-1 0zM21.5,5.5a0.5,0.5 0,1 0,1 0a0.5,0.5 0,1 0,-1 0z" />
+</vector>

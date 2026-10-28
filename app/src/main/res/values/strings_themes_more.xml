@@ -13,4 +13,6 @@
     <string name="theme_royal_gold_body">सुनहरा और शाही जामुनी</string>
     <string name="theme_frost">Frost</string>
     <string name="theme_frost_body">बर्फ़ीला नीला • हल्की northern lights</string>
+    <string name="theme_space_glass">Space Glass</string>
+    <string name="theme_space_glass_body">गहरा space • cyan glow • चलती trading grid और chart-line</string>
 </resources>

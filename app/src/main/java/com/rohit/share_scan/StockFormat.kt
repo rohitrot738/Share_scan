@@ -42,6 +42,10 @@ object StockFormat {
     fun change(value: Double): String =
         String.format(Locale.US, "%s %.2f%%", if (value >= 0) "▲" else "▼", abs(value))
 
+    /** The compact table's change: "+11.57%", "−0.50%". */
+    fun signedChange(value: Double): String =
+        String.format(Locale.US, "%s%.2f%%", if (value >= 0) "+" else "−", abs(value))
+
     /** Rupee amounts in crore: ₹0.5 Cr, ₹850 Cr, ₹12,500 Cr, ₹1.2 लाख Cr. */
     fun crore(value: Double): String = when {
         value >= 100_000 -> "₹" + short(value / 100_000) + " लाख Cr"

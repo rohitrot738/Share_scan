@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Space Glass (values/styles.xml, SpaceGlassSkyView): the compact redesign's tokens. Space #0B0F19, bullish
+        green #10B981, bearish red #EF4444, cyan glow #38BDF8 (the accent) and star/score gold #F59E0B; the table
+        header #111827 and its text #94A3B8.
+    -->
+    <color name="space_glass_accent">#38BDF8</color>
+    <color name="space_glass_on_accent">#04263A</color>
+    <color name="space_glass_accent_container">#0E3A52</color>
+    <color name="space_glass_on_accent_container">#E0F5FF</color>
+    <color name="space_glass_primary_inverse">#0284C7</color>
+    <color name="space_glass_secondary">#10B981</color>
+    <color name="space_glass_tertiary">#F59E0B</color>
+    <color name="space_glass_bull">#10B981</color>
+    <color name="space_glass_bear">#EF4444</color>
+    <color name="space_glass_star">#F59E0B</color>
+    <color name="space_glass_bg">#0B0F19</color>
+    <color name="space_glass_space_mid">#0A1322</color>
+    <color name="space_glass_space_bottom">#061A22</color>
+    <color name="space_glass_surface">#111827</color>
+    <color name="space_glass_surface_lowest">#070A12</color>
+    <color name="space_glass_surface_low">#0E1422</color>
+    <color name="space_glass_surface_high">#1A2333</color>
+    <color name="space_glass_surface_highest">#232E42</color>
+    <color name="space_glass_text">#F8FAFC</color>
+    <color name="space_glass_text_soft">#94A3B8</color>
+    <color name="space_glass_outline">#334155</color>
+    <color name="space_glass_card">#B3111827</color>
+    <color name="space_glass_card_stroke">#5938BDF8</color>
+    <color name="space_glass_sheet">#E00F1626</color>
+    <color name="space_glass_track">#1E293B</color>
+    <color name="space_glass_hero_start">#0B1324</color>
+    <color name="space_glass_hero_mid">#0E3A52</color>
+    <color name="space_glass_hero_end">#0B5D53</color>
+    <!-- The hero as glass: a light tint over the frosted background behind it (SpaceGlassSkyView.frost). -->
+    <color name="space_glass_hero_glass_start">#590B1324</color>
+    <color name="space_glass_hero_glass_mid">#660E3A52</color>
+    <color name="space_glass_hero_glass_end">#590B5D53</color>
+    <!-- The compact table (item_stock_compact.xml, the column header). -->
+    <color name="space_glass_table_header">#111827</color>
+    <color name="space_glass_table_header_text">#94A3B8</color>
+    <color name="space_glass_divider">#14FFFFFF</color>
+</resources>

@@ -19,6 +19,12 @@ class AppSettingsTest {
     }
 
     @Test
+    fun onlySpaceGlassPaintsItsOwnBackground() {
+        assertEquals(ThemeChoice.SPACE_GLASS, ThemeChoice.fromKey("space_glass"))
+        assertEquals(listOf(ThemeChoice.SPACE_GLASS), ThemeChoice.entries.filter { it.ownSky })
+    }
+
+    @Test
     fun chartLinksPerSite() {
         assertEquals(StockFormat.chartUrl("TCS"), ChartSite.TRADINGVIEW.url("TCS"))
         assertEquals("https://chartink.com/stocks/tcs.html", ChartSite.CHARTINK.url("TCS"))
