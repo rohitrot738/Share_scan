@@ -23,6 +23,29 @@ enum class ThemeChoice(val key: String) {
     }
 }
 
+/**
+ * The home screen's background and the layout that comes with it, picked apart from the theme's colours: the Milky
+ * Way with the cards ([GALAXY]), or Space Glass's grid and price line with the compact table ([SPACE_GLASS]). Each
+ * keeps its own animation and takes any theme's colours. [key] is what the settings store.
+ */
+enum class BackgroundChoice(val key: String) {
+    GALAXY("galaxy"),
+    SPACE_GLASS("space_glass");
+
+    /** Space Glass comes with the compact table (slim header, a line a stock, floating bar); the Milky Way with the cards. */
+    val compact: Boolean
+        get() = this == SPACE_GLASS
+
+    companion object {
+        /**
+         * The stored background; with none stored yet (1.2.138 and before), Space Glass for a phone that had the
+         * compact list on, the Milky Way otherwise.
+         */
+        fun fromKey(key: String?, compactList: Boolean = false): BackgroundChoice =
+            entries.firstOrNull { it.key == key } ?: if (compactList) SPACE_GLASS else GALAXY
+    }
+}
+
 /** Where the detail sheet's chart button opens a stock; [key] is what the settings store. */
 enum class ChartSite(val key: String) {
     TRADINGVIEW("tradingview"),
@@ -67,13 +90,18 @@ enum class ChartSite(val key: String) {
     }
 }
 
-/** User choices from the menu's Settings and Theme sheets, stored in the shared [Prefs.FILE]. */
+/** User choices from the menu's Settings, Theme and Background sheets, stored in the shared [Prefs.FILE]. */
 class AppSettings(context: Context) {
     private val prefs = context.getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE)
 
     var theme: ThemeChoice
         get() = ThemeChoice.fromKey(prefs.getString(Prefs.THEME, null))
         set(value) = prefs.edit { putString(Prefs.THEME, value.key) }
+
+    /** The background and its layout; until one is picked, whichever the old compact list setting chose. */
+    var background: BackgroundChoice
+        get() = BackgroundChoice.fromKey(prefs.getString(Prefs.BACKGROUND, null), prefs.getBoolean(Prefs.COMPACT_LIST, false))
+        set(value) = prefs.edit { putString(Prefs.BACKGROUND, value.key) }
 
     var chartSite: ChartSite
         get() = ChartSite.fromKey(prefs.getString(Prefs.CHART_SITE, null))
@@ -93,14 +121,6 @@ class AppSettings(context: Context) {
     var skyAnimation: Boolean
         get() = prefs.getBoolean(Prefs.SKY_ANIMATION, true)
         set(value) = prefs.edit { putBoolean(Prefs.SKY_ANIMATION, value) }
-
-    /**
-     * The list as a compact table, a line a stock, with a slim header and the list's tools in a floating bar at the
-     * bottom; off shows the cards. Picking the Space Glass theme turns it on.
-     */
-    var compactList: Boolean
-        get() = prefs.getBoolean(Prefs.COMPACT_LIST, false)
-        set(value) = prefs.edit { putBoolean(Prefs.COMPACT_LIST, value) }
 
     /** Look for a newer release every time the app opens. */
     var checkUpdates: Boolean

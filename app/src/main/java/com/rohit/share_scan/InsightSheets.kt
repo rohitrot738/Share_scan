@@ -120,13 +120,17 @@ class TrackRecordSheet(
     }
 }
 
-/** Industries ranked by their stocks' mean score in the latest scan; tapping one filters the list to it. */
+/**
+ * Industries ranked by their stocks' mean score in the latest scan; tapping one filters the list to it. On the
+ * Space Glass background, the cards and bars wear the compact list's [flat] look.
+ */
 class SectorSheet(
     private val activity: AppCompatActivity,
     private val results: List<ScanResult>,
     private val current: Set<String>,
     private val onPick: (String?) -> Unit,
     private val onBack: (() -> Unit)?,
+    private val flat: Boolean = false,
 ) {
     private val ui = SheetListBinding.inflate(activity.layoutInflater)
 
@@ -137,11 +141,13 @@ class SectorSheet(
         val ranked = SectorStrength.rank(results)
         if (ranked.isEmpty()) {
             val card = ItemHelpBinding.inflate(activity.layoutInflater, ui.listItems, true)
+            if (flat) card.root.wearFlat()
             card.helpTitle.setText(R.string.sector_empty_title)
             card.helpBody.setText(if (results.isEmpty()) R.string.sector_empty_no_scan else R.string.sector_empty_body)
         }
         if (current.isNotEmpty()) {
             val clear = ItemHelpBinding.inflate(activity.layoutInflater, ui.listItems, true)
+            if (flat) clear.root.wearFlat()
             clear.helpTitle.text = activity.getString(R.string.sector_clear_title, current.joinToString(", "))
             clear.helpBody.setText(R.string.sector_clear_body)
             clear.root.isClickable = true
@@ -152,16 +158,22 @@ class SectorSheet(
         }
         ranked.forEachIndexed { index, sector ->
             val card = ItemSectorBinding.inflate(activity.layoutInflater, ui.listItems, true)
-            val tone = when (StockFormat.tier(sector.averageScore)) {
-                StockFormat.Tier.STRONG -> R.color.bull
-                StockFormat.Tier.WATCH -> R.color.warn
-                StockFormat.Tier.WEAK -> R.color.neutral
+            if (flat) {
+                card.root.wearFlat()
+                card.sectorBar.wearFlat()
+            }
+            val tier = StockFormat.tier(sector.averageScore)
+            val tone = when (tier) {
+                // The flat look keeps to the theme's own grey for a weak sector, not the cards' lavender.
+                StockFormat.Tier.WEAK -> if (flat) activity.flatMuted() else color(R.color.neutral)
+                StockFormat.Tier.STRONG -> color(R.color.bull)
+                StockFormat.Tier.WATCH -> color(R.color.warn)
             }
             card.sectorRank.text = activity.getString(R.string.sector_rank, index + 1)
             card.sectorName.text = sector.sector
             card.sectorScore.text = StockFormat.score(sector.averageScore)
-            card.sectorScore.setTextColor(color(tone))
-            card.sectorBar.color = color(tone)
+            card.sectorScore.setTextColor(tone)
+            card.sectorBar.color = tone
             card.sectorBar.fraction = (sector.averageScore / 100.0).toFloat()
             card.sectorDetail.text = activity.getString(
                 R.string.sector_detail,

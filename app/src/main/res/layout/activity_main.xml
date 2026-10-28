@@ -546,7 +546,7 @@
             android:paddingBottom="6dp">
 
             <!--
-                The compact list's slim header (Settings → Compact list): logo, name and version, the scan's status
+                The compact list's slim header (the Space Glass background, Menu → Background): logo, name and version, the scan's status
                 pill (a tap opens the scan's controls), search and menu. MainActivity.setUpCompact moves it to the
                 top of the app bar, pinned; the brand header, scan board and stats are hidden then.
             -->

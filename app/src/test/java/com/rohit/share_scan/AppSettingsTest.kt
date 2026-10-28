@@ -19,9 +19,15 @@ class AppSettingsTest {
     }
 
     @Test
-    fun onlySpaceGlassPaintsItsOwnBackground() {
-        assertEquals(ThemeChoice.SPACE_GLASS, ThemeChoice.fromKey("space_glass"))
-        assertEquals(listOf(ThemeChoice.SPACE_GLASS), ThemeChoice.entries.filter { it.ownSky })
+    fun theBackgroundBringsItsLayout() {
+        BackgroundChoice.entries.forEach { assertEquals(it, BackgroundChoice.fromKey(it.key)) }
+        assertEquals(listOf(BackgroundChoice.SPACE_GLASS), BackgroundChoice.entries.filter { it.compact })
+        // Until one is picked: whatever the compact list switch of 1.2.138 chose.
+        assertEquals(BackgroundChoice.GALAXY, BackgroundChoice.fromKey(null))
+        assertEquals(BackgroundChoice.SPACE_GLASS, BackgroundChoice.fromKey(null, compactList = true))
+        assertEquals(BackgroundChoice.GALAXY, BackgroundChoice.fromKey("aurora"))
+        // A picked one stays, whatever the old switch said.
+        assertEquals(BackgroundChoice.GALAXY, BackgroundChoice.fromKey("galaxy", compactList = true))
     }
 
     @Test

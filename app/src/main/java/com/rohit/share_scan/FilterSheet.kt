@@ -1,6 +1,7 @@
 package com.rohit.share_scan
 
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
@@ -20,7 +21,8 @@ import kotlin.math.roundToInt
 /**
  * Bottom sheet where every metric gets a min/max range slider; nothing changes until "लागू करें". It edits one
  * scan's [filters], counting matches among that scan's [pool] (every scanned stock for the Breakout scan, the stocks on
- * a long support floor for the Support scan); Reset goes back to [defaults].
+ * a long support floor for the Support scan); Reset goes back to [defaults]. On the Space Glass background it wears
+ * the compact list's [flat] look: thin sliders, outlined chips and an accent capsule for "लागू करें".
  */
 class FilterSheet(
     private val activity: AppCompatActivity,
@@ -29,6 +31,7 @@ class FilterSheet(
     private val pool: List<ScanResult>,
     private val defaults: ScanFilters,
     private val onApply: (ScanFilters) -> Unit,
+    private val flat: Boolean = false,
 ) {
     private val dialog = BottomSheetDialog(activity)
     private val ui = SheetFiltersBinding.inflate(activity.layoutInflater)
@@ -45,7 +48,15 @@ class FilterSheet(
             draft = resetDraft()
             sync()
         }
-        ui.filterApply.wearChipGlass(APPLY_CORNER_DP, tintBoost = 1.8f, ripple = true)
+        if (flat) {
+            ui.filterApply.wearFlatAction()
+            listOf(ui.limitChips).plus(rows.values.map { it.metricPresets })
+                .flatMap { group -> (0 until group.childCount).map(group::getChildAt) }
+                .filterIsInstance<Chip>()
+                .forEach { it.wearFlat(accented = false) }
+        } else {
+            ui.filterApply.wearChipGlass(APPLY_CORNER_DP, tintBoost = 1.8f, ripple = true)
+        }
         ui.filterApply.setOnClickListener {
             onApply(draft)
             dialog.dismiss()
@@ -62,6 +73,7 @@ class FilterSheet(
     private fun addRow(metric: Metric) {
         val row = ItemFilterMetricBinding.inflate(activity.layoutInflater, ui.filterMetrics, true)
         rows[metric] = row
+        if (flat) row.metricSlider.wearFlat()
         row.metricName.setText(nameOf(metric))
         hintOf(metric)?.let {
             row.metricHint.text = it
@@ -161,6 +173,14 @@ class FilterSheet(
             val bound = draft.bound(metric)
             row.metricRange.text = StockFormat.range(metric, bound, any)
             val active = bound.isActive
+            if (flat) {
+                // The flat look's pill: the accent once a range is set, a faint grey while any value goes.
+                val accent = activity.flatAccent()
+                row.metricRange.backgroundTintList =
+                    ColorStateList.valueOf(if (active) accent.withAlpha(0.18f) else Color.WHITE.withAlpha(0.06f))
+                row.metricRange.setTextColor(if (active) accent else activity.flatMuted())
+                continue
+            }
             row.metricRange.backgroundTintList = ColorStateList.valueOf(
                 ContextCompat.getColor(activity, if (active) R.color.primary_container else R.color.neutral_container),
             )

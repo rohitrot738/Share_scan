@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu → Background (BackgroundSheet): the home screen's background and its layout, picked apart from the theme. -->
+    <string name="menu_background">Background</string>
+    <string name="background_title">Background चुनें</string>
+    <string name="background_subtitle">हर background का अपना layout और animation • रंग वही जो theme के हैं</string>
+    <string name="background_galaxy">Galaxy</string>
+    <string name="background_galaxy_body">आकाशगंगा, टिमटिमाते और टूटते तारे • बड़े cards वाला layout</string>
+    <string name="background_space_glass">Space Glass</string>
+    <string name="background_space_glass_body">तैरती रोशनियाँ, चलती trading grid और chart-line • compact table वाला layout</string>
+
+    <string name="help_sky_title">Background और Theme</string>
+    <string name="help_sky_body">Menu → Background से दो में से एक चुनें — हर एक का अपना layout और अपना animation है: Galaxy में आकाशगंगा (टिमटिमाते और टूटते तारे, आकाशगंगा की ओर उड़ान) के साथ बड़े cards वाला layout, और Space Glass में तैरती रोशनियाँ, चलती trading grid और chart-line के साथ compact table (पतली header, हर stock की एक line, नीचे तैरती bar)। Menu → Theme से रंग चुनें: कोई भी theme दोनों backgrounds पर लगती है और उसके रंग background में भी आ जाते हैं। Settings → आसमान का animation बंद करने पर background रुक जाता है।</string>
+</resources>

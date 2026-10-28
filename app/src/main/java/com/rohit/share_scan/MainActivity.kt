@@ -8,8 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.RippleDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
@@ -33,7 +31,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.edit
-import androidx.core.graphics.ColorUtils
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -54,7 +51,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDragHandleView
 import com.google.android.material.chip.Chip
-import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rohit.share_scan.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
@@ -102,7 +98,7 @@ class MainActivity : AppCompatActivity() {
     /** The menu or whichever of its sheets is open; only one shows at a time. */
     private var menuSheet: BottomSheetDialog? = null
     private var shownRing = -1
-    /** The list as a compact table (Settings → Compact list), read when the screen is created. */
+    /** The list as a compact table (the Space Glass background, Menu → Background), read when the screen is created. */
     private var compact = false
     /** The compact list's scan controls (the Breakout/Support chips and the scan board), shown in [scanPanel]. */
     private var panelContent: LinearLayout? = null
@@ -128,13 +124,15 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         ui = ActivityMainBinding.inflate(layoutInflater)
         setContentView(ui.root)
-        // Space Glass paints its own background; every other theme its Milky Way (the hidden view never bakes).
-        val ownSky = settings.theme.ownSky
-        ui.galaxySky.isVisible = !ownSky
-        ui.spaceSky.isVisible = ownSky
-        compact = settings.compactList
+        // Menu → Background picks the background and the layout with it: the Milky Way behind the cards, or Space
+        // Glass's grid and price line behind the compact table. Either wears the theme's colours; the hidden view never
+        // bakes or animates.
+        compact = settings.background.compact
+        ui.galaxySky.isVisible = !compact
+        ui.spaceSky.isVisible = compact
         adapter.compact = compact
         ui.galaxySky.palette = settings.theme.skyPalette
+        if (settings.theme != ThemeChoice.SPACE_GLASS) ui.spaceSky.tintWith(this)
         ui.galaxySky.animate = settings.skyAnimation
         ui.spaceSky.animate = settings.skyAnimation
         // The version running, beside the name.
@@ -149,15 +147,13 @@ class MainActivity : AppCompatActivity() {
         ui.startButton.wearChipGlass(START_BUTTON_CORNER_DP, tintBoost = 1.8f, ripple = true)
         ui.emptyCircle.wearChipGlass(null, tintBoost = 2f)
         listOf(ui.statCardScanned, ui.statCardTop, ui.statCardSpikes).forEach { it.wearCardGlass() }
-        // Frosted glass: the sky behind the scan board is drawn blurred, and follows the board as the bar scrolls.
-        // The compact list keeps the board in its scan panel, off the screen behind it.
+        // Frosted glass: the Milky Way behind the scan board is drawn blurred, and follows the board as the bar scrolls.
+        // Space Glass's compact table keeps the board in its scan panel, off the screen behind it.
         if (settings.glassEnabled && !compact) {
             val glass = settings.glassStyle
-            val corner = HERO_CORNER_DP * resources.displayMetrics.density
-            if (ownSky) ui.spaceSky.frost(ui.hero, glass.heroFrost, glass.heroShade, corner)
-            else ui.galaxySky.frost(ui.hero, glass.heroFrost, glass.heroShade, corner)
+            ui.galaxySky.frost(ui.hero, glass.heroFrost, glass.heroShade, HERO_CORNER_DP * resources.displayMetrics.density)
         }
-        ui.appBar.addOnOffsetChangedListener { _, _ -> (if (ownSky) ui.spaceSky else ui.galaxySky).invalidate() }
+        ui.appBar.addOnOffsetChangedListener { _, _ -> (if (compact) ui.spaceSky else ui.galaxySky).invalidate() }
         ui.results.adapter = adapter
         if (compact) setUpCompact()
         applyWindowInsets()
@@ -198,9 +194,10 @@ class MainActivity : AppCompatActivity() {
                     state.supportReached.map { it.stock },
                     ScanFilters(limit = 0),
                     scan::setSupportFilters,
+                    flat = compact,
                 )
             } else {
-                FilterSheet(this, state, state.filters, state.results, ScanFilters(), scan::setFilters)
+                FilterSheet(this, state, state.filters, state.results, ScanFilters(), scan::setFilters, flat = compact)
             }.show()
         }
         // A tap on another sort picks it, highest first; a tap on the one in use turns its order round.
@@ -495,7 +492,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * The compact list (Settings → Compact list): a slim pinned header with the scan's status pill in place of the
+     * The compact list (the Space Glass background, Menu → Background): a slim pinned header with the scan's status pill in place of the
      * brand header, scan board and stats, the table's column names, and the list's tools in a floating bar at the
      * bottom. The scan board and the Breakout/Support chips move into a panel the pill opens ([openScanPanel]).
      */
@@ -589,29 +586,11 @@ class MainActivity : AppCompatActivity() {
      * chips are choices too.
      */
     private fun styleBarChips() {
-        val dp = resources.displayMetrics.density
-        val accent = MaterialColors.getColor(ui.root, androidx.appcompat.R.attr.colorPrimary)
-        val muted = MaterialColors.getColor(ui.root, com.google.android.material.R.attr.colorOnSurfaceVariant)
-        val text = ContextCompat.getColor(this, R.color.text_primary)
-        fun Chip.outline(rim: ColorStateList, label: ColorStateList, icon: ColorStateList) {
-            foreground = null
-            chipBackgroundColor = checkedOr(accent.withAlpha(0.18f), Color.WHITE.withAlpha(0.04f))
-            chipStrokeColor = rim
-            chipStrokeWidth = 1.2f * dp
-            setTextColor(label)
-            chipIconTint = icon
-            isCheckedIconVisible = false
-        }
-        val actions = listOfNotNull(ui.filterChip, ui.watchlistChip, ui.sectorChip, compactShare)
-        actions.forEach {
-            it.outline(ColorStateList.valueOf(accent.withAlpha(0.85f)), ColorStateList.valueOf(text), ColorStateList.valueOf(accent))
-        }
-        val choices = listOf(ui.sortChips, ui.supportReachChips, ui.scanModeChips).flatMap { group ->
-            (0 until group.childCount).map(group::getChildAt)
-        }
-        choices.filterIsInstance<Chip>().forEach {
-            it.outline(checkedOr(accent.withAlpha(0.85f), muted.withAlpha(0.45f)), checkedOr(text, muted), checkedOr(accent, muted))
-        }
+        listOfNotNull(ui.filterChip, ui.watchlistChip, ui.sectorChip, compactShare).forEach { it.wearFlat(accented = true) }
+        listOf(ui.sortChips, ui.supportReachChips, ui.scanModeChips)
+            .flatMap { group -> (0 until group.childCount).map(group::getChildAt) }
+            .filterIsInstance<Chip>()
+            .forEach { it.wearFlat(accented = false) }
     }
 
     /**
@@ -620,22 +599,11 @@ class MainActivity : AppCompatActivity() {
      * in grey.
      */
     private fun styleScanPanel() {
-        val dp = resources.displayMetrics.density
-        fun px(value: Int) = (value * dp).roundToInt()
-        val accent = MaterialColors.getColor(ui.root, androidx.appcompat.R.attr.colorPrimary)
-        val muted = MaterialColors.getColor(ui.root, com.google.android.material.R.attr.colorOnSurfaceVariant)
-        val card = MaterialColors.getColor(ui.root, com.google.android.material.R.attr.colorSurfaceContainer)
-        fun capsule(fill: Int, rim: Int, rimWidth: Float) = GradientDrawable().apply {
-            cornerRadius = 100 * dp // clamped to half the height: a capsule
-            setColor(fill)
-            setStroke((rimWidth * dp).roundToInt(), rim)
-        }
+        fun px(value: Int) = (value * resources.displayMetrics.density).roundToInt()
+        val accent = flatAccent()
+        val muted = flatMuted()
 
-        ui.hero.background = GradientDrawable().apply {
-            cornerRadius = 16 * dp
-            setColor(card)
-            setStroke(px(1), Color.WHITE.withAlpha(0.08f))
-        }
+        ui.hero.background = flatCard()
         ui.heroArt.isVisible = false
         ui.heroContent.setPadding(px(16), px(16), px(16), px(16))
         ui.statusTitle.textSize = 19f
@@ -656,24 +624,13 @@ class MainActivity : AppCompatActivity() {
         ImageViewCompat.setImageTintList(ui.ringIcon, ColorStateList.valueOf(accent))
         ui.ringPercent.textSize = 15f
 
-        ui.startButton.background =
-            RippleDrawable(ColorStateList.valueOf(accent.withAlpha(0.3f)), capsule(accent.withAlpha(0.2f), accent.withAlpha(0.9f), 1.5f), null)
-        ui.startButton.backgroundTintList = null
+        ui.startButton.wearFlatAction()
         ui.startButton.updateLayoutParams<ViewGroup.LayoutParams> { height = px(50) }
-        ui.startButton.setTextColor(ContextCompat.getColor(this, R.color.text_primary))
-        ui.startButton.iconTint = ColorStateList.valueOf(accent)
         ui.clearScanButton.cornerRadius = px(22)
         ui.clearScanButton.strokeColor = ColorStateList.valueOf(muted.withAlpha(0.45f))
         ui.clearScanButton.setTextColor(muted)
         ui.clearScanButton.iconTint = ColorStateList.valueOf(muted)
     }
-
-    private fun checkedOr(checked: Int, otherwise: Int) = ColorStateList(
-        arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf()),
-        intArrayOf(checked, otherwise),
-    )
-
-    private fun Int.withAlpha(fraction: Float): Int = ColorUtils.setAlphaComponent(this, (fraction * 255).roundToInt())
 
     /** [icon] replaces the percentage in the middle of the progress ring when it is not null. */
     private fun showStatus(title: String, body: String, @DrawableRes icon: Int?, ring: Int) {
@@ -1108,7 +1065,14 @@ class MainActivity : AppCompatActivity() {
     private fun openSectors(fromMenu: Boolean) {
         val state = scan.uiState.value
         val open = {
-            SectorSheet(this, state.results, state.activeFilters.sectors, ::pickSector, if (fromMenu) ::openMenu else null).show()
+            SectorSheet(
+                this,
+                state.results,
+                state.activeFilters.sectors,
+                ::pickSector,
+                if (fromMenu) ::openMenu else null,
+                flat = compact,
+            ).show()
         }
         if (fromMenu) {
             showMenuSheet(open)
@@ -1130,7 +1094,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openMenu() {
-        showMenuSheet { MenuSheet(this, updates.installedName, settings.theme, ::onMenuPick).show() }
+        showMenuSheet { MenuSheet(this, updates.installedName, settings.theme, settings.background, ::onMenuPick).show() }
     }
 
     private fun onMenuPick(entry: MenuSheet.Entry) {
@@ -1146,6 +1110,9 @@ class MainActivity : AppCompatActivity() {
                 SettingsSheet(this, settings, scan.uiState.value.watchlist.size, settingsActions, ::openMenu).show()
             }
             MenuSheet.Entry.THEME -> showMenuSheet { ThemeSheet(this, settings.theme, ::applyTheme, ::openMenu).show() }
+            MenuSheet.Entry.BACKGROUND -> showMenuSheet {
+                BackgroundSheet(this, settings.theme, settings.background, ::applyBackground, ::openMenu).show()
+            }
             MenuSheet.Entry.UPDATE -> {
                 if (updates.canCheck) Toast.makeText(this, R.string.update_checking, Toast.LENGTH_SHORT).show()
                 updates.checkNow()
@@ -1167,11 +1134,6 @@ class MainActivity : AppCompatActivity() {
         override fun keepScreenOnChanged(on: Boolean) {
             ui.root.keepScreenOn = scan.uiState.value.isRunning && on
             renderEmpty(scan.uiState.value)
-        }
-
-        override fun compactListChanged(on: Boolean) {
-            settings.compactList = on
-            recreate()
         }
 
         override fun skyAnimationChanged(on: Boolean) {
@@ -1234,10 +1196,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Saves the theme and rebuilds the screen in it; the scan and its results live on in the view model. */
+    /** The theme's colours, on whichever background (and layout) is picked. */
     private fun applyTheme(theme: ThemeChoice) {
-        // Space Glass comes with the compact table it was designed with; Settings can turn the cards back on.
-        if (theme == ThemeChoice.SPACE_GLASS && settings.theme != theme) settings.compactList = true
         settings.theme = theme
+        recreate()
+    }
+
+    /** The background and the layout that comes with it; the theme's colours stay. */
+    private fun applyBackground(background: BackgroundChoice) {
+        settings.background = background
         recreate()
     }
 

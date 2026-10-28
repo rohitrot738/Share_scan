@@ -8,13 +8,16 @@
         android:id="@+id/sheetTopBar"
         layout="@layout/sheet_top_bar" />
 
+    <!-- The background picker (BackgroundSheet) shares this sheet and sets its own title. -->
     <TextView
+        android:id="@+id/themeTitle"
         style="@style/SheetTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/theme_title" />
 
     <TextView
+        android:id="@+id/themeSubtitle"
         style="@style/SheetSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

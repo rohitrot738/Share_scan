@@ -3,6 +3,15 @@
     "version": "",
     "date": "2026-10-28",
     "items": [
+      "नया Menu → Background: Galaxy (आकाशगंगा, बड़े cards वाला layout) या Space Glass (तैरती रोशनियाँ, trading grid और chart-line, compact table वाला layout) — हर background का अपना layout और अपना animation",
+      "Theme अब सिर्फ़ रंग बदलती है: कोई भी theme दोनों backgrounds पर लगती है, और उसके रंग background में भी आते हैं (Space Glass की grid और chart-line भी theme के रंग में)। Settings का Compact list switch हटा — table अब Space Glass background के साथ आती है",
+      "Space Glass background में Filters और सेक्टर वाली sheets भी नए सादे style में: पतले slider, outline वाले chips, सादे cards और cyan किनारे वाला \"लागू करें\""
+    ]
+  },
+  {
+    "version": "1.2.138",
+    "date": "2026-10-28",
+    "items": [
       "नया theme \"Space Glass\" (Menu → Theme): बिल्कुल नया background — गहरा space, धीरे तैरती cyan और हरी रोशनियाँ, नीचे आगे बढ़ती trading grid और बीच में खिसकती चमकीली chart-line",
       "Compact list (Menu → Settings): हर stock की एक line — rank, ticker के साथ NSE/BSE, NEW/▲▼ और 📰, नीचे कंपनी, भाव, 5 दिन का बदलाव और RVOL, और score (watchlist वाले stocks का सुनहरा, ★ के साथ; line को दबाकर रखने से watchlist में जोड़ें या हटाएँ); एक screen पर 8–10 stocks",
       "Compact list में ऊपर हमेशा दिखने वाली पतली header और स्कैन की हरी pill (जैसे LIVE SCAN 100% • 2,618 STOCKS) — दबाने पर उसी सादे style का panel: Breakout/Support, SCAN/रोकें और Clear scan; Filters, Watchlist, sort, sector और शेयर नीचे की तैरती bar में। Space Glass चुनने पर यह अपने-आप चालू, Settings से cards पर लौट सकते हैं"

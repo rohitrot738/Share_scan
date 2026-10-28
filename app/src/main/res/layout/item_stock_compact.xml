@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    A stock as one line of the compact table (Settings → Compact list; StockAdapter): rank, ticker with its badges
+    A stock as one line of the compact table (the Space Glass background; StockAdapter): rank, ticker with its badges
     and the company under it, price, the 5-day change with RVOL under it, and the score, gold with a ★ when the
     stock is on the watchlist (a long press adds or removes it). No card: the lines sit on the theme's plain dark
     and a hairline divides them. The columns line up with the header in activity_main.xml (compactColumns).
