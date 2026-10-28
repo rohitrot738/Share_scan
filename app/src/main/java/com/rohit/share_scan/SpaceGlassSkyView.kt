@@ -21,13 +21,12 @@ import androidx.annotation.RequiresApi
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sin
-import kotlin.random.Random
 
 /**
  * The Space Glass theme's background, drawn afresh every frame instead of baked like [GalaxySkyView]'s Milky Way:
  * deep space (#0B0F19) with soft cyan, emerald and indigo lights drifting slowly behind the glass, a trading
- * terminal's grid running towards the viewer below a faint horizon, a glowing price line scrolling across the
- * middle with a pulse running along it, and a sprinkling of dim twinkling stars.
+ * terminal's grid running towards the viewer below a faint horizon, and a glowing price line scrolling across the
+ * middle with a pulse running along it. No stars: the stars are the other themes' sky.
  *
  * Like the Milky Way it redraws about 30 times a second while on show (15 in battery saver), holds still when the
  * system's animations are off or Settings turns [animate] off, and draws a frosted pane behind the scan board
@@ -66,15 +65,6 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
     private val chartPath = Path()
     private val fillPath = Path()
     private val dot = Paint(Paint.ANTI_ALIAS_FLAG)
-
-    // Dim stars at fixed places (fractions of the view), each twinkling on its own beat.
-    private val random = Random(SEED)
-    private val starX = FloatArray(STARS) { random.nextFloat() }
-    private val starY = FloatArray(STARS) { random.nextFloat() * HORIZON }
-    private val starRadius = FloatArray(STARS) { density * (0.5f + random.nextFloat() * 0.9f) }
-    private val starPeriod = FloatArray(STARS) { 2f + random.nextFloat() * 4f }
-    private val starPhase = FloatArray(STARS) { random.nextFloat() * TWO_PI }
-    private val starColor = IntArray(STARS) { STAR_COLORS[random.nextInt(STAR_COLORS.size)] }
 
     // The frosted pane behind the scan board.
     private var frostTarget: View? = null
@@ -210,7 +200,6 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
         val seconds = ((now - startedAt - heldFor) / 1000.0 % REPEAT_SECONDS).toFloat()
         canvas.drawRect(0f, 0f, w, h, space)
         drawLights(canvas, w, h, seconds)
-        drawStars(canvas, w, h, seconds)
         drawGrid(canvas, w, h, seconds)
         drawChart(canvas, w, h, seconds)
         drawFrost(canvas)
@@ -230,19 +219,6 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
             paint.shader.setLocalMatrix(lightMatrix)
             paint.alpha = (255 * breath).toInt()
             canvas.drawCircle(x, y, radius, paint)
-        }
-    }
-
-    /** Dim stars above the horizon, each fading in and out on its own beat. */
-    private fun drawStars(canvas: Canvas, w: Float, h: Float, t: Float) {
-        val top = TOP_FADE * density
-        for (i in 0 until STARS) {
-            val y = h * starY[i]
-            val beat = 0.5f + 0.5f * sin(t * TWO_PI / starPeriod[i] + starPhase[i])
-            val fade = (y / top).coerceIn(0f, 1f)
-            dot.color = starColor[i]
-            dot.alpha = (255 * (0.18f + 0.62f * beat) * fade).toInt()
-            canvas.drawCircle(w * starX[i], y, starRadius[i], dot)
         }
     }
 
@@ -338,9 +314,6 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
     private class Light(val x: Float, val y: Float, val size: Float, val drift: Float, val speed: Float, val color: Int, val alpha: Int)
 
     private companion object {
-        const val SEED = 20261028
-        const val STARS = 70
-        const val TWO_PI = 6.2831855f
         /** Where the horizon is, as a fraction of the height. */
         const val HORIZON = 0.66f
         const val GRID_FANS = 7
@@ -355,7 +328,6 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
         const val PULSE_SPEED = 0.07f
         /** The clock wraps after this many seconds, so a Float keeps every frame's precision. */
         const val REPEAT_SECONDS = 3600.0 * 6
-        const val TOP_FADE = 56f
         const val FROST_TINT = 0.35f
         const val MIN_FRAME_NANOS = 30_000_000L
         const val SAVER_FRAME_NANOS = 62_000_000L
@@ -373,7 +345,6 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
             Light(0.12f, 0.78f, 0.60f, 0.07f, 0.08f, EMERALD, 0x2A),
             Light(0.40f, 0.46f, 0.45f, 0.08f, 0.06f, INDIGO, 0x22),
         )
-        val STAR_COLORS = intArrayOf(0xFFFFFFFF.toInt(), 0xFFBAE6FD.toInt(), 0xFFA7F3D0.toInt())
 
         fun withAlpha(color: Int, alpha: Int): Int = (color and 0x00FFFFFF) or (alpha shl 24)
     }

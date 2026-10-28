@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper: the Space Glass theme and the compact list, on a fresh scan. Removed before merging.
+# Temporary review helper (run 2, no stars): the Space Glass theme and the compact list, on a fresh scan. Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
