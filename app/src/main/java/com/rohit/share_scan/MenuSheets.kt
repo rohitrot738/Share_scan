@@ -377,9 +377,9 @@ class ThemeSheet(
 }
 
 /**
- * The two backgrounds side by side, each moving in the theme's colours as it would behind the home screen: the Milky
- * Way (with the cards) and Space Glass (with the compact table). Picking one hands it to [onPick], which re-creates
- * the screen; the theme stays.
+ * The two backgrounds side by side, each a still of itself in the theme's colours: the Milky Way (with the cards) and
+ * Space Glass (with the compact table). Picking one hands it to [onPick], which re-creates the screen; the theme
+ * stays.
  */
 class BackgroundSheet(
     private val activity: AppCompatActivity,
@@ -425,10 +425,19 @@ class BackgroundSheet(
         return dialog
     }
 
-    /** The background itself, small and moving, in the theme's colours. */
+    /**
+     * The background itself, small, in the theme's colours. Held still: two skies moving at once in a frosted sheet
+     * is more drawing than a phone needs to pick one, and brought the test emulator down.
+     */
     private fun preview(choice: BackgroundChoice): View = when (choice) {
-        BackgroundChoice.GALAXY -> GalaxySkyView(activity).apply { palette = theme.skyPalette }
-        BackgroundChoice.SPACE_GLASS -> SpaceGlassSkyView(activity).apply { if (theme != ThemeChoice.SPACE_GLASS) tintWith(activity) }
+        BackgroundChoice.GALAXY -> GalaxySkyView(activity).apply {
+            palette = theme.skyPalette
+            animate = false
+        }
+        BackgroundChoice.SPACE_GLASS -> SpaceGlassSkyView(activity).apply {
+            if (theme != ThemeChoice.SPACE_GLASS) tintWith(activity)
+            animate = false
+        }
     }
 
     private fun color(@ColorRes id: Int) = ContextCompat.getColor(activity, id)

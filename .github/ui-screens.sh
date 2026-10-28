@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper (two backgrounds that bring their layouts; themes as colours). Removed before merging.
+# Temporary review helper (two backgrounds that bring their layouts; themes as colours; still previews). Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -154,7 +154,7 @@ front
 tap compactMenu
 sleep 2
 tap_text "Background"
-shot 05-background-picker 6
+shot 05-background-picker 10
 tap_exact "Galaxy"
 sleep 10
 shot 06-galaxy-bg-nebula-theme 2
