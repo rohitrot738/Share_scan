@@ -3,194 +3,161 @@
     <string name="theme">space_glass</string>
     <boolean name="compact_list" value="true" />
 </map>
-dismissed a not-responding dialog
+--- before the app
+Tasks: 319 total,   1 running, 318 sleeping,   0 stopped,   0 zombie
+  Mem:  2534556K total,  2345264K used,   189292K free,    12700K buffers
+ Swap:  1900912K total,   337664K used,  1563248K free,   916232K cached
+200%cpu  35%user  50%nice 100%sys   4%idle   8%iow   0%irq   4%sirq   0%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+ 1397 u0_a131      20   0  14G 224M 142M S 53.8   9.0   0:06.32 com.google.android.gms.persistent
+ 3587 root          0 -20    0    0    0 I 30.7   0.0   0:00.23 [kworker/1:6H-kverityd]
+  521 system       18  -2  16G 314M 215M S 26.9  12.7   0:21.54 system_server
+ 1555 u0_a119      20   0  14G 132M  98M S 19.2   5.3   0:01.01 com.google.android.apps.wellbeing
+  269 root          0 -20    0    0    0 I 15.3   0.0   0:00.63 [kworker/0:2H-kverityd]
+  374 system       20   0  10G 4.0M 3.8M S  7.6   0.1   0:00.26 android.hardware.sensors-service.multihal
+ 4396 u0_a130      20   0  14G 139M 102M S  3.8   5.6   0:00.39 com.google.android.apps.messaging
+ 4303 u0_a118      20   0  14G 197M 136M S  3.8   7.9   0:00.55 com.google.android.settings.intelligence
+10-28 12:21:30.928   521  2780 E ActivityManager: ANR in com.google.android.apps.nexuslauncher (com.google.android.apps.nexuslauncher/.NexusLauncherActivity)
+10-28 12:21:30.928   521  2780 E ActivityManager: PID: 1057
+10-28 12:21:30.928   521  2780 E ActivityManager: Reason: Input dispatching timed out (Application does not have a focused window)
+10-28 12:21:30.928   521  2780 E ActivityManager: Parent: com.google.android.apps.nexuslauncher/.NexusLauncherActivity
+10-28 12:21:30.928   521  2780 E ActivityManager: ErrorId: 82e96e6f-01ed-4ce0-83d3-b77d4f7f825a
+10-28 12:21:30.928   521  2780 E ActivityManager: Frozen: false
+10-28 12:21:30.928   521  2780 E ActivityManager: Load: 9.13 / 2.04 / 0.67
+10-28 12:21:30.928   521  2780 E ActivityManager: ----- Output from /proc/pressure/memory -----
+10-28 12:21:30.928   521  2780 E ActivityManager: some avg10=14.23 avg60=3.17 avg300=0.69 total=2296463
+10-28 12:21:30.928   521  2780 E ActivityManager: full avg10=1.69 avg60=0.34 avg300=0.07 total=428326
+10-28 12:21:30.928   521  2780 E ActivityManager: ----- End output from /proc/pressure/memory -----
+10-28 12:21:30.928   521  2780 E ActivityManager: ----- Output from /proc/pressure/cpu -----
+10-28 12:21:30.928   521  2780 E ActivityManager: some avg10=67.73 avg60=22.21 avg300=5.27 total=17733354
+10-28 12:21:30.928   521  2780 E ActivityManager: full avg10=0.00 avg60=0.00 avg300=0.00 total=0
+10-28 12:21:30.928   521  2780 E ActivityManager: ----- End output from /proc/pressure/cpu -----
+closed a not-responding app
 shot 01-space-idle
-could not find id statusPill
-dismissed a not-responding dialog
+--- after launch
+Tasks: 322 total,   2 running, 320 sleeping,   0 stopped,   0 zombie
+  Mem:  2534556K total,  2374588K used,   159968K free,    25832K buffers
+ Swap:  1900912K total,   529920K used,  1370992K free,   991880K cached
+200%cpu  37%user  33%nice  93%sys  15%idle   4%iow   0%irq   4%sirq  15%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+ 5489 u0_a131      20   0  13G 132M 102M R 33.3   5.3   0:00.18 com.google.android.gms.persistent
+ 5399 u0_a169      20   0  13G 144M  91M S 33.3   5.8   0:00.98 com.google.android.apps.nexuslauncher
+ 4396 u0_a130      20   0  14G 186M 140M S 22.2   7.5   0:03.60 com.google.android.apps.messaging
+  521 system       18  -2  16G 310M 212M S 22.2  12.5   0:27.19 system_server
+ 1555 u0_a119      20   0  14G 211M 172M S 14.8   8.5   0:01.63 com.google.android.apps.wellbeing
+ 2181 u0_a155      20   0  13G  97M  70M S  3.7   3.9   0:00.36 com.google.android.contacts
+ 1840 u0_a131      20   0  13G  73M  51M S  3.7   2.9   0:00.61 com.google.process.gservices
+  459 logd         30  10  10G 2.8M 2.7M S  3.7   0.1   0:03.54 logcat -f /dev/hvc1 *:V
+10-28 12:21:30.928   521  2780 E ActivityManager: ANR in com.google.android.apps.nexuslauncher (com.google.android.apps.nexuslauncher/.NexusLauncherActivity)
+10-28 12:21:30.928   521  2780 E ActivityManager: PID: 1057
+10-28 12:21:30.928   521  2780 E ActivityManager: Reason: Input dispatching timed out (Application does not have a focused window)
+10-28 12:21:30.928   521  2780 E ActivityManager: Parent: com.google.android.apps.nexuslauncher/.NexusLauncherActivity
+10-28 12:21:30.928   521  2780 E ActivityManager: ErrorId: 82e96e6f-01ed-4ce0-83d3-b77d4f7f825a
+10-28 12:21:30.928   521  2780 E ActivityManager: Frozen: false
+10-28 12:21:30.928   521  2780 E ActivityManager: Load: 9.13 / 2.04 / 0.67
+10-28 12:21:30.928   521  2780 E ActivityManager: ----- Output from /proc/pressure/memory -----
+10-28 12:21:30.928   521  2780 E ActivityManager: some avg10=14.23 avg60=3.17 avg300=0.69 total=2296463
+10-28 12:21:30.928   521  2780 E ActivityManager: full avg10=1.69 avg60=0.34 avg300=0.07 total=428326
+10-28 12:21:30.928   521  2780 E ActivityManager: ----- End output from /proc/pressure/memory -----
+10-28 12:21:30.928   521  2780 E ActivityManager: ----- Output from /proc/pressure/cpu -----
+10-28 12:21:30.928   521  2780 E ActivityManager: some avg10=67.73 avg60=22.21 avg300=5.27 total=17733354
+10-28 12:21:30.928   521  2780 E ActivityManager: full avg10=0.00 avg60=0.00 avg300=0.00 total=0
+10-28 12:21:30.928   521  2780 E ActivityManager: ----- End output from /proc/pressure/cpu -----
 shot 02-scan-panel
-could not find id startButton
-dismissed a not-responding dialog
 shot 03-scanning
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-scan done after ~762s
-dismissed a not-responding dialog
+scan done after ~37s
 shot 04-compact-list
 Share Scan
 v1.2.138
-SCAN शुरू करें ▸
+SCAN 100% • 2,618 STOCKS
 #
 STOCK / COMPANY
 PRICE
 5D / RVOL
 SCORE
-अभी कोई नतीजा नहीं
-ऊपर की pill दबाकर स्कैन शुरू करें — स्कैन पूरा होते ही top candidates score के हिसाब से यहाँ दिखेंगे।
-Filters
-★ Watchlist
-सेक्टर
-Score ↓
-dismissed a not-responding dialog
+1
+FSL
+NSE
+Firstsource Solutions
+₹307.95
++8.34%
+RVOL 0.68×
+86.0
+2
+TIPSMUSIC
+NSE
+Tips Music
+₹793.90
++6.14%
+RVOL 1.97×
+85.6
+3
+PVRINOX
+NSE
+📰
+PVR INOX
+₹1,445.30
++1.93%
+RVOL 3.10×
+85.6
+4
+UNITEDPOLY
+NSE
+United Polyfab Gujarat
+₹55.13
++8.29%
+RVOL 3.84×
+85.5
+5
+STEAMHOUSE
+NSE
+📰
+Steamhouse India
+₹144.06
++13.77%
+RVOL 0.63×
+83.6
+6
+SBC
+NSE
+SBC Exports
+₹65.48
++4.04%
+RVOL 0.57×
+83.3
+7
+LENSKART
 shot 05-list-scrolled
-could not find id rowSymbol
-dismissed a not-responding dialog
 shot 06-detail
-app was not in front
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
 shot 07-theme-picker
-dismissed a not-responding dialog
 could not find id compactMenu
-dismissed a not-responding dialog
-dismissed a not-responding dialog
-dismissed a not-responding dialog
 shot 08-space-cards
+--- at the end
+Tasks: 321 total,   1 running, 320 sleeping,   0 stopped,   0 zombie
+  Mem:  2534556K total,  2318428K used,   216128K free,    16244K buffers
+ Swap:  1900912K total,   700928K used,  1199984K free,  1047572K cached
+200%cpu   0%user   0%nice   0%sys 200%idle   0%iow   0%irq   0%sirq   0%host
+  PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
+ 7229 shell        20   0  10G 5.1M 4.1M R  0.0   0.2   0:00.01 top -b -n 1 -m 8
+ 7193 root         20   0    0    0    0 I  0.0   0.0   0:00.05 [kworker/1:0-events]
+ 5891 root          0 -20    0    0    0 I  0.0   0.0   0:00.37 [kworker/1:8H-kverityd]
+ 5732 u0_a131      20   0  14G 110M  90M S  0.0   4.4   0:00.09 com.google.android.gms.ui
+ 5562 u0_a131      20   0  14G 193M 153M S  0.0   7.8   0:04.37 com.google.android.gms
+ 5489 u0_a131      20   0  14G 211M 152M S  0.0   8.5   0:12.94 com.google.android.gms.persistent
+ 5399 u0_a169      20   0  13G 141M  97M S  0.0   5.7   0:01.81 com.google.android.apps.nexuslauncher
+ 5023 u0_a118      20   0  13G  83M  64M S  0.0   3.3   0:00.23 com.google.android.settings.intelligence
+10-28 12:21:30.928   521  2780 E ActivityManager: ANR in com.google.android.apps.nexuslauncher (com.google.android.apps.nexuslauncher/.NexusLauncherActivity)
+10-28 12:21:30.928   521  2780 E ActivityManager: PID: 1057
+10-28 12:21:30.928   521  2780 E ActivityManager: Reason: Input dispatching timed out (Application does not have a focused window)
+10-28 12:21:30.928   521  2780 E ActivityManager: Parent: com.google.android.apps.nexuslauncher/.NexusLauncherActivity
+10-28 12:21:30.928   521  2780 E ActivityManager: ErrorId: 82e96e6f-01ed-4ce0-83d3-b77d4f7f825a
+10-28 12:21:30.928   521  2780 E ActivityManager: Frozen: false
+10-28 12:21:30.928   521  2780 E ActivityManager: Load: 9.13 / 2.04 / 0.67
+10-28 12:21:30.928   521  2780 E ActivityManager: ----- Output from /proc/pressure/memory -----
+10-28 12:21:30.928   521  2780 E ActivityManager: some avg10=14.23 avg60=3.17 avg300=0.69 total=2296463
+10-28 12:21:30.928   521  2780 E ActivityManager: full avg10=1.69 avg60=0.34 avg300=0.07 total=428326
+10-28 12:21:30.928   521  2780 E ActivityManager: ----- End output from /proc/pressure/memory -----
+10-28 12:21:30.928   521  2780 E ActivityManager: ----- Output from /proc/pressure/cpu -----
+10-28 12:21:30.928   521  2780 E ActivityManager: some avg10=67.73 avg60=22.21 avg300=5.27 total=17733354
+10-28 12:21:30.928   521  2780 E ActivityManager: full avg10=0.00 avg60=0.00 avg300=0.00 total=0
+10-28 12:21:30.928   521  2780 E ActivityManager: ----- End output from /proc/pressure/cpu -----
