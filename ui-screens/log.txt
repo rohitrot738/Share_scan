@@ -1,0 +1,25 @@
+shot 01-space-idle
+could not find id statusPill
+shot 02-scan-panel
+could not find id startButton
+shot 03-scanning
+scan done after ~762s
+shot 04-compact-list
+Wed, Oct 28
+Gmail
+Photos
+YouTube
+Phone
+Messages
+Chrome
+Share Scan
+shot 05-list-scrolled
+could not find id rowSymbol
+shot 06-detail
+could not find id compactMenu
+could not find text थीम
+shot 07-theme-picker
+could not find id compactMenu
+could not find text सेटिंग्स
+could not find text Compact list
+shot 08-space-cards
