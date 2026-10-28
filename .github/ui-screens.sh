@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper (run 5, pinned header, no stars): the Space Glass theme and the compact list, on a fresh scan. Removed before merging.
+# Temporary review helper (run 6, pinned header, no stars): the Space Glass theme and the compact list, on a fresh scan. Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -12,7 +12,7 @@ adb shell settings put system screen_off_timeout 1800000
 adb install -r app/build/outputs/apk/debug/app-debug.apk
 adb shell pm grant "$PKG" android.permission.POST_NOTIFICATIONS  # no permission dialog over the screens
 
-shot() { sleep "${2:-3}"; adb exec-out screencap -p > "$OUT/$1.png"; echo "shot $1" | tee -a "$LOG"; }
+shot() { sleep "${2:-3}"; unstall; adb exec-out screencap -p > "$OUT/$1.png"; echo "shot $1" | tee -a "$LOG"; }
 launch() { adb shell am force-stop "$PKG"; adb shell am start -W -n "$PKG/.MainActivity" > /dev/null; }
 # Brings the app back to the front should a Back have left it.
 front() {
@@ -58,8 +58,16 @@ for m in re.finditer(r' text="([^"]*)"', xml):
         print(t)
 PY
 }
-tap() { local xy; xy=$(center id "$1") && adb shell input tap $xy || echo "could not find id $1" | tee -a "$LOG"; }
-tap_text() { local xy; xy=$(center text "$1") && adb shell input tap $xy || echo "could not find text $1" | tee -a "$LOG"; }
+# The emulator's own apps can stall ("Pixel Launcher isn't responding"); wait on them so the dialog leaves the screen.
+unstall() {
+  dump
+  grep -q "t responding" /tmp/ui.xml || return 0
+  echo "dismissed a not-responding dialog" | tee -a "$LOG"
+  local xy; xy=$(center text "Wait") && adb shell input tap $xy
+  sleep 2
+}
+tap() { unstall; local xy; xy=$(center id "$1") && adb shell input tap $xy || echo "could not find id $1" | tee -a "$LOG"; }
+tap_text() { unstall; local xy; xy=$(center text "$1") && adb shell input tap $xy || echo "could not find text $1" | tee -a "$LOG"; }
 
 # The Space Glass theme with the compact list, as picking the theme leaves them.
 cat > /tmp/scan.xml <<'XML'
@@ -87,6 +95,7 @@ shot 03-scanning 12
 adb shell input keyevent KEYCODE_BACK
 for i in $(seq 1 150); do
   sleep 5
+  unstall
   center text "100%" > /dev/null && break
 done
 echo "scan done after ~$((i * 5 + 12))s" | tee -a "$LOG"
