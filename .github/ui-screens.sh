@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper (run 4, no stars): the Space Glass theme and the compact list, on a fresh scan. Removed before merging.
+# Temporary review helper (run 5, pinned header, no stars): the Space Glass theme and the compact list, on a fresh scan. Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -14,6 +14,13 @@ adb shell pm grant "$PKG" android.permission.POST_NOTIFICATIONS  # no permission
 
 shot() { sleep "${2:-3}"; adb exec-out screencap -p > "$OUT/$1.png"; echo "shot $1" | tee -a "$LOG"; }
 launch() { adb shell am force-stop "$PKG"; adb shell am start -W -n "$PKG/.MainActivity" > /dev/null; }
+# Brings the app back to the front should a Back have left it.
+front() {
+  adb shell dumpsys activity activities | grep -qE "ResumedActivity.*$PKG" && return
+  echo "app was not in front" | tee -a "$LOG"
+  adb shell am start -n "$PKG/.MainActivity" > /dev/null
+  sleep 4
+}
 dump() {
   for attempt in 1 2 3; do
     adb shell uiautomator dump /sdcard/ui.xml > /dev/null 2>&1 && break
@@ -96,6 +103,7 @@ adb shell input keyevent KEYCODE_BACK
 sleep 2
 
 # The theme picker with Space Glass in it.
+front
 tap compactMenu
 sleep 2
 tap_text "थीम"
@@ -106,6 +114,7 @@ adb shell input keyevent KEYCODE_BACK
 sleep 2
 
 # Space Glass with the cards (Settings → Compact list off).
+front
 tap compactMenu
 sleep 2
 tap_text "सेटिंग्स"

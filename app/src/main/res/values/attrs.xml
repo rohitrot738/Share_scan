@@ -6,5 +6,7 @@
     <attr name="scanSheet" format="color" />
     <attr name="scanTrack" format="color" />
     <attr name="scanHeroBackground" format="reference" />
+    <!-- The art behind the hero's progress ring; Theme.ShareScan's orbits unless a theme draws its own. -->
+    <attr name="scanHeroArt" format="reference" />
     <attr name="scanLogoBackground" format="reference" />
 </resources>

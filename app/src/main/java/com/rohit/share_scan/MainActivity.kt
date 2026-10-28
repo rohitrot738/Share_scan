@@ -492,10 +492,11 @@ class MainActivity : AppCompatActivity() {
     private fun setUpCompact() {
         val dp = resources.displayMetrics.density
         // The slim header becomes the app bar's first child: the bar keeps its children clear of the status bar only
-        // while the first one shows, and the brand header it takes the place of is hidden.
+        // while the first one shows, and the brand header it takes the place of is hidden. It stays put while the
+        // list scrolls (no scroll flags; made in code they would default to scroll), so the pill and menu stay at hand.
         val headerHeight = ui.compactHeader.layoutParams.height
         ui.resultsSection.removeView(ui.compactHeader)
-        ui.appBar.addView(ui.compactHeader, 0, AppBarLayout.LayoutParams(MATCH_PARENT, headerHeight))
+        ui.appBar.addView(ui.compactHeader, 0, AppBarLayout.LayoutParams(MATCH_PARENT, headerHeight).apply { scrollFlags = 0 })
         ui.brandHeader.isVisible = false
         ui.statsRow.isVisible = false
         ui.resultsHeading.isVisible = false
@@ -510,6 +511,9 @@ class MainActivity : AppCompatActivity() {
         // The tools into the floating bar, with sharing at their end; the list keeps room under its last line.
         ui.resultsSection.removeView(ui.listToolsScroll)
         ui.listToolsScroll.updatePadding(left = (10 * dp).roundToInt(), right = (10 * dp).roundToInt())
+        // The sort chips run past the bar's end; its edges fade to show there is more to scroll to.
+        ui.listToolsScroll.isHorizontalFadingEdgeEnabled = true
+        ui.listToolsScroll.setFadingEdgeLength((20 * dp).roundToInt())
         ui.bottomBarTools.addView(ui.listToolsScroll, FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT))
         compactShare = (layoutInflater.inflate(R.layout.chip_share, ui.listTools, false) as Chip).also {
             it.setOnClickListener { shareShown() }
