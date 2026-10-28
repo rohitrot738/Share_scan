@@ -4,37 +4,37 @@
     <boolean name="compact_list" value="true" />
 </map>
 --- before the app
-Tasks: 313 total,   4 running, 309 sleeping,   0 stopped,   0 zombie
-  Mem:  2534552K total,  2424096K used,   110456K free,     9564K buffers
- Swap:  1900908K total,   261376K used,  1639532K free,  1102380K cached
-200%cpu  85%user  26%nice  70%sys   4%idle   0%iow   0%irq  11%sirq   4%host
+Tasks: 314 total,   4 running, 310 sleeping,   0 stopped,   0 zombie
+  Mem:  2534552K total,  2397788K used,   136764K free,    16396K buffers
+ Swap:  1900908K total,   200448K used,  1700460K free,  1069632K cached
+200%cpu  57%user  53%nice  57%sys  20%idle   0%iow   0%irq   7%sirq   7%host
   PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
-  519 system       18  -2  15G 330M 227M R 33.3  13.3   0:18.51 system_server
- 2910 u0_a131      20   0  13G 183M 117M S 29.6   7.3   0:01.03 com.google.android.gms.unstable
- 1420 u0_a131      20   0  14G 211M 140M S 18.5   8.5   0:02.14 com.google.android.gms
- 1507 u0_a119      20   0  14G 278M 215M S 14.8  11.2   0:00.89 com.google.android.apps.wellbeing
- 1382 u0_a131      20   0  13G 228M 154M R 14.8   9.2   0:03.21 com.google.android.gms.persistent
- 1040 system       20   0  13G 160M 107M S 11.1   6.4   0:00.39 com.android.settings
-  145 root         20   0    0    0    0 I 11.1   0.0   0:01.11 [kworker/1:3-events]
-  320 root         20   0  10G 2.2M 2.2M S  7.4   0.0   0:00.30 dhcpclient -i wlan0 --no-gateway
+ 1545 u0_a141      10 -10  13G 170M 105M S 40.0   6.8   0:03.43 com.google.android.inputmethod.latin
+  520 system       18  -2  16G 323M 221M S 33.3  13.0   0:24.41 system_server
+ 1404 u0_a132      20   0  13G 203M 144M S 23.3   8.2   0:03.58 com.google.android.gms.persistent
+   36 root         20   0    0    0    0 I 16.6   0.0   0:00.20 [kworker/1:1-events]
+ 1571 u0_a119      20   0  13G 126M  80M S 13.3   5.0   0:01.05 com.google.android.apps.wellbeing
+ 4103 u0_a118      20   0  13G  80M  50M S  6.6   3.2   0:00.03 com.google.android.settings.intelligence
+ 1090 u0_a169      10 -10  13G 263M 176M S  6.6  10.6   0:03.76 com.google.android.apps.nexuslauncher
+ 4144 shell        20   0  10G 4.8M 4.0M R  3.3   0.1   0:00.03 top -b -n 1 -m 8
 shot 01-space-idle
 --- after launch
-Tasks: 322 total,   3 running, 319 sleeping,   0 stopped,   0 zombie
-  Mem:  2534552K total,  2362164K used,   172388K free,     7464K buffers
- Swap:  1900908K total,   461568K used,  1439340K free,   946352K cached
-200%cpu  60%user  84%nice  56%sys   4%idle   0%iow   0%irq   4%sirq   0%host
+Tasks: 322 total,   1 running, 321 sleeping,   0 stopped,   0 zombie
+  Mem:  2534552K total,  2364900K used,   169652K free,     9620K buffers
+ Swap:  1900908K total,   330240K used,  1570668K free,   870780K cached
+200%cpu  60%user  43%nice  73%sys   0%idle   0%iow   0%irq  13%sirq  10%host
   PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
-  519 system       18  -2  15G 231M 143M S 52.0   9.3   0:23.23 system_server
- 4899 u0_a130      20   0  13G 100M  68M R 40.0   4.0   0:00.03 com.google.android.apps.messaging:rcs
- 1382 u0_a131      20   0  13G 222M 151M S 28.0   8.9   0:08.87 com.google.android.gms.persistent
- 4389 u0_a130      20   0  13G 151M 109M S 24.0   6.1   0:00.65 com.google.android.apps.messaging
- 1420 u0_a131      20   0  14G 222M 163M S 24.0   8.9   0:03.99 com.google.android.gms
- 1507 u0_a119      20   0  13G 121M  76M S 20.0   4.9   0:01.12 com.google.android.apps.wellbeing
- 4915 shell        20   0  10G 4.9M 3.9M R  4.0   0.1   0:00.01 top -b -n 1 -m 8
- 1685 u0_a131      20   0  13G  82M  52M S  4.0   3.2   0:00.66 com.google.process.gservices
+ 3327 u0_a132      20   0  13G 172M 114M S 43.3   6.9   0:03.17 com.google.android.gms.unstable
+ 1404 u0_a132      20   0  14G 244M 180M S 33.3   9.8   0:06.59 com.google.android.gms.persistent
+   36 root         20   0    0    0    0 I 23.3   0.0   0:00.82 [kworker/1:1-events]
+  520 system       18  -2  15G 221M 132M S 16.6   8.9   0:28.82 system_server
+  319 root         20   0  10G 2.7M 2.6M S 16.6   0.1   0:00.78 dhcpclient -i wlan0 --no-gateway
+ 2469 u0_a122      20   0  13G  83M  54M S 13.3   3.3   0:00.70 com.google.android.as.oss
+   23 root         20   0    0    0    0 S 10.0   0.0   0:00.86 [ksoftirqd/1]
+  467 media        20   0  11G  12M  11M S  6.6   0.4   0:00.38 mediaserver
 shot 02-scan-panel
 shot 03-scanning
-scan done after ~37s
+scan done after ~47s
 shot 04-compact-list
 Share Scan
 v1.2
@@ -81,7 +81,6 @@ RVOL 3.84×
 #5
 STEAMHOUSE
 NSE
-📰
 Steamhouse India
 ₹144.06
 +13.77%
@@ -96,22 +95,38 @@ SBC Exports
 RVOL 0.57×
 83.3
 #7
+LENSKART
 shot 05-list-scrolled
 shot 06-detail
 shot 07-theme-picker
 could not find id compactMenu
 shot 08-space-cards
 --- at the end
-Tasks: 319 total,   1 running, 318 sleeping,   0 stopped,   0 zombie
-  Mem:  2534552K total,  2276620K used,   257932K free,    15232K buffers
- Swap:  1900908K total,   639744K used,  1261164K free,  1029300K cached
+Tasks: 321 total,   1 running, 320 sleeping,   0 stopped,   0 zombie
+  Mem:  2534552K total,  2331500K used,   203052K free,    16452K buffers
+ Swap:  1900908K total,   600576K used,  1300332K free,  1055192K cached
 200%cpu   0%user   0%nice   4%sys 196%idle   0%iow   0%irq   0%sirq   0%host
   PID USER         PR  NI VIRT  RES  SHR S[%CPU] %MEM     TIME+ ARGS
- 7194 shell        20   0  10G 4.7M 3.9M R  0.0   0.1   0:00.01 top -b -n 1 -m 8
- 7162 root         20   0    0    0    0 I  0.0   0.0   0:00.00 [kworker/u4:2-events_unbound]
- 5684 u0_a131      20   0  13G 116M  91M S  0.0   4.6   0:00.09 com.google.android.gms.ui
- 5501 u0_a131      20   0  14G 198M 154M S  0.0   7.9   0:05.46 com.google.android.gms
- 5442 u0_a131      20   0  13G 218M 154M S  0.0   8.8   0:16.97 com.google.android.gms.persistent
- 5145 u0_a118      20   0  13G  85M  59M S  0.0   3.4   0:00.11 com.google.android.settings.intelligence
- 5073 u0_a133      20   0  13G  72M  47M S  0.0   2.8   0:00.02 com.google.android.webview
- 4899 u0_a130      20   0  13G 128M  92M S  0.0   5.1   0:00.24 com.google.android.apps.messaging:rcs
+ 7466 shell        20   0  10G 4.7M 3.9M R  3.8   0.1   0:00.01 top -b -n 1 -m 8
+ 7017 root         20   0    0    0    0 I  0.0   0.0   0:00.56 [kworker/1:0-virtio_vsock]
+ 5981 u0_a131      20   0  14G 196M 172M S  0.0   7.9   0:03.39 com.google.android.googlequicksearchbox:search
+ 5966 root         20   0    0    0    0 I  0.0   0.0   0:00.25 [kworker/u4:4-events_unbound]
+ 5504 u0_a132      20   0  13G 114M  91M S  0.0   4.6   0:00.15 com.google.android.gms.ui
+ 5384 u0_a118      20   0  13G  81M  59M S  0.0   3.2   0:00.12 com.google.android.settings.intelligence
+ 5273 u0_a132      20   0  13G 198M 155M S  0.0   8.0   0:06.16 com.google.android.gms
+ 5219 u0_a132      20   0  13G 216M 156M S  0.0   8.7   0:28.17 com.google.android.gms.persistent
+10-28 13:25:29.804   520  5953 E ActivityManager: ANR in com.google.android.googlequicksearchbox:search
+10-28 13:25:29.804   520  5953 E ActivityManager: PID: 1700
+10-28 13:25:29.804   520  5953 E ActivityManager: Reason: Broadcast of Intent { act=com.google.android.gms.phenotype.UPDATE flg=0x10 pkg=com.google.android.googlequicksearchbox cmp=com.google.android.googlequicksearchbox/com.google.apps.tiktok.experiments.phenotype.ConfigurationUpdatedReceiver_Receiver (has extras) }
+10-28 13:25:29.804   520  5953 E ActivityManager: ErrorId: caeacc4b-86ce-4fe8-9f65-73f7d30bf247
+10-28 13:25:29.804   520  5953 E ActivityManager: Frozen: false
+10-28 13:25:29.804   520  5953 E ActivityManager: Load: 0.0 / 0.0 / 0.0
+10-28 13:25:29.804   520  5953 E ActivityManager: ----- Output from /proc/pressure/memory -----
+10-28 13:25:29.804   520  5953 E ActivityManager: some avg10=0.59 avg60=4.24 avg300=3.04 total=13325938
+10-28 13:25:29.804   520  5953 E ActivityManager: full avg10=0.00 avg60=0.38 avg300=0.29 total=1810859
+10-28 13:25:29.804   520  5953 E ActivityManager: ----- End output from /proc/pressure/memory -----
+10-28 13:25:29.804   520  5953 E ActivityManager: ----- Output from /proc/pressure/cpu -----
+10-28 13:25:29.804   520  5953 E ActivityManager: some avg10=88.65 avg60=81.39 avg300=35.76 total=135272046
+10-28 13:25:29.804   520  5953 E ActivityManager: full avg10=0.00 avg60=0.00 avg300=0.00 total=0
+10-28 13:25:29.804   520  5953 E ActivityManager: ----- End output from /proc/pressure/cpu -----
+10-28 13:25:29.804   520  5953 E ActivityManager: ----- Output from /proc/pressure/io -----
