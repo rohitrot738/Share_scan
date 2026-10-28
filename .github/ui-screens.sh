@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper (two backgrounds that bring their layouts; themes as colours; still previews). Removed before merging.
+# Temporary review helper (two backgrounds that bring their layouts; themes as colours; drawn previews). Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens

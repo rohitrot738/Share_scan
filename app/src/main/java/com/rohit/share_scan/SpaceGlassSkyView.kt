@@ -94,8 +94,9 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
         spaceTop = MaterialColors.getColor(context, android.R.attr.colorBackground, SPACE_TOP)
         accent = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorPrimary, CYAN)
         second = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSecondary, EMERALD)
-        spaceMid = ColorUtils.blendARGB(spaceTop, accent, TINT_MID)
-        spaceBottom = ColorUtils.blendARGB(spaceTop, second, TINT_BOTTOM)
+        val space = spaceGlassSpace(spaceTop, accent, second)
+        spaceMid = space[1]
+        spaceBottom = space[2]
         if (width > 0 && height > 0) onSizeChanged(width, height, width, height)
         invalidate()
     }
@@ -362,10 +363,6 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
         const val MIN_FRAME_NANOS = 30_000_000L
         const val SAVER_FRAME_NANOS = 62_000_000L
 
-        /** Another theme's colours ([tintWith]): how much of its accent and second colour mix into its space below. */
-        const val TINT_MID = 0.05f
-        const val TINT_BOTTOM = 0.1f
-
         const val SPACE_TOP = 0xFF0B0F19.toInt()
         const val SPACE_MID = 0xFF0A1322.toInt()
         const val SPACE_BOTTOM = 0xFF061A22.toInt()
@@ -383,3 +380,17 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
         fun withAlpha(color: Int, alpha: Int): Int = (color and 0x00FFFFFF) or (alpha shl 24)
     }
 }
+
+/**
+ * Space Glass's space from top to bottom (the top, at the horizon, the bottom) for another theme: its [background] at
+ * the top, so the strip behind the status bar runs into it, with a touch of its [accent] and [second] colour below.
+ */
+internal fun spaceGlassSpace(background: Int, accent: Int, second: Int): IntArray = intArrayOf(
+    background,
+    ColorUtils.blendARGB(background, accent, TINT_MID),
+    ColorUtils.blendARGB(background, second, TINT_BOTTOM),
+)
+
+/** How much of another theme's accent and second colour mix into the space below ([spaceGlassSpace]). */
+private const val TINT_MID = 0.05f
+private const val TINT_BOTTOM = 0.1f

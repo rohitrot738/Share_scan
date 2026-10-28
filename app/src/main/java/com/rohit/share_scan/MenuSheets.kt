@@ -1,26 +1,32 @@
 package com.rohit.share_scan
 
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.Outline
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.LayerDrawable
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewOutlineProvider
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.ColorUtils
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rohit.share_scan.databinding.ItemHelpBinding
 import com.rohit.share_scan.databinding.ItemMenuBinding
@@ -388,6 +394,8 @@ class BackgroundSheet(
     private val onPick: (BackgroundChoice) -> Unit,
     private val onBack: () -> Unit,
 ) {
+    private val previewHeight = activity.resources.getDimensionPixelSize(R.dimen.background_preview_height)
+
     fun show(): BottomSheetDialog {
         val ui = SheetThemeBinding.inflate(activity.layoutInflater)
         ui.themeTitle.setText(R.string.background_title)
@@ -399,8 +407,8 @@ class BackgroundSheet(
         ui.themeGrid.addView(row)
         BackgroundChoice.entries.forEach { choice ->
             val card = ItemThemeBinding.inflate(activity.layoutInflater, row, true)
-            card.themePreview.addView(preview(choice), 0, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
-            card.themePreview.layoutParams.height = activity.resources.getDimensionPixelSize(R.dimen.background_preview_height)
+            card.themePreview.background = preview(choice)
+            card.themePreview.layoutParams.height = previewHeight
             card.themePreview.outlineProvider = object : ViewOutlineProvider() {
                 override fun getOutline(view: View, outline: Outline) = outline.setRoundRect(0, 0, view.width, view.height, corner)
             }
@@ -426,19 +434,66 @@ class BackgroundSheet(
     }
 
     /**
-     * The background itself, small, in the theme's colours. Held still: two skies moving at once in a frosted sheet
-     * is more drawing than a phone needs to pick one, and brought the test emulator down.
+     * A still picture of the background in the theme's colours, made of plain gradients and a vector: the sky views
+     * themselves, even held still, took the test emulator down inside the sheet.
      */
-    private fun preview(choice: BackgroundChoice): View = when (choice) {
-        BackgroundChoice.GALAXY -> GalaxySkyView(activity).apply {
-            palette = theme.skyPalette
-            animate = false
-        }
-        BackgroundChoice.SPACE_GLASS -> SpaceGlassSkyView(activity).apply {
-            if (theme != ThemeChoice.SPACE_GLASS) tintWith(activity)
-            animate = false
-        }
+    private fun preview(choice: BackgroundChoice): Drawable = when (choice) {
+        BackgroundChoice.GALAXY -> galaxyPreview()
+        BackgroundChoice.SPACE_GLASS -> spaceGlassPreview()
     }
+
+    /** The Milky Way in the theme's sky: deep space, the band from lower left to upper right, a nebula, its core, stars. */
+    private fun galaxyPreview(): Drawable {
+        val sky = theme.skyPalette
+        val clear = sky.arm.color(0)
+        val arm = sky.arm.color(0x30)
+        // Across the band (top left to bottom right): clear, the arms' light, the core's colour along its middle.
+        val band = GradientDrawable(
+            GradientDrawable.Orientation.TL_BR,
+            intArrayOf(clear, clear, clear, clear, arm, sky.core.color(0x50), arm, clear, clear, clear, clear),
+        )
+        val nebula = sky.nebulae.let { n -> floatArrayOf(n[3], n[4], n[5]) }
+        return LayerDrawable(
+            arrayOf(
+                GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(sky.spaceTop.color(), sky.spaceBottom.color())),
+                band,
+                glow(nebula.color(0x48), 0.6f, 0.5f, 0.2f),
+                glow(sky.core.color(0x80), 0.66f, 0.39f, 0.24f),
+                AppCompatResources.getDrawable(activity, R.drawable.galaxy_hero_stars)!!,
+            ),
+        )
+    }
+
+    /**
+     * Space Glass's sky in the theme's colours: its space, a light in the accent up right and one in the second colour
+     * low left, then the grid and the price line.
+     */
+    private fun spaceGlassPreview(): Drawable {
+        val accent = activity.flatAccent()
+        val second = MaterialColors.getColor(activity, com.google.android.material.R.attr.colorSecondary, accent)
+        val background = MaterialColors.getColor(activity, android.R.attr.colorBackground, Color.BLACK)
+        return LayerDrawable(
+            arrayOf(
+                GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, spaceGlassSpace(background, accent, second)),
+                glow(accent.withAlpha(0.22f), 0.82f, 0.16f, 0.55f),
+                glow(second.withAlpha(0.16f), 0.12f, 0.78f, 0.6f),
+                AppCompatResources.getDrawable(activity, R.drawable.preview_space_glass)!!,
+            ),
+        )
+    }
+
+    /** A soft round light of [color] round ([x], [y]), as fractions of the preview, fading out by [radius] heights. */
+    private fun glow(@ColorInt color: Int, x: Float, y: Float, radius: Float) = GradientDrawable().apply {
+        gradientType = GradientDrawable.RADIAL_GRADIENT
+        colors = intArrayOf(color, ColorUtils.setAlphaComponent(color, Color.alpha(color) * 2 / 5), ColorUtils.setAlphaComponent(color, 0))
+        setGradientCenter(x, y)
+        gradientRadius = radius * previewHeight
+    }
+
+    /** A sky colour (0..1 RGB) as a colour int with [alpha]. */
+    @ColorInt
+    private fun FloatArray.color(alpha: Int = 0xFF): Int =
+        Color.argb(alpha, (this[0] * 255).roundToInt(), (this[1] * 255).roundToInt(), (this[2] * 255).roundToInt())
 
     private fun color(@ColorRes id: Int) = ContextCompat.getColor(activity, id)
 }
