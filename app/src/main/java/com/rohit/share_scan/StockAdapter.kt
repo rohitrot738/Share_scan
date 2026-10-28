@@ -39,7 +39,7 @@ class StockAdapter(
     /** Each stock's 📰 mark: its exchange filings of the last day ([NewsRepository.badges]). */
     var news: Map<String, NewsBadge> = emptyMap()
 
-    /** One line a stock in a table (Settings → Compact list) rather than a card; set before the list is shown. */
+    /** One line a stock in a table (the Space Glass background, Menu → Background) rather than a card; set before the list is shown. */
     var compact: Boolean = false
 
     /** A card ([card]) or a compact table line ([row]). */

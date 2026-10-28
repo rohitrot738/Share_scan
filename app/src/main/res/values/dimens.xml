@@ -5,6 +5,7 @@
     <dimen name="theme_card_stroke_selected">2dp</dimen>
     <!-- The background picker's still pictures (BackgroundSheet). -->
     <dimen name="background_preview_corner">14dp</dimen>
+    <dimen name="background_preview_height">180dp</dimen>
     <!-- A trading app's icon on the detail sheet's buttons and the Settings chips (Broker.icon). -->
     <dimen name="broker_icon">18dp</dimen>
 </resources>

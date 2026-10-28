@@ -24,33 +24,25 @@ enum class ThemeChoice(val key: String) {
 }
 
 /**
- * The moving background behind the home screen, picked apart from the theme's colours: the Milky Way in one of the
- * themes' colours, or Space Glass's grid and price line. [THEME], the default, follows the theme; the others share
- * the theme's keys. [key] is what the settings store.
+ * The home screen's background and the layout that comes with it, picked apart from the theme's colours: the Milky
+ * Way with the cards ([GALAXY]), or Space Glass's grid and price line with the compact table ([SPACE_GLASS]). Each
+ * keeps its own animation and takes any theme's colours. [key] is what the settings store.
  */
 enum class BackgroundChoice(val key: String) {
-    THEME("theme"),
     GALAXY("galaxy"),
-    NEBULA("nebula"),
-    AURORA("aurora"),
-    MIDNIGHT("midnight"),
-    SUNSET("sunset"),
-    OCEAN("ocean"),
-    EMERALD("emerald"),
-    MARS("mars"),
-    ROYAL_GOLD("royal_gold"),
-    FROST("frost"),
     SPACE_GLASS("space_glass");
 
-    /** The background on show with [theme]: this one, or the theme's own for [THEME]. */
-    fun shownWith(theme: ThemeChoice): BackgroundChoice = if (this == THEME) fromKey(theme.key) else this
-
-    /** Space Glass draws its own background ([SpaceGlassSkyView]) in place of the Milky Way. */
-    val ownSky: Boolean
+    /** Space Glass comes with the compact table (slim header, a line a stock, floating bar); the Milky Way with the cards. */
+    val compact: Boolean
         get() = this == SPACE_GLASS
 
     companion object {
-        fun fromKey(key: String?): BackgroundChoice = entries.firstOrNull { it.key == key } ?: THEME
+        /**
+         * The stored background; with none stored yet (1.2.138 and before), Space Glass for a phone that had the
+         * compact list on, the Milky Way otherwise.
+         */
+        fun fromKey(key: String?, compactList: Boolean = false): BackgroundChoice =
+            entries.firstOrNull { it.key == key } ?: if (compactList) SPACE_GLASS else GALAXY
     }
 }
 
@@ -106,9 +98,9 @@ class AppSettings(context: Context) {
         get() = ThemeChoice.fromKey(prefs.getString(Prefs.THEME, null))
         set(value) = prefs.edit { putString(Prefs.THEME, value.key) }
 
-    /** The moving background, the theme's own unless one was picked. */
+    /** The background and its layout; until one is picked, whichever the old compact list setting chose. */
     var background: BackgroundChoice
-        get() = BackgroundChoice.fromKey(prefs.getString(Prefs.BACKGROUND, null))
+        get() = BackgroundChoice.fromKey(prefs.getString(Prefs.BACKGROUND, null), prefs.getBoolean(Prefs.COMPACT_LIST, false))
         set(value) = prefs.edit { putString(Prefs.BACKGROUND, value.key) }
 
     var chartSite: ChartSite
@@ -129,14 +121,6 @@ class AppSettings(context: Context) {
     var skyAnimation: Boolean
         get() = prefs.getBoolean(Prefs.SKY_ANIMATION, true)
         set(value) = prefs.edit { putBoolean(Prefs.SKY_ANIMATION, value) }
-
-    /**
-     * The list as a compact table, a line a stock, with a slim header and the list's tools in a floating bar at the
-     * bottom; off shows the cards. Picking the Space Glass theme turns it on.
-     */
-    var compactList: Boolean
-        get() = prefs.getBoolean(Prefs.COMPACT_LIST, false)
-        set(value) = prefs.edit { putBoolean(Prefs.COMPACT_LIST, value) }
 
     /** Look for a newer release every time the app opens. */
     var checkUpdates: Boolean

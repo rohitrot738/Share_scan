@@ -98,7 +98,7 @@ class MainActivity : AppCompatActivity() {
     /** The menu or whichever of its sheets is open; only one shows at a time. */
     private var menuSheet: BottomSheetDialog? = null
     private var shownRing = -1
-    /** The list as a compact table (Settings → Compact list), read when the screen is created. */
+    /** The list as a compact table (the Space Glass background, Menu → Background), read when the screen is created. */
     private var compact = false
     /** The compact list's scan controls (the Breakout/Support chips and the scan board), shown in [scanPanel]. */
     private var panelContent: LinearLayout? = null
@@ -124,17 +124,15 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         ui = ActivityMainBinding.inflate(layoutInflater)
         setContentView(ui.root)
-        // The background on show: the one picked in Menu → Background, or the theme's own. Space Glass's is a view of
-        // its own; the rest are the Milky Way in one of the themes' colours (the hidden view never bakes).
-        val sky = settings.background.shownWith(settings.theme)
-        val ownSky = sky.ownSky
-        ui.galaxySky.isVisible = !ownSky
-        ui.spaceSky.isVisible = ownSky
-        // The strip behind the status bar runs into the background's top, whatever the theme's own colour.
-        ui.appBar.setStatusBarForegroundColor(ContextCompat.getColor(this, sky.top))
-        compact = settings.compactList
+        // Menu → Background picks the background and the layout with it: the Milky Way behind the cards, or Space
+        // Glass's grid and price line behind the compact table. Either wears the theme's colours; the hidden view never
+        // bakes or animates.
+        compact = settings.background.compact
+        ui.galaxySky.isVisible = !compact
+        ui.spaceSky.isVisible = compact
         adapter.compact = compact
-        ui.galaxySky.palette = sky.skyPalette
+        ui.galaxySky.palette = settings.theme.skyPalette
+        if (settings.theme != ThemeChoice.SPACE_GLASS) ui.spaceSky.tintWith(this)
         ui.galaxySky.animate = settings.skyAnimation
         ui.spaceSky.animate = settings.skyAnimation
         // The version running, beside the name.
@@ -149,15 +147,13 @@ class MainActivity : AppCompatActivity() {
         ui.startButton.wearChipGlass(START_BUTTON_CORNER_DP, tintBoost = 1.8f, ripple = true)
         ui.emptyCircle.wearChipGlass(null, tintBoost = 2f)
         listOf(ui.statCardScanned, ui.statCardTop, ui.statCardSpikes).forEach { it.wearCardGlass() }
-        // Frosted glass: the sky behind the scan board is drawn blurred, and follows the board as the bar scrolls.
-        // The compact list keeps the board in its scan panel, off the screen behind it.
+        // Frosted glass: the Milky Way behind the scan board is drawn blurred, and follows the board as the bar scrolls.
+        // Space Glass's compact table keeps the board in its scan panel, off the screen behind it.
         if (settings.glassEnabled && !compact) {
             val glass = settings.glassStyle
-            val corner = HERO_CORNER_DP * resources.displayMetrics.density
-            if (ownSky) ui.spaceSky.frost(ui.hero, glass.heroFrost, glass.heroShade, corner)
-            else ui.galaxySky.frost(ui.hero, glass.heroFrost, glass.heroShade, corner)
+            ui.galaxySky.frost(ui.hero, glass.heroFrost, glass.heroShade, HERO_CORNER_DP * resources.displayMetrics.density)
         }
-        ui.appBar.addOnOffsetChangedListener { _, _ -> (if (ownSky) ui.spaceSky else ui.galaxySky).invalidate() }
+        ui.appBar.addOnOffsetChangedListener { _, _ -> (if (compact) ui.spaceSky else ui.galaxySky).invalidate() }
         ui.results.adapter = adapter
         if (compact) setUpCompact()
         applyWindowInsets()
@@ -496,7 +492,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * The compact list (Settings → Compact list): a slim pinned header with the scan's status pill in place of the
+     * The compact list (the Space Glass background, Menu → Background): a slim pinned header with the scan's status pill in place of the
      * brand header, scan board and stats, the table's column names, and the list's tools in a floating bar at the
      * bottom. The scan board and the Breakout/Support chips move into a panel the pill opens ([openScanPanel]).
      */
@@ -1140,11 +1136,6 @@ class MainActivity : AppCompatActivity() {
             renderEmpty(scan.uiState.value)
         }
 
-        override fun compactListChanged(on: Boolean) {
-            settings.compactList = on
-            recreate()
-        }
-
         override fun skyAnimationChanged(on: Boolean) {
             ui.galaxySky.animate = on
             ui.spaceSky.animate = on
@@ -1205,14 +1196,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Saves the theme and rebuilds the screen in it; the scan and its results live on in the view model. */
+    /** The theme's colours, on whichever background (and layout) is picked. */
     private fun applyTheme(theme: ThemeChoice) {
-        // Space Glass comes with the compact table it was designed with; Settings can turn the cards back on.
-        if (theme == ThemeChoice.SPACE_GLASS && settings.theme != theme) settings.compactList = true
         settings.theme = theme
         recreate()
     }
 
-    /** The background stays apart from the theme: its colours stay, only the sky behind them changes. */
+    /** The background and the layout that comes with it; the theme's colours stay. */
     private fun applyBackground(background: BackgroundChoice) {
         settings.background = background
         recreate()

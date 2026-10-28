@@ -1,11 +1,9 @@
 package com.rohit.share_scan
 
 /**
- * The colours of one Milky Way background (see [GalaxySkyView], [BackgroundChoice]), each named after the theme it
- * comes with. Colours are linear 0..1 RGB.
+ * The colours one theme paints its Milky Way with (see [GalaxySkyView]). Colours are linear 0..1 RGB.
  *
- * @property spaceTop deep space at the top; it must match [BackgroundChoice.top], the opaque strip behind the status
- *   bar (the theme of the same name's colorBackground)
+ * @property spaceTop deep space at the top; it must match the theme's opaque status-bar strip (its colorBackground)
  * @property spaceBottom deep space at the bottom
  * @property arm the band's light out along its arms
  * @property core the band's light at its core
@@ -197,6 +195,22 @@ class SkyPalette(
                 0.62f, 0.05f, 0.06f, 0.70f, 0.70f, 1.0f, 0.40f, // lavender, towards the top
             ),
             aurora = 0.3f,
+        )
+
+        /** Space Glass's colours: its deep navy, a cool blue-white band, and cyan, emerald and indigo gas. */
+        val SPACE_GLASS = SkyPalette(
+            spaceTop = rgb(11, 15, 25),
+            spaceBottom = rgb(6, 26, 34),
+            arm = floatArrayOf(0.55f, 0.80f, 1.00f),
+            core = floatArrayOf(0.75f, 0.95f, 1.00f),
+            brightness = 0.85f,
+            gas = floatArrayOf(0.20f, 0.75f, 0.95f, 0.25f),
+            nebulae = floatArrayOf(
+                0.08f, 0.16f, 0.09f, 0.22f, 0.74f, 0.97f, 0.85f, // cyan, below the core
+                0.34f, -0.20f, 0.09f, 0.06f, 0.73f, 0.51f, 0.75f, // emerald, above the band
+                -0.60f, 0.06f, 0.10f, 0.39f, 0.40f, 0.95f, 0.55f, // indigo, further down the band
+                0.62f, 0.04f, 0.07f, 0.22f, 0.74f, 0.97f, 0.45f, // pale cyan, towards the top
+            ),
         )
 
         private fun rgb(r: Int, g: Int, b: Int) = floatArrayOf(r / 255f, g / 255f, b / 255f)

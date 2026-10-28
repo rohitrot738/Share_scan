@@ -19,21 +19,15 @@ class AppSettingsTest {
     }
 
     @Test
-    fun onlySpaceGlassPaintsItsOwnBackground() {
-        assertEquals(ThemeChoice.SPACE_GLASS, ThemeChoice.fromKey("space_glass"))
-        assertEquals(listOf(BackgroundChoice.SPACE_GLASS), BackgroundChoice.entries.filter { it.ownSky })
-    }
-
-    @Test
-    fun theBackgroundFollowsTheThemeUnlessOneIsPicked() {
-        assertEquals(BackgroundChoice.THEME, BackgroundChoice.fromKey(null))
-        assertEquals(BackgroundChoice.THEME, BackgroundChoice.fromKey("plasma"))
+    fun theBackgroundBringsItsLayout() {
         BackgroundChoice.entries.forEach { assertEquals(it, BackgroundChoice.fromKey(it.key)) }
-        // Every theme has a background of its own to follow.
-        ThemeChoice.entries.forEach { assertEquals(it.key, BackgroundChoice.THEME.shownWith(it).key) }
-        // A picked one stays whatever the theme.
-        assertEquals(BackgroundChoice.AURORA, BackgroundChoice.AURORA.shownWith(ThemeChoice.SPACE_GLASS))
-        assertEquals(BackgroundChoice.SPACE_GLASS, BackgroundChoice.SPACE_GLASS.shownWith(ThemeChoice.GALAXY))
+        assertEquals(listOf(BackgroundChoice.SPACE_GLASS), BackgroundChoice.entries.filter { it.compact })
+        // Until one is picked: whatever the compact list switch of 1.2.138 chose.
+        assertEquals(BackgroundChoice.GALAXY, BackgroundChoice.fromKey(null))
+        assertEquals(BackgroundChoice.SPACE_GLASS, BackgroundChoice.fromKey(null, compactList = true))
+        assertEquals(BackgroundChoice.GALAXY, BackgroundChoice.fromKey("aurora"))
+        // A picked one stays, whatever the old switch said.
+        assertEquals(BackgroundChoice.GALAXY, BackgroundChoice.fromKey("galaxy", compactList = true))
     }
 
     @Test

@@ -17,9 +17,9 @@ import com.google.android.material.color.MaterialColors
 import kotlin.math.roundToInt
 
 /*
- * The compact list's flat look, after the redesign's mockup (Settings → Compact list): outlined capsules for chips and
+ * The compact list's flat look, after the redesign's mockup (the Space Glass background, Menu → Background): outlined capsules for chips and
  * buttons and plain cards with a hairline rim, in place of the glass. The home screen's floating bar and scan panel
- * wear it, and so do the Filters and sector sheets while the compact list is on.
+ * wear it, and so do the Filters and sector sheets on the Space Glass background.
  */
 
 @ColorInt

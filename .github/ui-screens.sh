@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper (backgrounds apart from themes; flat Filters and sector sheets). Removed before merging.
+# Temporary review helper (two backgrounds that bring their layouts; themes as colours). Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -98,13 +98,12 @@ tap() { unstall; local xy; xy=$(center id "$1") && adb shell input tap $xy || ec
 tap_text() { unstall; local xy; xy=$(center text "$1") && adb shell input tap $xy || echo "could not find text $1" | tee -a "$LOG"; }
 
 
-# The Space Glass theme with the compact list, over the Aurora Milky Way picked apart from it.
+# The Nebula theme's colours on the Space Glass background, which brings the compact table.
 cat > /tmp/scan.xml <<'XML'
 <?xml version='1.0' encoding='utf-8' standalone='yes' ?>
 <map>
-    <string name="theme">space_glass</string>
-    <string name="background">aurora</string>
-    <boolean name="compact_list" value="true" />
+    <string name="theme">nebula</string>
+    <string name="background">space_glass</string>
 </map>
 XML
 adb push /tmp/scan.xml /data/local/tmp/scan.xml
@@ -118,7 +117,7 @@ adb shell cmd uimode night yes
 adb shell input keyevent KEYCODE_HOME
 sleep 20
 launch; sleep 8
-shot 01-glass-theme-aurora-sky 2
+shot 01-glass-bg-nebula-theme 2
 
 # A scan, from the pill's panel.
 tap statusPill
@@ -133,45 +132,51 @@ for i in $(seq 1 150); do
 done
 echo "scan done after ~$((i * 5 + 10))s" | tee -a "$LOG"
 adb shell am start -n "$PKG/.MainActivity" > /dev/null  # back to the front, should Back have left it
-shot 02-list-aurora-sky 6
+shot 02-glass-bg-nebula-list 6
 
 # The Filters and sector sheets in the flat look.
 tap filterChip
 sleep 3
 tap_text "Large"
 shot 03-filters 2
-adb shell input swipe 540 1800 540 700 700
-shot 04-filters-more 2
 adb shell input keyevent KEYCODE_BACK
 sleep 2
-# The sector chip sits past the bar's end; the menu opens the same sheet.
 front
 tap compactMenu
 sleep 2
 tap_text "सेक्टर की ताकत"
-shot 05-sectors 4
+shot 04-sectors 4
 adb shell input keyevent KEYCODE_BACK
 sleep 2
 
-# Menu → Background, and Space Glass's background picked there.
-front
-tap compactMenu
-shot 06-menu 3
-tap_text "Background"
-shot 07-background-picker 3
-for i in 1 2 3; do adb shell input swipe 540 1800 540 900 600; sleep 1; done
-shot 08-background-picker-end 2
-tap_exact "Space Glass"
-sleep 8
-shot 09-glass-theme-glass-sky 2
-
-# The Galaxy theme, keeping Space Glass's background.
+# Menu → Background: the two, moving in the theme's colours; Galaxy brings the cards back.
 front
 tap compactMenu
 sleep 2
+tap_text "Background"
+shot 05-background-picker 6
+tap_exact "Galaxy"
+sleep 10
+shot 06-galaxy-bg-nebula-theme 2
+
+# The Space Glass theme's colours on the Galaxy background: still the cards and the Milky Way.
+front
+tap menuButton
+sleep 2
 tap_text "थीम"
 sleep 3
-tap_exact "Galaxy"
+for i in 1 2 3; do adb shell input swipe 540 1800 540 900 600; sleep 1; done
+tap_exact "Space Glass"
+sleep 10
+shot 07-galaxy-bg-glass-theme 2
+
+# And back to the Space Glass background: its table, as before.
+front
+tap menuButton
+sleep 2
+tap_text "Background"
+sleep 4
+tap_exact "Space Glass"
 sleep 8
-shot 10-galaxy-theme-glass-sky 2
+shot 08-glass-bg-glass-theme 2
 exit 0

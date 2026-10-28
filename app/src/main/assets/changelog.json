@@ -3,8 +3,9 @@
     "version": "",
     "date": "2026-10-28",
     "items": [
-      "नया Menu → Background: पीछे का चलता background अब theme से अलग चुनें — 10 आकाशगंगा वाले (Galaxy, Nebula, Aurora, Midnight, Sunset, Ocean, Emerald, Mars, Royal Gold, Frost) और Space Glass वाला। किसी भी theme के साथ कोई भी background लगाएँ, या \"Theme के साथ\" चुनें तो theme का अपना",
-      "Compact list में Filters और सेक्टर वाली sheets भी नए सादे style में: पतले slider, outline वाले chips, सादे cards और cyan किनारे वाला \"लागू करें\""
+      "नया Menu → Background: Galaxy (आकाशगंगा, बड़े cards वाला layout) या Space Glass (तैरती रोशनियाँ, trading grid और chart-line, compact table वाला layout) — हर background का अपना layout और अपना animation",
+      "Theme अब सिर्फ़ रंग बदलती है: कोई भी theme दोनों backgrounds पर लगती है, और उसके रंग background में भी आते हैं (Space Glass की grid और chart-line भी theme के रंग में)। Settings का Compact list switch हटा — table अब Space Glass background के साथ आती है",
+      "Space Glass background में Filters और सेक्टर वाली sheets भी नए सादे style में: पतले slider, outline वाले chips, सादे cards और cyan किनारे वाला \"लागू करें\""
     ]
   },
   {

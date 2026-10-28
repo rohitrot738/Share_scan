@@ -18,15 +18,18 @@ import android.util.AttributeSet
 import android.view.Choreographer
 import android.view.View
 import androidx.annotation.RequiresApi
+import androidx.core.graphics.ColorUtils
+import com.google.android.material.color.MaterialColors
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sin
 
 /**
- * The Space Glass theme's background, drawn afresh every frame instead of baked like [GalaxySkyView]'s Milky Way:
- * deep space (#0B0F19) with soft cyan, emerald and indigo lights drifting slowly behind the glass, a trading
- * terminal's grid running towards the viewer below a faint horizon, and a glowing price line scrolling across the
- * middle with a pulse running along it. No stars: the stars are the other themes' sky.
+ * The Space Glass background (Menu → Background), drawn afresh every frame instead of baked like [GalaxySkyView]'s
+ * Milky Way: deep space (#0B0F19) with soft cyan, emerald and indigo lights drifting slowly behind the glass, a
+ * trading terminal's grid running towards the viewer below a faint horizon, and a glowing price line scrolling across
+ * the middle with a pulse running along it. No stars: the stars are the Milky Way's. Under another theme than Space
+ * Glass it takes that theme's colours ([tintWith]).
  *
  * Like the Milky Way it redraws about 30 times a second while on show (15 in battery saver), holds still when the
  * system's animations are off or Settings turns [animate] off, and draws a frosted pane behind the scan board
@@ -44,6 +47,13 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
             field = value
             updateAnimating()
         }
+
+    // The colours, Space Glass's own until [tintWith] gives the theme's.
+    private var spaceTop = SPACE_TOP
+    private var spaceMid = SPACE_MID
+    private var spaceBottom = SPACE_BOTTOM
+    private var accent = CYAN
+    private var second = EMERALD
 
     private val space = Paint()
     /** One paint a light, its round glow in its own colour, moved and scaled into place each frame. */
@@ -74,6 +84,21 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
     private val frostBox = RectF()
     private val targetAt = IntArray(2)
     private val selfAt = IntArray(2)
+
+    /**
+     * Paints in the [context] theme's colours: its background for the space at the top, so the strip behind the
+     * status bar runs into it, its accent for the first light, the grid and the price line, and its second colour for
+     * the second light and the line's tail. Space Glass's own theme needs none of it.
+     */
+    fun tintWith(context: Context) {
+        spaceTop = MaterialColors.getColor(context, android.R.attr.colorBackground, SPACE_TOP)
+        accent = MaterialColors.getColor(context, androidx.appcompat.R.attr.colorPrimary, CYAN)
+        second = MaterialColors.getColor(context, com.google.android.material.R.attr.colorSecondary, EMERALD)
+        spaceMid = ColorUtils.blendARGB(spaceTop, accent, TINT_MID)
+        spaceBottom = ColorUtils.blendARGB(spaceTop, second, TINT_BOTTOM)
+        if (width > 0 && height > 0) onSizeChanged(width, height, width, height)
+        invalidate()
+    }
 
     /**
      * A frosted pane behind [target], rounded by [radius]: [strength] how much glass tint it gets and [shade] how
@@ -163,27 +188,32 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
         if (w <= 0 || h <= 0) return
         space.shader = LinearGradient(
             0f, 0f, 0f, h.toFloat(),
-            intArrayOf(SPACE_TOP, SPACE_MID, SPACE_BOTTOM), floatArrayOf(0f, HORIZON, 1f), Shader.TileMode.CLAMP,
+            intArrayOf(spaceTop, spaceMid, spaceBottom), floatArrayOf(0f, HORIZON, 1f), Shader.TileMode.CLAMP,
         )
         for (i in LIGHTS.indices) {
             val l = LIGHTS[i]
+            val color = when (l.color) {
+                CYAN -> accent
+                EMERALD -> second
+                else -> l.color
+            }
             lights[i].shader = RadialGradient(
-                0f, 0f, 1f, intArrayOf(withAlpha(l.color, l.alpha), withAlpha(l.color, l.alpha * 2 / 5), Color.TRANSPARENT),
+                0f, 0f, 1f, intArrayOf(withAlpha(color, l.alpha), withAlpha(color, l.alpha * 2 / 5), Color.TRANSPARENT),
                 floatArrayOf(0f, 0.4f, 1f), Shader.TileMode.CLAMP,
             )
         }
         val horizonY = h * HORIZON
         horizonGlow.shader = LinearGradient(
             0f, horizonY - 60 * density, 0f, horizonY + 90 * density,
-            intArrayOf(Color.TRANSPARENT, withAlpha(CYAN, 0x30), Color.TRANSPARENT), floatArrayOf(0f, 0.4f, 1f), Shader.TileMode.CLAMP,
+            intArrayOf(Color.TRANSPARENT, withAlpha(accent, 0x30), Color.TRANSPARENT), floatArrayOf(0f, 0.4f, 1f), Shader.TileMode.CLAMP,
         )
         chartFill.shader = LinearGradient(
             0f, h * CHART_Y - h * CHART_SWING, 0f, h * (CHART_Y + CHART_SWING * 2),
-            intArrayOf(withAlpha(CYAN, 0x1C), Color.TRANSPARENT), null, Shader.TileMode.CLAMP,
+            intArrayOf(withAlpha(accent, 0x1C), Color.TRANSPARENT), null, Shader.TileMode.CLAMP,
         )
         chartLine.shader = LinearGradient(
             0f, 0f, w.toFloat(), 0f,
-            intArrayOf(withAlpha(EMERALD, 0x00), withAlpha(EMERALD, 0x9A), withAlpha(CYAN, 0xB0), withAlpha(CYAN, 0x00)),
+            intArrayOf(withAlpha(second, 0x00), withAlpha(second, 0x9A), withAlpha(accent, 0xB0), withAlpha(accent, 0x00)),
             floatArrayOf(0f, 0.25f, 0.75f, 1f), Shader.TileMode.CLAMP,
         )
         chartHalo.shader = chartLine.shader
@@ -230,7 +260,7 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
         val horizon = h * HORIZON
         canvas.drawRect(0f, horizon - 60 * density, w, horizon + 90 * density, horizonGlow)
         gridLine.strokeWidth = density
-        gridLine.color = CYAN
+        gridLine.color = accent
         val cx = w / 2f
         val depth = h - horizon
         // Fanning lines: evenly spaced along the bottom edge, all meeting at the vanishing point.
@@ -287,7 +317,7 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
         canvas.drawPath(chartPath, chartHalo)
         canvas.drawPath(chartPath, chartLine)
         if (pulseX > 0f) {
-            dot.color = CYAN
+            dot.color = accent
             dot.alpha = 0x44
             canvas.drawCircle(pulseX, pulseY, 7f * density, dot)
             dot.color = Color.WHITE
@@ -331,6 +361,10 @@ class SpaceGlassSkyView @JvmOverloads constructor(context: Context, attrs: Attri
         const val FROST_TINT = 0.35f
         const val MIN_FRAME_NANOS = 30_000_000L
         const val SAVER_FRAME_NANOS = 62_000_000L
+
+        /** Another theme's colours ([tintWith]): how much of its accent and second colour mix into its space below. */
+        const val TINT_MID = 0.05f
+        const val TINT_BOTTOM = 0.1f
 
         const val SPACE_TOP = 0xFF0B0F19.toInt()
         const val SPACE_MID = 0xFF0A1322.toInt()

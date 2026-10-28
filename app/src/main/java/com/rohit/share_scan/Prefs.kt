@@ -28,7 +28,7 @@ object Prefs {
     /** [ThemeChoice.key] of the picked theme. */
     const val THEME = "theme"
 
-    /** [BackgroundChoice.key] of the picked background; none follows the theme. */
+    /** [BackgroundChoice.key] of the picked background, which brings its layout; until one is picked, [COMPACT_LIST]. */
     const val BACKGROUND = "background"
 
     /** [ChartSite.key] the detail sheet's chart button opens. */
@@ -42,6 +42,8 @@ object Prefs {
 
     /** Whether the sky behind the home screen moves; on by default. */
     const val SKY_ANIMATION = "sky_animation"
+
+    /** 1.2.138's compact list switch, now only read to pick the first [BACKGROUND] (on: Space Glass). */
     const val COMPACT_LIST = "compact_list"
 
     /** Live mode: scan through market hours in the background (on by default), and how often, in minutes. */

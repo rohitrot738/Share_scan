@@ -3,8 +3,10 @@ package com.rohit.share_scan
 import android.content.res.ColorStateList
 import android.graphics.Outline
 import android.view.View
-import android.view.ViewOutlineProvider
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewOutlineProvider
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
@@ -49,83 +51,35 @@ val ThemeChoice.style: Int
         ThemeChoice.SPACE_GLASS -> R.style.Theme_ShareScan_SpaceGlass
     }
 
-/**
- * The colours of the moving Milky Way behind the home screen ([GalaxySkyView]) for a background on show (see
- * [BackgroundChoice.shownWith]); Space Glass draws its own.
- */
-val BackgroundChoice.skyPalette: SkyPalette
+/** The theme's colours for the moving Milky Way behind the cards ([GalaxySkyView]; [BackgroundChoice.GALAXY]). */
+val ThemeChoice.skyPalette: SkyPalette
     get() = when (this) {
-        BackgroundChoice.THEME, BackgroundChoice.GALAXY -> SkyPalette.GALAXY
-        BackgroundChoice.NEBULA -> SkyPalette.NEBULA
-        BackgroundChoice.AURORA -> SkyPalette.AURORA
-        BackgroundChoice.MIDNIGHT -> SkyPalette.MIDNIGHT
-        BackgroundChoice.SUNSET -> SkyPalette.SUNSET
-        BackgroundChoice.OCEAN -> SkyPalette.OCEAN
-        BackgroundChoice.EMERALD -> SkyPalette.EMERALD
-        BackgroundChoice.MARS -> SkyPalette.MARS
-        BackgroundChoice.ROYAL_GOLD -> SkyPalette.ROYAL_GOLD
-        BackgroundChoice.FROST -> SkyPalette.FROST
-        BackgroundChoice.SPACE_GLASS -> SkyPalette.MIDNIGHT
+        ThemeChoice.GALAXY -> SkyPalette.GALAXY
+        ThemeChoice.NEBULA -> SkyPalette.NEBULA
+        ThemeChoice.AURORA -> SkyPalette.AURORA
+        ThemeChoice.MIDNIGHT -> SkyPalette.MIDNIGHT
+        ThemeChoice.SUNSET -> SkyPalette.SUNSET
+        ThemeChoice.OCEAN -> SkyPalette.OCEAN
+        ThemeChoice.EMERALD -> SkyPalette.EMERALD
+        ThemeChoice.MARS -> SkyPalette.MARS
+        ThemeChoice.ROYAL_GOLD -> SkyPalette.ROYAL_GOLD
+        ThemeChoice.FROST -> SkyPalette.FROST
+        ThemeChoice.SPACE_GLASS -> SkyPalette.SPACE_GLASS
     }
 
-/**
- * The top of a background on show, for the opaque strip behind the status bar: each matches its sky's
- * [SkyPalette.spaceTop] (and the theme of the same name's colorBackground), so the strip runs into the sky.
- */
-@get:ColorRes
-val BackgroundChoice.top: Int
+@get:StringRes
+val BackgroundChoice.title: Int
     get() = when (this) {
-        BackgroundChoice.THEME, BackgroundChoice.GALAXY -> R.color.galaxy_bg
-        BackgroundChoice.NEBULA -> R.color.nebula_bg
-        BackgroundChoice.AURORA -> R.color.aurora_bg
-        BackgroundChoice.MIDNIGHT -> R.color.midnight_bg
-        BackgroundChoice.SUNSET -> R.color.sunset_bg
-        BackgroundChoice.OCEAN -> R.color.ocean_bg
-        BackgroundChoice.EMERALD -> R.color.emerald_bg
-        BackgroundChoice.MARS -> R.color.mars_bg
-        BackgroundChoice.ROYAL_GOLD -> R.color.royal_gold_bg
-        BackgroundChoice.FROST -> R.color.frost_bg
-        BackgroundChoice.SPACE_GLASS -> R.color.space_glass_bg
-    }
-
-/** A still picture of a background on show, for the picker: the window background its theme starts with. */
-@get:DrawableRes
-private val BackgroundChoice.still: Int
-    get() = when (this) {
-        BackgroundChoice.THEME, BackgroundChoice.GALAXY -> R.drawable.bg_galaxy
-        BackgroundChoice.NEBULA -> R.drawable.bg_nebula
-        BackgroundChoice.AURORA -> R.drawable.bg_aurora
-        BackgroundChoice.MIDNIGHT -> R.color.midnight_bg
-        BackgroundChoice.SUNSET -> R.drawable.bg_sunset
-        BackgroundChoice.OCEAN -> R.drawable.bg_ocean
-        BackgroundChoice.EMERALD -> R.drawable.bg_emerald
-        BackgroundChoice.MARS -> R.drawable.bg_mars
-        BackgroundChoice.ROYAL_GOLD -> R.drawable.bg_royal_gold
-        BackgroundChoice.FROST -> R.drawable.bg_frost
-        BackgroundChoice.SPACE_GLASS -> R.drawable.bg_space_glass
+        BackgroundChoice.GALAXY -> R.string.background_galaxy
+        BackgroundChoice.SPACE_GLASS -> R.string.background_space_glass
     }
 
 @get:StringRes
 private val BackgroundChoice.body: Int
     get() = when (this) {
-        BackgroundChoice.THEME -> R.string.background_theme_body
         BackgroundChoice.GALAXY -> R.string.background_galaxy_body
-        BackgroundChoice.NEBULA -> R.string.background_nebula_body
-        BackgroundChoice.AURORA -> R.string.background_aurora_body
-        BackgroundChoice.MIDNIGHT -> R.string.background_midnight_body
-        BackgroundChoice.SUNSET -> R.string.background_sunset_body
-        BackgroundChoice.OCEAN -> R.string.background_ocean_body
-        BackgroundChoice.EMERALD -> R.string.background_emerald_body
-        BackgroundChoice.MARS -> R.string.background_mars_body
-        BackgroundChoice.ROYAL_GOLD -> R.string.background_royal_gold_body
-        BackgroundChoice.FROST -> R.string.background_frost_body
         BackgroundChoice.SPACE_GLASS -> R.string.background_space_glass_body
     }
-
-/** A background's name: the theme of the same name's, or "Theme के साथ" for [BackgroundChoice.THEME]. */
-fun BackgroundChoice.label(activity: AppCompatActivity, theme: ThemeChoice): String =
-    if (this == BackgroundChoice.THEME) activity.getString(R.string.background_theme, activity.getString(theme.title))
-    else activity.getString(ThemeChoice.fromKey(key).title)
 
 @get:StringRes
 val ThemeChoice.title: Int
@@ -259,7 +213,7 @@ class MenuSheet(
             Entry.BACKGROUND,
             R.drawable.ic_wallpaper,
             R.string.menu_background,
-            activity.getString(R.string.menu_theme_body, background.label(activity, theme)),
+            activity.getString(R.string.menu_theme_body, activity.getString(background.title)),
         )
         add(Entry.UPDATE, R.drawable.ic_system_update, R.string.menu_update, activity.getString(R.string.menu_update_body, version))
         add(Entry.HELP, R.drawable.ic_help, R.string.menu_help, activity.getString(R.string.menu_help_body))
@@ -281,8 +235,6 @@ class SettingsSheet(
     interface Actions {
         fun keepScreenOnChanged(on: Boolean)
         fun skyAnimationChanged(on: Boolean)
-        /** Saves the list's look (a compact table, or cards) and re-creates the screen with it. */
-        fun compactListChanged(on: Boolean)
         /** Saves [style] and re-creates the screen in it. */
         fun glassStyleChanged(style: GlassStyle)
         /** Saves whether the glass is on and re-creates the screen with it on, or flat and solid. */
@@ -311,9 +263,6 @@ class SettingsSheet(
             actions.skyAnimationChanged(on)
         }
         ui.settingSkyRow.setOnClickListener { ui.settingSky.toggle() }
-        ui.settingCompact.isChecked = settings.compactList
-        ui.settingCompact.setOnCheckedChangeListener { _, on -> actions.compactListChanged(on) }
-        ui.settingCompactRow.setOnClickListener { ui.settingCompact.toggle() }
 
         val current = settings.chartSite
         ChartSite.entries.forEach { site ->
@@ -428,8 +377,9 @@ class ThemeSheet(
 }
 
 /**
- * The backgrounds, in the theme picker's grid: first the theme's own, then the ten Milky Ways and Space Glass,
- * each shown still. Picking one hands it to [onPick], which re-creates the screen; the theme's colours stay.
+ * The two backgrounds side by side, each moving in the theme's colours as it would behind the home screen: the Milky
+ * Way (with the cards) and Space Glass (with the compact table). Picking one hands it to [onPick], which re-creates
+ * the screen; the theme stays.
  */
 class BackgroundSheet(
     private val activity: AppCompatActivity,
@@ -443,39 +393,42 @@ class BackgroundSheet(
         ui.themeTitle.setText(R.string.background_title)
         ui.themeSubtitle.setText(R.string.background_subtitle)
         val corner = activity.resources.getDimension(R.dimen.background_preview_corner)
+        val accent = color(theme.preview.third)
         lateinit var dialog: BottomSheetDialog
-        BackgroundChoice.entries.chunked(2).forEach { pair ->
-            val row = LinearLayout(activity).apply { orientation = LinearLayout.HORIZONTAL }
-            ui.themeGrid.addView(row)
-            pair.forEach { choice ->
-                val card = ItemThemeBinding.inflate(activity.layoutInflater, row, true)
-                val shown = choice.shownWith(theme)
-                val accent = color(ThemeChoice.fromKey(shown.key).preview.third)
-                card.themePreview.setBackgroundResource(shown.still)
-                card.themePreview.outlineProvider = object : ViewOutlineProvider() {
-                    override fun getOutline(view: View, outline: Outline) = outline.setRoundRect(0, 0, view.width, view.height, corner)
-                }
-                card.themePreview.clipToOutline = true
-                card.themeLogo.isVisible = false
-                card.themeAccent.backgroundTintList = ColorStateList.valueOf(accent)
-                val name = choice.label(activity, theme)
-                card.themeName.text = name
-                card.themeBody.setText(choice.body)
-                val selected = choice == current
-                card.themeCheck.isVisible = selected
-                card.root.strokeWidth = activity.resources.getDimensionPixelSize(
-                    if (selected) R.dimen.theme_card_stroke_selected else R.dimen.theme_card_stroke,
-                )
-                if (selected) card.root.setStrokeColor(ColorStateList.valueOf(accent))
-                card.root.contentDescription = name + ", " + activity.getString(choice.body)
-                card.root.setOnClickListener {
-                    dialog.dismiss()
-                    if (choice != current) onPick(choice)
-                }
+        val row = LinearLayout(activity).apply { orientation = LinearLayout.HORIZONTAL }
+        ui.themeGrid.addView(row)
+        BackgroundChoice.entries.forEach { choice ->
+            val card = ItemThemeBinding.inflate(activity.layoutInflater, row, true)
+            card.themePreview.addView(preview(choice), 0, FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT))
+            card.themePreview.layoutParams.height = activity.resources.getDimensionPixelSize(R.dimen.background_preview_height)
+            card.themePreview.outlineProvider = object : ViewOutlineProvider() {
+                override fun getOutline(view: View, outline: Outline) = outline.setRoundRect(0, 0, view.width, view.height, corner)
+            }
+            card.themePreview.clipToOutline = true
+            card.themeLogo.isVisible = false
+            card.themeAccent.backgroundTintList = ColorStateList.valueOf(accent)
+            card.themeName.setText(choice.title)
+            card.themeBody.setText(choice.body)
+            val selected = choice == current
+            card.themeCheck.isVisible = selected
+            card.root.strokeWidth = activity.resources.getDimensionPixelSize(
+                if (selected) R.dimen.theme_card_stroke_selected else R.dimen.theme_card_stroke,
+            )
+            if (selected) card.root.setStrokeColor(ColorStateList.valueOf(accent))
+            card.root.contentDescription = activity.getString(choice.title) + ", " + activity.getString(choice.body)
+            card.root.setOnClickListener {
+                dialog.dismiss()
+                if (choice != current) onPick(choice)
             }
         }
         dialog = activity.showSheet(ui.root, ui.sheetTopBar, onBack)
         return dialog
+    }
+
+    /** The background itself, small and moving, in the theme's colours. */
+    private fun preview(choice: BackgroundChoice): View = when (choice) {
+        BackgroundChoice.GALAXY -> GalaxySkyView(activity).apply { palette = theme.skyPalette }
+        BackgroundChoice.SPACE_GLASS -> SpaceGlassSkyView(activity).apply { if (theme != ThemeChoice.SPACE_GLASS) tintWith(activity) }
     }
 
     private fun color(@ColorRes id: Int) = ContextCompat.getColor(activity, id)

@@ -121,8 +121,8 @@ class TrackRecordSheet(
 }
 
 /**
- * Industries ranked by their stocks' mean score in the latest scan; tapping one filters the list to it. With the
- * compact list on, the cards and bars wear the list's [flat] look.
+ * Industries ranked by their stocks' mean score in the latest scan; tapping one filters the list to it. On the
+ * Space Glass background, the cards and bars wear the compact list's [flat] look.
  */
 class SectorSheet(
     private val activity: AppCompatActivity,

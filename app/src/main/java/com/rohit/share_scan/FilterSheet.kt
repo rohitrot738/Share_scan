@@ -21,8 +21,8 @@ import kotlin.math.roundToInt
 /**
  * Bottom sheet where every metric gets a min/max range slider; nothing changes until "लागू करें". It edits one
  * scan's [filters], counting matches among that scan's [pool] (every scanned stock for the Breakout scan, the stocks on
- * a long support floor for the Support scan); Reset goes back to [defaults]. With the compact list on, it wears the
- * list's [flat] look: thin sliders, outlined chips and an accent capsule for "लागू करें".
+ * a long support floor for the Support scan); Reset goes back to [defaults]. On the Space Glass background it wears
+ * the compact list's [flat] look: thin sliders, outlined chips and an accent capsule for "लागू करें".
  */
 class FilterSheet(
     private val activity: AppCompatActivity,
