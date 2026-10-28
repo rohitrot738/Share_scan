@@ -15,7 +15,8 @@ enum class ThemeChoice(val key: String) {
     EMERALD("emerald"),
     MARS("mars"),
     ROYAL_GOLD("royal_gold"),
-    FROST("frost");
+    FROST("frost"),
+    SPACE_GLASS("space_glass");
 
     companion object {
         fun fromKey(key: String?): ThemeChoice = entries.firstOrNull { it.key == key } ?: GALAXY
@@ -92,6 +93,14 @@ class AppSettings(context: Context) {
     var skyAnimation: Boolean
         get() = prefs.getBoolean(Prefs.SKY_ANIMATION, true)
         set(value) = prefs.edit { putBoolean(Prefs.SKY_ANIMATION, value) }
+
+    /**
+     * The list as a compact table, a line a stock, with a slim header and the list's tools in a floating bar at the
+     * bottom; off shows the cards. Picking the Space Glass theme turns it on.
+     */
+    var compactList: Boolean
+        get() = prefs.getBoolean(Prefs.COMPACT_LIST, false)
+        set(value) = prefs.edit { putBoolean(Prefs.COMPACT_LIST, value) }
 
     /** Look for a newer release every time the app opens. */
     var checkUpdates: Boolean

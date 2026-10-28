@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The compact table's column header strip, a step lighter than the lines under it (#1A2333 in Space Glass). -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:alpha="0.96" android:color="?attr/colorSurfaceContainerHigh" />
+</selector>

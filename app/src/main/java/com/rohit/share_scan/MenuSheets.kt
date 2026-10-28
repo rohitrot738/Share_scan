@@ -44,9 +44,10 @@ val ThemeChoice.style: Int
         ThemeChoice.MARS -> R.style.Theme_ShareScan_Mars
         ThemeChoice.ROYAL_GOLD -> R.style.Theme_ShareScan_RoyalGold
         ThemeChoice.FROST -> R.style.Theme_ShareScan_Frost
+        ThemeChoice.SPACE_GLASS -> R.style.Theme_ShareScan_SpaceGlass
     }
 
-/** The theme's colours for the moving Milky Way behind the home screen. */
+/** The theme's colours for the moving Milky Way behind the home screen ([GalaxySkyView]; Space Glass draws its own). */
 val ThemeChoice.skyPalette: SkyPalette
     get() = when (this) {
         ThemeChoice.GALAXY -> SkyPalette.GALAXY
@@ -59,7 +60,12 @@ val ThemeChoice.skyPalette: SkyPalette
         ThemeChoice.MARS -> SkyPalette.MARS
         ThemeChoice.ROYAL_GOLD -> SkyPalette.ROYAL_GOLD
         ThemeChoice.FROST -> SkyPalette.FROST
+        ThemeChoice.SPACE_GLASS -> SkyPalette.MIDNIGHT
     }
+
+/** Space Glass has its own background ([SpaceGlassSkyView]) in place of the Milky Way. */
+val ThemeChoice.ownSky: Boolean
+    get() = this == ThemeChoice.SPACE_GLASS
 
 @get:StringRes
 val ThemeChoice.title: Int
@@ -74,6 +80,7 @@ val ThemeChoice.title: Int
         ThemeChoice.MARS -> R.string.theme_mars
         ThemeChoice.ROYAL_GOLD -> R.string.theme_royal_gold
         ThemeChoice.FROST -> R.string.theme_frost
+        ThemeChoice.SPACE_GLASS -> R.string.theme_space_glass
     }
 
 @get:StringRes
@@ -89,6 +96,7 @@ private val ThemeChoice.body: Int
         ThemeChoice.MARS -> R.string.theme_mars_body
         ThemeChoice.ROYAL_GOLD -> R.string.theme_royal_gold_body
         ThemeChoice.FROST -> R.string.theme_frost_body
+        ThemeChoice.SPACE_GLASS -> R.string.theme_space_glass_body
     }
 
 /** The theme's hero card, logo tile and accent, so the picker previews a theme without applying it. */
@@ -104,6 +112,7 @@ private val ThemeChoice.preview: Triple<Int, Int, Int>
         ThemeChoice.MARS -> Triple(R.drawable.bg_hero_mars, R.drawable.bg_logo_mars, R.color.mars_accent)
         ThemeChoice.ROYAL_GOLD -> Triple(R.drawable.bg_hero_royal_gold, R.drawable.bg_logo_royal_gold, R.color.royal_gold_accent)
         ThemeChoice.FROST -> Triple(R.drawable.bg_hero_frost, R.drawable.bg_logo_frost, R.color.frost_accent)
+        ThemeChoice.SPACE_GLASS -> Triple(R.drawable.bg_hero_space_glass, R.drawable.bg_logo_space_glass, R.color.space_glass_accent)
     }
 
 @get:StringRes
@@ -205,6 +214,8 @@ class SettingsSheet(
     interface Actions {
         fun keepScreenOnChanged(on: Boolean)
         fun skyAnimationChanged(on: Boolean)
+        /** Saves the list's look (a compact table, or cards) and re-creates the screen with it. */
+        fun compactListChanged(on: Boolean)
         /** Saves [style] and re-creates the screen in it. */
         fun glassStyleChanged(style: GlassStyle)
         /** Saves whether the glass is on and re-creates the screen with it on, or flat and solid. */
@@ -233,6 +244,9 @@ class SettingsSheet(
             actions.skyAnimationChanged(on)
         }
         ui.settingSkyRow.setOnClickListener { ui.settingSky.toggle() }
+        ui.settingCompact.isChecked = settings.compactList
+        ui.settingCompact.setOnCheckedChangeListener { _, on -> actions.compactListChanged(on) }
+        ui.settingCompactRow.setOnClickListener { ui.settingCompact.toggle() }
 
         val current = settings.chartSite
         ChartSite.entries.forEach { site ->
@@ -400,6 +414,7 @@ class HelpSheet(private val activity: AppCompatActivity, private val onBack: () 
         add(activity.getString(R.string.help_record_title), activity.getString(R.string.help_record_body))
         add(activity.getString(R.string.help_sector_title), activity.getString(R.string.help_sector_body))
         add(activity.getString(R.string.help_cloud_title), activity.getString(R.string.help_cloud_body))
+        add(activity.getString(R.string.help_compact_title), activity.getString(R.string.help_compact_body))
         add(activity.getString(R.string.about_disclaimer_title), activity.getString(R.string.help_disclaimer))
         return activity.showSheet(ui.root, ui.sheetTopBar, onBack, fullHeight = true)
     }

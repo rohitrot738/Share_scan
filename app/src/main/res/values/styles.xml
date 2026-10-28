@@ -40,6 +40,7 @@
         <item name="scanSheet">@color/galaxy_sheet</item>
         <item name="scanTrack">@color/galaxy_track</item>
         <item name="scanHeroBackground">@drawable/bg_hero</item>
+        <item name="scanHeroArt">@drawable/hero_rings</item>
         <item name="scanLogoBackground">@drawable/bg_logo</item>
         <item name="materialSwitchStyle">@style/Widget.ShareScan.Switch</item>
         <item name="materialButtonStyle">@style/Widget.ShareScan.Button</item>
@@ -378,6 +379,47 @@
         <item name="scanTrack">@color/frost_track</item>
         <item name="scanHeroBackground">@drawable/bg_hero_frost</item>
         <item name="scanLogoBackground">@drawable/bg_logo_frost</item>
+    </style>
+
+    <!--
+        Space Glass: deep space (#0B0F19) with a cyan glow accent, emerald and gold, behind its own moving background
+        (SpaceGlassSkyView: drifting lights, a trading grid and a price line) rather than a Milky Way.
+    -->
+    <style name="Theme.ShareScan.SpaceGlass">
+        <item name="colorPrimary">@color/space_glass_accent</item>
+        <item name="colorOnPrimary">@color/space_glass_on_accent</item>
+        <item name="colorPrimaryContainer">@color/space_glass_accent_container</item>
+        <item name="colorOnPrimaryContainer">@color/space_glass_on_accent_container</item>
+        <item name="colorPrimaryInverse">@color/space_glass_primary_inverse</item>
+        <item name="colorSecondary">@color/space_glass_secondary</item>
+        <item name="colorOnSecondary">@color/space_glass_on_accent</item>
+        <item name="colorSecondaryContainer">@color/space_glass_accent_container</item>
+        <item name="colorOnSecondaryContainer">@color/space_glass_on_accent_container</item>
+        <item name="colorTertiary">@color/space_glass_tertiary</item>
+        <item name="colorOnTertiary">@color/space_glass_on_accent</item>
+        <item name="colorSurface">@color/space_glass_bg</item>
+        <item name="colorSurfaceVariant">@color/space_glass_surface_high</item>
+        <item name="colorSurfaceContainerLowest">@color/space_glass_surface_lowest</item>
+        <item name="colorSurfaceContainerLow">@color/space_glass_surface_low</item>
+        <item name="colorSurfaceContainer">@color/space_glass_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/space_glass_surface_high</item>
+        <item name="colorSurfaceContainerHighest">@color/space_glass_surface_highest</item>
+        <item name="colorSurfaceInverse">@color/space_glass_text</item>
+        <item name="colorOnSurfaceInverse">@color/space_glass_on_accent</item>
+        <item name="colorOnSurface">@color/space_glass_text</item>
+        <item name="colorOnSurfaceVariant">@color/space_glass_text_soft</item>
+        <item name="colorOnBackground">@color/space_glass_text</item>
+        <item name="colorOutline">@color/space_glass_outline</item>
+        <item name="colorOutlineVariant">@color/space_glass_outline</item>
+        <item name="android:colorBackground">@color/space_glass_bg</item>
+        <item name="android:windowBackground">@drawable/bg_space_glass</item>
+        <item name="scanCard">@color/space_glass_card</item>
+        <item name="scanCardStroke">@color/space_glass_card_stroke</item>
+        <item name="scanSheet">@color/space_glass_sheet</item>
+        <item name="scanTrack">@color/space_glass_track</item>
+        <item name="scanHeroBackground">@drawable/bg_hero_space_glass</item>
+        <item name="scanHeroArt">@drawable/hero_rings_space_glass</item>
+        <item name="scanLogoBackground">@drawable/bg_logo_space_glass</item>
     </style>
 
     <!--

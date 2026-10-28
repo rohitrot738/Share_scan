@@ -12,6 +12,14 @@
         android:layout_height="match_parent"
         android:importantForAccessibility="no" />
 
+    <!-- The Space Glass theme's own background in place of the Milky Way: lights, a trading grid, a price line. -->
+    <com.rohit.share_scan.SpaceGlassSkyView
+        android:id="@+id/spaceSky"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no"
+        android:visibility="gone" />
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
         android:layout_width="match_parent"
@@ -21,8 +29,9 @@
         app:liftOnScroll="false"
         app:statusBarForeground="?android:attr/colorBackground">
 
-        <!-- Brand header -->
+        <!-- Brand header (the compact list's slim header, compactHeader, takes its place) -->
         <LinearLayout
+            android:id="@+id/brandHeader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -214,6 +223,7 @@
 
         <!-- Which scan the screen shows: the main Breakout scan or the separate Support scan. -->
         <HorizontalScrollView
+            android:id="@+id/modeScroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="6dp"
@@ -264,15 +274,17 @@
             app:layout_scrollFlags="scroll">
 
             <ImageView
+                android:id="@+id/heroArt"
                 android:layout_width="220dp"
                 android:layout_height="220dp"
                 android:layout_gravity="top|end"
                 android:layout_marginTop="-60dp"
                 android:layout_marginEnd="-50dp"
                 android:importantForAccessibility="no"
-                android:src="@drawable/hero_rings" />
+                android:src="?attr/scanHeroArt" />
 
             <LinearLayout
+                android:id="@+id/heroContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -409,6 +421,7 @@
 
         <!-- Quick stats -->
         <LinearLayout
+            android:id="@+id/statsRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
@@ -525,14 +538,129 @@
 
         <!-- Results heading, search and chips stay pinned while the list scrolls. -->
         <LinearLayout
+            android:id="@+id/resultsSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="12dp"
             android:paddingBottom="6dp">
 
+            <!--
+                The compact list's slim header (Settings → Compact list): logo, name and version, the scan's status
+                pill (a tap opens the scan's controls), search and menu. MainActivity.setUpCompact moves it to the
+                top of the app bar, pinned; the brand header, scan board and stats are hidden then.
+            -->
+            <LinearLayout
+                android:id="@+id/compactHeader"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="4dp"
+                android:visibility="gone">
+
+                <!-- The app's R and candle in the theme's green, on a small rounded tile. -->
+                <ImageView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_compact_logo"
+                    android:importantForAccessibility="no"
+                    android:padding="3dp"
+                    android:src="@drawable/ic_logo_mark"
+                    app:tint="?attr/colorSecondary" />
+
+                <!-- The name and, beside it, the version's major and minor (the About sheet has the full one). -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:maxLines="1"
+                    android:text="@string/app_name"
+                    android:textColor="@color/text_primary"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/compactVersion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFeatureSettings="tnum"
+                    android:maxLines="1"
+                    android:textColor="?attr/colorOnSurfaceVariant"
+                    android:textSize="11sp" />
+
+                <!-- The scan at a glance: a glowing dot and "LIVE SCAN 100% • 2,618 STOCKS"; a tap opens its controls. -->
+                <!--
+                    The text shrinks to fit (down to 8sp) rather than cut "LIVE SCAN 100% • 2,618 STOCKS" short on a
+                    narrow screen.
+                -->
+                <LinearLayout
+                    android:id="@+id/statusPill"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_status_pill"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="10dp">
+
+                    <View
+                        android:id="@+id/statusDot"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:background="@drawable/bg_status_dot" />
+
+                    <TextView
+                        android:id="@+id/statusPillText"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        android:autoSizeMaxTextSize="11sp"
+                        android:autoSizeMinTextSize="8sp"
+                        android:autoSizeStepGranularity="0.5sp"
+                        android:autoSizeTextType="uniform"
+                        android:fontFamily="sans-serif-medium"
+                        android:fontFeatureSettings="tnum"
+                        android:maxLines="1"
+                        android:textColor="@color/text_primary"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/compactSearch"
+                    android:layout_width="36dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/list_search_open"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_search"
+                    app:tint="@color/text_primary" />
+
+                <ImageButton
+                    android:id="@+id/compactMenu"
+                    android:layout_width="36dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/menu_open"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_menu"
+                    app:tint="@color/text_primary" />
+            </LinearLayout>
+
             <!-- minHeight matches the icon buttons, so the row keeps its height before they appear. -->
             <LinearLayout
+                android:id="@+id/resultsHeading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -658,7 +786,9 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- The list's tools; the compact list moves them into the floating bar at the bottom (bottomBar). -->
             <HorizontalScrollView
+                android:id="@+id/listToolsScroll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
@@ -666,6 +796,7 @@
                 android:scrollbars="none">
 
                 <LinearLayout
+                    android:id="@+id/listTools"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -712,6 +843,7 @@
                         app:chipIcon="@drawable/ic_sector" />
 
                     <View
+                        android:id="@+id/listToolsDivider"
                         android:layout_width="1dp"
                         android:layout_height="24dp"
                         android:layout_marginHorizontal="8dp"
@@ -772,6 +904,50 @@
                     </com.google.android.material.chip.ChipGroup>
                 </LinearLayout>
             </HorizontalScrollView>
+
+            <!-- The compact table's column names, lined up with item_stock_compact.xml. -->
+            <LinearLayout
+                android:id="@+id/compactColumns"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/compact_columns"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="4dp"
+                android:visibility="gone">
+
+                <TextView
+                    style="@style/CompactColumn"
+                    android:layout_width="@dimen/compact_rank_width"
+                    android:text="@string/compact_col_rank" />
+
+                <TextView
+                    style="@style/CompactColumn"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/compact_col_stock" />
+
+                <TextView
+                    style="@style/CompactColumn"
+                    android:layout_width="@dimen/compact_price_width"
+                    android:gravity="end"
+                    android:text="@string/compact_col_price" />
+
+                <TextView
+                    style="@style/CompactColumn"
+                    android:layout_width="@dimen/compact_change_width"
+                    android:gravity="end"
+                    android:text="@string/compact_col_change" />
+
+                <TextView
+                    style="@style/CompactColumn"
+                    android:layout_width="@dimen/compact_score_width"
+                    android:gravity="end"
+                    android:paddingEnd="8dp"
+                    android:text="@string/compact_col_score" />
+            </LinearLayout>
         </LinearLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -848,4 +1024,33 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </FrameLayout>
+
+    <!--
+        The compact list's floating bar: a frosted-glass pill near the bottom with a glowing rim in the theme's accent
+        (the shadow takes the accent from Android 9 on), holding the list's tools (Filters, Watchlist, the sorts...)
+        moved here from the pinned header, within the thumb's reach. MainActivity.styleBarChips outlines its chips.
+    -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        android:outlineAmbientShadowColor="?attr/colorPrimary"
+        android:outlineSpotShadowColor="?attr/colorPrimary"
+        app:cardBackgroundColor="@color/compact_bar"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="10dp"
+        app:strokeColor="@color/compact_bar_rim"
+        app:strokeWidth="1.5dp">
+
+        <FrameLayout
+            android:id="@+id/bottomBarTools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp" />
+    </com.google.android.material.card.MaterialCardView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

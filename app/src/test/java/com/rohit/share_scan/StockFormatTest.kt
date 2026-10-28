@@ -49,6 +49,13 @@ class StockFormatTest {
     }
 
     @Test
+    fun compactChangeIsSigned() {
+        assertEquals("+11.57%", StockFormat.signedChange(11.574))
+        assertEquals("−0.50%", StockFormat.signedChange(-0.5))
+        assertEquals("+0.00%", StockFormat.signedChange(0.0))
+    }
+
+    @Test
     fun durationIsMinutesAndSeconds() {
         assertEquals("04:05", StockFormat.duration(245_000))
         assertEquals("00:00", StockFormat.duration(-5))

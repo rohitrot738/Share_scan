@@ -3,6 +3,15 @@
     "version": "",
     "date": "2026-10-28",
     "items": [
+      "नया theme \"Space Glass\" (Menu → Theme): बिल्कुल नया background — गहरा space, धीरे तैरती cyan और हरी रोशनियाँ, नीचे आगे बढ़ती trading grid और बीच में खिसकती चमकीली chart-line",
+      "Compact list (Menu → Settings): हर stock की एक line — rank, ticker के साथ NSE/BSE, NEW/▲▼ और 📰, नीचे कंपनी, भाव, 5 दिन का बदलाव और RVOL, और score (watchlist वाले stocks का सुनहरा, ★ के साथ; line को दबाकर रखने से watchlist में जोड़ें या हटाएँ); एक screen पर 8–10 stocks",
+      "Compact list में ऊपर हमेशा दिखने वाली पतली header और स्कैन की हरी pill (जैसे LIVE SCAN 100% • 2,618 STOCKS) — दबाने पर उसी सादे style का panel: Breakout/Support, SCAN/रोकें और Clear scan; Filters, Watchlist, sort, sector और शेयर नीचे की तैरती bar में। Space Glass चुनने पर यह अपने-आप चालू, Settings से cards पर लौट सकते हैं"
+    ]
+  },
+  {
+    "version": "1.2.137",
+    "date": "2026-10-28",
+    "items": [
       "R/S का valuation अब sector के हिसाब से: bank/NBFC की book value में से ख़राब loans (net NPA) घटाकर उनके अपने P/B पर, मशीन और कारख़ाने वाली कंपनियाँ अपने EV/EBITDA पर (ROCE 12% से कम हो तो 20% कम), metal/oil औसत (mid-cycle) EBITDA पर cyclical चेतावनी के साथ, और IT/FMCG/pharma PEG पर",
       "R/S card में असली कीमत और खरीद भाव: penalty (auditor का इस्तीफ़ा −40%, ज़्यादा कर्ज़ −20%, FII/DII की लगातार बिकवाली −10%) के बाद की कीमत पर margin of safety (large cap 20%, mid cap 27.5%, small cap 35%), और भाव खरीद भाव से कितना ऊपर या नीचे है; \"Framework का पूरा हिसाब\" दबाने पर हर क़दम",
       "हर कंपनी की नई जाँच: promoter pledge 15% से ज़्यादा हो तो Reject (R/S \"दूर रहें\"), ब्याज का cover 2.5 गुना से कम या operating cash मुनाफ़े के 0.6 गुना से कम हो तो R/S ज़्यादा से ज़्यादा \"सावधानी\"",

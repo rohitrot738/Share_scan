@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The compact list (Settings → Compact list): its header's status pill, table columns and the scan panel. -->
+    <string name="settings_compact">Compact list (table)</string>
+    <string name="settings_compact_body">एक line में एक stock: rank, नाम, भाव, 5 दिन का बदलाव, RVOL और score; एक screen पर 8–10 stocks। ऊपर पतली header और filters/sort नीचे की तैरती bar में। Space Glass theme के साथ अपने-आप चालू</string>
+
+    <string name="compact_news_mark">📰</string>
+    <string name="compact_no_data">भाव नहीं</string>
+    <string name="compact_col_rank">#</string>
+    <string name="compact_col_stock">Stock / Company</string>
+    <string name="compact_col_price">Price</string>
+    <string name="compact_col_change">5D CHG / RVOL</string>
+    <string name="compact_col_score">Score</string>
+    <string name="compact_share">शेयर</string>
+    <string name="compact_rank">#%1$d</string>
+
+    <!-- The status pill: what the scan is doing, and a tap to its controls. -->
+    <string name="pill_idle">SCAN शुरू करें ▸</string>
+    <string name="pill_reading">पिछला स्कैन खुल रहा है…</string>
+    <string name="pill_loading">SCAN शुरू हो रहा है…</string>
+    <string name="pill_scanning">SCAN %1$d%% • %2$s/%3$s</string>
+    <string name="pill_stopped">रुका %1$d%% • %2$s/%3$s</string>
+    <string name="pill_done">SCAN 100%% • %1$s STOCKS</string>
+    <string name="pill_live_done">LIVE SCAN 100%% • %1$s STOCKS</string>
+    <string name="pill_support_done">SUPPORT 100%% • %1$s STOCKS</string>
+    <string name="pill_failed">SCAN नहीं हुआ • फिर करें</string>
+    <string name="empty_body_compact">ऊपर की pill दबाकर स्कैन शुरू करें — स्कैन पूरा होते ही top candidates score के हिसाब से यहाँ दिखेंगे।</string>
+    <string name="pill_description">%1$s; स्कैन के बटन खोलें</string>
+
+    <string name="help_compact_title">Compact list और Space Glass theme</string>
+    <string name="help_compact_body">Menu → Settings → Compact list से list एक table बन जाती है: हर stock की एक line, जिसमें rank, ticker (साथ में NSE/BSE, NEW या ▲▼ और 📰), नीचे कंपनी का नाम, भाव, 5 दिन का बदलाव और उसके नीचे RVOL, और score — एक screen पर 8–10 stocks। Watchlist वाले stocks का score सुनहरा होता है और साथ में ★; किसी line को दबाकर रखने से वह stock watchlist में जुड़ता या उससे हटता है। ऊपर की पतली header में हरी pill बताती है कि स्कैन कहाँ है (जैसे "LIVE SCAN 100% • 2,618 STOCKS"); उसे दबाने पर Breakout/Support, SCAN/रोकें और Clear scan वाला panel खुलता है। Filters, Watchlist, sort, sector और शेयर नीचे की तैरती bar में हैं, अंगूठे की पहुँच में; उसे दाएँ-बाएँ खिसकाएँ। Line दबाने पर stock का पूरा detail खुलता है, जहाँ setup, support और R/S मिलते हैं। Menu → Theme में "Space Glass" theme है: गहरा space background जिसमें cyan और हरी रोशनियाँ तैरती हैं, नीचे आगे बढ़ती trading grid और बीच में धीरे खिसकती चमकीली chart-line; इसे चुनने पर compact list अपने-आप चालू हो जाती है, Settings से फिर cards पर लौट सकते हैं।</string>
+</resources>

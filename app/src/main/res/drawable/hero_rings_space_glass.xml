@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Space Glass's art behind the hero progress ring (scanHeroArt): a cyan halo and plain rings, the middle one lit
+    from cyan to emerald towards the upper right. No planets, moons or stars, like the theme's background.
+    As with hero_rings, only the left and lower part of this 220dp square is on screen.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="220dp"
+    android:height="220dp"
+    android:viewportWidth="220"
+    android:viewportHeight="220">
+
+    <!-- Halo -->
+    <path android:pathData="M46,110a64,64 0,1 0,128 0a64,64 0,1 0,-128 0z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:centerX="110"
+                android:centerY="110"
+                android:gradientRadius="64"
+                android:type="radial">
+                <item android:color="#2638BDF8" android:offset="0" />
+                <item android:color="#1210B981" android:offset="0.6" />
+                <item android:color="#0010B981" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Inner ring hugging the progress ring -->
+    <path
+        android:fillAlpha="0.05"
+        android:fillColor="@color/space_glass_accent"
+        android:pathData="M70,110a40,40 0,1 0,80 0a40,40 0,1 0,-80 0z"
+        android:strokeWidth="1.5"
+        android:strokeAlpha="0.2"
+        android:strokeColor="@color/space_glass_accent" />
+
+    <!-- Middle ring, lit towards the upper right -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M36,110a74,74 0,1 0,148 0a74,74 0,1 0,-148 0z"
+        android:strokeWidth="1.4">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:endX="180"
+                android:endY="40"
+                android:startX="40"
+                android:startY="180"
+                android:type="linear">
+                <item android:color="#0F38BDF8" android:offset="0" />
+                <item android:color="#4038BDF8" android:offset="0.5" />
+                <item android:color="#8010B981" android:offset="1" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
+    <!-- Faint outer ring -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M6,110a104,104 0,1 0,208 0a104,104 0,1 0,-208 0z"
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.08"
+        android:strokeColor="@color/space_glass_accent" />
+</vector>
