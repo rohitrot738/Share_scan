@@ -8,6 +8,8 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.RippleDrawable
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
@@ -40,6 +42,7 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
+import androidx.core.widget.ImageViewCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -159,7 +162,10 @@ class MainActivity : AppCompatActivity() {
         if (compact) setUpCompact()
         applyWindowInsets()
         setUpListTools()
-        if (compact) styleBarChips()
+        if (compact) {
+            styleBarChips()
+            styleScanPanel()
+        }
         ui.updateAction.setOnClickListener { updates.proceed() }
         ui.updateLater.setOnClickListener { updates.dismiss() }
         ui.menuButton.setOnClickListener { openMenu() }
@@ -568,6 +574,14 @@ class MainActivity : AppCompatActivity() {
         }
         scanPanel = BottomSheetDialog(this).apply {
             setContentView(root)
+            // The theme's plain dark, as the table, with the accent along the top edge in place of the frosted sheet.
+            val dp = resources.displayMetrics.density
+            val corner = 24 * dp
+            findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)?.background = GradientDrawable().apply {
+                cornerRadii = floatArrayOf(corner, corner, corner, corner, 0f, 0f, 0f, 0f)
+                setColor(MaterialColors.getColor(ui.root, android.R.attr.colorBackground))
+                setStroke((1 * dp).roundToInt(), MaterialColors.getColor(ui.root, androidx.appcompat.R.attr.colorPrimary).withAlpha(0.5f))
+            }
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
             behavior.skipCollapsed = true
             // The board goes back to waiting for the next time the pill is tapped.
@@ -577,37 +591,97 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * The floating bar's chips as the redesign draws them: outlined capsules on the bar's glass, without the glass
-     * chips' shine or ticks. Filters, Watchlist, the sector and sharing are ringed in the accent; the sorts (and the
-     * Support scan's reach) in grey, the chosen one lit with its ↓ or ↑.
+     * The compact list's chips as the redesign draws them: outlined capsules, without the glass chips' shine or
+     * ticks. In the floating bar, Filters, Watchlist, the sector and sharing are ringed in the accent; the sorts (and
+     * the Support scan's reach) in grey, the chosen one lit with its ↓ or ↑. The scan panel's Breakout / Support
+     * chips are choices too.
      */
     private fun styleBarChips() {
         val dp = resources.displayMetrics.density
         val accent = MaterialColors.getColor(ui.root, androidx.appcompat.R.attr.colorPrimary)
         val muted = MaterialColors.getColor(ui.root, com.google.android.material.R.attr.colorOnSurfaceVariant)
         val text = ContextCompat.getColor(this, R.color.text_primary)
-        fun alpha(color: Int, fraction: Float) = ColorUtils.setAlphaComponent(color, (fraction * 255).roundToInt())
-        fun checkedOr(checked: Int, otherwise: Int) = ColorStateList(
-            arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf()),
-            intArrayOf(checked, otherwise),
-        )
-        fun Chip.outline(rim: ColorStateList, label: ColorStateList) {
+        fun Chip.outline(rim: ColorStateList, label: ColorStateList, icon: ColorStateList) {
             foreground = null
-            chipBackgroundColor = checkedOr(alpha(accent, 0.18f), alpha(Color.WHITE, 0.04f))
+            chipBackgroundColor = checkedOr(accent.withAlpha(0.18f), Color.WHITE.withAlpha(0.04f))
             chipStrokeColor = rim
             chipStrokeWidth = 1.2f * dp
             setTextColor(label)
-            chipIconTint = ColorStateList.valueOf(accent)
+            chipIconTint = icon
             isCheckedIconVisible = false
         }
         val actions = listOfNotNull(ui.filterChip, ui.watchlistChip, ui.sectorChip, compactShare)
-        actions.forEach { it.outline(ColorStateList.valueOf(alpha(accent, 0.85f)), ColorStateList.valueOf(text)) }
-        val choices = (0 until ui.sortChips.childCount).map(ui.sortChips::getChildAt) +
-            (0 until ui.supportReachChips.childCount).map(ui.supportReachChips::getChildAt)
+        actions.forEach {
+            it.outline(ColorStateList.valueOf(accent.withAlpha(0.85f)), ColorStateList.valueOf(text), ColorStateList.valueOf(accent))
+        }
+        val choices = listOf(ui.sortChips, ui.supportReachChips, ui.scanModeChips).flatMap { group ->
+            (0 until group.childCount).map(group::getChildAt)
+        }
         choices.filterIsInstance<Chip>().forEach {
-            it.outline(checkedOr(alpha(accent, 0.85f), alpha(muted, 0.45f)), checkedOr(text, muted))
+            it.outline(checkedOr(accent.withAlpha(0.85f), muted.withAlpha(0.45f)), checkedOr(text, muted), checkedOr(accent, muted))
         }
     }
+
+    /**
+     * The scan panel's board in the redesign's flat style: a plain card with a hairline rim instead of the glass and
+     * no art behind it, a slim ring in the accent, and capsule buttons: SCAN ringed and lit in the accent, Clear scan
+     * in grey. The sheet itself is the theme's plain dark with an accent rim along its top (see [openScanPanel]).
+     */
+    private fun styleScanPanel() {
+        val dp = resources.displayMetrics.density
+        fun px(value: Int) = (value * dp).roundToInt()
+        val accent = MaterialColors.getColor(ui.root, androidx.appcompat.R.attr.colorPrimary)
+        val muted = MaterialColors.getColor(ui.root, com.google.android.material.R.attr.colorOnSurfaceVariant)
+        val card = MaterialColors.getColor(ui.root, com.google.android.material.R.attr.colorSurfaceContainer)
+        fun capsule(fill: Int, rim: Int, rimWidth: Float) = GradientDrawable().apply {
+            cornerRadius = 100 * dp // clamped to half the height: a capsule
+            setColor(fill)
+            setStroke((rimWidth * dp).roundToInt(), rim)
+        }
+
+        ui.hero.background = GradientDrawable().apply {
+            cornerRadius = 16 * dp
+            setColor(card)
+            setStroke(px(1), Color.WHITE.withAlpha(0.08f))
+        }
+        ui.heroArt.isVisible = false
+        ui.heroContent.setPadding(px(16), px(16), px(16), px(16))
+        ui.statusTitle.textSize = 19f
+        ui.statusBody.textSize = 13f
+        ui.statusBody.setTextColor(muted)
+        (ui.progressRing.parent as View).updateLayoutParams<ViewGroup.MarginLayoutParams> {
+            width = px(60)
+            height = px(60)
+        }
+        ui.progressRing.indicatorSize = px(60)
+        ui.progressRing.trackThickness = px(5)
+        ui.progressRing.setIndicatorColor(accent)
+        ui.progressRing.trackColor = Color.WHITE.withAlpha(0.1f)
+        ui.ringIcon.updateLayoutParams<ViewGroup.LayoutParams> {
+            width = px(24)
+            height = px(24)
+        }
+        ImageViewCompat.setImageTintList(ui.ringIcon, ColorStateList.valueOf(accent))
+        ui.ringPercent.textSize = 15f
+
+        ui.startButton.background =
+            RippleDrawable(ColorStateList.valueOf(accent.withAlpha(0.3f)), capsule(accent.withAlpha(0.2f), accent.withAlpha(0.9f), 1.5f), null)
+        ui.startButton.backgroundTintList = null
+        ui.startButton.updateLayoutParams<ViewGroup.LayoutParams> { height = px(50) }
+        ui.startButton.setTextColor(ContextCompat.getColor(this, R.color.text_primary))
+        ui.startButton.iconTint = ColorStateList.valueOf(accent)
+        ui.clearScanButton.cornerRadius = px(22)
+        ui.clearScanButton.strokeColor = ColorStateList.valueOf(muted.withAlpha(0.45f))
+        ui.clearScanButton.setTextColor(muted)
+        ui.clearScanButton.iconTint = ColorStateList.valueOf(muted)
+    }
+
+    private fun checkedOr(checked: Int, otherwise: Int) = ColorStateList(
+        arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf()),
+        intArrayOf(checked, otherwise),
+    )
+
+    private fun Int.withAlpha(fraction: Float): Int = ColorUtils.setAlphaComponent(this, (fraction * 255).roundToInt())
 
     /** [icon] replaces the percentage in the middle of the progress ring when it is not null. */
     private fun showStatus(title: String, body: String, @DrawableRes icon: Int?, ring: Int) {
