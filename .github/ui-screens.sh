@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper (run 2, no stars): the Space Glass theme and the compact list, on a fresh scan. Removed before merging.
+# Temporary review helper (run 3, no stars): the Space Glass theme and the compact list, on a fresh scan. Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -63,7 +63,10 @@ cat > /tmp/scan.xml <<'XML'
 </map>
 XML
 adb push /tmp/scan.xml /data/local/tmp/scan.xml
-adb shell run-as "$PKG" sh -c 'mkdir -p shared_prefs && cp /data/local/tmp/scan.xml shared_prefs/scan.xml'
+# One command each: adb shell joins its arguments, so a quoted "sh -c '...'" would lose its quotes on the device.
+adb shell run-as "$PKG" mkdir -p shared_prefs
+adb shell run-as "$PKG" cp /data/local/tmp/scan.xml shared_prefs/scan.xml
+adb shell run-as "$PKG" cat shared_prefs/scan.xml | tee -a "$LOG"
 
 adb shell cmd uimode night yes
 launch; sleep 8
