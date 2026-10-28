@@ -23,6 +23,37 @@ enum class ThemeChoice(val key: String) {
     }
 }
 
+/**
+ * The moving background behind the home screen, picked apart from the theme's colours: the Milky Way in one of the
+ * themes' colours, or Space Glass's grid and price line. [THEME], the default, follows the theme; the others share
+ * the theme's keys. [key] is what the settings store.
+ */
+enum class BackgroundChoice(val key: String) {
+    THEME("theme"),
+    GALAXY("galaxy"),
+    NEBULA("nebula"),
+    AURORA("aurora"),
+    MIDNIGHT("midnight"),
+    SUNSET("sunset"),
+    OCEAN("ocean"),
+    EMERALD("emerald"),
+    MARS("mars"),
+    ROYAL_GOLD("royal_gold"),
+    FROST("frost"),
+    SPACE_GLASS("space_glass");
+
+    /** The background on show with [theme]: this one, or the theme's own for [THEME]. */
+    fun shownWith(theme: ThemeChoice): BackgroundChoice = if (this == THEME) fromKey(theme.key) else this
+
+    /** Space Glass draws its own background ([SpaceGlassSkyView]) in place of the Milky Way. */
+    val ownSky: Boolean
+        get() = this == SPACE_GLASS
+
+    companion object {
+        fun fromKey(key: String?): BackgroundChoice = entries.firstOrNull { it.key == key } ?: THEME
+    }
+}
+
 /** Where the detail sheet's chart button opens a stock; [key] is what the settings store. */
 enum class ChartSite(val key: String) {
     TRADINGVIEW("tradingview"),
@@ -67,13 +98,18 @@ enum class ChartSite(val key: String) {
     }
 }
 
-/** User choices from the menu's Settings and Theme sheets, stored in the shared [Prefs.FILE]. */
+/** User choices from the menu's Settings, Theme and Background sheets, stored in the shared [Prefs.FILE]. */
 class AppSettings(context: Context) {
     private val prefs = context.getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE)
 
     var theme: ThemeChoice
         get() = ThemeChoice.fromKey(prefs.getString(Prefs.THEME, null))
         set(value) = prefs.edit { putString(Prefs.THEME, value.key) }
+
+    /** The moving background, the theme's own unless one was picked. */
+    var background: BackgroundChoice
+        get() = BackgroundChoice.fromKey(prefs.getString(Prefs.BACKGROUND, null))
+        set(value) = prefs.edit { putString(Prefs.BACKGROUND, value.key) }
 
     var chartSite: ChartSite
         get() = ChartSite.fromKey(prefs.getString(Prefs.CHART_SITE, null))

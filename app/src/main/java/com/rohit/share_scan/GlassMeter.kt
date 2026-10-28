@@ -7,13 +7,15 @@ import android.graphics.LinearGradient
 import android.graphics.Paint
 import android.graphics.RectF
 import android.graphics.Shader
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.ColorInt
 
 /**
  * A score bar in the Filters chip's glass: a glass channel (in the picked glass mode) filled to [fraction] with
- * [color], the fill glossy along its top like liquid in a glass tube.
+ * [color], the fill glossy along its top like liquid in a glass tube. [wearFlat] swaps the glass for the compact
+ * list's flat look.
  */
 class GlassMeter @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
 
@@ -33,13 +35,22 @@ class GlassMeter @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
 
     private val density = resources.displayMetrics.density
-    private val channel = context.chipGlass(radiusPx = null)
+    private var channel: Drawable = context.chipGlass(radiusPx = null)
+    private var flat = false
     private val fillPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { color = this@GlassMeter.color }
     private val glossPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val fill = RectF()
 
     init {
         importantForAccessibility = IMPORTANT_FOR_ACCESSIBILITY_NO
+    }
+
+    /** The compact list's flat look: a plain grey track filled edge to edge, without the glass or its gloss. */
+    fun wearFlat() {
+        flat = true
+        channel = context.flatCapsule(Color.WHITE.withAlpha(0.1f), Color.TRANSPARENT, 0f)
+        channel.setBounds(0, 0, width, height)
+        invalidate()
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -50,7 +61,7 @@ class GlassMeter @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
     override fun onDraw(canvas: Canvas) {
         channel.draw(canvas)
-        val inset = INSET_DP * density
+        val inset = if (flat) 0f else INSET_DP * density
         val inner = width - 2 * inset
         val thickness = height - 2 * inset
         if (fraction <= 0f || inner <= 0f || thickness <= 0f) return
@@ -63,7 +74,7 @@ class GlassMeter @JvmOverloads constructor(context: Context, attrs: AttributeSet
         }
         val r = thickness / 2
         canvas.drawRoundRect(fill, r, r, fillPaint)
-        canvas.drawRoundRect(fill, r, r, glossPaint)
+        if (!flat) canvas.drawRoundRect(fill, r, r, glossPaint)
     }
 
     private companion object {

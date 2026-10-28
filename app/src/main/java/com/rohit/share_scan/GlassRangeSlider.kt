@@ -15,6 +15,7 @@ import kotlin.math.roundToInt
  * The filter sheet's min/max slider in the Filters chip's glass: a glass channel, the picked range as a checked chip's
  * accent glass and two glass beads for the thumbs, in the picked glass mode. RangeSlider still does the touch, values,
  * labels and accessibility; its own track and thumbs are made invisible, and only its press halo still shows.
+ * [wearFlat] swaps the glass for the compact list's flat look.
  */
 class GlassRangeSlider @JvmOverloads constructor(
     context: Context,
@@ -23,10 +24,11 @@ class GlassRangeSlider @JvmOverloads constructor(
 ) : RangeSlider(context, attrs, defStyleAttr) {
 
     private val density = resources.displayMetrics.density
-    private val channel = context.chipGlass(radiusPx = null)
-    private val range = context.chipGlass(radiusPx = null, on = true)
-    private val bead =
+    private var channel: Drawable = context.chipGlass(radiusPx = null)
+    private var range: Drawable = context.chipGlass(radiusPx = null, on = true)
+    private var bead: Drawable =
         context.chipGlass(radiusPx = null, tintBoost = 1.4f, on = true, rimBoost = 3f, surface = BEAD_SURFACE)
+    private var rangeInset = RANGE_INSET_DP
 
     init {
         val clear = ColorStateList.valueOf(Color.TRANSPARENT)
@@ -47,6 +49,23 @@ class GlassRangeSlider @JvmOverloads constructor(
         setHaloRadius(dp(BEAD_DP / 2 + HALO_DP))
         setHaloTintList(ColorStateList.valueOf(HALO))
         addOnChangeListener { _, _, _ -> keepBeadsFromBackGesture() }
+    }
+
+    /**
+     * The compact list's flat look: a thin grey track, the picked range in the accent, and white beads ringed in it.
+     */
+    fun wearFlat() {
+        val accent = context.flatAccent()
+        channel = context.flatCapsule(Color.WHITE.withAlpha(0.1f), Color.TRANSPARENT, 0f)
+        range = context.flatCapsule(accent, Color.TRANSPARENT, 0f)
+        bead = context.flatCapsule(Color.WHITE, accent, FLAT_BEAD_RIM_DP)
+        rangeInset = 0f
+        setTrackHeight(dp(FLAT_TRACK_DP))
+        setThumbWidth(dp(FLAT_BEAD_DP))
+        setThumbHeight(dp(FLAT_BEAD_DP))
+        setHaloRadius(dp(FLAT_BEAD_DP / 2 + HALO_DP))
+        setHaloTintList(ColorStateList.valueOf(accent.withAlpha(0.2f)))
+        invalidate()
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
@@ -78,7 +97,7 @@ class GlassRangeSlider @JvmOverloads constructor(
         channel.draw(canvas)
 
         val xs = values.map(::xOf)
-        val inset = RANGE_INSET_DP * density
+        val inset = rangeInset * density
         range.setBounds(xs.min() - half + inset, y - half + inset, xs.max() + half - inset, y + half - inset)
         range.draw(canvas)
 
@@ -109,6 +128,11 @@ class GlassRangeSlider @JvmOverloads constructor(
 
         /** How far the range's glass sits inside the channel. */
         const val RANGE_INSET_DP = 2f
+
+        /** The flat look's track, beads and the accent ring round each bead ([wearFlat]). */
+        const val FLAT_TRACK_DP = 5f
+        const val FLAT_BEAD_DP = 20f
+        const val FLAT_BEAD_RIM_DP = 2.5f
 
         /** The beads' size: bigger than the channel, so they read as handles. */
         const val BEAD_DP = 22f

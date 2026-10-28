@@ -1,9 +1,11 @@
 package com.rohit.share_scan
 
 /**
- * The colours one theme paints its Milky Way with (see [GalaxySkyView]). Colours are linear 0..1 RGB.
+ * The colours of one Milky Way background (see [GalaxySkyView], [BackgroundChoice]), each named after the theme it
+ * comes with. Colours are linear 0..1 RGB.
  *
- * @property spaceTop deep space at the top; it must match the theme's opaque status-bar strip (its colorBackground)
+ * @property spaceTop deep space at the top; it must match [BackgroundChoice.top], the opaque strip behind the status
+ *   bar (the theme of the same name's colorBackground)
  * @property spaceBottom deep space at the bottom
  * @property arm the band's light out along its arms
  * @property core the band's light at its core

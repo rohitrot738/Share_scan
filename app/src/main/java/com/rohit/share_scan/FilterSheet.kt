@@ -20,7 +20,8 @@ import kotlin.math.roundToInt
 /**
  * Bottom sheet where every metric gets a min/max range slider; nothing changes until "लागू करें". It edits one
  * scan's [filters], counting matches among that scan's [pool] (every scanned stock for the Breakout scan, the stocks on
- * a long support floor for the Support scan); Reset goes back to [defaults].
+ * a long support floor for the Support scan); Reset goes back to [defaults]. With the compact list on, it wears the
+ * list's [flat] look: thin sliders, outlined chips and an accent capsule for "लागू करें".
  */
 class FilterSheet(
     private val activity: AppCompatActivity,
@@ -29,6 +30,7 @@ class FilterSheet(
     private val pool: List<ScanResult>,
     private val defaults: ScanFilters,
     private val onApply: (ScanFilters) -> Unit,
+    private val flat: Boolean = false,
 ) {
     private val dialog = BottomSheetDialog(activity)
     private val ui = SheetFiltersBinding.inflate(activity.layoutInflater)
@@ -45,7 +47,15 @@ class FilterSheet(
             draft = resetDraft()
             sync()
         }
-        ui.filterApply.wearChipGlass(APPLY_CORNER_DP, tintBoost = 1.8f, ripple = true)
+        if (flat) {
+            ui.filterApply.wearFlatAction()
+            listOf(ui.limitChips).plus(rows.values.map { it.metricPresets })
+                .flatMap { group -> (0 until group.childCount).map(group::getChildAt) }
+                .filterIsInstance<Chip>()
+                .forEach { it.wearFlat(accented = false) }
+        } else {
+            ui.filterApply.wearChipGlass(APPLY_CORNER_DP, tintBoost = 1.8f, ripple = true)
+        }
         ui.filterApply.setOnClickListener {
             onApply(draft)
             dialog.dismiss()
@@ -62,6 +72,7 @@ class FilterSheet(
     private fun addRow(metric: Metric) {
         val row = ItemFilterMetricBinding.inflate(activity.layoutInflater, ui.filterMetrics, true)
         rows[metric] = row
+        if (flat) row.metricSlider.wearFlat()
         row.metricName.setText(nameOf(metric))
         hintOf(metric)?.let {
             row.metricHint.text = it

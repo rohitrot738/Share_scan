@@ -120,13 +120,17 @@ class TrackRecordSheet(
     }
 }
 
-/** Industries ranked by their stocks' mean score in the latest scan; tapping one filters the list to it. */
+/**
+ * Industries ranked by their stocks' mean score in the latest scan; tapping one filters the list to it. With the
+ * compact list on, the cards and bars wear the list's [flat] look.
+ */
 class SectorSheet(
     private val activity: AppCompatActivity,
     private val results: List<ScanResult>,
     private val current: Set<String>,
     private val onPick: (String?) -> Unit,
     private val onBack: (() -> Unit)?,
+    private val flat: Boolean = false,
 ) {
     private val ui = SheetListBinding.inflate(activity.layoutInflater)
 
@@ -137,11 +141,13 @@ class SectorSheet(
         val ranked = SectorStrength.rank(results)
         if (ranked.isEmpty()) {
             val card = ItemHelpBinding.inflate(activity.layoutInflater, ui.listItems, true)
+            if (flat) card.root.wearFlat()
             card.helpTitle.setText(R.string.sector_empty_title)
             card.helpBody.setText(if (results.isEmpty()) R.string.sector_empty_no_scan else R.string.sector_empty_body)
         }
         if (current.isNotEmpty()) {
             val clear = ItemHelpBinding.inflate(activity.layoutInflater, ui.listItems, true)
+            if (flat) clear.root.wearFlat()
             clear.helpTitle.text = activity.getString(R.string.sector_clear_title, current.joinToString(", "))
             clear.helpBody.setText(R.string.sector_clear_body)
             clear.root.isClickable = true
@@ -152,6 +158,10 @@ class SectorSheet(
         }
         ranked.forEachIndexed { index, sector ->
             val card = ItemSectorBinding.inflate(activity.layoutInflater, ui.listItems, true)
+            if (flat) {
+                card.root.wearFlat()
+                card.sectorBar.wearFlat()
+            }
             val tone = when (StockFormat.tier(sector.averageScore)) {
                 StockFormat.Tier.STRONG -> R.color.bull
                 StockFormat.Tier.WATCH -> R.color.warn

@@ -28,6 +28,9 @@ object Prefs {
     /** [ThemeChoice.key] of the picked theme. */
     const val THEME = "theme"
 
+    /** [BackgroundChoice.key] of the picked background; none follows the theme. */
+    const val BACKGROUND = "background"
+
     /** [ChartSite.key] the detail sheet's chart button opens. */
     const val CHART_SITE = "chart_site"
 

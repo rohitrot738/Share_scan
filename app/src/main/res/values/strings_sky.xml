@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu → Background (BackgroundSheet): the moving background behind the home screen, picked apart from the theme. -->
+    <string name="menu_background">Background</string>
+    <string name="background_title">Background चुनें</string>
+    <string name="background_subtitle">Theme के रंग वही रहेंगे — सिर्फ़ पीछे का चलता background बदलेगा</string>
+    <string name="background_theme">Theme के साथ (%1$s)</string>
+    <string name="background_theme_body">जो theme चुनी है, उसी का अपना background</string>
+    <string name="background_galaxy_body">बैंगनी आकाशगंगा, टिमटिमाते और टूटते तारे</string>
+    <string name="background_nebula_body">गुलाबी-जामुनी नेबुला वाली आकाशगंगा</string>
+    <string name="background_aurora_body">आकाशगंगा के नीचे हरी-नीली northern lights</string>
+    <string name="background_midnight_body">काले आसमान में आकाशगंगा • AMOLED पर battery बचाए</string>
+    <string name="background_sunset_body">नारंगी-गुलाबी शाम के आसमान में आकाशगंगा</string>
+    <string name="background_ocean_body">गहरे नीले आसमान में आकाशगंगा</string>
+    <string name="background_emerald_body">पन्ना-हरी आकाशगंगा</string>
+    <string name="background_mars_body">धूल भरे लाल आसमान में आकाशगंगा</string>
+    <string name="background_royal_gold_body">सुनहरी और जामुनी आकाशगंगा</string>
+    <string name="background_frost_body">बर्फ़ीली नीली आकाशगंगा, हल्की northern lights</string>
+    <string name="background_space_glass_body">तारों के बिना: तैरती रोशनियाँ, चलती trading grid और chart-line</string>
+    <string name="help_sky_title">Theme और Background अलग-अलग</string>
+    <string name="help_sky_body">Menu → Theme से app के रंग चुनें और Menu → Background से पीछे का चलता background — दोनों अलग हैं, इसलिए किसी भी theme के साथ कोई भी background लगा सकते हैं। Background में 10 आकाशगंगा वाले हैं (Galaxy, Nebula, Aurora, Midnight, Sunset, Ocean, Emerald, Mars, Royal Gold, Frost — टिमटिमाते और टूटते तारे, और आकाशगंगा की ओर उड़ान) और Space Glass वाला (तारों के बिना: तैरती रोशनियाँ, चलती trading grid और chart-line)। "Theme के साथ" चुनने पर background theme बदलने पर अपने-आप बदलता है। Settings → आसमान का animation बंद करने पर हर background रुक जाता है।</string>
+</resources>
