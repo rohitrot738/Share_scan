@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    A compact table line's ground: the theme's own background (#0B0F19 in Space Glass), all but solid, so the
+    numbers read on plain dark as in the redesign while the moving background stays behind the header and bar.
+-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:alpha="0.95" android:color="?android:attr/colorBackground" />
+</selector>

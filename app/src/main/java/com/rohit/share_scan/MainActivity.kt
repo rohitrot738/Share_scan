@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.os.SystemClock
@@ -30,6 +31,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.edit
+import androidx.core.graphics.ColorUtils
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -49,6 +51,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDragHandleView
 import com.google.android.material.chip.Chip
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.rohit.share_scan.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
@@ -156,6 +159,7 @@ class MainActivity : AppCompatActivity() {
         if (compact) setUpCompact()
         applyWindowInsets()
         setUpListTools()
+        if (compact) styleBarChips()
         ui.updateAction.setOnClickListener { updates.proceed() }
         ui.updateLater.setOnClickListener { updates.dismiss() }
         ui.menuButton.setOnClickListener { openMenu() }
@@ -475,7 +479,7 @@ class MainActivity : AppCompatActivity() {
                     state.scanMode == ScanMode.SUPPORT -> getString(R.string.pill_support_done, stocks)
                     open && state.live && today -> getString(R.string.pill_live_done, stocks)
                     else -> getString(R.string.pill_done, stocks)
-                } to (if (open) R.color.bull else R.color.warn)
+                } to R.color.bull
             }
             ScanPhase.FAILED -> getString(R.string.pill_failed) to R.color.bear
         }
@@ -503,13 +507,20 @@ class MainActivity : AppCompatActivity() {
         ui.resultsSection.updatePadding(top = 0, bottom = 0)
         ui.compactHeader.isVisible = true
         ui.compactColumns.isVisible = true
-        updates.installedName.takeIf { it.isNotEmpty() }?.let { ui.compactVersion.text = getString(R.string.header_version, it) }
+        // The version's major and minor, as the redesign's "Share Scan v1.2"; the About sheet has the full one.
+        updates.installedName.takeIf { it.isNotEmpty() }?.let {
+            ui.compactVersion.text = getString(R.string.header_version, it.split('.').take(2).joinToString("."))
+        }
         ui.statusPill.setOnClickListener { openScanPanel() }
         ui.compactSearch.setOnClickListener { openSearch() }
         ui.compactMenu.setOnClickListener { openMenu() }
 
-        // The tools into the floating bar, with sharing at their end; the list keeps room under its last line.
+        // The tools into the floating bar in the redesign's order (Filters, Watchlist, the sorts), then the sector
+        // and sharing; the list keeps room under its last line.
         ui.resultsSection.removeView(ui.listToolsScroll)
+        ui.listToolsDivider.isVisible = false
+        ui.listTools.removeView(ui.sectorChip)
+        ui.listTools.addView(ui.sectorChip)
         // Inset by the bar, not by its own padding: the chips would draw unfaded in the padding past the fading edges.
         ui.listToolsScroll.updatePadding(left = 0, right = 0)
         // The sort chips run past the bar's end; its edges fade to show there is more to scroll to.
@@ -561,6 +572,39 @@ class MainActivity : AppCompatActivity() {
             // The board goes back to waiting for the next time the pill is tapped.
             setOnDismissListener { root.removeView(content) }
             show()
+        }
+    }
+
+    /**
+     * The floating bar's chips as the redesign draws them: outlined capsules on the bar's glass, without the glass
+     * chips' shine or ticks. Filters, Watchlist, the sector and sharing are ringed in the accent; the sorts (and the
+     * Support scan's reach) in grey, the chosen one lit with its ↓ or ↑.
+     */
+    private fun styleBarChips() {
+        val dp = resources.displayMetrics.density
+        val accent = MaterialColors.getColor(ui.root, androidx.appcompat.R.attr.colorPrimary)
+        val muted = MaterialColors.getColor(ui.root, com.google.android.material.R.attr.colorOnSurfaceVariant)
+        val text = ContextCompat.getColor(this, R.color.text_primary)
+        fun alpha(color: Int, fraction: Float) = ColorUtils.setAlphaComponent(color, (fraction * 255).roundToInt())
+        fun checkedOr(checked: Int, otherwise: Int) = ColorStateList(
+            arrayOf(intArrayOf(android.R.attr.state_checked), intArrayOf()),
+            intArrayOf(checked, otherwise),
+        )
+        fun Chip.outline(rim: ColorStateList, label: ColorStateList) {
+            foreground = null
+            chipBackgroundColor = checkedOr(alpha(accent, 0.18f), alpha(Color.WHITE, 0.04f))
+            chipStrokeColor = rim
+            chipStrokeWidth = 1.2f * dp
+            setTextColor(label)
+            chipIconTint = ColorStateList.valueOf(accent)
+            isCheckedIconVisible = false
+        }
+        val actions = listOfNotNull(ui.filterChip, ui.watchlistChip, ui.sectorChip, compactShare)
+        actions.forEach { it.outline(ColorStateList.valueOf(alpha(accent, 0.85f)), ColorStateList.valueOf(text)) }
+        val choices = (0 until ui.sortChips.childCount).map(ui.sortChips::getChildAt) +
+            (0 until ui.supportReachChips.childCount).map(ui.supportReachChips::getChildAt)
+        choices.filterIsInstance<Chip>().forEach {
+            it.outline(checkedOr(alpha(accent, 0.85f), alpha(muted, 0.45f)), checkedOr(text, muted))
         }
     }
 
@@ -847,7 +891,7 @@ class MainActivity : AppCompatActivity() {
             !state.watchlistOnly -> return false
             state.watchlist.isEmpty() -> Triple(
                 getString(R.string.list_empty_watchlist_title),
-                getString(R.string.list_empty_watchlist_body),
+                getString(if (compact) R.string.list_empty_watchlist_body_compact else R.string.list_empty_watchlist_body),
                 R.drawable.ic_star_outline,
             )
             // Stars with no chart yet, such as ones synced from another phone before any scan here.

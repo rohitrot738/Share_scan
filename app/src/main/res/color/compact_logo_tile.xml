@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The compact header's logo tile (bg_compact_logo): the theme's green (#10B981 in Space Glass), faint. -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:alpha="0.22" android:color="?attr/colorSecondary" />
+</selector>

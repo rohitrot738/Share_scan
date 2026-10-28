@@ -10,7 +10,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.accessibility.AccessibilityNodeInfoCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updatePadding
 import androidx.core.widget.ImageViewCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -18,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rohit.share_scan.databinding.ItemStockBinding
 import com.rohit.share_scan.databinding.ItemStockCompactBinding
 import java.util.Locale
+import kotlin.math.roundToInt
 
 class StockAdapter(
     private val onOpen: (ScanResult) -> Unit,
@@ -60,6 +64,12 @@ class StockAdapter(
         holder.itemView.setOnClickListener { stockAt()?.let(onOpen) }
         (holder.card?.newsBadge ?: holder.row!!.rowNews).setOnClickListener { stockAt()?.let(onNews) }
         (holder.card?.star ?: holder.row!!.rowStar).setOnClickListener { stockAt()?.let(onStar) }
+        // A table line shows a star only once its stock is on the watchlist; a long press adds or removes it.
+        holder.row?.root?.setOnLongClickListener {
+            val stock = stockAt() ?: return@setOnLongClickListener false
+            onStar(stock)
+            true
+        }
         return holder
     }
 
@@ -224,20 +234,16 @@ class StockAdapter(
 
     /**
      * A compact table line: rank, ticker with its exchange, rank-move and 📰 marks and the company under it, the
-     * price, the 5-day change with RVOL under it, and the score with the watchlist star. The rest of the card (setups,
-     * support, R/S, market cap) is in the stock's detail, a tap away.
+     * price, the 5-day change with RVOL under it, and the score. As the redesign draws it, the numbers are plain
+     * white, the change green or red and RVOL muted; the score turns gold, with a ★, for the watchlist's stocks. The
+     * rest of the card (setups, support, R/S, market cap) is in the stock's detail, a tap away.
      */
     private fun bindRow(ui: ItemStockCompactBinding, item: RankedStock) {
         val stock = item.stock
         val context = ui.root.context
         fun color(id: Int) = ContextCompat.getColor(context, id)
-        val tierColor = when (StockFormat.tier(stock.score)) {
-            StockFormat.Tier.STRONG -> R.color.bull
-            StockFormat.Tier.WATCH -> R.color.warn
-            StockFormat.Tier.WEAK -> R.color.neutral
-        }
         val ranked = item.rank != RankedStock.UNRANKED
-        ui.rowRank.text = if (ranked) item.rank.toString() else context.getString(R.string.item_rank_none)
+        ui.rowRank.text = if (ranked) context.getString(R.string.compact_rank, item.rank) else context.getString(R.string.item_rank_none)
         ui.rowSymbol.text = stock.symbol
         ui.rowCompany.text = StockSearch.shortName(stock.name).ifEmpty { stock.sector }
         val exchange = MarketStyle.of(stock.market)
@@ -258,9 +264,9 @@ class StockAdapter(
             ui.rowChange.text = StockFormat.signedChange(stock.change5d)
             ui.rowChange.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
             ui.rowRvol.text = context.getString(if (stock.live) R.string.item_rvol_live else R.string.item_rvol, StockFormat.rvol(stock.rvol))
-            ui.rowRvol.setTextColor(color(if (stock.rvol >= StockFormat.SPIKE_RVOL) R.color.warn else R.color.text_secondary))
+            ui.rowRvol.setTextColor(color(R.color.text_secondary))
             ui.rowScore.text = score
-            ui.rowScore.setTextColor(color(tierColor))
+            ui.rowScore.setTextColor(color(if (item.starred) R.color.warn else R.color.text_primary))
         } else {
             val empty = context.getString(R.string.stat_empty)
             ui.rowPrice.text = empty
@@ -271,13 +277,16 @@ class StockAdapter(
             ui.rowScore.text = empty
             ui.rowScore.setTextColor(color(R.color.neutral))
         }
-        ui.rowStar.setImageResource(if (item.starred) R.drawable.ic_star else R.drawable.ic_star_outline)
-        ImageViewCompat.setImageTintList(
-            ui.rowStar,
-            ColorStateList.valueOf(color(if (item.starred) R.color.warn else R.color.text_secondary)),
+        ui.rowStar.isVisible = item.starred
+        ui.rowStar.contentDescription = context.getString(R.string.list_star_remove, stock.symbol)
+        // The score keeps to the column's edge, or makes room for the star.
+        ui.rowScore.updatePadding(right = if (item.starred) 0 else (SCORE_EDGE_DP * context.resources.displayMetrics.density).roundToInt())
+        ViewCompat.replaceAccessibilityAction(
+            ui.root,
+            AccessibilityNodeInfoCompat.AccessibilityActionCompat.ACTION_LONG_CLICK,
+            context.getString(if (item.starred) R.string.list_star_remove else R.string.list_star_add, stock.symbol),
+            null,
         )
-        ui.rowStar.contentDescription =
-            context.getString(if (item.starred) R.string.list_star_remove else R.string.list_star_add, stock.symbol)
         ui.root.contentDescription = listOfNotNull(
             when {
                 !charted -> context.getString(R.string.item_description_no_data, stock.symbol)
@@ -342,6 +351,9 @@ class StockAdapter(
     private companion object {
         const val CARD = 0
         const val ROW = 1
+
+        /** The score's gap to a table line's edge, as the SCORE column name keeps (compactColumns). */
+        const val SCORE_EDGE_DP = 8
     }
 
     private object Diff : DiffUtil.ItemCallback<RankedStock>() {

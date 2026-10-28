@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
     A stock as one line of the compact table (Settings → Compact list; StockAdapter): rank, ticker with its badges
-    and the company under it, price, the 5-day change with RVOL under it, and the score with the watchlist star.
-    No card: a hairline divides the lines. The columns line up with the header in activity_main.xml (compactColumns).
+    and the company under it, price, the 5-day change with RVOL under it, and the score, gold with a ★ when the
+    stock is on the watchlist (a long press adds or removes it). No card: the lines sit on the theme's plain dark
+    and a hairline divides them. The columns line up with the header in activity_main.xml (compactColumns).
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
+    android:background="@color/compact_row"
     android:clickable="true"
     android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:longClickable="true"
     android:orientation="vertical">
 
     <LinearLayout
@@ -29,8 +32,7 @@
             android:fontFeatureSettings="tnum"
             android:maxLines="1"
             android:textColor="?attr/colorOnSurfaceVariant"
-            android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textSize="13sp" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -125,10 +127,10 @@
                 android:id="@+id/rowChange"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
                 android:fontFeatureSettings="tnum"
                 android:maxLines="1"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/rowRvol"
@@ -152,18 +154,24 @@
                 android:layout_height="wrap_content"
                 android:fontFeatureSettings="tnum"
                 android:maxLines="1"
+                android:paddingEnd="8dp"
                 android:textSize="15sp"
                 android:textStyle="bold" />
 
+            <!-- Only on the watchlist's stocks; tapping it takes the stock off. -->
             <ImageButton
                 android:id="@+id/rowStar"
-                android:layout_width="30dp"
+                android:layout_width="24dp"
                 android:layout_height="36dp"
+                android:layout_marginEnd="4dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:padding="7dp"
+                android:paddingStart="4dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_star_outline"
-                app:tint="?attr/colorOnSurfaceVariant" />
+                android:src="@drawable/ic_star"
+                android:visibility="gone"
+                app:tint="@color/warn" />
         </LinearLayout>
     </LinearLayout>
 
