@@ -3,23 +3,194 @@
     <string name="theme">space_glass</string>
     <boolean name="compact_list" value="true" />
 </map>
+dismissed a not-responding dialog
 shot 01-space-idle
 could not find id statusPill
+dismissed a not-responding dialog
 shot 02-scan-panel
 could not find id startButton
+dismissed a not-responding dialog
 shot 03-scanning
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
 scan done after ~762s
+dismissed a not-responding dialog
 shot 04-compact-list
-Pixel Launcher isn't responding
-Close app
-Wait
+Share Scan
+v1.2.138
+SCAN शुरू करें ▸
+#
+STOCK / COMPANY
+PRICE
+5D / RVOL
+SCORE
+अभी कोई नतीजा नहीं
+ऊपर की pill दबाकर स्कैन शुरू करें — स्कैन पूरा होते ही top candidates score के हिसाब से यहाँ दिखेंगे।
+Filters
+★ Watchlist
+सेक्टर
+Score ↓
+dismissed a not-responding dialog
 shot 05-list-scrolled
 could not find id rowSymbol
+dismissed a not-responding dialog
 shot 06-detail
-could not find id compactMenu
-could not find text थीम
+app was not in front
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
 shot 07-theme-picker
+dismissed a not-responding dialog
 could not find id compactMenu
-could not find text सेटिंग्स
-could not find text Compact list
+dismissed a not-responding dialog
+dismissed a not-responding dialog
+dismissed a not-responding dialog
 shot 08-space-cards
