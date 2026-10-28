@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="theme">nebula</string>
+    <string name="background">space_glass</string>
+</map>
+shot 01-glass-bg-nebula-theme
+scan done after ~50s
+shot 02-glass-bg-nebula-list
+shot 03-filters
+shot 04-sectors
+could not find id compactMenu
+shot 05-background-picker
+shot 06-galaxy-bg-nebula-theme
+shot 07-galaxy-bg-glass-theme
+shot 08-glass-bg-glass-theme
