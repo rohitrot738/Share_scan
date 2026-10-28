@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper (run 6, pinned header, no stars): the Space Glass theme and the compact list, on a fresh scan. Removed before merging.
+# Temporary review helper (run 7, pinned header, no stars): the Space Glass theme and the compact list, on a fresh scan. Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -21,12 +21,24 @@ front() {
   adb shell am start -n "$PKG/.MainActivity" > /dev/null
   sleep 4
 }
+# A failed dump leaves an empty file, never the last screen's.
 dump() {
+  adb shell rm -f /sdcard/ui.xml
+  : > /tmp/ui.xml
   for attempt in 1 2 3; do
-    adb shell uiautomator dump /sdcard/ui.xml > /dev/null 2>&1 && break
+    if adb shell uiautomator dump /sdcard/ui.xml > /dev/null 2>&1; then
+      adb exec-out cat /sdcard/ui.xml > /tmp/ui.xml
+      return 0
+    fi
     sleep 2
   done
-  adb exec-out cat /sdcard/ui.xml > /tmp/ui.xml
+  echo "ui dump failed" | tee -a "$LOG"
+}
+# What the emulator is busy with, and why anything stopped responding.
+diag() {
+  echo "--- $1" >> "$LOG"
+  adb shell top -b -n 1 -m 8 >> "$LOG" 2>&1
+  adb logcat -d -s ActivityManager:E | grep -A 14 "ANR in" | head -60 >> "$LOG"
 }
 # The centre of the first view whose resource id is $2 (mode "id") or whose text contains $2 (mode "text").
 center() {
@@ -58,13 +70,13 @@ for m in re.finditer(r' text="([^"]*)"', xml):
         print(t)
 PY
 }
-# The emulator's own apps can stall ("Pixel Launcher isn't responding"); wait on them so the dialog leaves the screen.
+# The emulator's own apps can stall ("Pixel Launcher isn't responding"); close them so the dialog leaves the screen.
 unstall() {
   dump
   grep -q "t responding" /tmp/ui.xml || return 0
-  echo "dismissed a not-responding dialog" | tee -a "$LOG"
-  local xy; xy=$(center text "Wait") && adb shell input tap $xy
-  sleep 2
+  echo "closed a not-responding app" | tee -a "$LOG"
+  local xy; xy=$(center text "Close app") && adb shell input tap $xy
+  sleep 3
 }
 tap() { unstall; local xy; xy=$(center id "$1") && adb shell input tap $xy || echo "could not find id $1" | tee -a "$LOG"; }
 tap_text() { unstall; local xy; xy=$(center text "$1") && adb shell input tap $xy || echo "could not find text $1" | tee -a "$LOG"; }
@@ -83,9 +95,14 @@ adb shell run-as "$PKG" mkdir -p shared_prefs
 adb shell run-as "$PKG" cp /data/local/tmp/scan.xml shared_prefs/scan.xml
 adb shell run-as "$PKG" cat shared_prefs/scan.xml | tee -a "$LOG"
 
+# Dark mode first, with time for the launcher to redraw in it before the app starts.
 adb shell cmd uimode night yes
+adb shell input keyevent KEYCODE_HOME
+sleep 20
+diag "before the app"
 launch; sleep 8
 shot 01-space-idle 2
+diag "after launch"
 
 # The status pill opens the scan panel; SCAN from there.
 tap statusPill
@@ -130,3 +147,4 @@ tap_text "सेटिंग्स"
 sleep 2
 tap_text "Compact list"
 shot 08-space-cards 8
+diag "at the end"
