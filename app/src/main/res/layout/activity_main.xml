@@ -545,8 +545,8 @@
 
             <!--
                 The compact list's slim header (Settings → Compact list): logo, name and version, the scan's status
-                pill (a tap opens the scan's controls, ScanPanelSheet), search and menu. Pinned with the rest of
-                this section; the brand header, scan board and stats are hidden then.
+                pill (a tap opens the scan's controls), search and menu. MainActivity.setUpCompact moves it to the
+                top of the app bar, pinned; the brand header, scan board and stats are hidden then.
             -->
             <LinearLayout
                 android:id="@+id/compactHeader"

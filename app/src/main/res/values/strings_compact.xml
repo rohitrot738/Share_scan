@@ -23,6 +23,7 @@
     <string name="pill_live_done">LIVE SCAN 100%% • %1$s STOCKS</string>
     <string name="pill_support_done">SUPPORT 100%% • %1$s STOCKS</string>
     <string name="pill_failed">SCAN नहीं हुआ • फिर करें</string>
+    <string name="empty_body_compact">ऊपर की pill दबाकर स्कैन शुरू करें — स्कैन पूरा होते ही top candidates score के हिसाब से यहाँ दिखेंगे।</string>
     <string name="pill_description">%1$s; स्कैन के बटन खोलें</string>
 
     <string name="help_compact_title">Compact list और Space Glass theme</string>

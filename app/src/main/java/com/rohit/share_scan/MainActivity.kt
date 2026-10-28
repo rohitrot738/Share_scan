@@ -44,6 +44,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.withStarted
 import androidx.recyclerview.widget.SimpleItemAnimator
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDragHandleView
@@ -490,6 +491,11 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setUpCompact() {
         val dp = resources.displayMetrics.density
+        // The slim header becomes the app bar's first child: the bar keeps its children clear of the status bar only
+        // while the first one shows, and the brand header it takes the place of is hidden.
+        val headerHeight = ui.compactHeader.layoutParams.height
+        ui.resultsSection.removeView(ui.compactHeader)
+        ui.appBar.addView(ui.compactHeader, 0, AppBarLayout.LayoutParams(MATCH_PARENT, headerHeight))
         ui.brandHeader.isVisible = false
         ui.statsRow.isVisible = false
         ui.resultsHeading.isVisible = false
@@ -654,7 +660,8 @@ class MainActivity : AppCompatActivity() {
                     R.drawable.ic_radar,
                 )
                 state.reading -> Triple(R.string.status_reading_title, R.string.empty_reading_body, R.drawable.ic_radar)
-                state.phase == ScanPhase.IDLE -> Triple(R.string.empty_title, R.string.empty_body, R.drawable.ic_trending_up)
+                state.phase == ScanPhase.IDLE ->
+                    Triple(R.string.empty_title, if (compact) R.string.empty_body_compact else R.string.empty_body, R.drawable.ic_trending_up)
                 state.stopped -> Triple(R.string.empty_stopped_title, R.string.empty_stopped_body, R.drawable.ic_stop)
                 else -> Triple(R.string.empty_failed_title, R.string.empty_failed_body, R.drawable.ic_error)
             }
