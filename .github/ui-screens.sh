@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper (run 9, the PDF mockup's table, header and bar): the Space Glass theme and the compact list, on a fresh scan. Removed before merging.
+# Temporary review helper (run 10, the PDF mockup's table, header and bar): the Space Glass theme and the compact list, on a fresh scan. Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -81,7 +81,7 @@ unstall() {
 # Long-presses the lines at the given places (0 = the first line on screen), which puts them on the watchlist.
 star_rows() {
   dump
-  python3 - "$@" <<'PY' | while read -r x y; do adb shell input swipe "$x" "$y" "$x" "$y" 900; sleep 1; done
+  python3 - "$@" <<'PY' | while read -r x y; do adb shell input swipe "$x" "$y" "$x" "$y" 900 < /dev/null; sleep 1; done
 import re, sys
 xml = open('/tmp/ui.xml', encoding='utf-8').read()
 want = {int(a) for a in sys.argv[1:]}

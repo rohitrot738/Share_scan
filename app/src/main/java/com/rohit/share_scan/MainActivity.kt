@@ -519,6 +519,7 @@ class MainActivity : AppCompatActivity() {
         // and sharing; the list keeps room under its last line.
         ui.resultsSection.removeView(ui.listToolsScroll)
         ui.listToolsDivider.isVisible = false
+        ui.sortChips.updateLayoutParams<ViewGroup.MarginLayoutParams> { marginStart = (8 * dp).roundToInt() }
         ui.listTools.removeView(ui.sectorChip)
         ui.listTools.addView(ui.sectorChip)
         // Inset by the bar, not by its own padding: the chips would draw unfaded in the padding past the fading edges.
