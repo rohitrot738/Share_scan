@@ -5,22 +5,71 @@
 </map>
 shot 01-space-idle
 shot 02-scan-panel
-could not find id startButton
 shot 03-scanning
-scan done after ~762s
+scan done after ~77s
 shot 04-compact-list
-Wed, Oct 28
-Gmail
-Photos
-YouTube
-Phone
-Messages
-Chrome
 Share Scan
+v1.2.138
+SCAN 100% • 2,618 STOCKS
+#
+STOCK / COMPANY
+PRICE
+5D / RVOL
+SCORE
+1
+FSL
+NSE
+Firstsource Solutions
+₹307.95
++8.34%
+RVOL 0.68×
+86.0
+2
+TIPSMUSIC
+NSE
+Tips Music
+₹793.90
++6.14%
+RVOL 1.97×
+85.6
+3
+PVRINOX
+NSE
+📰
+PVR INOX
+₹1,445.30
++1.93%
+RVOL 3.10×
+85.6
+4
+UNITEDPOLY
+NSE
+United Polyfab Gujarat
+₹55.13
++8.29%
+RVOL 3.84×
+85.5
+5
+STEAMHOUSE
+NSE
+📰
+Steamhouse India
+₹144.06
++13.77%
+RVOL 0.63×
+83.6
+6
+SBC
+NSE
+SBC Exports
+₹65.48
++4.04%
+RVOL 0.57×
+83.3
+7
+LENSKART
 shot 05-list-scrolled
-could not find id rowSymbol
 shot 06-detail
-could not find id compactMenu
 could not find text थीम
 shot 07-theme-picker
 could not find id compactMenu
