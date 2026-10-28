@@ -574,14 +574,6 @@ class MainActivity : AppCompatActivity() {
         }
         scanPanel = BottomSheetDialog(this).apply {
             setContentView(root)
-            // The theme's plain dark, as the table, with the accent along the top edge in place of the frosted sheet.
-            val dp = resources.displayMetrics.density
-            val corner = 24 * dp
-            findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)?.background = GradientDrawable().apply {
-                cornerRadii = floatArrayOf(corner, corner, corner, corner, 0f, 0f, 0f, 0f)
-                setColor(MaterialColors.getColor(ui.root, android.R.attr.colorBackground))
-                setStroke((1 * dp).roundToInt(), MaterialColors.getColor(ui.root, androidx.appcompat.R.attr.colorPrimary).withAlpha(0.5f))
-            }
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
             behavior.skipCollapsed = true
             // The board goes back to waiting for the next time the pill is tapped.
@@ -625,7 +617,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * The scan panel's board in the redesign's flat style: a plain card with a hairline rim instead of the glass and
      * no art behind it, a slim ring in the accent, and capsule buttons: SCAN ringed and lit in the accent, Clear scan
-     * in grey. The sheet itself is the theme's plain dark with an accent rim along its top (see [openScanPanel]).
+     * in grey.
      */
     private fun styleScanPanel() {
         val dp = resources.displayMetrics.density
