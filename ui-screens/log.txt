@@ -1,5 +1,9 @@
+<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
+<map>
+    <string name="theme">space_glass</string>
+    <boolean name="compact_list" value="true" />
+</map>
 shot 01-space-idle
-could not find id statusPill
 shot 02-scan-panel
 could not find id startButton
 shot 03-scanning
