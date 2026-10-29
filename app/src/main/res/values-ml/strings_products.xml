@@ -2,6 +2,7 @@
 <resources>
     <string name="detail_section_products">എന്താണ് നിർമ്മിക്കുന്നത്</string>
     <string name="detail_products_hint">ഏതെങ്കിലും ഉൽപ്പന്നം ടാപ്പ് ചെയ്യുക: അത് നിർമ്മിക്കുന്ന കമ്പനികൾ ലിസ്റ്റിൽ കാണാം</string>
+    <string name="detail_products_credit">ചിത്രങ്ങൾ: കമ്പനിയുടെ സ്വന്തം വെബ്സൈറ്റിൽ നിന്നും Wikimedia Commons-ൽ നിന്നും • ഫോട്ടോ അമർത്തിപ്പിടിച്ചാൽ അതിന്റെ കടപ്പാട്</string>
     <string name="product_chip_description">%1$s നിർമ്മിക്കുന്ന കമ്പനികൾ കാണിക്കുക</string>
     <string name="product_applied">%1$s നിർമ്മിക്കുന്ന കമ്പനികൾ</string>
     <string name="product_filter_leave">ഉൽപ്പന്ന ഫിൽട്ടർ നീക്കുക</string>

@@ -1121,6 +1121,7 @@ class MainActivity : AppCompatActivity() {
             alert = alert,
             cr360 = state.cr360.of(stock.symbol),
             products = state.products.of(stock.symbol, state.cr360),
+            photos = state.photos.of(stock.symbol),
             setups = state.setups,
             openOnNews = onNews,
             onProduct = ::pickProduct,

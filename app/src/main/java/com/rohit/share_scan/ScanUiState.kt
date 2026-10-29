@@ -84,6 +84,8 @@ data class ScanUiState(
     val cr360: Cr360Book = Cr360Book.EMPTY,
     /** What every company makes, from the file the app carries ([ProductRepository]); empty until it is read. */
     val products: ProductBook = ProductBook.EMPTY,
+    /** Pictures for the products section from the internet ([ProductRepository.photos]); empty until read. */
+    val photos: ProductPhotos = ProductPhotos.EMPTY,
     /** The learned setups, from the daily learner ([SetupRepository]); empty until read, when the app's own apply. */
     val setups: SetupBook = SetupBook.EMPTY,
     /** Live mode's background scan is under way (the list still shows the previous scan). */

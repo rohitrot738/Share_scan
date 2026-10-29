@@ -2,6 +2,7 @@
 <resources>
     <string name="detail_section_products">ಏನನ್ನು ತಯಾರಿಸುತ್ತದೆ</string>
     <string name="detail_products_hint">ಯಾವುದೇ ಉತ್ಪನ್ನವನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿ: ಅದನ್ನು ತಯಾರಿಸುವ ಕಂಪನಿಗಳು ಪಟ್ಟಿಯಲ್ಲಿ ಕಾಣುತ್ತವೆ</string>
+    <string name="detail_products_credit">ಚಿತ್ರಗಳು: ಕಂಪನಿಯ ಸ್ವಂತ ವೆಬ್‌ಸೈಟ್ ಮತ್ತು Wikimedia Commons ನಿಂದ • ಯಾವುದೇ ಫೋಟೋವನ್ನು ಒತ್ತಿ ಹಿಡಿದರೆ ಅದರ ಶ್ರೇಯ</string>
     <string name="product_chip_description">%1$s ತಯಾರಿಸುವ ಕಂಪನಿಗಳನ್ನು ತೋರಿಸಿ</string>
     <string name="product_applied">%1$s ತಯಾರಿಸುವ ಕಂಪನಿಗಳು</string>
     <string name="product_filter_leave">ಉತ್ಪನ್ನ ಫಿಲ್ಟರ್ ತೆಗೆಯಿರಿ</string>

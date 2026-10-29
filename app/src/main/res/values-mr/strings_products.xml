@@ -2,6 +2,7 @@
 <resources>
     <string name="detail_section_products">काय बनवते</string>
     <string name="detail_products_hint">एखाद्या उत्पादनावर टॅप करा: ते बनवणाऱ्या कंपन्या यादीत दिसतील</string>
+    <string name="detail_products_credit">चित्रे: कंपनीच्या स्वतःच्या वेबसाइट आणि Wikimedia Commons वरून • एखादे चित्र दाबून धरल्यास त्याचे श्रेय</string>
     <string name="product_chip_description">%1$s बनवणाऱ्या कंपन्या दाखवा</string>
     <string name="product_applied">%1$s बनवणाऱ्या कंपन्या</string>
     <string name="product_filter_leave">उत्पादन फिल्टर काढा</string>

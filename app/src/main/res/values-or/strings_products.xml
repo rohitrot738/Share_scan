@@ -2,6 +2,7 @@
 <resources>
     <string name="detail_section_products">କ\'ଣ ତିଆରି କରେ</string>
     <string name="detail_products_hint">କୌଣସି ଉତ୍ପାଦ ଟ୍ୟାପ କରନ୍ତୁ: ତାହା ତିଆରି କରୁଥିବା କମ୍ପାନୀ ତାଲିକାରେ ଦେଖାଯିବ</string>
+    <string name="detail_products_credit">ଛବି: କମ୍ପାନୀର ନିଜ ୱେବସାଇଟ ଓ Wikimedia Commonsରୁ • କୌଣସି ଛବି ଦବାଇ ରଖିଲେ ତାର ଶ୍ରେୟ</string>
     <string name="product_chip_description">%1$s ତିଆରି କରୁଥିବା କମ୍ପାନୀ ଦେଖାନ୍ତୁ</string>
     <string name="product_applied">%1$s ତିଆରି କରୁଥିବା କମ୍ପାନୀ</string>
     <string name="product_filter_leave">ଉତ୍ପାଦ ଫିଲ୍ଟର ହଟାନ୍ତୁ</string>

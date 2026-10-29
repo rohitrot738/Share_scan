@@ -2,6 +2,7 @@
 <resources>
     <string name="detail_section_products">কী তৈরি করে</string>
     <string name="detail_products_hint">কোনো পণ্যে টিপুন: সেটি তৈরি করে এমন কোম্পানিগুলো তালিকায় দেখা যাবে</string>
+    <string name="detail_products_credit">ছবি: কোম্পানির নিজের ওয়েবসাইট আর Wikimedia Commons থেকে • কোনো ছবি চেপে ধরলে তার কৃতিত্ব</string>
     <string name="product_chip_description">%1$s তৈরি করে এমন কোম্পানি দেখান</string>
     <string name="product_applied">%1$s তৈরি করে এমন কোম্পানি</string>
     <string name="product_filter_leave">পণ্যের ফিল্টার সরান</string>

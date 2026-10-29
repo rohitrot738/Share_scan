@@ -49,6 +49,8 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(Dispatchers.IO) {
             val products = ProductRepository.book(application)
             state.update { it.copy(products = products) }
+            val photos = ProductRepository.photos(application)
+            state.update { it.copy(photos = photos) }
         }
         viewModelScope.launch(Dispatchers.IO) {
             val book = Cr360Repository.book(application)

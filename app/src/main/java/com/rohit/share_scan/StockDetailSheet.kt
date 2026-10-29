@@ -14,6 +14,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.HorizontalScrollView
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -73,6 +74,8 @@ class StockDetailSheet(
     private val openOnNews: Boolean = false,
     /** What the company makes ([ProductBook.of]), the main one first. */
     private val products: List<String> = emptyList(),
+    /** Its logo, its website's picture and its products' photos from the internet; null when none were found. */
+    private val photos: ProductPhotos.Company? = null,
     /** A product's tap: the list shows the companies making it ([Products] key); null leaves the products still. */
     private val onProduct: ((String) -> Unit)? = null,
 ) {
@@ -167,16 +170,43 @@ class StockDetailSheet(
         ui.detailScore.setTextColor(color(tierColor))
     }
 
-    /** What the company makes, each a tile with its picture and name; a tap closes the sheet and lists the companies making it. */
+    /**
+     * What the company makes, each a tile with its picture and name; a tap closes the sheet and lists the companies
+     * making it. The company's logo, its website's picture and its products' photos come in from the internet when
+     * found ([ProductPhotos]); a long press on a photo says whose it is.
+     */
     private fun bindProducts() {
         ui.detailProductsSection.isVisible = products.isNotEmpty()
         val onProduct = onProduct
         ui.detailProductsHint.isVisible = onProduct != null
+        val px = activity.resources.displayMetrics.density
+        photos?.logo?.let { url ->
+            WebImages.load(activity, ui.detailProductsLogo, url, (32 * px).toInt()) { ui.detailProductsLogo.isVisible = true }
+        }
+        photos?.banner?.let { url ->
+            WebImages.load(activity, ui.detailProductsBanner, url, activity.resources.displayMetrics.widthPixels) {
+                ui.detailProductsBanner.isVisible = true
+                ui.detailProductsCredit.isVisible = true
+            }
+        }
         for (key in products) {
             val tile = ItemProductTileBinding.inflate(activity.layoutInflater, ui.detailProducts, false)
             val name = ProductLabels.name(activity, key)
             tile.productName.text = name
             ProductLabels.image(key)?.let(tile.productImage::setImageResource)
+            photos?.photos?.get(key)?.let { url ->
+                WebImages.load(activity, tile.productImage, url, (56 * px).toInt()) {
+                    // A photo fills its frame; the drawn picture sat inside it.
+                    tile.productImage.setPadding(0, 0, 0, 0)
+                    tile.productImage.scaleType = ImageView.ScaleType.CENTER_CROP
+                    ui.detailProductsCredit.isVisible = true
+                }
+                tile.root.setOnLongClickListener {
+                    val credit = photos.credits[url] ?: activity.getString(R.string.detail_products_credit)
+                    Toast.makeText(activity, credit, Toast.LENGTH_LONG).show()
+                    true
+                }
+            }
             if (onProduct != null) {
                 tile.root.contentDescription = activity.getString(R.string.product_chip_description, name)
                 tile.root.setOnClickListener {

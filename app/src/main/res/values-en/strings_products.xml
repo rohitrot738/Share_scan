@@ -2,6 +2,7 @@
 <resources>
     <string name="detail_section_products">What it makes</string>
     <string name="detail_products_hint">Tap a product to list the companies that make it</string>
+    <string name="detail_products_credit">Pictures: from the company\'s own website and Wikimedia Commons • long-press a photo for its credit</string>
     <string name="product_chip_description">Show companies that make %1$s</string>
     <string name="product_applied">Companies that make %1$s</string>
     <string name="product_filter_leave">Remove the product filter</string>

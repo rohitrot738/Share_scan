@@ -3,6 +3,7 @@
 <resources>
     <string name="detail_section_products">क्या बनाती है</string>
     <string name="detail_products_hint">किसी product पर दबाएँ: उसे बनाने वाली companies list में दिखेंगी</string>
+    <string name="detail_products_credit">तस्वीरें: company की अपनी website और Wikimedia Commons से • किसी तस्वीर को दबाकर रखें तो उसका श्रेय</string>
     <string name="product_chip_description">%1$s बनाने वाली companies दिखाएँ</string>
     <string name="product_applied">%1$s बनाने वाली companies</string>
     <string name="product_filter_leave">Product filter हटाएँ</string>

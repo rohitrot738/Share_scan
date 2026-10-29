@@ -2,6 +2,7 @@
 <resources>
     <string name="detail_section_products">ఏమి తయారు చేస్తుంది</string>
     <string name="detail_products_hint">ఏదైనా ఉత్పత్తిపై నొక్కండి: దాన్ని తయారు చేసే కంపెనీలు జాబితాలో కనిపిస్తాయి</string>
+    <string name="detail_products_credit">చిత్రాలు: కంపెనీ సొంత వెబ్‌సైట్, Wikimedia Commons నుంచి • ఏదైనా ఫోటోను నొక్కి పట్టుకుంటే దాని క్రెడిట్</string>
     <string name="product_chip_description">%1$s తయారు చేసే కంపెనీలు చూపించండి</string>
     <string name="product_applied">%1$s తయారు చేసే కంపెనీలు</string>
     <string name="product_filter_leave">ఉత్పత్తి ఫిల్టర్ తీసివేయండి</string>

@@ -2,6 +2,7 @@
 <resources>
     <string name="detail_section_products">ਕੀ ਬਣਾਉਂਦੀ ਹੈ</string>
     <string name="detail_products_hint">ਕਿਸੇ ਉਤਪਾਦ ਉੱਤੇ ਟੈਪ ਕਰੋ: ਉਸਨੂੰ ਬਣਾਉਣ ਵਾਲੀਆਂ ਕੰਪਨੀਆਂ ਸੂਚੀ ਵਿੱਚ ਦਿਖਣਗੀਆਂ</string>
+    <string name="detail_products_credit">ਤਸਵੀਰਾਂ: ਕੰਪਨੀ ਦੀ ਆਪਣੀ ਵੈੱਬਸਾਈਟ ਅਤੇ Wikimedia Commons ਤੋਂ • ਕਿਸੇ ਤਸਵੀਰ ਨੂੰ ਦਬਾ ਕੇ ਰੱਖੋ ਤਾਂ ਉਸਦਾ ਸਿਹਰਾ</string>
     <string name="product_chip_description">%1$s ਬਣਾਉਣ ਵਾਲੀਆਂ ਕੰਪਨੀਆਂ ਦਿਖਾਓ</string>
     <string name="product_applied">%1$s ਬਣਾਉਣ ਵਾਲੀਆਂ ਕੰਪਨੀਆਂ</string>
     <string name="product_filter_leave">ਉਤਪਾਦ ਫਿਲਟਰ ਹਟਾਓ</string>

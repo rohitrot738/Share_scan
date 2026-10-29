@@ -2,6 +2,7 @@
 <resources>
     <string name="detail_section_products">क्या बनाती है</string>
     <string name="detail_products_hint">किसी उत्पाद पर दबाएँ: उसे बनाने वाली कंपनियाँ सूची में दिखेंगी</string>
+    <string name="detail_products_credit">तस्वीरें: कंपनी की अपनी वेबसाइट और Wikimedia Commons से • किसी तस्वीर को दबाकर रखें तो उसका श्रेय</string>
     <string name="product_chip_description">%1$s बनाने वाली कंपनियाँ दिखाएँ</string>
     <string name="product_applied">%1$s बनाने वाली कंपनियाँ</string>
     <string name="product_filter_leave">उत्पाद फ़िल्टर हटाएँ</string>

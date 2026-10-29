@@ -3,7 +3,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/ShareScanCard"
-    android:layout_width="74dp"
+    android:layout_width="76dp"
     android:layout_height="wrap_content"
     android:focusable="true"
     app:cardCornerRadius="16dp">
@@ -17,12 +17,15 @@
         android:paddingTop="10dp"
         android:paddingBottom="8dp">
 
-        <ImageView
+        <!-- The product's drawn picture, or its photo once that comes in (ProductPhotos). -->
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/productImage"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:importantForAccessibility="no"
-            android:scaleType="fitCenter" />
+            android:padding="6dp"
+            android:scaleType="fitCenter"
+            app:shapeAppearance="@style/ShapeAppearance.ShareScan.Photo" />
 
         <TextView
             android:id="@+id/productName"
