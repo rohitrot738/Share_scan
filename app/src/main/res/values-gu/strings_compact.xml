@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compact_news_mark">📰</string>
+    <string name="compact_no_data">ભાવ નથી</string>
+    <string name="compact_col_rank">#</string>
+    <string name="compact_col_stock">શેર / કંપની</string>
+    <string name="compact_col_price">ભાવ</string>
+    <string name="compact_col_change">5D ફેરફાર / RVOL</string>
+    <string name="compact_col_score">સ્કોર</string>
+    <string name="compact_share">શેર કરો</string>
+    <string name="compact_rank">#%1$d</string>
+    <string name="pill_idle">સ્કેન શરૂ કરો ▸</string>
+    <string name="pill_reading">પાછલો સ્કેન ખૂલી રહ્યો છે…</string>
+    <string name="pill_loading">સ્કેન શરૂ થઈ રહ્યો છે…</string>
+    <string name="pill_scanning">સ્કેન %1$d%% • %2$s/%3$s</string>
+    <string name="pill_stopped">અટક્યો %1$d%% • %2$s/%3$s</string>
+    <string name="pill_done">સ્કેન 100%% • %1$s શેર</string>
+    <string name="pill_live_done">લાઇવ સ્કેન 100%% • %1$s શેર</string>
+    <string name="pill_support_done">સપોર્ટ 100%% • %1$s શેર</string>
+    <string name="pill_failed">સ્કેન ન થયો • ફરી કરો</string>
+    <string name="empty_body_compact">ઉપરની પટ્ટી દબાવીને સ્કેન શરૂ કરો — સ્કેન પૂરો થતાં જ શ્રેષ્ઠ ઉમેદવારો સ્કોર મુજબ અહીં દેખાશે.</string>
+    <string name="pill_description">%1$s; સ્કેનનાં બટન ખોલો</string>
+    <string name="help_compact_title">Space Glass નું સઘન ટેબલ</string>
+    <string name="help_compact_body">મેનુ → પૃષ્ઠભૂમિ માં Space Glass પસંદ કરતાં યાદી એક ટેબલ બની જાય છે: દરેક શેરની એક લીટી, જેમાં ક્રમ, ટિકર (સાથે NSE/BSE, NEW અથવા ▲▼ અને 📰), નીચે કંપનીનું નામ, ભાવ, 5 દિવસનો ફેરફાર અને તેની નીચે RVOL, અને સ્કોર — એક સ્ક્રીન પર 8–10 શેર. વૉચલિસ્ટના શેરનો સ્કોર સોનેરી હોય છે અને સાથે ★; કોઈ લીટી દબાવી રાખવાથી તે શેર વૉચલિસ્ટમાં ઉમેરાય છે અથવા નીકળી જાય છે. ઉપરની પાતળી પટ્ટીમાં લીલી ગોળી બતાવે છે કે સ્કેન ક્યાં છે (જેમ કે \"લાઇવ સ્કેન 100% • 2,618 શેર\"); તેને દબાવતાં બ્રેકઆઉટ/સપોર્ટ, સ્કેન/અટકાવો અને સ્કેન ભૂંસો વાળી પેનલ ખૂલે છે. ફિલ્ટર, વૉચલિસ્ટ, ક્રમ, સેક્ટર અને શેર કરો નીચેની તરતી પટ્ટીમાં છે, અંગૂઠાની પહોંચમાં; તેને ડાબે-જમણે ખસેડો. લીટી દબાવતાં શેરની આખી વિગત ખૂલે છે, જ્યાં સેટઅપ, સપોર્ટ અને R/S મળે છે. ફિલ્ટર અને સેક્ટરની શીટ પણ આ જ સાદી શૈલીમાં ખૂલે છે. Galaxy પૃષ્ઠભૂમિ પસંદ કરતાં ફરી મોટાં કાર્ડ વાળું રૂપ આવી જાય છે.</string>
+</resources>

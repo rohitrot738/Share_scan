@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="item_setup_learned">🎯 શીખેલો સેટઅપ • %1$d%% સફળ: %2$s</string>
+    <string name="detail_setup_learned">🎯 શીખેલો સેટઅપ: %1$s. છેલ્લાં 2 વર્ષમાં આવી %2$d યોજનાઓમાંથી %3$d%% માં લક્ષ્ય 1 નક્કી દિવસોમાં સ્ટૉપ પહેલાં આવ્યું (બધા શેરની સરેરાશ %4$d%%).</string>
+    <string name="detail_setup_learned_none">આ શેર પર આજે કોઈ શીખેલો સેટઅપ લાગુ નથી. બધા શેરમાં લક્ષ્ય 1 નક્કી દિવસોમાં %1$d%% વાર આવ્યું. સૌથી સફળ સેટઅપ: %2$s</string>
+    <string name="detail_setup_learned_top">%1$s (%2$d%%)</string>
+    <string name="item_setup_rally">📈 તેજી સેટઅપ • %1$d%%: %2$s</string>
+    <string name="detail_plan_stop_learned">શીખેલો સ્ટૉપ: પ્રવેશથી %1$s ATR નીચે</string>
+    <string name="detail_plan_quick_time_learned">⏱ પ્રવેશ પછી લગભગ %1$d–%2$d દિવસ</string>
+    <string name="detail_plan_learned">🧠 શીખેલી યોજના: સ્ટૉપ %1$s, લક્ષ્ય 1 = +%2$s, %3$d દિવસની અંદર. છેલ્લાં 2 વર્ષમાં આવી યોજનાઓમાં %4$d%% સફળ, સરેરાશ %5$s પ્રતિ ટ્રેડ (બધા શેર પર એપની જૂની યોજના: %6$d%% સફળ, %7$s).</string>
+    <string name="detail_plan_learned_stop_atr">પ્રવેશથી %1$s ATR નીચે</string>
+    <string name="detail_plan_learned_stop_own">10 દિવસના નીચા ભાવની નીચે (એપનો પોતાનો)</string>
+    <string name="detail_plan_learned_own">🧠 શીખ્યું: એપનો પોતાનો સ્ટૉપ અને લક્ષ્ય જ અત્યાર સુધી શ્રેષ્ઠ રહ્યાં — %1$d%% સફળ, સરેરાશ %2$s પ્રતિ ટ્રેડ.</string>
+    <string name="detail_rally_setup">📈 તેજીનો સેટઅપ: %1$s. છેલ્લાં 2 વર્ષમાં આવા %2$d%% પ્રસંગે ભાવ %3$d દિવસમાં %4$s ATR (આજના હિસાબે ≈ %5$s) ઉપર ગયો, પહેલાં ઘટ્યા વગર (બધા શેરમાં %6$d%%).</string>
+    <string name="detail_rally_why">📈 તેજી પહેલાં ઘણી વાર દેખાયું: %1$s</string>
+    <string name="item_setup_mistake">⚠ શીખેલી ભૂલ • ફક્ત %1$d%% સફળ: %2$s</string>
+    <string name="detail_setup_mistake">⚠ શીખેલી ભૂલ: %1$s. છેલ્લાં 2 વર્ષમાં આવા %2$d ટ્રેડમાંથી ફક્ત %3$d%% સફળ રહ્યા (બધા શેરની સરેરાશ %4$d%%) — %5$d%% માં પહેલાં સ્ટૉપ લાગ્યો, %6$d%% માં લક્ષ્ય નક્કી દિવસોમાં ન આવ્યું. આવા સેટઅપ પર ટ્રેડ ઊંધો જવાની સંભાવના વધુ રહી છે.</string>
+    <string name="setup_breakout_today">આજે બ્રેકઆઉટ</string>
+    <string name="setup_near_trigger">બ્રેકઆઉટથી 1 ATR દૂર</string>
+    <string name="setup_volume_2x">વોલ્યુમ 2×+</string>
+    <string name="setup_volume_1_5x">વોલ્યુમ 1.5×+</string>
+    <string name="setup_quiet_before">પહેલાંના 5 દિવસ વોલ્યુમ ઓછું</string>
+    <string name="setup_tight_week">1 અઠવાડિયાની રેન્જ 5% માં</string>
+    <string name="setup_tight_two_weeks">2 અઠવાડિયાની રેન્જ 8% માં</string>
+    <string name="setup_above_sma50">50 DMA ની ઉપર</string>
+    <string name="setup_sma20_over_sma50">20 DMA, 50 DMA ની ઉપર</string>
+    <string name="setup_up_20_days">20 દિવસમાં ઉપર</string>
+    <string name="setup_up_5_percent_week">5 દિવસમાં 5%+ ઉપર</string>
+    <string name="setup_rsi_50_70">RSI 50–70</string>
+    <string name="setup_rsi_70_plus">RSI 70+</string>
+    <string name="setup_rsi_under_50">RSI 50 થી ઓછો</string>
+    <string name="setup_macd_above_signal">MACD સિગ્નલની ઉપર</string>
+    <string name="setup_macd_fresh_cross">MACD ક્રૉસઓવર 3 દિવસમાં</string>
+    <string name="setup_macd_above_zero">MACD શૂન્યની ઉપર</string>
+    <string name="setup_near_support">સપોર્ટથી 5% માં</string>
+    <string name="setup_long_support">જૂનો સપોર્ટ</string>
+    <string name="setup_liquid_10cr">રોજ ₹10 Cr+ વેપાર</string>
+    <string name="setup_score_strong">સ્કોર STRONG</string>
+    <string name="setup_score_watch">સ્કોર WATCH+</string>
+    <string name="setup_prev_strong">ગઈકાલે પણ STRONG</string>
+    <string name="setup_near_6m_high">6 મહિનાના ઊંચા ભાવથી 3% માં</string>
+    <string name="setup_up_4_percent_today">આજે 4%+ ઉપર</string>
+    <string name="setup_close_near_day_high">દિવસના ઊંચા ભાવની નજીક બંધ</string>
+    <string name="setup_calm_ranges">10 દિવસથી રોજની વધઘટ ઓછી</string>
+    <string name="help_setups_title">શીખેલા સેટઅપ</string>
+    <string name="help_setups_body">દર સાંજે (બજારના દિવસોમાં) એપ આખા બજારના દરેક શેરના છેલ્લાં 2 વર્ષના દરેક દિવસ પર તે જ સ્કોર અને ટ્રેડ યોજના બનાવે છે જે તે દિવસે દેખાત, અને જુએ છે કે આગળ શું થયું: લક્ષ્ય 1 બતાવેલા દિવસોમાં સ્ટૉપ પહેલાં આવ્યું તો સફળ; સ્ટૉપ પહેલાં લાગ્યો કે લક્ષ્ય સમયસર ન આવ્યું તો નિષ્ફળ. પછી 1 થી 3 શરતોના મેળ (જેમ કે આજે બ્રેકઆઉટ + વોલ્યુમ 2×+ + RSI 50–70) માંથી તે જ સેટઅપ રખાય છે જે આખા બજારની સરેરાશ કરતાં સ્પષ્ટ રીતે વધુ સફળ રહ્યા — જૂના ડેટા પર પણ અને છેલ્લા 60 દિવસ પર પણ, જેના પર તેમને પસંદ કરાયા ન હતા. જે સેટઅપ આગળ જતાં સરેરાશથી ઉપર નથી રહેતો, તે નીકળી જાય છે. ભૂલોમાંથી પણ શીખે છે: જે શરતોના મેળ પર ટ્રેડ સરેરાશ કરતાં સ્પષ્ટ રીતે વધુ ઊંધા ગયા (સ્ટૉપ પહેલાં લાગ્યો કે લક્ષ્ય મોડું આવ્યું) — તે પણ જૂના ડેટા અને છેલ્લા 60 દિવસ બંને પર — તે \"⚠ શીખેલી ભૂલ\" બનીને કાર્ડ અને વિગતમાં ચેતવણી આપે છે, સાથે કેટલા % માં સ્ટૉપ લાગ્યો અને કેટલા % માં લક્ષ્ય મોડું આવ્યું. કોઈ ભૂલ આગળ જતાં સુધરે તો ચેતવણી નીકળી જાય છે. સ્ટૉપ, લક્ષ્ય અને સમય પણ શીખાય છે: દરેક જૂની યોજનાને 30,000 રીતે તપાસવામાં આવે છે (સ્ટૉપ પ્રવેશથી 1 થી 3.4 ATR નીચે કે એપનો પોતાનો, લક્ષ્ય 1 = 0.5R થી 5.45R, અને લક્ષ્યનો સમય અડધાથી ત્રણ ગણા દિવસ) અને જે મેળ આખા બજારમાં પ્રતિ ટ્રેડ સૌથી વધુ કમાણી (સરેરાશ R) આપે છે — જૂના ડેટા પર પણ અને છેલ્લા 60 દિવસ પર પણ, અને જેની આસપાસના મેળ પણ સારા રહ્યા, જેથી નસીબથી સારો દેખાયેલો મેળ પસંદ ન થાય — તે જ યોજનામાં લાગે છે; કોઈ સેટઅપ માટે અલગ મેળ વધુ સારો રહ્યો તો તેને પોતાનો મળે છે. નવો મેળ જૂના કરતાં સ્પષ્ટ રીતે સારો હોય ત્યારે જ તેની જગ્યા લે છે, અને પાછળ રહી જાય તો નીકળી જાય છે; વૉચલિસ્ટ અલર્ટ પણ આ જ સ્ટૉપ અને લક્ષ્ય માને છે. તેજીમાંથી પણ શીખે છે: દરેક શેરના દરેક દિવસને જોવાય છે કે ભાવ આગલા 20 દિવસમાં 3 ATR ઉપર ગયો કે નહીં, પહેલાં 1.5 ATR ઘટ્યા વગર — અને તે પહેલાં કઈ શરતો હતી; જે શરતો પછી આવી તેજી સરેરાશ કરતાં સ્પષ્ટ રીતે વધુ આવી, તે \"📈 તેજી સેટઅપ\" તરીકે દેખાય છે. આ બધું દર સાંજે આપમેળે થાય છે. કાર્ડ અને શેરની વિગતમાં એપના પોતાના જૂના સેટઅપની જગ્યાએ આ જ શીખેલા સેટઅપ અને તેમનો સાચો સફળતા % દેખાય છે, અને ટ્રેડ યોજનાના ઝડપી લક્ષ્યના % પણ તાજા ડેટામાંથી આવે છે. આ પાછલા ડેટાના આંકડા છે, આગળની ગૅરંટી નહીં; રોકાણ સલાહ નથી.</string>
+</resources>

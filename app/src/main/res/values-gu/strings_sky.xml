@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_background">પૃષ્ઠભૂમિ</string>
+    <string name="background_title">પૃષ્ઠભૂમિ પસંદ કરો</string>
+    <string name="background_subtitle">દરેક પૃષ્ઠભૂમિનું પોતાનું રૂપ અને એનિમેશન • રંગ થીમના જ</string>
+    <string name="background_galaxy">Galaxy</string>
+    <string name="background_galaxy_body">આકાશગંગા, ટમટમતા અને ખરતા તારા • મોટાં કાર્ડ વાળું રૂપ</string>
+    <string name="background_space_glass">Space Glass</string>
+    <string name="background_space_glass_body">તરતી રોશની, ચાલતી ટ્રેડિંગ ગ્રિડ અને ચાર્ટ-રેખા • સઘન ટેબલ વાળું રૂપ</string>
+    <string name="help_sky_title">પૃષ્ઠભૂમિ અને થીમ</string>
+    <string name="help_sky_body">મેનુ → પૃષ્ઠભૂમિ માંથી બેમાંથી એક પસંદ કરો — દરેકનું પોતાનું રૂપ અને પોતાનું એનિમેશન છે: Galaxy માં આકાશગંગા (ટમટમતા અને ખરતા તારા, આકાશગંગા તરફ ઉડાન) સાથે મોટાં કાર્ડ વાળું રૂપ, અને Space Glass માં તરતી રોશની, ચાલતી ટ્રેડિંગ ગ્રિડ અને ચાર્ટ-રેખા સાથે સઘન ટેબલ (ઉપર પાતળી પટ્ટી, દરેક શેરની એક લીટી, નીચે તરતી પટ્ટી). મેનુ → થીમ માંથી રંગ પસંદ કરો: કોઈ પણ થીમ બંને પૃષ્ઠભૂમિ પર લાગે છે અને તેના રંગ પૃષ્ઠભૂમિમાં પણ આવી જાય છે. સેટિંગ્સ → આકાશનું એનિમેશન બંધ કરતાં પૃષ્ઠભૂમિ સ્થિર થઈ જાય છે.</string>
+</resources>

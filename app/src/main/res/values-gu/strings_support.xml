@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_breakout">બ્રેકઆઉટ સ્કેન</string>
+    <string name="mode_support">સપોર્ટ સ્કેન</string>
+    <string name="support_ready_title">સપોર્ટ સ્કેન</string>
+    <string name="support_ready_body">એવા શેર જે 6 મહિનાથી એક ભાવની નીચે બંધ થયા નથી, જ્યારે વારંવાર ત્યાં સુધી આવ્યા</string>
+    <string name="support_done_title">સપોર્ટ સ્કેન પૂર્ણ</string>
+    <string name="support_done_body">%1$d શેર 6 મહિનાથી સપોર્ટ પર ટક્યા • %2$s નો સ્કેન</string>
+    <string name="support_action_start">સપોર્ટ સ્કેન કરો</string>
+    <string name="support_action_rescan">ફરી સપોર્ટ સ્કેન કરો</string>
+    <string name="support_stat_long">6M સપોર્ટ</string>
+    <string name="support_stat_near">5% ની અંદર</string>
+    <string name="support_reach_any">કોઈ પણ અંતર</string>
+    <string name="support_reach_within">%1$d%% સુધી નજીક</string>
+    <string name="support_list_empty_title">6 મહિનાવાળો કોઈ સપોર્ટ મળ્યો નહીં</string>
+    <string name="support_list_empty_body">આ સ્કેનમાં, આ ફિલ્ટરની અંદર, કોઈ શેર 6 મહિનાથી પોતાના સપોર્ટની ઉપર ટક્યો નથી. અંતર વધારો, ફિલ્ટર ઢીલા કરો, અથવા મેનુ → સ્કેન માં વધુ એક્સચેન્જ / સેક્ટર ચાલુ કરો.</string>
+    <string name="sort_support">સપોર્ટ</string>
+    <string name="item_support">સપોર્ટ ₹%1$s · %2$s · %3$d વાર</string>
+    <string name="item_support_description">સપોર્ટ %1$s રૂપિયા પર, %2$s થી, %3$d વાર ચકાસાયો</string>
+    <string name="detail_stat_support">સપોર્ટ</string>
+    <string name="detail_stat_support_note">%1$s થી · %2$d વાર ચકાસાયો · ભાવ %3$s ઉપર</string>
+    <string name="detail_stat_support_long_note">%1$s થી · %2$d વાર ચકાસાયો · ભાવ %3$s ઉપર · 6 મહિનામાં તેની નીચે બંધ થયો નથી</string>
+    <string name="detail_chart_support">સપોર્ટ %1$s</string>
+    <string name="detail_part_support">સપોર્ટ બોનસ</string>
+    <string name="detail_part_bonus">+%1$d સુધી</string>
+    <string name="metric_support_age">સપોર્ટ કેટલો જૂનો</string>
+    <string name="metric_support_gap">સપોર્ટથી અંતર</string>
+    <string name="hint_support_age">ભાવ જે સ્તર સુધી વારંવાર આવીને પાછો ફર્યો અને જેની નીચે બંધ થયો નથી, તે કેટલા સમયથી ટક્યું છે</string>
+    <string name="hint_support_gap">આજનો ભાવ સપોર્ટથી કેટલા % ઉપર છે; ઓછું = સપોર્ટની નજીક</string>
+    <string name="help_part_support">સપોર્ટ બોનસ • %1$d ગુણ સુધી</string>
+    <string name="help_part_support_body">જે ભાવ સુધી શેર વારંવાર આવીને પાછો ફર્યો અને જેની નીચે બંધ થયો નથી, તે તેનો સપોર્ટ છે: તેની નીચે વેચનારા ભાવ પાડી શક્યા નહીં. સપોર્ટ જેટલો જૂનો (6 મહિને પૂરા ગુણ) અને જેટલી વાર ચકાસાયો (5 વારે પૂરા), સ્કોરમાં તેટલા વધુ ગુણ ઉમેરાય છે; સપોર્ટ વગરના શેરના ગુણ કપાતા નથી. ઉપર \"સપોર્ટ સ્કેન\" પસંદ કરો તો ફક્ત તે જ શેર દેખાય છે જે 6 મહિનામાં પોતાના સપોર્ટની નીચે ક્યારેય બંધ થયા નથી અને જેનો સપોર્ટ ઓછામાં ઓછો %1$d મહિનાથી અને ઓછામાં ઓછો 3 વાર ચકાસાયો છે. સપોર્ટ સ્કેનના પોતાના ફિલ્ટર છે, બ્રેકઆઉટવાળાથી અલગ. બંને સ્કેન એક જ ડેટા વાંચે છે, તેથી એક સ્કેનથી બંને યાદી તાજી થઈ જાય છે.</string>
+</resources>

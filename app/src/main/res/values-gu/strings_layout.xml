@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_layout">રૂપ</string>
+    <string name="layout_title">યાદીનું રૂપ પસંદ કરો</string>
+    <string name="layout_subtitle">શેરની યાદી કેવી દેખાય · પૃષ્ઠભૂમિ અને થીમ એ જ રહે છે</string>
+    <string name="layout_auto">પૃષ્ઠભૂમિનું પોતાનું</string>
+    <string name="layout_auto_now_cards">હાલ Galaxy પૃષ્ઠભૂમિ: મોટાં કાર્ડ</string>
+    <string name="layout_auto_now_table">હાલ Space Glass પૃષ્ઠભૂમિ: સઘન ટેબલ</string>
+    <string name="layout_accordion">અકૉર્ડિયન</string>
+    <string name="layout_accordion_body">દરેક શેર એક પાતળી લીટી · દબાવતાં ત્યાં જ આખી વિગત ખૂલે છે</string>
+    <string name="layout_bento">બેન્ટો ગ્રિડ</string>
+    <string name="layout_bento_body">બે હારમાં ટાઇલ: સ્કોર ડાયલ, 15 દિવસની રેખા અને ભાવ</string>
+    <string name="layout_swipe">સ્વાઇપ કાર્ડ</string>
+    <string name="layout_swipe_body">આંકડા નાનાં કૅપ્સ્યૂલમાં · ડાબે સ્વાઇપ કરતાં ★ વૉચલિસ્ટ અને ચાર્ટ</string>
+    <string name="layout_action_chart">ચાર્ટ</string>
+    <string name="layout_action_details">વિગત</string>
+    <string name="layout_action_watchlist">વૉચલિસ્ટ</string>
+    <string name="layout_action_unwatch">કાઢો</string>
+    <string name="layout_action_alert">અલર્ટ લગાવો</string>
+    <string name="layout_action_alert_on">★ અલર્ટ ચાલુ</string>
+    <string name="layout_expand">%1$s ની વિગત ખોલો</string>
+    <string name="layout_collapse">%1$s ની વિગત બંધ કરો</string>
+    <string name="layout_swipe_hint">%1$s: ડાબે સ્વાઇપ કરો તો વૉચલિસ્ટ અને ચાર્ટનાં બટન</string>
+    <string name="cap_mcap">MCap %1$s</string>
+    <string name="cap_volume">વોલ્યુમ %1$s</string>
+    <string name="cap_rvol">RVOL %1$s×</string>
+    <string name="cap_support">સપોર્ટ ₹%1$s</string>
+    <string name="cap_rs">R/S %1$s</string>
+    <string name="help_layout_title">રૂપ: યાદી કેવી દેખાય</string>
+    <string name="help_layout_body">મેનુ → રૂપ માં યાદીનું રૂપ પસંદ કરો. \"પૃષ્ઠભૂમિનું પોતાનું\" માં Galaxy પર મોટાં કાર્ડ અને Space Glass પર સઘન ટેબલ રહે છે. અકૉર્ડિયનમાં દરેક શેર એક પાતળી લીટી છે; દબાવતાં ત્યાં જ સ્કોરની પટ્ટી, MCap, વોલ્યુમ, RVOL, R/S અને સપોર્ટ ખૂલે છે, સાથે અલર્ટ, ચાર્ટ અને વિગતનાં બટન. બેન્ટો ગ્રિડમાં બે હારમાં ટાઇલ છે: સ્કોરનું ગોળ ડાયલ, છેલ્લા 15 દિવસની રેખા, ભાવ અને 5 દિવસનો ફેરફાર; ટાઇલ દબાવી રાખવાથી તે વૉચલિસ્ટમાં ઉમેરાય છે. સ્વાઇપ કાર્ડમાં આંકડા નાનાં કૅપ્સ્યૂલમાં છે, અને કાર્ડ ડાબે ખેંચતાં ★ વૉચલિસ્ટ અને ચાર્ટનાં બટન દેખાય છે.</string>
+</resources>

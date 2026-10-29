@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_title">નવી આવૃત્તિ ઉપલબ્ધ</string>
+    <string name="update_title_ready">અપડેટ ડાઉનલોડ થઈ ગયું</string>
+    <string name="update_versions">%1$s • હાલ %2$s</string>
+    <string name="update_available_body">એક ટૅપમાં ડાઉનલોડ કરીને જૂની એપ પર ઇન્સ્ટૉલ કરો — વૉચલિસ્ટ અને ફિલ્ટર એમ જ રહેશે.</string>
+    <string name="update_downloading_body">ડાઉનલોડ થઈ રહ્યું છે… %1$d%%</string>
+    <string name="update_ready_body">ઇન્સ્ટૉલ દબાવો — નવી આવૃત્તિ જૂની પર ઇન્સ્ટૉલ થઈ જશે.</string>
+    <string name="update_ready_permission_body">ઇન્સ્ટૉલ દબાવો. પહેલી વાર Android “આ સ્રોતમાંથી ઇન્સ્ટૉલ” ની મંજૂરી માંગશે — તેને ચાલુ કરીને પાછળ દબાવો, ઇન્સ્ટૉલ ત્યાંથી જ આગળ ચાલશે.</string>
+    <string name="update_failed_body">ડાઉનલોડ થઈ શક્યું નહીં. ઇન્ટરનેટ કનેક્શન તપાસો અને ફરી પ્રયાસ કરો.</string>
+    <string name="update_action_download">અપડેટ કરો</string>
+    <string name="update_action_install">ઇન્સ્ટૉલ કરો</string>
+    <string name="update_action_retry">ફરી પ્રયાસ કરો</string>
+    <string name="update_action_later">પછી</string>
+    <string name="update_install_failed">ઇન્સ્ટૉલર ખૂલી શક્યું નહીં</string>
+</resources>
