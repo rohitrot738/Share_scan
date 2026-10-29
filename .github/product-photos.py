@@ -33,6 +33,11 @@ BROWSER_UA = cache.BROWSER_UA
 COMMONS = "https://commons.wikimedia.org/w/api.php"
 WIKIDATA = "https://query.wikidata.org/sparql"
 LEGAL = re.compile(r"\b(?:limited|ltd\.?|pvt\.?|private|(?:the )?company|co\.?|corporation|corp\.?|inc\.?|plc|\(india\)|india)\s*$", re.I)
+# A Commons photo whose title says it shows people, an event, a building or a chart is not a product's photo.
+NOT_PRODUCT = re.compile(r"\b(?:mr|mrs|shri|smt|dr|ceo|chairman|chairperson|director|minister|president|founder|portrait|meeting|"
+                         r"meets|inaugurat\w*|ceremony|award\w*|conference|summit|visit\w*|signing|signs|launch\w*|event|"
+                         r"office|offices|headquarters|hq|building|tower|campus|house|bhawan|bhavan|map|chart|graph|share|"
+                         r"certificate|stamp|cheque|team|staff|employees|workers|protest|strike|rally|school|hospital|people)\b")
 WEAK = {"the", "india", "indian", "industries", "industry", "enterprises", "international", "global", "national", "bharat",
         "hindustan", "united", "new", "general", "shree", "shri", "sri", "and", "of", "group", "holdings", "ventures"}
 
@@ -155,9 +160,10 @@ def match(name: str, made: list[str], files: list[dict]) -> dict:
         if "logo" in title and "logo" not in out:
             out["logo"], credits[f["thumb"]] = f["thumb"], credit
             continue
-        if f["mime"] == "image/svg+xml":
+        if f["mime"] == "image/svg+xml" or NOT_PRODUCT.search(title):
             continue
-        words = " " + title + " " + f["about"].lower() + " "
+        # The product must be named in the title itself; a description often names it in passing.
+        words = " " + title + " "
         for key in made:
             if key in out["p"]:
                 continue
