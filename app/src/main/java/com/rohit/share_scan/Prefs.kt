@@ -58,9 +58,6 @@ object Prefs {
     /** Whether the sky behind the home screen moves; on by default. */
     const val SKY_ANIMATION = "sky_animation"
 
-    /** Whether the list's cards show what each company makes as icons ([Products]); on by default. */
-    const val PRODUCT_ICONS = "product_icons"
-
     /** 1.2.138's compact list switch, now only read to pick the first [BACKGROUND] (on: Space Glass). */
     const val COMPACT_LIST = "compact_list"
 

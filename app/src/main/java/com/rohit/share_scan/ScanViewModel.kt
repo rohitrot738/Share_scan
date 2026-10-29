@@ -47,12 +47,6 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
         viewModelScope.launch(Dispatchers.IO) {
-            val products = ProductRepository.book(application)
-            state.update { it.copy(products = products) }
-            val photos = ProductRepository.photos(application)
-            state.update { it.copy(photos = photos) }
-        }
-        viewModelScope.launch(Dispatchers.IO) {
             val book = Cr360Repository.book(application)
             state.update { it.copy(cr360 = book) }
             if (runCatching { Cr360Repository.refreshIfStale(application) }.getOrDefault(false)) {
@@ -274,11 +268,6 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
 
     fun closeSearch() {
         state.update { it.copy(searchOpen = false, query = "") }
-    }
-
-    /** Shows only the companies making [product] ([Products] key); null shows them all again. */
-    fun setProduct(product: String?) {
-        state.update { it.copy(product = product) }
     }
 
     private companion object {

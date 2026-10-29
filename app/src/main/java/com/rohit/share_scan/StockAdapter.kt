@@ -4,12 +4,9 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
-import android.os.Build
 import android.text.SpannableStringBuilder
 import android.text.Spanned
-import android.text.style.DynamicDrawableSpan
 import android.text.style.ForegroundColorSpan
-import android.text.style.ImageSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,12 +44,6 @@ class StockAdapter(
 
     /** Every stock's 360CR ([Cr360Book]); the card adds the stock's score to its meta line. */
     var cr360: Cr360Book = Cr360Book.EMPTY
-
-    /** What every company makes, from the file the app carries; [cr360]'s for a company it does not have. */
-    var products: ProductBook = ProductBook.EMPTY
-
-    /** The cards put the pictures of what each company makes ([ProductLabels.image]) before its name. */
-    var productIcons: Boolean = true
 
     /** The learned setups ([SetupBook]); once there are some, the card names the stock's in place of the app's own. */
     var setups: SetupBook = SetupBook.EMPTY
@@ -217,7 +208,7 @@ class StockAdapter(
         ui.rank.setTextColor(color(tierColor))
 
         ui.symbol.text = stock.symbol
-        val name = withProducts(ui.companyName, stock.symbol, nameAndSector(stock))
+        val name = listOf(StockSearch.shortName(stock.name), stock.sector).filter { it.isNotEmpty() }.joinToString(" · ")
         ui.companyName.isVisible = name.isNotEmpty()
         ui.companyName.text = name
         val exchange = MarketStyle.of(stock.market)
@@ -359,7 +350,7 @@ class StockAdapter(
         val ranked = item.rank != RankedStock.UNRANKED
         ui.rowRank.text = if (ranked) context.getString(R.string.compact_rank, item.rank) else context.getString(R.string.item_rank_none)
         ui.rowSymbol.text = stock.symbol
-        ui.rowCompany.text = withProducts(ui.rowCompany, stock.symbol, StockSearch.shortName(stock.name).ifEmpty { stock.sector })
+        ui.rowCompany.text = StockSearch.shortName(stock.name).ifEmpty { stock.sector }
         val exchange = MarketStyle.of(stock.market)
         ui.rowExchange.setText(exchange.label)
         ui.rowExchange.setTextColor(color(exchange.text))
@@ -436,7 +427,7 @@ class StockAdapter(
         ui.accScore.setTextColor(color(if (charted) tierColor else R.color.neutral))
         ui.accScore.backgroundTintList = ColorStateList.valueOf(color(if (charted) tierContainer else R.color.neutral_container))
 
-        ui.accCompany.text = withProducts(ui.accCompany, stock.symbol, nameAndSector(stock))
+        ui.accCompany.text = listOf(StockSearch.shortName(stock.name), stock.sector).filter { it.isNotEmpty() }.joinToString(" · ")
         ui.accCompany.isVisible = ui.accCompany.text.isNotEmpty()
         ui.accTier.setText(tierLabel)
         ui.accTier.setTextColor(color(tierColor))
@@ -532,7 +523,7 @@ class StockAdapter(
         bindExchange(ui.bentoExchange, stock.market, charted)
         ui.bentoStar.isVisible = item.starred
         ui.bentoSymbol.text = stock.symbol
-        ui.bentoCompany.text = withProducts(ui.bentoCompany, stock.symbol, StockSearch.shortName(stock.name).ifEmpty { stock.sector })
+        ui.bentoCompany.text = StockSearch.shortName(stock.name).ifEmpty { stock.sector }
         val score = StockFormat.score(stock.score)
         ui.bentoDial.color = color(if (charted) tierColor else R.color.neutral)
         ui.bentoDial.score = if (charted) stock.score else 0.0
@@ -575,7 +566,7 @@ class StockAdapter(
         bindExchange(ui.swipeExchange, stock.market, charted)
         bindRankBadge(ui.swipeBadge, item.badge)
         ui.swipeStarMark.isVisible = item.starred
-        ui.swipeCompany.text = withProducts(ui.swipeCompany, stock.symbol, nameAndSector(stock))
+        ui.swipeCompany.text = listOf(StockSearch.shortName(stock.name), stock.sector).filter { it.isNotEmpty() }.joinToString(" · ")
         ui.swipePrice.text = if (charted) context.getString(R.string.item_price, StockFormat.price(stock.price)) else context.getString(R.string.stat_empty)
         ui.swipeChange.text = if (charted) StockFormat.change(stock.change5d) else context.getString(R.string.item_no_data)
         ui.swipeChange.setTextColor(color(if (!charted) R.color.neutral else if (stock.change5d >= 0) R.color.bull else R.color.bear))
@@ -695,28 +686,6 @@ class StockAdapter(
     }
 
     /** The exchange pill (NSE, SME or BSE); hidden for a stock with no chart yet, whose exchange is not known. */
-    private fun nameAndSector(stock: ScanResult): String =
-        listOf(StockSearch.shortName(stock.name), stock.sector).filter { it.isNotEmpty() }.joinToString(" · ")
-
-    /**
-     * [text], the card's company line in [view], after the pictures of the company's main products (at most
-     * [Products.CARD_ICONS]) while [productIcons] is on, each a little taller than the line's letters.
-     */
-    private fun withProducts(view: TextView, symbol: String, text: String): CharSequence {
-        val keys = if (productIcons) products.of(symbol, cr360).take(Products.CARD_ICONS) else emptyList()
-        if (keys.isEmpty()) return text
-        val size = (view.textSize * 1.3f).roundToInt()
-        val align = if (Build.VERSION.SDK_INT >= 29) DynamicDrawableSpan.ALIGN_CENTER else DynamicDrawableSpan.ALIGN_BOTTOM
-        val line = SpannableStringBuilder()
-        for (key in keys) {
-            val picture = ProductLabels.image(key)?.let { ContextCompat.getDrawable(view.context, it) } ?: continue
-            picture.setBounds(0, 0, size, size)
-            line.append(Products.icon(key), ImageSpan(picture, align), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-        }
-        if (line.isNotEmpty() && text.isNotEmpty()) line.append(' ')
-        return line.append(text)
-    }
-
     private fun bindExchange(view: TextView, market: Market, charted: Boolean) {
         val context = view.context
         val exchange = MarketStyle.of(market)

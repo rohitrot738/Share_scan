@@ -9,15 +9,12 @@ import zlib
 from datetime import date, timedelta
 from statistics import median
 
-from . import products as product_list
 from . import valuation as framework
 from .engine import analyse_360cr
 from .models import ResearchInput
 
 VERSION = 1
-PAGE_VERSION = 2            # what a page reading keeps; a stock read before a change is read again (2: the framework's rows).
-                            # The About and Key Points text its products are read from comes as each page is read again:
-                            # the app carries every company's products already (app/src/main/assets/products.json).
+PAGE_VERSION = 2            # what a page reading keeps; a stock read before a change is read again (2: the framework's rows)
 QUARTERS_KEPT = 20          # quarterly results and shareholding: 5 years
 YEARS_KEPT = 5              # yearly results, balance sheet and cash flow
 EVENT_YEARS = 5             # insider trades and bulk/block deals
@@ -127,9 +124,6 @@ def put_page(store: dict, symbol: str, page: dict, today: date, source: str) -> 
         s[key] = merge_periods(s.get(key), page[key], YEARS_KEPT)
     if any(v is not None for v in page["ratios"].values()):
         s["ratios"] = page["ratios"]
-    for key in ("about", "points"):  # Screener's description of the company, for its products
-        if page.get(key):
-            s[key] = page[key]
 
 
 def put_events(store: dict, symbol: str, kind: str, events: list) -> None:
@@ -271,9 +265,8 @@ def _r(v, n=1):
     return None if v is None else round(v, n)
 
 
-def app_record(stock: dict, research: ResearchInput, sector: str = "") -> dict | None:
-    """The row the app shows for one stock; None without results to judge it on. `sector` (its NSE industry) narrows
-    the products its description can name."""
+def app_record(stock: dict, research: ResearchInput) -> dict | None:
+    """The row the app shows for one stock; None without results to judge it on."""
     if not research.quarterly_financials:
         return None
     r = analyse_360cr(research)
@@ -299,16 +292,12 @@ def app_record(stock: dict, research: ResearchInput, sector: str = "") -> dict |
         "hy": 1 if half_yearly(stock.get("quarters") or []) else None,  # nq and pq count half-years
         **framework_facts(research.metadata.get("framework") or {}),
     }
-    record = {
+    return {
         "s": r.score, "st": r.state, "c": r.confidence,
         "q": (stock.get("quarters") or [{}])[-1].get("period"), "d": stock.get("checked"),
         "sec": {SECTION_KEYS[k]: _r(v, 0) for k, v in r.sections.items() if k in SECTION_KEYS},
         "f": {k: v for k, v in facts.items() if v is not None},
     }
-    made = product_list.classify(stock.get("about", ""), stock.get("points", ""), sector)
-    if made:
-        record["pr"] = made  # what the company makes, the main one first (products.py; the app's Products.kt)
-    return record
 
 
 def framework_facts(fw: dict) -> dict:

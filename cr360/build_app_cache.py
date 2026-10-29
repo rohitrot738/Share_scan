@@ -541,7 +541,7 @@ def main(argv=None) -> int:
         research = app_store.research_input(sym, stock, prices.get(sym) or [], anchor,
                                             financial=sectors.get(sym) == FINANCIAL_SECTOR, sector=sectors.get(sym, ""),
                                             mos=valuation.size_mos(ranks.get(sym)), today=today)
-        rec = app_store.app_record(stock, research, sectors.get(sym, ""))
+        rec = app_store.app_record(stock, research)
         if rec:
             records[sym] = rec
     store["updated"] = datetime.now(IST).isoformat(timespec="minutes")

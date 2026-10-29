@@ -18,9 +18,6 @@ class Cr360Book(
     /** The stock's 360CR; null when the file does not have it. */
     fun of(symbol: String): Entry? = entries[symbol]
 
-    /** What [symbol]'s company makes ([Entry.products]); empty when unknown. */
-    fun productsOf(symbol: String): List<String> = entries[symbol]?.products.orEmpty()
-
     /** 360CR's verdict, from its score; [INSUFFICIENT_DATA] when too little of the company's data was found. */
     enum class State(val key: String) {
         HIGH_CONVICTION("HIGH_CONVICTION"),
@@ -59,8 +56,6 @@ class Cr360Book(
         val parts: Map<Part, Int>,
         /** The figures behind the score ([Fact]); a figure without data is missing. */
         val facts: Map<Fact, Double>,
-        /** What the company makes, the main one first ([Products] keys); empty when its profile named none. */
-        val products: List<String> = emptyList(),
     )
 
     /** The figures the daily job keeps with each score; keys as in the file. */
@@ -177,9 +172,6 @@ class Cr360Book(
                         checked = row.optString("d").takeIf { it != "null" }.orEmpty(),
                         parts = numbers(row.optJSONObject("sec"), PARTS).mapValues { (_, v) -> Math.round(v).toInt() },
                         facts = numbers(row.optJSONObject("f"), FACTS),
-                        products = row.optJSONArray("pr")?.let { list ->
-                            (0 until list.length()).map(list::optString).filter(Products::known)
-                        }.orEmpty(),
                     )
                 }
                 Cr360Book(root.optString("updated"), entries)

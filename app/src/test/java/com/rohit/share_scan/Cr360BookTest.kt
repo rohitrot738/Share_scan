@@ -10,8 +10,7 @@ class Cr360BookTest {
         {"v":1,"updated":"2026-10-21T20:30+05:30","count":2,"stocks":{
           "RELIANCE":{"s":66.4,"st":"POSITIVE","c":100.0,"q":"2026-06-30","d":"2026-10-21",
             "sec":{"fq":92.0,"gr":61.0,"ev":40.0,"xx":5},"f":{"nq":13,"pq":13,"pe":21.8,"up":-4.5,"oq":12,"hpe":60,"fh":1353.0,"uh":9.36}},
-          "NEWCO":{"s":null,"st":"INSUFFICIENT_DATA","c":30.0,"q":null,"d":"2026-10-21","sec":{},"f":{"nq":4,"hy":1},
-            "pr":["tyre","hoverboard","car"]}
+          "NEWCO":{"s":null,"st":"INSUFFICIENT_DATA","c":30.0,"q":null,"d":"2026-10-21","sec":{},"f":{"nq":4,"hy":1}}
         }}
     """.trimIndent()
 
@@ -39,23 +38,6 @@ class Cr360BookTest {
         assertEquals("", newco.quarter)
         assertEquals(1.0, newco.facts[Cr360Book.Fact.HALF_YEARLY]!!, 1e-9)
         assertNull(book.of("TCS"))
-    }
-
-    @Test
-    fun productsKeepTheirOrderAndDropKeysTheAppDoesNotKnow() {
-        val book = Cr360Book.parse(json)
-        assertEquals(listOf("tyre", "car"), book.productsOf("NEWCO"))
-        assertEquals(emptyList<String>(), book.productsOf("RELIANCE"))
-        assertEquals(emptyList<String>(), book.productsOf("TCS"))
-    }
-
-    @Test
-    fun everyProductHasAnIconAndCardsShowTheFirstFew() {
-        assertEquals(89, Products.ICONS.size)
-        assertEquals(Products.ICONS.size, Products.ICONS.values.toSet().size)
-        assertEquals("🛞🚗", Products.icons(listOf("tyre", "car")))
-        assertEquals("🛞🚗🚚", Products.icons(listOf("tyre", "car", "truck", "bus")))
-        assertEquals("", Products.icons(emptyList()))
     }
 
     @Test

@@ -86,9 +86,6 @@ class MainActivity : AppCompatActivity() {
     private var shownScanMode: ScanMode? = null
     private var shownSupportReach: Double? = null
     private var shownQuery: String? = null
-    private var shownProduct: String? = null
-    /** The product the list's product chip shows, so its picture is set once per product. */
-    private var shownProductChip: String? = null
     private var shownWatchlist: Set<String>? = null
     private var shownCr360: Cr360Book? = null
     private val closeSearchOnBack = object : OnBackPressedCallback(false) {
@@ -97,10 +94,6 @@ class MainActivity : AppCompatActivity() {
     /** In the watchlist, Back goes to the full list rather than out of the app. */
     private val leaveWatchlistOnBack = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() = scan.setWatchlistOnly(false)
-    }
-    /** With a product picked, Back shows every company again. */
-    private val clearProductOnBack = object : OnBackPressedCallback(false) {
-        override fun handleOnBackPressed() = scan.setProduct(null)
     }
     private var filterSheet: BottomSheetDialog? = null
     private var detailSheet: BottomSheetDialog? = null
@@ -159,7 +152,6 @@ class MainActivity : AppCompatActivity() {
         listStyle = settings.listLayout.style(settings.background)
         adapter.style = listStyle
         adapter.flat = compact
-        adapter.productIcons = settings.productIcons
         if (listStyle == ItemStyle.BENTO) {
             ui.results.layoutManager = GridLayoutManager(this, BENTO_COLUMNS)
             listSide = resources.getDimensionPixelSize(R.dimen.bento_side)
@@ -621,7 +613,7 @@ class MainActivity : AppCompatActivity() {
      * chips are choices too.
      */
     private fun styleBarChips() {
-        listOfNotNull(ui.filterChip, ui.watchlistChip, ui.productChip, ui.sectorChip, compactShare).forEach { it.wearFlat(accented = true) }
+        listOfNotNull(ui.filterChip, ui.watchlistChip, ui.sectorChip, compactShare).forEach { it.wearFlat(accented = true) }
         listOf(ui.sortChips, ui.supportReachChips, ui.scanModeChips)
             .flatMap { group -> (0 until group.childCount).map(group::getChildAt) }
             .filterIsInstance<Chip>()
@@ -719,10 +711,9 @@ class MainActivity : AppCompatActivity() {
         // A star toggle only rebinds its card; anything that changes which stocks show, or their order, jumps to the top.
         // A fresh 360CR file redraws the cards' scores, and reorders a list sorted by them.
         val freshCr360 = state.cr360 !== shownCr360
-        if (freshCr360 || state.setups !== adapter.setups || state.news !== adapter.news || state.products !== adapter.products) {
+        if (freshCr360 || state.setups !== adapter.setups || state.news !== adapter.news) {
             shownCr360 = state.cr360
             adapter.cr360 = state.cr360
-            adapter.products = state.products
             adapter.setups = state.setups
             adapter.news = state.news
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
@@ -730,14 +721,14 @@ class MainActivity : AppCompatActivity() {
         val reorder = state.results !== shownResults || state.activeFilters != shownFilters || state.sort != shownSort ||
             state.ascending != shownAscending || state.watchlistOnly != shownWatchlistOnly ||
             state.scanMode != shownScanMode || state.supportReach != shownSupportReach || state.query != shownQuery ||
-            state.product != shownProduct || (freshCr360 && (state.sort == SortMode.CR360 || state.product != null))
+            (freshCr360 && state.sort == SortMode.CR360)
         if (reorder || state.watchlist != shownWatchlist) {
             val freshResults = state.results !== shownResults
             // Live mode's fresh prices arrive while the user may be reading: the list keeps its place for them.
             val quiet = freshResults && shownResults != null && state.autoResults &&
                 state.activeFilters == shownFilters && state.sort == shownSort && state.ascending == shownAscending &&
                 state.watchlistOnly == shownWatchlistOnly && state.scanMode == shownScanMode &&
-                state.supportReach == shownSupportReach && state.query == shownQuery && state.product == shownProduct
+                state.supportReach == shownSupportReach && state.query == shownQuery
             shownResults = state.results
             shownFilters = state.activeFilters
             shownSort = state.sort
@@ -746,7 +737,6 @@ class MainActivity : AppCompatActivity() {
             shownScanMode = state.scanMode
             shownSupportReach = state.supportReach
             shownQuery = state.query
-            shownProduct = state.product
             shownWatchlist = state.watchlist
             adapter.submitList(shown) {
                 if (reorder && !quiet) ui.results.scrollToPosition(0)
@@ -865,10 +855,8 @@ class MainActivity : AppCompatActivity() {
     private fun setUpListTools() {
         // A star toggle rebinds its card in place instead of cross-fading it.
         (ui.results.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
-        // Added last, the search's callback runs first: Back closes the search, then drops the product, then leaves the
-        // watchlist.
+        // Added last, the search's callback runs first: Back closes the search, then leaves the watchlist.
         onBackPressedDispatcher.addCallback(this, leaveWatchlistOnBack)
-        onBackPressedDispatcher.addCallback(this, clearProductOnBack)
         onBackPressedDispatcher.addCallback(this, closeSearchOnBack)
         // The chip opens the Watchlist page; while the list shows only the watchlist (from that page), it goes back to all.
         ui.watchlistChip.setOnClickListener {
@@ -877,10 +865,6 @@ class MainActivity : AppCompatActivity() {
         }
         ui.watchlistChip.setOnCloseIconClickListener { scan.setWatchlistOnly(false) }
         ui.watchlistChip.closeIconContentDescription = getString(R.string.list_watchlist_leave)
-        // The product picked on a detail sheet; the chip, or its ✕, shows every company again.
-        ui.productChip.setOnClickListener { scan.setProduct(null) }
-        ui.productChip.setOnCloseIconClickListener { scan.setProduct(null) }
-        ui.productChip.closeIconContentDescription = getString(R.string.product_filter_leave)
         ui.modeBreakout.setOnClickListener { scan.setScanMode(ScanMode.BREAKOUT) }
         ui.modeSupport.setOnClickListener { scan.setScanMode(ScanMode.SUPPORT) }
         // The Support scan's reach: any distance above the floor, or within a few percent of it.
@@ -913,17 +897,6 @@ class MainActivity : AppCompatActivity() {
         // The ✕ on the chip shows the way back to the full list.
         ui.watchlistChip.isCloseIconVisible = state.watchlistOnly
         leaveWatchlistOnBack.isEnabled = state.watchlistOnly
-        val product = state.product
-        ui.productChip.isVisible = product != null
-        clearProductOnBack.isEnabled = product != null
-        if (product != null && product != shownProductChip) {
-            // The product's picture leads the chip, its tint left off so the picture keeps its colours.
-            shownProductChip = product
-            ui.productChip.text = ProductLabels.name(this, product)
-            ui.productChip.chipIcon = ProductLabels.image(product)?.let { ContextCompat.getDrawable(this, it) }
-            ui.productChip.chipIconTint = null
-            ui.productChip.isChipIconVisible = ui.productChip.chipIcon != null
-        }
 
         // The Support scan has its own list and filters, a reach to pick and no watchlist view.
         val support = state.scanMode == ScanMode.SUPPORT
@@ -959,13 +932,7 @@ class MainActivity : AppCompatActivity() {
 
     /** Empty states for the watchlist and the search; false when the filters alone emptied the list. */
     private fun renderListEmpty(state: ScanUiState): Boolean {
-        val product = state.product
         val (title, body, icon) = when {
-            product != null && state.query.isBlank() -> Triple(
-                getString(R.string.product_empty_title),
-                getString(R.string.product_empty_body, ProductLabels.chip(this, product)),
-                R.drawable.ic_tune,
-            )
             state.listed.isNotEmpty() -> Triple(
                 getString(R.string.list_empty_search_title),
                 getString(R.string.list_empty_search_body, state.query.trim()),
@@ -1120,11 +1087,8 @@ class MainActivity : AppCompatActivity() {
             alerts = settings.watchAlerts,
             alert = alert,
             cr360 = state.cr360.of(stock.symbol),
-            products = state.products.of(stock.symbol, state.cr360),
-            photos = state.photos.of(stock.symbol),
             setups = state.setups,
             openOnNews = onNews,
-            onProduct = ::pickProduct,
         ).show()
     }
 
@@ -1159,19 +1123,6 @@ class MainActivity : AppCompatActivity() {
             sectorSheet?.dismiss()
             sectorSheet = open()
         }
-    }
-
-    /**
-     * The list shows every company making [product] (a chip on a stock's detail sheet), past the Top limit, inside the
-     * filters; it leaves the Watchlist page and the search, which would narrow it further.
-     */
-    private fun pickProduct(product: String) {
-        watchlistSheet?.dismiss()
-        if (scan.uiState.value.searchOpen) closeSearch()
-        scan.setWatchlistOnly(false)
-        scan.setProduct(product)
-        ui.results.scrollToPosition(0)
-        Toast.makeText(this, getString(R.string.product_applied, ProductLabels.chip(this, product)), Toast.LENGTH_SHORT).show()
     }
 
     private fun pickSector(sector: String?) {
@@ -1237,11 +1188,6 @@ class MainActivity : AppCompatActivity() {
         override fun skyAnimationChanged(on: Boolean) {
             ui.galaxySky.animate = on
             ui.spaceSky.animate = on
-        }
-
-        override fun productIconsChanged(on: Boolean) {
-            adapter.productIcons = on
-            adapter.notifyItemRangeChanged(0, adapter.itemCount)
         }
 
         /** Like [applyTheme]: the scan and its results live on in the view model. */

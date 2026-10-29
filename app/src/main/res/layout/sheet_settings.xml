@@ -136,39 +136,6 @@
                     android:contentDescription="@string/settings_sky" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/settingProductIconsRow"
-                style="@style/SettingsRow"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/SettingsRowTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/settings_product_icons" />
-
-                    <TextView
-                        style="@style/SettingsRowBody"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/settings_product_icons_hint" />
-                </LinearLayout>
-
-                <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/settingProductIcons"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/settings_product_icons" />
-            </LinearLayout>
-
             <!-- Glass mode: picking one re-creates the screen in it, so the line under the chips describes the current one. -->
             <TextView
                 style="@style/SettingsSection"

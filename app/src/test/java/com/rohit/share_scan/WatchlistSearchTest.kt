@@ -47,24 +47,6 @@ class WatchlistSearchTest {
     }
 
     @Test
-    fun aProductShowsTheCompaniesMakingItPastTheTopLimit() {
-        val book = Cr360Book.parse(
-            """{"v":1,"stocks":{"TECHM":{"st":"NEUTRAL","pr":["software"]},"INFY":{"st":"NEUTRAL","pr":["software","internet"]},
-               "TATAPOWER":{"st":"NEUTRAL","pr":["power","solar"]}}}""",
-        )
-        val state = ScanUiState(results = results, filters = ScanFilters(limit = 2), cr360 = book, product = "software")
-        assertEquals(listOf("TECHM" to 1, "INFY" to 5), ranks(state.sortedResults))
-        assertEquals(listOf("TATAPOWER" to 4), ranks(state.copy(product = "solar").sortedResults))
-        assertTrue(state.copy(product = "tyre").sortedResults.isEmpty())
-        // With the search too, both must match.
-        assertEquals(listOf("INFY" to 5), ranks(state.copy(query = "inf").sortedResults))
-        assertEquals(listOf("TECHM" to 1, "TCS" to 2), ranks(state.copy(product = null).sortedResults))
-        // The file the app carries comes first; the daily file only fills in a company it does not have.
-        val carried = ProductBook.parse("""{"v":1,"stocks":{"TECHM":["telecom"],"TCS":["software"]}}""")
-        assertEquals(listOf("TCS" to 2, "INFY" to 5), ranks(state.copy(products = carried).sortedResults))
-    }
-
-    @Test
     fun watchlistShowsEveryStarredStock() {
         val filters = ScanFilters(limit = 2).with(Metric.PRICE, Bound(min = 1_000.0))
         val gone = ScanResult("GONE", 250.0, 65.0, 1.5, 4.0, market = Market.BSE)

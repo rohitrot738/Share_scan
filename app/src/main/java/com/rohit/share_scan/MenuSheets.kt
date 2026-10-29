@@ -280,7 +280,6 @@ class SettingsSheet(
     interface Actions {
         fun keepScreenOnChanged(on: Boolean)
         fun skyAnimationChanged(on: Boolean)
-        fun productIconsChanged(on: Boolean)
         /** Saves [style] and re-creates the screen in it. */
         fun glassStyleChanged(style: GlassStyle)
         /** Saves whether the glass is on and re-creates the screen with it on, or flat and solid. */
@@ -309,12 +308,6 @@ class SettingsSheet(
             actions.skyAnimationChanged(on)
         }
         ui.settingSkyRow.setOnClickListener { ui.settingSky.toggle() }
-        ui.settingProductIcons.isChecked = settings.productIcons
-        ui.settingProductIcons.setOnCheckedChangeListener { _, on ->
-            settings.productIcons = on
-            actions.productIconsChanged(on)
-        }
-        ui.settingProductIconsRow.setOnClickListener { ui.settingProductIcons.toggle() }
 
         val current = settings.chartSite
         ChartSite.entries.forEach { site ->
@@ -655,7 +648,6 @@ class HelpSheet(private val activity: AppCompatActivity, private val onBack: () 
         add(activity.getString(R.string.help_alerts_title), activity.getString(R.string.help_alerts_body))
         add(activity.getString(R.string.help_record_title), activity.getString(R.string.help_record_body))
         add(activity.getString(R.string.help_sector_title), activity.getString(R.string.help_sector_body))
-        add(activity.getString(R.string.help_products_title), activity.getString(R.string.help_products_body))
         add(activity.getString(R.string.help_cloud_title), activity.getString(R.string.help_cloud_body))
         add(activity.getString(R.string.help_compact_title), activity.getString(R.string.help_compact_body))
         add(activity.getString(R.string.help_sky_title), activity.getString(R.string.help_sky_body))

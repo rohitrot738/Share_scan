@@ -62,8 +62,6 @@ data class ScanUiState(
     val searchOpen: Boolean = false,
     /** Search text, matched against the symbol and the company name ([StockSearch]). */
     val query: String = "",
-    /** Only the companies that make this product ([Products] key, picked on a stock's detail sheet); null for all. */
-    val product: String? = null,
     /** Rank moves since the previous completed scan, by symbol; empty on the first scan. */
     val rankBadges: Map<String, RankBadge> = emptyMap(),
     /** Counts up with every scan, so progress a stopped scan's threads report late can be told apart and ignored. */
@@ -82,10 +80,6 @@ data class ScanUiState(
     val narrowed: Boolean = false,
     /** Every stock's 360CR, from the daily file ([Cr360Repository]); empty until it is read. */
     val cr360: Cr360Book = Cr360Book.EMPTY,
-    /** What every company makes, from the file the app carries ([ProductRepository]); empty until it is read. */
-    val products: ProductBook = ProductBook.EMPTY,
-    /** Pictures for the products section, carried in the app ([ProductRepository.photos]); empty until read. */
-    val photos: ProductPhotos = ProductPhotos.EMPTY,
     /** The learned setups, from the daily learner ([SetupRepository]); empty until read, when the app's own apply. */
     val setups: SetupBook = SetupBook.EMPTY,
     /** Live mode's background scan is under way (the list still shows the previous scan). */
@@ -170,13 +164,11 @@ data class ScanUiState(
     }
 
     /**
-     * [listed] narrowed by the search and the [product]; ranks keep their numbers. Both look past the Top limit,
-     * through every stock inside the filters, so any scanned stock can be found by its symbol or name, and every
-     * company making the product shows.
+     * [listed] narrowed by the search; ranks keep their numbers. A search looks past the Top limit, through every
+     * stock inside the filters, so any scanned stock can be found by its symbol or name.
      */
     val shown: List<RankedStock> by lazy {
-        val product = product
-        if (query.isBlank() && product == null) {
+        if (query.isBlank()) {
             listed
         } else {
             val pool = when {
@@ -184,10 +176,7 @@ data class ScanUiState(
                 watchlistOnly -> starredStocks
                 else -> matching
             }
-            pool.filter {
-                (query.isBlank() || StockSearch.matches(it.stock, query)) &&
-                    (product == null || product in products.of(it.stock.symbol, cr360))
-            }
+            pool.filter { StockSearch.matches(it.stock, query) }
         }
     }
 

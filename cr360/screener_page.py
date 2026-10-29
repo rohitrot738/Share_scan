@@ -6,8 +6,6 @@ import re
 from datetime import date
 from html.parser import HTMLParser
 
-PROFILE_CHARS = 1500  # of the About and of the Key Points text kept: what the company makes is said early
-
 MONTHS = {m: i for i, m in enumerate(("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"), 1)}
 
 
@@ -31,11 +29,6 @@ class _Tables(HTMLParser):
         self.ratios: dict[str, str] = {}
         self.span_class = []
         self._pending = None
-        # The company profile's "About" and "Key Points" text, without the [1] source marks.
-        self.profile = {"about": "", "commentary": ""}
-        self.profile_part = None
-        self.profile_depth = 0
-        self.in_sup = 0
 
     def _shp_div(self):
         return next((d for d in reversed(self.div_ids) if d in ("quarterly-shp", "yearly-shp")), None)
@@ -46,17 +39,6 @@ class _Tables(HTMLParser):
             self.section = a["id"]
         elif tag == "div":
             self.div_ids.append(a.get("id"))
-            if self.profile_part:
-                self.profile_depth += 1
-            else:
-                cls = a.get("class", "").split()
-                part = next((c for c in ("about", "commentary") if c in cls), None)
-                if part and "sub" in cls and not self.profile[part]:
-                    self.profile_part, self.profile_depth = part, 1
-        elif tag == "sup":
-            self.in_sup += 1
-        elif tag in ("br", "p", "li") and self.profile_part:
-            self.profile[self.profile_part] += "\n"
         elif tag == "h1":
             self.in_h1 = True
         elif tag == "ul" and a.get("id") == "top-ratios":
@@ -82,12 +64,6 @@ class _Tables(HTMLParser):
             self.section = None
         elif tag == "div" and self.div_ids:
             self.div_ids.pop()
-            if self.profile_part:
-                self.profile_depth -= 1
-                if self.profile_depth == 0:
-                    self.profile_part = None
-        elif tag == "sup" and self.in_sup:
-            self.in_sup -= 1
         elif tag == "h1":
             self.in_h1 = False
         elif tag == "ul" and self.in_ratios:
@@ -118,8 +94,6 @@ class _Tables(HTMLParser):
             self.table = None
 
     def handle_data(self, data):
-        if self.profile_part and not self.in_sup:
-            self.profile[self.profile_part] += data
         if self.cell is not None:
             self.cell += data
         if self.in_h1:
@@ -128,13 +102,6 @@ class _Tables(HTMLParser):
             self.ratio_name += data
         if self.ratio_value is not None:
             self.ratio_value += data
-
-
-def _profile_text(s: str, limit: int = PROFILE_CHARS) -> str:
-    """One line per paragraph, spaces collapsed, cut at `limit` characters on a word."""
-    lines = [re.sub(r"\s+", " ", line.replace("\xa0", " ")).strip() for line in s.split("\n")]
-    text = "\n".join(line for line in lines if line)
-    return text if len(text) <= limit else text[:limit].rsplit(" ", 1)[0]
 
 
 def _clean(s: str) -> str:
@@ -202,9 +169,7 @@ def parse(html: str) -> dict:
                 return t
         return None
 
-    out = {"name": _clean(p.title), "quarters": [], "annual": [], "balance": [], "cashflow": [], "shareholding": [], "ratios": {},
-           # What the company does, in Screener's words (products.classify reads its products from these).
-           "about": _profile_text(p.profile["about"]), "points": _profile_text(p.profile["commentary"])}
+    out = {"name": _clean(p.title), "quarters": [], "annual": [], "balance": [], "cashflow": [], "shareholding": [], "ratios": {}}
     q = first_table("quarters")
     if q:
         periods, rows = _rows(q)

@@ -509,12 +509,6 @@
     </style>
 
     <!-- Glass chips are full pills at any height (large font sizes too), matching their foreground shine. -->
-    <!-- The products section's photos (StockDetailSheet.bindProducts). -->
-    <style name="ShapeAppearance.ShareScan.Photo" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">14dp</item>
-    </style>
-
     <style name="ShapeAppearance.ShareScan.GlassChip" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
