@@ -1,7 +1,7 @@
 """Temporary review helper: real products for a few well-known companies, put into the app's R/S file for the
 emulator screenshots (the nightly cache adds them for every stock once this is merged). Removed before merging.
 
-    python .github/ui-products.py OUT.json.gz LOG.txt
+    python .github/ui-products.py OUT.json.gz LOG.txt [PROFILES.json]
 """
 import gzip
 import json
@@ -36,16 +36,17 @@ def get(url):
         return r.read()
 
 
-def main(out, log_path):
+def main(out, log_path, profiles_path=None):
     book = json.loads(gzip.decompress(get(SOURCE)))
-    lines = []
+    lines, profiles = [], {}
     for symbol, sector in STOCKS.items():
-        time.sleep(3)
+        time.sleep(8)
         try:
             page = screener_page.parse(get("https://www.screener.in/company/" + urllib.parse.quote(symbol) + "/").decode("utf-8", "replace"))
         except Exception as e:  # noqa: BLE001 - a page that does not come is left out
             lines.append(f"{symbol}: page failed ({e})")
             continue
+        profiles[symbol] = {"sector": sector, "about": page.get("about", ""), "points": page.get("points", "")}
         made = products.classify(page.get("about", ""), page.get("points", ""), sector)
         row = book["stocks"].get(symbol)
         if made and row is not None:
@@ -55,7 +56,9 @@ def main(out, log_path):
     with gzip.open(out, "wt", encoding="utf-8") as f:
         json.dump(book, f, separators=(",", ":"))
     open(log_path, "w", encoding="utf-8").write("\n".join(lines) + "\n")
+    if profiles_path:
+        json.dump(profiles, open(profiles_path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(*sys.argv[1:4])
