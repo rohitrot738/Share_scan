@@ -1,0 +1,61 @@
+# Temporary, run once: the products file the app carries, from every company's Screener page. The stocks are read in
+# three slices one after another (never two at once), at the nightly cache's pace. Removed before merging.
+name: Product data
+on:
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['.github/workflows/product-data.yml']
+permissions:
+  contents: write
+concurrency:
+  group: product-data
+  cancel-in-progress: false
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      max-parallel: 1
+      fail-fast: false
+      matrix:
+        part: [0, 1, 2]
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python .github/product-data.py read ${{ matrix.part }} 3 product-data
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: product-data-${{ matrix.part }}
+          path: product-data
+          retention-days: 90
+  join:
+    needs: read
+    if: always()
+    runs-on: ubuntu-latest
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: product-data-*
+          merge-multiple: true
+          path: product-data
+      - name: Write the app's products file
+        run: python .github/product-data.py join product-data app/src/main/assets/products.json | tee product-data-summary.txt
+      - name: Commit it to the branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/src/main/assets/products.json product-data-summary.txt
+          git commit -m "Products of every company, read from Screener once" || exit 0
+          git pull --rebase -X theirs origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
