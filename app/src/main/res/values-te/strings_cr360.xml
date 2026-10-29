@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sort_cr360">R/S</string>
+    <string name="item_cr360">R/S %1$s</string>
+    <string name="item_cr360_description">రోహిత్ సెలెక్షన్ %1$s, %2$s</string>
+    <string name="detail_section_cr360">R/S · రోహిత్ సెలెక్షన్</string>
+    <string name="detail_cr360_subtitle">కంపెనీ ఫలితాలు, నగదు ప్రవాహం, అప్పు, షేర్‌హోల్డింగ్, ఇన్‌సైడర్, బల్క్ డీల్స్, విలువ, 3 సంవత్సరాల ధర</string>
+    <string name="detail_cr360_score">%1$s / 100</string>
+    <string name="detail_cr360_data">డేటా %1$d%% · %2$s వరకు ఫలితాలు · %3$s న చదివారు</string>
+    <string name="detail_cr360_unknown">వీటికి డేటా లేదు, కాబట్టి స్కోర్ వీటిని మధ్యస్థ 50గా లెక్కిస్తుంది: %1$s</string>
+    <string name="detail_cr360_missing">ఈ స్టాక్‌కు ఇంకా R/S లేదు — రాత్రి క్యాష్ త్వరలో జోడిస్తుంది</string>
+    <string name="detail_cr360_note">మూలాలు: Screener.in, NSE, Yahoo · ప్రతి సాయంత్రం అప్‌డేట్ · పెట్టుబడి సలహా కాదు</string>
+    <string name="cr360_high_conviction">చాలా బలమైనది</string>
+    <string name="cr360_positive">బలమైనది</string>
+    <string name="cr360_neutral">సాధారణం</string>
+    <string name="cr360_caution">జాగ్రత్త</string>
+    <string name="cr360_avoid">దూరంగా ఉండండి</string>
+    <string name="cr360_insufficient">డేటా తక్కువ</string>
+    <string name="cr360_part_financial_quality">ఫలితాల నాణ్యత</string>
+    <string name="cr360_part_growth">వృద్ధి</string>
+    <string name="cr360_part_cashflow">నగదు ప్రవాహం</string>
+    <string name="cr360_part_balance_sheet">అప్పు / బ్యాలెన్స్ షీట్</string>
+    <string name="cr360_part_ownership">షేర్‌హోల్డింగ్</string>
+    <string name="cr360_part_insider_deals">ఇన్‌సైడర్, బల్క్ డీల్స్</string>
+    <string name="cr360_part_valuation">విలువ</string>
+    <string name="cr360_part_price">3 సంవత్సరాల ధర</string>
+    <string name="cr360_part_stability">స్థిరత్వం</string>
+    <string name="cr360_part_technical_risk">రిస్క్, R:R</string>
+    <string name="cr360_quarters">త్రైమాసికాలు</string>
+    <string name="cr360_half_years">అర్ధ సంవత్సరాలు</string>
+    <string name="cr360_fact_profit">%1$d %3$sలో %2$dలో లాభం</string>
+    <string name="cr360_fact_growth">అమ్మకాలు %1$s · లాభం %2$s (%3$d %4$sలో)</string>
+    <string name="cr360_fact_margin">నికర మార్జిన్ %1$s</string>
+    <string name="cr360_fact_debt">అప్పు/ఈక్విటీ %1$s</string>
+    <string name="cr360_fact_promoter">ప్రమోటర్ %1$s%% (%2$s)</string>
+    <string name="cr360_fact_institutions">FII %1$s · DII %2$s</string>
+    <string name="cr360_fact_institutions_span">FII %1$s%% · DII %2$s%% (%3$d త్రైమాసికాల్లో)</string>
+    <string name="cr360_fact_insider">ఇన్‌సైడర్: కొన్నది ₹%1$s Cr · అమ్మినది ₹%2$s Cr</string>
+    <string name="cr360_fact_deals">బల్క్/బ్లాక్: కొన్నది ₹%1$s Cr · అమ్మినది ₹%2$s Cr</string>
+    <string name="cr360_fact_pe">P/E %1$s</string>
+    <string name="cr360_fact_history_pe">దాని సొంత సాధారణ 3 సంవత్సరాల P/E %1$s</string>
+    <string name="cr360_fact_fair_value">న్యాయమైన విలువ: %1$s</string>
+    <string name="cr360_fair_sector">సెక్టార్ నుంచి ₹%1$s (%2$s)</string>
+    <string name="cr360_fair_framework">ఫ్రేమ్‌వర్క్ నుంచి ₹%1$s (%2$s)</string>
+    <string name="cr360_fair_history">సొంత P/E నుంచి ₹%1$s (%2$s)</string>
+    <string name="cr360_fact_position">3 సంవత్సరాల పరిధిలో %1$s%% వద్ద</string>
+    <string name="cr360_fact_volatility">ఒడిదుడుకులు %1$s%%</string>
+    <string name="cr360_trades_buy">కొనుగోలు</string>
+    <string name="cr360_trades_sell">అమ్మకం</string>
+    <string name="cr360_trades_insider_note">తేదీ = డీల్ రోజు · NSEలో = ఫైలింగ్ NSEకి చేరిన రోజు, సమయం · తర్వాత వాటా = డీల్ తర్వాత ఆ వ్యక్తి హోల్డింగ్ · కొత్తవి ముందు, 5 సంవత్సరాల వరకు. అన్ని కాలమ్‌లు చూడటానికి టేబుల్‌ను పక్కకు జరపండి.</string>
+    <string name="cr360_trades_deals_note">NSE బల్క్/బ్లాక్ డీల్స్ రోజు మాత్రమే ఇస్తుంది, సమయం కాదు · కొత్తవి ముందు. అన్ని కాలమ్‌లు చూడటానికి టేబుల్‌ను పక్కకు జరపండి.</string>
+    <string name="cr360_trades_none">ఈ స్టాక్ డీల్స్ జాబితా ఇంకా లేదు</string>
+    <string name="cr360_open_loading">లోడ్ అవుతోంది…</string>
+    <string name="cr360_part_no_detail">ఈ భాగానికి ఇంకా వివరణ లేదు</string>
+    <string name="cr360_trades_deals_heading">బల్క్/బ్లాక్ డీల్స్</string>
+    <string-array name="cr360_trades_insider_columns">
+        <item>తేదీ</item>
+        <item>NSEలో</item>
+        <item>పేరు</item>
+        <item>ఎవరు</item>
+        <item>డీల్</item>
+        <item>షేర్లు</item>
+        <item>ధర ₹</item>
+        <item>మొత్తం</item>
+        <item>విధానం</item>
+        <item>తర్వాత వాటా</item>
+    </string-array>
+    <string-array name="cr360_trades_deals_columns">
+        <item>తేదీ</item>
+        <item>రకం</item>
+        <item>పేరు</item>
+        <item>డీల్</item>
+        <item>షేర్లు</item>
+        <item>ధర ₹</item>
+        <item>మొత్తం</item>
+    </string-array>
+    <string name="detail_section_cr360_history">R/S చరిత్ర</string>
+    <string name="detail_cr360_history_loading">చరిత్ర వస్తోంది…</string>
+    <string name="detail_cr360_history_subtitle">క్యాష్‌లో ఉన్న ప్రతి త్రైమాసికం, సంవత్సరం డేటా (5 సంవత్సరాల వరకు)</string>
+    <string name="detail_cr360_history_missing">ఈ స్టాక్‌కు ఇంకా చరిత్ర లేదు — ఇంటర్నెట్‌తో తదుపరిసారి తెరిచినప్పుడు వస్తుంది</string>
+    <string name="cr360_history_holders_title" formatted="false">FII / DII కొనుగోలు, అమ్మకం (వాటా %)</string>
+    <string name="cr360_history_holders_note" formatted="false">▲ వాటా పెరిగింది = ఆ త్రైమాసికంలో కొన్నారు · ▼ తగ్గింది = అమ్మారు (% పాయింట్లు)</string>
+    <string name="cr360_history_holders_summary">%1$s → %2$s: FII %3$s%% → %4$s%% (%5$s) · DII %6$s%% → %7$s%% (%8$s)</string>
+    <string name="cr360_history_quarters_title">త్రైమాసిక ఫలితాలు (₹ కోట్లు)</string>
+    <string name="cr360_history_halves_title">అర్ధ వార్షిక ఫలితాలు (₹ కోట్లు)</string>
+    <string name="cr360_history_years_title">వార్షికం: ఫలితాలు, నగదు ప్రవాహం, అప్పు (₹ కోట్లు)</string>
+    <string name="cr360_history_quarter">త్రైమాసికం</string>
+    <string name="cr360_history_half">అర్ధం</string>
+    <string name="cr360_history_year">సంవత్సరం</string>
+    <string name="cr360_history_promoter">ప్రమోటర్</string>
+    <string name="cr360_history_public">పబ్లిక్</string>
+    <string name="cr360_history_sales">అమ్మకాలు</string>
+    <string name="cr360_history_profit">లాభం</string>
+    <string name="cr360_history_eps">EPS ₹</string>
+    <string name="cr360_history_operating_cash">ఆపరేటింగ్ నగదు</string>
+    <string name="cr360_history_free_cash">ఫ్రీ నగదు</string>
+    <string name="cr360_history_debt">అప్పు</string>
+    <string name="cr360_history_chart_title">3 సంవత్సరాల ధర (ప్రతి నెల చివరి ముగింపు)</string>
+    <string name="cr360_history_chart_note">ఇప్పుడు ₹%1$s · గరిష్ఠం ₹%2$s (%3$s) · కనిష్ఠం ₹%4$s (%5$s)</string>
+    <string name="cr360_history_chart_description">%1$s నుంచి %2$s వరకు నెలవారీ ధర: కనిష్ఠం ₹%3$s, గరిష్ఠం ₹%4$s, ఇప్పుడు ₹%5$s</string>
+    <string name="help_cr360_title">R/S · రోహిత్ సెలెక్షన్</string>
+    <string name="help_cr360_body">R/S (రోహిత్ సెలెక్షన్) కంపెనీని 10 భాగాల్లో పరీక్షిస్తుంది: ఫలితాల నాణ్యత (18), వృద్ధి (12), నగదు ప్రవాహం (10), అప్పు (10), షేర్‌హోల్డింగ్ (12), ఇన్‌సైడర్, బల్క్/బ్లాక్ డీల్స్ (8), విలువ (12), 3 సంవత్సరాల ధర (8), స్థిరత్వం (5), రిస్క్ (5). విలువ ఇప్పుడు సెక్టార్‌ను బట్టి వేర్వేరుగా లెక్కిస్తారు (కింద \"R/S విలువ ఫ్రేమ్‌వర్క్\" చూడండి); సొంత పద్ధతి లేని, లేదా డేటా తక్కువ ఉన్న సెక్టార్లలో సగం బరువు సెక్టార్ సాధారణ P/E, P/Bతో పోలికకు, సగం కంపెనీ గత 3 సంవత్సరాల సొంత సాధారణ P/Eకి. నష్టాల్లో ఉన్న కంపెనీలకు, 3 కంటే తక్కువ P/E ఉన్నవాటికి (ఒకసారి లాభం లేదా పాత అంకెలు) విలువ లెక్కించరు, ఒక త్రైమాసికం ఆదాయం ఆ సంవత్సరం మధ్య త్రైమాసికానికి 10 రెట్లు మించితే అది ఒకసారిదిగా లెక్కిస్తారు. వృద్ధి చివరి 4 త్రైమాసికాల మొత్తాన్ని మొదటి 4 మొత్తంతో పోలుస్తుంది; ప్రారంభం నష్టం లేదా సున్నాకు దగ్గర అయితే శాతం కనిపించదు. బ్యాంకులు, NBFCలు, బీమా వంటి ఆర్థిక కంపెనీల్లో అప్పు, నగదు ప్రవాహం భాగాలు లెక్కించరు, ఎందుకంటే అప్పు తీసుకుని అప్పు ఇవ్వడమే వాటి వ్యాపారం. డేటా లేని భాగానికి స్కోర్‌లో మధ్యస్థ 50 వస్తుంది (మంచిదీ కాదు, చెడ్డదీ కాదు), 2–3 భాగాల్లో మాత్రమే బాగుండి మిగతావి తెలియని కంపెనీ పూర్తి డేటా ఉన్న మంచి కంపెనీల కంటే పైకి రాకుండా; ఏ భాగాలకు డేటా లేదో కార్డుపై రాసి ఉంటుంది. 0–100 స్కోర్ నుంచి గ్రేడ్: 75+ చాలా బలమైనది, 62+ బలమైనది, 48+ సాధారణం, 35+ జాగ్రత్త, దాని కింద దూరంగా ఉండండి; డేటా 40% కంటే తక్కువ అయితే \"డేటా తక్కువ\". NSE, NSE SME, BSEలో మాత్రమే లిస్ట్ అయిన స్టాక్‌లు అన్నీ ఉన్నాయి; SME కంపెనీలు అర్ధ వార్షిక ఫలితాలు ఇస్తాయి, కాబట్టి వాటి అంకెలు అర్ధ సంవత్సరాల్లో. Screener.in, NSE, Yahoo నుంచి డేటా ప్రతి సాయంత్రం ఒకసారి క్యాష్‌లో చేరుతుంది — పాత త్రైమాసికాలు మారవు, కాబట్టి కొత్త ఫలితాలు, షేర్‌హోల్డింగ్, డీల్స్ మాత్రమే జోడిస్తారు, 20 త్రైమాసికాలు / 5 సంవత్సరాల కంటే పాత డేటా తొలగిస్తారు. యాప్ రోజుకు రెండుసార్ల వరకు కొత్త ఫైల్ తెచ్చుకుని ఒకే కాపీ ఉంచుతుంది. స్టాక్ వివరాల్లో \"R/S చరిత్ర\" ప్రతి త్రైమాసిక ఫలితాలు, FII/DII/ప్రమోటర్ వాటాలు (▲ కొన్నారు, ▼ అమ్మారు), వార్షిక నగదు ప్రవాహం, అప్పు, 3 సంవత్సరాల ధర చూపిస్తుంది; దాని చిన్న ఫైల్ ఆ స్టాక్ తెరిచినప్పుడు వస్తుంది. R/S కార్డులో ఏ భాగాన్ని నొక్కినా దాని డేటా కింద తెరుచుకుంటుంది: నాణ్యత, వృద్ధికి ప్రతి త్రైమాసిక ఫలితాలు, నగదు ప్రవాహం, అప్పుకు వార్షిక టేబుల్, షేర్‌హోల్డింగ్‌కు ప్రమోటర్/FII/DII, ఇన్‌సైడర్‌కు ప్రతి డీల్ (తేదీ, NSEకి చేరిన రోజు, సమయం, పేరు, ఎవరు, కొనుగోలు/అమ్మకం, షేర్లు, ధర, మొత్తం, విధానం, డీల్ తర్వాత వాటా), విలువకు P/E, న్యాయమైన విలువ, ఫ్రేమ్‌వర్క్ పూర్తి లెక్క, ధర, స్థిరత్వం, రిస్క్‌కు 3 సంవత్సరాల చార్ట్; ఇన్‌సైడర్, బల్క్/బ్లాక్ లైన్‌లు కూడా అలాగే తెరుచుకుంటాయి, మళ్లీ నొక్కితే మూసుకుంటాయి. బల్క్/బ్లాక్ డీల్స్ ఇప్పుడే జోడించడం మొదలైంది, కాబట్టి వాటి చరిత్ర కాలక్రమేణా పెరుగుతుంది; ఇన్‌సైడర్ ట్రేడ్‌లు, బల్క్/బ్లాక్ డీల్స్ NSEవి, కాబట్టి BSE-మాత్రమే స్టాక్‌లకు ఆ భాగం ఖాళీగా ఉంటుంది. పెట్టుబడి సలహా కాదు.</string>
+</resources>

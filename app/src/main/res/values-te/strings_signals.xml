@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_from_high">20D గరిష్ఠం నుంచి దూరం</string>
+    <string name="metric_base_range">నిశ్శబ్ద పరిధి (గరిష్ఠం–కనిష్ఠం)</string>
+    <string name="metric_vs_sma50">50 DMA నుంచి దూరం</string>
+    <string name="hint_from_high">20 రోజుల గరిష్ఠ ధర (రెసిస్టెన్స్) కంటే ధర ఎంత కింద ఉంది • మైనస్ = గరిష్ఠం పైన బ్రేకౌట్</string>
+    <string name="hint_base_range">ఎంచుకున్న వారాల్లో గరిష్ఠ, కనిష్ఠ ధరల మధ్య తేడా • తక్కువ = నిశ్శబ్ద స్టాక్, మరీ పైనా కాదు మరీ కిందా కాదు</string>
+    <string name="hint_vs_sma50">50 రోజుల సగటు పైన (+) లేదా కింద (-) • ప్లస్ = పెరుగుతున్న ట్రెండ్</string>
+    <string name="hint_score_mix">బ్రేకౌట్ సెటప్, ట్రెండ్, వాల్యూమ్, లిక్విడిటీ, మొమెంటమ్ మిశ్రమం • %1$s+ STRONG, %2$s+ WATCH</string>
+</resources>

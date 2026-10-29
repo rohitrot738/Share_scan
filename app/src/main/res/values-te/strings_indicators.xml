@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_rsi">RSI (14)</string>
+    <string name="metric_macd">MACD, సిగ్నల్ నుంచి దూరం</string>
+    <string name="metric_macd_cross">MACD క్రాస్‌ఓవర్</string>
+    <string name="hint_rsi">70 పైన = ఓవర్‌బాట్ (చాలా పెరిగింది), 30 కింద = ఓవర్‌సోల్డ్ (చాలా పడింది) • 50–70 = పెరుగుతోంది, కానీ మరీ ఎక్కువ కాదు</string>
+    <string name="hint_macd" formatted="false">MACD లైన్ దాని సిగ్నల్ లైన్ కంటే ఎంత పైన (+) లేదా కింద (-) ఉంది, ధరలో శాతంగా • 0% పైన = పెరుగుతోంది</string>
+    <string name="hint_macd_cross">MACD దాని సిగ్నల్ లైన్‌ను కింద నుంచి దాటి ఎన్ని రోజులైంది • \"3 రోజుల క్రితం\" వరకు = తాజా బుల్లిష్ క్రాస్‌ఓవర్; సిగ్నల్ కింద ఉన్న స్టాక్‌లు తొలగిపోతాయి</string>
+    <string name="detail_stat_rsi">RSI (14)</string>
+    <string name="detail_stat_rsi_overbought">70+ ఓవర్‌బాట్: చాలా పెరిగింది</string>
+    <string name="detail_stat_rsi_strong">50–70: పెరుగుతోంది</string>
+    <string name="detail_stat_rsi_weak">30–50: బలహీనం</string>
+    <string name="detail_stat_rsi_oversold">30 కింద ఓవర్‌సోల్డ్: చాలా పడింది</string>
+    <string name="detail_stat_macd">MACD (12, 26, 9)</string>
+    <string name="detail_stat_macd_bull">బుల్లిష్</string>
+    <string name="detail_stat_macd_bear">బేరిష్</string>
+    <string name="detail_stat_macd_crossed">%1$s సిగ్నల్ పైకి దాటింది</string>
+    <string name="detail_stat_macd_below">సిగ్నల్ లైన్ కింద</string>
+    <string name="detail_stat_macd_zero_above">సున్నా పైన</string>
+    <string name="detail_stat_macd_zero_below">సున్నా కింద</string>
+    <string name="help_indicators_title">RSI మరియు MACD</string>
+    <string name="help_indicators_body" formatted="false">రెండూ చార్టింగ్ సైట్‌లలో లాగే ప్రతి స్టాక్ 6 నెలల రోజువారీ ధరల నుంచి వస్తాయి. RSI (14) 0 నుంచి 100 వరకు: 70 పైన ఓవర్‌బాట్ (చాలా పెరిగింది), 30 కింద ఓవర్‌సోల్డ్ (చాలా పడింది), 50–70 పెరుగుతోంది. MACD (12, 26, 9): 12 మరియు 26 రోజుల ఎక్స్‌పోనెన్షియల్ సగటుల మధ్య తేడా, దాని 9 రోజుల సిగ్నల్ లైన్. MACD దాని సిగ్నల్ పైన = పెరుగుతోంది; అది సిగ్నల్‌ను కింద నుంచి దాటిన రోజు బుల్లిష్ క్రాస్‌ఓవర్. ఫిల్టర్లలో మూడూ ఉన్నాయి: RSI పరిధి, MACD దాని సిగ్నల్ కంటే ఎంత పైన లేదా కింద ఉంది (ధరలో శాతంగా), క్రాస్‌ఓవర్ ఎన్ని రోజుల క్రితం వచ్చింది (\"3 రోజుల క్రితం\" వరకు = తాజా క్రాస్‌ఓవర్). స్టాక్ వివరాల్లో రెండింటి నేటి విలువ కనిపిస్తుంది. లైవ్ మార్కెట్‌లో నేటి కదిలే ధర కూడా లెక్కలోకి వస్తుంది.</string>
+</resources>

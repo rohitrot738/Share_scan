@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_breakout">బ్రేకౌట్ స్కాన్</string>
+    <string name="mode_support">సపోర్ట్ స్కాన్</string>
+    <string name="support_ready_title">సపోర్ట్ స్కాన్</string>
+    <string name="support_ready_body">6 నెలలుగా ఒక ధర కింద ముగియని, అయినా పదే పదే దాని వరకు వచ్చిన స్టాక్‌లు</string>
+    <string name="support_done_title">సపోర్ట్ స్కాన్ పూర్తైంది</string>
+    <string name="support_done_body">%1$d స్టాక్‌లు 6 నెలలుగా సపోర్ట్‌పై నిలిచాయి • %2$s స్కాన్</string>
+    <string name="support_action_start">సపోర్ట్ స్కాన్ చేయండి</string>
+    <string name="support_action_rescan">మళ్లీ సపోర్ట్ స్కాన్ చేయండి</string>
+    <string name="support_stat_long">6M సపోర్ట్</string>
+    <string name="support_stat_near">5% లోపు</string>
+    <string name="support_reach_any">ఏ దూరమైనా</string>
+    <string name="support_reach_within">%1$d%% వరకు దగ్గర</string>
+    <string name="support_list_empty_title">6 నెలల సపోర్ట్ ఏదీ దొరకలేదు</string>
+    <string name="support_list_empty_body">ఈ స్కాన్‌లో, ఈ ఫిల్టర్లలో, ఏ స్టాక్ 6 నెలలుగా తన సపోర్ట్ పైన నిలవలేదు. దూరం పెంచండి, ఫిల్టర్లు సడలించండి, లేదా మెనూ → స్కాన్‌లో మరిన్ని ఎక్స్ఛేంజ్‌లు / సెక్టార్లు ఆన్ చేయండి.</string>
+    <string name="sort_support">సపోర్ట్</string>
+    <string name="item_support">సపోర్ట్ ₹%1$s · %2$s · %3$d సార్లు</string>
+    <string name="item_support_description">సపోర్ట్ %1$s రూపాయల వద్ద, %2$s నుంచి, %3$d సార్లు పరీక్షించబడింది</string>
+    <string name="detail_stat_support">సపోర్ట్</string>
+    <string name="detail_stat_support_note">%1$s నుంచి · %2$d సార్లు పరీక్షించబడింది · ధర %3$s పైన</string>
+    <string name="detail_stat_support_long_note">%1$s నుంచి · %2$d సార్లు పరీక్షించబడింది · ధర %3$s పైన · 6 నెలల్లో దీని కింద ముగియలేదు</string>
+    <string name="detail_chart_support">సపోర్ట్ %1$s</string>
+    <string name="detail_part_support">సపోర్ట్ బోనస్</string>
+    <string name="detail_part_bonus">+%1$d వరకు</string>
+    <string name="metric_support_age">సపోర్ట్ ఎంత పాతది</string>
+    <string name="metric_support_gap">సపోర్ట్ నుంచి దూరం</string>
+    <string name="hint_support_age">ధర పదే పదే వచ్చి తిరిగి వెళ్లిన, కింద ముగియని స్థాయి ఎంతకాలంగా నిలిచి ఉంది</string>
+    <string name="hint_support_gap">నేటి ధర సపోర్ట్ కంటే ఎంత % పైన ఉంది; తక్కువ = సపోర్ట్ దగ్గర</string>
+    <string name="help_part_support">సపోర్ట్ బోనస్ • %1$d పాయింట్ల వరకు</string>
+    <string name="help_part_support_body">స్టాక్ పదే పదే వచ్చి తిరిగి వెళ్లిన, కింద ముగియని ధరే దాని సపోర్ట్: అమ్మేవాళ్లు ధరను దాని కిందకు దించలేకపోయారు. సపోర్ట్ ఎంత పాతదైతే (6 నెలలకు పూర్తి పాయింట్లు) ఎన్నిసార్లు పరీక్షించబడితే (5 సార్లకు పూర్తి), స్కోర్‌కు అంత ఎక్కువ పాయింట్లు చేరతాయి; సపోర్ట్ లేని స్టాక్‌కు పాయింట్లు తగ్గవు. పైన \"సపోర్ట్ స్కాన్\" ఎంచుకుంటే 6 నెలల్లో ఎప్పుడూ తమ సపోర్ట్ కింద ముగియని, సపోర్ట్ కనీసం %1$d నెలలుగా కనీసం 3 సార్లు పరీక్షించబడిన స్టాక్‌లు మాత్రమే కనిపిస్తాయి. సపోర్ట్ స్కాన్‌కు దాని సొంత ఫిల్టర్లు ఉన్నాయి, బ్రేకౌట్‌వాటికి వేరుగా. రెండు స్కాన్‌లూ ఒకే డేటా చదువుతాయి, కాబట్టి ఒక్క స్కాన్‌తో రెండు జాబితాలూ తాజా అవుతాయి.</string>
+</resources>

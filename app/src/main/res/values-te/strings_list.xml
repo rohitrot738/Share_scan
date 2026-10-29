@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_watchlist">★ వాచ్‌లిస్ట్</string>
+    <string name="list_watchlist_count">★ వాచ్‌లిస్ట్ (%1$d)</string>
+    <string name="list_watchlist_leave">వాచ్‌లిస్ట్ మూసి, అన్ని స్టాక్‌లు చూపించండి</string>
+    <string name="list_star_add">%1$sను వాచ్‌లిస్ట్‌కు జోడించండి</string>
+    <string name="list_star_remove">%1$sను వాచ్‌లిస్ట్ నుంచి తీసివేయండి</string>
+    <string name="list_starred_description">వాచ్‌లిస్ట్‌లో ఉంది</string>
+    <string name="list_empty_watchlist_title">మీ వాచ్‌లిస్ట్ ఖాళీగా ఉంది</string>
+    <string name="list_empty_watchlist_body">ఏదైనా కార్డుపై ☆ నొక్కండి — ఆ స్టాక్ ఇక్కడ కనిపిస్తుంది.</string>
+    <string name="list_empty_watchlist_body_compact">ఏదైనా లైన్‌ను నొక్కి పట్టుకోండి — ఆ స్టాక్ ★తో ఇక్కడ కనిపిస్తుంది.</string>
+    <string name="list_empty_watchlist_waiting_title">మీ ★ స్టాక్‌లకు ఇంకా ధర లేదు</string>
+    <string name="list_empty_watchlist_waiting_body">మీరు ★ పెట్టిన స్టాక్‌లు తదుపరి స్కాన్‌తో ఇక్కడ కనిపిస్తాయి.</string>
+    <string name="list_rank_new">NEW</string>
+    <string name="list_rank_up">▲%1$d</string>
+    <string name="list_rank_down">▼%1$d</string>
+    <string name="list_rank_new_description">చివరి స్కాన్ తర్వాత టాప్ %1$dలో కొత్తది</string>
+    <string name="list_rank_up_description">చివరి స్కాన్ నుంచి %1$d ర్యాంకులు పైకి</string>
+    <string name="list_rank_down_description">చివరి స్కాన్ నుంచి %1$d ర్యాంకులు కిందకు</string>
+    <string name="list_search_open">సింబల్‌లు వెతకండి</string>
+    <string name="list_search_hint">సింబల్ లేదా పేరు — TCS, Reliance లాగా</string>
+    <string name="list_search_close">వెతుకుట మూసివేయండి</string>
+    <string name="list_empty_search_title">ఏ స్టాక్ సరిపోలలేదు</string>
+    <string name="list_empty_search_body">“%1$s” స్కాన్ అయిన ఏ స్టాక్ సింబల్ లేదా పేరులోనూ లేదు — స్పెల్లింగ్ చూడండి లేదా ఫిల్టర్లు సడలించండి.</string>
+    <string name="list_share_open">టాప్ 10 షేర్ చేయండి</string>
+    <string name="list_share_filters">%1$d ఫిల్టర్లు ఆన్</string>
+    <string name="list_share_no_filters">ఫిల్టర్లు లేవు</string>
+    <string name="list_share_line">%1$d. %2$s ₹%3$s • స్కోర్ %4$s • RVOL %5$s×</string>
+    <string name="list_share_failed">షేర్ చేయడానికి యాప్ కనిపించలేదు</string>
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_layout">లేఅవుట్</string>
+    <string name="layout_title">లేఅవుట్ ఎంచుకోండి</string>
+    <string name="layout_subtitle">స్టాక్‌ల జాబితా ఎలా కనిపించాలి · బ్యాక్‌గ్రౌండ్, థీమ్ అలాగే ఉంటాయి</string>
+    <string name="layout_auto">బ్యాక్‌గ్రౌండ్‌ది</string>
+    <string name="layout_auto_now_cards">ఇప్పుడు Galaxy బ్యాక్‌గ్రౌండ్: పెద్ద కార్డులు</string>
+    <string name="layout_auto_now_table">ఇప్పుడు Space Glass బ్యాక్‌గ్రౌండ్: కాంపాక్ట్ టేబుల్</string>
+    <string name="layout_accordion">అకార్డియన్</string>
+    <string name="layout_accordion_body">ప్రతి స్టాక్‌కు ఒక సన్నని లైన్ · నొక్కితే అక్కడే పూర్తి వివరాలు</string>
+    <string name="layout_bento">బెంటో గ్రిడ్</string>
+    <string name="layout_bento_body">రెండు వరుసల్లో టైల్స్: స్కోర్ డయల్, 15 రోజుల లైన్, ధర</string>
+    <string name="layout_swipe">స్వైప్ కార్డులు</string>
+    <string name="layout_swipe_body">చిన్న క్యాప్సూల్స్‌లో అంకెలు · ఎడమకు స్వైప్ చేస్తే ★ వాచ్‌లిస్ట్, చార్ట్</string>
+    <string name="layout_action_chart">చార్ట్</string>
+    <string name="layout_action_details">వివరాలు</string>
+    <string name="layout_action_watchlist">వాచ్‌లిస్ట్</string>
+    <string name="layout_action_unwatch">తీసివేయండి</string>
+    <string name="layout_action_alert">అలర్ట్ పెట్టండి</string>
+    <string name="layout_action_alert_on">★ అలర్ట్ ఆన్</string>
+    <string name="layout_expand">%1$s వివరాలు తెరవండి</string>
+    <string name="layout_collapse">%1$s వివరాలు మూసివేయండి</string>
+    <string name="layout_swipe_hint">%1$s: వాచ్‌లిస్ట్, చార్ట్ బటన్‌ల కోసం ఎడమకు స్వైప్ చేయండి</string>
+    <string name="cap_mcap">MCap %1$s</string>
+    <string name="cap_volume">Vol %1$s</string>
+    <string name="cap_rvol">RVOL %1$s×</string>
+    <string name="cap_support">సపోర్ట్ ₹%1$s</string>
+    <string name="cap_rs">R/S %1$s</string>
+    <string name="help_layout_title">లేఅవుట్: జాబితా ఎలా కనిపిస్తుంది</string>
+    <string name="help_layout_body">మెనూ → లేఅవుట్‌లో జాబితా రూపాన్ని ఎంచుకోండి. \"బ్యాక్‌గ్రౌండ్‌ది\" Galaxyపై పెద్ద కార్డులు, Space Glassపై కాంపాక్ట్ టేబుల్ ఉంచుతుంది. అకార్డియన్‌లో ప్రతి స్టాక్ ఒక సన్నని లైన్; నొక్కితే స్కోర్ బార్, MCap, వాల్యూమ్, RVOL, R/S, సపోర్ట్ అక్కడే తెరుచుకుంటాయి, అలర్ట్, చార్ట్, వివరాలు బటన్‌లతో. బెంటో గ్రిడ్ రెండు వరుసల్లో టైల్స్ పెడుతుంది: గుండ్రని స్కోర్ డయల్, గత 15 రోజుల లైన్, ధర, 5 రోజుల మార్పు; టైల్‌ను నొక్కి పట్టుకుంటే వాచ్‌లిస్ట్‌కు జోడించబడుతుంది. స్వైప్ కార్డులు అంకెలను చిన్న క్యాప్సూల్స్‌లో చూపిస్తాయి, కార్డును ఎడమకు లాగితే ★ వాచ్‌లిస్ట్, చార్ట్ బటన్‌లు కనిపిస్తాయి.</string>
+</resources>

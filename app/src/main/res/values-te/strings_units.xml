@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unit_today">ఈరోజు</string>
+    <string name="unit_days_ago">%1$s రోజుల క్రితం</string>
+    <string name="unit_days">%1$s రోజులు</string>
+    <string name="unit_month">%1$s నెల</string>
+    <string name="unit_months">%1$s నెలలు</string>
+    <string name="unit_week">%1$s వారం</string>
+    <string name="unit_weeks">%1$s వారాలు</string>
+    <string name="unit_lakh">లక్షలు</string>
+    <string name="scan_error_no_lists">ఏ స్టాక్ జాబితా దొరకలేదు</string>
+    <string name="scan_error_no_sector_stocks">ఎంచుకున్న సెక్టార్లలో ఏ స్టాక్ లేదు — మెనూ → స్కాన్‌లో సెక్టార్లు ఎంచుకోండి</string>
+</resources>

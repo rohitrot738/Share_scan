@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_text">భాష, ఫాంట్</string>
+    <string name="menu_text_body">ఇప్పుడు: %1$s · %2$s</string>
+    <string name="text_title">భాష, ఫాంట్</string>
+    <string name="text_subtitle">మొత్తం యాప్ ఏ భాషలో, ఏ ఫాంట్‌లో కనిపించాలి</string>
+    <string name="text_language">భాష</string>
+    <string name="text_language_note">అనువాదం యాప్‌లోనే తయారైంది, ఏదైనా పదంలో తప్పు కనిపిస్తే చెప్పండి. స్టాక్, కంపెనీ పేర్లు, వార్తలు, \"కొత్తవి ఏమిటి\" అలాగే ఉంటాయి.</string>
+    <string name="text_font">ఫాంట్</string>
+    <string name="text_font_sample">Share Scan · బ్రేకౌట్ స్కాన్ · ₹1,234.50 ▲ 2.40% · 86.0</string>
+    <string name="font_system">ఫోన్ ఫాంట్</string>
+    <string name="text_font_description">%1$s ఫాంట్ ఎంచుకోండి</string>
+    <string name="text_language_description">%1$s భాష ఎంచుకోండి</string>
+</resources>

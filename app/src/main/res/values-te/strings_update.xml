@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_title">కొత్త వెర్షన్ అందుబాటులో ఉంది</string>
+    <string name="update_title_ready">అప్‌డేట్ డౌన్‌లోడ్ అయింది</string>
+    <string name="update_versions">%1$s • ఇప్పుడు %2$s</string>
+    <string name="update_available_body">ఒక్క ట్యాప్‌తో డౌన్‌లోడ్ చేసి పాత యాప్ మీదే ఇన్‌స్టాల్ చేయండి — వాచ్‌లిస్ట్, ఫిల్టర్లు అలాగే ఉంటాయి.</string>
+    <string name="update_downloading_body">డౌన్‌లోడ్ అవుతోంది… %1$d%%</string>
+    <string name="update_ready_body">ఇన్‌స్టాల్ నొక్కండి — కొత్త వెర్షన్ పాతదాని మీదే ఇన్‌స్టాల్ అవుతుంది.</string>
+    <string name="update_ready_permission_body">ఇన్‌స్టాల్ నొక్కండి. మొదటిసారి Android “ఈ మూలం నుంచి ఇన్‌స్టాల్” అనుమతి అడుగుతుంది — దాన్ని ఆన్ చేసి తిరిగి రండి, ఇన్‌స్టాల్ అక్కడి నుంచే కొనసాగుతుంది.</string>
+    <string name="update_failed_body">డౌన్‌లోడ్ కాలేదు. ఇంటర్నెట్ కనెక్షన్ చూసి మళ్లీ ప్రయత్నించండి.</string>
+    <string name="update_action_download">అప్‌డేట్ చేయండి</string>
+    <string name="update_action_install">ఇన్‌స్టాల్ చేయండి</string>
+    <string name="update_action_retry">మళ్లీ ప్రయత్నించండి</string>
+    <string name="update_action_later">తర్వాత</string>
+    <string name="update_install_failed">ఇన్‌స్టాలర్ తెరుచుకోలేదు</string>
+</resources>

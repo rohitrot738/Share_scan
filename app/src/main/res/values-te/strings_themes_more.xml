@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_sunset">Sunset</string>
+    <string name="theme_sunset_body">నారింజ-గులాబీ సాయంత్రపు ఆకాశం</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_ocean_body">లోతైన నీలి సముద్రం</string>
+    <string name="theme_emerald">Emerald</string>
+    <string name="theme_emerald_body">పచ్చ-ఆకుపచ్చ పాలపుంత</string>
+    <string name="theme_mars">Mars</string>
+    <string name="theme_mars_body">దుమ్ముతో నిండిన ఎర్రని ఆకాశం</string>
+    <string name="theme_royal_gold">Royal Gold</string>
+    <string name="theme_royal_gold_body">బంగారు, రాజసపు ఊదా</string>
+    <string name="theme_frost">Frost</string>
+    <string name="theme_frost_body">మంచు నీలం • తేలికపాటి ధ్రువ కాంతి</string>
+    <string name="theme_space_glass">Space Glass</string>
+    <string name="theme_space_glass_body">లోతైన అంతరిక్షం • ఆకాశ నీలపు మెరుపు • కదిలే ట్రేడింగ్ గ్రిడ్, చార్ట్-రేఖ</string>
+</resources>

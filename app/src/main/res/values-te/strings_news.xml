@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="news_kind_results">ఫలితాలు</string>
+    <string name="news_kind_order">ఆర్డర్</string>
+    <string name="news_kind_dividend">డివిడెండ్ / బోనస్</string>
+    <string name="news_kind_fundraise">నిధుల సేకరణ</string>
+    <string name="news_kind_deal">కొనుగోలు</string>
+    <string name="news_kind_expansion">విస్తరణ</string>
+    <string name="news_kind_management">నిర్వహణ</string>
+    <string name="news_kind_rating">రేటింగ్</string>
+    <string name="news_kind_legal">చట్టపరమైన</string>
+    <string name="news_kind_meeting">బోర్డు సమావేశం</string>
+    <string name="news_kind_investor">విశ్లేషకుల సమావేశం</string>
+    <string name="news_kind_other">వార్త</string>
+    <string name="news_kind_routine">సాధారణ ప్రకటన</string>
+    <string name="news_pre_open">మార్కెట్ ముందు</string>
+    <string name="news_live">లైవ్</string>
+    <string name="news_today">ఈరోజు %1$s</string>
+    <string name="news_yesterday">నిన్న %1$s</string>
+    <string name="detail_tab_overview">సమాచారం</string>
+    <string name="detail_tab_news">వార్తలు</string>
+    <string name="detail_tab_news_count">వార్తలు · %1$d</string>
+    <string name="news_loading">NSE/BSE ప్రకటనలు, వార్తాపత్రికల వార్తలు వస్తున్నాయి…</string>
+    <string name="news_subtitle">ఎక్స్ఛేంజ్ ప్రకటనలు (30 రోజులు), వార్తాపత్రికల వార్తలు (7 రోజులు) • కొత్తవి పైన • పూర్తి వార్త చదవడానికి నొక్కండి</string>
+    <string name="news_subtitle_wide">ఈ స్టాక్‌కు వార్తలు తక్కువగా వస్తాయి, కాబట్టి గత 1 సంవత్సరం వరకు ప్రకటనలు, వార్తలు • కొత్తవి పైన • పూర్తి వార్త చదవడానికి నొక్కండి</string>
+    <string name="news_none">గత 1 సంవత్సరంలో ఈ స్టాక్‌కు ఏ ప్రకటన లేదా వార్త దొరకలేదు</string>
+    <string name="news_failed">వార్తలు రాలేదు — ఇంటర్నెట్ చూసి షీట్ మళ్లీ తెరవండి</string>
+    <string name="news_source_filing">%1$s ప్రకటన • PDF</string>
+    <string name="news_source_filing_page">%1$s ప్రకటన</string>
+    <string name="news_more">మరో %1$d వార్తలు చూపించండి</string>
+    <string name="news_routine">+%1$d సాధారణ ప్రకటనలు (పత్రికలో నోటీసు, ట్రేడింగ్ విండో, ధృవపత్రాలు…)</string>
+    <string name="news_open_failed">వార్త తెరవడానికి బ్రౌజర్ కనిపించలేదు</string>
+    <string name="item_news_badge">📰 %1$s</string>
+    <string name="item_news_badge_more">📰 %1$s +%2$d</string>
+    <string name="item_news_description">గత 24 గంటల్లో %1$d ప్రకటనలు, ముఖ్యమైనది: %2$s</string>
+    <string name="settings_news_alerts">వాచ్‌లిస్ట్ వార్తలు</string>
+    <string name="settings_news_alerts_body">ఉదయం 8 నుంచి 9:15 మధ్య ★ స్టాక్‌ల రాత్రంతా వార్తలు ఒక నోటిఫికేషన్‌లో, పగటిపూట (ఉదయం 7 నుంచి రాత్రి 10) ఫలితాలు, ఆర్డర్, డివిడెండ్ వంటి పెద్ద ప్రకటన రాగానే నోటిఫికేషన్</string>
+    <string name="notify_channel_news">వాచ్‌లిస్ట్ వార్తలు</string>
+    <string name="notify_channel_news_body">★ స్టాక్‌ల ఉదయపు వార్తలు, పెద్ద ప్రకటనలు</string>
+    <string name="notify_news_alert">📰 %1$s: %2$s</string>
+    <string name="notify_news_read">పూర్తి వార్త</string>
+    <string name="notify_news_digest">🗞 ఉదయపు వార్తలు • %1$d స్టాక్‌లు</string>
+    <string name="notify_news_digest_line">%1$s · %2$s: %3$s</string>
+    <string name="help_news_title">వార్తలు</string>
+    <string name="help_news_body">ప్రతి స్టాక్ వివరాల్లో ప్రత్యేక \"వార్తలు\" ట్యాబ్ ఉంది: NSE (BSEలో మాత్రమే లిస్ట్ అయిన స్టాక్‌లకు BSE) గత 30 రోజుల ప్రకటనలు, గత వారం వార్తాపత్రికల వార్తలు (Google News నుంచి, ఇంగ్లీష్, హిందీ), కొత్తవి పైన. కనీసం 10 వార్తలు కనిపిస్తాయి: వార్తలు తక్కువగా వచ్చే స్టాక్‌కు గత 1 సంవత్సరం వరకు ప్రకటనలు, వార్తలు వస్తాయి. తాజా వార్త ఉంటే ట్యాబ్‌పై చుక్క కనిపిస్తుంది. ప్రతి వార్తపై దాని రకం (ఫలితాలు, ఆర్డర్, డివిడెండ్, విస్తరణ, చట్టపరమైన…) రాసి ఉంటుంది, అలాగే \"మార్కెట్ ముందు\" (గత ముగింపు తర్వాత వచ్చింది, తదుపరి సెషన్ దీనిపైనే తెరుచుకుంటుంది) లేదా \"లైవ్\" (ఈరోజు మార్కెట్ సమయంలో వచ్చింది). నొక్కితే పూర్తి వార్త లేదా ప్రకటన PDF తెరుచుకుంటుంది. జాబితాలో 📰 గుర్తు గత 24 గంటల్లో ఆ స్టాక్‌కు ఎక్స్ఛేంజ్‌లో ప్రకటన వచ్చిందని చెబుతుంది; దాన్ని నొక్కితే స్టాక్ నేరుగా \"వార్తలు\" ట్యాబ్‌లో తెరుచుకుంటుంది, వార్తల నోటిఫికేషన్‌లు కూడా అలాగే. మెనూ → స్కాన్‌లో \"వాచ్‌లిస్ట్ వార్తలు\" ఆన్ అయితే ★ స్టాక్‌ల ఉదయపు వార్తలు, పగటి పెద్ద ప్రకటనలు నోటిఫికేషన్‌లో వస్తాయి. వార్త మంచిదా చెడ్డదా యాప్ చెప్పదు — చదివి మీరే నిర్ణయించుకోండి.</string>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_sky">ఆకాశ యానిమేషన్</string>
+    <string name="settings_sky_body">నక్షత్రాలు మిణుకుమిణుకుమంటాయి, రాలుతాయి, మెరుస్తాయి; ఆఫ్ చేస్తే ఆకాశం నిశ్చలంగా ఉంటుంది (బ్యాటరీ ఆదా)</string>
+    <string name="settings_section_glass">గ్లాస్ మోడ్</string>
+    <string name="settings_glass_on">గ్లాస్ ఎఫెక్ట్</string>
+    <string name="settings_glass_on_body">ఆఫ్ చేస్తే బోర్డ్, కార్డులు, బటన్‌లు, షీట్‌లు సాదాగా, ఘనంగా ఉంటాయి • గ్లాస్, మెరుపు, బ్లర్ ఉండవు</string>
+    <string name="glass_off_body">ఇప్పుడు: గ్లాస్ ఆఫ్ • పై స్విచ్ ఆన్ చేస్తే ఎంచుకున్న మోడ్ తిరిగి వస్తుంది</string>
+    <string name="settings_glass_body">స్కాన్ బోర్డ్, కార్డులు, షీట్‌లు, చిప్‌లు, స్విచ్‌ల గ్లాస్ • ఎంచుకోగానే మొత్తం యాప్‌కు వర్తిస్తుంది</string>
+    <string name="glass_frosted">Frosted</string>
+    <string name="glass_clear">Clear</string>
+    <string name="glass_smoky">Smoky</string>
+    <string name="glass_tinted">Tinted</string>
+    <string name="glass_liquid">Iridescent</string>
+    <string name="glass_solid">Solid</string>
+    <string name="glass_frosted_body">ఇప్పుడు: ఆకాశం కనిపించే తేలికపాటి మంచు గ్లాస్ • డిఫాల్ట్</string>
+    <string name="glass_clear_body">ఇప్పుడు: ప్రకాశవంతమైన అంచులతో స్ఫటికంలాంటి స్పష్టమైన గ్లాస్ • ఆకాశం ఎక్కువగా కనిపిస్తుంది</string>
+    <string name="glass_smoky_body">ఇప్పుడు: ముదురు, పొగలాంటి గ్లాస్ • ఆకాశం కొంచెం మాత్రమే మెరుస్తుంది</string>
+    <string name="glass_tinted_body">ఇప్పుడు: థీమ్ రంగులో ఉన్న గ్లాస్</string>
+    <string name="glass_liquid_body">ఇప్పుడు: నీటిపై నూనెలా ఆకాశ నీలం నుంచి గులాబీ వరకు మెరిసే అంచులు</string>
+    <string name="glass_solid_body">ఇప్పుడు: కొద్దిగా మెరుపుతో దృఢమైన ఘన కార్డులు • చదవడానికి సులభం, ఫోన్‌పై తేలిక</string>
+</resources>
