@@ -6,7 +6,7 @@ import androidx.annotation.StringRes
 
 /**
  * Each [Products] key's name (strings_products.xml) and picture (drawable-nodpi/product_<key>.webp, from Microsoft's
- * Fluent Emoji in 3D, MIT licence: assets/licenses/images-fluentui-emoji-MIT.txt).
+ * Fluent Emoji in their flat style, MIT licence: assets/licenses/images-fluentui-emoji-MIT.txt).
  */
 object ProductLabels {
     private val NAMES: Map<String, Int> = mapOf(
