@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu → भाषा और Font (TextSheet). -->
+<resources>
+    <string name="menu_text">भाषा और Font</string>
+    <string name="menu_text_body">अभी: %1$s · %2$s</string>
+    <string name="text_title">भाषा और Font</string>
+    <string name="text_subtitle">पूरी app किस भाषा में और किस font में दिखे</string>
+    <string name="text_language">भाषा</string>
+    <string name="text_language_note">अनुवाद app में ही बना है, किसी शब्द में ग़लती दिखे तो बताइए। Stocks और कंपनियों के नाम, ख़बरें और "नया क्या है" जैसे हैं वैसे ही रहते हैं।</string>
+    <string name="text_font">Font</string>
+    <string name="text_font_sample">Share Scan · ब्रेकआउट स्कैन · ₹1,234.50 ▲ 2.40% · 86.0</string>
+    <string name="font_system">Phone का font</string>
+    <string name="text_font_description">%1$s font चुनें</string>
+    <string name="text_language_description">%1$s भाषा चुनें</string>
+</resources>

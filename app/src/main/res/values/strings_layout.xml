@@ -26,11 +26,11 @@
     <string name="layout_swipe_hint">%1$s: बाएँ swipe करें तो Watchlist और Chart के buttons</string>
 
     <!-- The figures as capsules -->
-    <string name="metric_mcap">MCap %1$s</string>
-    <string name="metric_volume">Vol %1$s</string>
-    <string name="metric_rvol">RVOL %1$s×</string>
-    <string name="metric_support">Supp ₹%1$s</string>
-    <string name="metric_rs">R/S %1$s</string>
+    <string name="cap_mcap">MCap %1$s</string>
+    <string name="cap_volume">Vol %1$s</string>
+    <string name="cap_rvol">RVOL %1$s×</string>
+    <string name="cap_support">Supp ₹%1$s</string>
+    <string name="cap_rs">R/S %1$s</string>
 
     <!-- Help -->
     <string name="help_layout_title">Layout: list का रूप</string>

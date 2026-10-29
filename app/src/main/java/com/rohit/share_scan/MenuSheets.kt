@@ -212,12 +212,10 @@ internal fun AppCompatActivity.showSheet(
 class MenuSheet(
     private val activity: AppCompatActivity,
     private val version: String,
-    private val theme: ThemeChoice,
-    private val background: BackgroundChoice,
-    private val layout: ListLayout,
+    private val settings: AppSettings,
     private val onPick: (Entry) -> Unit,
 ) {
-    enum class Entry { ACCOUNT, USAGE, SCAN, TRACK_RECORD, SECTORS, SETTINGS, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
+    enum class Entry { ACCOUNT, USAGE, SCAN, TRACK_RECORD, SECTORS, SETTINGS, TEXT, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
 
     fun show(): BottomSheetDialog {
         val ui = SheetMenuBinding.inflate(activity.layoutInflater)
@@ -243,14 +241,25 @@ class MenuSheet(
         add(Entry.TRACK_RECORD, R.drawable.ic_history, R.string.menu_track_record, activity.getString(R.string.menu_track_record_body))
         add(Entry.SECTORS, R.drawable.ic_sector, R.string.menu_sectors, activity.getString(R.string.menu_sectors_body))
         add(Entry.SETTINGS, R.drawable.ic_settings, R.string.menu_settings, activity.getString(R.string.menu_settings_body))
-        add(Entry.THEME, R.drawable.ic_palette, R.string.menu_theme, activity.getString(R.string.menu_theme_body, activity.getString(theme.title)))
+        add(
+            Entry.TEXT,
+            R.drawable.ic_translate,
+            R.string.menu_text,
+            activity.getString(R.string.menu_text_body, Languages.current(activity).nativeName, settings.font.label(activity)),
+        )
+        add(Entry.THEME, R.drawable.ic_palette, R.string.menu_theme, activity.getString(R.string.menu_theme_body, activity.getString(settings.theme.title)))
         add(
             Entry.BACKGROUND,
             R.drawable.ic_wallpaper,
             R.string.menu_background,
-            activity.getString(R.string.menu_theme_body, activity.getString(background.title)),
+            activity.getString(R.string.menu_theme_body, activity.getString(settings.background.title)),
         )
-        add(Entry.LAYOUT, R.drawable.ic_view_agenda, R.string.menu_layout, activity.getString(R.string.menu_theme_body, activity.getString(layout.title)))
+        add(
+            Entry.LAYOUT,
+            R.drawable.ic_view_agenda,
+            R.string.menu_layout,
+            activity.getString(R.string.menu_theme_body, activity.getString(settings.listLayout.title)),
+        )
         add(Entry.UPDATE, R.drawable.ic_system_update, R.string.menu_update, activity.getString(R.string.menu_update_body, version))
         add(Entry.HELP, R.drawable.ic_help, R.string.menu_help, activity.getString(R.string.menu_help_body))
         add(Entry.SHARE, R.drawable.ic_share, R.string.menu_share, activity.getString(R.string.menu_share_body))

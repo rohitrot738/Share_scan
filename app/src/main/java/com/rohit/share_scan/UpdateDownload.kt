@@ -36,8 +36,8 @@ object UpdateDownload {
         val folder = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS) ?: return false
         File(folder, fileName(release.versionCode)).delete()
         val request = DownloadManager.Request(Uri.parse(release.apkUrl))
-            .setTitle(context.getString(R.string.update_download_title, release.versionName))
-            .setDescription(context.getString(R.string.update_download_body))
+            .setTitle(Languages.localized(context).getString(R.string.update_download_title, release.versionName))
+            .setDescription(Languages.localized(context).getString(R.string.update_download_body))
             .setMimeType(AppUpdate.APK_MIME)
             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
             .setAllowedOverMetered(true)

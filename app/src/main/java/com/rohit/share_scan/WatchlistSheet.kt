@@ -93,7 +93,7 @@ class WatchlistSheet(
                 scan.uiState.distinctUntilChanged { old, new ->
                     old.results === new.results && old.watchExtras === new.watchExtras && old.watchlist == new.watchlist &&
                         old.watchAdded == new.watchAdded && old.setups === new.setups && old.savedAt == new.savedAt
-                }.collect(::render)
+                }.collect { render(it) }
             }
         }
         dialog.setOnDismissListener {
@@ -192,7 +192,7 @@ class WatchlistSheet(
     private fun share() {
         val list = rows.currentList.filter { it.stock.charted }
         if (list.isEmpty()) return
-        val lines = mutableListOf(activity.getString(R.string.watch_share_title, SHARE_DATE.format(LocalDate.now(MarketClock.INDIA))))
+        val lines = mutableListOf(activity.getString(R.string.watch_share_title, SHARE_DATE.withLocale(activity.dateLocale()).format(LocalDate.now(MarketClock.INDIA))))
         summary?.averageReturn?.let { lines += activity.getString(R.string.watch_share_summary, TradePlan.formatPercent(it), count) }
         lines += ""
         for (row in list) {
@@ -231,13 +231,13 @@ class WatchlistSheet(
         return if (at.toLocalDate() == LocalDate.now(MarketClock.INDIA)) {
             activity.getString(R.string.time_today, CLOCK.format(at))
         } else {
-            DAY_TIME.format(at)
+            DAY_TIME.withLocale(activity.dateLocale()).format(at)
         }
     }
 
     private fun day(millis: Long): String {
         val at = Instant.ofEpochMilli(millis).atZone(MarketClock.INDIA).toLocalDate()
-        return if (at == LocalDate.now(MarketClock.INDIA)) activity.getString(R.string.watch_today) else DAY.format(at)
+        return if (at == LocalDate.now(MarketClock.INDIA)) activity.getString(R.string.watch_today) else DAY.withLocale(activity.dateLocale()).format(at)
     }
 
     private fun toast(id: Int) = Toast.makeText(activity, id, Toast.LENGTH_SHORT).show()
@@ -491,8 +491,9 @@ class WatchlistSheet(
 
     private companion object {
         val CLOCK: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.US)
-        val DAY_TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM HH:mm", Locale.forLanguageTag("hi-IN"))
-        val DAY: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM", Locale.forLanguageTag("hi-IN"))
-        val SHARE_DATE: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.forLanguageTag("hi-IN"))
+        // In the app's language ([dateLocale]) where they are used.
+        val DAY_TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM HH:mm")
+        val DAY: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM")
+        val SHARE_DATE: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
     }
 }

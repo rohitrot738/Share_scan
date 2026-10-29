@@ -37,6 +37,15 @@ object Prefs {
     /** [ListLayout.key] of how the home list draws its stocks; missing is the background's own. */
     const val LIST_LAYOUT = "list_layout"
 
+    /** [AppFont.key] of the picked font; missing is the phone's own. */
+    const val FONT = "font"
+
+    /**
+     * [AppLanguage.tag] of the picked language, kept beside AppCompat's own record for strings made outside the
+     * screens on Android 12 and older ([Languages.localized]); missing until the first start with languages.
+     */
+    const val LANGUAGE = "language"
+
     /** [ChartSite.key] the detail sheet's chart button opens. */
     const val CHART_SITE = "chart_site"
 

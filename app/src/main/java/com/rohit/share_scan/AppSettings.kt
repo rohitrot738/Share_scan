@@ -72,6 +72,24 @@ enum class ListLayout(val key: String) {
 /** One stock in the home list: a card, a table line, an accordion card, a bento tile or a swipe card. */
 enum class ItemStyle { CARD, ROW, ACCORDION, BENTO, SWIPE }
 
+/**
+ * The app's font (Menu → भाषा और Font): the phone's own, or one of six bundled with the app, three of them with
+ * Devanagari letters of their own (Mukta, Hind, Poppins). [key] is what the settings store.
+ */
+enum class AppFont(val key: String) {
+    SYSTEM("system"),
+    MUKTA("mukta"),
+    HIND("hind"),
+    POPPINS("poppins"),
+    INTER("inter"),
+    SPACE_GROTESK("space_grotesk"),
+    JETBRAINS_MONO("jetbrains_mono");
+
+    companion object {
+        fun fromKey(key: String?): AppFont = entries.firstOrNull { it.key == key } ?: SYSTEM
+    }
+}
+
 /** Where the detail sheet's chart button opens a stock; [key] is what the settings store. */
 enum class ChartSite(val key: String) {
     TRADINGVIEW("tradingview"),
@@ -133,6 +151,11 @@ class AppSettings(context: Context) {
     var listLayout: ListLayout
         get() = ListLayout.fromKey(prefs.getString(Prefs.LIST_LAYOUT, null))
         set(value) = prefs.edit { putString(Prefs.LIST_LAYOUT, value.key) }
+
+    /** The app's font; the phone's own until another is picked. */
+    var font: AppFont
+        get() = AppFont.fromKey(prefs.getString(Prefs.FONT, null))
+        set(value) = prefs.edit { putString(Prefs.FONT, value.key) }
 
     var chartSite: ChartSite
         get() = ChartSite.fromKey(prefs.getString(Prefs.CHART_SITE, null))

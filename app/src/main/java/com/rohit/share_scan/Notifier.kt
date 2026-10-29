@@ -57,7 +57,8 @@ object Notifier {
             ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
 
     /** Creates the channels, so they show in the system settings before the first alert. */
-    fun createChannels(context: Context) {
+    fun createChannels(base: Context) {
+        val context = Languages.localized(base)
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return
         val manager = context.getSystemService(NotificationManager::class.java) ?: return
         manager.createNotificationChannel(
@@ -88,7 +89,8 @@ object Notifier {
     }
 
     /** A big filing on a watchlisted stock ([NewsAlerts]): a tap opens the stock, the button the filing itself. */
-    fun newsAlert(context: Context, item: NewsItem, name: String) {
+    fun newsAlert(base: Context, item: NewsItem, name: String) {
+        val context = Languages.localized(base)
         val id = ID_NEWS_BASE + (item.symbol.hashCode() and 0xFFFF)
         val read = PendingIntent.getActivity(
             context,
@@ -118,7 +120,8 @@ object Notifier {
      * The morning's round-up of the watchlist's news: a line per stock (its weightiest item), most telling first. A tap
      * opens the first stock; a button for each of the first three opens that one.
      */
-    fun newsDigest(context: Context, byStock: List<Pair<String, List<NewsItem>>>) {
+    fun newsDigest(base: Context, byStock: List<Pair<String, List<NewsItem>>>) {
+        val context = Languages.localized(base)
         if (byStock.isEmpty()) return
         val style = NotificationCompat.InboxStyle()
         byStock.take(MAX_LINES).forEach { (symbol, news) ->
@@ -147,7 +150,8 @@ object Notifier {
     }
 
     /** One notification for everything a live scan found, best first. */
-    fun liveFinds(context: Context, finds: List<LiveAlerts.Find>) {
+    fun liveFinds(base: Context, finds: List<LiveAlerts.Find>) {
+        val context = Languages.localized(base)
         if (finds.isEmpty()) return
         val strong = finds.filter { it.newStrong }
         val breakouts = finds.filter { it.breakout }
@@ -185,7 +189,8 @@ object Notifier {
     }
 
     /** A watchlisted stock's alert. */
-    fun watchEvent(context: Context, event: WatchAlerts.Event, name: String) {
+    fun watchEvent(base: Context, event: WatchAlerts.Event, name: String) {
+        val context = Languages.localized(base)
         val label = StockSearch.shortName(name).ifEmpty { event.symbol }
         val (title, body) = when (event) {
             is WatchAlerts.Event.Breakout -> context.getString(R.string.notify_watch_breakout, event.symbol) to
@@ -229,7 +234,8 @@ object Notifier {
     }
 
     /** The ongoing notification of a scan the user started: how far it has got, and a button that stops it. */
-    fun scanProgress(context: Context, progress: ScanEngine.Progress): Notification {
+    fun scanProgress(base: Context, progress: ScanEngine.Progress): Notification {
+        val context = Languages.localized(base)
         val builder = NotificationCompat.Builder(context, CHANNEL_SCAN)
             .setSmallIcon(R.drawable.ic_radar)
             .setOngoing(true)
@@ -276,7 +282,8 @@ object Notifier {
      * How the user's scan [runId] ended, for when it ended with the app out of sight: how many stocks made the list
      * (the filters on the home screen, Top limit included) and which is first, or that it stopped or failed.
      */
-    fun scanDone(context: Context, runId: Int) {
+    fun scanDone(base: Context, runId: Int) {
+        val context = Languages.localized(base)
         val failure = ScanEngine.failure.value?.takeIf { it.runId == runId }
         val latest = ScanEngine.latest.value
         val (title, body) = when {
@@ -313,7 +320,8 @@ object Notifier {
     fun cancelScanDone(context: Context) = NotificationManagerCompat.from(context).cancel(ID_SCAN_DONE)
 
     /** An update [versionName] finished downloading with the app out of sight; a tap hands it to the installer. */
-    fun updateReady(context: Context, versionName: String) {
+    fun updateReady(base: Context, versionName: String) {
+        val context = Languages.localized(base)
         val intent = Intent(context, MainActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             .putExtra(EXTRA_INSTALL, true)

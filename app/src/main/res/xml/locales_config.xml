@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The app's languages (AppLanguage), for Android 13's per-app language setting. Hinglish is hi-Latn. -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="hi-Latn" />
+    <locale android:name="hi" />
+    <locale android:name="en" />
+    <locale android:name="bn" />
+    <locale android:name="gu" />
+    <locale android:name="mr" />
+    <locale android:name="te" />
+    <locale android:name="ta" />
+    <locale android:name="kn" />
+    <locale android:name="ml" />
+    <locale android:name="pa" />
+    <locale android:name="or" />
+</locale-config>

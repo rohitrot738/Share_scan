@@ -130,7 +130,14 @@ class MainActivity : AppCompatActivity() {
         // The glass mode goes over the theme: cards, sheets, chips and switches read their glass from it. Glass
         // switched off lays flat, solid surfaces over it instead.
         theme.applyStyle(if (settings.glassEnabled) settings.glassStyle.overlay else GLASS_OFF_OVERLAY, true)
+        // The picked font over all of it; the phone's own lays nothing.
+        settings.font.overlay?.let {
+            theme.applyStyle(R.style.ThemeOverlay_ShareScan_Font, true)
+            theme.applyStyle(it, true)
+        }
         super.onCreate(savedInstanceState)
+        // Hinglish stays the app's language on a phone set to another one, until a language is picked.
+        Languages.settle(this)
         enableEdgeToEdge()
         ui = ActivityMainBinding.inflate(layoutInflater)
         setContentView(ui.root)
@@ -371,7 +378,7 @@ class MainActivity : AppCompatActivity() {
         return if (at.toLocalDate() == MarketClock.now().toLocalDate()) {
             getString(R.string.time_today, clockTime(millis))
         } else {
-            DAY_TIME.format(at)
+            DAY_TIME.withLocale(dateLocale()).format(at)
         }
     }
 
@@ -1130,7 +1137,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun openMenu() {
         showMenuSheet {
-            MenuSheet(this, updates.installedName, settings.theme, settings.background, settings.listLayout, ::onMenuPick).show()
+            MenuSheet(this, updates.installedName, settings, ::onMenuPick).show()
         }
     }
 
@@ -1150,6 +1157,7 @@ class MainActivity : AppCompatActivity() {
             MenuSheet.Entry.BACKGROUND -> showMenuSheet {
                 BackgroundSheet(this, settings.theme, settings.background, ::applyBackground, ::openMenu).show()
             }
+            MenuSheet.Entry.TEXT -> showMenuSheet { TextSheet(this, settings, ::applyFont, ::openMenu).show() }
             MenuSheet.Entry.LAYOUT -> showMenuSheet {
                 LayoutSheet(this, settings.theme, settings.background, settings.listLayout, ::applyLayout, ::openMenu).show()
             }
@@ -1248,6 +1256,12 @@ class MainActivity : AppCompatActivity() {
         recreate()
     }
 
+    /** The app's font, through the theme: the screen is re-created in it. */
+    private fun applyFont(font: AppFont) {
+        settings.font = font
+        recreate()
+    }
+
     /** The list's layout; the background, its screen and the theme's colours stay. */
     private fun applyLayout(layout: ListLayout) {
         settings.listLayout = layout
@@ -1283,7 +1297,8 @@ class MainActivity : AppCompatActivity() {
         /** How often, in seconds, the hero's market line is brought up to date when no scan runs. */
         const val MARKET_REFRESH_S = 30
         val CLOCK: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.US)
-        val DAY_TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE d MMM HH:mm", Locale.forLanguageTag("hi-IN"))
+        /** In the app's language ([dateLocale]) where it is used. */
+        val DAY_TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE d MMM HH:mm")
 
         /** The bento grid's columns. */
         const val BENTO_COLUMNS = 2

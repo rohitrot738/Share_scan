@@ -621,23 +621,23 @@ class StockAdapter(
             }
             group.addView(view)
         }
-        stock.marketCapCr?.let { capsule(context.getString(R.string.metric_mcap, StockFormat.crore(it))) }
-        if (stock.volume > 0.0) capsule(context.getString(R.string.metric_volume, StockFormat.shares(stock.volume)))
+        stock.marketCapCr?.let { capsule(context.getString(R.string.cap_mcap, StockFormat.crore(it))) }
+        if (stock.volume > 0.0) capsule(context.getString(R.string.cap_volume, StockFormat.shares(stock.volume)))
         val spike = stock.rvol >= StockFormat.SPIKE_RVOL
         capsule(
-            context.getString(R.string.metric_rvol, StockFormat.rvol(stock.rvol)),
+            context.getString(R.string.cap_rvol, StockFormat.rvol(stock.rvol)),
             if (spike) R.color.warn else R.color.text_secondary,
             if (spike) R.color.warn_container else null,
         )
         stock.support?.takeIf { it.ageSessions >= SupportFloors.LONG_AGE }?.let {
             capsule(
-                context.getString(R.string.metric_support, StockFormat.price(it.level)),
+                context.getString(R.string.cap_support, StockFormat.price(it.level)),
                 if (it.long) R.color.bull else R.color.text_secondary,
                 if (it.long) R.color.bull_container else null,
             )
         }
         cr360.of(stock.symbol)?.takeIf { it.score != null }?.let { entry ->
-            capsule(context.getString(R.string.metric_rs, String.format(Locale.US, "%.0f", entry.score)), entry.state.tone)
+            capsule(context.getString(R.string.cap_rs, String.format(Locale.US, "%.0f", entry.score)), entry.state.tone)
         }
     }
 

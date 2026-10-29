@@ -18,7 +18,6 @@ import com.rohit.share_scan.databinding.ItemSectorBinding
 import com.rohit.share_scan.databinding.SheetListBinding
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.Locale
 import kotlinx.coroutines.launch
 
 /**
@@ -77,7 +76,7 @@ class TrackRecordSheet(
 
     private fun day(day: PickJournal.Day) {
         val card = ItemRecordDayBinding.inflate(activity.layoutInflater, ui.listItems, true)
-        card.dayDate.text = DATE.format(LocalDate.ofEpochDay(day.day))
+        card.dayDate.text = DATE.withLocale(activity.dateLocale()).format(LocalDate.ofEpochDay(day.day))
         val nifty = day.nifty.getOrNull(1)
         card.dayNifty.isVisible = nifty != null
         card.dayNifty.text = nifty?.let { activity.getString(R.string.record_day_nifty, TradePlan.formatPercent(it)) }.orEmpty()
@@ -116,7 +115,7 @@ class TrackRecordSheet(
     private fun color(@ColorRes id: Int) = ContextCompat.getColor(activity, id)
 
     private companion object {
-        val DATE: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE, d MMM", Locale.forLanguageTag("hi-IN"))
+        val DATE: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE, d MMM")
     }
 }
 

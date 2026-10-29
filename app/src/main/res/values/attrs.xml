@@ -9,4 +9,6 @@
     <!-- The art behind the hero's progress ring; Theme.ShareScan's orbits unless a theme draws its own. -->
     <attr name="scanHeroArt" format="reference" />
     <attr name="scanLogoBackground" format="reference" />
+    <!-- The picked font (Menu → भाषा और Font), set by ThemeOverlay.ShareScan.Font.*; unset for the system's. -->
+    <attr name="appFont" format="reference|string" />
 </resources>
