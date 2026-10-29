@@ -183,6 +183,10 @@ open_stock HINDUNILVR
 shot 07-detail-products-hul 5
 adb shell input keyevent KEYCODE_BACK
 sleep 2
+open_stock TATASTEEL
+shot 07-detail-products-tatasteel 5
+adb shell input keyevent KEYCODE_BACK
+sleep 2
 
 # The Watchlist page: a few starred lines, then the ★ chip.
 relaunch 8
@@ -254,9 +258,7 @@ relaunch 10
 tap menuButton
 sleep 2
 tap_text "सेटिंग्स"
-sleep 3
-for i in 1 2 3 4; do adb shell input swipe 540 1800 540 900 600; sleep 1; done
-shot 20-settings-product-icons 2
+shot 20-settings-product-icons 3
 adb shell input keyevent KEYCODE_BACK
 sleep 2
 

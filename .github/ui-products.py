@@ -39,13 +39,20 @@ def get(url):
 def main(out, log_path, profiles_path=None):
     book = json.loads(gzip.decompress(get(SOURCE)))
     lines, profiles = [], {}
+    try:  # profiles read by an earlier run, so Screener is not asked again
+        kept = json.load(open("ui-profiles/profiles.json", encoding="utf-8"))
+    except OSError:
+        kept = {}
     for symbol, sector in STOCKS.items():
-        time.sleep(8)
-        try:
-            page = screener_page.parse(get("https://www.screener.in/company/" + urllib.parse.quote(symbol) + "/").decode("utf-8", "replace"))
-        except Exception as e:  # noqa: BLE001 - a page that does not come is left out
-            lines.append(f"{symbol}: page failed ({e})")
-            continue
+        if symbol in kept:
+            page = kept[symbol]
+        else:
+            time.sleep(8)
+            try:
+                page = screener_page.parse(get("https://www.screener.in/company/" + urllib.parse.quote(symbol) + "/").decode("utf-8", "replace"))
+            except Exception as e:  # noqa: BLE001 - a page that does not come is left out
+                lines.append(f"{symbol}: page failed ({e})")
+                continue
         profiles[symbol] = {"sector": sector, "about": page.get("about", ""), "points": page.get("points", "")}
         made = products.classify(page.get("about", ""), page.get("points", ""), sector)
         row = book["stocks"].get(symbol)
