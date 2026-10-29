@@ -3,7 +3,7 @@
   "logo": "product-photos/APOLLOTYRE/logo.webp",
   "c": {
    "product-photos/APOLLOTYRE/logo.webp": "Wikimedia Commons",
-   "product-photos/APOLLOTYRE/tyre.webp": "LeanneVarney · CC BY-SA 4.0 · Wikimedia Commons"
+   "product-photos/APOLLOTYRE/tyre.webp": "Edvin Varghese M · CC BY 4.0 · Wikimedia Commons"
   },
   "banner": "product-photos/APOLLOTYRE/banner.webp",
   "p": {
@@ -73,11 +73,7 @@
  "CEATLTD": {
   "logo": "product-photos/CEATLTD/logo.webp",
   "c": {
-   "product-photos/CEATLTD/logo.webp": "CEAT · Public domain · Wikimedia Commons",
-   "product-photos/CEATLTD/tyre.webp": "Sabrata · Public domain · Wikimedia Commons"
-  },
-  "p": {
-   "tyre": "product-photos/CEATLTD/tyre.webp"
+   "product-photos/CEATLTD/logo.webp": "CEAT · Public domain · Wikimedia Commons"
   }
  },
  "CIPLA": {
@@ -107,11 +103,7 @@
  "HDFCBANK": {
   "logo": "product-photos/HDFCBANK/logo.webp",
   "c": {
-   "product-photos/HDFCBANK/logo.webp": "HDFC Bank · Public domain · Wikimedia Commons",
-   "product-photos/HDFCBANK/bank.webp": "Ministry of Defence · GODL-India · Wikimedia Commons"
-  },
-  "p": {
-   "bank": "product-photos/HDFCBANK/bank.webp"
+   "product-photos/HDFCBANK/logo.webp": "HDFC Bank · Public domain · Wikimedia Commons"
   }
  },
  "HEROMOTOCO": {
@@ -128,11 +120,7 @@
  "ICICIBANK": {
   "logo": "product-photos/ICICIBANK/logo.webp",
   "c": {
-   "product-photos/ICICIBANK/logo.webp": "Wikimedia Commons",
-   "product-photos/ICICIBANK/bank.webp": "Partha Sarathi Goswa… · CC BY-SA 3.0 · Wikimedia Commons"
-  },
-  "p": {
-   "bank": "product-photos/ICICIBANK/bank.webp"
+   "product-photos/ICICIBANK/logo.webp": "Wikimedia Commons"
   }
  },
  "INFY": {
@@ -218,11 +206,7 @@
  "SBILIFE": {
   "logo": "product-photos/SBILIFE/logo.webp",
   "c": {
-   "product-photos/SBILIFE/logo.webp": "Rupturestriker · CC BY-SA 4.0 · Wikimedia Commons",
-   "product-photos/SBILIFE/insurance.webp": "SBI Insurance Group Co., Ltd. · Public domain · Wikimedia Commons"
-  },
-  "p": {
-   "insurance": "product-photos/SBILIFE/insurance.webp"
+   "product-photos/SBILIFE/logo.webp": "Rupturestriker · CC BY-SA 4.0 · Wikimedia Commons"
   }
  },
  "SUNPHARMA": {
@@ -246,11 +230,7 @@
  "TATAPOWER": {
   "logo": "product-photos/TATAPOWER/logo.webp",
   "c": {
-   "product-photos/TATAPOWER/logo.webp": "Wikimedia Commons",
-   "product-photos/TATAPOWER/solar.webp": "Tata Power Solar Systems Limited · Public domain · Wikimedia Commons"
-  },
-  "p": {
-   "solar": "product-photos/TATAPOWER/solar.webp"
+   "product-photos/TATAPOWER/logo.webp": "Wikimedia Commons"
   }
  },
  "TATASTEEL": {
