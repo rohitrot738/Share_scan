@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notify_channel_scan">चालू स्कॅन</string>
+    <string name="notify_channel_scan_body">ॲप बंद असतानाही तुमचा स्कॅन चालू राहावा म्हणून त्याची प्रगती</string>
+    <string name="notify_channel_scan_done">स्कॅन पूर्ण</string>
+    <string name="notify_channel_scan_done_body">ॲपबाहेर असताना स्कॅन पूर्ण झाला तर त्याचा निकाल</string>
+    <string name="notify_scan_title">स्कॅन चालू आहे</string>
+    <string name="notify_scan_loading">शेअर्सची यादी येत आहे…</string>
+    <string name="notify_scan_body">%1$s / %2$s शेअर्स • %3$d%%</string>
+    <string name="notify_scan_stopping">स्कॅन थांबवत आहोत…</string>
+    <string name="notify_scan_done">✅ स्कॅन पूर्ण • %1$d सर्वोत्तम उमेदवार</string>
+    <string name="notify_scan_stopped">⏹ स्कॅन थांबवला • %1$d सर्वोत्तम उमेदवार</string>
+    <string name="notify_scan_stopped_early">⏹ स्कॅन थांबवला</string>
+    <string name="notify_scan_stopped_early_body">एकही शेअर तपासण्याआधी थांबला — मागचा स्कॅन तसाच आहे</string>
+    <string name="notify_scan_top">सर्वात वर %1$s • स्कोअर %2$s — पाहण्यासाठी दाबा</string>
+    <string name="notify_scan_none">एकही शेअर तुमच्या फिल्टरमध्ये आला नाही — पाहण्यासाठी दाबा</string>
+    <string name="status_reading_title">मागचा स्कॅन उघडत आहे…</string>
+    <string name="status_reading_body">जतन केलेली यादी वाचली जात आहे — एक क्षण</string>
+    <string name="empty_reading_body">शेवटच्या स्कॅनची यादी येत आहे; सूचनेतून उघडलेला शेअरही तिच्यासोबत उघडेल.</string>
+    <string name="notify_open_missing">%1$s सध्याच्या यादीत नाही — नवीन स्कॅन चालवा</string>
+    <string name="notify_channel_update">ॲप अपडेट</string>
+    <string name="notify_channel_update_body">नवीन आवृत्ती डाउनलोड होऊन इन्स्टॉलसाठी तयार झाली की</string>
+    <string name="update_download_title">Share Scan %1$s</string>
+    <string name="update_download_body">नवीन आवृत्ती डाउनलोड होत आहे</string>
+    <string name="notify_update_ready">Share Scan %1$s तयार</string>
+    <string name="notify_update_ready_body">डाउनलोड पूर्ण — इन्स्टॉल करण्यासाठी दाबा</string>
+    <string name="settings_background">पार्श्वभूमीत चालू द्या</string>
+    <string name="settings_background_off">⚠ सध्या Android बॅटरी वाचवण्यासाठी ऑटो-स्कॅन आणि अलर्ट उशिरा चालवू शकतो किंवा थांबवू शकतो. इथे दाबून “Allow / परवानगी द्या” निवडा. Xiaomi, Redmi, Vivo, Oppo, Realme वर App info मध्ये “Autostart” ही सुरू करा.</string>
+    <string name="settings_background_on">✓ सुरू — Android बॅटरीच्या नावाखाली या ॲपचा ऑटो-स्कॅन आणि अलर्ट थांबवणार नाही. Xiaomi, Redmi, Vivo, Oppo, Realme वर App info मध्ये “Autostart” ही सुरू ठेवा (इथे दाबून उघडा).</string>
+    <string name="help_background_title">पार्श्वभूमीत स्कॅन</string>
+    <string name="help_background_body">स्कॅन दाबल्यानंतर ॲपमधून बाहेर गेलात किंवा स्क्रीन बंद केली तरी स्कॅन चालू राहतो — सूचनेत त्याची प्रगती आणि “थांबवा” बटण दिसते, आणि पूर्ण झाल्यावर निकालाची सूचना येते. अपडेटचे डाउनलोडही Android च्या डाउनलोड मॅनेजरने होते, म्हणून ॲप बंद केले तरी पूर्ण होते आणि मग “इन्स्टॉल करण्यासाठी दाबा” अशी सूचना येते. बाजाराच्या वेळेतील ऑटो-स्कॅन Android स्वतः चालवतो: मेनू → स्कॅन मध्ये “पार्श्वभूमीत चालू द्या” दाबून परवानगी द्या, नाहीतर बॅटरी वाचवण्यासाठी Android तो उशिरा चालवू शकतो किंवा थांबवू शकतो. Xiaomi, Redmi, Vivo, Oppo, Realme सारख्या फोनवर App info मध्ये “Autostart” ही सुरू करा.</string>
+</resources>

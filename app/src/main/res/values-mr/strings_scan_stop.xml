@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_stop">थांबवा</string>
+    <string name="action_stopping">थांबवत आहोत…</string>
+    <string name="status_stopped_title">स्कॅन थांबवला</string>
+    <string name="status_stopped_body">%1$s / %2$s शेअर्स तपासले • %3$s मध्ये</string>
+    <string name="status_stopped_early_body">शेअर यादी येण्याआधीच थांबवला.</string>
+    <string name="empty_stopped_title">एकाही शेअरचा स्कोअर झाला नाही</string>
+    <string name="empty_stopped_body">स्कॅन त्याआधीच थांबवला. वरचे बटण दाबून पुन्हा स्कॅन करा.</string>
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fw_value_line">खरे मूल्य ₹%1$s · खरेदी भाव ₹%2$s</string>
+    <string name="fw_value_only">खरे मूल्य ₹%1$s</string>
+    <string name="fw_summary">%1$s · सुरक्षिततेचे अंतर %2$s%% (%3$s)</string>
+    <string name="fw_price_above">भाव ₹%1$s, खरेदी भावापेक्षा %2$s%% वर</string>
+    <string name="fw_price_below">भाव ₹%1$s, खरेदी भावापेक्षा %2$s%% खाली ✓</string>
+    <string name="fw_model_general">सेक्टर P/E–P/B चा हिशेब</string>
+    <string name="fw_model_bank">बँक/NBFC: समायोजित P/B</string>
+    <string name="fw_model_asset">EV/EBITDA</string>
+    <string name="fw_model_cyclical">मध्य-चक्र EV/EBITDA</string>
+    <string name="fw_model_cash">PEG</string>
+    <string name="fw_size_large">लार्ज कॅप</string>
+    <string name="fw_size_mid">मिड कॅप</string>
+    <string name="fw_size_small">स्मॉल कॅप</string>
+    <string name="fw_open">फ्रेमवर्कचा संपूर्ण हिशेब</string>
+    <string name="fw_flag_reject">⛔ नाकारले: प्रवर्तकांनी आपले %1$s%% शेअर्स तारण ठेवले आहेत (15%% पेक्षा जास्त)</string>
+    <string name="fw_flag_high_risk">⚠ उच्च जोखीम: व्याज कव्हर फक्त %1$s पट (2.5 पेक्षा कमी)</string>
+    <string name="fw_flag_manipulation">⚠ कमाईवर शंका: 3 वर्षांची परिचालन रोख नफ्याच्या फक्त %1$s पट (0.6 पेक्षा कमी)</string>
+    <string name="fw_flag_low_roa">⚠ ROA %1$s%%: बँक/NBFC साठी 1%% पेक्षा कमी, खरेदी नाही</string>
+    <string name="fw_flag_red">🚩 धोक्याचा इशारा: व्हॉल्यूम सरासरीच्या %1$s पट, पण 3 दिवसांत कोणतेही फाइलिंग किंवा बातमी नाही — ऑपरेटरचा खेळ असू शकतो</string>
+    <string name="fw_flag_blocked">या कारणांमुळे फ्रेमवर्क सध्या खरेदी थांबवते</string>
+    <string name="fw_flag_best">⭐ सर्वोत्तम संधी: भाव खरेदी भावाखाली, आणि साप्ताहिक मागणी क्षेत्राची लिक्विडिटी स्वीप</string>
+    <string name="fw_flag_buy_zone">✅ खरेदी क्षेत्र: भाव 200-दिवस EMA ₹%1$s च्या वर, तेजीच्या FVG ₹%2$s – ₹%3$s वर</string>
+    <string name="fw_flag_sweep">🎯 साप्ताहिक स्वीप: या किंवा मागच्या आठवड्यात ₹%1$s च्या साप्ताहिक स्विंग नीचांकाखाली जाऊन वर बंद झाला</string>
+    <string name="fw_flag_cyclical">⚠ चक्रीय: धातू आणि तेलात कमी P/E अनेकदा कमाईचे शिखर असते, म्हणून मध्य-चक्र EBITDA वर मोजले</string>
+    <string name="fw_flag_peg_low">✅ PEG %1$s: 1 पेक्षा कमी, वाढीच्या मानाने स्वस्त</string>
+    <string name="fw_flag_peg_high">⚠ PEG %1$s: 2 पेक्षा जास्त, वाढीच्या मानाने महाग</string>
+    <string name="fw_penalties">दंड: %1$s</string>
+    <string name="fw_penalty_auditor">ऑडिटरचा राजीनामा −40%%</string>
+    <string name="fw_penalty_debt">कर्ज −20%%</string>
+    <string name="fw_penalty_institutions">FII/DII ची विक्री −10%%</string>
+    <string name="fw_penalty_roce">कमी ROCE −20%%</string>
+    <string name="fw_calc_model">%1$s चा हिशेब (%2$s)</string>
+    <string name="fw_calc_fallback">%1$s साठी डेटा कमी होता (कमी इतिहास, तोटा किंवा मंद वाढ), म्हणून सेक्टर P/E–P/B चा हिशेब लावला</string>
+    <string name="fw_calc_bank_book">बुक व्हॅल्यू ₹%1$s/शेअर − बुडीत कर्ज ₹%2$s/शेअर (निव्वळ NPA कर्जाच्या %3$s%%) = समायोजित बुक ₹%4$s</string>
+    <string name="fw_calc_bank_no_npa">बुक व्हॅल्यू ₹%1$s/शेअर; निव्वळ NPA मिळाला नाही (एकत्रित पानावर नसतो), म्हणून संपूर्ण बुक धरली</string>
+    <string name="fw_calc_bank_pb">स्वतःचा 3 वर्षांचा मध्यक P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_bank_pb_sector">स्वतःचा इतिहास कमी, म्हणून सेक्टरचा P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_roa">ROA (12 महिन्यांचा नफा ÷ एकूण मालमत्ता) %1$s%%; 1%% पेक्षा जास्त हवा</string>
+    <string name="fw_calc_ev_multiple">स्वतःचा 3 वर्षांचा मध्यक EV/EBITDA %1$s (आज %2$s)</string>
+    <string name="fw_calc_ev_multiple_only">स्वतःचा 3 वर्षांचा मध्यक EV/EBITDA %1$s</string>
+    <string name="fw_calc_ebitda">EBITDA (12 महिने): %1$s</string>
+    <string name="fw_calc_ebitda_mid">मध्य-चक्र EBITDA (वार्षिक EBITDA ची सरासरी): %1$s</string>
+    <string name="fw_calc_ev_value">(%1$s × %2$s − कर्ज %3$s) ÷ %4$s Cr शेअर्स = ₹%5$s</string>
+    <string name="fw_calc_ev_note">EV = बाजार मूल्य + कर्ज (Screener च्या सारांशात रोख वेगळी मिळत नाही, म्हणून दोन्ही बाजूंनी अशीच)</string>
+    <string name="fw_calc_roce_cut">ROCE %1$s%%, 12%% पेक्षा कमी → 20%% कमी: ₹%2$s</string>
+    <string name="fw_calc_roce_ok">ROCE %1$s%% (12%% किंवा जास्त) ✓</string>
+    <string name="fw_calc_peg">P/E %1$s ÷ EPS ची 3 वर्षांची वार्षिक वाढ %2$s%% = PEG %3$s (1 पेक्षा कमी स्वस्त, 2 पेक्षा जास्त महाग)</string>
+    <string name="fw_calc_peg_fair">योग्य P/E: %1$s %2$s, पण PEG 2 ची मर्यादा (2 × वाढ) %3$s → %4$s</string>
+    <string name="fw_calc_peg_own">स्वतःचा 3 वर्षांचा नेहमीचा P/E</string>
+    <string name="fw_calc_peg_sector">सेक्टरचा नेहमीचा P/E (स्वतःचा इतिहास कमी)</string>
+    <string name="fw_calc_peg_band">योग्य P/E: स्वतःचा किंवा सेक्टरचा P/E मिळाला नाही, म्हणून PEG 1.5 वर: %1$s</string>
+    <string name="fw_calc_peg_value">खरे मूल्य = EPS ₹%1$s × योग्य P/E %2$s = ₹%3$s</string>
+    <string name="fw_calc_peg_slow">EPS ची 3 वर्षांची वार्षिक वाढ %1$s%%: 5%% पेक्षा कमी असल्यास PEG काही सांगत नाही</string>
+    <string name="fw_calc_general">सेक्टरच्या P/E–P/B आणि कंपनीच्या स्वतःच्या P/E वरून आलेल्या भावांची सरासरी = ₹%1$s</string>
+    <string name="fw_calc_penalty_auditor">वैधानिक ऑडिटरने %1$s रोजी राजीनामा दिला → −40%%</string>
+    <string name="fw_calc_penalty_debt">कर्ज इक्विटीच्या 1.5 पटीपेक्षा जास्त → −20%%</string>
+    <string name="fw_calc_penalty_institutions">FII + DII ची हिस्सेदारी सलग 3 तिमाही घटली → −10%%</string>
+    <string name="fw_calc_after_penalties">दंडानंतर खरे मूल्य: ₹%1$s × %2$s = ₹%3$s</string>
+    <string name="fw_calc_no_penalties">कोणताही दंड नाही (ऑडिटर, कर्ज, FII/DII ठीक) → खरे मूल्य ₹%1$s</string>
+    <string name="fw_calc_margin">सुरक्षिततेचे अंतर %1$s%% (%2$s) → खरेदी भाव ₹%3$s × %4$s = ₹%5$s</string>
+    <string name="fw_calc_screen">सार्वत्रिक तपासणी</string>
+    <string name="fw_calc_pledge">प्रवर्तक तारण %1$s%% (15%% पेक्षा जास्त = नाकारले)</string>
+    <string name="fw_calc_pledge_none">प्रवर्तक तारण: NSE वर मिळाले नाही</string>
+    <string name="fw_calc_icr">व्याज कव्हर: (12 महिन्यांचा PBT + व्याज) ÷ व्याज = %1$s पट (2.5 पेक्षा कमी = उच्च जोखीम)</string>
+    <string name="fw_calc_cash">3 वर्षांची परिचालन रोख ÷ नफा = %1$s (0.6 पेक्षा कमी = कमाईवर शंका)</string>
+    <string name="fw_calc_lender">बँक/NBFC च्या व्याज आणि रोख प्रवाहावरून ही तपासणी होत नाही</string>
+    <string name="fw_calc_chart">चार्ट (SMC)</string>
+    <string name="fw_calc_ema_above">200-दिवस EMA ₹%1$s: भाव त्याच्या वर</string>
+    <string name="fw_calc_ema_below">200-दिवस EMA ₹%1$s: भाव त्याच्या खाली</string>
+    <string name="fw_calc_gap">न भरलेला तेजीचा FVG ₹%1$s – ₹%2$s; भाव त्यात किंवा त्याच्या 5%% पर्यंत वर</string>
+    <string name="fw_calc_no_gap">मागील 60 सत्रांत भावाजवळ न भरलेला तेजीचा FVG नाही</string>
+    <string name="fw_calc_sweep">साप्ताहिक स्वीप: ₹%1$s चा साप्ताहिक स्विंग नीचांक तोडून वर बंद</string>
+    <string name="fw_calc_no_sweep">या किंवा मागच्या आठवड्यात साप्ताहिक लिक्विडिटी स्वीप नाही</string>
+    <string name="fw_calc_best_rule">सर्वोत्तम संधी = भाव खरेदी भावाखाली + साप्ताहिक स्वीप + कोणतीही अडचण नाही</string>
+    <string name="fw_cr">₹%1$s Cr</string>
+    <string name="help_framework_title">R/S चे मूल्यांकन फ्रेमवर्क (खरे मूल्य आणि खरेदी भाव)</string>
+    <string name="help_framework_body">R/S प्रत्येक कंपनीचे खरे (आंतरिक) मूल्य तिच्या सेक्टरनुसार काढतो. बँक, NBFC आणि इतर वित्तीय कंपन्या: बुक व्हॅल्यूमधून निव्वळ NPA (बुडीत कर्ज) प्रति शेअर वजा करून, त्यावर कंपनीचा स्वतःचा मागील 3 वर्षांचा मध्यक P/B (इतिहास कमी असल्यास सेक्टरचा); ROA 1% पेक्षा कमी असल्यास खरेदी नाही. कॅपिटल गुड्स, ऑटो, केमिकल, बांधकाम, वीज अशा यंत्र आणि कारखाने असलेल्या कंपन्या: स्वतःचा 3 वर्षांचा मध्यक EV/EBITDA × आजचा EBITDA, त्यातून कर्ज वजा करून प्रति शेअर; ROCE 12% पेक्षा कमी असल्यास 20% कमी. धातू, खाणकाम, तेल आणि वायू: हाच हिशेब, पण वर्षांच्या सरासरी (मध्य-चक्र) EBITDA वर, आणि इशारा की तिथे कमी P/E अनेकदा कमाईचे शिखर असते. IT, FMCG आणि औषधे: PEG = P/E ÷ EPS ची मागील 3 वर्षांची वार्षिक वाढ (पुढील वाढीचे अंदाज मोफत मिळत नाहीत); 1 पेक्षा कमी स्वस्त, 2 पेक्षा जास्त महाग; खरे मूल्य = EPS × कंपनीचा स्वतःचा नेहमीचा P/E, पण PEG 2 च्या P/E (2 × वाढ) पेक्षा जास्त नाही. इतर सेक्टर, किंवा ज्यांचा डेटा कमी आहे: जुना सेक्टर P/E–P/B आणि स्वतःच्या P/E चा हिशेब. मग दंड: मागील 1 वर्षात वैधानिक ऑडिटरचा राजीनामा −40%, कर्ज इक्विटीच्या 1.5 पटीपेक्षा जास्त −20%, FII + DII ची हिस्सेदारी सलग 3 तिमाही घटली −10%. खरेदी भाव = खरे मूल्य × (1 − सुरक्षिततेचे अंतर): बाजार मूल्यात पहिल्या 100 कंपन्यांवर (लार्ज कॅप) 20%, 101–250 (मिड कॅप) वर 27.5% आणि बाकी (स्मॉल कॅप) वर 35%. प्रत्येक कंपनीची सार्वत्रिक तपासणीही होते: प्रवर्तकांनी आपले 15% पेक्षा जास्त शेअर्स तारण ठेवले असल्यास नाकारले (R/S \"दूर राहा\"); व्याज कव्हर 2.5 पटीपेक्षा कमी असल्यास उच्च जोखीम, आणि 3 वर्षांची परिचालन रोख नफ्याच्या 0.6 पटीपेक्षा कमी असल्यास कमाईवर शंका (दोन्हीत R/S जास्तीत जास्त \"सावधगिरी\"). चार्टवर: भाव 200-दिवस EMA च्या वर आणि एखाद्या न भरलेल्या तेजीच्या FVG वर असेल तर खरेदी क्षेत्र; या किंवा मागच्या आठवड्यात भाव एखाद्या साप्ताहिक स्विंग नीचांकाखाली जाऊन वर बंद झाला असेल तर साप्ताहिक स्वीप. भाव खरेदी भावाखाली असेल, साप्ताहिक स्वीप असेल आणि कोणतीही अडचण नसेल तर ⭐ सर्वोत्तम संधी. शेअर उघडल्यावर त्याच्या बातम्याही पाहिल्या जातात: व्हॉल्यूम सरासरीच्या 3 पट किंवा जास्त असेल पण मागील 3 दिवसांत कोणतेही फाइलिंग किंवा बातमी नसेल तर 🚩 धोक्याचा इशारा (ऑपरेटरचा खेळ असू शकतो) आणि फ्रेमवर्क खरेदी थांबवते. प्रवर्तक तारण आणि ऑडिटरचे राजीनामे NSE वरून येतात, म्हणून फक्त BSE वरील शेअर्समध्ये या तपासण्या होत नाहीत. R/S कार्डमध्ये खरे मूल्य, खरेदी भाव आणि इशारे दिसतात आणि \"फ्रेमवर्कचा संपूर्ण हिशेब\" दाबल्यावर प्रत्येक पायरीचा हिशेब. नवीन आकडे प्रत्येक शेअरचे Screener पान पुन्हा वाचल्यावर येतात, याला काही दिवस लागतील; तोपर्यंत काही शेअर्स जुन्या हिशेबावर राहतील. गुंतवणूक सल्ला नाही.</string>
+</resources>

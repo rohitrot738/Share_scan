@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_account">खाते</string>
+    <string name="menu_account_signed_out">लॉगिन नाही</string>
+    <string name="account_signed_in_generic">लॉगिन आहे</string>
+    <string name="account_title">खाते</string>
+    <string name="account_subtitle_signed_out">Google, GitHub किंवा ईमेलने लॉगिन करा</string>
+    <string name="account_subtitle_signed_in">तुमची प्रोफाइल आणि लॉगिन</string>
+    <string name="account_subtitle_unconfigured">लॉगिन लवकरच येत आहे</string>
+    <string name="account_unconfigured_title">लॉगिन अजून तयार नाही</string>
+    <string name="account_unconfigured_body">या आवृत्तीत लॉगिन अजून सुरू केलेले नाही. बाकी संपूर्ण ॲप — स्कॅन, वॉचलिस्ट, फिल्टर आणि थीम — लॉगिनशिवाय पूर्वीसारखेच चालते.</string>
+    <string name="account_working">थोडे थांबा…</string>
+    <string name="account_google">Google ने लॉगिन</string>
+    <string name="account_github">GitHub ने लॉगिन</string>
+    <string name="account_or_email">किंवा ईमेल आणि पासवर्डने</string>
+    <string name="account_email_hint">ईमेल</string>
+    <string name="account_password_hint">पासवर्ड</string>
+    <string name="account_sign_in">लॉगिन</string>
+    <string name="account_create">नवीन खाते तयार करा</string>
+    <string name="account_forgot">पासवर्ड विसरलात?</string>
+    <string name="account_email_needed">ईमेल टाका</string>
+    <string name="account_password_needed">पासवर्ड टाका</string>
+    <string name="account_reset_sent">पासवर्ड बदलण्याची लिंक %1$s वर पाठवली — इनबॉक्स (आणि स्पॅम) पाहा</string>
+    <string name="account_created">खाते तयार झाले! ईमेल पडताळणीची लिंक पाठवली आहे</string>
+    <string name="account_signed_in_toast">लॉगिन झाले</string>
+    <string name="account_signed_out_toast">लॉग आउट झाले</string>
+    <string name="account_no_name">नाव जोडलेले नाही</string>
+    <string name="account_verified">✓ पडताळणी झाली</string>
+    <string name="account_unverified">पडताळणी बाकी</string>
+    <string name="account_section_details">माहिती</string>
+    <string name="account_phone">फोन</string>
+    <string name="account_methods">लॉगिनचे मार्ग</string>
+    <string name="account_created_at">खाते तयार झाले</string>
+    <string name="account_last_sign_in">शेवटचे लॉगिन</string>
+    <string name="account_unknown">माहीत नाही</string>
+    <string name="account_uid">यूजर ID</string>
+    <string name="account_copy_uid">यूजर ID कॉपी करा</string>
+    <string name="account_uid_copied">यूजर ID कॉपी झाला</string>
+    <string name="account_provider_google">Google</string>
+    <string name="account_provider_github">GitHub</string>
+    <string name="account_provider_password">ईमेल + पासवर्ड</string>
+    <string name="account_provider_phone">फोन</string>
+    <string name="account_section_actions">खात्याची सेटिंग्ज</string>
+    <string name="account_edit_name">नाव बदला</string>
+    <string name="account_name_hint">तुमचे नाव</string>
+    <string name="account_name_saved">नाव बदलले</string>
+    <string name="account_send_verification">पडताळणी ईमेल पाठवा</string>
+    <string name="account_verification_sent">पडताळणीची लिंक %1$s वर पाठवली</string>
+    <string name="account_change_password">पासवर्ड बदला</string>
+    <string name="account_password_current_hint">सध्याचा पासवर्ड</string>
+    <string name="account_password_new_hint">नवीन पासवर्ड (किमान 6 अक्षरे)</string>
+    <string name="account_password_changed">पासवर्ड बदलला</string>
+    <string name="account_password_send_reset">पासवर्ड बदलण्याचा ईमेल पाठवा</string>
+    <string name="account_link_google">Google खाते जोडा</string>
+    <string name="account_link_github">GitHub खाते जोडा</string>
+    <string name="account_linked">%1$s जोडले — आता यानेही लॉगिन करू शकता</string>
+    <string name="account_sign_out">लॉग आउट</string>
+    <string name="account_delete">खाते हटवा</string>
+    <string name="account_delete_title">खाते हटवायचे?</string>
+    <string name="account_delete_message">तुमचे Share Scan खाते कायमचे हटवले जाईल. या फोनवरील वॉचलिस्ट आणि सेटिंग्ज तशीच राहतील.</string>
+    <string name="account_delete_yes">हो, हटवा</string>
+    <string name="account_deleted">खाते हटवले</string>
+    <string name="account_save">जतन करा</string>
+    <string name="account_cancel">राहू द्या</string>
+    <string name="account_relogin_title">पुन्हा लॉगिन करा</string>
+    <string name="account_relogin_message">सुरक्षेसाठी हे काम ताज्या लॉगिननंतरच होते. लॉग आउट करून पुन्हा लॉगिन करा, मग पुन्हा प्रयत्न करा.</string>
+    <string name="account_relogin_yes">लॉग आउट करा</string>
+    <string name="account_error_wrong_password">ईमेल किंवा पासवर्ड चुकीचा आहे</string>
+    <string name="account_error_no_user">या ईमेलने कोणतेही खाते मिळाले नाही — आधी नवीन खाते तयार करा</string>
+    <string name="account_error_disabled">हे खाते बंद केले आहे</string>
+    <string name="account_error_weak_password">पासवर्ड कमकुवत आहे — किमान 6 अक्षरे ठेवा</string>
+    <string name="account_error_email_used">या ईमेलने खाते आधीच तयार आहे — लॉगिन करा</string>
+    <string name="account_error_other_method">या ईमेलचे खाते दुसऱ्या मार्गाने (Google, GitHub किंवा पासवर्ड) तयार झाले आहे — त्यानेच लॉगिन करा, मग इथून हा मार्ग जोडा</string>
+    <string name="account_error_already_linked">हे खाते आधीच जोडलेले आहे किंवा दुसऱ्या Share Scan खात्यात आहे</string>
+    <string name="account_error_bad_email">ईमेल बरोबर नाही</string>
+    <string name="account_error_network">इंटरनेट कनेक्शन नाही — तपासून पुन्हा प्रयत्न करा</string>
+    <string name="account_error_too_many">खूप जास्त प्रयत्न झाले — थोड्या वेळाने पुन्हा करा</string>
+    <string name="account_error_no_google_account">या फोनवर कोणतेही Google खाते मिळाले नाही — फोनच्या सेटिंग्जमध्ये जोडा</string>
+    <string name="account_error_google">Google ने लॉगिन होऊ शकले नाही — पुन्हा प्रयत्न करा</string>
+    <string name="account_error_browser">ब्राउझरमध्ये लॉगिन पूर्ण झाले नाही — पुन्हा प्रयत्न करा</string>
+    <string name="account_error_method_off">हा लॉगिन मार्ग अजून सुरू नाही</string>
+    <string name="account_error_generic">काहीतरी चुकले — पुन्हा प्रयत्न करा</string>
+    <string-array name="account_months">
+        <item>जाने</item>
+        <item>फेब्रु</item>
+        <item>मार्च</item>
+        <item>एप्रि</item>
+        <item>मे</item>
+        <item>जून</item>
+        <item>जुलै</item>
+        <item>ऑग</item>
+        <item>सप्टें</item>
+        <item>ऑक्टो</item>
+        <item>नोव्हें</item>
+        <item>डिसें</item>
+    </string-array>
+    <string name="menu_usage">ॲपचा वापर</string>
+    <string name="menu_usage_body">किती फोनवर ॲप चालते • फक्त तुम्हाला दिसते</string>
+    <string name="usage_title">ॲपचा वापर</string>
+    <string name="usage_subtitle">फक्त %1$s च्या GitHub लॉगिनवर दिसते</string>
+    <string name="usage_loading_title">मोजणी येत आहे…</string>
+    <string name="usage_loading_body">Firebase कडून फोनची मोजणी घेतली जात आहे.</string>
+    <string name="usage_today">आज</string>
+    <string name="usage_days">%1$d दिवस</string>
+    <string name="usage_phones">फोन</string>
+    <string name="usage_total_title">आतापर्यंत</string>
+    <string name="usage_total_body">एकूण %1$s फोनवर ॲप उघडले (मोजणी सुरू झाल्यापासून)</string>
+    <string name="usage_downloads">GitHub वरून APK %1$s वेळा डाउनलोड झाली</string>
+    <string name="usage_downloads_unknown">GitHub वरील डाउनलोडची मोजणी अजून मिळाली नाही</string>
+    <string name="usage_versions_title">कोणत्या आवृत्तीवर (मागील %1$d दिवस)</string>
+    <string name="usage_version_line">v%1$s — %2$s फोन</string>
+    <string name="usage_how_title">मोजणी कशी होते</string>
+    <string name="usage_how_body">प्रत्येक फोन दिवसातून एकदा, ॲप उघडल्यावर, फक्त एक यादृच्छिक ID आणि आपली आवृत्ती पाठवतो; नाव, नंबर किंवा ठिकाण नाही. मोजणी याच आवृत्तीपासून सुरू झाली, जुन्या आवृत्तीचे फोन अपडेटनंतर मोजले जातील. ॲप काढून पुन्हा इन्स्टॉल केल्यास तोच फोन नवीन मोजला जातो, आणि APK डाउनलोडमध्ये एका व्यक्तीचे अनेक डाउनलोडही मोजले जातात.</string>
+    <string name="usage_rules_title">Firestore चे नियम बदलायचे बाकी आहेत</string>
+    <string name="usage_rules_body">Firebase Console → Firestore Database → Rules मध्ये docs/LOGIN_SETUP.md (Step 6.5) मधील नवीन नियम पेस्ट करून Publish करा, मग हे पुन्हा उघडा.</string>
+    <string name="usage_failed_title">मोजणी येऊ शकली नाही</string>
+    <string name="usage_failed_body">इंटरनेट तपासा आणि थोड्या वेळाने पुन्हा उघडा.</string>
+</resources>

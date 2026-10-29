@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_background">पार्श्वभूमी</string>
+    <string name="background_title">पार्श्वभूमी निवडा</string>
+    <string name="background_subtitle">प्रत्येक पार्श्वभूमीचे स्वतःचे रूप आणि ॲनिमेशन • रंग थीमचेच</string>
+    <string name="background_galaxy">Galaxy</string>
+    <string name="background_galaxy_body">आकाशगंगा, लुकलुकणारे आणि तुटणारे तारे • मोठ्या कार्डांचे रूप</string>
+    <string name="background_space_glass">Space Glass</string>
+    <string name="background_space_glass_body">तरंगणारे दिवे, हलती ट्रेडिंग ग्रिड आणि चार्ट-रेषा • संक्षिप्त टेबलचे रूप</string>
+    <string name="help_sky_title">पार्श्वभूमी आणि थीम</string>
+    <string name="help_sky_body">मेनू → पार्श्वभूमी मधून दोनपैकी एक निवडा — प्रत्येकाचे स्वतःचे रूप आणि स्वतःचे ॲनिमेशन आहे: Galaxy मध्ये आकाशगंगा (लुकलुकणारे आणि तुटणारे तारे, आकाशगंगेकडे उड्डाण) सोबत मोठ्या कार्डांचे रूप, आणि Space Glass मध्ये तरंगणारे दिवे, हलती ट्रेडिंग ग्रिड आणि चार्ट-रेषा सोबत संक्षिप्त टेबल (वर पातळ पट्टी, प्रत्येक शेअरची एक ओळ, खाली तरंगती पट्टी). मेनू → थीम मधून रंग निवडा: कोणतीही थीम दोन्ही पार्श्वभूमींवर लागते आणि तिचे रंग पार्श्वभूमीतही येतात. सेटिंग्ज → आकाशाचे ॲनिमेशन बंद केल्यावर पार्श्वभूमी स्थिर होते.</string>
+</resources>

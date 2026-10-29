@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_title">नवीन आवृत्ती उपलब्ध</string>
+    <string name="update_title_ready">अपडेट डाउनलोड झाले</string>
+    <string name="update_versions">%1$s • सध्या %2$s</string>
+    <string name="update_available_body">एका टॅपमध्ये डाउनलोड करून जुन्या ॲपवर इन्स्टॉल करा — वॉचलिस्ट आणि फिल्टर तसेच राहतील.</string>
+    <string name="update_downloading_body">डाउनलोड होत आहे… %1$d%%</string>
+    <string name="update_ready_body">इन्स्टॉल दाबा — नवीन आवृत्ती जुन्यावर इन्स्टॉल होईल.</string>
+    <string name="update_ready_permission_body">इन्स्टॉल दाबा. पहिल्यांदा Android “या स्रोतावरून इन्स्टॉल” ची परवानगी मागेल — ती सुरू करून मागे दाबा, इन्स्टॉल तिथूनच पुढे चालेल.</string>
+    <string name="update_failed_body">डाउनलोड होऊ शकले नाही. इंटरनेट कनेक्शन तपासा आणि पुन्हा प्रयत्न करा.</string>
+    <string name="update_action_download">अपडेट करा</string>
+    <string name="update_action_install">इन्स्टॉल करा</string>
+    <string name="update_action_retry">पुन्हा प्रयत्न करा</string>
+    <string name="update_action_later">नंतर</string>
+    <string name="update_install_failed">इन्स्टॉलर उघडता आला नाही</string>
+</resources>

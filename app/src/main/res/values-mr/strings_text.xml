@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_text">भाषा आणि फॉन्ट</string>
+    <string name="menu_text_body">सध्या: %1$s · %2$s</string>
+    <string name="text_title">भाषा आणि फॉन्ट</string>
+    <string name="text_subtitle">संपूर्ण ॲप कोणत्या भाषेत आणि कोणत्या फॉन्टमध्ये दिसावे</string>
+    <string name="text_language">भाषा</string>
+    <string name="text_language_note">भाषांतर ॲपमध्येच केलेले आहे, एखादा शब्द चुकीचा दिसल्यास कळवा. शेअर्स आणि कंपन्यांची नावे, बातम्या आणि \"नवीन काय आहे\" जसे आहेत तसेच राहतात.</string>
+    <string name="text_font">फॉन्ट</string>
+    <string name="text_font_sample">Share Scan · ब्रेकआउट स्कॅन · ₹1,234.50 ▲ 2.40% · 86.0</string>
+    <string name="font_system">फोनचा फॉन्ट</string>
+    <string name="text_font_description">%1$s फॉन्ट निवडा</string>
+    <string name="text_language_description">%1$s भाषा निवडा</string>
+</resources>

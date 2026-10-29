@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compact_news_mark">📰</string>
+    <string name="compact_no_data">भाव नाही</string>
+    <string name="compact_col_rank">#</string>
+    <string name="compact_col_stock">शेअर / कंपनी</string>
+    <string name="compact_col_price">भाव</string>
+    <string name="compact_col_change">5D बदल / RVOL</string>
+    <string name="compact_col_score">स्कोअर</string>
+    <string name="compact_share">शेअर करा</string>
+    <string name="compact_rank">#%1$d</string>
+    <string name="pill_idle">स्कॅन सुरू करा ▸</string>
+    <string name="pill_reading">मागचा स्कॅन उघडत आहे…</string>
+    <string name="pill_loading">स्कॅन सुरू होत आहे…</string>
+    <string name="pill_scanning">स्कॅन %1$d%% • %2$s/%3$s</string>
+    <string name="pill_stopped">थांबला %1$d%% • %2$s/%3$s</string>
+    <string name="pill_done">स्कॅन 100%% • %1$s शेअर्स</string>
+    <string name="pill_live_done">लाइव्ह स्कॅन 100%% • %1$s शेअर्स</string>
+    <string name="pill_support_done">सपोर्ट 100%% • %1$s शेअर्स</string>
+    <string name="pill_failed">स्कॅन झाला नाही • पुन्हा करा</string>
+    <string name="empty_body_compact">वरची पट्टी दाबून स्कॅन सुरू करा — स्कॅन पूर्ण होताच सर्वोत्तम उमेदवार स्कोअरनुसार इथे दिसतील.</string>
+    <string name="pill_description">%1$s; स्कॅनची बटणे उघडा</string>
+    <string name="help_compact_title">Space Glass चे संक्षिप्त टेबल</string>
+    <string name="help_compact_body">मेनू → पार्श्वभूमी मध्ये Space Glass निवडल्यावर यादी एक टेबल बनते: प्रत्येक शेअरची एक ओळ, ज्यात क्रमांक, टिकर (सोबत NSE/BSE, NEW किंवा ▲▼ आणि 📰), खाली कंपनीचे नाव, भाव, 5 दिवसांचा बदल आणि त्याखाली RVOL, आणि स्कोअर — एका स्क्रीनवर 8–10 शेअर्स. वॉचलिस्टमधील शेअर्सचा स्कोअर सोनेरी असतो आणि सोबत ★; एखादी ओळ दाबून धरल्यास तो शेअर वॉचलिस्टमध्ये जोडला किंवा काढला जातो. वरच्या पातळ पट्टीतील हिरवी गोळी स्कॅन कुठे आहे ते सांगते (उदा. \"लाइव्ह स्कॅन 100% • 2,618 शेअर्स\"); ती दाबल्यावर ब्रेकआउट/सपोर्ट, स्कॅन/थांबवा आणि स्कॅन पुसा असलेले पॅनल उघडते. फिल्टर, वॉचलिस्ट, क्रम, सेक्टर आणि शेअर करा खालच्या तरंगत्या पट्टीत आहेत, अंगठ्याच्या आवाक्यात; ती डावी-उजवीकडे सरकवा. ओळ दाबल्यावर शेअरचा संपूर्ण तपशील उघडतो, जिथे सेटअप, सपोर्ट आणि R/S मिळतात. फिल्टर आणि सेक्टरच्या शीटही याच साध्या शैलीत उघडतात. Galaxy पार्श्वभूमी निवडल्यावर पुन्हा मोठ्या कार्डांचे रूप येते.</string>
+</resources>

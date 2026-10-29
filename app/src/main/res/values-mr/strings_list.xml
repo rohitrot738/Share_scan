@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_watchlist">★ वॉचलिस्ट</string>
+    <string name="list_watchlist_count">★ वॉचलिस्ट (%1$d)</string>
+    <string name="list_watchlist_leave">वॉचलिस्ट बंद करा, सर्व शेअर्स दाखवा</string>
+    <string name="list_star_add">%1$s वॉचलिस्टमध्ये जोडा</string>
+    <string name="list_star_remove">%1$s वॉचलिस्टमधून काढा</string>
+    <string name="list_starred_description">वॉचलिस्टमध्ये</string>
+    <string name="list_empty_watchlist_title">वॉचलिस्ट रिकामी आहे</string>
+    <string name="list_empty_watchlist_body">कोणत्याही कार्डवर ☆ दाबा — तो शेअर इथे दिसेल.</string>
+    <string name="list_empty_watchlist_body_compact">कोणतीही ओळ दाबून धरा — तो शेअर ★ सह इथे दिसेल.</string>
+    <string name="list_empty_watchlist_waiting_title">★ शेअर्सचा भाव अजून आला नाही</string>
+    <string name="list_empty_watchlist_waiting_body">तुमचे निवडलेले शेअर्स पुढच्या स्कॅनसोबत इथे दिसतील.</string>
+    <string name="list_rank_new">NEW</string>
+    <string name="list_rank_up">▲%1$d</string>
+    <string name="list_rank_down">▼%1$d</string>
+    <string name="list_rank_new_description">मागच्या स्कॅननंतर वरच्या %1$d मध्ये नवीन</string>
+    <string name="list_rank_up_description">मागच्या स्कॅनपेक्षा %1$d क्रमांक वर</string>
+    <string name="list_rank_down_description">मागच्या स्कॅनपेक्षा %1$d क्रमांक खाली</string>
+    <string name="list_search_open">सिम्बॉल शोधा</string>
+    <string name="list_search_hint">सिम्बॉल किंवा नाव — उदा. TCS, Reliance</string>
+    <string name="list_search_close">शोध बंद करा</string>
+    <string name="list_empty_search_title">एकही शेअर जुळला नाही</string>
+    <string name="list_empty_search_body">“%1$s” कोणत्याही स्कॅन झालेल्या शेअरच्या सिम्बॉल किंवा नावात मिळाले नाही — स्पेलिंग तपासा किंवा फिल्टर सैल करा.</string>
+    <string name="list_share_open">वरचे 10 शेअर करा</string>
+    <string name="list_share_filters">%1$d फिल्टर लागू</string>
+    <string name="list_share_no_filters">फिल्टर नाही</string>
+    <string name="list_share_line">%1$d. %2$s ₹%3$s • स्कोअर %4$s • RVOL %5$s×</string>
+    <string name="list_share_failed">शेअर करण्यासाठी कोणतेही ॲप मिळाले नाही</string>
+</resources>
