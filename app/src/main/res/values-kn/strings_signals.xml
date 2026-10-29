@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_from_high">20D ಗರಿಷ್ಠದಿಂದ ಅಂತರ</string>
+    <string name="metric_base_range">ಶಾಂತ ವ್ಯಾಪ್ತಿ (ಗರಿಷ್ಠ–ಕನಿಷ್ಠ)</string>
+    <string name="metric_vs_sma50">50 DMA ಯಿಂದ ಅಂತರ</string>
+    <string name="hint_from_high">20 ದಿನಗಳ ಗರಿಷ್ಠ ಬೆಲೆಗಿಂತ (ರೆಸಿಸ್ಟೆನ್ಸ್) ಬೆಲೆ ಎಷ್ಟು ಕೆಳಗೆ • ಋಣ = ಗರಿಷ್ಠದ ಮೇಲೆ ಬ್ರೇಕ್‌ಔಟ್</string>
+    <string name="hint_base_range">ಆಯ್ಕೆ ಮಾಡಿದ ವಾರಗಳಲ್ಲಿ ಗರಿಷ್ಠ ಮತ್ತು ಕನಿಷ್ಠ ಬೆಲೆಯ ಅಂತರ • ಕಡಿಮೆ = ಶಾಂತ ಷೇರು, ತುಂಬಾ ಮೇಲೂ ಅಲ್ಲ ತುಂಬಾ ಕೆಳಗೂ ಅಲ್ಲ</string>
+    <string name="hint_vs_sma50">50 ದಿನಗಳ ಸರಾಸರಿಯ ಮೇಲೆ (+) ಅಥವಾ ಕೆಳಗೆ (-) • ಧನ = ಏರುತ್ತಿರುವ ಟ್ರೆಂಡ್</string>
+    <string name="hint_score_mix">ಬ್ರೇಕ್‌ಔಟ್ ಸೆಟಪ್, ಟ್ರೆಂಡ್, ವಾಲ್ಯೂಮ್, ಲಿಕ್ವಿಡಿಟಿ, ಮೊಮೆಂಟಮ್ ಮಿಶ್ರಣ • %1$s+ STRONG, %2$s+ WATCH</string>
+</resources>

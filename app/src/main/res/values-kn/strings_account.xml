@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_account">ಖಾತೆ</string>
+    <string name="menu_account_signed_out">ಸೈನ್ ಇನ್ ಆಗಿಲ್ಲ</string>
+    <string name="account_signed_in_generic">ಸೈನ್ ಇನ್ ಆಗಿದೆ</string>
+    <string name="account_title">ಖಾತೆ</string>
+    <string name="account_subtitle_signed_out">Google, GitHub ಅಥವಾ ಇಮೇಲ್ ಮೂಲಕ ಸೈನ್ ಇನ್ ಮಾಡಿ</string>
+    <string name="account_subtitle_signed_in">ನಿಮ್ಮ ಪ್ರೊಫೈಲ್, ಸೈನ್-ಇನ್</string>
+    <string name="account_subtitle_unconfigured">ಸೈನ್-ಇನ್ ಶೀಘ್ರದಲ್ಲೇ</string>
+    <string name="account_unconfigured_title">ಸೈನ್-ಇನ್ ಇನ್ನೂ ಹೊಂದಿಸಿಲ್ಲ</string>
+    <string name="account_unconfigured_body">ಈ ಆವೃತ್ತಿಯಲ್ಲಿ ಸೈನ್-ಇನ್ ಇನ್ನೂ ಆನ್ ಆಗಿಲ್ಲ. ಉಳಿದ ಆ್ಯಪ್ — ಸ್ಕ್ಯಾನ್‌ಗಳು, ವಾಚ್‌ಲಿಸ್ಟ್, ಫಿಲ್ಟರ್‌ಗಳು, ಥೀಮ್‌ಗಳು — ಸೈನ್ ಇನ್ ಇಲ್ಲದೆ ಮೊದಲಿನಂತೆಯೇ ಕೆಲಸ ಮಾಡುತ್ತದೆ.</string>
+    <string name="account_working">ಒಂದು ಕ್ಷಣ…</string>
+    <string name="account_google">Google ಮೂಲಕ ಸೈನ್ ಇನ್</string>
+    <string name="account_github">GitHub ಮೂಲಕ ಸೈನ್ ಇನ್</string>
+    <string name="account_or_email">ಅಥವಾ ಇಮೇಲ್, ಪಾಸ್‌ವರ್ಡ್ ಮೂಲಕ</string>
+    <string name="account_email_hint">ಇಮೇಲ್</string>
+    <string name="account_password_hint">ಪಾಸ್‌ವರ್ಡ್</string>
+    <string name="account_sign_in">ಸೈನ್ ಇನ್</string>
+    <string name="account_create">ಹೊಸ ಖಾತೆ ರಚಿಸಿ</string>
+    <string name="account_forgot">ಪಾಸ್‌ವರ್ಡ್ ಮರೆತಿರಾ?</string>
+    <string name="account_email_needed">ನಿಮ್ಮ ಇಮೇಲ್ ನಮೂದಿಸಿ</string>
+    <string name="account_password_needed">ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್ ನಮೂದಿಸಿ</string>
+    <string name="account_reset_sent">ಪಾಸ್‌ವರ್ಡ್ ಮರುಹೊಂದಿಕೆ ಲಿಂಕ್ %1$s ಗೆ ಕಳುಹಿಸಲಾಗಿದೆ — ನಿಮ್ಮ ಇನ್‌ಬಾಕ್ಸ್ (ಮತ್ತು ಸ್ಪ್ಯಾಮ್) ನೋಡಿ</string>
+    <string name="account_created">ಖಾತೆ ರಚನೆಯಾಗಿದೆ! ನಿಮ್ಮ ಇಮೇಲ್ ಪರಿಶೀಲಿಸಲು ಲಿಂಕ್ ಕಳುಹಿಸಿದ್ದೇವೆ</string>
+    <string name="account_signed_in_toast">ಸೈನ್ ಇನ್ ಆಗಿದೆ</string>
+    <string name="account_signed_out_toast">ಸೈನ್ ಔಟ್ ಆಗಿದೆ</string>
+    <string name="account_no_name">ಹೆಸರು ಸೇರಿಸಿಲ್ಲ</string>
+    <string name="account_verified">✓ ಪರಿಶೀಲಿಸಲಾಗಿದೆ</string>
+    <string name="account_unverified">ಪರಿಶೀಲಿಸಲಾಗಿಲ್ಲ</string>
+    <string name="account_section_details">ವಿವರಗಳು</string>
+    <string name="account_phone">ಫೋನ್</string>
+    <string name="account_methods">ಸೈನ್-ಇನ್ ವಿಧಾನಗಳು</string>
+    <string name="account_created_at">ಖಾತೆ ರಚಿಸಿದ ದಿನ</string>
+    <string name="account_last_sign_in">ಕೊನೆಯ ಸೈನ್-ಇನ್</string>
+    <string name="account_unknown">ತಿಳಿದಿಲ್ಲ</string>
+    <string name="account_uid">ಬಳಕೆದಾರ ID</string>
+    <string name="account_copy_uid">ಬಳಕೆದಾರ ID ನಕಲಿಸಿ</string>
+    <string name="account_uid_copied">ಬಳಕೆದಾರ ID ನಕಲಿಸಲಾಗಿದೆ</string>
+    <string name="account_provider_google">Google</string>
+    <string name="account_provider_github">GitHub</string>
+    <string name="account_provider_password">ಇಮೇಲ್ + ಪಾಸ್‌ವರ್ಡ್</string>
+    <string name="account_provider_phone">ಫೋನ್</string>
+    <string name="account_section_actions">ಖಾತೆ ಸೆಟ್ಟಿಂಗ್‌ಗಳು</string>
+    <string name="account_edit_name">ಹೆಸರು ಬದಲಿಸಿ</string>
+    <string name="account_name_hint">ನಿಮ್ಮ ಹೆಸರು</string>
+    <string name="account_name_saved">ಹೆಸರು ಬದಲಾಗಿದೆ</string>
+    <string name="account_send_verification">ಪರಿಶೀಲನಾ ಇಮೇಲ್ ಕಳುಹಿಸಿ</string>
+    <string name="account_verification_sent">ಪರಿಶೀಲನಾ ಲಿಂಕ್ %1$s ಗೆ ಕಳುಹಿಸಲಾಗಿದೆ</string>
+    <string name="account_change_password">ಪಾಸ್‌ವರ್ಡ್ ಬದಲಿಸಿ</string>
+    <string name="account_password_current_hint">ಪ್ರಸ್ತುತ ಪಾಸ್‌ವರ್ಡ್</string>
+    <string name="account_password_new_hint">ಹೊಸ ಪಾಸ್‌ವರ್ಡ್ (ಕನಿಷ್ಠ 6 ಅಕ್ಷರಗಳು)</string>
+    <string name="account_password_changed">ಪಾಸ್‌ವರ್ಡ್ ಬದಲಾಗಿದೆ</string>
+    <string name="account_password_send_reset">ಮರುಹೊಂದಿಕೆ ಇಮೇಲ್ ಕಳುಹಿಸಿ</string>
+    <string name="account_link_google">Google ಖಾತೆ ಲಿಂಕ್ ಮಾಡಿ</string>
+    <string name="account_link_github">GitHub ಖಾತೆ ಲಿಂಕ್ ಮಾಡಿ</string>
+    <string name="account_linked">%1$s ಲಿಂಕ್ ಆಗಿದೆ — ಈಗ ಅದರ ಮೂಲಕವೂ ಸೈನ್ ಇನ್ ಮಾಡಬಹುದು</string>
+    <string name="account_sign_out">ಸೈನ್ ಔಟ್</string>
+    <string name="account_delete">ಖಾತೆ ಅಳಿಸಿ</string>
+    <string name="account_delete_title">ಖಾತೆ ಅಳಿಸಬೇಕೆ?</string>
+    <string name="account_delete_message">ನಿಮ್ಮ Share Scan ಖಾತೆ ಶಾಶ್ವತವಾಗಿ ಅಳಿಸಲ್ಪಡುತ್ತದೆ. ಈ ಫೋನ್‌ನಲ್ಲಿರುವ ವಾಚ್‌ಲಿಸ್ಟ್, ಸೆಟ್ಟಿಂಗ್‌ಗಳು ಹಾಗೆಯೇ ಇರುತ್ತವೆ.</string>
+    <string name="account_delete_yes">ಹೌದು, ಅಳಿಸಿ</string>
+    <string name="account_deleted">ಖಾತೆ ಅಳಿಸಲಾಗಿದೆ</string>
+    <string name="account_save">ಉಳಿಸಿ</string>
+    <string name="account_cancel">ರದ್ದುಮಾಡಿ</string>
+    <string name="account_relogin_title">ಮತ್ತೆ ಸೈನ್ ಇನ್ ಮಾಡಿ</string>
+    <string name="account_relogin_message">ನಿಮ್ಮ ಸುರಕ್ಷತೆಗಾಗಿ ಇದಕ್ಕೆ ಹೊಸ ಸೈನ್-ಇನ್ ಬೇಕು. ಸೈನ್ ಔಟ್ ಮಾಡಿ, ಮತ್ತೆ ಸೈನ್ ಇನ್ ಮಾಡಿ, ಮತ್ತೊಮ್ಮೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="account_relogin_yes">ಸೈನ್ ಔಟ್</string>
+    <string name="account_error_wrong_password">ಇಮೇಲ್ ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್ ತಪ್ಪು</string>
+    <string name="account_error_no_user">ಈ ಇಮೇಲ್‌ನಲ್ಲಿ ಖಾತೆ ಇಲ್ಲ — ಮೊದಲು ಹೊಸ ಖಾತೆ ರಚಿಸಿ</string>
+    <string name="account_error_disabled">ಈ ಖಾತೆಯನ್ನು ನಿಷ್ಕ್ರಿಯಗೊಳಿಸಲಾಗಿದೆ</string>
+    <string name="account_error_weak_password">ಪಾಸ್‌ವರ್ಡ್ ತುಂಬಾ ದುರ್ಬಲ — ಕನಿಷ್ಠ 6 ಅಕ್ಷರಗಳನ್ನು ಬಳಸಿ</string>
+    <string name="account_error_email_used">ಈ ಇಮೇಲ್‌ನಲ್ಲಿ ಈಗಾಗಲೇ ಖಾತೆ ಇದೆ — ಸೈನ್ ಇನ್ ಮಾಡಿ</string>
+    <string name="account_error_other_method">ಈ ಇಮೇಲ್‌ನ ಖಾತೆ ಬೇರೆ ವಿಧಾನದಲ್ಲಿ (Google, GitHub ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್) ರಚನೆಯಾಗಿದೆ — ಅದರ ಮೂಲಕ ಸೈನ್ ಇನ್ ಮಾಡಿ, ನಂತರ ಈ ವಿಧಾನವನ್ನು ಇಲ್ಲಿಂದ ಲಿಂಕ್ ಮಾಡಿ</string>
+    <string name="account_error_already_linked">ಈ ಖಾತೆ ಈಗಾಗಲೇ ಲಿಂಕ್ ಆಗಿದೆ, ಅಥವಾ ಬೇರೆ Share Scan ಖಾತೆಗೆ ಸೇರಿದೆ</string>
+    <string name="account_error_bad_email">ಆ ಇಮೇಲ್ ಮಾನ್ಯವಲ್ಲ</string>
+    <string name="account_error_network">ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕ ಇಲ್ಲ — ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
+    <string name="account_error_too_many">ತುಂಬಾ ಪ್ರಯತ್ನಗಳು — ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
+    <string name="account_error_no_google_account">ಈ ಫೋನ್‌ನಲ್ಲಿ Google ಖಾತೆ ಇಲ್ಲ — ಫೋನ್‌ನ ಸೆಟ್ಟಿಂಗ್‌ಗಳಲ್ಲಿ ಒಂದನ್ನು ಸೇರಿಸಿ</string>
+    <string name="account_error_google">Google ಮೂಲಕ ಸೈನ್ ಇನ್ ಆಗಲಿಲ್ಲ — ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
+    <string name="account_error_browser">ಬ್ರೌಸರ್‌ನಲ್ಲಿ ಸೈನ್-ಇನ್ ಪೂರ್ಣಗೊಳ್ಳಲಿಲ್ಲ — ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
+    <string name="account_error_method_off">ಈ ಸೈನ್-ಇನ್ ವಿಧಾನ ಇನ್ನೂ ಆನ್ ಆಗಿಲ್ಲ</string>
+    <string name="account_error_generic">ಏನೋ ತಪ್ಪಾಗಿದೆ — ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
+    <string-array name="account_months">
+        <item>ಜನ</item>
+        <item>ಫೆಬ್ರ</item>
+        <item>ಮಾರ್ಚ್</item>
+        <item>ಏಪ್ರಿ</item>
+        <item>ಮೇ</item>
+        <item>ಜೂನ್</item>
+        <item>ಜುಲೈ</item>
+        <item>ಆಗ</item>
+        <item>ಸೆಪ್ಟೆಂ</item>
+        <item>ಅಕ್ಟೋ</item>
+        <item>ನವೆಂ</item>
+        <item>ಡಿಸೆಂ</item>
+    </string-array>
+    <string name="menu_usage">ಆ್ಯಪ್ ಬಳಕೆ</string>
+    <string name="menu_usage_body">ಎಷ್ಟು ಫೋನ್‌ಗಳಲ್ಲಿ ಆ್ಯಪ್ ಚಲಿಸುತ್ತಿದೆ • ನಿಮಗೆ ಮಾತ್ರ ಕಾಣುತ್ತದೆ</string>
+    <string name="usage_title">ಆ್ಯಪ್ ಬಳಕೆ</string>
+    <string name="usage_subtitle">%1$s ಅವರ GitHub ಸೈನ್-ಇನ್‌ಗೆ ಮಾತ್ರ ಕಾಣುತ್ತದೆ</string>
+    <string name="usage_loading_title">ಎಣಿಸಲಾಗುತ್ತಿದೆ…</string>
+    <string name="usage_loading_body">Firebase ನಿಂದ ಫೋನ್‌ಗಳ ಸಂಖ್ಯೆ ಬರುತ್ತಿದೆ.</string>
+    <string name="usage_today">ಇಂದು</string>
+    <string name="usage_days">%1$d ದಿನಗಳು</string>
+    <string name="usage_phones">ಫೋನ್‌ಗಳು</string>
+    <string name="usage_total_title">ಇಲ್ಲಿಯವರೆಗೆ</string>
+    <string name="usage_total_body">ಒಟ್ಟು %1$s ಫೋನ್‌ಗಳಲ್ಲಿ ಆ್ಯಪ್ ತೆರೆಯಲಾಗಿದೆ (ಎಣಿಕೆ ಆರಂಭವಾದಾಗಿನಿಂದ)</string>
+    <string name="usage_downloads">GitHub ನಿಂದ APK %1$s ಬಾರಿ ಡೌನ್‌ಲೋಡ್ ಆಗಿದೆ</string>
+    <string name="usage_downloads_unknown">GitHub ಡೌನ್‌ಲೋಡ್ ಸಂಖ್ಯೆ ಇನ್ನೂ ಬಂದಿಲ್ಲ</string>
+    <string name="usage_versions_title">ಆವೃತ್ತಿವಾರು (ಕೊನೆಯ %1$d ದಿನಗಳು)</string>
+    <string name="usage_version_line">v%1$s — %2$s ಫೋನ್‌ಗಳು</string>
+    <string name="usage_how_title">ಎಣಿಕೆ ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ</string>
+    <string name="usage_how_body">ದಿನಕ್ಕೆ ಒಮ್ಮೆ, ಆ್ಯಪ್ ತೆರೆದಾಗ, ಪ್ರತಿ ಫೋನ್ ಒಂದು ಯಾದೃಚ್ಛಿಕ ID ಮತ್ತು ತನ್ನ ಆವೃತ್ತಿಯನ್ನು ಮಾತ್ರ ಕಳುಹಿಸುತ್ತದೆ — ಹೆಸರು, ನಂಬರ್ ಅಥವಾ ಸ್ಥಳ ಅಲ್ಲ. ಈ ಆವೃತ್ತಿಯೊಂದಿಗೆ ಎಣಿಕೆ ಆರಂಭವಾಯಿತು; ಹಳೆಯ ಆವೃತ್ತಿಗಳ ಫೋನ್‌ಗಳು ಅಪ್‌ಡೇಟ್ ಆದ ನಂತರ ಎಣಿಕೆಯಾಗುತ್ತವೆ. ಆ್ಯಪ್ ತೆಗೆದು ಮತ್ತೆ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿದ ಫೋನ್ ಹೊಸದಾಗಿ ಎಣಿಕೆಯಾಗುತ್ತದೆ, APK ಡೌನ್‌ಲೋಡ್‌ಗಳಲ್ಲಿ ಒಬ್ಬರೇ ವ್ಯಕ್ತಿಯ ಹಲವು ಡೌನ್‌ಲೋಡ್‌ಗಳಿರುತ್ತವೆ.</string>
+    <string name="usage_rules_title">Firestore ನಿಯಮಗಳನ್ನು ಇನ್ನೂ ಬದಲಿಸಬೇಕು</string>
+    <string name="usage_rules_body">Firebase Console → Firestore Database → Rules ನಲ್ಲಿ docs/LOGIN_SETUP.md (Step 6.5) ನಿಂದ ಹೊಸ ನಿಯಮಗಳನ್ನು ಅಂಟಿಸಿ Publish ಮಾಡಿ, ನಂತರ ಇದನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ.</string>
+    <string name="usage_failed_title">ಎಣಿಕೆ ಸಿಗಲಿಲ್ಲ</string>
+    <string name="usage_failed_body">ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ಇದನ್ನು ಮತ್ತೆ ತೆರೆಯಿರಿ.</string>
+</resources>

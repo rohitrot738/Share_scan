@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_breakout">ಬ್ರೇಕ್‌ಔಟ್ ಸ್ಕ್ಯಾನ್</string>
+    <string name="mode_support">ಸಪೋರ್ಟ್ ಸ್ಕ್ಯಾನ್</string>
+    <string name="support_ready_title">ಸಪೋರ್ಟ್ ಸ್ಕ್ಯಾನ್</string>
+    <string name="support_ready_body">6 ತಿಂಗಳಿಂದ ಒಂದು ಬೆಲೆಯ ಕೆಳಗೆ ಮುಚ್ಚದ, ಆದರೂ ಪದೇ ಪದೇ ಅಲ್ಲಿಗೆ ಬಂದ ಷೇರುಗಳು</string>
+    <string name="support_done_title">ಸಪೋರ್ಟ್ ಸ್ಕ್ಯಾನ್ ಪೂರ್ಣ</string>
+    <string name="support_done_body">%1$d ಷೇರುಗಳು 6 ತಿಂಗಳಿಂದ ಸಪೋರ್ಟ್ ಮೇಲೆ ನಿಂತಿವೆ • %2$s ಸ್ಕ್ಯಾನ್</string>
+    <string name="support_action_start">ಸಪೋರ್ಟ್ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ</string>
+    <string name="support_action_rescan">ಮತ್ತೆ ಸಪೋರ್ಟ್ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ</string>
+    <string name="support_stat_long">6M ಸಪೋರ್ಟ್</string>
+    <string name="support_stat_near">5% ಒಳಗೆ</string>
+    <string name="support_reach_any">ಯಾವುದೇ ಅಂತರ</string>
+    <string name="support_reach_within">%1$d%% ವರೆಗೆ ಹತ್ತಿರ</string>
+    <string name="support_list_empty_title">6 ತಿಂಗಳ ಸಪೋರ್ಟ್ ಯಾವುದೂ ಸಿಗಲಿಲ್ಲ</string>
+    <string name="support_list_empty_body">ಈ ಸ್ಕ್ಯಾನ್‌ನಲ್ಲಿ, ಈ ಫಿಲ್ಟರ್‌ಗಳೊಳಗೆ, ಯಾವ ಷೇರೂ 6 ತಿಂಗಳಿಂದ ತನ್ನ ಸಪೋರ್ಟ್ ಮೇಲೆ ನಿಂತಿಲ್ಲ. ಅಂತರ ಹೆಚ್ಚಿಸಿ, ಫಿಲ್ಟರ್‌ಗಳನ್ನು ಸಡಿಲಿಸಿ, ಅಥವಾ ಮೆನು → ಸ್ಕ್ಯಾನ್‌ನಲ್ಲಿ ಇನ್ನಷ್ಟು ವಿನಿಮಯ ಕೇಂದ್ರಗಳು / ವಲಯಗಳನ್ನು ಆನ್ ಮಾಡಿ.</string>
+    <string name="sort_support">ಸಪೋರ್ಟ್</string>
+    <string name="item_support">ಸಪೋರ್ಟ್ ₹%1$s · %2$s · %3$d ಬಾರಿ</string>
+    <string name="item_support_description">ಸಪೋರ್ಟ್ %1$s ರೂಪಾಯಿಯಲ್ಲಿ, %2$s ರಿಂದ, %3$d ಬಾರಿ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ</string>
+    <string name="detail_stat_support">ಸಪೋರ್ಟ್</string>
+    <string name="detail_stat_support_note">%1$s ರಿಂದ · %2$d ಬಾರಿ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ · ಬೆಲೆ %3$s ಮೇಲೆ</string>
+    <string name="detail_stat_support_long_note">%1$s ರಿಂದ · %2$d ಬಾರಿ ಪರೀಕ್ಷಿಸಲಾಗಿದೆ · ಬೆಲೆ %3$s ಮೇಲೆ · 6 ತಿಂಗಳಲ್ಲಿ ಇದರ ಕೆಳಗೆ ಮುಚ್ಚಿಲ್ಲ</string>
+    <string name="detail_chart_support">ಸಪೋರ್ಟ್ %1$s</string>
+    <string name="detail_part_support">ಸಪೋರ್ಟ್ ಬೋನಸ್</string>
+    <string name="detail_part_bonus">+%1$d ವರೆಗೆ</string>
+    <string name="metric_support_age">ಸಪೋರ್ಟ್ ಎಷ್ಟು ಹಳೆಯದು</string>
+    <string name="metric_support_gap">ಸಪೋರ್ಟ್‌ನಿಂದ ಅಂತರ</string>
+    <string name="hint_support_age">ಬೆಲೆ ಪದೇ ಪದೇ ಬಂದು ಮರಳಿದ, ಕೆಳಗೆ ಮುಚ್ಚದ ಮಟ್ಟ ಎಷ್ಟು ಕಾಲದಿಂದ ನಿಂತಿದೆ</string>
+    <string name="hint_support_gap">ಇಂದಿನ ಬೆಲೆ ಸಪೋರ್ಟ್‌ಗಿಂತ ಎಷ್ಟು % ಮೇಲೆ; ಕಡಿಮೆ = ಸಪೋರ್ಟ್ ಹತ್ತಿರ</string>
+    <string name="help_part_support">ಸಪೋರ್ಟ್ ಬೋನಸ್ • %1$d ಅಂಕಗಳವರೆಗೆ</string>
+    <string name="help_part_support_body">ಷೇರು ಪದೇ ಪದೇ ಬಂದು ಮರಳಿದ, ಕೆಳಗೆ ಮುಚ್ಚದ ಬೆಲೆಯೇ ಅದರ ಸಪೋರ್ಟ್: ಮಾರಾಟಗಾರರು ಬೆಲೆಯನ್ನು ಅದರ ಕೆಳಗೆ ಇಳಿಸಲಾಗಲಿಲ್ಲ. ಸಪೋರ್ಟ್ ಎಷ್ಟು ಹಳೆಯದೋ (6 ತಿಂಗಳಿಗೆ ಪೂರ್ಣ ಅಂಕ) ಎಷ್ಟು ಬಾರಿ ಪರೀಕ್ಷಿಸಲಾಗಿದೆಯೋ (5 ಬಾರಿಗೆ ಪೂರ್ಣ), ಸ್ಕೋರ್‌ಗೆ ಅಷ್ಟು ಹೆಚ್ಚು ಅಂಕಗಳು ಸೇರುತ್ತವೆ; ಸಪೋರ್ಟ್ ಇಲ್ಲದ ಷೇರಿನ ಅಂಕ ಕಡಿಮೆಯಾಗುವುದಿಲ್ಲ. ಮೇಲೆ \"ಸಪೋರ್ಟ್ ಸ್ಕ್ಯಾನ್\" ಆಯ್ಕೆ ಮಾಡಿದರೆ 6 ತಿಂಗಳಲ್ಲಿ ಎಂದೂ ತಮ್ಮ ಸಪೋರ್ಟ್ ಕೆಳಗೆ ಮುಚ್ಚದ, ಸಪೋರ್ಟ್ ಕನಿಷ್ಠ %1$d ತಿಂಗಳಿಂದ ಕನಿಷ್ಠ 3 ಬಾರಿ ಪರೀಕ್ಷಿಸಲ್ಪಟ್ಟ ಷೇರುಗಳು ಮಾತ್ರ ಕಾಣುತ್ತವೆ. ಸಪೋರ್ಟ್ ಸ್ಕ್ಯಾನ್‌ಗೆ ತನ್ನದೇ ಫಿಲ್ಟರ್‌ಗಳಿವೆ, ಬ್ರೇಕ್‌ಔಟ್‌ನವುಗಳಿಂದ ಬೇರೆ. ಎರಡೂ ಸ್ಕ್ಯಾನ್‌ಗಳು ಒಂದೇ ಡೇಟಾ ಓದುತ್ತವೆ, ಆದ್ದರಿಂದ ಒಂದು ಸ್ಕ್ಯಾನ್‌ನಿಂದ ಎರಡೂ ಪಟ್ಟಿಗಳು ತಾಜಾ ಆಗುತ್ತವೆ.</string>
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_layout">ಲೇಔಟ್</string>
+    <string name="layout_title">ಲೇಔಟ್ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="layout_subtitle">ಷೇರುಗಳ ಪಟ್ಟಿ ಹೇಗೆ ಕಾಣಬೇಕು · ಹಿನ್ನೆಲೆ, ಥೀಮ್ ಹಾಗೆಯೇ ಇರುತ್ತವೆ</string>
+    <string name="layout_auto">ಹಿನ್ನೆಲೆಯದೇ</string>
+    <string name="layout_auto_now_cards">ಈಗ Galaxy ಹಿನ್ನೆಲೆ: ದೊಡ್ಡ ಕಾರ್ಡ್‌ಗಳು</string>
+    <string name="layout_auto_now_table">ಈಗ Space Glass ಹಿನ್ನೆಲೆ: ಕಾಂಪ್ಯಾಕ್ಟ್ ಟೇಬಲ್</string>
+    <string name="layout_accordion">ಅಕಾರ್ಡಿಯನ್</string>
+    <string name="layout_accordion_body">ಪ್ರತಿ ಷೇರಿಗೆ ಒಂದು ತೆಳು ಸಾಲು · ಟ್ಯಾಪ್ ಮಾಡಿದರೆ ಅಲ್ಲೇ ಪೂರ್ಣ ವಿವರ</string>
+    <string name="layout_bento">ಬೆಂಟೊ ಗ್ರಿಡ್</string>
+    <string name="layout_bento_body">ಎರಡು ಕಾಲಮ್‌ಗಳಲ್ಲಿ ಟೈಲ್‌ಗಳು: ಸ್ಕೋರ್ ಡಯಲ್, 15 ದಿನಗಳ ರೇಖೆ, ಬೆಲೆ</string>
+    <string name="layout_swipe">ಸ್ವೈಪ್ ಕಾರ್ಡ್‌ಗಳು</string>
+    <string name="layout_swipe_body">ಸಣ್ಣ ಕ್ಯಾಪ್ಸುಲ್‌ಗಳಲ್ಲಿ ಅಂಕಿಗಳು · ಎಡಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿದರೆ ★ ವಾಚ್‌ಲಿಸ್ಟ್, ಚಾರ್ಟ್</string>
+    <string name="layout_action_chart">ಚಾರ್ಟ್</string>
+    <string name="layout_action_details">ವಿವರಗಳು</string>
+    <string name="layout_action_watchlist">ವಾಚ್‌ಲಿಸ್ಟ್</string>
+    <string name="layout_action_unwatch">ತೆಗೆಯಿರಿ</string>
+    <string name="layout_action_alert">ಅಲರ್ಟ್ ಹೊಂದಿಸಿ</string>
+    <string name="layout_action_alert_on">★ ಅಲರ್ಟ್ ಆನ್</string>
+    <string name="layout_expand">%1$s ವಿವರ ತೆರೆಯಿರಿ</string>
+    <string name="layout_collapse">%1$s ವಿವರ ಮುಚ್ಚಿ</string>
+    <string name="layout_swipe_hint">%1$s: ವಾಚ್‌ಲಿಸ್ಟ್, ಚಾರ್ಟ್ ಬಟನ್‌ಗಳಿಗಾಗಿ ಎಡಕ್ಕೆ ಸ್ವೈಪ್ ಮಾಡಿ</string>
+    <string name="cap_mcap">MCap %1$s</string>
+    <string name="cap_volume">Vol %1$s</string>
+    <string name="cap_rvol">RVOL %1$s×</string>
+    <string name="cap_support">ಸಪೋರ್ಟ್ ₹%1$s</string>
+    <string name="cap_rs">R/S %1$s</string>
+    <string name="help_layout_title">ಲೇಔಟ್: ಪಟ್ಟಿ ಹೇಗೆ ಕಾಣುತ್ತದೆ</string>
+    <string name="help_layout_body">ಮೆನು → ಲೇಔಟ್‌ನಲ್ಲಿ ಪಟ್ಟಿಯ ರೂಪ ಆಯ್ಕೆಮಾಡಿ. \"ಹಿನ್ನೆಲೆಯದೇ\" Galaxy ಮೇಲೆ ದೊಡ್ಡ ಕಾರ್ಡ್‌ಗಳನ್ನು, Space Glass ಮೇಲೆ ಕಾಂಪ್ಯಾಕ್ಟ್ ಟೇಬಲ್ ಅನ್ನು ಇಡುತ್ತದೆ. ಅಕಾರ್ಡಿಯನ್‌ನಲ್ಲಿ ಪ್ರತಿ ಷೇರು ಒಂದು ತೆಳು ಸಾಲು; ಟ್ಯಾಪ್ ಮಾಡಿದರೆ ಸ್ಕೋರ್ ಪಟ್ಟಿ, MCap, ವಾಲ್ಯೂಮ್, RVOL, R/S, ಸಪೋರ್ಟ್ ಅಲ್ಲೇ ತೆರೆಯುತ್ತವೆ, ಅಲರ್ಟ್, ಚಾರ್ಟ್, ವಿವರಗಳು ಬಟನ್‌ಗಳೊಂದಿಗೆ. ಬೆಂಟೊ ಗ್ರಿಡ್ ಎರಡು ಕಾಲಮ್‌ಗಳಲ್ಲಿ ಟೈಲ್‌ಗಳನ್ನು ಇಡುತ್ತದೆ: ದುಂಡನೆಯ ಸ್ಕೋರ್ ಡಯಲ್, ಕೊನೆಯ 15 ದಿನಗಳ ರೇಖೆ, ಬೆಲೆ, 5 ದಿನಗಳ ಬದಲಾವಣೆ; ಟೈಲ್ ಅನ್ನು ದೀರ್ಘವಾಗಿ ಒತ್ತಿದರೆ ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರುತ್ತದೆ. ಸ್ವೈಪ್ ಕಾರ್ಡ್‌ಗಳು ಅಂಕಿಗಳನ್ನು ಸಣ್ಣ ಕ್ಯಾಪ್ಸುಲ್‌ಗಳಲ್ಲಿ ತೋರಿಸುತ್ತವೆ, ಕಾರ್ಡ್ ಅನ್ನು ಎಡಕ್ಕೆ ಎಳೆದರೆ ★ ವಾಚ್‌ಲಿಸ್ಟ್, ಚಾರ್ಟ್ ಬಟನ್‌ಗಳು ಕಾಣುತ್ತವೆ.</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_rsi">RSI (14)</string>
+    <string name="metric_macd">MACD, ಸಿಗ್ನಲ್‌ನಿಂದ ಅಂತರ</string>
+    <string name="metric_macd_cross">MACD ಕ್ರಾಸ್‌ಓವರ್</string>
+    <string name="hint_rsi">70 ಮೇಲೆ = ಓವರ್‌ಬಾಟ್ (ತುಂಬಾ ಏರಿದೆ), 30 ಕೆಳಗೆ = ಓವರ್‌ಸೋಲ್ಡ್ (ತುಂಬಾ ಇಳಿದಿದೆ) • 50–70 = ಏರುತ್ತಿದೆ, ಆದರೆ ಹೆಚ್ಚು ಅಲ್ಲ</string>
+    <string name="hint_macd" formatted="false">MACD ರೇಖೆ ತನ್ನ ಸಿಗ್ನಲ್ ರೇಖೆಗಿಂತ ಎಷ್ಟು ಮೇಲೆ (+) ಅಥವಾ ಕೆಳಗೆ (-), ಬೆಲೆಯ ಶೇಕಡಾವಾರು • 0% ಮೇಲೆ = ಏರುತ್ತಿದೆ</string>
+    <string name="hint_macd_cross">MACD ತನ್ನ ಸಿಗ್ನಲ್ ರೇಖೆಯನ್ನು ಕೆಳಗಿನಿಂದ ದಾಟಿ ಎಷ್ಟು ದಿನಗಳಾಯಿತು • \"3 ದಿನಗಳ ಹಿಂದೆ\" ವರೆಗೆ = ಹೊಸ ಬುಲಿಶ್ ಕ್ರಾಸ್‌ಓವರ್; ಸಿಗ್ನಲ್ ಕೆಳಗಿನ ಷೇರುಗಳು ಹೊರಗುಳಿಯುತ್ತವೆ</string>
+    <string name="detail_stat_rsi">RSI (14)</string>
+    <string name="detail_stat_rsi_overbought">70+ ಓವರ್‌ಬಾಟ್: ತುಂಬಾ ಏರಿದೆ</string>
+    <string name="detail_stat_rsi_strong">50–70: ಏರುತ್ತಿದೆ</string>
+    <string name="detail_stat_rsi_weak">30–50: ದುರ್ಬಲ</string>
+    <string name="detail_stat_rsi_oversold">30 ಕೆಳಗೆ ಓವರ್‌ಸೋಲ್ಡ್: ತುಂಬಾ ಇಳಿದಿದೆ</string>
+    <string name="detail_stat_macd">MACD (12, 26, 9)</string>
+    <string name="detail_stat_macd_bull">ಬುಲಿಶ್</string>
+    <string name="detail_stat_macd_bear">ಬೇರಿಶ್</string>
+    <string name="detail_stat_macd_crossed">%1$s ಸಿಗ್ನಲ್ ಮೇಲೆ ದಾಟಿದೆ</string>
+    <string name="detail_stat_macd_below">ಸಿಗ್ನಲ್ ರೇಖೆಯ ಕೆಳಗೆ</string>
+    <string name="detail_stat_macd_zero_above">ಶೂನ್ಯದ ಮೇಲೆ</string>
+    <string name="detail_stat_macd_zero_below">ಶೂನ್ಯದ ಕೆಳಗೆ</string>
+    <string name="help_indicators_title">RSI ಮತ್ತು MACD</string>
+    <string name="help_indicators_body" formatted="false">ಎರಡೂ ಚಾರ್ಟಿಂಗ್ ಸೈಟ್‌ಗಳಂತೆಯೇ ಪ್ರತಿ ಷೇರಿನ 6 ತಿಂಗಳ ದೈನಂದಿನ ಬೆಲೆಗಳಿಂದ ಬರುತ್ತವೆ. RSI (14) 0 ರಿಂದ 100: 70 ಮೇಲೆ ಓವರ್‌ಬಾಟ್ (ತುಂಬಾ ಏರಿದೆ), 30 ಕೆಳಗೆ ಓವರ್‌ಸೋಲ್ಡ್ (ತುಂಬಾ ಇಳಿದಿದೆ), 50–70 ಏರುತ್ತಿದೆ. MACD (12, 26, 9): 12 ಮತ್ತು 26 ದಿನಗಳ ಎಕ್ಸ್‌ಪೊನೆನ್ಶಿಯಲ್ ಸರಾಸರಿಗಳ ಅಂತರ, ಅದರ 9 ದಿನಗಳ ಸಿಗ್ನಲ್ ರೇಖೆ. MACD ತನ್ನ ಸಿಗ್ನಲ್ ಮೇಲೆ = ಏರುತ್ತಿದೆ; ಅದು ಸಿಗ್ನಲ್ ಅನ್ನು ಕೆಳಗಿನಿಂದ ದಾಟಿದ ದಿನ ಬುಲಿಶ್ ಕ್ರಾಸ್‌ಓವರ್. ಫಿಲ್ಟರ್‌ಗಳಲ್ಲಿ ಮೂರೂ ಇವೆ: RSI ವ್ಯಾಪ್ತಿ, MACD ತನ್ನ ಸಿಗ್ನಲ್‌ಗಿಂತ ಎಷ್ಟು ಮೇಲೆ ಅಥವಾ ಕೆಳಗೆ (ಬೆಲೆಯ ಶೇಕಡಾವಾರು), ಕ್ರಾಸ್‌ಓವರ್ ಎಷ್ಟು ದಿನಗಳ ಹಿಂದೆ ಬಂತು (\"3 ದಿನಗಳ ಹಿಂದೆ\" ವರೆಗೆ = ಹೊಸ ಕ್ರಾಸ್‌ಓವರ್). ಷೇರಿನ ವಿವರದಲ್ಲಿ ಎರಡರ ಇಂದಿನ ಮೌಲ್ಯ ಕಾಣುತ್ತದೆ. ಲೈವ್ ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ಇಂದಿನ ಚಲಿಸುವ ಬೆಲೆಯೂ ಲೆಕ್ಕಕ್ಕೆ ಬರುತ್ತದೆ.</string>
+</resources>

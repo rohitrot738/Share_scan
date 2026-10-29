@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_watchlist">★ ವಾಚ್‌ಲಿಸ್ಟ್</string>
+    <string name="list_watchlist_count">★ ವಾಚ್‌ಲಿಸ್ಟ್ (%1$d)</string>
+    <string name="list_watchlist_leave">ವಾಚ್‌ಲಿಸ್ಟ್ ಮುಚ್ಚಿ, ಎಲ್ಲ ಷೇರುಗಳನ್ನು ತೋರಿಸಿ</string>
+    <string name="list_star_add">%1$s ಅನ್ನು ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಿ</string>
+    <string name="list_star_remove">%1$s ಅನ್ನು ವಾಚ್‌ಲಿಸ್ಟ್‌ನಿಂದ ತೆಗೆಯಿರಿ</string>
+    <string name="list_starred_description">ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿದೆ</string>
+    <string name="list_empty_watchlist_title">ನಿಮ್ಮ ವಾಚ್‌ಲಿಸ್ಟ್ ಖಾಲಿಯಾಗಿದೆ</string>
+    <string name="list_empty_watchlist_body">ಯಾವುದೇ ಕಾರ್ಡ್‌ನಲ್ಲಿ ☆ ಟ್ಯಾಪ್ ಮಾಡಿ — ಆ ಷೇರು ಇಲ್ಲಿ ಕಾಣುತ್ತದೆ.</string>
+    <string name="list_empty_watchlist_body_compact">ಯಾವುದೇ ಸಾಲನ್ನು ದೀರ್ಘವಾಗಿ ಒತ್ತಿ — ಆ ಷೇರು ★ ಜೊತೆ ಇಲ್ಲಿ ಕಾಣುತ್ತದೆ.</string>
+    <string name="list_empty_watchlist_waiting_title">ನಿಮ್ಮ ★ ಷೇರುಗಳಿಗೆ ಇನ್ನೂ ಬೆಲೆ ಇಲ್ಲ</string>
+    <string name="list_empty_watchlist_waiting_body">ನೀವು ★ ಹಾಕಿದ ಷೇರುಗಳು ಮುಂದಿನ ಸ್ಕ್ಯಾನ್‌ನೊಂದಿಗೆ ಇಲ್ಲಿ ಕಾಣುತ್ತವೆ.</string>
+    <string name="list_rank_new">NEW</string>
+    <string name="list_rank_up">▲%1$d</string>
+    <string name="list_rank_down">▼%1$d</string>
+    <string name="list_rank_new_description">ಕೊನೆಯ ಸ್ಕ್ಯಾನ್ ನಂತರ ಟಾಪ್ %1$d ರಲ್ಲಿ ಹೊಸದು</string>
+    <string name="list_rank_up_description">ಕೊನೆಯ ಸ್ಕ್ಯಾನ್‌ನಿಂದ %1$d ಸ್ಥಾನ ಮೇಲೆ</string>
+    <string name="list_rank_down_description">ಕೊನೆಯ ಸ್ಕ್ಯಾನ್‌ನಿಂದ %1$d ಸ್ಥಾನ ಕೆಳಗೆ</string>
+    <string name="list_search_open">ಸಿಂಬಲ್‌ಗಳನ್ನು ಹುಡುಕಿ</string>
+    <string name="list_search_hint">ಸಿಂಬಲ್ ಅಥವಾ ಹೆಸರು — TCS, Reliance ರೀತಿ</string>
+    <string name="list_search_close">ಹುಡುಕಾಟ ಮುಚ್ಚಿ</string>
+    <string name="list_empty_search_title">ಯಾವ ಷೇರೂ ಹೊಂದಿಕೆಯಾಗಲಿಲ್ಲ</string>
+    <string name="list_empty_search_body">“%1$s” ಸ್ಕ್ಯಾನ್ ಆದ ಯಾವುದೇ ಷೇರಿನ ಸಿಂಬಲ್ ಅಥವಾ ಹೆಸರಿನಲ್ಲಿ ಇಲ್ಲ — ಕಾಗುಣಿತ ಪರಿಶೀಲಿಸಿ ಅಥವಾ ಫಿಲ್ಟರ್‌ಗಳನ್ನು ಸಡಿಲಿಸಿ.</string>
+    <string name="list_share_open">ಟಾಪ್ 10 ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="list_share_filters">%1$d ಫಿಲ್ಟರ್‌ಗಳು ಆನ್</string>
+    <string name="list_share_no_filters">ಫಿಲ್ಟರ್‌ಗಳಿಲ್ಲ</string>
+    <string name="list_share_line">%1$d. %2$s ₹%3$s • ಸ್ಕೋರ್ %4$s • RVOL %5$s×</string>
+    <string name="list_share_failed">ಹಂಚಿಕೊಳ್ಳಲು ಆ್ಯಪ್ ಸಿಗಲಿಲ್ಲ</string>
+</resources>

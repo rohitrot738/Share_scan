@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compact_news_mark">📰</string>
+    <string name="compact_no_data">ಬೆಲೆ ಇಲ್ಲ</string>
+    <string name="compact_col_rank">#</string>
+    <string name="compact_col_stock">ಷೇರು / ಕಂಪನಿ</string>
+    <string name="compact_col_price">ಬೆಲೆ</string>
+    <string name="compact_col_change">5D ಬದಲಾವಣೆ / RVOL</string>
+    <string name="compact_col_score">ಸ್ಕೋರ್</string>
+    <string name="compact_share">ಹಂಚಿಕೊಳ್ಳಿ</string>
+    <string name="compact_rank">#%1$d</string>
+    <string name="pill_idle">ಸ್ಕ್ಯಾನ್ ಪ್ರಾರಂಭಿಸಿ ▸</string>
+    <string name="pill_reading">ಕೊನೆಯ ಸ್ಕ್ಯಾನ್ ತೆರೆಯುತ್ತಿದೆ…</string>
+    <string name="pill_loading">ಸ್ಕ್ಯಾನ್ ಪ್ರಾರಂಭವಾಗುತ್ತಿದೆ…</string>
+    <string name="pill_scanning">ಸ್ಕ್ಯಾನ್ %1$d%% • %2$s/%3$s</string>
+    <string name="pill_stopped">ನಿಲ್ಲಿಸಲಾಗಿದೆ %1$d%% • %2$s/%3$s</string>
+    <string name="pill_done">ಸ್ಕ್ಯಾನ್ 100%% • %1$s ಷೇರುಗಳು</string>
+    <string name="pill_live_done">ಲೈವ್ ಸ್ಕ್ಯಾನ್ 100%% • %1$s ಷೇರುಗಳು</string>
+    <string name="pill_support_done">ಸಪೋರ್ಟ್ 100%% • %1$s ಷೇರುಗಳು</string>
+    <string name="pill_failed">ಸ್ಕ್ಯಾನ್ ವಿಫಲ • ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
+    <string name="empty_body_compact">ಸ್ಕ್ಯಾನ್ ಪ್ರಾರಂಭಿಸಲು ಮೇಲಿನ ಪಿಲ್ ಟ್ಯಾಪ್ ಮಾಡಿ — ಮುಗಿದ ನಂತರ ಅತ್ಯುತ್ತಮ ಅಭ್ಯರ್ಥಿಗಳು ಸ್ಕೋರ್ ಪ್ರಕಾರ ಇಲ್ಲಿ ಕಾಣುತ್ತಾರೆ.</string>
+    <string name="pill_description">%1$s; ಸ್ಕ್ಯಾನ್ ಬಟನ್‌ಗಳನ್ನು ತೆರೆಯಿರಿ</string>
+    <string name="help_compact_title">Space Glass ಕಾಂಪ್ಯಾಕ್ಟ್ ಟೇಬಲ್</string>
+    <string name="help_compact_body">ಮೆನು → ಹಿನ್ನೆಲೆಯಲ್ಲಿ Space Glass ಆಯ್ಕೆ ಮಾಡಿದರೆ ಪಟ್ಟಿ ಒಂದು ಟೇಬಲ್ ಆಗುತ್ತದೆ: ಪ್ರತಿ ಷೇರಿಗೆ ಒಂದು ಸಾಲು — ಶ್ರೇಣಿ, ಟಿಕರ್ (NSE/BSE, NEW ಅಥವಾ ▲▼, 📰 ಜೊತೆ), ಅದರ ಕೆಳಗೆ ಕಂಪನಿಯ ಹೆಸರು, ಬೆಲೆ, 5 ದಿನಗಳ ಬದಲಾವಣೆ ಅದರ ಕೆಳಗೆ RVOL, ಮತ್ತು ಸ್ಕೋರ್ — ಒಂದು ಪರದೆಯಲ್ಲಿ 8–10 ಷೇರುಗಳು. ವಾಚ್‌ಲಿಸ್ಟ್ ಷೇರುಗಳ ಸ್ಕೋರ್ ಚಿನ್ನದ ಬಣ್ಣದಲ್ಲಿ ★ ಜೊತೆ; ಸಾಲನ್ನು ದೀರ್ಘವಾಗಿ ಒತ್ತಿದರೆ ಷೇರು ವಾಚ್‌ಲಿಸ್ಟ್‌ಗೆ ಸೇರುತ್ತದೆ ಅಥವಾ ತೆಗೆಯಲ್ಪಡುತ್ತದೆ. ಮೇಲಿನ ತೆಳು ಹೆಡರ್‌ನಲ್ಲಿ ಹಸಿರು ಪಿಲ್ ಸ್ಕ್ಯಾನ್ ಎಲ್ಲಿದೆ ಎಂದು ಹೇಳುತ್ತದೆ (ಉದಾ. \"ಲೈವ್ ಸ್ಕ್ಯಾನ್ 100% • 2,618 ಷೇರುಗಳು\"); ಅದನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿದರೆ ಬ್ರೇಕ್‌ಔಟ್/ಸಪೋರ್ಟ್, ಸ್ಕ್ಯಾನ್/ನಿಲ್ಲಿಸಿ, ಸ್ಕ್ಯಾನ್ ಅಳಿಸಿ ಪ್ಯಾನೆಲ್ ತೆರೆಯುತ್ತದೆ. ಫಿಲ್ಟರ್‌ಗಳು, ವಾಚ್‌ಲಿಸ್ಟ್, ವಿಂಗಡಣೆಗಳು, ವಲಯ, ಹಂಚಿಕೆ ಕೆಳಗಿನ ತೇಲುವ ಪಟ್ಟಿಯಲ್ಲಿ, ಹೆಬ್ಬೆರಳಿಗೆ ಎಟುಕುವಂತೆ; ಅದನ್ನು ಪಕ್ಕಕ್ಕೆ ಸರಿಸಿ. ಸಾಲನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿದರೆ ಷೇರಿನ ಪೂರ್ಣ ವಿವರ — ಸೆಟಪ್, ಸಪೋರ್ಟ್, R/S ಜೊತೆ — ತೆರೆಯುತ್ತದೆ. ಫಿಲ್ಟರ್‌ಗಳು, ವಲಯ ಶೀಟ್‌ಗಳೂ ಅದೇ ಸರಳ ಶೈಲಿಯಲ್ಲಿ ತೆರೆಯುತ್ತವೆ. ದೊಡ್ಡ ಕಾರ್ಡ್‌ಗಳು ಮತ್ತೆ ಬೇಕಾದರೆ Galaxy ಹಿನ್ನೆಲೆ ಆಯ್ಕೆ ಮಾಡಿ.</string>
+</resources>
