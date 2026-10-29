@@ -62,6 +62,8 @@ data class ScanUiState(
     val searchOpen: Boolean = false,
     /** Search text, matched against the symbol and the company name ([StockSearch]). */
     val query: String = "",
+    /** Only the companies that make this product ([Products] key, picked on a stock's detail sheet); null for all. */
+    val product: String? = null,
     /** Rank moves since the previous completed scan, by symbol; empty on the first scan. */
     val rankBadges: Map<String, RankBadge> = emptyMap(),
     /** Counts up with every scan, so progress a stopped scan's threads report late can be told apart and ignored. */
@@ -164,11 +166,13 @@ data class ScanUiState(
     }
 
     /**
-     * [listed] narrowed by the search; ranks keep their numbers. A search looks past the Top limit, through every
-     * stock inside the filters, so any scanned stock can be found by its symbol or name.
+     * [listed] narrowed by the search and the [product]; ranks keep their numbers. Both look past the Top limit,
+     * through every stock inside the filters, so any scanned stock can be found by its symbol or name, and every
+     * company making the product shows.
      */
     val shown: List<RankedStock> by lazy {
-        if (query.isBlank()) {
+        val product = product
+        if (query.isBlank() && product == null) {
             listed
         } else {
             val pool = when {
@@ -176,7 +180,10 @@ data class ScanUiState(
                 watchlistOnly -> starredStocks
                 else -> matching
             }
-            pool.filter { StockSearch.matches(it.stock, query) }
+            pool.filter {
+                (query.isBlank() || StockSearch.matches(it.stock, query)) &&
+                    (product == null || product in cr360.productsOf(it.stock.symbol))
+            }
         }
     }
 

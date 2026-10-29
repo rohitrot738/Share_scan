@@ -306,7 +306,7 @@ def app_record(stock: dict, research: ResearchInput, sector: str = "") -> dict |
     }
     made = product_list.classify(stock.get("about", ""), stock.get("points", ""), sector)
     if made:
-        record["pr"] = made  # what the company makes, the main one first (products.py; the app's ProductCatalog)
+        record["pr"] = made  # what the company makes, the main one first (products.py; the app's Products.kt)
     return record
 
 

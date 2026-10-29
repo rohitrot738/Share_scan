@@ -270,6 +270,11 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         state.update { it.copy(searchOpen = false, query = "") }
     }
 
+    /** Shows only the companies making [product] ([Products] key); null shows them all again. */
+    fun setProduct(product: String?) {
+        state.update { it.copy(product = product) }
+    }
+
     private companion object {
         /** How often the list's 📰 marks are read again; NSE's day of filings is about half a megabyte. */
         const val NEWS_REFRESH_MS = 15L * 60 * 1000

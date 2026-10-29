@@ -172,6 +172,42 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!-- What the company makes (Cr360Book.Entry.products): icon chips, filled in code; a tap filters the list. -->
+                <LinearLayout
+                    android:id="@+id/detailProductsSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/detail_section_products"
+                        android:textColor="@color/text_primary"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/detailProductsHint"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/detail_products_hint"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/detailProducts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:paddingHorizontal="16dp" />
+                </LinearLayout>
+
                 <!-- Shown instead of the chart, plan and technical stats when the scan had no price structure. -->
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/detailNoStructure"

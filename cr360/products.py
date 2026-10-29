@@ -1,6 +1,6 @@
 """What a company makes or sells, read from the description Screener shows above its figures: the "About" paragraph
 and the first of its "Key Points" (screener_page.parse keeps both). The app shows each product as a chip with its
-icon (app/src/main/java/com/rohit/share_scan/ProductCatalog.kt holds the same keys).
+icon (app/src/main/java/com/rohit/share_scan/Products.kt holds the same keys).
 
 The text is matched against a fixed list of products, each with the English words that name it. Words that only say
 who the products are for ("tyres for passenger cars, trucks and tractors", "serves clients in banking and

@@ -45,6 +45,9 @@ class StockAdapter(
     /** Every stock's 360CR ([Cr360Book]); the card adds the stock's score to its meta line. */
     var cr360: Cr360Book = Cr360Book.EMPTY
 
+    /** The cards put the icons of what each company makes ([Products], from [cr360]) before its name. */
+    var productIcons: Boolean = true
+
     /** The learned setups ([SetupBook]); once there are some, the card names the stock's in place of the app's own. */
     var setups: SetupBook = SetupBook.EMPTY
 
@@ -208,7 +211,7 @@ class StockAdapter(
         ui.rank.setTextColor(color(tierColor))
 
         ui.symbol.text = stock.symbol
-        val name = listOf(StockSearch.shortName(stock.name), stock.sector).filter { it.isNotEmpty() }.joinToString(" · ")
+        val name = withProducts(stock.symbol, nameAndSector(stock))
         ui.companyName.isVisible = name.isNotEmpty()
         ui.companyName.text = name
         val exchange = MarketStyle.of(stock.market)
@@ -350,7 +353,7 @@ class StockAdapter(
         val ranked = item.rank != RankedStock.UNRANKED
         ui.rowRank.text = if (ranked) context.getString(R.string.compact_rank, item.rank) else context.getString(R.string.item_rank_none)
         ui.rowSymbol.text = stock.symbol
-        ui.rowCompany.text = StockSearch.shortName(stock.name).ifEmpty { stock.sector }
+        ui.rowCompany.text = withProducts(stock.symbol, StockSearch.shortName(stock.name).ifEmpty { stock.sector })
         val exchange = MarketStyle.of(stock.market)
         ui.rowExchange.setText(exchange.label)
         ui.rowExchange.setTextColor(color(exchange.text))
@@ -427,7 +430,7 @@ class StockAdapter(
         ui.accScore.setTextColor(color(if (charted) tierColor else R.color.neutral))
         ui.accScore.backgroundTintList = ColorStateList.valueOf(color(if (charted) tierContainer else R.color.neutral_container))
 
-        ui.accCompany.text = listOf(StockSearch.shortName(stock.name), stock.sector).filter { it.isNotEmpty() }.joinToString(" · ")
+        ui.accCompany.text = withProducts(stock.symbol, nameAndSector(stock))
         ui.accCompany.isVisible = ui.accCompany.text.isNotEmpty()
         ui.accTier.setText(tierLabel)
         ui.accTier.setTextColor(color(tierColor))
@@ -523,7 +526,7 @@ class StockAdapter(
         bindExchange(ui.bentoExchange, stock.market, charted)
         ui.bentoStar.isVisible = item.starred
         ui.bentoSymbol.text = stock.symbol
-        ui.bentoCompany.text = StockSearch.shortName(stock.name).ifEmpty { stock.sector }
+        ui.bentoCompany.text = withProducts(stock.symbol, StockSearch.shortName(stock.name).ifEmpty { stock.sector })
         val score = StockFormat.score(stock.score)
         ui.bentoDial.color = color(if (charted) tierColor else R.color.neutral)
         ui.bentoDial.score = if (charted) stock.score else 0.0
@@ -566,7 +569,7 @@ class StockAdapter(
         bindExchange(ui.swipeExchange, stock.market, charted)
         bindRankBadge(ui.swipeBadge, item.badge)
         ui.swipeStarMark.isVisible = item.starred
-        ui.swipeCompany.text = listOf(StockSearch.shortName(stock.name), stock.sector).filter { it.isNotEmpty() }.joinToString(" · ")
+        ui.swipeCompany.text = withProducts(stock.symbol, nameAndSector(stock))
         ui.swipePrice.text = if (charted) context.getString(R.string.item_price, StockFormat.price(stock.price)) else context.getString(R.string.stat_empty)
         ui.swipeChange.text = if (charted) StockFormat.change(stock.change5d) else context.getString(R.string.item_no_data)
         ui.swipeChange.setTextColor(color(if (!charted) R.color.neutral else if (stock.change5d >= 0) R.color.bull else R.color.bear))
@@ -686,6 +689,15 @@ class StockAdapter(
     }
 
     /** The exchange pill (NSE, SME or BSE); hidden for a stock with no chart yet, whose exchange is not known. */
+    private fun nameAndSector(stock: ScanResult): String =
+        listOf(StockSearch.shortName(stock.name), stock.sector).filter { it.isNotEmpty() }.joinToString(" · ")
+
+    /** [text], the card's company line, after the icons of what the company makes while [productIcons] is on. */
+    private fun withProducts(symbol: String, text: String): String {
+        val icons = if (productIcons) Products.icons(cr360.productsOf(symbol)) else ""
+        return listOf(icons, text).filter { it.isNotEmpty() }.joinToString(" ")
+    }
+
     private fun bindExchange(view: TextView, market: Market, charted: Boolean) {
         val context = view.context
         val exchange = MarketStyle.of(market)

@@ -29,6 +29,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.chip.Chip
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.tabs.TabLayout
 import com.rohit.share_scan.Cr360Book.Fact
@@ -70,6 +71,8 @@ class StockDetailSheet(
     private val setups: SetupBook = SetupBook.EMPTY,
     /** Opens on the खबरें tab (from a 📰 mark or a news notification) rather than on जानकारी. */
     private val openOnNews: Boolean = false,
+    /** A product chip's tap: the list shows the companies making it ([Products] key); null leaves the chips still. */
+    private val onProduct: ((String) -> Unit)? = null,
 ) {
     private val dialog = BottomSheetDialog(activity)
     private val ui = SheetStockDetailBinding.inflate(activity.layoutInflater)
@@ -89,6 +92,7 @@ class StockDetailSheet(
     fun show(): BottomSheetDialog {
         bindHeader()
         bindTabs()
+        bindProducts()
         bindChart()
         bindPlan()
         bindNews()
@@ -159,6 +163,29 @@ class StockDetailSheet(
         ui.detailScoreBar.setProgressCompat((stock.score.coerceIn(0.0, 100.0) * 10).roundToInt(), false)
         ui.detailScore.text = activity.getString(R.string.detail_score, StockFormat.score(stock.score))
         ui.detailScore.setTextColor(color(tierColor))
+    }
+
+    /** What the company makes, each with its icon; a tap closes the sheet and lists the companies making it. */
+    private fun bindProducts() {
+        val products = cr360?.products.orEmpty()
+        ui.detailProductsSection.isVisible = products.isNotEmpty()
+        val onProduct = onProduct
+        ui.detailProductsHint.isVisible = onProduct != null
+        for (key in products) {
+            val chip = activity.layoutInflater.inflate(R.layout.chip_product, ui.detailProducts, false) as Chip
+            val name = ProductLabels.chip(activity, key)
+            chip.text = name
+            if (onProduct != null) {
+                chip.contentDescription = activity.getString(R.string.product_chip_description, name)
+                chip.setOnClickListener {
+                    dialog.dismiss()
+                    onProduct(key)
+                }
+            } else {
+                chip.isClickable = false
+            }
+            ui.detailProducts.addView(chip)
+        }
     }
 
     private fun bindChart() {
