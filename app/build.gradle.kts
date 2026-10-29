@@ -12,6 +12,33 @@ val firebaseConfig = listOf(
     "FIREBASE_WEB_CLIENT_ID", "FIREBASE_STORAGE_BUCKET", "FIREBASE_SENDER_ID",
 ).associateWith { System.getenv(it)?.trim().orEmpty() }
 
+/**
+ * Hinglish, the app's default language, is also the one picked by tag (hi-Latn): a phone set to English or Bengali
+ * must still find Hinglish strings for that tag, or it falls through to its own language. This copies the default
+ * strings under values-b+hi+Latn at build time, so they are written once (Languages.kt).
+ */
+abstract class HinglishStrings : DefaultTask() {
+    @get:InputFiles
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
+    abstract val strings: ConfigurableFileCollection
+
+    @get:OutputDirectory
+    abstract val output: DirectoryProperty
+
+    @TaskAction
+    fun copy() {
+        val folder = output.get().asFile.resolve("values-b+hi+Latn")
+        folder.deleteRecursively()
+        folder.mkdirs()
+        strings.files.forEach { it.copyTo(folder.resolve(it.name), overwrite = true) }
+    }
+}
+
+val hinglishStrings = tasks.register<HinglishStrings>("hinglishStrings") {
+    strings.from(fileTree("src/main/res/values") { include("strings*.xml") })
+    output.set(layout.buildDirectory.dir("generated/res/hinglish"))
+}
+
 android {
     namespace = "com.rohit.share_scan"
     compileSdk = 35
@@ -46,12 +73,20 @@ android {
         viewBinding = true
         buildConfig = true
     }
+    lint {
+        // A string not yet translated shows in Hinglish, the default, rather than failing the release build.
+        disable += "MissingTranslation"
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions { jvmTarget = "17" }
 }
+androidComponents {
+    onVariants { variant -> variant.sources.res?.addGeneratedSourceDirectory(hinglishStrings, HinglishStrings::output) }
+}
+
 dependencies {
     implementation("androidx.core:core-ktx:1.15.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
@@ -60,6 +95,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    // The swipe layout's cards slide aside to show their buttons (SwipeRevealLayout).
+    implementation("androidx.customview:customview:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     // Live mode: scans through market hours in the background (LiveScanWorker).
     implementation("androidx.work:work-runtime-ktx:2.9.1")

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_title">ନୂଆ ସଂସ୍କରଣ ଉପଲବ୍ଧ</string>
+    <string name="update_title_ready">ଅପଡେଟ ଡାଉନଲୋଡ ହୋଇଗଲା</string>
+    <string name="update_versions">%1$s • ଏବେ %2$s</string>
+    <string name="update_available_body">ଗୋଟିଏ ଟ୍ୟାପରେ ଡାଉନଲୋଡ କରି ପୁରୁଣା ଆପ ଉପରେ ହିଁ ଇନଷ୍ଟଲ କରନ୍ତୁ — ୱାଚଲିଷ୍ଟ ଓ ଫିଲ୍ଟର ଯେମିତି ଅଛି ସେମିତି ରହିବ।</string>
+    <string name="update_downloading_body">ଡାଉନଲୋଡ ହେଉଛି… %1$d%%</string>
+    <string name="update_ready_body">ଇନଷ୍ଟଲ ଟ୍ୟାପ କରନ୍ତୁ — ନୂଆ ସଂସ୍କରଣ ପୁରୁଣା ଉପରେ ହିଁ ଇନଷ୍ଟଲ ହେବ।</string>
+    <string name="update_ready_permission_body">ଇନଷ୍ଟଲ ଟ୍ୟାପ କରନ୍ତୁ। ପ୍ରଥମ ଥର Android “ଏହି ଉତ୍ସରୁ ଇନଷ୍ଟଲ”ର ଅନୁମତି ମାଗିବ — ଏହାକୁ ଚାଲୁ କରି ଫେରି ଆସନ୍ତୁ, ଇନଷ୍ଟଲ ସେଠାରୁ ହିଁ ଚାଲିବ।</string>
+    <string name="update_failed_body">ଡାଉନଲୋଡ ହେଲା ନାହିଁ। ଇଣ୍ଟରନେଟ ସଂଯୋଗ ଯାଞ୍ଚ କରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ।</string>
+    <string name="update_action_download">ଅପଡେଟ କରନ୍ତୁ</string>
+    <string name="update_action_install">ଇନଷ୍ଟଲ କରନ୍ତୁ</string>
+    <string name="update_action_retry">ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="update_action_later">ପରେ</string>
+    <string name="update_install_failed">ଇନଷ୍ଟଲର ଖୋଲିପାରିଲା ନାହିଁ</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_stop">থামান</string>
+    <string name="action_stopping">থামানো হচ্ছে…</string>
+    <string name="status_stopped_title">স্ক্যান থামানো হয়েছে</string>
+    <string name="status_stopped_body">%1$s / %2$s শেয়ার যাচাই হয়েছে • %3$s-এ</string>
+    <string name="status_stopped_early_body">শেয়ারের তালিকা আসার আগেই থামানো হয়েছে।</string>
+    <string name="empty_stopped_title">কোনো শেয়ারের স্কোর তৈরি হয়নি</string>
+    <string name="empty_stopped_body">তার আগেই স্ক্যান থামানো হয়েছে। উপরের বোতাম টিপে আবার স্ক্যান করুন।</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_sunset">Sunset</string>
+    <string name="theme_sunset_body">ಕಿತ್ತಳೆ-ಗುಲಾಬಿ ಸಂಜೆಯ ಆಕಾಶ</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_ocean_body">ಆಳವಾದ ನೀಲಿ ಸಮುದ್ರ</string>
+    <string name="theme_emerald">Emerald</string>
+    <string name="theme_emerald_body">ಪಚ್ಚೆ-ಹಸಿರು ಕ್ಷೀರಪಥ</string>
+    <string name="theme_mars">Mars</string>
+    <string name="theme_mars_body">ಧೂಳಿನ ಕೆಂಪು ಆಕಾಶ</string>
+    <string name="theme_royal_gold">Royal Gold</string>
+    <string name="theme_royal_gold_body">ಚಿನ್ನ ಮತ್ತು ರಾಜಮನೆತನದ ನೇರಳೆ</string>
+    <string name="theme_frost">Frost</string>
+    <string name="theme_frost_body">ಹಿಮ ನೀಲಿ • ಹಗುರ ಧ್ರುವ ಬೆಳಕು</string>
+    <string name="theme_space_glass">Space Glass</string>
+    <string name="theme_space_glass_body">ಆಳ ಅಂತರಿಕ್ಷ • ಆಕಾಶ ನೀಲಿ ಹೊಳಪು • ಚಲಿಸುವ ಟ್ರೇಡಿಂಗ್ ಗ್ರಿಡ್, ಚಾರ್ಟ್ ರೇಖೆ</string>
+</resources>

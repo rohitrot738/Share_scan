@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The picked font (Menu → भाषा और Font; AppFont). MainActivity lays ThemeOverlay.ShareScan.Font over the theme and
+    then the font's own overlay, which sets appFont: every text view takes it through the theme's fontFamily, and the
+    chips, buttons, dialogs and snackbars through their Material text appearances, which read it too. The system's
+    font lays neither, so nothing changes from before.
+-->
+<resources>
+    <style name="ThemeOverlay.ShareScan.Font" parent="">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+        <item name="textAppearanceDisplaySmall">@style/TextAppearance.ShareScan.DisplaySmall</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.ShareScan.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.ShareScan.HeadlineMedium</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.ShareScan.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.ShareScan.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.ShareScan.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.ShareScan.TitleSmall</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.ShareScan.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.ShareScan.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.ShareScan.BodySmall</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.ShareScan.LabelLarge</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.ShareScan.LabelMedium</item>
+        <item name="textAppearanceLabelSmall">@style/TextAppearance.ShareScan.LabelSmall</item>
+    </style>
+
+    <style name="ThemeOverlay.ShareScan.Font.Mukta" parent="">
+        <item name="appFont">@font/mukta</item>
+    </style>
+    <style name="ThemeOverlay.ShareScan.Font.Hind" parent="">
+        <item name="appFont">@font/hind</item>
+    </style>
+    <style name="ThemeOverlay.ShareScan.Font.Poppins" parent="">
+        <item name="appFont">@font/poppins</item>
+    </style>
+    <style name="ThemeOverlay.ShareScan.Font.Inter" parent="">
+        <item name="appFont">@font/inter</item>
+    </style>
+    <style name="ThemeOverlay.ShareScan.Font.SpaceGrotesk" parent="">
+        <item name="appFont">@font/space_grotesk</item>
+    </style>
+    <style name="ThemeOverlay.ShareScan.Font.JetBrainsMono" parent="">
+        <item name="appFont">@font/jetbrains_mono</item>
+    </style>
+
+    <style name="TextAppearance.ShareScan.DisplaySmall" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+    <style name="TextAppearance.ShareScan.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+    <style name="TextAppearance.ShareScan.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+    <style name="TextAppearance.ShareScan.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+    <style name="TextAppearance.ShareScan.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+    <style name="TextAppearance.ShareScan.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+    <style name="TextAppearance.ShareScan.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+    <style name="TextAppearance.ShareScan.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+    <style name="TextAppearance.ShareScan.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+    <style name="TextAppearance.ShareScan.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+    <style name="TextAppearance.ShareScan.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+    <style name="TextAppearance.ShareScan.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+    <style name="TextAppearance.ShareScan.LabelSmall" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:fontFamily">?attr/appFont</item>
+        <item name="fontFamily">?attr/appFont</item>
+    </style>
+</resources>

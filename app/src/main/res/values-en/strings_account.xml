@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_account">Account</string>
+    <string name="menu_account_signed_out">Not signed in</string>
+    <string name="account_signed_in_generic">Signed in</string>
+    <string name="account_title">Account</string>
+    <string name="account_subtitle_signed_out">Sign in with Google, GitHub or email</string>
+    <string name="account_subtitle_signed_in">Your profile and sign-in</string>
+    <string name="account_subtitle_unconfigured">Sign-in coming soon</string>
+    <string name="account_unconfigured_title">Sign-in isn\'t set up yet</string>
+    <string name="account_unconfigured_body">Sign-in isn\'t switched on in this version yet. The rest of the app — scans, watchlist, filters and themes — works as before without signing in.</string>
+    <string name="account_working">One moment…</string>
+    <string name="account_google">Sign in with Google</string>
+    <string name="account_github">Sign in with GitHub</string>
+    <string name="account_or_email">or with email and password</string>
+    <string name="account_email_hint">Email</string>
+    <string name="account_password_hint">Password</string>
+    <string name="account_sign_in">Sign in</string>
+    <string name="account_create">Create a new account</string>
+    <string name="account_forgot">Forgot password?</string>
+    <string name="account_email_needed">Enter your email</string>
+    <string name="account_password_needed">Enter your password</string>
+    <string name="account_reset_sent">Password reset link sent to %1$s — check your inbox (and spam)</string>
+    <string name="account_created">Account created! We\'ve sent a link to verify your email</string>
+    <string name="account_signed_in_toast">Signed in</string>
+    <string name="account_signed_out_toast">Signed out</string>
+    <string name="account_no_name">No name added</string>
+    <string name="account_verified">✓ Verified</string>
+    <string name="account_unverified">Not verified</string>
+    <string name="account_section_details">Details</string>
+    <string name="account_phone">Phone</string>
+    <string name="account_methods">Sign-in methods</string>
+    <string name="account_created_at">Account created</string>
+    <string name="account_last_sign_in">Last sign-in</string>
+    <string name="account_unknown">Unknown</string>
+    <string name="account_uid">User ID</string>
+    <string name="account_copy_uid">Copy User ID</string>
+    <string name="account_uid_copied">User ID copied</string>
+    <string name="account_provider_google">Google</string>
+    <string name="account_provider_github">GitHub</string>
+    <string name="account_provider_password">Email + password</string>
+    <string name="account_provider_phone">Phone</string>
+    <string name="account_section_actions">Account settings</string>
+    <string name="account_edit_name">Change name</string>
+    <string name="account_name_hint">Your name</string>
+    <string name="account_name_saved">Name changed</string>
+    <string name="account_send_verification">Send verification email</string>
+    <string name="account_verification_sent">Verification link sent to %1$s</string>
+    <string name="account_change_password">Change password</string>
+    <string name="account_password_current_hint">Current password</string>
+    <string name="account_password_new_hint">New password (at least 6 characters)</string>
+    <string name="account_password_changed">Password changed</string>
+    <string name="account_password_send_reset">Send reset email</string>
+    <string name="account_link_google">Link a Google account</string>
+    <string name="account_link_github">Link a GitHub account</string>
+    <string name="account_linked">%1$s linked — you can sign in with it too now</string>
+    <string name="account_sign_out">Sign out</string>
+    <string name="account_delete">Delete account</string>
+    <string name="account_delete_title">Delete account?</string>
+    <string name="account_delete_message">Your Share Scan account will be removed for good. The watchlist and settings on this phone stay.</string>
+    <string name="account_delete_yes">Yes, delete</string>
+    <string name="account_deleted">Account deleted</string>
+    <string name="account_save">Save</string>
+    <string name="account_cancel">Cancel</string>
+    <string name="account_relogin_title">Sign in again</string>
+    <string name="account_relogin_message">For your security this needs a fresh sign-in. Sign out, sign in again, then try once more.</string>
+    <string name="account_relogin_yes">Sign out</string>
+    <string name="account_error_wrong_password">Wrong email or password</string>
+    <string name="account_error_no_user">No account with this email — create a new account first</string>
+    <string name="account_error_disabled">This account has been disabled</string>
+    <string name="account_error_weak_password">Password too weak — use at least 6 characters</string>
+    <string name="account_error_email_used">An account with this email already exists — sign in</string>
+    <string name="account_error_other_method">This email\'s account was made another way (Google, GitHub or password) — sign in with that, then link this method from here</string>
+    <string name="account_error_already_linked">This account is already linked, or belongs to another Share Scan account</string>
+    <string name="account_error_bad_email">That email isn\'t valid</string>
+    <string name="account_error_network">No internet connection — check it and try again</string>
+    <string name="account_error_too_many">Too many attempts — try again in a little while</string>
+    <string name="account_error_no_google_account">No Google account on this phone — add one in the phone\'s Settings</string>
+    <string name="account_error_google">Couldn\'t sign in with Google — try again</string>
+    <string name="account_error_browser">Sign-in in the browser didn\'t finish — try again</string>
+    <string name="account_error_method_off">This sign-in method isn\'t switched on yet</string>
+    <string name="account_error_generic">Something went wrong — try again</string>
+    <string-array name="account_months">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Aug</item>
+        <item>Sep</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dec</item>
+    </string-array>
+    <string name="menu_usage">App usage</string>
+    <string name="menu_usage_body">How many phones run the app • visible only to you</string>
+    <string name="usage_title">App usage</string>
+    <string name="usage_subtitle">Visible only on %1$s\'s GitHub sign-in</string>
+    <string name="usage_loading_title">Counting…</string>
+    <string name="usage_loading_body">Fetching the phone count from Firebase.</string>
+    <string name="usage_today">Today</string>
+    <string name="usage_days">%1$d days</string>
+    <string name="usage_phones">phones</string>
+    <string name="usage_total_title">So far</string>
+    <string name="usage_total_body">The app opened on %1$s phones in all (since counting began)</string>
+    <string name="usage_downloads">The APK was downloaded %1$s times from GitHub</string>
+    <string name="usage_downloads_unknown">GitHub\'s download count isn\'t in yet</string>
+    <string name="usage_versions_title">By version (last %1$d days)</string>
+    <string name="usage_version_line">v%1$s — %2$s phones</string>
+    <string name="usage_how_title">How the count works</string>
+    <string name="usage_how_body">Once a day, when the app opens, each phone sends only a random ID and its version — no name, number or location. Counting began with this version; phones on older versions are counted after they update. A phone that removes and reinstalls the app counts as new, and APK downloads include several downloads by the same person.</string>
+    <string name="usage_rules_title">Firestore rules still need changing</string>
+    <string name="usage_rules_body">In Firebase Console → Firestore Database → Rules, paste the new rules from docs/LOGIN_SETUP.md (Step 6.5) and Publish, then open this again.</string>
+    <string name="usage_failed_title">Couldn\'t get the count</string>
+    <string name="usage_failed_body">Check the internet and open this again in a little while.</string>
+</resources>

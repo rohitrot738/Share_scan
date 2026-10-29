@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="item_setup_learned">🎯 শেখা সেটআপ • %1$d%% সফল: %2$s</string>
+    <string name="detail_setup_learned">🎯 শেখা সেটআপ: %1$s। গত 2 বছরে এমন %2$dটি পরিকল্পনার %3$d%%-এ লক্ষ্য 1 নির্দিষ্ট দিনের মধ্যে স্টপের আগে ছুঁয়েছে (সব শেয়ারের গড় %4$d%%)।</string>
+    <string name="detail_setup_learned_none">এই শেয়ারে আজ কোনো শেখা সেটআপ খাটে না। সব শেয়ারে লক্ষ্য 1 নির্দিষ্ট দিনের মধ্যে %1$d%% বার ছুঁয়েছে। সবচেয়ে সফল সেটআপ: %2$s</string>
+    <string name="detail_setup_learned_top">%1$s (%2$d%%)</string>
+    <string name="item_setup_rally">📈 তেজি সেটআপ • %1$d%%: %2$s</string>
+    <string name="detail_plan_stop_learned">শেখা স্টপ: এন্ট্রি থেকে %1$s ATR নিচে</string>
+    <string name="detail_plan_quick_time_learned">⏱ এন্ট্রির পরে প্রায় %1$d–%2$d দিন</string>
+    <string name="detail_plan_learned">🧠 শেখা পরিকল্পনা: স্টপ %1$s, লক্ষ্য 1 = +%2$s, %3$d দিনের মধ্যে। গত 2 বছরে এমন পরিকল্পনায় %4$d%% সফল, গড় %5$s প্রতি ট্রেড (সব শেয়ারে অ্যাপের পুরোনো পরিকল্পনা: %6$d%% সফল, %7$s)।</string>
+    <string name="detail_plan_learned_stop_atr">এন্ট্রি থেকে %1$s ATR নিচে</string>
+    <string name="detail_plan_learned_stop_own">10 দিনের সর্বনিম্নের নিচে (অ্যাপের নিজস্ব)</string>
+    <string name="detail_plan_learned_own">🧠 শেখা: অ্যাপের নিজস্ব স্টপ আর লক্ষ্যই এখন পর্যন্ত সবচেয়ে ভালো — %1$d%% সফল, গড় %2$s প্রতি ট্রেড।</string>
+    <string name="detail_rally_setup">📈 তেজির সেটআপ: %1$s। গত 2 বছরে এমন %2$d%% সুযোগে দাম %3$d দিনের মধ্যে %4$s ATR (আজকের হিসাবে ≈ %5$s) উপরে উঠেছে, আগে না পড়ে (সব শেয়ারে %6$d%%)।</string>
+    <string name="detail_rally_why">📈 তেজির আগে প্রায়ই দেখা গেছে: %1$s</string>
+    <string name="item_setup_mistake">⚠ শেখা ভুল • মাত্র %1$d%% সফল: %2$s</string>
+    <string name="detail_setup_mistake">⚠ শেখা ভুল: %1$s। গত 2 বছরে এমন %2$dটি ট্রেডের মাত্র %3$d%% সফল হয়েছে (সব শেয়ারের গড় %4$d%%) — %5$d%%-এ আগে স্টপ লেগেছে, %6$d%%-এ লক্ষ্য নির্দিষ্ট দিনে আসেনি। এমন সেটআপে ট্রেড উল্টো দিকে যাওয়ার সম্ভাবনা বেশি থেকেছে।</string>
+    <string name="setup_breakout_today">আজ ব্রেকআউট</string>
+    <string name="setup_near_trigger">ব্রেকআউট থেকে 1 ATR দূরে</string>
+    <string name="setup_volume_2x">ভলিউম 2×+</string>
+    <string name="setup_volume_1_5x">ভলিউম 1.5×+</string>
+    <string name="setup_quiet_before">আগের 5 দিন ভলিউম কম</string>
+    <string name="setup_tight_week">1 সপ্তাহের পরিসর 5%-এর মধ্যে</string>
+    <string name="setup_tight_two_weeks">2 সপ্তাহের পরিসর 8%-এর মধ্যে</string>
+    <string name="setup_above_sma50">50 DMA-র উপরে</string>
+    <string name="setup_sma20_over_sma50">20 DMA, 50 DMA-র উপরে</string>
+    <string name="setup_up_20_days">20 দিনে উপরে</string>
+    <string name="setup_up_5_percent_week">5 দিনে 5%+ উপরে</string>
+    <string name="setup_rsi_50_70">RSI 50–70</string>
+    <string name="setup_rsi_70_plus">RSI 70+</string>
+    <string name="setup_rsi_under_50">RSI 50-এর কম</string>
+    <string name="setup_macd_above_signal">MACD সিগন্যালের উপরে</string>
+    <string name="setup_macd_fresh_cross">MACD ক্রসওভার 3 দিনে</string>
+    <string name="setup_macd_above_zero">MACD শূন্যের উপরে</string>
+    <string name="setup_near_support">সাপোর্ট থেকে 5%-এর মধ্যে</string>
+    <string name="setup_long_support">পুরোনো সাপোর্ট</string>
+    <string name="setup_liquid_10cr">দৈনিক ₹10 Cr+ লেনদেন</string>
+    <string name="setup_score_strong">স্কোর STRONG</string>
+    <string name="setup_score_watch">স্কোর WATCH+</string>
+    <string name="setup_prev_strong">গতকালও STRONG</string>
+    <string name="setup_near_6m_high">6 মাসের সর্বোচ্চ দাম থেকে 3%-এর মধ্যে</string>
+    <string name="setup_up_4_percent_today">আজ 4%+ উপরে</string>
+    <string name="setup_close_near_day_high">দিনের সর্বোচ্চের কাছে বন্ধ</string>
+    <string name="setup_calm_ranges">10 দিন ধরে দৈনিক ওঠানামা কম</string>
+    <string name="help_setups_title">শেখা সেটআপ</string>
+    <string name="help_setups_body">প্রতি সন্ধ্যায় (বাজারের দিনে) অ্যাপ পুরো বাজারের প্রতিটি শেয়ারের গত 2 বছরের প্রতিটি দিনে সেই স্কোর আর ট্রেড পরিকল্পনা তৈরি করে যা সেদিন দেখা যেত, আর দেখে পরে কী হলো: লক্ষ্য 1 বলা দিনের মধ্যে স্টপের আগে ছুঁলে সফল; স্টপ আগে লাগলে বা লক্ষ্য সময়ে না এলে অসফল। তারপর 1 থেকে 3টি শর্তের মিলনের (যেমন আজ ব্রেকআউট + ভলিউম 2×+ + RSI 50–70) মধ্যে শুধু সেই সেটআপগুলো রাখা হয় যেগুলো পুরো বাজারের গড়ের চেয়ে স্পষ্টভাবে বেশি সফল — পুরোনো ডেটাতেও আর গত 60 দিনেও, যেগুলোর উপর সেগুলো বাছা হয়নি। যে সেটআপ পরে গড়ের উপরে থাকে না, সেটি সরে যায়। ভুল থেকেও শেখে: যে শর্তের মিলনে ট্রেড গড়ের চেয়ে স্পষ্টভাবে বেশি উল্টো গেছে (স্টপ আগে লেগেছে বা লক্ষ্য সময়ে আসেনি) — সেটিও পুরোনো ডেটা আর গত 60 দিন দুটোতেই — সেগুলো \"⚠ শেখা ভুল\" হয়ে কার্ড আর বিস্তারিততে সতর্ক করে, সাথে কত %-এ স্টপ লেগেছে আর কত %-এ লক্ষ্য দেরিতে এসেছে। কোনো ভুল পরে শুধরে গেলে সতর্কতা সরে যায়। স্টপ, লক্ষ্য আর সময়ও শেখা হয়: প্রতিটি পুরোনো পরিকল্পনা 30,000 রকমে যাচাই করা হয় (স্টপ এন্ট্রি থেকে 1 থেকে 3.4 ATR নিচে বা অ্যাপের নিজস্ব, লক্ষ্য 1 = 0.5R থেকে 5.45R, আর লক্ষ্যের সময় অর্ধেক থেকে তিন গুণ দিন) আর যে মিলন পুরো বাজারে প্রতি ট্রেডে সবচেয়ে বেশি আয় (গড় R) দেয় — পুরোনো ডেটাতেও আর গত 60 দিনেও, আর যার আশেপাশের মিলনগুলোও ভালো ছিল, যাতে ভাগ্যক্রমে ভালো দেখানো মিলন বাছা না হয় — সেটিই পরিকল্পনায় লাগে; কোনো সেটআপের জন্য আলাদা মিলন আরও ভালো হলে সে নিজেরটা পায়। নতুন মিলন পুরোনোটির চেয়ে স্পষ্টভাবে ভালো হলে তবেই তার জায়গা নেয়, আর পিছিয়ে পড়লে সরে যায়; ওয়াচলিস্টের অ্যালার্টও এই স্টপ আর লক্ষ্যই মানে। তেজি থেকেও শেখে: প্রতিটি শেয়ারের প্রতিটি দিন দেখা হয় দাম পরের 20 দিনে 3 ATR উপরে উঠেছে কিনা, আগে 1.5 ATR না পড়ে — আর তার আগে কোন শর্তগুলো ছিল; যে শর্তের পরে এমন তেজি গড়ের চেয়ে স্পষ্টভাবে বেশি এসেছে, সেগুলো \"📈 তেজি সেটআপ\" হয়ে দেখা যায়। এসব প্রতি সন্ধ্যায় নিজে থেকেই হয়। কার্ড আর শেয়ারের বিস্তারিততে অ্যাপের নিজস্ব পুরোনো সেটআপের জায়গায় এই শেখা সেটআপ আর তাদের আসল সাফল্যের % দেখা যায়, আর ট্রেড পরিকল্পনার দ্রুত লক্ষ্যের %-ও টাটকা ডেটা থেকে আসে। এগুলো অতীত ডেটার পরিসংখ্যান, ভবিষ্যতের গ্যারান্টি নয়; বিনিয়োগ পরামর্শ নয়।</string>
+</resources>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compact_news_mark">📰</string>
+    <string name="compact_no_data">ధర లేదు</string>
+    <string name="compact_col_rank">#</string>
+    <string name="compact_col_stock">స్టాక్ / కంపెనీ</string>
+    <string name="compact_col_price">ధర</string>
+    <string name="compact_col_change">5D మార్పు / RVOL</string>
+    <string name="compact_col_score">స్కోర్</string>
+    <string name="compact_share">షేర్</string>
+    <string name="compact_rank">#%1$d</string>
+    <string name="pill_idle">స్కాన్ ప్రారంభించండి ▸</string>
+    <string name="pill_reading">చివరి స్కాన్ తెరుస్తోంది…</string>
+    <string name="pill_loading">స్కాన్ ప్రారంభమవుతోంది…</string>
+    <string name="pill_scanning">స్కాన్ %1$d%% • %2$s/%3$s</string>
+    <string name="pill_stopped">ఆపబడింది %1$d%% • %2$s/%3$s</string>
+    <string name="pill_done">స్కాన్ 100%% • %1$s స్టాక్‌లు</string>
+    <string name="pill_live_done">లైవ్ స్కాన్ 100%% • %1$s స్టాక్‌లు</string>
+    <string name="pill_support_done">సపోర్ట్ 100%% • %1$s స్టాక్‌లు</string>
+    <string name="pill_failed">స్కాన్ విఫలం • మళ్లీ ప్రయత్నించండి</string>
+    <string name="empty_body_compact">స్కాన్ ప్రారంభించడానికి పైన ఉన్న పిల్‌ను నొక్కండి — పూర్తయ్యాక ఉత్తమ అభ్యర్థులు స్కోర్ ప్రకారం ఇక్కడ కనిపిస్తారు.</string>
+    <string name="pill_description">%1$s; స్కాన్ బటన్‌లు తెరవండి</string>
+    <string name="help_compact_title">Space Glass కాంపాక్ట్ టేబుల్</string>
+    <string name="help_compact_body">మెనూ → బ్యాక్‌గ్రౌండ్‌లో Space Glass ఎంచుకుంటే జాబితా ఒక టేబుల్ అవుతుంది: ప్రతి స్టాక్‌కు ఒక లైన్ — ర్యాంక్, టిక్కర్ (NSE/BSE, NEW లేదా ▲▼, 📰తో), దాని కింద కంపెనీ పేరు, ధర, 5 రోజుల మార్పు దాని కింద RVOL, మరియు స్కోర్ — ఒక స్క్రీన్‌లో 8–10 స్టాక్‌లు. వాచ్‌లిస్ట్ స్టాక్‌ల స్కోర్ బంగారు రంగులో ★తో ఉంటుంది; లైన్‌ను నొక్కి పట్టుకుంటే స్టాక్ వాచ్‌లిస్ట్‌కు జోడించబడుతుంది లేదా తీసివేయబడుతుంది. పైన సన్నని హెడర్‌లో ఆకుపచ్చ పిల్ స్కాన్ ఎక్కడ ఉందో చెబుతుంది (ఉదా. \"లైవ్ స్కాన్ 100% • 2,618 స్టాక్‌లు\"); దాన్ని నొక్కితే బ్రేకౌట్/సపోర్ట్, స్కాన్/ఆపు, స్కాన్ తొలగించు ప్యానెల్ తెరుచుకుంటుంది. ఫిల్టర్లు, వాచ్‌లిస్ట్, సార్ట్‌లు, సెక్టార్, షేర్ కింద తేలియాడే బార్‌లో, బొటనవేలికి అందేలా ఉంటాయి; దాన్ని పక్కకు జరపండి. లైన్‌ను నొక్కితే స్టాక్ పూర్తి వివరాలు — సెటప్, సపోర్ట్, R/Sతో — తెరుచుకుంటాయి. ఫిల్టర్లు, సెక్టార్ షీట్‌లు కూడా అదే సాదా శైలిలో తెరుచుకుంటాయి. పెద్ద కార్డులు మళ్లీ కావాలంటే Galaxy బ్యాక్‌గ్రౌండ్ ఎంచుకోండి.</string>
+</resources>

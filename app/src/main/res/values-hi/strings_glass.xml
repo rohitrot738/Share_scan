@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_sky">आसमान का एनिमेशन</string>
+    <string name="settings_sky_body">तारे, टूटते तारे और चमक चलें; बंद करने पर आसमान रुका रहेगा (बैटरी बचेगी)</string>
+    <string name="settings_section_glass">काँच मोड</string>
+    <string name="settings_glass_on">काँच का असर</string>
+    <string name="settings_glass_on_body">बंद करने पर बोर्ड, कार्ड, बटन और शीट सादे और ठोस • कोई काँच, चमक या धुंधलापन नहीं</string>
+    <string name="glass_off_body">अभी: काँच बंद • ऊपर का स्विच चालू करते ही चुना हुआ मोड लौट आएगा</string>
+    <string name="settings_glass_body">स्कैन बोर्ड, कार्ड, शीट, चिप और स्विच का काँच • चुनते ही पूरा ऐप उसी में</string>
+    <string name="glass_frosted">धुंधला</string>
+    <string name="glass_clear">पारदर्शी</string>
+    <string name="glass_smoky">गहरा</string>
+    <string name="glass_tinted">रंगीन</string>
+    <string name="glass_liquid">इंद्रधनुषी</string>
+    <string name="glass_solid">ठोस</string>
+    <string name="glass_frosted_body">अभी: हल्का धुंधला काँच, पीछे आसमान झलके • डिफ़ॉल्ट</string>
+    <string name="glass_clear_body">अभी: एकदम साफ़ काँच, चमकते किनारे • आसमान सबसे ज़्यादा दिखे</string>
+    <string name="glass_smoky_body">अभी: धुएँ जैसा गहरा काला काँच • आसमान हल्का-सा झलके</string>
+    <string name="glass_tinted_body">अभी: थीम के रंग में रंगा काँच</string>
+    <string name="glass_liquid_body">अभी: आसमानी से गुलाबी चमकते किनारे, जैसे पानी पर तेल की परत</string>
+    <string name="glass_solid_body">अभी: पक्के, ठोस कार्ड, बस हल्की चमक • पढ़ने में सबसे आसान, फ़ोन पर सबसे हल्का</string>
+</resources>

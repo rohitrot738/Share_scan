@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_sky">આકાશનું એનિમેશન</string>
+    <string name="settings_sky_body">તારા, ખરતા તારા અને ચમક હલતાં રહે; બંધ કરવાથી આકાશ સ્થિર રહેશે (બેટરી બચશે)</string>
+    <string name="settings_section_glass">કાચ મોડ</string>
+    <string name="settings_glass_on">કાચની અસર</string>
+    <string name="settings_glass_on_body">બંધ કરવાથી બોર્ડ, કાર્ડ, બટન અને શીટ સાદાં અને નક્કર • કોઈ કાચ, ચમક કે ધૂંધળાપણું નહીં</string>
+    <string name="glass_off_body">હાલ: કાચ બંધ • ઉપરની સ્વિચ ચાલુ કરતાં જ પસંદ કરેલો મોડ પાછો આવશે</string>
+    <string name="settings_glass_body">સ્કેન બોર્ડ, કાર્ડ, શીટ, ચિપ અને સ્વિચનો કાચ • પસંદ કરતાં જ આખી એપ તેમાં</string>
+    <string name="glass_frosted">ધૂંધળો</string>
+    <string name="glass_clear">પારદર્શક</string>
+    <string name="glass_smoky">ઘેરો</string>
+    <string name="glass_tinted">રંગીન</string>
+    <string name="glass_liquid">મેઘધનુષી</string>
+    <string name="glass_solid">નક્કર</string>
+    <string name="glass_frosted_body">હાલ: હળવો ધૂંધળો કાચ, પાછળ આકાશ ઝળકે • ડિફૉલ્ટ</string>
+    <string name="glass_clear_body">હાલ: એકદમ સ્વચ્છ કાચ, ચમકતી કિનારીઓ • આકાશ સૌથી વધુ દેખાય</string>
+    <string name="glass_smoky_body">હાલ: ધુમાડા જેવો ઘેરો કાળો કાચ • આકાશ સહેજ ઝળકે</string>
+    <string name="glass_tinted_body">હાલ: થીમના રંગમાં રંગાયેલો કાચ</string>
+    <string name="glass_liquid_body">હાલ: આકાશીથી ગુલાબી ચમકતી કિનારીઓ, પાણી પર તેલના પડ જેવી</string>
+    <string name="glass_solid_body">હાલ: પાકાં, નક્કર કાર્ડ, બસ હળવી ચમક • વાંચવામાં સૌથી સરળ, ફોન પર સૌથી હળવું</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_from_high">From the 20D high</string>
+    <string name="metric_base_range">Quiet range (high–low)</string>
+    <string name="metric_vs_sma50">From the 50 DMA</string>
+    <string name="hint_from_high">How far the price sits under its 20-day high (resistance) • minus = a breakout above the high</string>
+    <string name="hint_base_range">The gap between the highest and lowest price over the chosen weeks • small = a quiet stock, neither up nor down much</string>
+    <string name="hint_vs_sma50">Above (+) or below (-) the 50-day average • plus = uptrend</string>
+    <string name="hint_score_mix">A blend of breakout setup, trend, volume, liquidity and momentum • %1$s+ STRONG, %2$s+ WATCH</string>
+</resources>

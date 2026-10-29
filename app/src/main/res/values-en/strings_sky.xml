@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_background">Background</string>
+    <string name="background_title">Choose a background</string>
+    <string name="background_subtitle">Each background has its own layout and animation • the colours are the theme\'s</string>
+    <string name="background_galaxy">Galaxy</string>
+    <string name="background_galaxy_body">The Milky Way, twinkling and shooting stars • the big cards layout</string>
+    <string name="background_space_glass">Space Glass</string>
+    <string name="background_space_glass_body">Floating lights, a moving trading grid and a chart line • the compact table layout</string>
+    <string name="help_sky_title">Background and Theme</string>
+    <string name="help_sky_body">Pick one of two in Menu → Background — each has its own layout and its own animation: Galaxy, the Milky Way (twinkling and shooting stars, a flight towards the galaxy) with the big cards layout, and Space Glass, floating lights, a moving trading grid and a chart line with the compact table (a slim header, one line a stock, a floating bar below). Pick the colours in Menu → Theme: any theme goes on either background, and its colours reach the background too. Turning off the sky\'s animation in Settings holds the background still.</string>
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fw_value_line">ਅਸਲ ਮੁੱਲ ₹%1$s · ਖ਼ਰੀਦ ਭਾਅ ₹%2$s</string>
+    <string name="fw_value_only">ਅਸਲ ਮੁੱਲ ₹%1$s</string>
+    <string name="fw_summary">%1$s · ਸੁਰੱਖਿਆ ਦਾ ਫ਼ਰਕ %2$s%% (%3$s)</string>
+    <string name="fw_price_above">ਭਾਅ ₹%1$s, ਖ਼ਰੀਦ ਭਾਅ ਤੋਂ %2$s%% ਉੱਪਰ</string>
+    <string name="fw_price_below">ਭਾਅ ₹%1$s, ਖ਼ਰੀਦ ਭਾਅ ਤੋਂ %2$s%% ਹੇਠਾਂ ✓</string>
+    <string name="fw_model_general">ਸੈਕਟਰ P/E–P/B ਦਾ ਹਿਸਾਬ</string>
+    <string name="fw_model_bank">ਬੈਂਕ/NBFC: ਸਮਾਯੋਜਿਤ P/B</string>
+    <string name="fw_model_asset">EV/EBITDA</string>
+    <string name="fw_model_cyclical">ਮੱਧ-ਚੱਕਰ EV/EBITDA</string>
+    <string name="fw_model_cash">PEG</string>
+    <string name="fw_size_large">ਲਾਰਜ ਕੈਪ</string>
+    <string name="fw_size_mid">ਮਿਡ ਕੈਪ</string>
+    <string name="fw_size_small">ਸਮਾਲ ਕੈਪ</string>
+    <string name="fw_open">ਫਰੇਮਵਰਕ ਦਾ ਪੂਰਾ ਹਿਸਾਬ</string>
+    <string name="fw_flag_reject">⛔ ਰੱਦ: ਪ੍ਰਮੋਟਰਾਂ ਨੇ ਆਪਣੇ %1$s%% ਸ਼ੇਅਰ ਗਿਰਵੀ ਰੱਖੇ ਹਨ (15%% ਤੋਂ ਵੱਧ)</string>
+    <string name="fw_flag_high_risk">⚠ ਉੱਚਾ ਜੋਖਮ: ਵਿਆਜ ਕਵਰ ਸਿਰਫ਼ %1$s ਗੁਣਾ (2.5 ਤੋਂ ਘੱਟ)</string>
+    <string name="fw_flag_manipulation">⚠ ਕਮਾਈ ਉੱਤੇ ਸ਼ੱਕ: 3 ਸਾਲਾਂ ਦਾ ਸੰਚਾਲਨ ਨਕਦ ਮੁਨਾਫ਼ੇ ਦਾ ਸਿਰਫ਼ %1$s ਗੁਣਾ (0.6 ਤੋਂ ਘੱਟ)</string>
+    <string name="fw_flag_low_roa">⚠ ROA %1$s%%: ਬੈਂਕ/NBFC ਲਈ 1%% ਤੋਂ ਘੱਟ, ਖ਼ਰੀਦ ਨਹੀਂ</string>
+    <string name="fw_flag_red">🚩 ਖ਼ਤਰੇ ਦਾ ਨਿਸ਼ਾਨ: ਵਾਲੀਅਮ ਔਸਤ ਦਾ %1$s ਗੁਣਾ, ਪਰ 3 ਦਿਨਾਂ ਵਿੱਚ ਕੋਈ ਫਾਈਲਿੰਗ ਜਾਂ ਖ਼ਬਰ ਨਹੀਂ — ਆਪਰੇਟਰ ਦੀ ਖੇਡ ਹੋ ਸਕਦੀ ਹੈ</string>
+    <string name="fw_flag_blocked">ਇਹਨਾਂ ਕਾਰਨਾਂ ਕਰਕੇ ਫਰੇਮਵਰਕ ਹਾਲੇ ਖ਼ਰੀਦ ਰੋਕਦਾ ਹੈ</string>
+    <string name="fw_flag_best">⭐ ਸਭ ਤੋਂ ਵਧੀਆ ਮੌਕਾ: ਭਾਅ ਖ਼ਰੀਦ ਭਾਅ ਤੋਂ ਹੇਠਾਂ, ਅਤੇ ਹਫ਼ਤਾਵਾਰੀ ਮੰਗ ਖੇਤਰ ਦੀ ਲਿਕਵਿਡਿਟੀ ਸਵੀਪ</string>
+    <string name="fw_flag_buy_zone">✅ ਖ਼ਰੀਦ ਖੇਤਰ: ਭਾਅ 200-ਦਿਨ EMA ₹%1$s ਤੋਂ ਉੱਪਰ, ਤੇਜ਼ੀ ਵਾਲੇ FVG ₹%2$s – ₹%3$s ਉੱਤੇ</string>
+    <string name="fw_flag_sweep">🎯 ਹਫ਼ਤਾਵਾਰੀ ਸਵੀਪ: ਇਸ ਜਾਂ ਪਿਛਲੇ ਹਫ਼ਤੇ ₹%1$s ਦੇ ਹਫ਼ਤਾਵਾਰੀ ਸਵਿੰਗ ਨੀਵੇਂ ਭਾਅ ਤੋਂ ਹੇਠਾਂ ਜਾ ਕੇ ਉੱਪਰ ਬੰਦ ਹੋਇਆ</string>
+    <string name="fw_flag_cyclical">⚠ ਚੱਕਰੀ: ਧਾਤ ਅਤੇ ਤੇਲ ਵਿੱਚ ਘੱਟ P/E ਅਕਸਰ ਕਮਾਈ ਦਾ ਸਿਖਰ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਮੱਧ-ਚੱਕਰ EBITDA ਉੱਤੇ ਮਾਪਿਆ</string>
+    <string name="fw_flag_peg_low">✅ PEG %1$s: 1 ਤੋਂ ਘੱਟ, ਵਾਧੇ ਦੇ ਹਿਸਾਬ ਨਾਲ ਸਸਤਾ</string>
+    <string name="fw_flag_peg_high">⚠ PEG %1$s: 2 ਤੋਂ ਉੱਪਰ, ਵਾਧੇ ਦੇ ਹਿਸਾਬ ਨਾਲ ਮਹਿੰਗਾ</string>
+    <string name="fw_penalties">ਜੁਰਮਾਨਾ: %1$s</string>
+    <string name="fw_penalty_auditor">ਆਡੀਟਰ ਦਾ ਅਸਤੀਫ਼ਾ −40%%</string>
+    <string name="fw_penalty_debt">ਕਰਜ਼ਾ −20%%</string>
+    <string name="fw_penalty_institutions">FII/DII ਦੀ ਵਿਕਵਾਲੀ −10%%</string>
+    <string name="fw_penalty_roce">ਘੱਟ ROCE −20%%</string>
+    <string name="fw_calc_model">%1$s ਦਾ ਹਿਸਾਬ (%2$s)</string>
+    <string name="fw_calc_fallback">%1$s ਲਈ ਡਾਟਾ ਘੱਟ ਸੀ (ਛੋਟਾ ਇਤਿਹਾਸ, ਘਾਟਾ ਜਾਂ ਹੌਲੀ ਵਾਧਾ), ਇਸ ਲਈ ਸੈਕਟਰ P/E–P/B ਵਾਲਾ ਹਿਸਾਬ ਲੱਗਿਆ</string>
+    <string name="fw_calc_bank_book">ਬੁੱਕ ਵੈਲਿਊ ₹%1$s/ਸ਼ੇਅਰ − ਮਾੜੇ ਕਰਜ਼ੇ ₹%2$s/ਸ਼ੇਅਰ (ਸ਼ੁੱਧ NPA ਕਰਜ਼ਿਆਂ ਦਾ %3$s%%) = ਸਮਾਯੋਜਿਤ ਬੁੱਕ ₹%4$s</string>
+    <string name="fw_calc_bank_no_npa">ਬੁੱਕ ਵੈਲਿਊ ₹%1$s/ਸ਼ੇਅਰ; ਸ਼ੁੱਧ NPA ਨਹੀਂ ਮਿਲਿਆ (ਏਕੀਕ੍ਰਿਤ ਪੰਨੇ ਉੱਤੇ ਨਹੀਂ ਹੁੰਦਾ), ਇਸ ਲਈ ਪੂਰੀ ਬੁੱਕ ਗਿਣੀ</string>
+    <string name="fw_calc_bank_pb">ਆਪਣਾ 3 ਸਾਲਾਂ ਦਾ ਮੱਧਕ P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_bank_pb_sector">ਆਪਣਾ ਇਤਿਹਾਸ ਛੋਟਾ, ਇਸ ਲਈ ਸੈਕਟਰ ਦਾ P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_roa">ROA (12 ਮਹੀਨਿਆਂ ਦਾ ਮੁਨਾਫ਼ਾ ÷ ਕੁੱਲ ਸੰਪਤੀ) %1$s%%; 1%% ਤੋਂ ਉੱਪਰ ਚਾਹੀਦਾ ਹੈ</string>
+    <string name="fw_calc_ev_multiple">ਆਪਣਾ 3 ਸਾਲਾਂ ਦਾ ਮੱਧਕ EV/EBITDA %1$s (ਅੱਜ %2$s)</string>
+    <string name="fw_calc_ev_multiple_only">ਆਪਣਾ 3 ਸਾਲਾਂ ਦਾ ਮੱਧਕ EV/EBITDA %1$s</string>
+    <string name="fw_calc_ebitda">EBITDA (12 ਮਹੀਨੇ): %1$s</string>
+    <string name="fw_calc_ebitda_mid">ਮੱਧ-ਚੱਕਰ EBITDA (ਸਾਲਾਨਾ EBITDA ਦੀ ਔਸਤ): %1$s</string>
+    <string name="fw_calc_ev_value">(%1$s × %2$s − ਕਰਜ਼ਾ %3$s) ÷ %4$s Cr ਸ਼ੇਅਰ = ₹%5$s</string>
+    <string name="fw_calc_ev_note">EV = ਬਾਜ਼ਾਰੀ ਮੁੱਲ + ਕਰਜ਼ਾ (Screener ਦੇ ਸਾਰ ਵਿੱਚ ਨਕਦ ਵੱਖਰਾ ਨਹੀਂ ਮਿਲਦਾ, ਇਸ ਲਈ ਦੋਵੇਂ ਪਾਸੇ ਇਵੇਂ ਹੀ)</string>
+    <string name="fw_calc_roce_cut">ROCE %1$s%%, 12%% ਤੋਂ ਘੱਟ → 20%% ਘੱਟ: ₹%2$s</string>
+    <string name="fw_calc_roce_ok">ROCE %1$s%% (12%% ਜਾਂ ਵੱਧ) ✓</string>
+    <string name="fw_calc_peg">P/E %1$s ÷ EPS ਦਾ 3 ਸਾਲਾਂ ਦਾ ਸਾਲਾਨਾ ਵਾਧਾ %2$s%% = PEG %3$s (1 ਤੋਂ ਘੱਟ ਸਸਤਾ, 2 ਤੋਂ ਉੱਪਰ ਮਹਿੰਗਾ)</string>
+    <string name="fw_calc_peg_fair">ਵਾਜਬ P/E: %1$s %2$s, ਪਰ PEG 2 ਦੀ ਹੱਦ (2 × ਵਾਧਾ) %3$s → %4$s</string>
+    <string name="fw_calc_peg_own">ਆਪਣਾ 3 ਸਾਲਾਂ ਦਾ ਆਮ P/E</string>
+    <string name="fw_calc_peg_sector">ਸੈਕਟਰ ਦਾ ਆਮ P/E (ਆਪਣਾ ਇਤਿਹਾਸ ਛੋਟਾ)</string>
+    <string name="fw_calc_peg_band">ਵਾਜਬ P/E: ਆਪਣਾ ਜਾਂ ਸੈਕਟਰ ਦਾ P/E ਨਹੀਂ ਮਿਲਿਆ, ਇਸ ਲਈ PEG 1.5 ਉੱਤੇ: %1$s</string>
+    <string name="fw_calc_peg_value">ਅਸਲ ਮੁੱਲ = EPS ₹%1$s × ਵਾਜਬ P/E %2$s = ₹%3$s</string>
+    <string name="fw_calc_peg_slow">EPS ਦਾ 3 ਸਾਲਾਂ ਦਾ ਸਾਲਾਨਾ ਵਾਧਾ %1$s%%: 5%% ਤੋਂ ਘੱਟ ਉੱਤੇ PEG ਕੁਝ ਨਹੀਂ ਦੱਸਦਾ</string>
+    <string name="fw_calc_general">ਸੈਕਟਰ ਦੇ P/E–P/B ਅਤੇ ਕੰਪਨੀ ਦੇ ਆਪਣੇ P/E ਤੋਂ ਨਿਕਲੇ ਭਾਅ ਦੀ ਔਸਤ = ₹%1$s</string>
+    <string name="fw_calc_penalty_auditor">ਵਿਧਾਨਕ ਆਡੀਟਰ ਨੇ %1$s ਨੂੰ ਅਸਤੀਫ਼ਾ ਦਿੱਤਾ → −40%%</string>
+    <string name="fw_calc_penalty_debt">ਕਰਜ਼ਾ ਇਕੁਇਟੀ ਦੇ 1.5 ਗੁਣਾ ਤੋਂ ਵੱਧ → −20%%</string>
+    <string name="fw_calc_penalty_institutions">FII + DII ਦੀ ਹਿੱਸੇਦਾਰੀ ਲਗਾਤਾਰ 3 ਤਿਮਾਹੀਆਂ ਘਟੀ → −10%%</string>
+    <string name="fw_calc_after_penalties">ਜੁਰਮਾਨੇ ਤੋਂ ਬਾਅਦ ਅਸਲ ਮੁੱਲ: ₹%1$s × %2$s = ₹%3$s</string>
+    <string name="fw_calc_no_penalties">ਕੋਈ ਜੁਰਮਾਨਾ ਨਹੀਂ (ਆਡੀਟਰ, ਕਰਜ਼ਾ, FII/DII ਠੀਕ) → ਅਸਲ ਮੁੱਲ ₹%1$s</string>
+    <string name="fw_calc_margin">ਸੁਰੱਖਿਆ ਦਾ ਫ਼ਰਕ %1$s%% (%2$s) → ਖ਼ਰੀਦ ਭਾਅ ₹%3$s × %4$s = ₹%5$s</string>
+    <string name="fw_calc_screen">ਸਰਬ-ਵਿਆਪਕ ਜਾਂਚ</string>
+    <string name="fw_calc_pledge">ਪ੍ਰਮੋਟਰ ਗਿਰਵੀ %1$s%% (15%% ਤੋਂ ਵੱਧ = ਰੱਦ)</string>
+    <string name="fw_calc_pledge_none">ਪ੍ਰਮੋਟਰ ਗਿਰਵੀ: NSE ਉੱਤੇ ਨਹੀਂ ਮਿਲਿਆ</string>
+    <string name="fw_calc_icr">ਵਿਆਜ ਕਵਰ: (12 ਮਹੀਨਿਆਂ ਦਾ PBT + ਵਿਆਜ) ÷ ਵਿਆਜ = %1$s ਗੁਣਾ (2.5 ਤੋਂ ਘੱਟ = ਉੱਚਾ ਜੋਖਮ)</string>
+    <string name="fw_calc_cash">3 ਸਾਲਾਂ ਦਾ ਸੰਚਾਲਨ ਨਕਦ ÷ ਮੁਨਾਫ਼ਾ = %1$s (0.6 ਤੋਂ ਘੱਟ = ਕਮਾਈ ਉੱਤੇ ਸ਼ੱਕ)</string>
+    <string name="fw_calc_lender">ਬੈਂਕ/NBFC ਦੇ ਵਿਆਜ ਅਤੇ ਨਕਦ ਪ੍ਰਵਾਹ ਨਾਲ ਇਹ ਜਾਂਚ ਨਹੀਂ ਹੁੰਦੀ</string>
+    <string name="fw_calc_chart">ਚਾਰਟ (SMC)</string>
+    <string name="fw_calc_ema_above">200-ਦਿਨ EMA ₹%1$s: ਭਾਅ ਉਸ ਤੋਂ ਉੱਪਰ</string>
+    <string name="fw_calc_ema_below">200-ਦਿਨ EMA ₹%1$s: ਭਾਅ ਉਸ ਤੋਂ ਹੇਠਾਂ</string>
+    <string name="fw_calc_gap">ਨਾ ਭਰਿਆ ਤੇਜ਼ੀ ਵਾਲਾ FVG ₹%1$s – ₹%2$s; ਭਾਅ ਉਸ ਵਿੱਚ ਜਾਂ ਉਸ ਤੋਂ 5%% ਤੱਕ ਉੱਪਰ</string>
+    <string name="fw_calc_no_gap">ਪਿਛਲੇ 60 ਸੈਸ਼ਨਾਂ ਵਿੱਚ ਭਾਅ ਦੇ ਨੇੜੇ ਕੋਈ ਨਾ ਭਰਿਆ ਤੇਜ਼ੀ ਵਾਲਾ FVG ਨਹੀਂ</string>
+    <string name="fw_calc_sweep">ਹਫ਼ਤਾਵਾਰੀ ਸਵੀਪ: ₹%1$s ਦਾ ਹਫ਼ਤਾਵਾਰੀ ਸਵਿੰਗ ਨੀਵਾਂ ਭਾਅ ਤੋੜ ਕੇ ਉੱਪਰ ਬੰਦ</string>
+    <string name="fw_calc_no_sweep">ਇਸ ਜਾਂ ਪਿਛਲੇ ਹਫ਼ਤੇ ਕੋਈ ਹਫ਼ਤਾਵਾਰੀ ਲਿਕਵਿਡਿਟੀ ਸਵੀਪ ਨਹੀਂ</string>
+    <string name="fw_calc_best_rule">ਸਭ ਤੋਂ ਵਧੀਆ ਮੌਕਾ = ਭਾਅ ਖ਼ਰੀਦ ਭਾਅ ਤੋਂ ਹੇਠਾਂ + ਹਫ਼ਤਾਵਾਰੀ ਸਵੀਪ + ਕੋਈ ਰੋਕ ਨਹੀਂ</string>
+    <string name="fw_cr">₹%1$s Cr</string>
+    <string name="help_framework_title">R/S ਦਾ ਮੁਲਾਂਕਣ ਫਰੇਮਵਰਕ (ਅਸਲ ਮੁੱਲ ਅਤੇ ਖ਼ਰੀਦ ਭਾਅ)</string>
+    <string name="help_framework_body">R/S ਹਰ ਕੰਪਨੀ ਦਾ ਅਸਲ (ਅੰਦਰੂਨੀ) ਮੁੱਲ ਉਸਦੇ ਸੈਕਟਰ ਮੁਤਾਬਕ ਕੱਢਦਾ ਹੈ। ਬੈਂਕ, NBFC ਅਤੇ ਹੋਰ ਵਿੱਤੀ ਕੰਪਨੀਆਂ: ਬੁੱਕ ਵੈਲਿਊ ਵਿੱਚੋਂ ਸ਼ੁੱਧ NPA (ਮਾੜੇ ਕਰਜ਼ੇ) ਪ੍ਰਤੀ ਸ਼ੇਅਰ ਘਟਾ ਕੇ, ਉਸ ਉੱਤੇ ਕੰਪਨੀ ਦਾ ਆਪਣਾ ਪਿਛਲੇ 3 ਸਾਲਾਂ ਦਾ ਮੱਧਕ P/B (ਇਤਿਹਾਸ ਛੋਟਾ ਹੋਵੇ ਤਾਂ ਸੈਕਟਰ ਦਾ); ROA 1% ਤੋਂ ਘੱਟ ਹੋਵੇ ਤਾਂ ਖ਼ਰੀਦ ਨਹੀਂ। ਕੈਪੀਟਲ ਗੁੱਡਜ਼, ਆਟੋ, ਕੈਮੀਕਲ, ਉਸਾਰੀ, ਬਿਜਲੀ ਵਰਗੀਆਂ ਮਸ਼ੀਨਾਂ ਅਤੇ ਕਾਰਖ਼ਾਨਿਆਂ ਵਾਲੀਆਂ ਕੰਪਨੀਆਂ: ਆਪਣਾ 3 ਸਾਲਾਂ ਦਾ ਮੱਧਕ EV/EBITDA × ਅੱਜ ਦਾ EBITDA, ਉਸ ਵਿੱਚੋਂ ਕਰਜ਼ਾ ਘਟਾ ਕੇ ਪ੍ਰਤੀ ਸ਼ੇਅਰ; ROCE 12% ਤੋਂ ਘੱਟ ਹੋਵੇ ਤਾਂ 20% ਘੱਟ। ਧਾਤ, ਖਣਨ, ਤੇਲ ਅਤੇ ਗੈਸ: ਇਹੀ ਹਿਸਾਬ, ਪਰ ਸਾਲਾਂ ਦੀ ਔਸਤ (ਮੱਧ-ਚੱਕਰ) EBITDA ਉੱਤੇ, ਅਤੇ ਚੇਤਾਵਨੀ ਕਿ ਉੱਥੇ ਘੱਟ P/E ਅਕਸਰ ਕਮਾਈ ਦਾ ਸਿਖਰ ਹੁੰਦਾ ਹੈ। IT, FMCG ਅਤੇ ਦਵਾਈਆਂ: PEG = P/E ÷ EPS ਦਾ ਪਿਛਲੇ 3 ਸਾਲਾਂ ਦਾ ਸਾਲਾਨਾ ਵਾਧਾ (ਅੱਗੇ ਦੇ ਵਾਧੇ ਦਾ ਅੰਦਾਜ਼ਾ ਮੁਫ਼ਤ ਨਹੀਂ ਮਿਲਦਾ); 1 ਤੋਂ ਘੱਟ ਸਸਤਾ, 2 ਤੋਂ ਉੱਪਰ ਮਹਿੰਗਾ; ਅਸਲ ਮੁੱਲ = EPS × ਕੰਪਨੀ ਦਾ ਆਪਣਾ ਆਮ P/E, ਪਰ PEG 2 ਵਾਲੇ P/E (2 × ਵਾਧਾ) ਤੋਂ ਵੱਧ ਨਹੀਂ। ਬਾਕੀ ਸੈਕਟਰ, ਜਾਂ ਜਿਹਨਾਂ ਦਾ ਡਾਟਾ ਘੱਟ ਹੋਵੇ: ਪੁਰਾਣਾ ਸੈਕਟਰ P/E–P/B ਅਤੇ ਆਪਣੇ P/E ਵਾਲਾ ਹਿਸਾਬ। ਫਿਰ ਜੁਰਮਾਨਾ: ਪਿਛਲੇ 1 ਸਾਲ ਵਿੱਚ ਵਿਧਾਨਕ ਆਡੀਟਰ ਦਾ ਅਸਤੀਫ਼ਾ −40%, ਕਰਜ਼ਾ ਇਕੁਇਟੀ ਦੇ 1.5 ਗੁਣਾ ਤੋਂ ਵੱਧ −20%, FII + DII ਦੀ ਹਿੱਸੇਦਾਰੀ ਲਗਾਤਾਰ 3 ਤਿਮਾਹੀਆਂ ਘਟੀ −10%। ਖ਼ਰੀਦ ਭਾਅ = ਅਸਲ ਮੁੱਲ × (1 − ਸੁਰੱਖਿਆ ਦਾ ਫ਼ਰਕ): ਬਾਜ਼ਾਰੀ ਮੁੱਲ ਵਿੱਚ ਪਹਿਲੀਆਂ 100 ਕੰਪਨੀਆਂ (ਲਾਰਜ ਕੈਪ) ਉੱਤੇ 20%, 101–250 (ਮਿਡ ਕੈਪ) ਉੱਤੇ 27.5% ਅਤੇ ਬਾਕੀ (ਸਮਾਲ ਕੈਪ) ਉੱਤੇ 35%। ਹਰ ਕੰਪਨੀ ਦੀ ਸਰਬ-ਵਿਆਪਕ ਜਾਂਚ ਵੀ ਹੁੰਦੀ ਹੈ: ਪ੍ਰਮੋਟਰਾਂ ਨੇ ਆਪਣੇ 15% ਤੋਂ ਵੱਧ ਸ਼ੇਅਰ ਗਿਰਵੀ ਰੱਖੇ ਹੋਣ ਤਾਂ ਰੱਦ (R/S \"ਦੂਰ ਰਹੋ\"); ਵਿਆਜ ਕਵਰ 2.5 ਗੁਣਾ ਤੋਂ ਘੱਟ ਹੋਵੇ ਤਾਂ ਉੱਚਾ ਜੋਖਮ, ਅਤੇ 3 ਸਾਲਾਂ ਦਾ ਸੰਚਾਲਨ ਨਕਦ ਮੁਨਾਫ਼ੇ ਦੇ 0.6 ਗੁਣਾ ਤੋਂ ਘੱਟ ਹੋਵੇ ਤਾਂ ਕਮਾਈ ਉੱਤੇ ਸ਼ੱਕ (ਦੋਵਾਂ ਵਿੱਚ R/S ਵੱਧ ਤੋਂ ਵੱਧ \"ਸਾਵਧਾਨੀ\")। ਚਾਰਟ ਉੱਤੇ: ਭਾਅ 200-ਦਿਨ EMA ਤੋਂ ਉੱਪਰ ਅਤੇ ਕਿਸੇ ਨਾ ਭਰੇ ਤੇਜ਼ੀ ਵਾਲੇ FVG ਉੱਤੇ ਹੋਵੇ ਤਾਂ ਖ਼ਰੀਦ ਖੇਤਰ; ਇਸ ਜਾਂ ਪਿਛਲੇ ਹਫ਼ਤੇ ਭਾਅ ਕਿਸੇ ਹਫ਼ਤਾਵਾਰੀ ਸਵਿੰਗ ਨੀਵੇਂ ਭਾਅ ਤੋਂ ਹੇਠਾਂ ਜਾ ਕੇ ਉੱਪਰ ਬੰਦ ਹੋਇਆ ਹੋਵੇ ਤਾਂ ਹਫ਼ਤਾਵਾਰੀ ਸਵੀਪ। ਭਾਅ ਖ਼ਰੀਦ ਭਾਅ ਤੋਂ ਹੇਠਾਂ ਹੋਵੇ, ਹਫ਼ਤਾਵਾਰੀ ਸਵੀਪ ਹੋਵੇ ਅਤੇ ਕੋਈ ਰੋਕ ਨਾ ਹੋਵੇ ਤਾਂ ⭐ ਸਭ ਤੋਂ ਵਧੀਆ ਮੌਕਾ। ਸ਼ੇਅਰ ਖੋਲ੍ਹਣ ਉੱਤੇ ਉਸਦੀਆਂ ਖ਼ਬਰਾਂ ਵੀ ਦੇਖੀਆਂ ਜਾਂਦੀਆਂ ਹਨ: ਵਾਲੀਅਮ ਔਸਤ ਦਾ 3 ਗੁਣਾ ਜਾਂ ਵੱਧ ਹੋਵੇ ਪਰ ਪਿਛਲੇ 3 ਦਿਨਾਂ ਵਿੱਚ ਕੋਈ ਫਾਈਲਿੰਗ ਜਾਂ ਖ਼ਬਰ ਨਾ ਹੋਵੇ ਤਾਂ 🚩 ਖ਼ਤਰੇ ਦਾ ਨਿਸ਼ਾਨ (ਆਪਰੇਟਰ ਦੀ ਖੇਡ ਹੋ ਸਕਦੀ ਹੈ) ਅਤੇ ਫਰੇਮਵਰਕ ਖ਼ਰੀਦ ਰੋਕਦਾ ਹੈ। ਪ੍ਰਮੋਟਰ ਗਿਰਵੀ ਅਤੇ ਆਡੀਟਰ ਦੇ ਅਸਤੀਫ਼ੇ NSE ਤੋਂ ਆਉਂਦੇ ਹਨ, ਇਸ ਲਈ ਸਿਰਫ਼ BSE ਵਾਲੇ ਸ਼ੇਅਰਾਂ ਵਿੱਚ ਇਹ ਜਾਂਚ ਨਹੀਂ ਹੁੰਦੀ। R/S ਕਾਰਡ ਵਿੱਚ ਅਸਲ ਮੁੱਲ, ਖ਼ਰੀਦ ਭਾਅ ਅਤੇ ਚੇਤਾਵਨੀਆਂ ਦਿਸਦੀਆਂ ਹਨ ਅਤੇ \"ਫਰੇਮਵਰਕ ਦਾ ਪੂਰਾ ਹਿਸਾਬ\" ਦਬਾਉਣ ਉੱਤੇ ਹਰ ਕਦਮ ਦਾ ਹਿਸਾਬ। ਨਵੇਂ ਅੰਕੜੇ ਹਰ ਸ਼ੇਅਰ ਦਾ Screener ਪੰਨਾ ਮੁੜ ਪੜ੍ਹਨ ਉੱਤੇ ਆਉਂਦੇ ਹਨ, ਇਸ ਵਿੱਚ ਕੁਝ ਦਿਨ ਲੱਗਣਗੇ; ਉਦੋਂ ਤੱਕ ਕੁਝ ਸ਼ੇਅਰ ਪੁਰਾਣੇ ਹਿਸਾਬ ਉੱਤੇ ਰਹਿਣਗੇ। ਨਿਵੇਸ਼ ਸਲਾਹ ਨਹੀਂ।</string>
+</resources>

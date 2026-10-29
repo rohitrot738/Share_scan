@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unit_today">আজ</string>
+    <string name="unit_days_ago">%1$s দিন আগে</string>
+    <string name="unit_days">%1$s দিন</string>
+    <string name="unit_month">%1$s মাস</string>
+    <string name="unit_months">%1$s মাস</string>
+    <string name="unit_week">%1$s সপ্তাহ</string>
+    <string name="unit_weeks">%1$s সপ্তাহ</string>
+    <string name="unit_lakh">লাখ</string>
+    <string name="scan_error_no_lists">কোনো শেয়ারের তালিকা পাওয়া যায়নি</string>
+    <string name="scan_error_no_sector_stocks">বাছাই করা সেক্টরগুলোতে কোনো শেয়ার নেই — মেনু → স্ক্যান-এ সেক্টর বাছুন</string>
+</resources>

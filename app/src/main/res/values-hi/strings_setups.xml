@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="item_setup_learned">🎯 सीखा सेटअप • %1$d%% सफल: %2$s</string>
+    <string name="detail_setup_learned">🎯 सीखा सेटअप: %1$s। पिछले 2 साल में ऐसी %2$d योजनाओं में से %3$d%% में लक्ष्य 1 तय दिनों में स्टॉप से पहले लगा (सभी शेयरों का औसत %4$d%%)।</string>
+    <string name="detail_setup_learned_none">इस शेयर पर आज कोई सीखा सेटअप लागू नहीं। सभी शेयरों में लक्ष्य 1 तय दिनों में %1$d%% बार लगा। सबसे सफल सेटअप: %2$s</string>
+    <string name="detail_setup_learned_top">%1$s (%2$d%%)</string>
+    <string name="item_setup_rally">📈 तेज़ी सेटअप • %1$d%%: %2$s</string>
+    <string name="detail_plan_stop_learned">सीखा स्टॉप: एंट्री से %1$s ATR नीचे</string>
+    <string name="detail_plan_quick_time_learned">⏱ एंट्री के बाद लगभग %1$d–%2$d दिन</string>
+    <string name="detail_plan_learned">🧠 सीखी योजना: स्टॉप %1$s, लक्ष्य 1 = +%2$s, %3$d दिन के अंदर। पिछले 2 साल में ऐसी योजनाओं में %4$d%% सफल, औसत %5$s प्रति ट्रेड (सभी शेयरों पर ऐप की पुरानी योजना: %6$d%% सफल, %7$s)।</string>
+    <string name="detail_plan_learned_stop_atr">एंट्री से %1$s ATR नीचे</string>
+    <string name="detail_plan_learned_stop_own">10 दिन के निचले भाव के नीचे (ऐप का अपना)</string>
+    <string name="detail_plan_learned_own">🧠 सीखा: ऐप का अपना स्टॉप और लक्ष्य ही अब तक सबसे अच्छा रहा — %1$d%% सफल, औसत %2$s प्रति ट्रेड।</string>
+    <string name="detail_rally_setup">📈 तेज़ी का सेटअप: %1$s। पिछले 2 साल में ऐसे %2$d%% मौकों पर भाव %3$d दिन के अंदर %4$s ATR (आज के हिसाब से ≈ %5$s) ऊपर गया, पहले गिरे बिना (सभी शेयरों में %6$d%%)।</string>
+    <string name="detail_rally_why">📈 तेज़ी से पहले अक्सर दिखा: %1$s</string>
+    <string name="item_setup_mistake">⚠ सीखी ग़लती • सिर्फ़ %1$d%% सफल: %2$s</string>
+    <string name="detail_setup_mistake">⚠ सीखी ग़लती: %1$s। पिछले 2 साल में ऐसे %2$d ट्रेडों में से सिर्फ़ %3$d%% सफल रहे (सभी शेयरों का औसत %4$d%%) — %5$d%% में पहले स्टॉप लगा, %6$d%% में लक्ष्य तय दिनों में नहीं आया। ऐसे सेटअप पर ट्रेड उल्टा जाने की संभावना ज़्यादा रही है।</string>
+    <string name="setup_breakout_today">आज ब्रेकआउट</string>
+    <string name="setup_near_trigger">ब्रेकआउट से 1 ATR दूर</string>
+    <string name="setup_volume_2x">वॉल्यूम 2×+</string>
+    <string name="setup_volume_1_5x">वॉल्यूम 1.5×+</string>
+    <string name="setup_quiet_before">पहले 5 दिन वॉल्यूम कम</string>
+    <string name="setup_tight_week">1 हफ़्ते का दायरा 5% में</string>
+    <string name="setup_tight_two_weeks">2 हफ़्ते का दायरा 8% में</string>
+    <string name="setup_above_sma50">50 DMA के ऊपर</string>
+    <string name="setup_sma20_over_sma50">20 DMA, 50 DMA के ऊपर</string>
+    <string name="setup_up_20_days">20 दिन में ऊपर</string>
+    <string name="setup_up_5_percent_week">5 दिन में 5%+ ऊपर</string>
+    <string name="setup_rsi_50_70">RSI 50–70</string>
+    <string name="setup_rsi_70_plus">RSI 70+</string>
+    <string name="setup_rsi_under_50">RSI 50 से कम</string>
+    <string name="setup_macd_above_signal">MACD सिग्नल के ऊपर</string>
+    <string name="setup_macd_fresh_cross">MACD क्रॉसओवर 3 दिन में</string>
+    <string name="setup_macd_above_zero">MACD शून्य के ऊपर</string>
+    <string name="setup_near_support">सपोर्ट से 5% में</string>
+    <string name="setup_long_support">पुराना सपोर्ट</string>
+    <string name="setup_liquid_10cr">रोज़ ₹10 Cr+ कारोबार</string>
+    <string name="setup_score_strong">स्कोर STRONG</string>
+    <string name="setup_score_watch">स्कोर WATCH+</string>
+    <string name="setup_prev_strong">कल भी STRONG</string>
+    <string name="setup_near_6m_high">6 महीने के ऊँचे भाव से 3% में</string>
+    <string name="setup_up_4_percent_today">आज 4%+ ऊपर</string>
+    <string name="setup_close_near_day_high">दिन के ऊँचे भाव के पास बंद</string>
+    <string name="setup_calm_ranges">10 दिन से रोज़ का उतार-चढ़ाव कम</string>
+    <string name="help_setups_title">सीखे हुए सेटअप</string>
+    <string name="help_setups_body">हर शाम (बाज़ार के दिनों में) ऐप पूरे बाज़ार के हर शेयर के पिछले 2 साल के हर दिन पर वही स्कोर और ट्रेड योजना बनाता है जो उस दिन दिखती, और देखता है कि आगे क्या हुआ: लक्ष्य 1 बताए गए दिनों के अंदर स्टॉप से पहले लगा तो सफल; स्टॉप पहले लगा या लक्ष्य समय पर नहीं आया तो असफल। फिर 1 से 3 शर्तों के मेल (जैसे आज ब्रेकआउट + वॉल्यूम 2×+ + RSI 50–70) में से वही सेटअप रखे जाते हैं जो पूरे बाज़ार के औसत से साफ़ ज़्यादा सफल रहे — पुराने डेटा पर भी और पिछले 60 दिनों पर भी, जिन पर उन्हें चुना नहीं गया था। जो सेटअप आगे चलकर औसत से ऊपर नहीं रहता, वह हट जाता है। ग़लतियों से भी सीखता है: जिन शर्तों के मेल पर ट्रेड औसत से साफ़ ज़्यादा उल्टे गए (स्टॉप पहले लगा या लक्ष्य समय पर नहीं आया) — वह भी पुराने डेटा और पिछले 60 दिनों दोनों पर — वे \"⚠ सीखी ग़लती\" बनकर कार्ड और विवरण में चेतावनी देते हैं, साथ में कितने % में स्टॉप लगा और कितने % में लक्ष्य देर से आया। कोई ग़लती आगे चलकर सुधर जाए तो चेतावनी हट जाती है। स्टॉप, लक्ष्य और समय भी सीखे जाते हैं: हर पुरानी योजना को 30,000 तरह से जाँचा जाता है (स्टॉप एंट्री से 1 से 3.4 ATR नीचे या ऐप का अपना, लक्ष्य 1 = 0.5R से 5.45R, और लक्ष्य का समय आधे से तीन गुना दिन) और जो मेल पूरे बाज़ार में प्रति ट्रेड सबसे ज़्यादा कमाई (औसत R) देता है — पुराने डेटा पर भी और पिछले 60 दिनों पर भी, और जिसके आस-पास के मेल भी अच्छे रहे, ताकि क़िस्मत से अच्छा दिखा मेल न चुना जाए — वही योजना में लगता है; किसी सेटअप के लिए अलग मेल और बेहतर रहे तो उसे अपना मिलता है। नया मेल पुराने से साफ़ बेहतर हो तभी उसकी जगह लेता है, और पीछे रह जाए तो हट जाता है; वॉचलिस्ट अलर्ट भी यही स्टॉप और लक्ष्य मानते हैं। तेज़ी से भी सीखता है: हर शेयर के हर दिन को देखा जाता है कि क्या भाव अगले 20 दिनों में 3 ATR ऊपर गया, पहले 1.5 ATR गिरे बिना — और उससे पहले कौन-सी शर्तें थीं; जिन शर्तों के बाद ऐसी तेज़ी औसत से साफ़ ज़्यादा आई, वे \"📈 तेज़ी सेटअप\" बनकर दिखते हैं। ये सब हर शाम अपने-आप होता है। कार्ड और शेयर विवरण में ऐप के अपने पुराने सेटअप की जगह यही सीखे सेटअप और उनका असली सफलता % दिखता है, और ट्रेड योजना के जल्दी लक्ष्य के % भी ताज़ा डेटा से आते हैं। ये पिछले डेटा के आँकड़े हैं, आगे की गारंटी नहीं; निवेश सलाह नहीं।</string>
+</resources>

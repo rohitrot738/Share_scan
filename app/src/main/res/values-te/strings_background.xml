@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notify_channel_scan">స్కాన్ జరుగుతోంది</string>
+    <string name="notify_channel_scan_body">యాప్ మూసినా మీ స్కాన్ కొనసాగుతుంది కాబట్టి, దాని పురోగతి</string>
+    <string name="notify_channel_scan_done">స్కాన్ పూర్తైంది</string>
+    <string name="notify_channel_scan_done_body">మీరు యాప్ బయట ఉన్నప్పుడు పూర్తైన స్కాన్ ఫలితం</string>
+    <string name="notify_scan_title">స్కాన్ జరుగుతోంది</string>
+    <string name="notify_scan_loading">స్టాక్ జాబితా వస్తోంది…</string>
+    <string name="notify_scan_body">%1$s / %2$s స్టాక్‌లు • %3$d%%</string>
+    <string name="notify_scan_stopping">స్కాన్ ఆపుతోంది…</string>
+    <string name="notify_scan_done">✅ స్కాన్ పూర్తైంది • %1$d ఉత్తమ అభ్యర్థులు</string>
+    <string name="notify_scan_stopped">⏹ స్కాన్ ఆపబడింది • %1$d ఉత్తమ అభ్యర్థులు</string>
+    <string name="notify_scan_stopped_early">⏹ స్కాన్ ఆపబడింది</string>
+    <string name="notify_scan_stopped_early_body">ఏ స్టాక్ చెక్ అవ్వకముందే ఆపబడింది — మునుపటి స్కాన్ మారలేదు</string>
+    <string name="notify_scan_top">టాప్: %1$s • స్కోర్ %2$s — చూడటానికి నొక్కండి</string>
+    <string name="notify_scan_none">మీ ఫిల్టర్లను ఏ స్టాక్ దాటలేదు — చూడటానికి నొక్కండి</string>
+    <string name="status_reading_title">చివరి స్కాన్ తెరుస్తోంది…</string>
+    <string name="status_reading_body">సేవ్ చేసిన జాబితా చదువుతోంది — ఒక్క క్షణం</string>
+    <string name="empty_reading_body">చివరి స్కాన్ జాబితా వస్తోంది; నోటిఫికేషన్ నుంచి తెరిచిన స్టాక్ దానితో పాటు తెరుచుకుంటుంది.</string>
+    <string name="notify_open_missing">%1$s ప్రస్తుత జాబితాలో లేదు — కొత్త స్కాన్ చేయండి</string>
+    <string name="notify_channel_update">యాప్ అప్‌డేట్</string>
+    <string name="notify_channel_update_body">కొత్త వెర్షన్ డౌన్‌లోడ్ అయ్యి ఇన్‌స్టాల్‌కు సిద్ధంగా ఉన్నప్పుడు</string>
+    <string name="update_download_title">Share Scan %1$s</string>
+    <string name="update_download_body">కొత్త వెర్షన్ డౌన్‌లోడ్ అవుతోంది</string>
+    <string name="notify_update_ready">Share Scan %1$s సిద్ధం</string>
+    <string name="notify_update_ready_body">డౌన్‌లోడ్ పూర్తైంది — ఇన్‌స్టాల్ చేయడానికి నొక్కండి</string>
+    <string name="settings_background">బ్యాక్‌గ్రౌండ్‌లో నడవనివ్వండి</string>
+    <string name="settings_background_off">⚠ ప్రస్తుతం బ్యాటరీ ఆదా కోసం Android ఆటో-స్కాన్, అలర్ట్‌లను ఆలస్యం చేయవచ్చు లేదా ఆపవచ్చు. ఇక్కడ నొక్కి “Allow” ఎంచుకోండి. Xiaomi, Redmi, Vivo, Oppo, Realmeలో App infoలో “Autostart” కూడా ఆన్ చేయండి.</string>
+    <string name="settings_background_on">✓ ఆన్ — బ్యాటరీ ఆదా కోసం Android ఈ యాప్ ఆటో-స్కాన్, అలర్ట్‌లను ఆపదు. Xiaomi, Redmi, Vivo, Oppo, Realmeలో App infoలో “Autostart” కూడా ఆన్‌లో ఉంచండి (తెరవడానికి ఇక్కడ నొక్కండి).</string>
+    <string name="help_background_title">బ్యాక్‌గ్రౌండ్‌లో స్కాన్</string>
+    <string name="help_background_body">స్కాన్ నొక్కిన తర్వాత మీరు యాప్ నుంచి బయటకు వెళ్లినా లేదా స్క్రీన్ ఆఫ్ చేసినా స్కాన్ కొనసాగుతుంది — ఒక నోటిఫికేషన్ దాని పురోగతి, “ఆపు” బటన్ చూపిస్తుంది, పూర్తయ్యాక మరొకటి ఫలితం తెస్తుంది. అప్‌డేట్ డౌన్‌లోడ్ కూడా Android డౌన్‌లోడ్ మేనేజర్ ద్వారా జరుగుతుంది, కాబట్టి యాప్ మూసినా పూర్తవుతుంది, ఆపై “ఇన్‌స్టాల్ చేయడానికి నొక్కండి” నోటిఫికేషన్ వస్తుంది. మార్కెట్ సమయంలో ఆటో-స్కాన్‌ను Android స్వయంగా నడుపుతుంది: మెనూ → స్కాన్‌లో “బ్యాక్‌గ్రౌండ్‌లో నడవనివ్వండి” నొక్కి అనుమతి ఇవ్వండి, లేకపోతే బ్యాటరీ ఆదా కోసం Android దాన్ని ఆలస్యం చేయవచ్చు లేదా ఆపవచ్చు. Xiaomi, Redmi, Vivo, Oppo, Realme వంటి ఫోన్‌లలో App infoలో “Autostart” కూడా ఆన్ చేయండి.</string>
+</resources>

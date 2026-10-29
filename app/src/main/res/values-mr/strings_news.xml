@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="news_kind_results">निकाल</string>
+    <string name="news_kind_order">ऑर्डर</string>
+    <string name="news_kind_dividend">लाभांश / बोनस</string>
+    <string name="news_kind_fundraise">भांडवल उभारणी</string>
+    <string name="news_kind_deal">अधिग्रहण</string>
+    <string name="news_kind_expansion">विस्तार</string>
+    <string name="news_kind_management">व्यवस्थापन</string>
+    <string name="news_kind_rating">रेटिंग</string>
+    <string name="news_kind_legal">कायदेशीर</string>
+    <string name="news_kind_meeting">बोर्ड बैठक</string>
+    <string name="news_kind_investor">विश्लेषक बैठक</string>
+    <string name="news_kind_other">बातमी</string>
+    <string name="news_kind_routine">सामान्य सूचना</string>
+    <string name="news_pre_open">बाजारापूर्वी</string>
+    <string name="news_live">लाइव्ह</string>
+    <string name="news_today">आज %1$s</string>
+    <string name="news_yesterday">काल %1$s</string>
+    <string name="detail_tab_overview">माहिती</string>
+    <string name="detail_tab_news">बातम्या</string>
+    <string name="detail_tab_news_count">बातम्या · %1$d</string>
+    <string name="news_loading">NSE/BSE च्या घोषणा आणि वृत्तपत्रांच्या बातम्या येत आहेत…</string>
+    <string name="news_subtitle">एक्सचेंजच्या घोषणा (30 दिवस) आणि वृत्तपत्रांच्या बातम्या (7 दिवस) • नवीन सर्वात वर • संपूर्ण बातमी वाचण्यासाठी दाबा</string>
+    <string name="news_subtitle_wide">या शेअरच्या बातम्या कमी येतात, म्हणून मागील 1 वर्षापर्यंतच्या घोषणा आणि बातम्या • नवीन सर्वात वर • संपूर्ण बातमी वाचण्यासाठी दाबा</string>
+    <string name="news_none">मागील 1 वर्षात या शेअरची कोणतीही घोषणा किंवा बातमी मिळाली नाही</string>
+    <string name="news_failed">बातम्या येऊ शकल्या नाहीत — इंटरनेट तपासा आणि शीट पुन्हा उघडा</string>
+    <string name="news_source_filing">%1$s घोषणा • PDF</string>
+    <string name="news_source_filing_page">%1$s घोषणा</string>
+    <string name="news_more">आणखी %1$d बातम्या दाखवा</string>
+    <string name="news_routine">+%1$d सामान्य सूचना (वृत्तपत्रातील नोटीस, ट्रेडिंग विंडो, प्रमाणपत्रे…)</string>
+    <string name="news_open_failed">बातमी उघडण्यासाठी कोणताही ब्राउझर मिळाला नाही</string>
+    <string name="item_news_badge">📰 %1$s</string>
+    <string name="item_news_badge_more">📰 %1$s +%2$d</string>
+    <string name="item_news_description">मागील 24 तासांत %1$d घोषणा, सर्वात महत्त्वाची: %2$s</string>
+    <string name="settings_news_alerts">वॉचलिस्टच्या बातम्या</string>
+    <string name="settings_news_alerts_body">सकाळी 8 ते 9:15 दरम्यान ★ असलेल्या शेअर्सच्या रात्रभरच्या बातम्या एका सूचनेत, आणि दिवसा (सकाळी 7 ते रात्री 10) निकाल, ऑर्डर, लाभांश अशी मोठी घोषणा येताच सूचना</string>
+    <string name="notify_channel_news">वॉचलिस्टच्या बातम्या</string>
+    <string name="notify_channel_news_body">★ असलेल्या शेअर्सच्या सकाळच्या बातम्या आणि मोठ्या घोषणा</string>
+    <string name="notify_news_alert">📰 %1$s: %2$s</string>
+    <string name="notify_news_read">संपूर्ण बातमी</string>
+    <string name="notify_news_digest">🗞 सकाळच्या बातम्या • %1$d शेअर्स</string>
+    <string name="notify_news_digest_line">%1$s · %2$s: %3$s</string>
+    <string name="help_news_title">बातम्या</string>
+    <string name="help_news_body">प्रत्येक शेअरच्या तपशीलात वेगळा \"बातम्या\" टॅब आहे: NSE च्या (फक्त BSE वर सूचीबद्ध शेअरसाठी BSE च्या) मागील 30 दिवसांच्या घोषणा आणि मागील आठवड्यातील वृत्तपत्रांच्या बातम्या (Google News वरून, इंग्रजी आणि हिंदी), नवीन सर्वात वर. किमान 10 बातम्या दिसतात: ज्या शेअरच्या बातम्या कमी येतात, त्याच्या मागील 1 वर्षापर्यंतच्या घोषणा आणि बातम्या येतात. ताजी बातमी असेल तर टॅबवर ठिपका दिसतो. प्रत्येक बातमीवर तिचा प्रकार (निकाल, ऑर्डर, लाभांश, विस्तार, कायदेशीर…) लिहिलेला आहे, आणि \"बाजारापूर्वी\" (मागच्या बंदनंतर आलेली, पुढचे सत्र यावर उघडेल) किंवा \"लाइव्ह\" (आज बाजारादरम्यान आलेली). दाबल्यावर संपूर्ण बातमी किंवा घोषणेची PDF उघडते. यादीतील 📰 ची खूण सांगते की त्या शेअरची मागील 24 तासांत एक्सचेंजवर घोषणा आली आहे; ती दाबल्यावर शेअर थेट \"बातम्या\" टॅबवर उघडतो, आणि बातम्यांच्या सूचनाही. मेनू → स्कॅन मध्ये \"वॉचलिस्टच्या बातम्या\" सुरू असेल तर ★ असलेल्या शेअर्सच्या सकाळच्या बातम्या आणि दिवसाच्या मोठ्या घोषणा सूचनेत येतात. बातमी चांगली की वाईट, ॲप हे सांगत नाही — वाचून स्वतः ठरवा.</string>
+</resources>

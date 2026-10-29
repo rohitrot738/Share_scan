@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_sky">ਅਸਮਾਨ ਦਾ ਐਨੀਮੇਸ਼ਨ</string>
+    <string name="settings_sky_body">ਤਾਰੇ, ਟੁੱਟਦੇ ਤਾਰੇ ਅਤੇ ਚਮਕ ਚੱਲਦੇ ਰਹਿਣ; ਬੰਦ ਕਰਨ ਉੱਤੇ ਅਸਮਾਨ ਰੁਕਿਆ ਰਹੇਗਾ (ਬੈਟਰੀ ਬਚੇਗੀ)</string>
+    <string name="settings_section_glass">ਸ਼ੀਸ਼ਾ ਮੋਡ</string>
+    <string name="settings_glass_on">ਸ਼ੀਸ਼ੇ ਦਾ ਅਸਰ</string>
+    <string name="settings_glass_on_body">ਬੰਦ ਕਰਨ ਉੱਤੇ ਬੋਰਡ, ਕਾਰਡ, ਬਟਨ ਅਤੇ ਸ਼ੀਟਾਂ ਸਾਦੀਆਂ ਅਤੇ ਠੋਸ • ਕੋਈ ਸ਼ੀਸ਼ਾ, ਚਮਕ ਜਾਂ ਧੁੰਦਲਾਪਨ ਨਹੀਂ</string>
+    <string name="glass_off_body">ਹੁਣ: ਸ਼ੀਸ਼ਾ ਬੰਦ • ਉੱਪਰਲਾ ਸਵਿੱਚ ਚਾਲੂ ਕਰਦਿਆਂ ਹੀ ਚੁਣਿਆ ਮੋਡ ਵਾਪਸ ਆ ਜਾਵੇਗਾ</string>
+    <string name="settings_glass_body">ਸਕੈਨ ਬੋਰਡ, ਕਾਰਡ, ਸ਼ੀਟਾਂ, ਚਿੱਪਾਂ ਅਤੇ ਸਵਿੱਚਾਂ ਦਾ ਸ਼ੀਸ਼ਾ • ਚੁਣਦਿਆਂ ਹੀ ਪੂਰੀ ਐਪ ਉਸੇ ਵਿੱਚ</string>
+    <string name="glass_frosted">ਧੁੰਦਲਾ</string>
+    <string name="glass_clear">ਪਾਰਦਰਸ਼ੀ</string>
+    <string name="glass_smoky">ਗੂੜ੍ਹਾ</string>
+    <string name="glass_tinted">ਰੰਗੀਨ</string>
+    <string name="glass_liquid">ਸਤਰੰਗੀ</string>
+    <string name="glass_solid">ਠੋਸ</string>
+    <string name="glass_frosted_body">ਹੁਣ: ਹਲਕਾ ਧੁੰਦਲਾ ਸ਼ੀਸ਼ਾ, ਪਿੱਛੇ ਅਸਮਾਨ ਝਲਕੇ • ਡਿਫੌਲਟ</string>
+    <string name="glass_clear_body">ਹੁਣ: ਬਿਲਕੁਲ ਸਾਫ਼ ਸ਼ੀਸ਼ਾ, ਚਮਕਦੇ ਕਿਨਾਰੇ • ਅਸਮਾਨ ਸਭ ਤੋਂ ਵੱਧ ਦਿਸੇ</string>
+    <string name="glass_smoky_body">ਹੁਣ: ਧੂੰਏਂ ਵਰਗਾ ਗੂੜ੍ਹਾ ਕਾਲਾ ਸ਼ੀਸ਼ਾ • ਅਸਮਾਨ ਥੋੜ੍ਹਾ ਜਿਹਾ ਝਲਕੇ</string>
+    <string name="glass_tinted_body">ਹੁਣ: ਥੀਮ ਦੇ ਰੰਗ ਵਿੱਚ ਰੰਗਿਆ ਸ਼ੀਸ਼ਾ</string>
+    <string name="glass_liquid_body">ਹੁਣ: ਅਸਮਾਨੀ ਤੋਂ ਗੁਲਾਬੀ ਚਮਕਦੇ ਕਿਨਾਰੇ, ਪਾਣੀ ਉੱਤੇ ਤੇਲ ਦੀ ਪਰਤ ਵਾਂਗ</string>
+    <string name="glass_solid_body">ਹੁਣ: ਪੱਕੇ, ਠੋਸ ਕਾਰਡ, ਬੱਸ ਹਲਕੀ ਚਮਕ • ਪੜ੍ਹਨ ਵਿੱਚ ਸਭ ਤੋਂ ਸੌਖਾ, ਫ਼ੋਨ ਉੱਤੇ ਸਭ ਤੋਂ ਹਲਕਾ</string>
+</resources>

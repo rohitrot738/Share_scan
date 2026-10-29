@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_background">ਪਿਛੋਕੜ</string>
+    <string name="background_title">ਪਿਛੋਕੜ ਚੁਣੋ</string>
+    <string name="background_subtitle">ਹਰ ਪਿਛੋਕੜ ਦਾ ਆਪਣਾ ਰੂਪ ਅਤੇ ਐਨੀਮੇਸ਼ਨ • ਰੰਗ ਥੀਮ ਵਾਲੇ ਹੀ</string>
+    <string name="background_galaxy">Galaxy</string>
+    <string name="background_galaxy_body">ਆਕਾਸ਼ਗੰਗਾ, ਟਿਮਟਿਮਾਉਂਦੇ ਅਤੇ ਟੁੱਟਦੇ ਤਾਰੇ • ਵੱਡੇ ਕਾਰਡਾਂ ਵਾਲਾ ਰੂਪ</string>
+    <string name="background_space_glass">Space Glass</string>
+    <string name="background_space_glass_body">ਤੈਰਦੀਆਂ ਰੋਸ਼ਨੀਆਂ, ਚੱਲਦੀ ਟ੍ਰੇਡਿੰਗ ਗਰਿੱਡ ਅਤੇ ਚਾਰਟ-ਰੇਖਾ • ਸੰਖੇਪ ਸਾਰਣੀ ਵਾਲਾ ਰੂਪ</string>
+    <string name="help_sky_title">ਪਿਛੋਕੜ ਅਤੇ ਥੀਮ</string>
+    <string name="help_sky_body">ਮੀਨੂ → ਪਿਛੋਕੜ ਤੋਂ ਦੋ ਵਿੱਚੋਂ ਇੱਕ ਚੁਣੋ — ਹਰ ਇੱਕ ਦਾ ਆਪਣਾ ਰੂਪ ਅਤੇ ਆਪਣਾ ਐਨੀਮੇਸ਼ਨ ਹੈ: Galaxy ਵਿੱਚ ਆਕਾਸ਼ਗੰਗਾ (ਟਿਮਟਿਮਾਉਂਦੇ ਅਤੇ ਟੁੱਟਦੇ ਤਾਰੇ, ਆਕਾਸ਼ਗੰਗਾ ਵੱਲ ਉਡਾਣ) ਨਾਲ ਵੱਡੇ ਕਾਰਡਾਂ ਵਾਲਾ ਰੂਪ, ਅਤੇ Space Glass ਵਿੱਚ ਤੈਰਦੀਆਂ ਰੋਸ਼ਨੀਆਂ, ਚੱਲਦੀ ਟ੍ਰੇਡਿੰਗ ਗਰਿੱਡ ਅਤੇ ਚਾਰਟ-ਰੇਖਾ ਨਾਲ ਸੰਖੇਪ ਸਾਰਣੀ (ਉੱਪਰ ਪਤਲੀ ਪੱਟੀ, ਹਰ ਸ਼ੇਅਰ ਦੀ ਇੱਕ ਲਾਈਨ, ਹੇਠਾਂ ਤੈਰਦੀ ਪੱਟੀ)। ਮੀਨੂ → ਥੀਮ ਤੋਂ ਰੰਗ ਚੁਣੋ: ਕੋਈ ਵੀ ਥੀਮ ਦੋਵਾਂ ਪਿਛੋਕੜਾਂ ਉੱਤੇ ਲੱਗਦੀ ਹੈ ਅਤੇ ਉਸਦੇ ਰੰਗ ਪਿਛੋਕੜ ਵਿੱਚ ਵੀ ਆ ਜਾਂਦੇ ਹਨ। ਸੈਟਿੰਗਾਂ → ਅਸਮਾਨ ਦਾ ਐਨੀਮੇਸ਼ਨ ਬੰਦ ਕਰਨ ਉੱਤੇ ਪਿਛੋਕੜ ਰੁਕ ਜਾਂਦਾ ਹੈ।</string>
+</resources>

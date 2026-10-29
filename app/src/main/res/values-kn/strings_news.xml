@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="news_kind_results">ಫಲಿತಾಂಶಗಳು</string>
+    <string name="news_kind_order">ಆರ್ಡರ್</string>
+    <string name="news_kind_dividend">ಲಾಭಾಂಶ / ಬೋನಸ್</string>
+    <string name="news_kind_fundraise">ಹಣ ಸಂಗ್ರಹ</string>
+    <string name="news_kind_deal">ಸ್ವಾಧೀನ</string>
+    <string name="news_kind_expansion">ವಿಸ್ತರಣೆ</string>
+    <string name="news_kind_management">ನಿರ್ವಹಣೆ</string>
+    <string name="news_kind_rating">ರೇಟಿಂಗ್</string>
+    <string name="news_kind_legal">ಕಾನೂನು</string>
+    <string name="news_kind_meeting">ಮಂಡಳಿ ಸಭೆ</string>
+    <string name="news_kind_investor">ವಿಶ್ಲೇಷಕರ ಸಭೆ</string>
+    <string name="news_kind_other">ಸುದ್ದಿ</string>
+    <string name="news_kind_routine">ಸಾಮಾನ್ಯ ಪ್ರಕಟಣೆ</string>
+    <string name="news_pre_open">ಮಾರುಕಟ್ಟೆಗೆ ಮುನ್ನ</string>
+    <string name="news_live">ಲೈವ್</string>
+    <string name="news_today">ಇಂದು %1$s</string>
+    <string name="news_yesterday">ನಿನ್ನೆ %1$s</string>
+    <string name="detail_tab_overview">ಮಾಹಿತಿ</string>
+    <string name="detail_tab_news">ಸುದ್ದಿ</string>
+    <string name="detail_tab_news_count">ಸುದ್ದಿ · %1$d</string>
+    <string name="news_loading">NSE/BSE ಪ್ರಕಟಣೆಗಳು ಮತ್ತು ಪತ್ರಿಕೆಗಳ ಸುದ್ದಿ ಬರುತ್ತಿವೆ…</string>
+    <string name="news_subtitle">ವಿನಿಮಯ ಕೇಂದ್ರದ ಪ್ರಕಟಣೆಗಳು (30 ದಿನ) ಮತ್ತು ಪತ್ರಿಕೆಗಳ ಸುದ್ದಿ (7 ದಿನ) • ಹೊಸದು ಮೇಲೆ • ಪೂರ್ಣ ಸುದ್ದಿ ಓದಲು ಟ್ಯಾಪ್ ಮಾಡಿ</string>
+    <string name="news_subtitle_wide">ಈ ಷೇರಿಗೆ ಸುದ್ದಿ ಕಡಿಮೆ ಬರುತ್ತದೆ, ಆದ್ದರಿಂದ ಕಳೆದ 1 ವರ್ಷದವರೆಗಿನ ಪ್ರಕಟಣೆಗಳು ಮತ್ತು ಸುದ್ದಿ • ಹೊಸದು ಮೇಲೆ • ಪೂರ್ಣ ಸುದ್ದಿ ಓದಲು ಟ್ಯಾಪ್ ಮಾಡಿ</string>
+    <string name="news_none">ಕಳೆದ 1 ವರ್ಷದಲ್ಲಿ ಈ ಷೇರಿಗೆ ಯಾವುದೇ ಪ್ರಕಟಣೆ ಅಥವಾ ಸುದ್ದಿ ಸಿಗಲಿಲ್ಲ</string>
+    <string name="news_failed">ಸುದ್ದಿ ಬರಲಿಲ್ಲ — ಇಂಟರ್ನೆಟ್ ಪರಿಶೀಲಿಸಿ ಶೀಟ್ ಮತ್ತೆ ತೆರೆಯಿರಿ</string>
+    <string name="news_source_filing">%1$s ಪ್ರಕಟಣೆ • PDF</string>
+    <string name="news_source_filing_page">%1$s ಪ್ರಕಟಣೆ</string>
+    <string name="news_more">ಇನ್ನೂ %1$d ಸುದ್ದಿ ತೋರಿಸಿ</string>
+    <string name="news_routine">+%1$d ಸಾಮಾನ್ಯ ಪ್ರಕಟಣೆಗಳು (ಪತ್ರಿಕೆ ನೋಟಿಸ್, ಟ್ರೇಡಿಂಗ್ ವಿಂಡೋ, ಪ್ರಮಾಣಪತ್ರಗಳು…)</string>
+    <string name="news_open_failed">ಸುದ್ದಿ ತೆರೆಯಲು ಬ್ರೌಸರ್ ಸಿಗಲಿಲ್ಲ</string>
+    <string name="item_news_badge">📰 %1$s</string>
+    <string name="item_news_badge_more">📰 %1$s +%2$d</string>
+    <string name="item_news_description">ಕಳೆದ 24 ಗಂಟೆಗಳಲ್ಲಿ %1$d ಪ್ರಕಟಣೆಗಳು, ಮುಖ್ಯವಾದದ್ದು: %2$s</string>
+    <string name="settings_news_alerts">ವಾಚ್‌ಲಿಸ್ಟ್ ಸುದ್ದಿ</string>
+    <string name="settings_news_alerts_body">ಬೆಳಿಗ್ಗೆ 8 ರಿಂದ 9:15 ರ ನಡುವೆ ★ ಷೇರುಗಳ ರಾತ್ರಿಯಿಡೀ ಸುದ್ದಿ ಒಂದೇ ಅಧಿಸೂಚನೆಯಲ್ಲಿ, ಹಗಲಿನಲ್ಲಿ (ಬೆಳಿಗ್ಗೆ 7 ರಿಂದ ರಾತ್ರಿ 10) ಫಲಿತಾಂಶ, ಆರ್ಡರ್, ಲಾಭಾಂಶದಂತಹ ದೊಡ್ಡ ಪ್ರಕಟಣೆ ಬಂದ ತಕ್ಷಣ ಅಧಿಸೂಚನೆ</string>
+    <string name="notify_channel_news">ವಾಚ್‌ಲಿಸ್ಟ್ ಸುದ್ದಿ</string>
+    <string name="notify_channel_news_body">★ ಷೇರುಗಳ ಬೆಳಗಿನ ಸುದ್ದಿ ಮತ್ತು ದೊಡ್ಡ ಪ್ರಕಟಣೆಗಳು</string>
+    <string name="notify_news_alert">📰 %1$s: %2$s</string>
+    <string name="notify_news_read">ಪೂರ್ಣ ಸುದ್ದಿ</string>
+    <string name="notify_news_digest">🗞 ಬೆಳಗಿನ ಸುದ್ದಿ • %1$d ಷೇರುಗಳು</string>
+    <string name="notify_news_digest_line">%1$s · %2$s: %3$s</string>
+    <string name="help_news_title">ಸುದ್ದಿ</string>
+    <string name="help_news_body">ಪ್ರತಿ ಷೇರಿನ ವಿವರದಲ್ಲಿ ಪ್ರತ್ಯೇಕ \"ಸುದ್ದಿ\" ಟ್ಯಾಬ್ ಇದೆ: NSE ಯ (BSE ಯಲ್ಲಿ ಮಾತ್ರ ಪಟ್ಟಿಯಾದ ಷೇರುಗಳಿಗೆ BSE ಯ) ಕಳೆದ 30 ದಿನಗಳ ಪ್ರಕಟಣೆಗಳು ಮತ್ತು ಕಳೆದ ವಾರದ ಪತ್ರಿಕೆಗಳ ಸುದ್ದಿ (Google News ನಿಂದ, ಇಂಗ್ಲಿಷ್ ಮತ್ತು ಹಿಂದಿ), ಹೊಸದು ಮೇಲೆ. ಕನಿಷ್ಠ 10 ಸುದ್ದಿಗಳು ಕಾಣುತ್ತವೆ: ಸುದ್ದಿ ಕಡಿಮೆ ಬರುವ ಷೇರಿಗೆ ಕಳೆದ 1 ವರ್ಷದವರೆಗಿನ ಪ್ರಕಟಣೆಗಳು ಮತ್ತು ಸುದ್ದಿ ಬರುತ್ತವೆ. ಹೊಸ ಸುದ್ದಿ ಇದ್ದರೆ ಟ್ಯಾಬ್‌ನಲ್ಲಿ ಚುಕ್ಕೆ ಕಾಣುತ್ತದೆ. ಪ್ರತಿ ಸುದ್ದಿಯ ಮೇಲೆ ಅದರ ಪ್ರಕಾರ (ಫಲಿತಾಂಶ, ಆರ್ಡರ್, ಲಾಭಾಂಶ, ವಿಸ್ತರಣೆ, ಕಾನೂನು…) ಬರೆದಿರುತ್ತದೆ, ಮತ್ತು \"ಮಾರುಕಟ್ಟೆಗೆ ಮುನ್ನ\" (ಹಿಂದಿನ ಮುಕ್ತಾಯದ ನಂತರ ಬಂದದ್ದು, ಮುಂದಿನ ಅಧಿವೇಶನ ಇದರ ಮೇಲೆಯೇ ತೆರೆಯುತ್ತದೆ) ಅಥವಾ \"ಲೈವ್\" (ಇಂದು ಮಾರುಕಟ್ಟೆ ಸಮಯದಲ್ಲಿ ಬಂದದ್ದು). ಟ್ಯಾಪ್ ಮಾಡಿದರೆ ಪೂರ್ಣ ಸುದ್ದಿ ಅಥವಾ ಪ್ರಕಟಣೆಯ PDF ತೆರೆಯುತ್ತದೆ. ಪಟ್ಟಿಯಲ್ಲಿ 📰 ಗುರುತು ಕಳೆದ 24 ಗಂಟೆಗಳಲ್ಲಿ ಆ ಷೇರಿಗೆ ವಿನಿಮಯ ಕೇಂದ್ರದಲ್ಲಿ ಪ್ರಕಟಣೆ ಬಂದಿದೆ ಎನ್ನುತ್ತದೆ; ಅದನ್ನು ಟ್ಯಾಪ್ ಮಾಡಿದರೆ ಷೇರು ನೇರವಾಗಿ \"ಸುದ್ದಿ\" ಟ್ಯಾಬ್‌ನಲ್ಲಿ ತೆರೆಯುತ್ತದೆ, ಸುದ್ದಿ ಅಧಿಸೂಚನೆಗಳೂ ಹಾಗೆಯೇ. ಮೆನು → ಸ್ಕ್ಯಾನ್‌ನಲ್ಲಿ \"ವಾಚ್‌ಲಿಸ್ಟ್ ಸುದ್ದಿ\" ಆನ್ ಇದ್ದರೆ ★ ಷೇರುಗಳ ಬೆಳಗಿನ ಸುದ್ದಿ ಮತ್ತು ಹಗಲಿನ ದೊಡ್ಡ ಪ್ರಕಟಣೆಗಳು ಅಧಿಸೂಚನೆಯಲ್ಲಿ ಬರುತ್ತವೆ. ಸುದ್ದಿ ಒಳ್ಳೆಯದೋ ಕೆಟ್ಟದೋ ಆ್ಯಪ್ ಹೇಳುವುದಿಲ್ಲ — ಓದಿ ನೀವೇ ನಿರ್ಧರಿಸಿ.</string>
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fw_value_line">আসল মূল্য ₹%1$s · কেনার দাম ₹%2$s</string>
+    <string name="fw_value_only">আসল মূল্য ₹%1$s</string>
+    <string name="fw_summary">%1$s · নিরাপত্তার ব্যবধান %2$s%% (%3$s)</string>
+    <string name="fw_price_above">দাম ₹%1$s, কেনার দামের %2$s%% উপরে</string>
+    <string name="fw_price_below">দাম ₹%1$s, কেনার দামের %2$s%% নিচে ✓</string>
+    <string name="fw_model_general">সেক্টর P/E–P/B-এর হিসাব</string>
+    <string name="fw_model_bank">ব্যাংক/NBFC: সমন্বিত P/B</string>
+    <string name="fw_model_asset">EV/EBITDA</string>
+    <string name="fw_model_cyclical">মধ্য-চক্র EV/EBITDA</string>
+    <string name="fw_model_cash">PEG</string>
+    <string name="fw_size_large">লার্জ ক্যাপ</string>
+    <string name="fw_size_mid">মিড ক্যাপ</string>
+    <string name="fw_size_small">স্মল ক্যাপ</string>
+    <string name="fw_open">ফ্রেমওয়ার্কের পুরো হিসাব</string>
+    <string name="fw_flag_reject">⛔ বাতিল: প্রোমোটাররা নিজেদের %1$s%% শেয়ার বন্ধক রেখেছেন (15%%-এর বেশি)</string>
+    <string name="fw_flag_high_risk">⚠ উচ্চ ঝুঁকি: সুদ কভার মাত্র %1$s গুণ (2.5-এর কম)</string>
+    <string name="fw_flag_manipulation">⚠ আয়ে সন্দেহ: 3 বছরের পরিচালন নগদ লাভের মাত্র %1$s গুণ (0.6-এর কম)</string>
+    <string name="fw_flag_low_roa">⚠ ROA %1$s%%: ব্যাংক/NBFC-র জন্য 1%%-এর কম, কেনা নয়</string>
+    <string name="fw_flag_red">🚩 বিপদের সংকেত: ভলিউম গড়ের %1$s গুণ, কিন্তু 3 দিনে কোনো ফাইলিং বা খবর নেই — অপারেটরের খেলা হতে পারে</string>
+    <string name="fw_flag_blocked">এই কারণগুলোর জন্য ফ্রেমওয়ার্ক এখন কেনা আটকে রাখে</string>
+    <string name="fw_flag_best">⭐ সেরা সুযোগ: দাম কেনার দামের নিচে, আর সাপ্তাহিক চাহিদা অঞ্চলের লিকুইডিটি সুইপ</string>
+    <string name="fw_flag_buy_zone">✅ কেনার অঞ্চল: দাম 200-দিনের EMA ₹%1$s-এর উপরে, বুলিশ FVG ₹%2$s – ₹%3$s-এ</string>
+    <string name="fw_flag_sweep">🎯 সাপ্তাহিক সুইপ: এই বা গত সপ্তাহে ₹%1$s-এর সাপ্তাহিক সুইং লো-র নিচে গিয়ে উপরে বন্ধ হয়েছে</string>
+    <string name="fw_flag_cyclical">⚠ চক্রাকার: ধাতু আর তেলে কম P/E প্রায়ই আয়ের চূড়া, তাই মধ্য-চক্র EBITDA-তে মাপা হয়েছে</string>
+    <string name="fw_flag_peg_low">✅ PEG %1$s: 1-এর কম, বৃদ্ধির তুলনায় সস্তা</string>
+    <string name="fw_flag_peg_high">⚠ PEG %1$s: 2-এর বেশি, বৃদ্ধির তুলনায় দামি</string>
+    <string name="fw_penalties">জরিমানা: %1$s</string>
+    <string name="fw_penalty_auditor">অডিটরের পদত্যাগ −40%%</string>
+    <string name="fw_penalty_debt">ঋণ −20%%</string>
+    <string name="fw_penalty_institutions">FII/DII-এর বিক্রি −10%%</string>
+    <string name="fw_penalty_roce">কম ROCE −20%%</string>
+    <string name="fw_calc_model">%1$s-এর হিসাব (%2$s)</string>
+    <string name="fw_calc_fallback">%1$s-এর জন্য ডেটা কম ছিল (ছোট ইতিহাস, লোকসান বা ধীর বৃদ্ধি), তাই সেক্টর P/E–P/B-এর হিসাব লাগানো হয়েছে</string>
+    <string name="fw_calc_bank_book">বুক ভ্যালু ₹%1$s/শেয়ার − খারাপ ঋণ ₹%2$s/শেয়ার (নিট NPA ঋণের %3$s%%) = সমন্বিত বুক ₹%4$s</string>
+    <string name="fw_calc_bank_no_npa">বুক ভ্যালু ₹%1$s/শেয়ার; নিট NPA পাওয়া যায়নি (একত্রিত পৃষ্ঠায় থাকে না), তাই পুরো বুক ধরা হয়েছে</string>
+    <string name="fw_calc_bank_pb">নিজের 3 বছরের মধ্যমা P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_bank_pb_sector">নিজের ইতিহাস ছোট, তাই সেক্টরের P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_roa">ROA (12 মাসের লাভ ÷ মোট সম্পদ) %1$s%%; 1%%-এর বেশি দরকার</string>
+    <string name="fw_calc_ev_multiple">নিজের 3 বছরের মধ্যমা EV/EBITDA %1$s (আজ %2$s)</string>
+    <string name="fw_calc_ev_multiple_only">নিজের 3 বছরের মধ্যমা EV/EBITDA %1$s</string>
+    <string name="fw_calc_ebitda">EBITDA (12 মাস): %1$s</string>
+    <string name="fw_calc_ebitda_mid">মধ্য-চক্র EBITDA (বার্ষিক EBITDA-র গড়): %1$s</string>
+    <string name="fw_calc_ev_value">(%1$s × %2$s − ঋণ %3$s) ÷ %4$s Cr শেয়ার = ₹%5$s</string>
+    <string name="fw_calc_ev_note">EV = বাজারমূল্য + ঋণ (Screener-এর সারাংশে নগদ আলাদা পাওয়া যায় না, তাই দুদিকেই এভাবে)</string>
+    <string name="fw_calc_roce_cut">ROCE %1$s%%, 12%%-এর কম → 20%% কম: ₹%2$s</string>
+    <string name="fw_calc_roce_ok">ROCE %1$s%% (12%% বা বেশি) ✓</string>
+    <string name="fw_calc_peg">P/E %1$s ÷ EPS-এর 3 বছরের বার্ষিক বৃদ্ধি %2$s%% = PEG %3$s (1-এর কম সস্তা, 2-এর বেশি দামি)</string>
+    <string name="fw_calc_peg_fair">ন্যায্য P/E: %1$s %2$s, কিন্তু PEG 2-এর সীমা (2 × বৃদ্ধি) %3$s → %4$s</string>
+    <string name="fw_calc_peg_own">নিজের 3 বছরের সাধারণ P/E</string>
+    <string name="fw_calc_peg_sector">সেক্টরের সাধারণ P/E (নিজের ইতিহাস ছোট)</string>
+    <string name="fw_calc_peg_band">ন্যায্য P/E: নিজের বা সেক্টরের P/E পাওয়া যায়নি, তাই PEG 1.5-এ: %1$s</string>
+    <string name="fw_calc_peg_value">আসল মূল্য = EPS ₹%1$s × ন্যায্য P/E %2$s = ₹%3$s</string>
+    <string name="fw_calc_peg_slow">EPS-এর 3 বছরের বার্ষিক বৃদ্ধি %1$s%%: 5%%-এর কমে PEG কিছু বলে না</string>
+    <string name="fw_calc_general">সেক্টরের P/E–P/B আর কোম্পানির নিজের P/E থেকে পাওয়া দামের গড় = ₹%1$s</string>
+    <string name="fw_calc_penalty_auditor">বিধিবদ্ধ অডিটর %1$s-এ পদত্যাগ করেছেন → −40%%</string>
+    <string name="fw_calc_penalty_debt">ঋণ ইকুইটির 1.5 গুণের বেশি → −20%%</string>
+    <string name="fw_calc_penalty_institutions">FII + DII-এর অংশীদারি টানা 3 ত্রৈমাসিক কমেছে → −10%%</string>
+    <string name="fw_calc_after_penalties">জরিমানার পরে আসল মূল্য: ₹%1$s × %2$s = ₹%3$s</string>
+    <string name="fw_calc_no_penalties">কোনো জরিমানা নেই (অডিটর, ঋণ, FII/DII ঠিক আছে) → আসল মূল্য ₹%1$s</string>
+    <string name="fw_calc_margin">নিরাপত্তার ব্যবধান %1$s%% (%2$s) → কেনার দাম ₹%3$s × %4$s = ₹%5$s</string>
+    <string name="fw_calc_screen">সর্বজনীন যাচাই</string>
+    <string name="fw_calc_pledge">প্রোমোটারের বন্ধক %1$s%% (15%%-এর বেশি = বাতিল)</string>
+    <string name="fw_calc_pledge_none">প্রোমোটারের বন্ধক: NSE-তে পাওয়া যায়নি</string>
+    <string name="fw_calc_icr">সুদ কভার: (12 মাসের PBT + সুদ) ÷ সুদ = %1$s গুণ (2.5-এর কম = উচ্চ ঝুঁকি)</string>
+    <string name="fw_calc_cash">3 বছরের পরিচালন নগদ ÷ লাভ = %1$s (0.6-এর কম = আয়ে সন্দেহ)</string>
+    <string name="fw_calc_lender">ব্যাংক/NBFC-র সুদ আর নগদ প্রবাহ দিয়ে এই যাচাই হয় না</string>
+    <string name="fw_calc_chart">চার্ট (SMC)</string>
+    <string name="fw_calc_ema_above">200-দিনের EMA ₹%1$s: দাম তার উপরে</string>
+    <string name="fw_calc_ema_below">200-দিনের EMA ₹%1$s: দাম তার নিচে</string>
+    <string name="fw_calc_gap">অপূর্ণ বুলিশ FVG ₹%1$s – ₹%2$s; দাম তার মধ্যে বা তার 5%% পর্যন্ত উপরে</string>
+    <string name="fw_calc_no_gap">গত 60 সেশনে দামের কাছে কোনো অপূর্ণ বুলিশ FVG নেই</string>
+    <string name="fw_calc_sweep">সাপ্তাহিক সুইপ: ₹%1$s-এর সাপ্তাহিক সুইং লো ভেঙে উপরে বন্ধ</string>
+    <string name="fw_calc_no_sweep">এই বা গত সপ্তাহে কোনো সাপ্তাহিক লিকুইডিটি সুইপ নেই</string>
+    <string name="fw_calc_best_rule">সেরা সুযোগ = দাম কেনার দামের নিচে + সাপ্তাহিক সুইপ + কোনো বাধা নেই</string>
+    <string name="fw_cr">₹%1$s Cr</string>
+    <string name="help_framework_title">R/S-এর মূল্যায়ন ফ্রেমওয়ার্ক (আসল মূল্য আর কেনার দাম)</string>
+    <string name="help_framework_body">R/S প্রতিটি কোম্পানির আসল (অন্তর্নিহিত) মূল্য তার সেক্টর অনুযায়ী বের করে। ব্যাংক, NBFC আর অন্যান্য আর্থিক কোম্পানি: বুক ভ্যালু থেকে শেয়ারপ্রতি নিট NPA (খারাপ ঋণ) বাদ দিয়ে, তার উপর কোম্পানির নিজের গত 3 বছরের মধ্যমা P/B (ইতিহাস ছোট হলে সেক্টরের); ROA 1%-এর কম হলে কেনা নয়। ক্যাপিটাল গুডস, অটো, কেমিক্যাল, নির্মাণ, বিদ্যুতের মতো যন্ত্র আর কারখানার কোম্পানি: নিজের 3 বছরের মধ্যমা EV/EBITDA × আজকের EBITDA, তা থেকে ঋণ বাদ দিয়ে শেয়ারপ্রতি; ROCE 12%-এর কম হলে 20% কম। ধাতু, খনি, তেল আর গ্যাস: একই হিসাব, তবে বছরগুলোর গড় (মধ্য-চক্র) EBITDA-তে, আর সতর্কতা যে সেখানে কম P/E প্রায়ই আয়ের চূড়া। IT, FMCG আর ওষুধ: PEG = P/E ÷ EPS-এর গত 3 বছরের বার্ষিক বৃদ্ধি (আগামী বৃদ্ধির অনুমান বিনামূল্যে মেলে না); 1-এর কম সস্তা, 2-এর বেশি দামি; আসল মূল্য = EPS × কোম্পানির নিজের সাধারণ P/E, তবে PEG 2-এর P/E (2 × বৃদ্ধি)-এর বেশি নয়। বাকি সেক্টর, বা যাদের ডেটা কম: পুরোনো সেক্টর P/E–P/B আর নিজের P/E-এর হিসাব। তারপর জরিমানা: গত 1 বছরে বিধিবদ্ধ অডিটরের পদত্যাগ −40%, ঋণ ইকুইটির 1.5 গুণের বেশি −20%, FII + DII-এর অংশীদারি টানা 3 ত্রৈমাসিক কমেছে −10%। কেনার দাম = আসল মূল্য × (1 − নিরাপত্তার ব্যবধান): বাজারমূল্যে প্রথম 100টি কোম্পানিতে (লার্জ ক্যাপ) 20%, 101–250 (মিড ক্যাপ)-এ 27.5% আর বাকিগুলোতে (স্মল ক্যাপ) 35%। প্রতিটি কোম্পানির সর্বজনীন যাচাইও হয়: প্রোমোটাররা নিজেদের 15%-এর বেশি শেয়ার বন্ধক রাখলে বাতিল (R/S \"দূরে থাকুন\"); সুদ কভার 2.5 গুণের কম হলে উচ্চ ঝুঁকি, আর 3 বছরের পরিচালন নগদ লাভের 0.6 গুণের কম হলে আয়ে সন্দেহ (দুটোতেই R/S বড়জোর \"সাবধান\")। চার্টে: দাম 200-দিনের EMA-র উপরে আর কোনো অপূর্ণ বুলিশ FVG-তে থাকলে কেনার অঞ্চল; এই বা গত সপ্তাহে দাম কোনো সাপ্তাহিক সুইং লো-র নিচে গিয়ে উপরে বন্ধ হলে সাপ্তাহিক সুইপ। দাম কেনার দামের নিচে, সাপ্তাহিক সুইপ আর কোনো বাধা না থাকলে ⭐ সেরা সুযোগ। শেয়ার খুললে তার খবরও দেখা হয়: ভলিউম গড়ের 3 গুণ বা বেশি কিন্তু গত 3 দিনে কোনো ফাইলিং বা খবর না থাকলে 🚩 বিপদের সংকেত (অপারেটরের খেলা হতে পারে) আর ফ্রেমওয়ার্ক কেনা আটকায়। প্রোমোটারের বন্ধক আর অডিটরের পদত্যাগ NSE থেকে আসে, তাই শুধু BSE-র শেয়ারে এই যাচাই হয় না। R/S কার্ডে আসল মূল্য, কেনার দাম আর সতর্কতা দেখা যায় আর \"ফ্রেমওয়ার্কের পুরো হিসাব\" টিপলে প্রতিটি ধাপের হিসাব। নতুন সংখ্যা প্রতিটি শেয়ারের Screener পৃষ্ঠা আবার পড়লে আসে, এতে কয়েক দিন লাগবে; ততদিন কিছু শেয়ার পুরোনো হিসাবে থাকবে। বিনিয়োগ পরামর্শ নয়।</string>
+</resources>

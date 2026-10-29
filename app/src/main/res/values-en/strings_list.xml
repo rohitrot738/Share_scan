@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_watchlist">★ Watchlist</string>
+    <string name="list_watchlist_count">★ Watchlist (%1$d)</string>
+    <string name="list_watchlist_leave">Close the watchlist, show all stocks</string>
+    <string name="list_star_add">Add %1$s to the watchlist</string>
+    <string name="list_star_remove">Remove %1$s from the watchlist</string>
+    <string name="list_starred_description">On the watchlist</string>
+    <string name="list_empty_watchlist_title">Your watchlist is empty</string>
+    <string name="list_empty_watchlist_body">Tap ☆ on any card — that stock shows here.</string>
+    <string name="list_empty_watchlist_body_compact">Long-press any line — that stock shows here with a ★.</string>
+    <string name="list_empty_watchlist_waiting_title">No price yet for your ★ stocks</string>
+    <string name="list_empty_watchlist_waiting_body">Your starred stocks show here with the next scan.</string>
+    <string name="list_rank_new">NEW</string>
+    <string name="list_rank_up">▲%1$d</string>
+    <string name="list_rank_down">▼%1$d</string>
+    <string name="list_rank_new_description">New in the top %1$d since the last scan</string>
+    <string name="list_rank_up_description">Up %1$d ranks since the last scan</string>
+    <string name="list_rank_down_description">Down %1$d ranks since the last scan</string>
+    <string name="list_search_open">Search symbols</string>
+    <string name="list_search_hint">Symbol or name — like TCS, Reliance</string>
+    <string name="list_search_close">Close search</string>
+    <string name="list_empty_search_title">No stock matches</string>
+    <string name="list_empty_search_body">“%1$s” isn\'t in any scanned stock\'s symbol or name — check the spelling or loosen the filters.</string>
+    <string name="list_share_open">Share the top 10</string>
+    <string name="list_share_filters">%1$d filters on</string>
+    <string name="list_share_no_filters">No filters</string>
+    <string name="list_share_line">%1$d. %2$s ₹%3$s • score %4$s • RVOL %5$s×</string>
+    <string name="list_share_failed">No app found to share with</string>
+</resources>

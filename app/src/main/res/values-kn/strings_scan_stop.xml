@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_stop">ನಿಲ್ಲಿಸಿ</string>
+    <string name="action_stopping">ನಿಲ್ಲಿಸಲಾಗುತ್ತಿದೆ…</string>
+    <string name="status_stopped_title">ಸ್ಕ್ಯಾನ್ ನಿಲ್ಲಿಸಲಾಗಿದೆ</string>
+    <string name="status_stopped_body">%1$s / %2$s ಷೇರುಗಳು ಪರಿಶೀಲಿಸಲಾಗಿದೆ • %3$s ನಲ್ಲಿ</string>
+    <string name="status_stopped_early_body">ಷೇರು ಪಟ್ಟಿ ಬರುವ ಮೊದಲೇ ನಿಲ್ಲಿಸಲಾಗಿದೆ.</string>
+    <string name="empty_stopped_title">ಯಾವ ಷೇರಿಗೂ ಸ್ಕೋರ್ ಬರಲಿಲ್ಲ</string>
+    <string name="empty_stopped_body">ಸ್ಕ್ಯಾನ್ ಅದಕ್ಕೂ ಮೊದಲೇ ನಿಲ್ಲಿಸಲಾಗಿದೆ. ಮೇಲಿನ ಬಟನ್ ಟ್ಯಾಪ್ ಮಾಡಿ ಮತ್ತೆ ಸ್ಕ್ಯಾನ್ ಮಾಡಿ.</string>
+</resources>

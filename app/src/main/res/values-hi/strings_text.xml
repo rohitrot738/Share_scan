@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_text">भाषा और फ़ॉन्ट</string>
+    <string name="menu_text_body">अभी: %1$s · %2$s</string>
+    <string name="text_title">भाषा और फ़ॉन्ट</string>
+    <string name="text_subtitle">पूरा ऐप किस भाषा में और किस फ़ॉन्ट में दिखे</string>
+    <string name="text_language">भाषा</string>
+    <string name="text_language_note">अनुवाद ऐप में ही बना है, किसी शब्द में ग़लती दिखे तो बताइए। शेयरों और कंपनियों के नाम, ख़बरें और \"क्या नया है\" जैसे हैं वैसे ही रहते हैं।</string>
+    <string name="text_font">फ़ॉन्ट</string>
+    <string name="text_font_sample">Share Scan · ब्रेकआउट स्कैन · ₹1,234.50 ▲ 2.40% · 86.0</string>
+    <string name="font_system">फ़ोन का फ़ॉन्ट</string>
+    <string name="text_font_description">%1$s फ़ॉन्ट चुनें</string>
+    <string name="text_language_description">%1$s भाषा चुनें</string>
+</resources>

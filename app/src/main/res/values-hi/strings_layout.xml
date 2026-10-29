@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_layout">रूप</string>
+    <string name="layout_title">सूची का रूप चुनें</string>
+    <string name="layout_subtitle">शेयरों की सूची किस रूप में दिखे · पृष्ठभूमि और थीम वही रहते हैं</string>
+    <string name="layout_auto">पृष्ठभूमि वाला</string>
+    <string name="layout_auto_now_cards">अभी Galaxy पृष्ठभूमि है: बड़े कार्ड</string>
+    <string name="layout_auto_now_table">अभी Space Glass पृष्ठभूमि है: सघन तालिका</string>
+    <string name="layout_accordion">अकॉर्डियन</string>
+    <string name="layout_accordion_body">हर शेयर एक पतली पंक्ति · दबाने पर वहीं पूरा विवरण खुलता है</string>
+    <string name="layout_bento">बेंटो ग्रिड</string>
+    <string name="layout_bento_body">दो कतारों में टाइलें: स्कोर डायल, 15 दिन की रेखा और भाव</string>
+    <string name="layout_swipe">स्वाइप कार्ड</string>
+    <string name="layout_swipe_body">आँकड़े छोटे कैप्सूल में · बाएँ स्वाइप पर ★ वॉचलिस्ट और चार्ट</string>
+    <string name="layout_action_chart">चार्ट</string>
+    <string name="layout_action_details">विवरण</string>
+    <string name="layout_action_watchlist">वॉचलिस्ट</string>
+    <string name="layout_action_unwatch">हटाएँ</string>
+    <string name="layout_action_alert">अलर्ट लगाएँ</string>
+    <string name="layout_action_alert_on">★ अलर्ट चालू</string>
+    <string name="layout_expand">%1$s का विवरण खोलें</string>
+    <string name="layout_collapse">%1$s का विवरण बंद करें</string>
+    <string name="layout_swipe_hint">%1$s: बाएँ स्वाइप करें तो वॉचलिस्ट और चार्ट के बटन</string>
+    <string name="cap_mcap">MCap %1$s</string>
+    <string name="cap_volume">वॉल्यूम %1$s</string>
+    <string name="cap_rvol">RVOL %1$s×</string>
+    <string name="cap_support">सपोर्ट ₹%1$s</string>
+    <string name="cap_rs">R/S %1$s</string>
+    <string name="help_layout_title">रूप: सूची कैसी दिखे</string>
+    <string name="help_layout_body">मेन्यू → रूप में सूची का रूप चुनें। \"पृष्ठभूमि वाला\" में Galaxy पर बड़े कार्ड और Space Glass पर सघन तालिका रहती है। अकॉर्डियन में हर शेयर एक पतली पंक्ति है; दबाने पर वहीं स्कोर की पट्टी, MCap, वॉल्यूम, RVOL, R/S और सपोर्ट खुलते हैं, साथ में अलर्ट, चार्ट और विवरण के बटन। बेंटो ग्रिड में दो कतारों में टाइलें हैं: स्कोर का गोल डायल, पिछले 15 दिन की रेखा, भाव और 5 दिन का बदलाव; टाइल को दबाकर रखने से वह वॉचलिस्ट में जुड़ती है। स्वाइप कार्ड में आँकड़े छोटे कैप्सूल में हैं, और कार्ड को बाएँ खींचने पर ★ वॉचलिस्ट और चार्ट के बटन दिखते हैं।</string>
+</resources>

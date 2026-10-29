@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="score_detail_old">या भागाचा संपूर्ण हिशेब मागच्या स्कॅनमध्ये ठेवला नव्हता — पुन्हा स्कॅन केल्यावर दिसेल</string>
+    <string name="score_swing">या शेअरची नेहमीची रोजची चाल (मागील 50 दिवसांचा सरासरी उच्च–नीच पट्टा): %1$s%% — अंतरे याच्या पटीत मोजली जातात</string>
+    <string name="score_total">एकूण: %1$s = %2$s गुण → %3$s</string>
+    <string name="score_total_simple">एकूण: %1$s गुण → %2$s</string>
+    <string name="score_soft_note">85 पेक्षा वरचे आणि 15 पेक्षा खालचे गुण हळूहळू 100 आणि 0 कडे दाबले जातात, जेणेकरून सर्वोत्तम शेअर्सचा क्रम टिकून राहावा</string>
+    <string name="score_breakout_high">शेवटच्या सत्राआधीच्या 20 दिवसांचा उच्चांक ₹%1$s; भाव ₹%2$s त्यापेक्षा %3$s%% खाली, म्हणजे रोजच्या चालीच्या %4$s पट → %5$s गुण (वाटा 55%%)</string>
+    <string name="score_breakout_high_above">शेवटच्या सत्राआधीच्या 20 दिवसांचा उच्चांक ₹%1$s; भाव ₹%2$s त्यापेक्षा %3$s%% वर गेला, रोजच्या चालीच्या %4$s पट → %5$s गुण (वाटा 55%%)</string>
+    <string name="score_breakout_high_rule">उच्चांकाच्या अगदी खालून त्याच्या एका रोजच्या चालीपर्यंत वर पूर्ण 100 गुण; त्यापासून प्रत्येक एका रोजच्या चालीच्या अंतरावर 20 गुण कमी</string>
+    <string name="score_breakout_base">मागील 10 दिवसांचा पाया ₹%1$s – ₹%2$s, रुंदी %3$s%%, म्हणजे रोजच्या चालीच्या %4$s पट (2 पट किंवा कमी = घट्ट) → %5$s गुण</string>
+    <string name="score_breakout_calm">त्या दिवसांचा रोजचा पट्टा नेहमीच्या चालीच्या %1$s पट (0.6 किंवा कमी = पूर्ण शांत) → %2$s गुण</string>
+    <string name="score_breakout_tight">पायाचा घट्टपणा: वरच्या दोन्हींची सरासरी (110 पर्यंत) → %1$s गुण (वाटा 30%%)</string>
+    <string name="score_breakout_position">पायात भाव कुठे: %1$s/100 (0 = सर्वात खाली, 100 = सर्वात वर) (वाटा 15%%)</string>
+    <string name="score_breakout_total">एकूण: 0.55 × %1$s + 0.30 × %2$s + 0.15 × %3$s = %4$s गुण → %5$s</string>
+    <string name="score_base_title">मागील 10 सत्रांचा पाया</string>
+    <string name="score_trend_term">%1$s: %2$s रोजच्या चाली → %3$s × %2$s = %4$s गुण</string>
+    <string name="score_trend_above20">भाव, 20-दिवस सरासरी ₹%1$s च्या वर (+) / खाली (−)</string>
+    <string name="score_trend_slope">20-दिवस सरासरीचा उतार, मागील 5 दिवसांत</string>
+    <string name="score_trend_above50">भाव, 50-दिवस सरासरी ₹%1$s च्या वर (+) / खाली (−)</string>
+    <string name="score_trend_stacked">20-दिवस सरासरी, 50-दिवस सरासरीच्या वर (+) / खाली (−)</string>
+    <string name="score_trend_limits">प्रत्येक भाग एका मर्यादेपर्यंतच मोजला जातो: 20-दिवस ±3, उतार ±2, 50-दिवस ±4 आणि दोन्ही सरासरींचा फरक ±2 रोजच्या चाली</string>
+    <string name="score_trend_short">50 दिवसांचा डेटा नाही, म्हणून 20-दिवसांचे दोन्ही भाग 1.75 पट मोजले</string>
+    <string name="score_volume_rvol">मागील सत्राचा व्हॉल्यूम %1$s शेअर्स, त्याआधीच्या 20 सत्रांच्या सरासरी %2$s च्या %3$s पट (RVOL) → %4$s गुण (1 पट = 50, 2 = 75, 4 = 100) (वाटा 60%%)</string>
+    <string name="score_volume_live">बाजार सध्या चालू आहे: आजचा आतापर्यंतचा व्हॉल्यूम, दिवसाच्या या वेळेपर्यंत साधारणपणे होणाऱ्या वाट्यानुसार संपूर्ण दिवसाचा मानून मोजला</string>
+    <string name="score_volume_quiet">त्याआधीची 5 सत्रे: सरासरीच्या %1$s पट (0.5 किंवा कमी = व्हॉल्यूम आटला, 1.15 किंवा जास्त = नाही) → %2$s गुण (वाटा 40%%)</string>
+    <string name="score_volume_total">एकूण: 0.6 × %1$s + 0.4 × %2$s = %3$s गुण → %4$s</string>
+    <string name="score_liquidity_median">मागील 20 सत्रांतील रोजच्या उलाढालीचा (भाव × व्हॉल्यूम) मध्यक %1$s</string>
+    <string name="score_liquidity_scale">प्रमाण: ₹10 लाख = 0, ₹1 Cr = 33, ₹10 Cr = 67, ₹100 Cr = 100 गुण</string>
+    <string name="score_momentum_5d">5 सत्रांत %1$s%% → 4 × %1$s = %2$s गुण</string>
+    <string name="score_momentum_20d">20 सत्रांत %1$s%% → 1.5 × %1$s = %2$s गुण</string>
+    <string name="score_support_level">सपोर्ट ₹%1$s; भाव त्यापेक्षा %2$s%% वर</string>
+    <string name="score_support_age">%1$d सत्रांपासून (%2$s) याच्या खाली बंद झाला नाही → %3$s/70 गुण (6 महिन्यांवर पूर्ण)</string>
+    <string name="score_support_touches">%1$d वेळा इथपर्यंत येऊन परतला → %2$s/30 गुण (5 वेळांवर पूर्ण)</string>
+    <string name="score_support_total">ताकद %1$s/100 → बोनस %2$s गुण (जास्तीत जास्त 5)</string>
+    <string name="score_support_none">मागील 6 महिन्यांच्या चार्टमध्ये टिकाऊ सपोर्ट मिळाला नाही — बोनस 0 (स्कोअरमधून काहीही कापले जात नाही)</string>
+    <string name="score_recent_title">मागील 10 सत्रे</string>
+    <string name="score_col_day">दिवस</string>
+    <string name="score_col_close">भाव</string>
+    <string name="score_col_change">बदल</string>
+    <string name="score_col_volume">व्हॉल्यूम</string>
+    <string name="score_col_times">× सरासरी</string>
+    <string name="score_col_turnover">₹ Cr</string>
+    <string name="score_col_high">उच्च</string>
+    <string name="score_col_low">नीच</string>
+    <string name="score_recent_note">× सरासरी: त्या दिवसाचा व्हॉल्यूम, आजच्या आधीच्या 20 सत्रांच्या सरासरीच्या किती पट; ₹ Cr: त्या दिवसाची उलाढाल</string>
+</resources>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_layout">Layout</string>
+    <string name="layout_title">Choose a layout</string>
+    <string name="layout_subtitle">How the list of stocks looks · the background and theme stay</string>
+    <string name="layout_auto">The background\'s own</string>
+    <string name="layout_auto_now_cards">Galaxy background now: big cards</string>
+    <string name="layout_auto_now_table">Space Glass background now: compact table</string>
+    <string name="layout_accordion">Accordion</string>
+    <string name="layout_accordion_body">One slim line a stock · tap it to open the full detail in place</string>
+    <string name="layout_bento">Bento grid</string>
+    <string name="layout_bento_body">Tiles in two columns: score dial, 15-day line and price</string>
+    <string name="layout_swipe">Swipe cards</string>
+    <string name="layout_swipe_body">Figures in small capsules · swipe left for ★ Watchlist and Chart</string>
+    <string name="layout_action_chart">Chart</string>
+    <string name="layout_action_details">Details</string>
+    <string name="layout_action_watchlist">Watchlist</string>
+    <string name="layout_action_unwatch">Remove</string>
+    <string name="layout_action_alert">Set alert</string>
+    <string name="layout_action_alert_on">★ Alert on</string>
+    <string name="layout_expand">Open %1$s\'s detail</string>
+    <string name="layout_collapse">Close %1$s\'s detail</string>
+    <string name="layout_swipe_hint">%1$s: swipe left for the Watchlist and Chart buttons</string>
+    <string name="cap_mcap">MCap %1$s</string>
+    <string name="cap_volume">Vol %1$s</string>
+    <string name="cap_rvol">RVOL %1$s×</string>
+    <string name="cap_support">Supp ₹%1$s</string>
+    <string name="cap_rs">R/S %1$s</string>
+    <string name="help_layout_title">Layout: how the list looks</string>
+    <string name="help_layout_body">Pick how the list looks in Menu → Layout. \"The background\'s own\" keeps the big cards on Galaxy and the compact table on Space Glass. Accordion makes each stock one slim line; tap it and the score bar, MCap, Volume, RVOL, R/S and support open in place, with Alert, Chart and Details buttons. Bento grid lays out tiles in two columns: a round score dial, the last 15 days\' line, the price and the 5-day change; long-press a tile to add it to the watchlist. Swipe cards put the figures in small capsules, and dragging a card to the left shows the ★ Watchlist and Chart buttons.</string>
+</resources>

@@ -48,7 +48,7 @@ object StockFormat {
 
     /** Rupee amounts in crore: ₹0.5 Cr, ₹850 Cr, ₹12,500 Cr, ₹1.2 लाख Cr. */
     fun crore(value: Double): String = when {
-        value >= 100_000 -> "₹" + short(value / 100_000) + " लाख Cr"
+        value >= 100_000 -> "₹" + short(value / 100_000) + " " + words.lakh + " Cr"
         value >= 100 -> "₹" + count(value.roundToInt()) + " Cr"
         else -> "₹" + short(value) + " Cr"
     }
@@ -74,13 +74,31 @@ object StockFormat {
         Metric.MACD_CROSS -> sessionsAgo(value.roundToInt())
     }
 
+    /**
+     * The words for days, weeks, months and lakh, as patterns with one `%s` for the number; Hinglish's until the app
+     * sets its own language's ([words], from the screen's strings).
+     */
+    data class UnitWords(
+        val today: String = "आज",
+        val daysAgo: String = "%s दिन पहले",
+        val days: String = "%s दिन",
+        val month: String = "%s महीना",
+        val months: String = "%s महीने",
+        val week: String = "%s हफ्ता",
+        val weeks: String = "%s हफ्ते",
+        val lakh: String = "लाख",
+    )
+
+    @Volatile
+    var words = UnitWords()
+
     /** "आज", "1 दिन पहले", "5 दिन पहले": trading sessions back from the latest. */
-    fun sessionsAgo(count: Int): String = if (count <= 0) "आज" else "$count दिन पहले"
+    fun sessionsAgo(count: Int): String = if (count <= 0) words.today else words.daysAgo.format(count.toString())
 
     /** "1 महीना", "3 महीने". */
-    fun months(count: Int): String = if (count == 1) "1 महीना" else "$count महीने"
+    fun months(count: Int): String = (if (count == 1) words.month else words.months).format(count.toString())
 
-    fun weeks(count: Int): String = if (count == 1) "1 हफ्ता" else "$count हफ्ते"
+    fun weeks(count: Int): String = (if (count == 1) words.week else words.weeks).format(count.toString())
 
     /**
      * How long a support floor has stood: trading days under a month, then months, with a "+" when it reaches back
@@ -89,8 +107,8 @@ object StockFormat {
     fun supportAge(floor: SupportFloor): String {
         val months = (floor.ageSessions.toDouble() / SupportFloors.SESSIONS_PER_MONTH).roundToInt()
         return when {
-            floor.sinceChartStart -> months(months).replaceFirst(" ", "+ ")
-            floor.ageSessions < SupportFloors.SESSIONS_PER_MONTH -> "${floor.ageSessions} दिन"
+            floor.sinceChartStart -> words.months.format("$months+")
+            floor.ageSessions < SupportFloors.SESSIONS_PER_MONTH -> words.days.format(floor.ageSessions.toString())
             else -> months(months)
         }
     }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu → Layout preview: swipe cards with capsules, the middle one slid left over its ★ and chart buttons. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="180dp"
+    android:viewportWidth="160"
+    android:viewportHeight="180">
+    <path android:fillColor="?android:attr/colorBackground" android:pathData="M0,0h160v180h-160z" />
+    <!-- First card -->
+    <path android:fillAlpha="0.11" android:fillColor="#FFFFFF" android:pathData="M14,10h132a7,7 0,0 1,7 7v36a7,7 0,0 1,-7 7h-132a7,7 0,0 1,-7 -7v-36a7,7 0,0 1,7 -7z" />
+    <path android:fillAlpha="0.65" android:fillColor="#FFFFFF" android:pathData="M16,18h30v5h-30z" />
+    <path android:fillAlpha="0.2" android:fillColor="?attr/colorPrimary" android:pathData="M16,32h24a4,4 0,0 1,0 8h-24a4,4 0,0 1,0 -8zM48,32h20a4,4 0,0 1,0 8h-20a4,4 0,0 1,0 -8zM76,32h26a4,4 0,0 1,0 8h-26a4,4 0,0 1,0 -8z" />
+    <path android:fillColor="?attr/colorPrimary" android:pathData="M16,46h90v4h-90z" />
+    <!-- The buttons behind the slid card -->
+    <path android:fillColor="#FFC94D" android:pathData="M112,86a10,10 0,1 0,20 0a10,10 0,1 0,-20 0z" />
+    <path android:fillColor="?attr/colorPrimary" android:pathData="M134,86a10,10 0,1 0,20 0a10,10 0,1 0,-20 0z" />
+    <!-- The slid card -->
+    <path android:fillAlpha="0.16" android:fillColor="#FFFFFF" android:pathData="M-26,66h132a7,7 0,0 1,7 7v26a7,7 0,0 1,-7 7h-132z" />
+    <path android:fillAlpha="0.65" android:fillColor="#FFFFFF" android:pathData="M2,74h30v5h-30z" />
+    <path android:fillAlpha="0.2" android:fillColor="?attr/colorPrimary" android:pathData="M2,88h24a4,4 0,0 1,0 8h-24a4,4 0,0 1,0 -8zM34,88h20a4,4 0,0 1,0 8h-20a4,4 0,0 1,0 -8zM62,88h26a4,4 0,0 1,0 8h-26a4,4 0,0 1,0 -8z" />
+    <!-- Third card -->
+    <path android:fillAlpha="0.11" android:fillColor="#FFFFFF" android:pathData="M14,116h132a7,7 0,0 1,7 7v36a7,7 0,0 1,-7 7h-132a7,7 0,0 1,-7 -7v-36a7,7 0,0 1,7 -7z" />
+    <path android:fillAlpha="0.65" android:fillColor="#FFFFFF" android:pathData="M16,124h30v5h-30z" />
+    <path android:fillAlpha="0.2" android:fillColor="?attr/colorPrimary" android:pathData="M16,138h24a4,4 0,0 1,0 8h-24a4,4 0,0 1,0 -8zM48,138h20a4,4 0,0 1,0 8h-20a4,4 0,0 1,0 -8zM76,138h26a4,4 0,0 1,0 8h-26a4,4 0,0 1,0 -8z" />
+    <path android:fillColor="?attr/colorPrimary" android:pathData="M16,152h70v4h-70z" />
+</vector>

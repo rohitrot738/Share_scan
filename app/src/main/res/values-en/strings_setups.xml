@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="item_setup_learned">🎯 Learned setup • %1$d%% success: %2$s</string>
+    <string name="detail_setup_learned">🎯 Learned setup: %1$s. In the last 2 years, of %2$d such plans, %3$d%% hit Target 1 before the stop within the set days (all stocks\' average %4$d%%).</string>
+    <string name="detail_setup_learned_none">No learned setup applies to this stock today. Across all stocks Target 1 was hit within the set days %1$d%% of the time. The most successful setups: %2$s</string>
+    <string name="detail_setup_learned_top">%1$s (%2$d%%)</string>
+    <string name="item_setup_rally">📈 Rally setup • %1$d%%: %2$s</string>
+    <string name="detail_plan_stop_learned">Learned stop: %1$s ATR under the entry</string>
+    <string name="detail_plan_quick_time_learned">⏱ about %1$d–%2$d days after the entry</string>
+    <string name="detail_plan_learned">🧠 Learned plan: stop %1$s, Target 1 = +%2$s, within %3$d days. In the last 2 years %4$d%% of such plans succeeded, averaging %5$s a trade (the app\'s old plan on all stocks: %6$d%% succeeded, %7$s).</string>
+    <string name="detail_plan_learned_stop_atr">%1$s ATR under the entry</string>
+    <string name="detail_plan_learned_stop_own">under the 10-day low (the app\'s own)</string>
+    <string name="detail_plan_learned_own">🧠 Learned: the app\'s own stop and target have been the best so far — %1$d%% succeeded, averaging %2$s a trade.</string>
+    <string name="detail_rally_setup">📈 Rally setup: %1$s. In the last 2 years, on %2$d%% of such occasions the price rose %4$s ATR (≈ %5$s at today\'s figures) within %3$d days without falling first (all stocks %6$d%%).</string>
+    <string name="detail_rally_why">📈 Often seen before a rally: %1$s</string>
+    <string name="item_setup_mistake">⚠ Learned mistake • only %1$d%% success: %2$s</string>
+    <string name="detail_setup_mistake">⚠ Learned mistake: %1$s. In the last 2 years only %3$d%% of %2$d such trades succeeded (all stocks\' average %4$d%%) — %5$d%% hit the stop first, %6$d%% didn\'t reach the target in the set days. Trades on such a setup have been more likely to go the wrong way.</string>
+    <string name="setup_breakout_today">Breakout today</string>
+    <string name="setup_near_trigger">1 ATR from the breakout</string>
+    <string name="setup_volume_2x">volume 2×+</string>
+    <string name="setup_volume_1_5x">volume 1.5×+</string>
+    <string name="setup_quiet_before">low volume the 5 days before</string>
+    <string name="setup_tight_week">1 week\'s range within 5%</string>
+    <string name="setup_tight_two_weeks">2 weeks\' range within 8%</string>
+    <string name="setup_above_sma50">above the 50 DMA</string>
+    <string name="setup_sma20_over_sma50">20 DMA above the 50 DMA</string>
+    <string name="setup_up_20_days">up over 20 days</string>
+    <string name="setup_up_5_percent_week">5 days: up 5%+</string>
+    <string name="setup_rsi_50_70">RSI 50–70</string>
+    <string name="setup_rsi_70_plus">RSI 70+</string>
+    <string name="setup_rsi_under_50">RSI under 50</string>
+    <string name="setup_macd_above_signal">MACD above signal</string>
+    <string name="setup_macd_fresh_cross">MACD crossover within 3 days</string>
+    <string name="setup_macd_above_zero">MACD above zero</string>
+    <string name="setup_near_support">support within 5%</string>
+    <string name="setup_long_support">long-held support</string>
+    <string name="setup_liquid_10cr">₹10 Cr+ traded a day</string>
+    <string name="setup_score_strong">Score STRONG</string>
+    <string name="setup_score_watch">Score WATCH+</string>
+    <string name="setup_prev_strong">STRONG yesterday too</string>
+    <string name="setup_near_6m_high">6-month high within 3%</string>
+    <string name="setup_up_4_percent_today">today: up 4%+</string>
+    <string name="setup_close_near_day_high">close near the day\'s high</string>
+    <string name="setup_calm_ranges">small daily swings for 10 days</string>
+    <string name="help_setups_title">Learned setups</string>
+    <string name="help_setups_body">Every evening (on market days) the app builds, for every day of the last 2 years of every stock in the market, the same score and trade plan that day would have shown, and checks what happened next: Target 1 hit before the stop within the stated days is a success; the stop hit first, or the target not reached in time, a failure. Then, of the combinations of 1 to 3 conditions (like Breakout today + volume 2×+ + RSI 50–70), only the setups clearly more successful than the whole market\'s average are kept — both on the old data and on the last 60 days, which they weren\'t chosen on. A setup that doesn\'t stay above average later is dropped. It learns from mistakes too: combinations of conditions on which trades went wrong clearly more than average (the stop hit first or the target late) — again on both the old data and the last 60 days — become \"⚠ Learned mistake\" warnings on the card and in the detail, with the share that hit the stop and the share that reached the target late. If a mistake improves later, its warning goes. The stop, target and time are learned too: every past plan is tested 30,000 ways (the stop 1 to 3.4 ATR under the entry or the app\'s own, Target 1 = 0.5R to 5.45R, and the target\'s time from half to three times the days), and the combination that earns most per trade (average R) across the market — on both the old data and the last 60 days, and with its neighbouring combinations good too, so that one that looked good by luck isn\'t picked — goes into the plan; a setup for which another combination did better gets its own. A new combination replaces the old only when clearly better, and goes if it falls behind; watchlist alerts follow the same stop and target. It learns from rallies too: each day of each stock is checked for whether the price rose 3 ATR in the next 20 days without first falling 1.5 ATR — and which conditions came before; conditions followed by such rallies clearly more often than average show as \"📈 Rally setup\". All this happens by itself every evening. The card and the stock\'s detail show these learned setups and their real success rate in place of the app\'s own old setup, and the trade plan\'s quick-target percentages come from fresh data too. These are figures from past data, not a promise for the future; not investment advice.</string>
+</resources>

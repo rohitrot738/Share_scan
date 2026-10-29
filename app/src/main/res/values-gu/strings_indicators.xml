@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_rsi">RSI (14)</string>
+    <string name="metric_macd">MACD, સિગ્નલથી અંતર</string>
+    <string name="metric_macd_cross">MACD ક્રૉસઓવર</string>
+    <string name="hint_rsi">70 થી ઉપર = ઓવરબૉટ (ખૂબ વધ્યો), 30 થી નીચે = ઓવરસોલ્ડ (ખૂબ ઘટ્યો) • 50–70 = તેજી, પણ વધારે નહીં</string>
+    <string name="hint_macd" formatted="false">MACD રેખા તેની સિગ્નલ રેખાથી કેટલી ઉપર (+) કે નીચે (-), ભાવના % માં • 0% થી ઉપર = તેજી</string>
+    <string name="hint_macd_cross">MACD એ કેટલા દિવસ પહેલાં સિગ્નલ રેખાને નીચેથી ઉપર કાપી • \"3 દિવસ પહેલાં\" સુધી = તાજો તેજીનો ક્રૉસઓવર; સિગ્નલની નીચેના શેર બાકાત થાય છે</string>
+    <string name="detail_stat_rsi">RSI (14)</string>
+    <string name="detail_stat_rsi_overbought">70+ ઓવરબૉટ: ખૂબ વધ્યો</string>
+    <string name="detail_stat_rsi_strong">50–70: તેજી</string>
+    <string name="detail_stat_rsi_weak">30–50: નબળો</string>
+    <string name="detail_stat_rsi_oversold">30 થી ઓછો ઓવરસોલ્ડ: ખૂબ ઘટ્યો</string>
+    <string name="detail_stat_macd">MACD (12, 26, 9)</string>
+    <string name="detail_stat_macd_bull">તેજી</string>
+    <string name="detail_stat_macd_bear">મંદી</string>
+    <string name="detail_stat_macd_crossed">સિગ્નલ %1$s ઉપર કાપ્યો</string>
+    <string name="detail_stat_macd_below">સિગ્નલ રેખાની નીચે</string>
+    <string name="detail_stat_macd_zero_above">શૂન્યની ઉપર</string>
+    <string name="detail_stat_macd_zero_below">શૂન્યની નીચે</string>
+    <string name="help_indicators_title">RSI અને MACD</string>
+    <string name="help_indicators_body" formatted="false">બંને દરેક શેરના 6 મહિનાના રોજના ભાવ પરથી બને છે, ચાર્ટ સાઇટ્સની જેમ. RSI (14) 0 થી 100 વચ્ચે: 70 થી ઉપર ઓવરબૉટ (ખૂબ વધી ગયો), 30 થી નીચે ઓવરસોલ્ડ (ખૂબ ઘટી ગયો), 50–70 તેજી. MACD (12, 26, 9): 12 અને 26 દિવસની ઘાતાંકીય સરેરાશનો તફાવત, અને તેની 9 દિવસની સિગ્નલ રેખા. MACD સિગ્નલની ઉપર = તેજી; જે દિવસે તે સિગ્નલને નીચેથી ઉપર કાપે, તે તેજીનો ક્રૉસઓવર છે. ફિલ્ટરમાં ત્રણેય છે: RSI ની શ્રેણી, MACD સિગ્નલથી કેટલી ઉપર/નીચે (ભાવના %), અને ક્રૉસઓવર કેટલા દિવસ પહેલાં થયો (\"3 દિવસ પહેલાં\" સુધી = તાજો ક્રૉસઓવર). શેરની વિગતમાં બંનેનું આજનું મૂલ્ય દેખાય છે. લાઇવ બજારમાં આજનો ચાલુ ભાવ પણ ગણાય છે.</string>
+</resources>

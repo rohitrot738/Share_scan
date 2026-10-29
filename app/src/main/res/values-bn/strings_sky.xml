@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_background">ব্যাকগ্রাউন্ড</string>
+    <string name="background_title">ব্যাকগ্রাউন্ড বাছুন</string>
+    <string name="background_subtitle">প্রতিটি ব্যাকগ্রাউন্ডের নিজস্ব রূপ আর অ্যানিমেশন • রং থিমেরই</string>
+    <string name="background_galaxy">Galaxy</string>
+    <string name="background_galaxy_body">ছায়াপথ, মিটমিটে আর খসে পড়া তারা • বড় কার্ডের রূপ</string>
+    <string name="background_space_glass">Space Glass</string>
+    <string name="background_space_glass_body">ভাসমান আলো, চলমান ট্রেডিং গ্রিড আর চার্ট-রেখা • ঘন টেবিলের রূপ</string>
+    <string name="help_sky_title">ব্যাকগ্রাউন্ড আর থিম</string>
+    <string name="help_sky_body">মেনু → ব্যাকগ্রাউন্ড-এ দুটির একটি বাছুন — প্রতিটির নিজস্ব রূপ আর অ্যানিমেশন আছে: Galaxy-তে ছায়াপথ (মিটমিটে আর খসে পড়া তারা, ছায়াপথের দিকে উড়ান) সাথে বড় কার্ডের রূপ, আর Space Glass-এ ভাসমান আলো, চলমান ট্রেডিং গ্রিড আর চার্ট-রেখার সাথে ঘন টেবিল (উপরে পাতলা বার, প্রতিটি শেয়ারের একটি লাইন, নিচে ভাসমান বার)। মেনু → থিম-এ রং বাছুন: যেকোনো থিম দুটো ব্যাকগ্রাউন্ডেই লাগে আর তার রং ব্যাকগ্রাউন্ডেও আসে। সেটিংস → আকাশের অ্যানিমেশন বন্ধ করলে ব্যাকগ্রাউন্ড থেমে যায়।</string>
+</resources>

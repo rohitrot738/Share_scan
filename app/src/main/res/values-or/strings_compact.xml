@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compact_news_mark">📰</string>
+    <string name="compact_no_data">ଦର ନାହିଁ</string>
+    <string name="compact_col_rank">#</string>
+    <string name="compact_col_stock">ସେୟାର / କମ୍ପାନୀ</string>
+    <string name="compact_col_price">ଦର</string>
+    <string name="compact_col_change">5D ପରିବର୍ତ୍ତନ / RVOL</string>
+    <string name="compact_col_score">ସ୍କୋର</string>
+    <string name="compact_share">ସେୟାର</string>
+    <string name="compact_rank">#%1$d</string>
+    <string name="pill_idle">ସ୍କାନ ଆରମ୍ଭ କରନ୍ତୁ ▸</string>
+    <string name="pill_reading">ଶେଷ ସ୍କାନ ଖୋଲୁଛି…</string>
+    <string name="pill_loading">ସ୍କାନ ଆରମ୍ଭ ହେଉଛି…</string>
+    <string name="pill_scanning">ସ୍କାନ %1$d%% • %2$s/%3$s</string>
+    <string name="pill_stopped">ବନ୍ଦ ହେଲା %1$d%% • %2$s/%3$s</string>
+    <string name="pill_done">ସ୍କାନ 100%% • %1$s ସେୟାର</string>
+    <string name="pill_live_done">ଲାଇଭ ସ୍କାନ 100%% • %1$s ସେୟାର</string>
+    <string name="pill_support_done">ସପୋର୍ଟ 100%% • %1$s ସେୟାର</string>
+    <string name="pill_failed">ସ୍କାନ ବିଫଳ • ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="empty_body_compact">ସ୍କାନ ଆରମ୍ଭ କରିବାକୁ ଉପରର ପିଲ ଟ୍ୟାପ କରନ୍ତୁ — ଶେଷ ହେଲେ ସର୍ବୋତ୍ତମ ପ୍ରାର୍ଥୀମାନେ ସ୍କୋର ଅନୁସାରେ ଏଠାରେ ଦେଖାଯିବେ।</string>
+    <string name="pill_description">%1$s; ସ୍କାନ ବଟନ ଖୋଲନ୍ତୁ</string>
+    <string name="help_compact_title">Space Glassର କମ୍ପାକ୍ଟ ଟେବୁଲ</string>
+    <string name="help_compact_body">ମେନୁ → ପୃଷ୍ଠଭୂମିରେ Space Glass ବାଛିଲେ ତାଲିକା ଏକ ଟେବୁଲ ହୋଇଯାଏ: ପ୍ରତ୍ୟେକ ସେୟାରର ଗୋଟିଏ ଧାଡ଼ି — ର‍୍ୟାଙ୍କ, ଟିକର (NSE/BSE, NEW ବା ▲▼ ଓ 📰 ସହ), ତା ତଳେ କମ୍ପାନୀର ନାମ, ଦର, 5 ଦିନର ପରିବର୍ତ୍ତନ ତା ତଳେ RVOL, ଓ ସ୍କୋର — ଗୋଟିଏ ସ୍କ୍ରିନରେ 8–10 ସେୟାର। ୱାଚଲିଷ୍ଟ ସେୟାରର ସ୍କୋର ସୁନେଲି ରଙ୍ଗରେ ★ ସହ; ଗୋଟିଏ ଧାଡ଼ିକୁ ଦବାଇ ଧରିଲେ ସେୟାର ୱାଚଲିଷ୍ଟରେ ଯୋଡ଼ିହୁଏ ବା ହଟିଯାଏ। ଉପରର ପତଳା ହେଡରରେ ସବୁଜ ପିଲ କହେ ସ୍କାନ କେଉଁଠି ଅଛି (ଯେପରି \"ଲାଇଭ ସ୍କାନ 100% • 2,618 ସେୟାର\"); ଏହାକୁ ଟ୍ୟାପ କଲେ ବ୍ରେକଆଉଟ/ସପୋର୍ଟ, ସ୍କାନ/ବନ୍ଦ ଓ ସ୍କାନ ହଟାନ୍ତୁର ପ୍ୟାନେଲ ଖୋଲେ। ଫିଲ୍ଟର, ୱାଚଲିଷ୍ଟ, କ୍ରମ, ସେକ୍ଟର ଓ ସେୟାର ତଳର ଭାସମାନ ବାରରେ, ବୁଢ଼ା ଆଙ୍ଗୁଠି ପାଖରେ; ଏହାକୁ ପାର୍ଶ୍ୱକୁ ଘୁଞ୍ଚାନ୍ତୁ। ଧାଡ଼ି ଟ୍ୟାପ କଲେ ସେୟାରର ସମ୍ପୂର୍ଣ୍ଣ ବିବରଣୀ — ସେଟଅପ, ସପୋର୍ଟ ଓ R/S ସହ — ଖୋଲେ। ଫିଲ୍ଟର ଓ ସେକ୍ଟର ସିଟ ମଧ୍ୟ ସେହି ସରଳ ଶୈଳୀରେ ଖୋଲେ। ବଡ଼ କାର୍ଡ ପୁଣି ଚାହିଁଲେ Galaxy ପୃଷ୍ଠଭୂମି ବାଛନ୍ତୁ।</string>
+</resources>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sort_cr360">R/S</string>
+    <string name="item_cr360">R/S %1$s</string>
+    <string name="item_cr360_description">Rohit Selection %1$s, %2$s</string>
+    <string name="detail_section_cr360">R/S · Rohit Selection</string>
+    <string name="detail_cr360_subtitle">The company\'s results, cash flow, debt, shareholding, insider and bulk deals, valuation and 3 years of price</string>
+    <string name="detail_cr360_score">%1$s / 100</string>
+    <string name="detail_cr360_data">Data %1$d%% · results up to %2$s · read on %3$s</string>
+    <string name="detail_cr360_unknown">No data for these, so the score counts them at a middling 50: %1$s</string>
+    <string name="detail_cr360_missing">This stock has no R/S yet — the nightly cache will add it soon</string>
+    <string name="detail_cr360_note">Sources: Screener.in, NSE, Yahoo · updated every evening · not investment advice</string>
+    <string name="cr360_high_conviction">Very strong</string>
+    <string name="cr360_positive">Strong</string>
+    <string name="cr360_neutral">Fair</string>
+    <string name="cr360_caution">Caution</string>
+    <string name="cr360_avoid">Avoid</string>
+    <string name="cr360_insufficient">Little data</string>
+    <string name="cr360_part_financial_quality">Quality of results</string>
+    <string name="cr360_part_growth">Growth</string>
+    <string name="cr360_part_cashflow">Cash flow</string>
+    <string name="cr360_part_balance_sheet">Debt / balance sheet</string>
+    <string name="cr360_part_ownership">Shareholding</string>
+    <string name="cr360_part_insider_deals">Insider and bulk deals</string>
+    <string name="cr360_part_valuation">Valuation</string>
+    <string name="cr360_part_price">3-year price</string>
+    <string name="cr360_part_stability">Stability</string>
+    <string name="cr360_part_technical_risk">Risk and R:R</string>
+    <string name="cr360_quarters">quarters</string>
+    <string name="cr360_half_years">half-years</string>
+    <string name="cr360_fact_profit">Profit in %2$d of %1$d %3$s</string>
+    <string name="cr360_fact_growth">Sales %1$s · profit %2$s (over %3$d %4$s)</string>
+    <string name="cr360_fact_margin">Net margin %1$s</string>
+    <string name="cr360_fact_debt">Debt/Equity %1$s</string>
+    <string name="cr360_fact_promoter">Promoter %1$s%% (%2$s)</string>
+    <string name="cr360_fact_institutions">FII %1$s · DII %2$s</string>
+    <string name="cr360_fact_institutions_span">FII %1$s%% · DII %2$s%% (over %3$d quarters)</string>
+    <string name="cr360_fact_insider">Insider: bought ₹%1$s Cr · sold ₹%2$s Cr</string>
+    <string name="cr360_fact_deals">Bulk/Block: bought ₹%1$s Cr · sold ₹%2$s Cr</string>
+    <string name="cr360_fact_pe">P/E %1$s</string>
+    <string name="cr360_fact_history_pe">Its own usual 3-year P/E %1$s</string>
+    <string name="cr360_fact_fair_value">Fair value: %1$s</string>
+    <string name="cr360_fair_sector">₹%1$s from the sector (%2$s)</string>
+    <string name="cr360_fair_framework">₹%1$s from the framework (%2$s)</string>
+    <string name="cr360_fair_history">₹%1$s from its own P/E (%2$s)</string>
+    <string name="cr360_fact_position">At %1$s%% of its 3-year range</string>
+    <string name="cr360_fact_volatility">Volatility %1$s%%</string>
+    <string name="cr360_trades_buy">Buy</string>
+    <string name="cr360_trades_sell">Sell</string>
+    <string name="cr360_trades_insider_note">Date = the day of the deal · On NSE = the day and time the filing reached NSE · Stake after = that person\'s holding after the deal · newest first, up to 5 years. Slide the table sideways to see every column.</string>
+    <string name="cr360_trades_deals_note">NSE gives only the day of bulk/block deals, not the time · newest first. Slide the table sideways to see every column.</string>
+    <string name="cr360_trades_none">No list of this stock\'s deals yet</string>
+    <string name="cr360_open_loading">Loading…</string>
+    <string name="cr360_part_no_detail">No breakdown for this part yet</string>
+    <string name="cr360_trades_deals_heading">Bulk/Block deals</string>
+    <string-array name="cr360_trades_insider_columns">
+        <item>Date</item>
+        <item>On NSE</item>
+        <item>Name</item>
+        <item>Who</item>
+        <item>Deal</item>
+        <item>Shares</item>
+        <item>Price ₹</item>
+        <item>Amount</item>
+        <item>Mode</item>
+        <item>Stake after</item>
+    </string-array>
+    <string-array name="cr360_trades_deals_columns">
+        <item>Date</item>
+        <item>Type</item>
+        <item>Name</item>
+        <item>Deal</item>
+        <item>Shares</item>
+        <item>Price ₹</item>
+        <item>Amount</item>
+    </string-array>
+    <string name="detail_section_cr360_history">R/S history</string>
+    <string name="detail_cr360_history_loading">Fetching the history…</string>
+    <string name="detail_cr360_history_subtitle">Every quarter\'s and year\'s data the cache holds (up to 5 years)</string>
+    <string name="detail_cr360_history_missing">No history for this stock yet — with internet it comes next time you open it</string>
+    <string name="cr360_history_holders_title" formatted="false">FII / DII buying and selling (stake %)</string>
+    <string name="cr360_history_holders_note" formatted="false">▲ stake up = bought that quarter · ▼ down = sold (% points)</string>
+    <string name="cr360_history_holders_summary">%1$s → %2$s: FII %3$s%% → %4$s%% (%5$s) · DII %6$s%% → %7$s%% (%8$s)</string>
+    <string name="cr360_history_quarters_title">Quarterly results (₹ crore)</string>
+    <string name="cr360_history_halves_title">Half-yearly results (₹ crore)</string>
+    <string name="cr360_history_years_title">Yearly: results, cash flow, debt (₹ crore)</string>
+    <string name="cr360_history_quarter">Quarter</string>
+    <string name="cr360_history_half">Half</string>
+    <string name="cr360_history_year">Year</string>
+    <string name="cr360_history_promoter">Promoter</string>
+    <string name="cr360_history_public">Public</string>
+    <string name="cr360_history_sales">Sales</string>
+    <string name="cr360_history_profit">Profit</string>
+    <string name="cr360_history_eps">EPS ₹</string>
+    <string name="cr360_history_operating_cash">Op. cash</string>
+    <string name="cr360_history_free_cash">Free cash</string>
+    <string name="cr360_history_debt">Debt</string>
+    <string name="cr360_history_chart_title">3-year price (each month\'s last close)</string>
+    <string name="cr360_history_chart_note">Now ₹%1$s · highest ₹%2$s (%3$s) · lowest ₹%4$s (%5$s)</string>
+    <string name="cr360_history_chart_description">Monthly price from %1$s to %2$s: low ₹%3$s, high ₹%4$s, now ₹%5$s</string>
+    <string name="help_cr360_title">R/S · Rohit Selection</string>
+    <string name="help_cr360_body">R/S (Rohit Selection) checks a company in 10 parts: quality of results (18), growth (12), cash flow (10), debt (10), shareholding (12), insider and bulk/block deals (8), valuation (12), 3-year price (8), stability (5) and risk (5). Valuation now works differently by sector (see \"R/S\'s valuation framework\" below); sectors without a method of their own, or with too little data, weigh half on a comparison with the sector\'s usual P/E and P/B and half on the company\'s own usual P/E of the last 3 years. Loss-making companies and those with a P/E under 3 (a one-off profit or old figures) get no valuation, and a quarter\'s earnings over 10 times the year\'s middle quarter count as one-off. Growth compares the sum of the last 4 quarters with the sum of the first 4; when the start is a loss or near zero, no percentage shows. For financial companies like banks, NBFCs and insurers the debt and cash-flow parts don\'t count, since borrowing to lend is their business. A part with no data gets a middling 50 in the score (neither good nor bad), so that a company good in just 2–3 parts and unknown in the rest doesn\'t rise above good companies with full data; the card says which parts had no data. The 0–100 score gives the grade: 75+ very strong, 62+ strong, 48+ fair, 35+ caution, below that avoid; when data is under 40%: \"Little data\". Stocks listed on NSE, NSE SME and BSE only are all included; SME companies report half-yearly, so their figures are in half-years. Data from Screener.in, NSE and Yahoo joins the cache once every evening — old quarters don\'t change, so only new results, shareholding and deals are added, and data older than 20 quarters / 5 years is dropped. The app fetches a new file up to twice a day and keeps just one copy. In the stock\'s detail, \"R/S history\" shows every quarter\'s results, the FII/DII/promoter stakes (▲ bought, ▼ sold), yearly cash flow and debt, and 3 years of price; its small file comes when you open that stock. Tap any part of the R/S card and its data opens beneath it: each quarter\'s results for quality and growth, a yearly table for cash flow and debt, promoter/FII/DII for shareholding, every deal for insiders (date, the day and time it reached NSE, name, who, buy/sell, shares, price, amount, mode, stake after the deal), P/E, fair value and the framework\'s full working for valuation, and a 3-year chart for price, stability and risk; the Insider and Bulk/Block lines open the same way, and a second tap closes them. Bulk/block deals have only just started being added, so their history builds up over time; insider trades and bulk/block deals are NSE\'s, so for BSE-only stocks that part stays empty. Not investment advice.</string>
+</resources>

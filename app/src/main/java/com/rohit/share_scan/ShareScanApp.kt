@@ -11,6 +11,7 @@ class ShareScanApp : Application() {
     override fun onCreate() {
         super.onCreate()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        Languages.applyWords(Languages.localized(this))
         Notifier.createChannels(this)
         LiveSchedule.sync(this)
     }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_stop">നിർത്തുക</string>
+    <string name="action_stopping">നിർത്തുന്നു…</string>
+    <string name="status_stopped_title">സ്കാൻ നിർത്തി</string>
+    <string name="status_stopped_body">%1$s / %2$s ഓഹരികൾ പരിശോധിച്ചു • %3$s കൊണ്ട്</string>
+    <string name="status_stopped_early_body">ഓഹരി ലിസ്റ്റ് വരുന്നതിന് മുമ്പേ നിർത്തി.</string>
+    <string name="empty_stopped_title">ഒരു ഓഹരിക്കും സ്കോർ ഉണ്ടായില്ല</string>
+    <string name="empty_stopped_body">അതിനു മുമ്പേ സ്കാൻ നിർത്തി. മുകളിലെ ബട്ടൺ ടാപ്പ് ചെയ്ത് വീണ്ടും സ്കാൻ ചെയ്യുക.</string>
+</resources>

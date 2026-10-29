@@ -10,6 +10,9 @@ object Prefs {
     /** String set of watchlisted NSE symbols. */
     const val WATCHLIST = "watchlist"
 
+    /** [WatchBook.encode] text: when and at what price each watchlisted stock was added. */
+    const val WATCH_ADDED = "watch_added"
+
     /** Score ranks from the previous completed scan, used for NEW badges and rank changes. */
     const val LAST_RANKS = "last_ranks"
 
@@ -30,6 +33,18 @@ object Prefs {
 
     /** [BackgroundChoice.key] of the picked background, which brings its layout; until one is picked, [COMPACT_LIST]. */
     const val BACKGROUND = "background"
+
+    /** [ListLayout.key] of how the home list draws its stocks; missing is the background's own. */
+    const val LIST_LAYOUT = "list_layout"
+
+    /** [AppFont.key] of the picked font; missing is the phone's own. */
+    const val FONT = "font"
+
+    /**
+     * [AppLanguage.tag] of the picked language, kept beside AppCompat's own record for strings made outside the
+     * screens on Android 12 and older ([Languages.localized]); missing until the first start with languages.
+     */
+    const val LANGUAGE = "language"
 
     /** [ChartSite.key] the detail sheet's chart button opens. */
     const val CHART_SITE = "chart_site"

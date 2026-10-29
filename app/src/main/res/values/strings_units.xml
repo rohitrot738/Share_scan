@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Words the number formats use (StockFormat.UnitWords) and the scan's own failures (ScanBlocked). -->
+<resources>
+    <string name="unit_today">आज</string>
+    <string name="unit_days_ago">%1$s दिन पहले</string>
+    <string name="unit_days">%1$s दिन</string>
+    <string name="unit_month">%1$s महीना</string>
+    <string name="unit_months">%1$s महीने</string>
+    <string name="unit_week">%1$s हफ्ता</string>
+    <string name="unit_weeks">%1$s हफ्ते</string>
+    <string name="unit_lakh">लाख</string>
+    <string name="scan_error_no_lists">कोई stock list नहीं मिली</string>
+    <string name="scan_error_no_sector_stocks">चुने हुए sectors में कोई stock नहीं — Menu → स्कैन में sectors चुनें</string>
+</resources>

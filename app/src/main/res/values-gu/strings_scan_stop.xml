@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_stop">અટકાવો</string>
+    <string name="action_stopping">અટકાવી રહ્યા છીએ…</string>
+    <string name="status_stopped_title">સ્કેન અટકાવ્યો</string>
+    <string name="status_stopped_body">%1$s / %2$s શેર તપાસ્યા • %3$s માં</string>
+    <string name="status_stopped_early_body">શેર યાદી આવે તે પહેલાં જ અટકાવ્યો.</string>
+    <string name="empty_stopped_title">કોઈ શેરનો સ્કોર બન્યો નથી</string>
+    <string name="empty_stopped_body">સ્કેન તે પહેલાં જ અટકાવ્યો. ઉપરનું બટન દબાવીને ફરી સ્કેન કરો.</string>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_sky">வான் அனிமேஷன்</string>
+    <string name="settings_sky_body">நட்சத்திரங்கள் மின்னும், விழும், ஒளிரும்; அணைத்தால் வானம் அசையாமல் இருக்கும் (பேட்டரி சேமிப்பு)</string>
+    <string name="settings_section_glass">கண்ணாடி பயன்முறை</string>
+    <string name="settings_glass_on">கண்ணாடி விளைவு</string>
+    <string name="settings_glass_on_body">அணைத்தால் பலகை, கார்டுகள், பொத்தான்கள், தாள்கள் எளிமையாக, திடமாக இருக்கும் • கண்ணாடி, பளபளப்பு, மங்கல் இல்லை</string>
+    <string name="glass_off_body">இப்போது: கண்ணாடி அணைப்பு • மேலே உள்ள சுவிட்சை இயக்கினால் தேர்ந்த பயன்முறை திரும்பும்</string>
+    <string name="settings_glass_body">ஸ்கேன் பலகை, கார்டுகள், தாள்கள், சிப்கள், சுவிட்சுகளின் கண்ணாடி • தேர்ந்தவுடன் முழு ஆப்பிலும் பொருந்தும்</string>
+    <string name="glass_frosted">Frosted</string>
+    <string name="glass_clear">Clear</string>
+    <string name="glass_smoky">Smoky</string>
+    <string name="glass_tinted">Tinted</string>
+    <string name="glass_liquid">Iridescent</string>
+    <string name="glass_solid">Solid</string>
+    <string name="glass_frosted_body">இப்போது: வானம் தெரியும் லேசான பனிக் கண்ணாடி • இயல்புநிலை</string>
+    <string name="glass_clear_body">இப்போது: பிரகாசமான விளிம்புகளுடன் படிகம் போலத் தெளிவான கண்ணாடி • வானம் அதிகம் தெரியும்</string>
+    <string name="glass_smoky_body">இப்போது: இருண்ட, புகை போன்ற கண்ணாடி • வானம் சற்றே மின்னும்</string>
+    <string name="glass_tinted_body">இப்போது: தீமின் நிறத்தில் கண்ணாடி</string>
+    <string name="glass_liquid_body">இப்போது: நீரில் எண்ணெய் போல வான நீலம் முதல் இளஞ்சிவப்பு வரை மின்னும் விளிம்புகள்</string>
+    <string name="glass_solid_body">இப்போது: சிறிது பளபளப்புடன் உறுதியான திடக் கார்டுகள் • படிக்க எளிது, ஃபோனுக்கு லேசு</string>
+</resources>

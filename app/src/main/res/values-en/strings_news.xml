@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="news_kind_results">Results</string>
+    <string name="news_kind_order">Order</string>
+    <string name="news_kind_dividend">Dividend / Bonus</string>
+    <string name="news_kind_fundraise">Fund raising</string>
+    <string name="news_kind_deal">Acquisition</string>
+    <string name="news_kind_expansion">Expansion</string>
+    <string name="news_kind_management">Management</string>
+    <string name="news_kind_rating">Rating</string>
+    <string name="news_kind_legal">Legal</string>
+    <string name="news_kind_meeting">Board meeting</string>
+    <string name="news_kind_investor">Analyst meet</string>
+    <string name="news_kind_other">News</string>
+    <string name="news_kind_routine">Routine notice</string>
+    <string name="news_pre_open">Pre-market</string>
+    <string name="news_live">Live</string>
+    <string name="news_today">Today %1$s</string>
+    <string name="news_yesterday">Yesterday %1$s</string>
+    <string name="detail_tab_overview">Overview</string>
+    <string name="detail_tab_news">News</string>
+    <string name="detail_tab_news_count">News · %1$d</string>
+    <string name="news_loading">Fetching NSE/BSE announcements and newspaper stories…</string>
+    <string name="news_subtitle">Exchange announcements (30 days) and newspaper stories (7 days) • newest first • tap to read in full</string>
+    <string name="news_subtitle_wide">This stock has little news, so announcements and stories go back up to 1 year • newest first • tap to read in full</string>
+    <string name="news_none">No announcement or story for this stock in the last year</string>
+    <string name="news_failed">Couldn\'t fetch the news — check the internet and open the sheet again</string>
+    <string name="news_source_filing">%1$s announcement • PDF</string>
+    <string name="news_source_filing_page">%1$s announcement</string>
+    <string name="news_more">Show %1$d more stories</string>
+    <string name="news_routine">+%1$d routine notices (newspaper notices, trading window, certificates…)</string>
+    <string name="news_open_failed">No browser found to open the story</string>
+    <string name="item_news_badge">📰 %1$s</string>
+    <string name="item_news_badge_more">📰 %1$s +%2$d</string>
+    <string name="item_news_description">%1$d announcements in the last 24 hours, the most important: %2$s</string>
+    <string name="settings_news_alerts">Watchlist news</string>
+    <string name="settings_news_alerts_body">Between 8 and 9:15 in the morning, the ★ stocks\' overnight news in one notification, and during the day (7 am to 10 pm) a notification as soon as a big announcement like results, an order or a dividend comes</string>
+    <string name="notify_channel_news">Watchlist news</string>
+    <string name="notify_channel_news_body">The ★ stocks\' morning news and big announcements</string>
+    <string name="notify_news_alert">📰 %1$s: %2$s</string>
+    <string name="notify_news_read">Full story</string>
+    <string name="notify_news_digest">🗞 Morning news • %1$d stocks</string>
+    <string name="notify_news_digest_line">%1$s · %2$s: %3$s</string>
+    <string name="help_news_title">News</string>
+    <string name="help_news_body">Each stock\'s detail has its own \"News\" tab: NSE\'s announcements of the last 30 days (BSE\'s for a stock listed only on BSE) and the last week\'s newspaper stories (from Google News, in English and Hindi), newest first. At least 10 items show: for a stock with little news, announcements and stories go back up to 1 year. A dot on the tab means fresh news. Each item names its kind (results, order, dividend, expansion, legal…), and \"Pre-market\" (came after the last close; the next session opens on it) or \"Live\" (came during today\'s market). Tap to open the full story or the announcement\'s PDF. 📰 on the list means the stock had an exchange announcement in the last 24 hours; tapping it opens the stock straight on the \"News\" tab, as the news notifications do. With \"Watchlist news\" on in Menu → Scan, the ★ stocks\' morning news and the day\'s big announcements come as notifications. The app doesn\'t say whether news is good or bad — read it and decide yourself.</string>
+</resources>

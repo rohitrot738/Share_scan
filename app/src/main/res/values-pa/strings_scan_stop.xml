@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_stop">ਰੋਕੋ</string>
+    <string name="action_stopping">ਰੋਕ ਰਹੇ ਹਾਂ…</string>
+    <string name="status_stopped_title">ਸਕੈਨ ਰੋਕਿਆ</string>
+    <string name="status_stopped_body">%1$s / %2$s ਸ਼ੇਅਰ ਜਾਂਚੇ • %3$s ਵਿੱਚ</string>
+    <string name="status_stopped_early_body">ਸ਼ੇਅਰ ਸੂਚੀ ਆਉਣ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਰੋਕ ਦਿੱਤਾ।</string>
+    <string name="empty_stopped_title">ਕਿਸੇ ਸ਼ੇਅਰ ਦਾ ਸਕੋਰ ਨਹੀਂ ਬਣਿਆ</string>
+    <string name="empty_stopped_body">ਸਕੈਨ ਇਸ ਤੋਂ ਪਹਿਲਾਂ ਹੀ ਰੋਕ ਦਿੱਤਾ ਗਿਆ। ਉੱਪਰ ਵਾਲਾ ਬਟਨ ਦਬਾ ਕੇ ਮੁੜ ਸਕੈਨ ਕਰੋ।</string>
+</resources>

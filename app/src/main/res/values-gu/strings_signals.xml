@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_from_high">20D ઊંચા ભાવથી અંતર</string>
+    <string name="metric_base_range">શાંત રેન્જ (ઊંચો–નીચો)</string>
+    <string name="metric_vs_sma50">50 DMA થી અંતર</string>
+    <string name="hint_from_high">20 દિવસના ઊંચા ભાવ (રેઝિસ્ટન્સ) થી ભાવ કેટલો નીચે છે • ઋણ = ઊંચા ભાવની ઉપર બ્રેકઆઉટ</string>
+    <string name="hint_base_range">પસંદ કરેલાં અઠવાડિયાંમાં સૌથી ઊંચા અને સૌથી નીચા ભાવનું અંતર • ઓછું = શાંત શેર, ન વધુ ઉપર ન વધુ નીચે</string>
+    <string name="hint_vs_sma50">50 દિવસની સરેરાશથી ઉપર (+) કે નીચે (-) • ધન = વધતું વલણ</string>
+    <string name="hint_score_mix">બ્રેકઆઉટ સેટઅપ, વલણ, વોલ્યુમ, તરલતા અને ગતિનું મિશ્રણ • %1$s+ STRONG, %2$s+ WATCH</string>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_watchlist">★ വാച്ച്‌ലിസ്റ്റ്</string>
+    <string name="list_watchlist_count">★ വാച്ച്‌ലിസ്റ്റ് (%1$d)</string>
+    <string name="list_watchlist_leave">വാച്ച്‌ലിസ്റ്റ് അടച്ച് എല്ലാ ഓഹരികളും കാണിക്കുക</string>
+    <string name="list_star_add">%1$s വാച്ച്‌ലിസ്റ്റിൽ ചേർക്കുക</string>
+    <string name="list_star_remove">%1$s വാച്ച്‌ലിസ്റ്റിൽ നിന്ന് നീക്കുക</string>
+    <string name="list_starred_description">വാച്ച്‌ലിസ്റ്റിലുണ്ട്</string>
+    <string name="list_empty_watchlist_title">നിങ്ങളുടെ വാച്ച്‌ലിസ്റ്റ് ശൂന്യമാണ്</string>
+    <string name="list_empty_watchlist_body">ഏതെങ്കിലും കാർഡിൽ ☆ ടാപ്പ് ചെയ്യുക — ആ ഓഹരി ഇവിടെ കാണാം.</string>
+    <string name="list_empty_watchlist_body_compact">ഏതെങ്കിലും വരി ദീർഘനേരം അമർത്തുക — ആ ഓഹരി ★ സഹിതം ഇവിടെ കാണാം.</string>
+    <string name="list_empty_watchlist_waiting_title">നിങ്ങളുടെ ★ ഓഹരികൾക്ക് ഇതുവരെ വിലയില്ല</string>
+    <string name="list_empty_watchlist_waiting_body">നിങ്ങൾ ★ ഇട്ട ഓഹരികൾ അടുത്ത സ്കാനിനൊപ്പം ഇവിടെ കാണാം.</string>
+    <string name="list_rank_new">NEW</string>
+    <string name="list_rank_up">▲%1$d</string>
+    <string name="list_rank_down">▼%1$d</string>
+    <string name="list_rank_new_description">അവസാന സ്കാനിന് ശേഷം ടോപ്പ് %1$d ൽ പുതിയത്</string>
+    <string name="list_rank_up_description">അവസാന സ്കാനിൽ നിന്ന് %1$d സ്ഥാനം മുകളിലേക്ക്</string>
+    <string name="list_rank_down_description">അവസാന സ്കാനിൽ നിന്ന് %1$d സ്ഥാനം താഴേക്ക്</string>
+    <string name="list_search_open">സിംബലുകൾ തിരയുക</string>
+    <string name="list_search_hint">സിംബൽ അല്ലെങ്കിൽ പേര് — TCS, Reliance പോലെ</string>
+    <string name="list_search_close">തിരയൽ അടയ്ക്കുക</string>
+    <string name="list_empty_search_title">ഒരു ഓഹരിയും പൊരുത്തപ്പെട്ടില്ല</string>
+    <string name="list_empty_search_body">“%1$s” സ്കാൻ ചെയ്ത ഒരു ഓഹരിയുടെയും സിംബലിലോ പേരിലോ ഇല്ല — അക്ഷരത്തെറ്റ് പരിശോധിക്കുക അല്ലെങ്കിൽ ഫിൽട്ടറുകൾ അയയ്ക്കുക.</string>
+    <string name="list_share_open">ടോപ്പ് 10 പങ്കിടുക</string>
+    <string name="list_share_filters">%1$d ഫിൽട്ടറുകൾ ഓൺ</string>
+    <string name="list_share_no_filters">ഫിൽട്ടറുകളില്ല</string>
+    <string name="list_share_line">%1$d. %2$s ₹%3$s • സ്കോർ %4$s • RVOL %5$s×</string>
+    <string name="list_share_failed">പങ്കിടാൻ ആപ്പ് കണ്ടെത്തിയില്ല</string>
+</resources>

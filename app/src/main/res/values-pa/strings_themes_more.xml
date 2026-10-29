@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_sunset">Sunset</string>
+    <string name="theme_sunset_body">ਸੰਤਰੀ-ਗੁਲਾਬੀ ਸ਼ਾਮ ਦਾ ਅਸਮਾਨ</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_ocean_body">ਗੂੜ੍ਹਾ ਨੀਲਾ ਸਮੁੰਦਰ</string>
+    <string name="theme_emerald">Emerald</string>
+    <string name="theme_emerald_body">ਪੰਨਾ-ਹਰੀ ਆਕਾਸ਼ਗੰਗਾ</string>
+    <string name="theme_mars">Mars</string>
+    <string name="theme_mars_body">ਧੂੜ ਭਰਿਆ ਲਾਲ ਅਸਮਾਨ</string>
+    <string name="theme_royal_gold">Royal Gold</string>
+    <string name="theme_royal_gold_body">ਸੁਨਹਿਰੀ ਅਤੇ ਸ਼ਾਹੀ ਜਾਮਨੀ</string>
+    <string name="theme_frost">Frost</string>
+    <string name="theme_frost_body">ਬਰਫ਼ੀਲਾ ਨੀਲਾ • ਹਲਕੀ ਉੱਤਰੀ ਰੋਸ਼ਨੀ</string>
+    <string name="theme_space_glass">Space Glass</string>
+    <string name="theme_space_glass_body">ਡੂੰਘਾ ਪੁਲਾੜ • ਅਸਮਾਨੀ ਚਮਕ • ਚੱਲਦੀ ਟ੍ਰੇਡਿੰਗ ਗਰਿੱਡ ਅਤੇ ਚਾਰਟ-ਰੇਖਾ</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_title">নতুন সংস্করণ এসেছে</string>
+    <string name="update_title_ready">আপডেট ডাউনলোড হয়ে গেছে</string>
+    <string name="update_versions">%1$s • এখন %2$s</string>
+    <string name="update_available_body">এক ট্যাপে ডাউনলোড করে পুরোনো অ্যাপের উপরেই ইনস্টল করুন — ওয়াচলিস্ট আর ফিল্টার যেমন আছে তেমনই থাকবে।</string>
+    <string name="update_downloading_body">ডাউনলোড হচ্ছে… %1$d%%</string>
+    <string name="update_ready_body">ইনস্টল টিপুন — নতুন সংস্করণ পুরোনোটির উপরেই ইনস্টল হবে।</string>
+    <string name="update_ready_permission_body">ইনস্টল টিপুন। প্রথমবার Android “এই উৎস থেকে ইনস্টল”-এর অনুমতি চাইবে — সেটি চালু করে ফিরে আসুন, ইনস্টল সেখান থেকেই চলবে।</string>
+    <string name="update_failed_body">ডাউনলোড হয়নি। ইন্টারনেট সংযোগ দেখে আবার চেষ্টা করুন।</string>
+    <string name="update_action_download">আপডেট করুন</string>
+    <string name="update_action_install">ইনস্টল করুন</string>
+    <string name="update_action_retry">আবার চেষ্টা করুন</string>
+    <string name="update_action_later">পরে</string>
+    <string name="update_install_failed">ইনস্টলার খোলা যায়নি</string>
+</resources>

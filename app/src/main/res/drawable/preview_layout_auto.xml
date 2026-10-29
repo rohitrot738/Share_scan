@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu → Layout preview: the background's own layout, as big cards (Galaxy) with a table (Space Glass) beside. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="180dp"
+    android:viewportWidth="160"
+    android:viewportHeight="180">
+    <path android:fillColor="?android:attr/colorBackground" android:pathData="M0,0h160v180h-160z" />
+    <!-- Left: cards -->
+    <path android:fillAlpha="0.1" android:fillColor="#FFFFFF" android:pathData="M10,14h64a8,8 0,0 1,8 8v34a8,8 0,0 1,-8 8h-64a8,8 0,0 1,-8 -8v-34a8,8 0,0 1,8 -8z" />
+    <path android:fillAlpha="0.1" android:fillColor="#FFFFFF" android:pathData="M10,72h64a8,8 0,0 1,8 8v34a8,8 0,0 1,-8 8h-64a8,8 0,0 1,-8 -8v-34a8,8 0,0 1,8 -8z" />
+    <path android:fillAlpha="0.1" android:fillColor="#FFFFFF" android:pathData="M10,130h64a8,8 0,0 1,8 8v34a8,8 0,0 1,-8 8h-64a8,8 0,0 1,-8 -8v-34a8,8 0,0 1,8 -8z" />
+    <path android:fillColor="?attr/colorPrimary" android:pathData="M12,30a6,6 0,1 0,12 0a6,6 0,1 0,-12 0zM12,88a6,6 0,1 0,12 0a6,6 0,1 0,-12 0zM12,146a6,6 0,1 0,12 0a6,6 0,1 0,-12 0z" />
+    <path android:fillAlpha="0.55" android:fillColor="#FFFFFF" android:pathData="M30,26h30v4h-30zM30,84h26v4h-26zM30,142h32v4h-32z" />
+    <path android:fillAlpha="0.25" android:fillColor="#FFFFFF" android:pathData="M30,34h40v3h-40zM30,92h36v3h-36zM30,150h38v3h-38z" />
+    <path android:fillColor="?attr/colorPrimary" android:pathData="M12,52h46v4h-46zM12,110h38v4h-38zM12,168h50v4h-50z" />
+    <!-- Right: a table -->
+    <path android:fillAlpha="0.06" android:fillColor="#FFFFFF" android:pathData="M90,14h62v158h-62z" />
+    <path android:fillAlpha="0.5" android:fillColor="#FFFFFF" android:pathData="M94,22h20v3h-20zM94,40h24v3h-24zM94,58h18v3h-18zM94,76h22v3h-22zM94,94h20v3h-20zM94,112h24v3h-24zM94,130h18v3h-18zM94,148h22v3h-22z" />
+    <path android:fillColor="?attr/colorPrimary" android:pathData="M136,22h12v3h-12zM136,40h12v3h-12zM136,58h12v3h-12zM136,76h12v3h-12zM136,94h12v3h-12zM136,112h12v3h-12zM136,130h12v3h-12zM136,148h12v3h-12z" />
+    <path android:fillAlpha="0.08" android:fillColor="#FFFFFF" android:pathData="M90,33h62v1h-62zM90,51h62v1h-62zM90,69h62v1h-62zM90,87h62v1h-62zM90,105h62v1h-62zM90,123h62v1h-62zM90,141h62v1h-62z" />
+</vector>

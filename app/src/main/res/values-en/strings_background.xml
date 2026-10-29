@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notify_channel_scan">Scan in progress</string>
+    <string name="notify_channel_scan_body">Your scan\'s progress, so it keeps running even with the app closed</string>
+    <string name="notify_channel_scan_done">Scan complete</string>
+    <string name="notify_channel_scan_done_body">The result of a scan that finished while you were out of the app</string>
+    <string name="notify_scan_title">Scanning</string>
+    <string name="notify_scan_loading">Fetching the stock list…</string>
+    <string name="notify_scan_body">%1$s / %2$s stocks • %3$d%%</string>
+    <string name="notify_scan_stopping">Stopping the scan…</string>
+    <string name="notify_scan_done">✅ Scan complete • %1$d top candidates</string>
+    <string name="notify_scan_stopped">⏹ Scan stopped • %1$d top candidates</string>
+    <string name="notify_scan_stopped_early">⏹ Scan stopped</string>
+    <string name="notify_scan_stopped_early_body">Stopped before any stock was checked — the previous scan is unchanged</string>
+    <string name="notify_scan_top">Top: %1$s • score %2$s — tap to see</string>
+    <string name="notify_scan_none">No stock made it through your filters — tap to see</string>
+    <string name="status_reading_title">Opening the last scan…</string>
+    <string name="status_reading_body">Reading the saved list — one moment</string>
+    <string name="empty_reading_body">The last scan\'s list is on its way; a stock opened from a notification opens with it.</string>
+    <string name="notify_open_missing">%1$s isn\'t in the current list — run a new scan</string>
+    <string name="notify_channel_update">App update</string>
+    <string name="notify_channel_update_body">When a new version has downloaded and is ready to install</string>
+    <string name="update_download_title">Share Scan %1$s</string>
+    <string name="update_download_body">Downloading the new version</string>
+    <string name="notify_update_ready">Share Scan %1$s ready</string>
+    <string name="notify_update_ready_body">Download complete — tap to install</string>
+    <string name="settings_background">Let it run in the background</string>
+    <string name="settings_background_off">⚠ Right now Android may delay or stop the auto-scan and alerts to save battery. Tap here and choose “Allow”. On Xiaomi, Redmi, Vivo, Oppo and Realme, also turn on “Autostart” in App info.</string>
+    <string name="settings_background_on">✓ On — Android won\'t stop this app\'s auto-scan and alerts to save battery. On Xiaomi, Redmi, Vivo, Oppo and Realme, keep “Autostart” on in App info too (tap here to open it).</string>
+    <string name="help_background_title">Scanning in the background</string>
+    <string name="help_background_body">After you tap SCAN you can leave the app or turn the screen off and the scan keeps going — a notification shows its progress and a “Stop” button, and another brings the result when it\'s done. The update download also goes through Android\'s download manager, so it finishes even with the app closed, and then a “tap to install” notification comes. Android itself runs the auto-scan during market hours: tap “Let it run in the background” in Menu → Scan to allow it, or Android may delay or stop it to save battery. On phones like Xiaomi, Redmi, Vivo, Oppo and Realme, also turn on “Autostart” in App info.</string>
+</resources>

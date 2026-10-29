@@ -50,6 +50,8 @@ data class ScanUiState(
     val filters: ScanFilters = ScanFilters(),
     /** Symbols the user starred. */
     val watchlist: Set<String> = emptySet(),
+    /** When and at what price each starred stock was added ([WatchBook]), what its return is measured from. */
+    val watchAdded: Map<String, WatchEntry> = emptyMap(),
     /** Show only starred stocks. */
     val watchlistOnly: Boolean = false,
     val scanMode: ScanMode = ScanMode.BREAKOUT,
@@ -179,6 +181,10 @@ data class ScanUiState(
     }
 
     val volumeSpikes: Int get() = visible.count { it.stock.rvol >= StockFormat.SPIKE_RVOL }
+
+    /** [symbol]'s latest price in the scan or among the watchlist's stocks outside it; null without a chart. */
+    fun priceOf(symbol: String): Double? =
+        (results.firstOrNull { it.symbol == symbol } ?: watchExtras.firstOrNull { it.symbol == symbol })?.price?.takeIf { it > 0.0 }
 
     /** [shown] in the chosen order; this is what the list displays. */
     val sortedResults: List<RankedStock>

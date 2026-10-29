@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_background">ಹಿನ್ನೆಲೆ</string>
+    <string name="background_title">ಹಿನ್ನೆಲೆ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="background_subtitle">ಪ್ರತಿ ಹಿನ್ನೆಲೆಗೂ ತನ್ನದೇ ರೂಪ, ಅನಿಮೇಷನ್ • ಬಣ್ಣಗಳು ಥೀಮ್‌ನವು</string>
+    <string name="background_galaxy">Galaxy</string>
+    <string name="background_galaxy_body">ಕ್ಷೀರಪಥ, ಮಿನುಗುವ ಮತ್ತು ಉದುರುವ ನಕ್ಷತ್ರಗಳು • ದೊಡ್ಡ ಕಾರ್ಡ್‌ಗಳ ರೂಪ</string>
+    <string name="background_space_glass">Space Glass</string>
+    <string name="background_space_glass_body">ತೇಲುವ ಬೆಳಕುಗಳು, ಚಲಿಸುವ ಟ್ರೇಡಿಂಗ್ ಗ್ರಿಡ್, ಚಾರ್ಟ್ ರೇಖೆ • ಕಾಂಪ್ಯಾಕ್ಟ್ ಟೇಬಲ್ ರೂಪ</string>
+    <string name="help_sky_title">ಹಿನ್ನೆಲೆ ಮತ್ತು ಥೀಮ್</string>
+    <string name="help_sky_body">ಮೆನು → ಹಿನ್ನೆಲೆಯಲ್ಲಿ ಎರಡರಲ್ಲಿ ಒಂದನ್ನು ಆಯ್ಕೆಮಾಡಿ — ಪ್ರತಿಯೊಂದಕ್ಕೂ ತನ್ನದೇ ರೂಪ ಮತ್ತು ಅನಿಮೇಷನ್ ಇದೆ: Galaxy ಯಲ್ಲಿ ಕ್ಷೀರಪಥ (ಮಿನುಗುವ, ಉದುರುವ ನಕ್ಷತ್ರಗಳು, ಕ್ಷೀರಪಥದತ್ತ ಹಾರಾಟ) ಜೊತೆ ದೊಡ್ಡ ಕಾರ್ಡ್‌ಗಳ ರೂಪ, Space Glass ನಲ್ಲಿ ತೇಲುವ ಬೆಳಕುಗಳು, ಚಲಿಸುವ ಟ್ರೇಡಿಂಗ್ ಗ್ರಿಡ್, ಚಾರ್ಟ್ ರೇಖೆಯೊಂದಿಗೆ ಕಾಂಪ್ಯಾಕ್ಟ್ ಟೇಬಲ್ (ಮೇಲೆ ತೆಳು ಪಟ್ಟಿ, ಪ್ರತಿ ಷೇರಿಗೆ ಒಂದು ಸಾಲು, ಕೆಳಗೆ ತೇಲುವ ಪಟ್ಟಿ). ಮೆನು → ಥೀಮ್‌ನಲ್ಲಿ ಬಣ್ಣಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ: ಯಾವುದೇ ಥೀಮ್ ಎರಡೂ ಹಿನ್ನೆಲೆಗಳಿಗೆ ಅನ್ವಯಿಸುತ್ತದೆ, ಅದರ ಬಣ್ಣಗಳು ಹಿನ್ನೆಲೆಯಲ್ಲೂ ಬರುತ್ತವೆ. ಸೆಟ್ಟಿಂಗ್‌ಗಳು → ಆಕಾಶದ ಅನಿಮೇಷನ್ ಆಫ್ ಮಾಡಿದರೆ ಹಿನ್ನೆಲೆ ನಿಲ್ಲುತ್ತದೆ.</string>
+</resources>

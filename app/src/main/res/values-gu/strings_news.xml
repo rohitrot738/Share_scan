@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="news_kind_results">પરિણામો</string>
+    <string name="news_kind_order">ઑર્ડર</string>
+    <string name="news_kind_dividend">ડિવિડન્ડ / બોનસ</string>
+    <string name="news_kind_fundraise">મૂડી ઊભી કરવી</string>
+    <string name="news_kind_deal">અધિગ્રહણ</string>
+    <string name="news_kind_expansion">વિસ્તરણ</string>
+    <string name="news_kind_management">સંચાલન</string>
+    <string name="news_kind_rating">રેટિંગ</string>
+    <string name="news_kind_legal">કાનૂની</string>
+    <string name="news_kind_meeting">બોર્ડ બેઠક</string>
+    <string name="news_kind_investor">વિશ્લેષક બેઠક</string>
+    <string name="news_kind_other">સમાચાર</string>
+    <string name="news_kind_routine">સામાન્ય સૂચના</string>
+    <string name="news_pre_open">બજાર પહેલાં</string>
+    <string name="news_live">લાઇવ</string>
+    <string name="news_today">આજે %1$s</string>
+    <string name="news_yesterday">ગઈકાલે %1$s</string>
+    <string name="detail_tab_overview">માહિતી</string>
+    <string name="detail_tab_news">સમાચાર</string>
+    <string name="detail_tab_news_count">સમાચાર · %1$d</string>
+    <string name="news_loading">NSE/BSE ની જાહેરાતો અને અખબારના સમાચાર આવી રહ્યા છે…</string>
+    <string name="news_subtitle">એક્સચેન્જની જાહેરાતો (30 દિવસ) અને અખબારના સમાચાર (7 દિવસ) • સૌથી નવા ઉપર • પૂરા સમાચાર વાંચવા દબાવો</string>
+    <string name="news_subtitle_wide">આ શેરના સમાચાર ઓછા આવે છે, તેથી છેલ્લા 1 વર્ષ સુધીની જાહેરાતો અને સમાચાર • સૌથી નવા ઉપર • પૂરા સમાચાર વાંચવા દબાવો</string>
+    <string name="news_none">છેલ્લા 1 વર્ષમાં આ શેરની કોઈ જાહેરાત કે સમાચાર મળ્યા નથી</string>
+    <string name="news_failed">સમાચાર આવી શક્યા નહીં — ઇન્ટરનેટ તપાસો અને શીટ ફરી ખોલો</string>
+    <string name="news_source_filing">%1$s જાહેરાત • PDF</string>
+    <string name="news_source_filing_page">%1$s જાહેરાત</string>
+    <string name="news_more">બીજા %1$d સમાચાર બતાવો</string>
+    <string name="news_routine">+%1$d સામાન્ય સૂચનાઓ (અખબારમાં નોટિસ, ટ્રેડિંગ વિન્ડો, પ્રમાણપત્રો…)</string>
+    <string name="news_open_failed">સમાચાર ખોલવા માટે કોઈ બ્રાઉઝર મળ્યું નહીં</string>
+    <string name="item_news_badge">📰 %1$s</string>
+    <string name="item_news_badge_more">📰 %1$s +%2$d</string>
+    <string name="item_news_description">છેલ્લા 24 કલાકમાં %1$d જાહેરાતો, સૌથી મહત્વની: %2$s</string>
+    <string name="settings_news_alerts">વૉચલિસ્ટના સમાચાર</string>
+    <string name="settings_news_alerts_body">સવારે 8 થી 9:15 વચ્ચે ★ વાળા શેરના રાતભરના સમાચાર એક સૂચનામાં, અને દિવસે (સવારે 7 થી રાત્રે 10) પરિણામો, ઑર્ડર, ડિવિડન્ડ જેવી મોટી જાહેરાત આવતાં જ સૂચના</string>
+    <string name="notify_channel_news">વૉચલિસ્ટના સમાચાર</string>
+    <string name="notify_channel_news_body">★ વાળા શેરના સવારના સમાચાર અને મોટી જાહેરાતો</string>
+    <string name="notify_news_alert">📰 %1$s: %2$s</string>
+    <string name="notify_news_read">પૂરા સમાચાર</string>
+    <string name="notify_news_digest">🗞 સવારના સમાચાર • %1$d શેર</string>
+    <string name="notify_news_digest_line">%1$s · %2$s: %3$s</string>
+    <string name="help_news_title">સમાચાર</string>
+    <string name="help_news_body">દરેક શેરની વિગતમાં અલગ \"સમાચાર\" ટૅબ છે: NSE ની (ફક્ત BSE પર લિસ્ટેડ શેર માટે BSE ની) છેલ્લા 30 દિવસની જાહેરાતો અને છેલ્લા અઠવાડિયાના અખબારના સમાચાર (Google News પરથી, અંગ્રેજી અને હિન્દી), સૌથી નવા ઉપર. ઓછામાં ઓછા 10 સમાચાર દેખાય છે: જે શેરના સમાચાર ઓછા આવે છે, તેના છેલ્લા 1 વર્ષ સુધીની જાહેરાતો અને સમાચાર આવે છે. તાજા સમાચાર હોય તો ટૅબ પર બિંદુ દેખાય છે. દરેક સમાચાર પર તેનો પ્રકાર (પરિણામો, ઑર્ડર, ડિવિડન્ડ, વિસ્તરણ, કાનૂની…) લખેલો છે, અને \"બજાર પહેલાં\" (છેલ્લા બંધ પછી આવ્યા, આગલું સત્ર તેના પર ખૂલશે) અથવા \"લાઇવ\" (આજે બજાર દરમિયાન આવ્યા). દબાવતાં પૂરા સમાચાર કે જાહેરાતની PDF ખૂલે છે. યાદીમાં 📰 નું નિશાન બતાવે છે કે તે શેરની છેલ્લા 24 કલાકમાં એક્સચેન્જ પર કોઈ જાહેરાત આવી છે; તેને દબાવતાં શેર સીધો \"સમાચાર\" ટૅબ પર ખૂલે છે, અને સમાચારની સૂચનાઓ પણ. મેનુ → સ્કેન માં \"વૉચલિસ્ટના સમાચાર\" ચાલુ હોય તો ★ વાળા શેરના સવારના સમાચાર અને દિવસની મોટી જાહેરાતો સૂચનામાં આવે છે. સમાચાર સારા છે કે ખરાબ, એપ આ કહેતી નથી — વાંચીને જાતે નક્કી કરો.</string>
+</resources>

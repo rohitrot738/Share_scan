@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="score_detail_old">ଏହି ଅଂଶର ପୂରା ହିସାବ ଗତ ସ୍କାନରେ ରଖାଯାଇନଥିଲା — ପୁଣି ସ୍କାନ କଲେ ଦେଖାଯିବ</string>
+    <string name="score_swing">ଏହି ସେୟାରର ସାଧାରଣ ଦୈନିକ ଗତି (ଗତ 50 ଦିନର ହାରାହାରି ସର୍ବୋଚ୍ଚ–ସର୍ବନିମ୍ନ ପରିସର): %1$s%% — ଦୂରତା ଏହାର ଗୁଣନରେ ମପାଯାଏ</string>
+    <string name="score_total">ମୋଟ: %1$s = %2$s ନମ୍ବର → %3$s</string>
+    <string name="score_total_simple">ମୋଟ: %1$s ନମ୍ବର → %2$s</string>
+    <string name="score_soft_note">85 ଉପର ଓ 15 ତଳର ନମ୍ବରକୁ ଧୀରେ ଧୀରେ 100 ଓ 0 ଆଡ଼କୁ ଚାପି ଦିଆଯାଏ, ଯାହାଦ୍ୱାରା ସର୍ବୋତ୍ତମ ସେୟାରର କ୍ରମ ବଜାୟ ରହେ</string>
+    <string name="score_breakout_high">ଶେଷ ସେସନ ପୂର୍ବର 20 ଦିନର ସର୍ବୋଚ୍ଚ ଦର ₹%1$s; ଦର ₹%2$s ତାଠାରୁ %3$s%% ତଳେ, ଅର୍ଥାତ ଦୈନିକ ଗତିର %4$s ଗୁଣ → %5$s ନମ୍ବର (ଅଂଶ 55%%)</string>
+    <string name="score_breakout_high_above">ଶେଷ ସେସନ ପୂର୍ବର 20 ଦିନର ସର୍ବୋଚ୍ଚ ଦର ₹%1$s; ଦର ₹%2$s ତାଠାରୁ %3$s%% ଉପରକୁ ଚାଲିଗଲାଣି, ଦୈନିକ ଗତିର %4$s ଗୁଣ → %5$s ନମ୍ବର (ଅଂଶ 55%%)</string>
+    <string name="score_breakout_high_rule">ସର୍ବୋଚ୍ଚର ଠିକ ତଳୁ ତାଠାରୁ ଗୋଟିଏ ଦୈନିକ-ଗତି ଉପର ପର୍ଯ୍ୟନ୍ତ ପୂରା 100 ନମ୍ବର; ସେଠାରୁ ପ୍ରତି ଗୋଟିଏ ଦୈନିକ-ଗତି ଦୂରତାରେ 20 ନମ୍ବର କମ</string>
+    <string name="score_breakout_base">ଗତ 10 ଦିନର ଆଧାର ₹%1$s – ₹%2$s, ଓସାର %3$s%%, ଅର୍ଥାତ ଦୈନିକ ଗତିର %4$s ଗୁଣ (2 ଗୁଣ ବା କମ = ଟାଇଟ) → %5$s ନମ୍ବର</string>
+    <string name="score_breakout_calm">ସେହି ଦିନଗୁଡ଼ିକର ଦୈନିକ ପରିସର ସାଧାରଣ ଗତିର %1$s ଗୁଣ (0.6 ବା କମ = ପୂରା ଶାନ୍ତ) → %2$s ନମ୍ବର</string>
+    <string name="score_breakout_tight">ଆଧାରର ଟାଇଟନେସ: ଉପରର ଦୁଇଟିର ହାରାହାରି (110 ପର୍ଯ୍ୟନ୍ତ) → %1$s ନମ୍ବର (ଅଂଶ 30%%)</string>
+    <string name="score_breakout_position">ଆଧାରରେ ଦର କେଉଁଠି: %1$s/100 (0 = ସବୁଠୁ ତଳେ, 100 = ସବୁଠୁ ଉପରେ) (ଅଂଶ 15%%)</string>
+    <string name="score_breakout_total">ମୋଟ: 0.55 × %1$s + 0.30 × %2$s + 0.15 × %3$s = %4$s ନମ୍ବର → %5$s</string>
+    <string name="score_base_title">ଗତ 10 ସେସନର ଆଧାର</string>
+    <string name="score_trend_term">%1$s: %2$s ଦୈନିକ-ଗତି → %3$s × %2$s = %4$s ନମ୍ବର</string>
+    <string name="score_trend_above20">ଦର, 20 ଦିନର ହାରାହାରି ₹%1$s ଉପରେ (+) / ତଳେ (−)</string>
+    <string name="score_trend_slope">20 ଦିନର ହାରାହାରିର ଢାଲୁ, ଗତ 5 ଦିନରେ</string>
+    <string name="score_trend_above50">ଦର, 50 ଦିନର ହାରାହାରି ₹%1$s ଉପରେ (+) / ତଳେ (−)</string>
+    <string name="score_trend_stacked">20 ଦିନର ହାରାହାରି, 50 ଦିନର ହାରାହାରି ଉପରେ (+) / ତଳେ (−)</string>
+    <string name="score_trend_limits">ପ୍ରତ୍ୟେକ ଅଂଶ ଏକ ସୀମା ପର୍ଯ୍ୟନ୍ତ ହିଁ ଗଣାଯାଏ: 20 ଦିନ ±3, ଢାଲୁ ±2, 50 ଦିନ ±4 ଓ ଦୁଇ ହାରାହାରିର ବ୍ୟବଧାନ ±2 ଦୈନିକ-ଗତି</string>
+    <string name="score_trend_short">50 ଦିନର ଡାଟା ନାହିଁ, ତେଣୁ 20 ଦିନର ଦୁଇଟି ଅଂଶ 1.75 ଗୁଣ ଗଣାଗଲା</string>
+    <string name="score_volume_rvol">ଗତ ସେସନର ଭଲ୍ୟୁମ %1$s ସେୟାର, ତା ପୂର୍ବର 20 ସେସନର ହାରାହାରି %2$sର %3$s ଗୁଣ (RVOL) → %4$s ନମ୍ବର (1 ଗୁଣ = 50, 2 = 75, 4 = 100) (ଅଂଶ 60%%)</string>
+    <string name="score_volume_live">ବଜାର ଏବେ ଖୋଲା: ଆଜି ଏପର୍ଯ୍ୟନ୍ତର ଭଲ୍ୟୁମ, ଦିନର ଏହି ସମୟ ପର୍ଯ୍ୟନ୍ତ ସାଧାରଣତଃ ହେଉଥିବା ଅଂଶ ଅନୁସାରେ ପୂରା ଦିନର ଭାବେ ଗଣାଗଲା</string>
+    <string name="score_volume_quiet">ତା ପୂର୍ବର 5 ସେସନ: ହାରାହାରିର %1$s ଗୁଣ (0.5 ବା କମ = ଭଲ୍ୟୁମ ଶୁଖିଲା, 1.15 ବା ଅଧିକ = ନୁହେଁ) → %2$s ନମ୍ବର (ଅଂଶ 40%%)</string>
+    <string name="score_volume_total">ମୋଟ: 0.6 × %1$s + 0.4 × %2$s = %3$s ନମ୍ବର → %4$s</string>
+    <string name="score_liquidity_median">ଗତ 20 ସେସନରେ ଦୈନିକ କାରବାର (ଦର × ଭଲ୍ୟୁମ)ର ମଧ୍ୟମା %1$s</string>
+    <string name="score_liquidity_scale">ମାପକାଠି: ₹10 ଲକ୍ଷ = 0, ₹1 Cr = 33, ₹10 Cr = 67, ₹100 Cr = 100 ନମ୍ବର</string>
+    <string name="score_momentum_5d">5 ସେସନରେ %1$s%% → 4 × %1$s = %2$s ନମ୍ବର</string>
+    <string name="score_momentum_20d">20 ସେସନରେ %1$s%% → 1.5 × %1$s = %2$s ନମ୍ବର</string>
+    <string name="score_support_level">ସପୋର୍ଟ ₹%1$s; ଦର ତାଠାରୁ %2$s%% ଉପରେ</string>
+    <string name="score_support_age">%1$dଟି ସେସନ (%2$s) ଧରି ଏହା ତଳେ ବନ୍ଦ ହୋଇନାହିଁ → %3$s/70 ନମ୍ବର (6 ମାସରେ ପୂରା)</string>
+    <string name="score_support_touches">%1$d ଥର ଏଠାକୁ ଆସି ଫେରିଛି → %2$s/30 ନମ୍ବର (5 ଥରରେ ପୂରା)</string>
+    <string name="score_support_total">ଶକ୍ତି %1$s/100 → ବୋନସ %2$s ନମ୍ବର (ସର୍ବାଧିକ 5)</string>
+    <string name="score_support_none">ଗତ 6 ମାସର ଚାର୍ଟରେ କୌଣସି ଟିକାଉ ସପୋର୍ଟ ମିଳିଲା ନାହିଁ — ବୋନସ 0 (ସ୍କୋରରୁ କିଛି କଟେ ନାହିଁ)</string>
+    <string name="score_recent_title">ଗତ 10 ସେସନ</string>
+    <string name="score_col_day">ଦିନ</string>
+    <string name="score_col_close">ଦର</string>
+    <string name="score_col_change">ପରିବର୍ତ୍ତନ</string>
+    <string name="score_col_volume">ଭଲ୍ୟୁମ</string>
+    <string name="score_col_times">× ହାରାହାରି</string>
+    <string name="score_col_turnover">₹ Cr</string>
+    <string name="score_col_high">ସର୍ବୋଚ୍ଚ</string>
+    <string name="score_col_low">ସର୍ବନିମ୍ନ</string>
+    <string name="score_recent_note">× ହାରାହାରି: ସେହି ଦିନର ଭଲ୍ୟୁମ, ଆଜି ପୂର୍ବର 20 ସେସନର ହାରାହାରିର କେତେ ଗୁଣ; ₹ Cr: ସେହି ଦିନର କାରବାର</string>
+</resources>

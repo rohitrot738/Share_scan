@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_title">ಹೊಸ ಆವೃತ್ತಿ ಲಭ್ಯವಿದೆ</string>
+    <string name="update_title_ready">ಅಪ್‌ಡೇಟ್ ಡೌನ್‌ಲೋಡ್ ಆಗಿದೆ</string>
+    <string name="update_versions">%1$s • ಈಗ %2$s</string>
+    <string name="update_available_body">ಒಂದೇ ಟ್ಯಾಪ್‌ನಲ್ಲಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ ಹಳೆಯ ಆ್ಯಪ್‌ನ ಮೇಲೆಯೇ ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ — ವಾಚ್‌ಲಿಸ್ಟ್, ಫಿಲ್ಟರ್‌ಗಳು ಹಾಗೆಯೇ ಇರುತ್ತವೆ.</string>
+    <string name="update_downloading_body">ಡೌನ್‌ಲೋಡ್ ಆಗುತ್ತಿದೆ… %1$d%%</string>
+    <string name="update_ready_body">ಇನ್‌ಸ್ಟಾಲ್ ಟ್ಯಾಪ್ ಮಾಡಿ — ಹೊಸ ಆವೃತ್ತಿ ಹಳೆಯದರ ಮೇಲೆಯೇ ಇನ್‌ಸ್ಟಾಲ್ ಆಗುತ್ತದೆ.</string>
+    <string name="update_ready_permission_body">ಇನ್‌ಸ್ಟಾಲ್ ಟ್ಯಾಪ್ ಮಾಡಿ. ಮೊದಲ ಬಾರಿ Android “ಈ ಮೂಲದಿಂದ ಇನ್‌ಸ್ಟಾಲ್” ಅನುಮತಿ ಕೇಳುತ್ತದೆ — ಅದನ್ನು ಆನ್ ಮಾಡಿ ಹಿಂತಿರುಗಿ, ಇನ್‌ಸ್ಟಾಲ್ ಅಲ್ಲಿಂದಲೇ ಮುಂದುವರಿಯುತ್ತದೆ.</string>
+    <string name="update_failed_body">ಡೌನ್‌ಲೋಡ್ ಆಗಲಿಲ್ಲ. ಇಂಟರ್ನೆಟ್ ಸಂಪರ್ಕ ಪರಿಶೀಲಿಸಿ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ.</string>
+    <string name="update_action_download">ಅಪ್‌ಡೇಟ್ ಮಾಡಿ</string>
+    <string name="update_action_install">ಇನ್‌ಸ್ಟಾಲ್ ಮಾಡಿ</string>
+    <string name="update_action_retry">ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ</string>
+    <string name="update_action_later">ನಂತರ</string>
+    <string name="update_install_failed">ಇನ್‌ಸ್ಟಾಲರ್ ತೆರೆಯಲಾಗಲಿಲ್ಲ</string>
+</resources>

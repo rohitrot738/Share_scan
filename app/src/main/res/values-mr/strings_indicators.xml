@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_rsi">RSI (14)</string>
+    <string name="metric_macd">MACD, सिग्नलपासून अंतर</string>
+    <string name="metric_macd_cross">MACD क्रॉसओव्हर</string>
+    <string name="hint_rsi">70 पेक्षा वर = ओव्हरबॉट (खूप वाढला), 30 पेक्षा खाली = ओव्हरसोल्ड (खूप घसरला) • 50–70 = तेजी, पण जास्त नाही</string>
+    <string name="hint_macd" formatted="false">MACD रेषा तिच्या सिग्नल रेषेपेक्षा किती वर (+) किंवा खाली (-), भावाच्या % मध्ये • 0% पेक्षा वर = तेजी</string>
+    <string name="hint_macd_cross">MACD ने किती दिवसांपूर्वी सिग्नल रेषा खालून वर छेदली • \"3 दिवसांपूर्वी\" पर्यंत = ताजा तेजीचा क्रॉसओव्हर; सिग्नलखालचे शेअर्स वगळले जातात</string>
+    <string name="detail_stat_rsi">RSI (14)</string>
+    <string name="detail_stat_rsi_overbought">70+ ओव्हरबॉट: खूप वाढला</string>
+    <string name="detail_stat_rsi_strong">50–70: तेजी</string>
+    <string name="detail_stat_rsi_weak">30–50: कमकुवत</string>
+    <string name="detail_stat_rsi_oversold">30 पेक्षा कमी ओव्हरसोल्ड: खूप घसरला</string>
+    <string name="detail_stat_macd">MACD (12, 26, 9)</string>
+    <string name="detail_stat_macd_bull">तेजी</string>
+    <string name="detail_stat_macd_bear">मंदी</string>
+    <string name="detail_stat_macd_crossed">सिग्नल %1$s वर छेदला</string>
+    <string name="detail_stat_macd_below">सिग्नल रेषेखाली</string>
+    <string name="detail_stat_macd_zero_above">शून्याच्या वर</string>
+    <string name="detail_stat_macd_zero_below">शून्याच्या खाली</string>
+    <string name="help_indicators_title">RSI आणि MACD</string>
+    <string name="help_indicators_body" formatted="false">दोन्ही प्रत्येक शेअरच्या 6 महिन्यांच्या रोजच्या भावावरून बनतात, चार्ट साइट्सप्रमाणे. RSI (14) 0 ते 100 दरम्यान: 70 पेक्षा वर ओव्हरबॉट (खूप वाढला), 30 पेक्षा खाली ओव्हरसोल्ड (खूप घसरला), 50–70 तेजी. MACD (12, 26, 9): 12 आणि 26 दिवसांच्या घातांकी सरासरीतील फरक, आणि त्याची 9 दिवसांची सिग्नल रेषा. MACD सिग्नलच्या वर = तेजी; ज्या दिवशी तो सिग्नल खालून वर छेदतो, तो तेजीचा क्रॉसओव्हर. फिल्टरमध्ये तिन्ही आहेत: RSI ची श्रेणी, MACD सिग्नलपेक्षा किती वर/खाली (भावाच्या %), आणि क्रॉसओव्हर किती दिवसांपूर्वी झाला (\"3 दिवसांपूर्वी\" पर्यंत = ताजा क्रॉसओव्हर). शेअरच्या तपशीलात दोन्हींचे आजचे मूल्य दिसते. लाइव्ह बाजारात आजचा चालू भावही मोजला जातो.</string>
+</resources>

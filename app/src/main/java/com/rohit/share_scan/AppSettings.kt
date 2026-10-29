@@ -46,6 +46,50 @@ enum class BackgroundChoice(val key: String) {
     }
 }
 
+/**
+ * How the home list draws its stocks (Menu → Layout): the background's own ([AUTO]: the Milky Way's cards, Space
+ * Glass's table), or one of the blueprint's three, on either background. [key] is what the settings store.
+ */
+enum class ListLayout(val key: String) {
+    AUTO("auto"),
+    ACCORDION("accordion"),
+    BENTO("bento"),
+    SWIPE("swipe");
+
+    /** The item style the list uses with [background]. */
+    fun style(background: BackgroundChoice): ItemStyle = when (this) {
+        AUTO -> if (background.compact) ItemStyle.ROW else ItemStyle.CARD
+        ACCORDION -> ItemStyle.ACCORDION
+        BENTO -> ItemStyle.BENTO
+        SWIPE -> ItemStyle.SWIPE
+    }
+
+    companion object {
+        fun fromKey(key: String?): ListLayout = entries.firstOrNull { it.key == key } ?: AUTO
+    }
+}
+
+/** One stock in the home list: a card, a table line, an accordion card, a bento tile or a swipe card. */
+enum class ItemStyle { CARD, ROW, ACCORDION, BENTO, SWIPE }
+
+/**
+ * The app's font (Menu → भाषा और Font): the phone's own, or one of six bundled with the app, three of them with
+ * Devanagari letters of their own (Mukta, Hind, Poppins). [key] is what the settings store.
+ */
+enum class AppFont(val key: String) {
+    SYSTEM("system"),
+    MUKTA("mukta"),
+    HIND("hind"),
+    POPPINS("poppins"),
+    INTER("inter"),
+    SPACE_GROTESK("space_grotesk"),
+    JETBRAINS_MONO("jetbrains_mono");
+
+    companion object {
+        fun fromKey(key: String?): AppFont = entries.firstOrNull { it.key == key } ?: SYSTEM
+    }
+}
+
 /** Where the detail sheet's chart button opens a stock; [key] is what the settings store. */
 enum class ChartSite(val key: String) {
     TRADINGVIEW("tradingview"),
@@ -90,7 +134,7 @@ enum class ChartSite(val key: String) {
     }
 }
 
-/** User choices from the menu's Settings, Theme and Background sheets, stored in the shared [Prefs.FILE]. */
+/** User choices from the menu's Settings, Theme, Background and Layout sheets, stored in the shared [Prefs.FILE]. */
 class AppSettings(context: Context) {
     private val prefs = context.getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE)
 
@@ -102,6 +146,16 @@ class AppSettings(context: Context) {
     var background: BackgroundChoice
         get() = BackgroundChoice.fromKey(prefs.getString(Prefs.BACKGROUND, null), prefs.getBoolean(Prefs.COMPACT_LIST, false))
         set(value) = prefs.edit { putString(Prefs.BACKGROUND, value.key) }
+
+    /** How the home list draws its stocks; the background's own until another is picked. */
+    var listLayout: ListLayout
+        get() = ListLayout.fromKey(prefs.getString(Prefs.LIST_LAYOUT, null))
+        set(value) = prefs.edit { putString(Prefs.LIST_LAYOUT, value.key) }
+
+    /** The app's font; the phone's own until another is picked. */
+    var font: AppFont
+        get() = AppFont.fromKey(prefs.getString(Prefs.FONT, null))
+        set(value) = prefs.edit { putString(Prefs.FONT, value.key) }
 
     var chartSite: ChartSite
         get() = ChartSite.fromKey(prefs.getString(Prefs.CHART_SITE, null))

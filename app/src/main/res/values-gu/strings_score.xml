@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="score_detail_old">આ ભાગનો પૂરો હિસાબ પાછલા સ્કેનમાં રાખ્યો ન હતો — ફરી સ્કેન કરતાં દેખાશે</string>
+    <string name="score_swing">આ શેરની સામાન્ય રોજની ચાલ (છેલ્લા 50 દિવસની સરેરાશ ઊંચી–નીચી રેન્જ): %1$s%% — અંતર તેના ગુણાકારમાં મપાય છે</string>
+    <string name="score_total">કુલ: %1$s = %2$s ગુણ → %3$s</string>
+    <string name="score_total_simple">કુલ: %1$s ગુણ → %2$s</string>
+    <string name="score_soft_note">85 થી ઉપરના અને 15 થી નીચેના ગુણ ધીમે ધીમે 100 અને 0 તરફ દબાવાય છે, જેથી શ્રેષ્ઠ શેરનો ક્રમ જળવાઈ રહે</string>
+    <string name="score_breakout_high">છેલ્લા સત્ર પહેલાંના 20 દિવસનો ઊંચો ભાવ ₹%1$s; ભાવ ₹%2$s તેનાથી %3$s%% નીચે, એટલે રોજની ચાલના %4$s ગણા → %5$s ગુણ (હિસ્સો 55%%)</string>
+    <string name="score_breakout_high_above">છેલ્લા સત્ર પહેલાંના 20 દિવસનો ઊંચો ભાવ ₹%1$s; ભાવ ₹%2$s તેનાથી %3$s%% ઉપર નીકળી ગયો, રોજની ચાલના %4$s ગણા → %5$s ગુણ (હિસ્સો 55%%)</string>
+    <string name="score_breakout_high_rule">ઊંચા ભાવની બરાબર નીચેથી તેની એક રોજની ચાલ ઉપર સુધી પૂરા 100 ગુણ; તેનાથી દરેક એક રોજની ચાલ દૂર પર 20 ગુણ ઓછા</string>
+    <string name="score_breakout_base">છેલ્લા 10 દિવસનો આધાર ₹%1$s – ₹%2$s, પહોળાઈ %3$s%%, એટલે રોજની ચાલના %4$s ગણા (2 ગણા કે ઓછા = ચુસ્ત) → %5$s ગુણ</string>
+    <string name="score_breakout_calm">તે દિવસોની રોજની રેન્જ સામાન્ય ચાલના %1$s ગણી (0.6 કે ઓછી = સંપૂર્ણ શાંત) → %2$s ગુણ</string>
+    <string name="score_breakout_tight">આધારની ચુસ્તતા: ઉપરના બંનેની સરેરાશ (110 સુધી) → %1$s ગુણ (હિસ્સો 30%%)</string>
+    <string name="score_breakout_position">આધારમાં ભાવ ક્યાં: %1$s/100 (0 = સૌથી નીચે, 100 = સૌથી ઉપર) (હિસ્સો 15%%)</string>
+    <string name="score_breakout_total">કુલ: 0.55 × %1$s + 0.30 × %2$s + 0.15 × %3$s = %4$s ગુણ → %5$s</string>
+    <string name="score_base_title">છેલ્લાં 10 સત્રનો આધાર</string>
+    <string name="score_trend_term">%1$s: %2$s રોજની ચાલ → %3$s × %2$s = %4$s ગુણ</string>
+    <string name="score_trend_above20">ભાવ, 20-દિવસ સરેરાશ ₹%1$s થી ઉપર (+) / નીચે (−)</string>
+    <string name="score_trend_slope">20-દિવસ સરેરાશનો ઢાળ, છેલ્લા 5 દિવસમાં</string>
+    <string name="score_trend_above50">ભાવ, 50-દિવસ સરેરાશ ₹%1$s થી ઉપર (+) / નીચે (−)</string>
+    <string name="score_trend_stacked">20-દિવસ સરેરાશ, 50-દિવસ સરેરાશથી ઉપર (+) / નીચે (−)</string>
+    <string name="score_trend_limits">દરેક ભાગ એક હદ સુધી જ ગણાય છે: 20-દિવસ ±3, ઢાળ ±2, 50-દિવસ ±4 અને બંને સરેરાશનો તફાવત ±2 રોજની ચાલ</string>
+    <string name="score_trend_short">50 દિવસનો ડેટા નથી, તેથી 20-દિવસવાળા બંને ભાગ 1.75 ગણા ગણ્યા</string>
+    <string name="score_volume_rvol">છેલ્લા સત્રનું વોલ્યુમ %1$s શેર, તે પહેલાંનાં 20 સત્રની સરેરાશ %2$s ના %3$s ગણું (RVOL) → %4$s ગુણ (1 ગણું = 50, 2 = 75, 4 = 100) (હિસ્સો 60%%)</string>
+    <string name="score_volume_live">બજાર હાલ ચાલુ છે: આજનું અત્યાર સુધીનું વોલ્યુમ, દિવસના આ સમય સુધી સામાન્ય રીતે થતા હિસ્સા પ્રમાણે આખા દિવસનું માનીને ગણ્યું</string>
+    <string name="score_volume_quiet">તે પહેલાંનાં 5 સત્ર: સરેરાશના %1$s ગણું (0.5 કે ઓછું = વોલ્યુમ સુકાયું, 1.15 કે વધુ = નહીં) → %2$s ગુણ (હિસ્સો 40%%)</string>
+    <string name="score_volume_total">કુલ: 0.6 × %1$s + 0.4 × %2$s = %3$s ગુણ → %4$s</string>
+    <string name="score_liquidity_median">છેલ્લાં 20 સત્રમાં રોજના વેપાર (ભાવ × વોલ્યુમ) નો મધ્યક %1$s</string>
+    <string name="score_liquidity_scale">માપ: ₹10 લાખ = 0, ₹1 Cr = 33, ₹10 Cr = 67, ₹100 Cr = 100 ગુણ</string>
+    <string name="score_momentum_5d">5 સત્રમાં %1$s%% → 4 × %1$s = %2$s ગુણ</string>
+    <string name="score_momentum_20d">20 સત્રમાં %1$s%% → 1.5 × %1$s = %2$s ગુણ</string>
+    <string name="score_support_level">સપોર્ટ ₹%1$s; ભાવ તેનાથી %2$s%% ઉપર</string>
+    <string name="score_support_age">%1$d સત્ર (%2$s) થી તેની નીચે બંધ થયો નથી → %3$s/70 ગુણ (6 મહિને પૂરા)</string>
+    <string name="score_support_touches">%1$d વાર અહીં સુધી આવીને પાછો ફર્યો → %2$s/30 ગુણ (5 વારે પૂરા)</string>
+    <string name="score_support_total">તાકાત %1$s/100 → બોનસ %2$s ગુણ (વધુમાં વધુ 5)</string>
+    <string name="score_support_none">છેલ્લા 6 મહિનાના ચાર્ટમાં કોઈ ટકાઉ સપોર્ટ મળ્યો નહીં — બોનસ 0 (સ્કોરમાંથી કંઈ કપાતું નથી)</string>
+    <string name="score_recent_title">છેલ્લાં 10 સત્ર</string>
+    <string name="score_col_day">દિવસ</string>
+    <string name="score_col_close">ભાવ</string>
+    <string name="score_col_change">ફેરફાર</string>
+    <string name="score_col_volume">વોલ્યુમ</string>
+    <string name="score_col_times">× સરેરાશ</string>
+    <string name="score_col_turnover">₹ Cr</string>
+    <string name="score_col_high">ઊંચો</string>
+    <string name="score_col_low">નીચો</string>
+    <string name="score_recent_note">× સરેરાશ: તે દિવસનું વોલ્યુમ, આજ પહેલાંનાં 20 સત્રની સરેરાશના કેટલા ગણું; ₹ Cr: તે દિવસનો વેપાર</string>
+</resources>

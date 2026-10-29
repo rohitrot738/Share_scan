@@ -6,6 +6,10 @@
     <!-- The background picker's still pictures (BackgroundSheet). -->
     <dimen name="background_preview_corner">14dp</dimen>
     <dimen name="background_preview_height">180dp</dimen>
+    <!-- Menu → Layout: the sketches of the four layouts, two to a row. -->
+    <dimen name="layout_preview_height">150dp</dimen>
     <!-- A trading app's icon on the detail sheet's buttons and the Settings chips (Broker.icon). -->
     <dimen name="broker_icon">18dp</dimen>
+    <!-- The bento grid's room either side; with the tiles' 4dp margins they sit 16dp from the edge like the cards. -->
+    <dimen name="bento_side">12dp</dimen>
 </resources>

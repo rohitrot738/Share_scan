@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_stop">நிறுத்து</string>
+    <string name="action_stopping">நிறுத்துகிறது…</string>
+    <string name="status_stopped_title">ஸ்கேன் நிறுத்தப்பட்டது</string>
+    <string name="status_stopped_body">%1$s / %2$s பங்குகள் சரிபார்க்கப்பட்டன • %3$s இல்</string>
+    <string name="status_stopped_early_body">பங்குப் பட்டியல் வரும் முன்பே நிறுத்தப்பட்டது.</string>
+    <string name="empty_stopped_title">எந்தப் பங்குக்கும் ஸ்கோர் வரவில்லை</string>
+    <string name="empty_stopped_body">ஸ்கேன் அதற்கு முன்பே நிறுத்தப்பட்டது. மேலே உள்ள பொத்தானைத் தட்டி மீண்டும் ஸ்கேன் செய்யவும்.</string>
+</resources>

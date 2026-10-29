@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_text">ಭಾಷೆ ಮತ್ತು ಫಾಂಟ್</string>
+    <string name="menu_text_body">ಈಗ: %1$s · %2$s</string>
+    <string name="text_title">ಭಾಷೆ ಮತ್ತು ಫಾಂಟ್</string>
+    <string name="text_subtitle">ಇಡೀ ಆ್ಯಪ್ ಯಾವ ಭಾಷೆಯಲ್ಲಿ, ಯಾವ ಫಾಂಟ್‌ನಲ್ಲಿ ಕಾಣಬೇಕು</string>
+    <string name="text_language">ಭಾಷೆ</string>
+    <string name="text_language_note">ಅನುವಾದ ಆ್ಯಪ್‌ನಲ್ಲೇ ತಯಾರಾಗಿದೆ, ಯಾವುದೇ ಪದದಲ್ಲಿ ತಪ್ಪು ಕಂಡರೆ ತಿಳಿಸಿ. ಷೇರು ಮತ್ತು ಕಂಪನಿ ಹೆಸರುಗಳು, ಸುದ್ದಿಗಳು, \"ಹೊಸತೇನು\" ಹಾಗೆಯೇ ಇರುತ್ತವೆ.</string>
+    <string name="text_font">ಫಾಂಟ್</string>
+    <string name="text_font_sample">Share Scan · ಬ್ರೇಕ್‌ಔಟ್ ಸ್ಕ್ಯಾನ್ · ₹1,234.50 ▲ 2.40% · 86.0</string>
+    <string name="font_system">ಫೋನ್‌ನ ಫಾಂಟ್</string>
+    <string name="text_font_description">%1$s ಫಾಂಟ್ ಆಯ್ಕೆಮಾಡಿ</string>
+    <string name="text_language_description">%1$s ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ</string>
+</resources>

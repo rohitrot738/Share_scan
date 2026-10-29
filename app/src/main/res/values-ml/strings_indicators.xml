@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_rsi">RSI (14)</string>
+    <string name="metric_macd">MACD, സിഗ്നലിൽ നിന്നുള്ള ദൂരം</string>
+    <string name="metric_macd_cross">MACD ക്രോസ്ഓവർ</string>
+    <string name="hint_rsi">70-ന് മുകളിൽ = ഓവർബോട്ട് (വളരെ കയറി), 30-ന് താഴെ = ഓവർസോൾഡ് (വളരെ ഇടിഞ്ഞു) • 50–70 = കയറുന്നു, പക്ഷേ അധികമില്ല</string>
+    <string name="hint_macd" formatted="false">MACD രേഖ അതിന്റെ സിഗ്നൽ രേഖയ്ക്ക് എത്ര മുകളിൽ (+) അല്ലെങ്കിൽ താഴെ (-), വിലയുടെ ശതമാനമായി • 0%-ന് മുകളിൽ = കയറുന്നു</string>
+    <string name="hint_macd_cross">MACD അതിന്റെ സിഗ്നൽ രേഖയെ താഴെ നിന്ന് കടന്നിട്ട് എത്ര ദിവസമായി • \"3 ദിവസം മുമ്പ്\" വരെ = പുതിയ ബുള്ളിഷ് ക്രോസ്ഓവർ; സിഗ്നലിന് താഴെയുള്ള ഓഹരികൾ ഒഴിവാകും</string>
+    <string name="detail_stat_rsi">RSI (14)</string>
+    <string name="detail_stat_rsi_overbought">70+ ഓവർബോട്ട്: വളരെ കയറി</string>
+    <string name="detail_stat_rsi_strong">50–70: കയറുന്നു</string>
+    <string name="detail_stat_rsi_weak">30–50: ദുർബലം</string>
+    <string name="detail_stat_rsi_oversold">30-ന് താഴെ ഓവർസോൾഡ്: വളരെ ഇടിഞ്ഞു</string>
+    <string name="detail_stat_macd">MACD (12, 26, 9)</string>
+    <string name="detail_stat_macd_bull">ബുള്ളിഷ്</string>
+    <string name="detail_stat_macd_bear">ബെയറിഷ്</string>
+    <string name="detail_stat_macd_crossed">%1$s സിഗ്നലിന് മുകളിലേക്ക് കടന്നു</string>
+    <string name="detail_stat_macd_below">സിഗ്നൽ രേഖയ്ക്ക് താഴെ</string>
+    <string name="detail_stat_macd_zero_above">പൂജ്യത്തിന് മുകളിൽ</string>
+    <string name="detail_stat_macd_zero_below">പൂജ്യത്തിന് താഴെ</string>
+    <string name="help_indicators_title">RSI, MACD</string>
+    <string name="help_indicators_body" formatted="false">രണ്ടും ചാർട്ടിംഗ് സൈറ്റുകളിലെ പോലെ ഓരോ ഓഹരിയുടെയും 6 മാസത്തെ ദൈനംദിന വിലകളിൽ നിന്ന് വരുന്നു. RSI (14) 0 മുതൽ 100 വരെ: 70-ന് മുകളിൽ ഓവർബോട്ട് (വളരെ കയറി), 30-ന് താഴെ ഓവർസോൾഡ് (വളരെ ഇടിഞ്ഞു), 50–70 കയറുന്നു. MACD (12, 26, 9): 12, 26 ദിവസത്തെ എക്സ്പൊണൻഷ്യൽ ശരാശരികൾ തമ്മിലുള്ള അകലം, അതിന്റെ 9 ദിവസത്തെ സിഗ്നൽ രേഖ. MACD അതിന്റെ സിഗ്നലിന് മുകളിൽ = കയറുന്നു; അത് സിഗ്നലിനെ താഴെ നിന്ന് കടക്കുന്ന ദിവസം ബുള്ളിഷ് ക്രോസ്ഓവർ. ഫിൽട്ടറുകളിൽ മൂന്നുമുണ്ട്: RSI പരിധി, MACD അതിന്റെ സിഗ്നലിന് എത്ര മുകളിലോ താഴെയോ (വിലയുടെ ശതമാനമായി), ക്രോസ്ഓവർ എത്ര ദിവസം മുമ്പ് വന്നു (\"3 ദിവസം മുമ്പ്\" വരെ = പുതിയ ക്രോസ്ഓവർ). ഓഹരിയുടെ വിശദാംശത്തിൽ രണ്ടിന്റെയും ഇന്നത്തെ മൂല്യം കാണാം. ലൈവ് വിപണിയിൽ ഇന്നത്തെ ചലിക്കുന്ന വിലയും കണക്കിൽ വരും.</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_title">പുതിയ പതിപ്പ് ലഭ്യമാണ്</string>
+    <string name="update_title_ready">അപ്ഡേറ്റ് ഡൗൺലോഡ് ചെയ്തു</string>
+    <string name="update_versions">%1$s • ഇപ്പോൾ %2$s</string>
+    <string name="update_available_body">ഒറ്റ ടാപ്പിൽ ഡൗൺലോഡ് ചെയ്ത് പഴയ ആപ്പിന് മുകളിൽ തന്നെ ഇൻസ്റ്റാൾ ചെയ്യുക — വാച്ച്‌ലിസ്റ്റും ഫിൽട്ടറുകളും അതേപടി നിലനിൽക്കും.</string>
+    <string name="update_downloading_body">ഡൗൺലോഡ് ചെയ്യുന്നു… %1$d%%</string>
+    <string name="update_ready_body">ഇൻസ്റ്റാൾ ടാപ്പ് ചെയ്യുക — പുതിയ പതിപ്പ് പഴയതിന് മുകളിൽ ഇൻസ്റ്റാൾ ആകും.</string>
+    <string name="update_ready_permission_body">ഇൻസ്റ്റാൾ ടാപ്പ് ചെയ്യുക. ആദ്യമായി Android “ഈ ഉറവിടത്തിൽ നിന്ന് ഇൻസ്റ്റാൾ” അനുമതി ചോദിക്കും — അത് ഓണാക്കി തിരികെ വരുക, ഇൻസ്റ്റാൾ അവിടെ നിന്ന് തുടരും.</string>
+    <string name="update_failed_body">ഡൗൺലോഡ് ആയില്ല. ഇന്റർനെറ്റ് കണക്ഷൻ പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക.</string>
+    <string name="update_action_download">അപ്ഡേറ്റ് ചെയ്യുക</string>
+    <string name="update_action_install">ഇൻസ്റ്റാൾ ചെയ്യുക</string>
+    <string name="update_action_retry">വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="update_action_later">പിന്നീട്</string>
+    <string name="update_install_failed">ഇൻസ്റ്റാളർ തുറക്കാനായില്ല</string>
+</resources>

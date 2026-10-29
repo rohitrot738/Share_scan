@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_from_high">20D ସର୍ବୋଚ୍ଚରୁ ଦୂରତା</string>
+    <string name="metric_base_range">ଶାନ୍ତ ପରିସର (ସର୍ବୋଚ୍ଚ–ସର୍ବନିମ୍ନ)</string>
+    <string name="metric_vs_sma50">50 DMAରୁ ଦୂରତା</string>
+    <string name="hint_from_high">20 ଦିନର ସର୍ବୋଚ୍ଚ ଦର (ରେଜିଷ୍ଟାନ୍ସ)ଠାରୁ ଦର କେତେ ତଳେ • ଋଣାତ୍ମକ = ସର୍ବୋଚ୍ଚ ଉପରେ ବ୍ରେକଆଉଟ</string>
+    <string name="hint_base_range">ବଛା ସପ୍ତାହରେ ସର୍ବୋଚ୍ଚ ଓ ସର୍ବନିମ୍ନ ଦର ମଧ୍ୟରେ ବ୍ୟବଧାନ • କମ = ଶାନ୍ତ ସେୟାର, ବହୁତ ଉପରେ ନୁହେଁ ବହୁତ ତଳେ ନୁହେଁ</string>
+    <string name="hint_vs_sma50">50 ଦିନର ହାରାହାରି ଉପରେ (+) ବା ତଳେ (-) • ଧନାତ୍ମକ = ବଢ଼ୁଥିବା ଟ୍ରେଣ୍ଡ</string>
+    <string name="hint_score_mix">ବ୍ରେକଆଉଟ ସେଟଅପ, ଟ୍ରେଣ୍ଡ, ଭଲ୍ୟୁମ, ଲିକ୍ୱିଡିଟି ଓ ମୋମେଣ୍ଟମର ମିଶ୍ରଣ • %1$s+ STRONG, %2$s+ WATCH</string>
+</resources>

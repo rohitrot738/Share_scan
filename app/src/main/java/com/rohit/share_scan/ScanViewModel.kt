@@ -28,6 +28,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
             supportFilters = prefs.getString(Prefs.SUPPORT_FILTERS, null)?.let(ScanFilters::decode)
                 ?: ScanFilters(limit = 0),
             watchlist = prefs.getStringSet(Prefs.WATCHLIST, null).orEmpty().toSet(),
+            watchAdded = WatchBook.decode(prefs.getString(Prefs.WATCH_ADDED, null)),
         ).withScanMode(
             if (prefs.getString(Prefs.SCAN_MODE, null) == ScanMode.SUPPORT.name) ScanMode.SUPPORT else ScanMode.BREAKOUT,
         ),
@@ -117,6 +118,20 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
                 setups = SetupRepository.current().takeIf { it !== SetupBook.EMPTY } ?: current.setups,
             )
         }
+        fillAdded()
+    }
+
+    /**
+     * Gives each starred stock without an added price (starred before the app kept them, or on another phone) the
+     * price it has now, marked as estimated; forgets those of stocks no longer starred.
+     */
+    private fun fillAdded() {
+        val before = state.value.watchAdded
+        val updated = state.updateAndGet { current ->
+            val prices = current.watchlist.mapNotNull { symbol -> current.priceOf(symbol)?.let { symbol to it } }.toMap()
+            current.copy(watchAdded = WatchBook.backfill(current.watchAdded, current.watchlist, prices, System.currentTimeMillis()))
+        }
+        if (updated.watchAdded !== before) saveAdded(updated.watchAdded)
     }
 
     /** Starts the user's scan, run in a foreground service so it goes on with the app out of sight ([ScanService]). */
@@ -148,22 +163,63 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
         prefs.edit { putString(Prefs.SUPPORT_FILTERS, filters.encode()) }
     }
 
+    /** Adds [symbol] to the watchlist at its price now, or takes it off. */
     fun toggleStar(symbol: String) {
         val updated = state.updateAndGet { current ->
-            val watchlist = if (symbol in current.watchlist) current.watchlist - symbol else current.watchlist + symbol
-            current.copy(watchlist = watchlist)
+            if (symbol in current.watchlist) {
+                current.copy(watchlist = current.watchlist - symbol, watchAdded = current.watchAdded - symbol)
+            } else {
+                val added = current.priceOf(symbol)?.let { WatchEntry(it, System.currentTimeMillis()) }
+                current.copy(
+                    watchlist = current.watchlist + symbol,
+                    watchAdded = if (added != null) current.watchAdded + (symbol to added) else current.watchAdded,
+                )
+            }
         }
         saveWatchlist(updated.watchlist)
+        saveAdded(updated.watchAdded)
+    }
+
+    /** Takes [symbol] off the watchlist and hands back when and at what price it was added, for [restar]. */
+    fun unstar(symbol: String): WatchEntry? {
+        val entry = state.value.watchAdded[symbol]
+        if (symbol in state.value.watchlist) toggleStar(symbol)
+        return entry
+    }
+
+    /** Puts [symbol] back on the watchlist as it was before [unstar]: the same added price and time. */
+    fun restar(symbol: String, entry: WatchEntry?) {
+        val updated = state.updateAndGet { current ->
+            current.copy(
+                watchlist = current.watchlist + symbol,
+                watchAdded = if (entry != null) current.watchAdded + (symbol to entry) else current.watchAdded,
+            )
+        }
+        saveWatchlist(updated.watchlist)
+        saveAdded(updated.watchAdded)
+        fillAdded()
+    }
+
+    /** The price [symbol]'s return is measured from, as the user gives it; the time it was added stays. */
+    fun setAddedPrice(symbol: String, price: Double) {
+        if (!(price > 0.0) || !price.isFinite()) return
+        val updated = state.updateAndGet { current ->
+            val at = current.watchAdded[symbol]?.at ?: System.currentTimeMillis()
+            current.copy(watchAdded = current.watchAdded + (symbol to WatchEntry(price, at)))
+        }
+        saveAdded(updated.watchAdded)
     }
 
     fun clearWatchlist() {
-        state.update { it.copy(watchlist = emptySet()) }
+        state.update { it.copy(watchlist = emptySet(), watchAdded = emptyMap()) }
         saveWatchlist(emptySet())
+        saveAdded(emptyMap())
     }
 
     /** Takes a watchlist that changed elsewhere (another device, through the cloud), without sending it back. */
     fun showWatchlist(watchlist: Set<String>) {
         state.update { it.copy(watchlist = watchlist) }
+        fillAdded()
     }
 
     private fun saveWatchlist(watchlist: Set<String>) {
@@ -171,6 +227,10 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
             if (watchlist.isEmpty()) remove(Prefs.WATCHLIST) else putStringSet(Prefs.WATCHLIST, HashSet(watchlist))
         }
         CloudWatchlist.push(getApplication(), watchlist)
+    }
+
+    private fun saveAdded(entries: Map<String, WatchEntry>) {
+        prefs.edit { if (entries.isEmpty()) remove(Prefs.WATCH_ADDED) else putString(Prefs.WATCH_ADDED, WatchBook.encode(entries)) }
     }
 
     /** Forgets the previous scan's ranks, so the next scan starts fresh without NEW or ▲▼ badges. */

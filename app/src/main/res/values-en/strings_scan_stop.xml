@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_stop">Stop</string>
+    <string name="action_stopping">Stopping…</string>
+    <string name="status_stopped_title">Scan stopped</string>
+    <string name="status_stopped_body">%1$s / %2$s stocks checked • in %3$s</string>
+    <string name="status_stopped_early_body">Stopped before the stock list came.</string>
+    <string name="empty_stopped_title">No stock was scored</string>
+    <string name="empty_stopped_body">The scan was stopped before that. Tap the button above to scan again.</string>
+</resources>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unit_today">ഇന്ന്</string>
+    <string name="unit_days_ago">%1$s ദിവസം മുമ്പ്</string>
+    <string name="unit_days">%1$s ദിവസം</string>
+    <string name="unit_month">%1$s മാസം</string>
+    <string name="unit_months">%1$s മാസം</string>
+    <string name="unit_week">%1$s ആഴ്ച</string>
+    <string name="unit_weeks">%1$s ആഴ്ച</string>
+    <string name="unit_lakh">ലക്ഷം</string>
+    <string name="scan_error_no_lists">ഓഹരി ലിസ്റ്റുകളൊന്നും ലഭിച്ചില്ല</string>
+    <string name="scan_error_no_sector_stocks">തിരഞ്ഞെടുത്ത മേഖലകളിൽ ഒരു ഓഹരിയുമില്ല — മെനു → സ്കാനിൽ മേഖലകൾ തിരഞ്ഞെടുക്കുക</string>
+</resources>

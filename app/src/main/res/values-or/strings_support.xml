@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_breakout">ବ୍ରେକଆଉଟ ସ୍କାନ</string>
+    <string name="mode_support">ସପୋର୍ଟ ସ୍କାନ</string>
+    <string name="support_ready_title">ସପୋର୍ଟ ସ୍କାନ</string>
+    <string name="support_ready_body">ଯେଉଁ ସେୟାର 6 ମାସ ଧରି ଗୋଟିଏ ଦର ତଳେ ବନ୍ଦ ହୋଇନାହିଁ, ଯଦିଓ ବାରମ୍ବାର ସେଠାକୁ ଆସିଛି</string>
+    <string name="support_done_title">ସପୋର୍ଟ ସ୍କାନ ସମ୍ପୂର୍ଣ୍ଣ</string>
+    <string name="support_done_body">%1$dଟି ସେୟାର 6 ମାସ ଧରି ସପୋର୍ଟରେ ଟିକିଛି • %2$sର ସ୍କାନ</string>
+    <string name="support_action_start">ସପୋର୍ଟ ସ୍କାନ କରନ୍ତୁ</string>
+    <string name="support_action_rescan">ପୁଣି ସପୋର୍ଟ ସ୍କାନ କରନ୍ତୁ</string>
+    <string name="support_stat_long">6M ସପୋର୍ଟ</string>
+    <string name="support_stat_near">5% ମଧ୍ୟରେ</string>
+    <string name="support_reach_any">ଯେକୌଣସି ଦୂରତା</string>
+    <string name="support_reach_within">%1$d%% ପର୍ଯ୍ୟନ୍ତ ପାଖରେ</string>
+    <string name="support_list_empty_title">6 ମାସର କୌଣସି ସପୋର୍ଟ ମିଳିଲା ନାହିଁ</string>
+    <string name="support_list_empty_body">ଏହି ସ୍କାନରେ, ଏହି ଫିଲ୍ଟର ମଧ୍ୟରେ, କୌଣସି ସେୟାର 6 ମାସ ଧରି ତାର ସପୋର୍ଟ ଉପରେ ଟିକିନାହିଁ। ଦୂରତା ବଢ଼ାନ୍ତୁ, ଫିଲ୍ଟର ଢିଲା କରନ୍ତୁ, ବା ମେନୁ → ସ୍କାନରେ ଅଧିକ ଏକ୍ସଚେଞ୍ଜ / ସେକ୍ଟର ଚାଲୁ କରନ୍ତୁ।</string>
+    <string name="sort_support">ସପୋର୍ଟ</string>
+    <string name="item_support">ସପୋର୍ଟ ₹%1$s · %2$s · %3$d ଥର</string>
+    <string name="item_support_description">ସପୋର୍ଟ %1$s ଟଙ୍କାରେ, %2$sରୁ, %3$d ଥର ପରୀକ୍ଷିତ</string>
+    <string name="detail_stat_support">ସପୋର୍ଟ</string>
+    <string name="detail_stat_support_note">%1$sରୁ · %2$d ଥର ପରୀକ୍ଷିତ · ଦର %3$s ଉପରେ</string>
+    <string name="detail_stat_support_long_note">%1$sରୁ · %2$d ଥର ପରୀକ୍ଷିତ · ଦର %3$s ଉପରେ · 6 ମାସରେ ଏହା ତଳେ ବନ୍ଦ ହୋଇନାହିଁ</string>
+    <string name="detail_chart_support">ସପୋର୍ଟ %1$s</string>
+    <string name="detail_part_support">ସପୋର୍ଟ ବୋନସ</string>
+    <string name="detail_part_bonus">+%1$d ପର୍ଯ୍ୟନ୍ତ</string>
+    <string name="metric_support_age">ସପୋର୍ଟ କେତେ ପୁରୁଣା</string>
+    <string name="metric_support_gap">ସପୋର୍ଟରୁ ଦୂରତା</string>
+    <string name="hint_support_age">ଦର ବାରମ୍ବାର ଆସି ଫେରିଯାଇଥିବା ଓ ଯାହା ତଳେ ବନ୍ଦ ହୋଇନଥିବା ସ୍ତର କେତେ ଦିନ ଧରି ଟିକିଛି</string>
+    <string name="hint_support_gap">ଆଜିର ଦର ସପୋର୍ଟଠାରୁ କେତେ % ଉପରେ; କମ = ସପୋର୍ଟ ପାଖରେ</string>
+    <string name="help_part_support">ସପୋର୍ଟ ବୋନସ • %1$d ନମ୍ବର ପର୍ଯ୍ୟନ୍ତ</string>
+    <string name="help_part_support_body">ଯେଉଁ ଦର ପର୍ଯ୍ୟନ୍ତ ସେୟାର ବାରମ୍ବାର ଆସି ଫେରିଯାଇଛି ଓ ଯାହା ତଳେ ବନ୍ଦ ହୋଇନାହିଁ, ତାହା ହିଁ ତାର ସପୋର୍ଟ: ବିକ୍ରେତାମାନେ ଦରକୁ ତା ତଳକୁ ଖସାଇପାରିଲେ ନାହିଁ। ସପୋର୍ଟ ଯେତେ ପୁରୁଣା (6 ମାସରେ ପୂରା ନମ୍ବର) ଓ ଯେତେ ଥର ପରୀକ୍ଷିତ (5 ଥରରେ ପୂରା), ସ୍କୋରରେ ସେତିକି ଅଧିକ ନମ୍ବର ଯୋଡ଼ିହୁଏ; ସପୋର୍ଟ ନଥିବା ସେୟାରର ନମ୍ବର କଟେ ନାହିଁ। ଉପରେ \"ସପୋର୍ଟ ସ୍କାନ\" ବାଛିଲେ କେବଳ ସେହି ସେୟାର ଦେଖାଯାଏ ଯାହା 6 ମାସରେ କେବେ ତାର ସପୋର୍ଟ ତଳେ ବନ୍ଦ ହୋଇନାହିଁ ଓ ଯାହାର ସପୋର୍ଟ ଅନ୍ତତଃ %1$d ମାସ ଧରି ଅନ୍ତତଃ 3 ଥର ପରୀକ୍ଷିତ। ସପୋର୍ଟ ସ୍କାନର ନିଜସ୍ୱ ଫିଲ୍ଟର ଅଛି, ବ୍ରେକଆଉଟରୁ ଅଲଗା। ଦୁଇଟି ସ୍କାନ ଏକା ଡାଟା ପଢ଼େ, ତେଣୁ ଗୋଟିଏ ସ୍କାନରେ ଦୁଇଟି ତାଲିକା ତାଜା ହୁଏ।</string>
+</resources>

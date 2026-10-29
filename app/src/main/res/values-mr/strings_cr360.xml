@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sort_cr360">R/S</string>
+    <string name="item_cr360">R/S %1$s</string>
+    <string name="item_cr360_description">रोहित सिलेक्शन %1$s, %2$s</string>
+    <string name="detail_section_cr360">R/S · रोहित सिलेक्शन</string>
+    <string name="detail_cr360_subtitle">कंपनीचे निकाल, रोख प्रवाह, कर्ज, भागधारणा, अंतर्गत आणि घाऊक व्यवहार, मूल्यांकन आणि 3 वर्षांचा भाव</string>
+    <string name="detail_cr360_score">%1$s / 100</string>
+    <string name="detail_cr360_data">डेटा %1$d%% · निकाल %2$s पर्यंत · %3$s रोजी वाचला</string>
+    <string name="detail_cr360_unknown">यांचा डेटा मिळाला नाही, म्हणून स्कोअरमध्ये मधले 50 गुण धरले: %1$s</string>
+    <string name="detail_cr360_missing">या शेअरचा R/S अजून नाही — रोज संध्याकाळचे कॅश तो लवकरच जोडेल</string>
+    <string name="detail_cr360_note">स्रोत: Screener.in, NSE, Yahoo · रोज संध्याकाळी अपडेट · गुंतवणूक सल्ला नाही</string>
+    <string name="cr360_high_conviction">खूप मजबूत</string>
+    <string name="cr360_positive">मजबूत</string>
+    <string name="cr360_neutral">ठीकठाक</string>
+    <string name="cr360_caution">सावधगिरी</string>
+    <string name="cr360_avoid">दूर राहा</string>
+    <string name="cr360_insufficient">डेटा कमी</string>
+    <string name="cr360_part_financial_quality">निकालांची गुणवत्ता</string>
+    <string name="cr360_part_growth">वाढ</string>
+    <string name="cr360_part_cashflow">रोख प्रवाह</string>
+    <string name="cr360_part_balance_sheet">कर्ज / ताळेबंद</string>
+    <string name="cr360_part_ownership">भागधारणा</string>
+    <string name="cr360_part_insider_deals">अंतर्गत आणि घाऊक व्यवहार</string>
+    <string name="cr360_part_valuation">मूल्यांकन</string>
+    <string name="cr360_part_price">3 वर्षांचा भाव</string>
+    <string name="cr360_part_stability">स्थिरता</string>
+    <string name="cr360_part_technical_risk">जोखीम आणि R:R</string>
+    <string name="cr360_quarters">तिमाहींमध्ये</string>
+    <string name="cr360_half_years">सहामाहींमध्ये</string>
+    <string name="cr360_fact_profit">%1$d पैकी %2$d %3$s नफा</string>
+    <string name="cr360_fact_growth">विक्री %1$s · नफा %2$s (%3$d %4$s)</string>
+    <string name="cr360_fact_margin">निव्वळ मार्जिन %1$s</string>
+    <string name="cr360_fact_debt">कर्ज/इक्विटी %1$s</string>
+    <string name="cr360_fact_promoter">प्रवर्तक %1$s%% (%2$s)</string>
+    <string name="cr360_fact_institutions">FII %1$s · DII %2$s</string>
+    <string name="cr360_fact_institutions_span">FII %1$s%% · DII %2$s%% (%3$d तिमाहींत)</string>
+    <string name="cr360_fact_insider">अंतर्गत: खरेदी ₹%1$s Cr · विक्री ₹%2$s Cr</string>
+    <string name="cr360_fact_deals">घाऊक/ब्लॉक: खरेदी ₹%1$s Cr · विक्री ₹%2$s Cr</string>
+    <string name="cr360_fact_pe">P/E %1$s</string>
+    <string name="cr360_fact_history_pe">स्वतःचा 3 वर्षांचा नेहमीचा P/E %1$s</string>
+    <string name="cr360_fact_fair_value">योग्य मूल्य: %1$s</string>
+    <string name="cr360_fair_sector">सेक्टरवरून ₹%1$s (%2$s)</string>
+    <string name="cr360_fair_framework">फ्रेमवर्कवरून ₹%1$s (%2$s)</string>
+    <string name="cr360_fair_history">स्वतःच्या P/E वरून ₹%1$s (%2$s)</string>
+    <string name="cr360_fact_position">3 वर्षांच्या पट्ट्यात %1$s%% वर</string>
+    <string name="cr360_fact_volatility">चढउतार %1$s%%</string>
+    <string name="cr360_trades_buy">खरेदी</string>
+    <string name="cr360_trades_sell">विक्री</string>
+    <string name="cr360_trades_insider_note">तारीख = व्यवहार झाला तो दिवस · NSE वर आले = फाइलिंग NSE वर आल्याचा दिवस आणि वेळ · नंतरचा हिस्सा = व्यवहारानंतर त्या व्यक्तीची हिस्सेदारी · नवीन सर्वात वर, 5 वर्षांपर्यंत. सर्व स्तंभ पाहण्यासाठी टेबल डावी-उजवीकडे सरकवा.</string>
+    <string name="cr360_trades_deals_note">NSE घाऊक/ब्लॉक व्यवहारांचा फक्त दिवस देते, वेळ नाही · नवीन सर्वात वर. सर्व स्तंभ पाहण्यासाठी टेबल डावी-उजवीकडे सरकवा.</string>
+    <string name="cr360_trades_none">या शेअरच्या व्यवहारांची यादी अजून मिळाली नाही</string>
+    <string name="cr360_open_loading">येत आहे…</string>
+    <string name="cr360_part_no_detail">या भागाचा तपशील अजून नाही</string>
+    <string name="cr360_trades_deals_heading">घाऊक/ब्लॉक व्यवहार</string>
+    <string-array name="cr360_trades_insider_columns">
+        <item>तारीख</item>
+        <item>NSE वर आले</item>
+        <item>नाव</item>
+        <item>कोण</item>
+        <item>व्यवहार</item>
+        <item>शेअर्स</item>
+        <item>भाव ₹</item>
+        <item>रक्कम</item>
+        <item>पद्धत</item>
+        <item>नंतरचा हिस्सा</item>
+    </string-array>
+    <string-array name="cr360_trades_deals_columns">
+        <item>तारीख</item>
+        <item>प्रकार</item>
+        <item>नाव</item>
+        <item>व्यवहार</item>
+        <item>शेअर्स</item>
+        <item>भाव ₹</item>
+        <item>रक्कम</item>
+    </string-array>
+    <string name="detail_section_cr360_history">R/S इतिहास</string>
+    <string name="detail_cr360_history_loading">इतिहास येत आहे…</string>
+    <string name="detail_cr360_history_subtitle">प्रत्येक तिमाही आणि वर्षाचा डेटा, जितका कॅशमध्ये आहे (5 वर्षांपर्यंत)</string>
+    <string name="detail_cr360_history_missing">या शेअरचा इतिहास अजून मिळाला नाही — इंटरनेट असल्यास पुढच्या वेळी उघडल्यावर येईल</string>
+    <string name="cr360_history_holders_title" formatted="false">FII / DII ची खरेदी-विक्री (हिस्सेदारी %)</string>
+    <string name="cr360_history_holders_note" formatted="false">▲ हिस्सा वाढला = त्या तिमाहीत खरेदी केली · ▼ घटला = विकले (% गुण)</string>
+    <string name="cr360_history_holders_summary">%1$s → %2$s: FII %3$s%% → %4$s%% (%5$s) · DII %6$s%% → %7$s%% (%8$s)</string>
+    <string name="cr360_history_quarters_title">तिमाही निकाल (₹ कोटी)</string>
+    <string name="cr360_history_halves_title">सहामाही निकाल (₹ कोटी)</string>
+    <string name="cr360_history_years_title">वार्षिक: निकाल, रोख प्रवाह, कर्ज (₹ कोटी)</string>
+    <string name="cr360_history_quarter">तिमाही</string>
+    <string name="cr360_history_half">सहामाही</string>
+    <string name="cr360_history_year">वर्ष</string>
+    <string name="cr360_history_promoter">प्रवर्तक</string>
+    <string name="cr360_history_public">जनता</string>
+    <string name="cr360_history_sales">विक्री</string>
+    <string name="cr360_history_profit">नफा</string>
+    <string name="cr360_history_eps">EPS ₹</string>
+    <string name="cr360_history_operating_cash">परिचालन रोख</string>
+    <string name="cr360_history_free_cash">मुक्त रोख</string>
+    <string name="cr360_history_debt">कर्ज</string>
+    <string name="cr360_history_chart_title">3 वर्षांचा भाव (प्रत्येक महिन्याचा शेवटचा बंद भाव)</string>
+    <string name="cr360_history_chart_note">आता ₹%1$s · सर्वोच्च ₹%2$s (%3$s) · सर्वात कमी ₹%4$s (%5$s)</string>
+    <string name="cr360_history_chart_description">%1$s ते %2$s पर्यंत दरमहा भाव: कमी ₹%3$s, जास्त ₹%4$s, आता ₹%5$s</string>
+    <string name="help_cr360_title">R/S · रोहित सिलेक्शन</string>
+    <string name="help_cr360_body">R/S (रोहित सिलेक्शन) कंपनीची 10 भागांत तपासणी करतो: निकालांची गुणवत्ता (18), वाढ (12), रोख प्रवाह (10), कर्ज (10), भागधारणा (12), अंतर्गत आणि घाऊक/ब्लॉक व्यवहार (8), मूल्यांकन (12), 3 वर्षांचा भाव (8), स्थिरता (5) आणि जोखीम (5). मूल्यांकन आता सेक्टरनुसार वेगवेगळ्या पद्धतीने होते (खाली \"R/S चे मूल्यांकन फ्रेमवर्क\" पाहा); ज्या सेक्टरची स्वतःची पद्धत नाही, किंवा ज्यांचा डेटा कमी आहे, त्यांत अर्धे वजन सेक्टरच्या नेहमीच्या P/E आणि P/B शी तुलनेला आणि अर्धे कंपनीच्या स्वतःच्या मागील 3 वर्षांच्या नेहमीच्या P/E ला आहे. तोट्यातील कंपन्या आणि 3 पेक्षा कमी P/E असलेल्या कंपन्यांचे (एकदाचा नफा किंवा जुने आकडे) मूल्यांकन होत नाही, आणि एखाद्या तिमाहीची कमाई वर्षाच्या मधल्या तिमाहीच्या 10 पटीपेक्षा जास्त असेल तर ती एकदाची मानली जाते. वाढीत शेवटच्या 4 तिमाहींच्या बेरजेची सुरुवातीच्या 4 तिमाहींच्या बेरजेशी तुलना होते; सुरुवात तोट्यात किंवा जवळजवळ शून्य असेल तर % दिसत नाही. बँक, NBFC, विमा अशा वित्तीय कंपन्यांत कर्ज आणि रोख प्रवाहाचे भाग मोजले जात नाहीत, कारण कर्ज घेऊन कर्ज देणे हाच त्यांचा व्यवसाय आहे. ज्या भागाचा डेटा मिळत नाही, त्याला स्कोअरमध्ये मधले 50 गुण मिळतात (ना चांगले, ना वाईट), जेणेकरून फक्त 2–3 भागांत चांगली पण बाकीत अज्ञात कंपनी संपूर्ण डेटा असलेल्या चांगल्या कंपन्यांच्या वर येऊ नये; कोणत्या भागांचा डेटा मिळाला नाही ते कार्डवर लिहिलेले असते. 0–100 स्कोअरवरून दर्जा: 75+ खूप मजबूत, 62+ मजबूत, 48+ ठीकठाक, 35+ सावधगिरी, त्याखाली दूर राहा; डेटा 40% पेक्षा कमी असेल तर \"डेटा कमी\". NSE, NSE SME आणि फक्त BSE वर सूचीबद्ध — तिन्हींचे शेअर्स समाविष्ट आहेत; SME कंपन्या सहामाही निकाल देतात, म्हणून त्यांचा हिशेब सहामाहींत आहे. डेटा Screener.in, NSE आणि Yahoo वरून रोज संध्याकाळी एकदा कॅशमध्ये जोडला जातो — जुन्या तिमाही बदलत नाहीत, म्हणून फक्त नवीन निकाल, भागधारणा आणि व्यवहार जोडले जातात, आणि 20 तिमाही / 5 वर्षांपेक्षा जुना डेटा काढला जातो. ॲप दिवसातून दोनदा पर्यंत नवीन फाइल घेते आणि फक्त एक प्रत ठेवते. शेअरच्या तपशीलात \"R/S इतिहास\" प्रत्येक तिमाहीचे निकाल, FII/DII/प्रवर्तकांची हिस्सेदारी (▲ खरेदी, ▼ विक्री), वार्षिक रोख प्रवाह आणि कर्ज, आणि 3 वर्षांचा भाव दाखवतो; त्याची छोटी फाइल तोच शेअर उघडल्यावर येते. R/S कार्डच्या प्रत्येक भागावर टॅप करताच त्याखाली त्याचा डेटा उघडतो: निकालांची गुणवत्ता आणि वाढ यावर प्रत्येक तिमाहीचे निकाल, रोख प्रवाह आणि कर्जावर वार्षिक टेबल, भागधारणेवर प्रवर्तक/FII/DII, अंतर्गत व्यवहारांवर सर्व व्यवहार (तारीख, NSE वर आल्याचा दिवस आणि वेळ, नाव, कोण, खरेदी/विक्री, शेअर्स, भाव, रक्कम, पद्धत, व्यवहारानंतरची हिस्सेदारी), मूल्यांकनावर P/E, योग्य मूल्य आणि फ्रेमवर्कचा संपूर्ण हिशेब, आणि भाव, स्थिरता व जोखमीवर 3 वर्षांचा चार्ट; अंतर्गत आणि घाऊक/ब्लॉकच्या ओळीही अशाच उघडतात, आणि पुन्हा टॅप केल्यावर बंद होतात. घाऊक/ब्लॉक व्यवहार आत्ताच जोडायला सुरुवात झाली आहे, त्यांचा इतिहास हळूहळू तयार होईल; अंतर्गत आणि घाऊक/ब्लॉक व्यवहार NSE चे आहेत, म्हणून फक्त BSE वरील शेअर्समध्ये हा भाग रिकामा राहतो. गुंतवणूक सल्ला नाही.</string>
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fw_value_line">న్యాయమైన విలువ ₹%1$s · కొనుగోలు ధర ₹%2$s</string>
+    <string name="fw_value_only">న్యాయమైన విలువ ₹%1$s</string>
+    <string name="fw_summary">%1$s · సేఫ్టీ మార్జిన్ %2$s%% (%3$s)</string>
+    <string name="fw_price_above">ధర ₹%1$s, కొనుగోలు ధర కంటే %2$s%% పైన</string>
+    <string name="fw_price_below">ధర ₹%1$s, కొనుగోలు ధర కంటే %2$s%% కింద ✓</string>
+    <string name="fw_model_general">సెక్టార్ P/E–P/B పద్ధతి</string>
+    <string name="fw_model_bank">బ్యాంక్/NBFC: సర్దుబాటు P/B</string>
+    <string name="fw_model_asset">EV/EBITDA</string>
+    <string name="fw_model_cyclical">మిడ్-సైకిల్ EV/EBITDA</string>
+    <string name="fw_model_cash">PEG</string>
+    <string name="fw_size_large">లార్జ్ క్యాప్</string>
+    <string name="fw_size_mid">మిడ్ క్యాప్</string>
+    <string name="fw_size_small">స్మాల్ క్యాప్</string>
+    <string name="fw_open">ఫ్రేమ్‌వర్క్ పూర్తి లెక్క</string>
+    <string name="fw_flag_reject">⛔ తిరస్కరణ: ప్రమోటర్లు తమ షేర్లలో %1$s%% తాకట్టు పెట్టారు (15%% కంటే ఎక్కువ)</string>
+    <string name="fw_flag_high_risk">⚠ అధిక రిస్క్: వడ్డీ కవర్ కేవలం %1$s రెట్లు (2.5 కంటే తక్కువ)</string>
+    <string name="fw_flag_manipulation">⚠ సందేహాస్పద ఆదాయం: 3 సంవత్సరాల ఆపరేటింగ్ నగదు లాభానికి కేవలం %1$s రెట్లు (0.6 కంటే తక్కువ)</string>
+    <string name="fw_flag_low_roa">⚠ ROA %1$s%%: బ్యాంక్/NBFCకి 1%% కంటే తక్కువ, కొనుగోలు వద్దు</string>
+    <string name="fw_flag_red">🚩 రెడ్ ఫ్లాగ్: వాల్యూమ్ సగటుకు %1$s రెట్లు, కానీ 3 రోజుల్లో ఏ ఫైలింగ్ లేదా వార్త లేదు — ఆపరేటర్ ఆట కావచ్చు</string>
+    <string name="fw_flag_blocked">ఈ కారణాల వల్ల ఫ్రేమ్‌వర్క్ ప్రస్తుతానికి కొనుగోలు ఆపుతోంది</string>
+    <string name="fw_flag_best">⭐ ఉత్తమ అవకాశం: ధర కొనుగోలు ధర కంటే కింద, వారపు డిమాండ్ జోన్‌లో లిక్విడిటీ స్వీప్</string>
+    <string name="fw_flag_buy_zone">✅ బై జోన్: ధర 200 రోజుల EMA ₹%1$s పైన, ₹%2$s – ₹%3$s బుల్లిష్ FVGపై</string>
+    <string name="fw_flag_sweep">🎯 వారపు స్వీప్: ఈ వారం లేదా గత వారం ₹%1$s వారపు స్వింగ్ కనిష్ఠం కిందకు వెళ్లి మళ్లీ పైన ముగిసింది</string>
+    <string name="fw_flag_cyclical">⚠ సైక్లికల్: లోహాలు, చమురులో తక్కువ P/E తరచుగా గరిష్ఠ ఆదాయం, కాబట్టి మిడ్-సైకిల్ EBITDAపై విలువ కడతారు</string>
+    <string name="fw_flag_peg_low">✅ PEG %1$s: 1 కంటే తక్కువ, వృద్ధికి చౌక</string>
+    <string name="fw_flag_peg_high">⚠ PEG %1$s: 2 కంటే ఎక్కువ, వృద్ధికి ఖరీదు</string>
+    <string name="fw_penalties">పెనాల్టీ: %1$s</string>
+    <string name="fw_penalty_auditor">ఆడిటర్ రాజీనామా −40%%</string>
+    <string name="fw_penalty_debt">అప్పు −20%%</string>
+    <string name="fw_penalty_institutions">FII/DII అమ్మకం −10%%</string>
+    <string name="fw_penalty_roce">తక్కువ ROCE −20%%</string>
+    <string name="fw_calc_model">%1$s పద్ధతి (%2$s)</string>
+    <string name="fw_calc_fallback">%1$sకి డేటా చాలా తక్కువ (చిన్న చరిత్ర, నష్టం లేదా నెమ్మది వృద్ధి), కాబట్టి సెక్టార్ P/E–P/B పద్ధతి వాడారు</string>
+    <string name="fw_calc_bank_book">బుక్ విలువ ₹%1$s/షేర్ − మొండి బాకీలు ₹%2$s/షేర్ (నికర NPA రుణాల్లో %3$s%%) = సర్దుబాటు బుక్ ₹%4$s</string>
+    <string name="fw_calc_bank_no_npa">బుక్ విలువ ₹%1$s/షేర్; నికర NPA దొరకలేదు (కన్సాలిడేటెడ్ పేజీలో లేదు), కాబట్టి మొత్తం బుక్ లెక్కిస్తారు</string>
+    <string name="fw_calc_bank_pb">దాని సొంత 3 సంవత్సరాల మధ్యగత P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_bank_pb_sector">సొంత చరిత్ర చిన్నది, కాబట్టి సెక్టార్ P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_roa">ROA (12 నెలల లాభం ÷ మొత్తం ఆస్తులు) %1$s%%; 1%% పైన అవసరం</string>
+    <string name="fw_calc_ev_multiple">దాని సొంత 3 సంవత్సరాల మధ్యగత EV/EBITDA %1$s (ఈరోజు %2$s)</string>
+    <string name="fw_calc_ev_multiple_only">దాని సొంత 3 సంవత్సరాల మధ్యగత EV/EBITDA %1$s</string>
+    <string name="fw_calc_ebitda">EBITDA (12 నెలలు): %1$s</string>
+    <string name="fw_calc_ebitda_mid">మిడ్-సైకిల్ EBITDA (వార్షిక EBITDA సగటు): %1$s</string>
+    <string name="fw_calc_ev_value">(%1$s × %2$s − అప్పు %3$s) ÷ %4$s Cr షేర్లు = ₹%5$s</string>
+    <string name="fw_calc_ev_note">EV = మార్కెట్ విలువ + అప్పు (Screener సారాంశంలో నగదు విడిగా లేదు, కాబట్టి రెండు వైపులా దాన్ని వదిలేశారు)</string>
+    <string name="fw_calc_roce_cut">ROCE %1$s%%, 12%% కంటే తక్కువ → 20%% తక్కువ: ₹%2$s</string>
+    <string name="fw_calc_roce_ok">ROCE %1$s%% (12%% లేదా ఎక్కువ) ✓</string>
+    <string name="fw_calc_peg">P/E %1$s ÷ 3 సంవత్సరాల్లో EPS వార్షిక వృద్ధి %2$s%% = PEG %3$s (1 కంటే తక్కువ చౌక, 2 కంటే ఎక్కువ ఖరీదు)</string>
+    <string name="fw_calc_peg_fair">న్యాయమైన P/E: %1$s %2$s, కానీ PEG 2 (2 × వృద్ధి) %3$s వద్ద పరిమితి → %4$s</string>
+    <string name="fw_calc_peg_own">దాని సొంత సాధారణ 3 సంవత్సరాల P/E</string>
+    <string name="fw_calc_peg_sector">సెక్టార్ సాధారణ P/E (సొంత చరిత్ర చిన్నది)</string>
+    <string name="fw_calc_peg_band">న్యాయమైన P/E: సొంత లేదా సెక్టార్ P/E దొరకలేదు, కాబట్టి PEG 1.5 వద్ద: %1$s</string>
+    <string name="fw_calc_peg_value">న్యాయమైన విలువ = EPS ₹%1$s × న్యాయమైన P/E %2$s = ₹%3$s</string>
+    <string name="fw_calc_peg_slow">3 సంవత్సరాల్లో EPS వార్షిక వృద్ధి %1$s%%: 5%% కంటే తక్కువ అయితే PEG ఏమీ చెప్పదు</string>
+    <string name="fw_calc_general">సెక్టార్ P/E–P/B, కంపెనీ సొంత P/E నుంచి వచ్చిన ధరల సగటు = ₹%1$s</string>
+    <string name="fw_calc_penalty_auditor">చట్టబద్ధ ఆడిటర్ %1$s న రాజీనామా చేశారు → −40%%</string>
+    <string name="fw_calc_penalty_debt">అప్పు ఈక్విటీకి 1.5 రెట్లు మించింది → −20%%</string>
+    <string name="fw_calc_penalty_institutions">FII + DII వాటా వరుసగా 3 త్రైమాసికాలు తగ్గింది → −10%%</string>
+    <string name="fw_calc_after_penalties">పెనాల్టీల తర్వాత న్యాయమైన విలువ: ₹%1$s × %2$s = ₹%3$s</string>
+    <string name="fw_calc_no_penalties">పెనాల్టీ లేదు (ఆడిటర్, అప్పు, FII/DII సరిగా ఉన్నాయి) → న్యాయమైన విలువ ₹%1$s</string>
+    <string name="fw_calc_margin">సేఫ్టీ మార్జిన్ %1$s%% (%2$s) → కొనుగోలు ధర ₹%3$s × %4$s = ₹%5$s</string>
+    <string name="fw_calc_screen">యూనివర్సల్ స్క్రీన్</string>
+    <string name="fw_calc_pledge">ప్రమోటర్ తాకట్టు %1$s%% (15%% కంటే ఎక్కువ = తిరస్కరణ)</string>
+    <string name="fw_calc_pledge_none">ప్రమోటర్ తాకట్టు: NSEలో దొరకలేదు</string>
+    <string name="fw_calc_icr">వడ్డీ కవర్: (12 నెలల PBT + వడ్డీ) ÷ వడ్డీ = %1$s రెట్లు (2.5 కంటే తక్కువ = అధిక రిస్క్)</string>
+    <string name="fw_calc_cash">3 సంవత్సరాల ఆపరేటింగ్ నగదు ÷ లాభం = %1$s (0.6 కంటే తక్కువ = సందేహాస్పద ఆదాయం)</string>
+    <string name="fw_calc_lender">బ్యాంక్/NBFC వడ్డీ, నగదు ప్రవాహం ఇలా పరీక్షించలేరు</string>
+    <string name="fw_calc_chart">చార్ట్ (SMC)</string>
+    <string name="fw_calc_ema_above">200 రోజుల EMA ₹%1$s: ధర దాని పైన</string>
+    <string name="fw_calc_ema_below">200 రోజుల EMA ₹%1$s: ధర దాని కింద</string>
+    <string name="fw_calc_gap">నిండని బుల్లిష్ FVG ₹%1$s – ₹%2$s; ధర దానిలో లేదా 5%% వరకు పైన</string>
+    <string name="fw_calc_no_gap">గత 60 సెషన్‌లలో ధర దగ్గర నిండని బుల్లిష్ FVG లేదు</string>
+    <string name="fw_calc_sweep">వారపు స్వీప్: ₹%1$s వారపు స్వింగ్ కనిష్ఠాన్ని దాటి కిందకు వెళ్లి పైన ముగిసింది</string>
+    <string name="fw_calc_no_sweep">ఈ వారం లేదా గత వారం వారపు లిక్విడిటీ స్వీప్ లేదు</string>
+    <string name="fw_calc_best_rule">ఉత్తమ అవకాశం = ధర కొనుగోలు ధర కంటే కింద + వారపు స్వీప్ + ఏ అడ్డంకీ లేదు</string>
+    <string name="fw_cr">₹%1$s Cr</string>
+    <string name="help_framework_title">R/S విలువ ఫ్రేమ్‌వర్క్ (న్యాయమైన విలువ, కొనుగోలు ధర)</string>
+    <string name="help_framework_body">R/S ప్రతి కంపెనీ న్యాయమైన (అంతర్గత) విలువను దాని సెక్టార్‌ను బట్టి లెక్కిస్తుంది. బ్యాంకులు, NBFCలు, ఇతర ఆర్థిక కంపెనీలు: ఒక్కో షేర్‌కు బుక్ విలువ మైనస్ నికర NPA (మొండి బాకీలు), కంపెనీ గత 3 సంవత్సరాల సొంత మధ్యగత P/Bతో గుణించి (చరిత్ర చిన్నదైతే సెక్టార్‌ది); ROA 1% కంటే తక్కువ అయితే — కొనుగోలు వద్దు. క్యాపిటల్ గూడ్స్, ఆటో, రసాయనాలు, నిర్మాణం, విద్యుత్ వంటి యంత్రాలు, కర్మాగారాలు ఉన్న కంపెనీలు: వాటి సొంత 3 సంవత్సరాల మధ్యగత EV/EBITDA × నేటి EBITDA, మైనస్ అప్పు, ఒక్కో షేర్‌కు; ROCE 12% కంటే తక్కువ అయితే — 20% కోత. లోహాలు, మైనింగ్, చమురు, గ్యాస్: అదే, కానీ సంవత్సరాల సగటు (మిడ్-సైకిల్) EBITDAపై, అక్కడ తక్కువ P/E తరచుగా గరిష్ఠ ఆదాయం అనే హెచ్చరికతో. IT, FMCG, ఫార్మా: PEG = P/E ÷ గత 3 సంవత్సరాల్లో EPS వార్షిక వృద్ధి (వృద్ధి అంచనాలు ఉచితంగా దొరకవు); 1 కంటే తక్కువ చౌక, 2 కంటే ఎక్కువ ఖరీదు; న్యాయమైన విలువ = EPS × కంపెనీ సొంత సాధారణ P/E, కానీ PEG 2 (2 × వృద్ధి) వద్ద P/E కంటే ఎక్కువ కాదు. ఇతర సెక్టార్లు, లేదా డేటా చాలా తక్కువ అయితే: పాత సెక్టార్ P/E–P/B, సొంత-P/E పద్ధతి. ఆపై పెనాల్టీలు: గత సంవత్సరంలో చట్టబద్ధ ఆడిటర్ రాజీనామా −40%; అప్పు ఈక్విటీకి 1.5 రెట్లు మించితే −20%; FII + DII వాటా వరుసగా 3 త్రైమాసికాలు తగ్గితే −10%. కొనుగోలు ధర = న్యాయమైన విలువ × (1 − సేఫ్టీ మార్జిన్): మార్కెట్ విలువలో టాప్ 100 కంపెనీలు (లార్జ్ క్యాప్) 20%; 101–250 (మిడ్ క్యాప్) 27.5%; మిగతావి (స్మాల్ క్యాప్) 35%. ప్రతి కంపెనీకి యూనివర్సల్ స్క్రీన్ కూడా ఉంది: ప్రమోటర్ల తాకట్టు షేర్లు 15% మించితే → తిరస్కరణ (R/S \"దూరంగా ఉండండి\"); వడ్డీ కవర్ 2.5 రెట్ల కంటే తక్కువ అంటే అధిక రిస్క్, 3 సంవత్సరాల ఆపరేటింగ్ నగదు లాభానికి 0.6 రెట్ల కంటే తక్కువ అంటే సందేహాస్పద ఆదాయం (ఏదైనా R/Sను \"జాగ్రత్త\" వద్ద ఆపుతుంది). చార్ట్‌పై: ధర 200 రోజుల EMA పైన, నిండని బుల్లిష్ FVGపై ఉంటే బై జోన్; ఈ వారం లేదా గత వారం ధర వారపు స్వింగ్ కనిష్ఠం కిందకు వెళ్లి మళ్లీ పైన ముగిస్తే వారపు స్వీప్. ధర కొనుగోలు ధర కంటే కింద, వారపు స్వీప్, ఏ అడ్డంకీ లేకపోతే ⭐ ఉత్తమ అవకాశం. స్టాక్ తెరిస్తే దాని వార్తలు కూడా చూస్తారు: వాల్యూమ్ సగటుకు 3 రెట్లు లేదా ఎక్కువ కానీ గత 3 రోజుల్లో ఫైలింగ్ లేదా వార్త లేకపోతే 🚩 రెడ్ ఫ్లాగ్ (ఆపరేటర్ ఆట కావచ్చు), ఫ్రేమ్‌వర్క్ కొనుగోలు ఆపుతుంది. ప్రమోటర్ తాకట్టు, ఆడిటర్ రాజీనామాలు NSE నుంచి వస్తాయి, కాబట్టి BSE-మాత్రమే స్టాక్‌లకు ఈ పరీక్షలు ఉండవు. R/S కార్డు న్యాయమైన విలువ, కొనుగోలు ధర, ఫ్లాగ్‌లు చూపిస్తుంది, \"ఫ్రేమ్‌వర్క్ పూర్తి లెక్క\" ప్రతి దశ చూపిస్తుంది. ప్రతి స్టాక్ Screener పేజీ మళ్లీ చదివినప్పుడు కొత్త అంకెలు వస్తాయి, దానికి కొన్ని రోజులు పడుతుంది; అప్పటివరకు కొన్ని స్టాక్‌లు పాత పద్ధతిలోనే ఉంటాయి. పెట్టుబడి సలహా కాదు.</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_sunset">Sunset</string>
+    <string name="theme_sunset_body">ഓറഞ്ച്-പിങ്ക് സന്ധ്യാകാശം</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_ocean_body">ആഴമുള്ള നീലക്കടൽ</string>
+    <string name="theme_emerald">Emerald</string>
+    <string name="theme_emerald_body">മരതകപ്പച്ച ക്ഷീരപഥം</string>
+    <string name="theme_mars">Mars</string>
+    <string name="theme_mars_body">പൊടി നിറഞ്ഞ ചുവന്ന ആകാശം</string>
+    <string name="theme_royal_gold">Royal Gold</string>
+    <string name="theme_royal_gold_body">സ്വർണ്ണവും രാജകീയ വയലറ്റും</string>
+    <string name="theme_frost">Frost</string>
+    <string name="theme_frost_body">മഞ്ഞുനീല • നേരിയ ധ്രുവദീപ്തി</string>
+    <string name="theme_space_glass">Space Glass</string>
+    <string name="theme_space_glass_body">ആഴമുള്ള ബഹിരാകാശം • ആകാശനീല തിളക്കം • നീങ്ങുന്ന ട്രേഡിംഗ് ഗ്രിഡ്, ചാർട്ട് രേഖ</string>
+</resources>

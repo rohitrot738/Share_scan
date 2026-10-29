@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sort_cr360">R/S</string>
+    <string name="item_cr360">R/S %1$s</string>
+    <string name="item_cr360_description">ரோஹித் செலக்ஷன் %1$s, %2$s</string>
+    <string name="detail_section_cr360">R/S · ரோஹித் செலக்ஷன்</string>
+    <string name="detail_cr360_subtitle">நிறுவனத்தின் முடிவுகள், பணப்புழக்கம், கடன், பங்குதாரர் அமைப்பு, இன்சைடர், பல்க் டீல்கள், மதிப்பீடு, 3 ஆண்டு விலை</string>
+    <string name="detail_cr360_score">%1$s / 100</string>
+    <string name="detail_cr360_data">தரவு %1$d%% · %2$s வரை முடிவுகள் · %3$s அன்று படித்தது</string>
+    <string name="detail_cr360_unknown">இவற்றுக்குத் தரவு இல்லை, எனவே ஸ்கோர் இவற்றை நடுத்தர 50 ஆக எண்ணுகிறது: %1$s</string>
+    <string name="detail_cr360_missing">இந்தப் பங்குக்கு இன்னும் R/S இல்லை — இரவு கேஷ் விரைவில் சேர்க்கும்</string>
+    <string name="detail_cr360_note">மூலங்கள்: Screener.in, NSE, Yahoo · ஒவ்வொரு மாலையும் புதுப்பிப்பு · முதலீட்டு ஆலோசனை அல்ல</string>
+    <string name="cr360_high_conviction">மிக வலிமை</string>
+    <string name="cr360_positive">வலிமை</string>
+    <string name="cr360_neutral">சராசரி</string>
+    <string name="cr360_caution">எச்சரிக்கை</string>
+    <string name="cr360_avoid">தவிர்க்கவும்</string>
+    <string name="cr360_insufficient">தரவு குறைவு</string>
+    <string name="cr360_part_financial_quality">முடிவுகளின் தரம்</string>
+    <string name="cr360_part_growth">வளர்ச்சி</string>
+    <string name="cr360_part_cashflow">பணப்புழக்கம்</string>
+    <string name="cr360_part_balance_sheet">கடன் / இருப்புநிலை</string>
+    <string name="cr360_part_ownership">பங்குதாரர் அமைப்பு</string>
+    <string name="cr360_part_insider_deals">இன்சைடர், பல்க் டீல்கள்</string>
+    <string name="cr360_part_valuation">மதிப்பீடு</string>
+    <string name="cr360_part_price">3 ஆண்டு விலை</string>
+    <string name="cr360_part_stability">நிலைத்தன்மை</string>
+    <string name="cr360_part_technical_risk">ரிஸ்க், R:R</string>
+    <string name="cr360_quarters">காலாண்டுகள்</string>
+    <string name="cr360_half_years">அரையாண்டுகள்</string>
+    <string name="cr360_fact_profit">%1$d %3$s இல் %2$d இல் லாபம்</string>
+    <string name="cr360_fact_growth">விற்பனை %1$s · லாபம் %2$s (%3$d %4$s இல்)</string>
+    <string name="cr360_fact_margin">நிகர மார்ஜின் %1$s</string>
+    <string name="cr360_fact_debt">கடன்/ஈக்விட்டி %1$s</string>
+    <string name="cr360_fact_promoter">புரோமோட்டர் %1$s%% (%2$s)</string>
+    <string name="cr360_fact_institutions">FII %1$s · DII %2$s</string>
+    <string name="cr360_fact_institutions_span">FII %1$s%% · DII %2$s%% (%3$d காலாண்டுகளில்)</string>
+    <string name="cr360_fact_insider">இன்சைடர்: வாங்கியது ₹%1$s Cr · விற்றது ₹%2$s Cr</string>
+    <string name="cr360_fact_deals">பல்க்/பிளாக்: வாங்கியது ₹%1$s Cr · விற்றது ₹%2$s Cr</string>
+    <string name="cr360_fact_pe">P/E %1$s</string>
+    <string name="cr360_fact_history_pe">அதன் சொந்த வழக்கமான 3 ஆண்டு P/E %1$s</string>
+    <string name="cr360_fact_fair_value">நியாய மதிப்பு: %1$s</string>
+    <string name="cr360_fair_sector">துறையிலிருந்து ₹%1$s (%2$s)</string>
+    <string name="cr360_fair_framework">கட்டமைப்பிலிருந்து ₹%1$s (%2$s)</string>
+    <string name="cr360_fair_history">சொந்த P/E இலிருந்து ₹%1$s (%2$s)</string>
+    <string name="cr360_fact_position">3 ஆண்டு வரம்பில் %1$s%% இல்</string>
+    <string name="cr360_fact_volatility">ஏற்ற இறக்கம் %1$s%%</string>
+    <string name="cr360_trades_buy">வாங்கல்</string>
+    <string name="cr360_trades_sell">விற்பனை</string>
+    <string name="cr360_trades_insider_note">தேதி = டீல் நாள் · NSE இல் = தாக்கல் NSE ஐ அடைந்த நாள், நேரம் · பிறகு பங்கு = டீலுக்குப் பின் அந்த நபரின் பங்கு · புதியவை முதலில், 5 ஆண்டுகள் வரை. எல்லா நெடுவரிசைகளையும் பார்க்க அட்டவணையைப் பக்கவாட்டில் நகர்த்தவும்.</string>
+    <string name="cr360_trades_deals_note">NSE பல்க்/பிளாக் டீல்களின் நாளை மட்டுமே தருகிறது, நேரத்தை அல்ல · புதியவை முதலில். எல்லா நெடுவரிசைகளையும் பார்க்க அட்டவணையைப் பக்கவாட்டில் நகர்த்தவும்.</string>
+    <string name="cr360_trades_none">இந்தப் பங்கின் டீல் பட்டியல் இன்னும் இல்லை</string>
+    <string name="cr360_open_loading">ஏற்றுகிறது…</string>
+    <string name="cr360_part_no_detail">இந்தப் பகுதிக்கு இன்னும் விவரம் இல்லை</string>
+    <string name="cr360_trades_deals_heading">பல்க்/பிளாக் டீல்கள்</string>
+    <string-array name="cr360_trades_insider_columns">
+        <item>தேதி</item>
+        <item>NSE இல்</item>
+        <item>பெயர்</item>
+        <item>யார்</item>
+        <item>டீல்</item>
+        <item>பங்குகள்</item>
+        <item>விலை ₹</item>
+        <item>தொகை</item>
+        <item>முறை</item>
+        <item>பிறகு பங்கு</item>
+    </string-array>
+    <string-array name="cr360_trades_deals_columns">
+        <item>தேதி</item>
+        <item>வகை</item>
+        <item>பெயர்</item>
+        <item>டீல்</item>
+        <item>பங்குகள்</item>
+        <item>விலை ₹</item>
+        <item>தொகை</item>
+    </string-array>
+    <string name="detail_section_cr360_history">R/S வரலாறு</string>
+    <string name="detail_cr360_history_loading">வரலாறு வருகிறது…</string>
+    <string name="detail_cr360_history_subtitle">கேஷில் உள்ள ஒவ்வொரு காலாண்டு, ஆண்டின் தரவு (5 ஆண்டுகள் வரை)</string>
+    <string name="detail_cr360_history_missing">இந்தப் பங்குக்கு இன்னும் வரலாறு இல்லை — இணையத்துடன் அடுத்த முறை திறக்கும்போது வரும்</string>
+    <string name="cr360_history_holders_title" formatted="false">FII / DII வாங்கல், விற்பனை (பங்கு %)</string>
+    <string name="cr360_history_holders_note" formatted="false">▲ பங்கு உயர்ந்தது = அந்தக் காலாண்டில் வாங்கினர் · ▼ குறைந்தது = விற்றனர் (% புள்ளிகள்)</string>
+    <string name="cr360_history_holders_summary">%1$s → %2$s: FII %3$s%% → %4$s%% (%5$s) · DII %6$s%% → %7$s%% (%8$s)</string>
+    <string name="cr360_history_quarters_title">காலாண்டு முடிவுகள் (₹ கோடி)</string>
+    <string name="cr360_history_halves_title">அரையாண்டு முடிவுகள் (₹ கோடி)</string>
+    <string name="cr360_history_years_title">ஆண்டு: முடிவுகள், பணப்புழக்கம், கடன் (₹ கோடி)</string>
+    <string name="cr360_history_quarter">காலாண்டு</string>
+    <string name="cr360_history_half">அரையாண்டு</string>
+    <string name="cr360_history_year">ஆண்டு</string>
+    <string name="cr360_history_promoter">புரோமோட்டர்</string>
+    <string name="cr360_history_public">பொது</string>
+    <string name="cr360_history_sales">விற்பனை</string>
+    <string name="cr360_history_profit">லாபம்</string>
+    <string name="cr360_history_eps">EPS ₹</string>
+    <string name="cr360_history_operating_cash">செயல்பாட்டுப் பணம்</string>
+    <string name="cr360_history_free_cash">இலவசப் பணம்</string>
+    <string name="cr360_history_debt">கடன்</string>
+    <string name="cr360_history_chart_title">3 ஆண்டு விலை (ஒவ்வொரு மாதக் கடைசி முடிவு)</string>
+    <string name="cr360_history_chart_note">இப்போது ₹%1$s · உச்சம் ₹%2$s (%3$s) · தாழ்வு ₹%4$s (%5$s)</string>
+    <string name="cr360_history_chart_description">%1$s முதல் %2$s வரை மாதாந்திர விலை: தாழ்வு ₹%3$s, உச்சம் ₹%4$s, இப்போது ₹%5$s</string>
+    <string name="help_cr360_title">R/S · ரோஹித் செலக்ஷன்</string>
+    <string name="help_cr360_body">R/S (ரோஹித் செலக்ஷன்) நிறுவனத்தை 10 பகுதிகளில் சோதிக்கிறது: முடிவுகளின் தரம் (18), வளர்ச்சி (12), பணப்புழக்கம் (10), கடன் (10), பங்குதாரர் அமைப்பு (12), இன்சைடர், பல்க்/பிளாக் டீல்கள் (8), மதிப்பீடு (12), 3 ஆண்டு விலை (8), நிலைத்தன்மை (5), ரிஸ்க் (5). மதிப்பீடு இப்போது துறைக்கேற்ப வெவ்வேறு முறைகளில் நடக்கிறது (கீழே \"R/S மதிப்பீட்டுக் கட்டமைப்பு\" பார்க்கவும்); சொந்த முறை இல்லாத, அல்லது தரவு குறைவான துறைகளில் பாதி எடை துறையின் வழக்கமான P/E, P/B ஒப்பீட்டுக்கும் பாதி நிறுவனத்தின் கடந்த 3 ஆண்டு சொந்த வழக்கமான P/E க்கும். நஷ்டத்திலுள்ள நிறுவனங்களுக்கும் 3 க்குக் குறைவான P/E உள்ளவற்றுக்கும் (ஒருமுறை லாபம் அல்லது பழைய எண்கள்) மதிப்பீடு இல்லை, ஒரு காலாண்டின் வருவாய் ஆண்டின் நடுக் காலாண்டின் 10 மடங்கைத் தாண்டினால் அது ஒருமுறையானதாக எண்ணப்படும். வளர்ச்சி கடைசி 4 காலாண்டுகளின் கூட்டுத்தொகையை முதல் 4 உடன் ஒப்பிடுகிறது; தொடக்கம் நஷ்டம் அல்லது பூஜ்ஜியத்துக்கு அருகில் என்றால் சதவீதம் தெரியாது. வங்கிகள், NBFC கள், காப்பீட்டு நிறுவனங்கள் போன்ற நிதி நிறுவனங்களில் கடன், பணப்புழக்கப் பகுதிகள் எண்ணப்படுவதில்லை, ஏனெனில் கடன் வாங்கிக் கடன் கொடுப்பதே அவற்றின் தொழில். தரவு இல்லாத பகுதிக்கு ஸ்கோரில் நடுத்தர 50 கிடைக்கும் (நல்லதும் இல்லை, கெட்டதும் இல்லை), 2–3 பகுதிகளில் மட்டும் நல்ல, மீதி தெரியாத நிறுவனம் முழுத் தரவுள்ள நல்ல நிறுவனங்களுக்கு மேல் உயராமல் இருக்க; எந்தப் பகுதிகளுக்குத் தரவு இல்லை என்று கார்டில் எழுதப்பட்டிருக்கும். 0–100 ஸ்கோரிலிருந்து தரம்: 75+ மிக வலிமை, 62+ வலிமை, 48+ சராசரி, 35+ எச்சரிக்கை, அதற்குக் கீழ் தவிர்க்கவும்; தரவு 40% க்குக் குறைவு என்றால் \"தரவு குறைவு\". NSE, NSE SME, BSE இல் மட்டும் பட்டியலிட்ட பங்குகள் அனைத்தும் உள்ளன; SME நிறுவனங்கள் அரையாண்டு முடிவுகளைத் தருகின்றன, எனவே அவற்றின் எண்கள் அரையாண்டுகளில். Screener.in, NSE, Yahoo இலிருந்து தரவு ஒவ்வொரு மாலையும் ஒருமுறை கேஷில் சேர்கிறது — பழைய காலாண்டுகள் மாறாது, எனவே புதிய முடிவுகள், பங்குதாரர் அமைப்பு, டீல்கள் மட்டும் சேர்க்கப்படுகின்றன, 20 காலாண்டுகள் / 5 ஆண்டுகளுக்கு மேல் பழைய தரவு நீக்கப்படுகிறது. ஆப் நாளுக்கு இருமுறை வரை புதிய கோப்பைப் பெற்று ஒரே நகலை வைத்திருக்கும். பங்கு விவரத்தில் \"R/S வரலாறு\" ஒவ்வொரு காலாண்டு முடிவுகள், FII/DII/புரோமோட்டர் பங்குகள் (▲ வாங்கினர், ▼ விற்றனர்), ஆண்டுப் பணப்புழக்கம், கடன், 3 ஆண்டு விலையைக் காட்டும்; அதன் சிறிய கோப்பு அந்தப் பங்கைத் திறக்கும்போது வரும். R/S கார்டின் எந்தப் பகுதியைத் தட்டினாலும் அதன் தரவு கீழே திறக்கும்: தரம், வளர்ச்சிக்கு ஒவ்வொரு காலாண்டு முடிவுகள், பணப்புழக்கம், கடனுக்கு ஆண்டு அட்டவணை, பங்குதாரர் அமைப்புக்குப் புரோமோட்டர்/FII/DII, இன்சைடருக்கு ஒவ்வொரு டீலும் (தேதி, NSE ஐ அடைந்த நாள், நேரம், பெயர், யார், வாங்கல்/விற்பனை, பங்குகள், விலை, தொகை, முறை, டீலுக்குப் பின் பங்கு), மதிப்பீட்டுக்கு P/E, நியாய மதிப்பு, கட்டமைப்பின் முழுக் கணக்கு, விலை, நிலைத்தன்மை, ரிஸ்க்குக்கு 3 ஆண்டு சார்ட்; இன்சைடர், பல்க்/பிளாக் வரிகளும் அப்படியே திறக்கும், மீண்டும் தட்டினால் மூடும். பல்க்/பிளாக் டீல்கள் இப்போதுதான் சேர்க்கத் தொடங்கியுள்ளன, எனவே அவற்றின் வரலாறு காலப்போக்கில் வளரும்; இன்சைடர் டிரேடுகளும் பல்க்/பிளாக் டீல்களும் NSE உடையவை, எனவே BSE-மட்டும் பங்குகளுக்கு அந்தப் பகுதி காலியாக இருக்கும். முதலீட்டு ஆலோசனை அல்ல.</string>
+</resources>

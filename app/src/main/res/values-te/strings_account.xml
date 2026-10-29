@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_account">ఖాతా</string>
+    <string name="menu_account_signed_out">సైన్ ఇన్ కాలేదు</string>
+    <string name="account_signed_in_generic">సైన్ ఇన్ అయ్యారు</string>
+    <string name="account_title">ఖాతా</string>
+    <string name="account_subtitle_signed_out">Google, GitHub లేదా ఇమెయిల్‌తో సైన్ ఇన్ చేయండి</string>
+    <string name="account_subtitle_signed_in">మీ ప్రొఫైల్, సైన్-ఇన్</string>
+    <string name="account_subtitle_unconfigured">సైన్-ఇన్ త్వరలో</string>
+    <string name="account_unconfigured_title">సైన్-ఇన్ ఇంకా సెటప్ కాలేదు</string>
+    <string name="account_unconfigured_body">ఈ వెర్షన్‌లో సైన్-ఇన్ ఇంకా ఆన్ కాలేదు. మిగతా యాప్ — స్కాన్‌లు, వాచ్‌లిస్ట్, ఫిల్టర్లు, థీమ్‌లు — సైన్ ఇన్ లేకుండా ఎప్పటిలాగే పనిచేస్తుంది.</string>
+    <string name="account_working">ఒక్క క్షణం…</string>
+    <string name="account_google">Googleతో సైన్ ఇన్</string>
+    <string name="account_github">GitHubతో సైన్ ఇన్</string>
+    <string name="account_or_email">లేదా ఇమెయిల్, పాస్‌వర్డ్‌తో</string>
+    <string name="account_email_hint">ఇమెయిల్</string>
+    <string name="account_password_hint">పాస్‌వర్డ్</string>
+    <string name="account_sign_in">సైన్ ఇన్</string>
+    <string name="account_create">కొత్త ఖాతా సృష్టించండి</string>
+    <string name="account_forgot">పాస్‌వర్డ్ మర్చిపోయారా?</string>
+    <string name="account_email_needed">మీ ఇమెయిల్ ఇవ్వండి</string>
+    <string name="account_password_needed">మీ పాస్‌వర్డ్ ఇవ్వండి</string>
+    <string name="account_reset_sent">పాస్‌వర్డ్ రీసెట్ లింక్ %1$sకి పంపబడింది — మీ ఇన్‌బాక్స్ (మరియు స్పామ్) చూడండి</string>
+    <string name="account_created">ఖాతా సృష్టించబడింది! మీ ఇమెయిల్ ధృవీకరించడానికి లింక్ పంపాము</string>
+    <string name="account_signed_in_toast">సైన్ ఇన్ అయ్యారు</string>
+    <string name="account_signed_out_toast">సైన్ అవుట్ అయ్యారు</string>
+    <string name="account_no_name">పేరు జోడించలేదు</string>
+    <string name="account_verified">✓ ధృవీకరించబడింది</string>
+    <string name="account_unverified">ధృవీకరించలేదు</string>
+    <string name="account_section_details">వివరాలు</string>
+    <string name="account_phone">ఫోన్</string>
+    <string name="account_methods">సైన్-ఇన్ పద్ధతులు</string>
+    <string name="account_created_at">ఖాతా సృష్టించిన తేదీ</string>
+    <string name="account_last_sign_in">చివరి సైన్-ఇన్</string>
+    <string name="account_unknown">తెలియదు</string>
+    <string name="account_uid">యూజర్ ID</string>
+    <string name="account_copy_uid">యూజర్ ID కాపీ చేయండి</string>
+    <string name="account_uid_copied">యూజర్ ID కాపీ అయింది</string>
+    <string name="account_provider_google">Google</string>
+    <string name="account_provider_github">GitHub</string>
+    <string name="account_provider_password">ఇమెయిల్ + పాస్‌వర్డ్</string>
+    <string name="account_provider_phone">ఫోన్</string>
+    <string name="account_section_actions">ఖాతా సెట్టింగ్‌లు</string>
+    <string name="account_edit_name">పేరు మార్చండి</string>
+    <string name="account_name_hint">మీ పేరు</string>
+    <string name="account_name_saved">పేరు మార్చబడింది</string>
+    <string name="account_send_verification">ధృవీకరణ ఇమెయిల్ పంపండి</string>
+    <string name="account_verification_sent">ధృవీకరణ లింక్ %1$sకి పంపబడింది</string>
+    <string name="account_change_password">పాస్‌వర్డ్ మార్చండి</string>
+    <string name="account_password_current_hint">ప్రస్తుత పాస్‌వర్డ్</string>
+    <string name="account_password_new_hint">కొత్త పాస్‌వర్డ్ (కనీసం 6 అక్షరాలు)</string>
+    <string name="account_password_changed">పాస్‌వర్డ్ మార్చబడింది</string>
+    <string name="account_password_send_reset">రీసెట్ ఇమెయిల్ పంపండి</string>
+    <string name="account_link_google">Google ఖాతా లింక్ చేయండి</string>
+    <string name="account_link_github">GitHub ఖాతా లింక్ చేయండి</string>
+    <string name="account_linked">%1$s లింక్ అయింది — ఇప్పుడు దానితో కూడా సైన్ ఇన్ చేయవచ్చు</string>
+    <string name="account_sign_out">సైన్ అవుట్</string>
+    <string name="account_delete">ఖాతా తొలగించండి</string>
+    <string name="account_delete_title">ఖాతా తొలగించాలా?</string>
+    <string name="account_delete_message">మీ Share Scan ఖాతా శాశ్వతంగా తొలగించబడుతుంది. ఈ ఫోన్‌లోని వాచ్‌లిస్ట్, సెట్టింగ్‌లు అలాగే ఉంటాయి.</string>
+    <string name="account_delete_yes">అవును, తొలగించండి</string>
+    <string name="account_deleted">ఖాతా తొలగించబడింది</string>
+    <string name="account_save">సేవ్ చేయండి</string>
+    <string name="account_cancel">రద్దు చేయండి</string>
+    <string name="account_relogin_title">మళ్లీ సైన్ ఇన్ చేయండి</string>
+    <string name="account_relogin_message">మీ భద్రత కోసం దీనికి తాజా సైన్-ఇన్ కావాలి. సైన్ అవుట్ చేసి, మళ్లీ సైన్ ఇన్ చేసి, మరోసారి ప్రయత్నించండి.</string>
+    <string name="account_relogin_yes">సైన్ అవుట్</string>
+    <string name="account_error_wrong_password">ఇమెయిల్ లేదా పాస్‌వర్డ్ తప్పు</string>
+    <string name="account_error_no_user">ఈ ఇమెయిల్‌తో ఖాతా లేదు — ముందు కొత్త ఖాతా సృష్టించండి</string>
+    <string name="account_error_disabled">ఈ ఖాతా నిలిపివేయబడింది</string>
+    <string name="account_error_weak_password">పాస్‌వర్డ్ చాలా బలహీనం — కనీసం 6 అక్షరాలు వాడండి</string>
+    <string name="account_error_email_used">ఈ ఇమెయిల్‌తో ఖాతా ఇప్పటికే ఉంది — సైన్ ఇన్ చేయండి</string>
+    <string name="account_error_other_method">ఈ ఇమెయిల్ ఖాతా వేరే పద్ధతిలో (Google, GitHub లేదా పాస్‌వర్డ్) సృష్టించబడింది — దానితో సైన్ ఇన్ చేసి, ఆపై ఈ పద్ధతిని ఇక్కడి నుంచి లింక్ చేయండి</string>
+    <string name="account_error_already_linked">ఈ ఖాతా ఇప్పటికే లింక్ అయింది, లేదా వేరే Share Scan ఖాతాకు చెందినది</string>
+    <string name="account_error_bad_email">ఆ ఇమెయిల్ సరైనది కాదు</string>
+    <string name="account_error_network">ఇంటర్నెట్ కనెక్షన్ లేదు — చూసి మళ్లీ ప్రయత్నించండి</string>
+    <string name="account_error_too_many">చాలా ప్రయత్నాలు — కొద్దిసేపటి తర్వాత మళ్లీ ప్రయత్నించండి</string>
+    <string name="account_error_no_google_account">ఈ ఫోన్‌లో Google ఖాతా లేదు — ఫోన్ సెట్టింగ్‌లలో ఒకటి జోడించండి</string>
+    <string name="account_error_google">Googleతో సైన్ ఇన్ కాలేదు — మళ్లీ ప్రయత్నించండి</string>
+    <string name="account_error_browser">బ్రౌజర్‌లో సైన్-ఇన్ పూర్తి కాలేదు — మళ్లీ ప్రయత్నించండి</string>
+    <string name="account_error_method_off">ఈ సైన్-ఇన్ పద్ధతి ఇంకా ఆన్ కాలేదు</string>
+    <string name="account_error_generic">ఏదో తప్పు జరిగింది — మళ్లీ ప్రయత్నించండి</string>
+    <string-array name="account_months">
+        <item>జన</item>
+        <item>ఫిబ్ర</item>
+        <item>మార్చి</item>
+        <item>ఏప్రి</item>
+        <item>మే</item>
+        <item>జూన్</item>
+        <item>జులై</item>
+        <item>ఆగ</item>
+        <item>సెప్టెం</item>
+        <item>అక్టో</item>
+        <item>నవం</item>
+        <item>డిసెం</item>
+    </string-array>
+    <string name="menu_usage">యాప్ వినియోగం</string>
+    <string name="menu_usage_body">ఎన్ని ఫోన్‌లలో యాప్ నడుస్తోంది • మీకు మాత్రమే కనిపిస్తుంది</string>
+    <string name="usage_title">యాప్ వినియోగం</string>
+    <string name="usage_subtitle">%1$s GitHub సైన్-ఇన్‌కు మాత్రమే కనిపిస్తుంది</string>
+    <string name="usage_loading_title">లెక్కిస్తోంది…</string>
+    <string name="usage_loading_body">Firebase నుంచి ఫోన్‌ల సంఖ్య వస్తోంది.</string>
+    <string name="usage_today">ఈరోజు</string>
+    <string name="usage_days">%1$d రోజులు</string>
+    <string name="usage_phones">ఫోన్‌లు</string>
+    <string name="usage_total_title">ఇప్పటివరకు</string>
+    <string name="usage_total_body">మొత్తం %1$s ఫోన్‌లలో యాప్ తెరుచుకుంది (లెక్కింపు మొదలైనప్పటి నుంచి)</string>
+    <string name="usage_downloads">GitHub నుంచి APK %1$s సార్లు డౌన్‌లోడ్ అయింది</string>
+    <string name="usage_downloads_unknown">GitHub డౌన్‌లోడ్ సంఖ్య ఇంకా రాలేదు</string>
+    <string name="usage_versions_title">వెర్షన్ వారీగా (గత %1$d రోజులు)</string>
+    <string name="usage_version_line">v%1$s — %2$s ఫోన్‌లు</string>
+    <string name="usage_how_title">లెక్కింపు ఎలా పనిచేస్తుంది</string>
+    <string name="usage_how_body">రోజుకు ఒకసారి, యాప్ తెరిచినప్పుడు, ప్రతి ఫోన్ ఒక యాదృచ్ఛిక ID, దాని వెర్షన్ మాత్రమే పంపుతుంది — పేరు, నంబర్ లేదా లొకేషన్ కాదు. ఈ వెర్షన్‌తో లెక్కింపు మొదలైంది; పాత వెర్షన్‌లలోని ఫోన్‌లు అప్‌డేట్ అయ్యాక లెక్కించబడతాయి. యాప్ తీసేసి మళ్లీ ఇన్‌స్టాల్ చేసిన ఫోన్ కొత్తదిగా లెక్కించబడుతుంది, APK డౌన్‌లోడ్‌లలో ఒకే వ్యక్తి చేసిన పలు డౌన్‌లోడ్‌లు ఉంటాయి.</string>
+    <string name="usage_rules_title">Firestore నియమాలు ఇంకా మార్చాలి</string>
+    <string name="usage_rules_body">Firebase Console → Firestore Database → Rulesలో docs/LOGIN_SETUP.md (Step 6.5) నుంచి కొత్త నియమాలు అతికించి Publish చేయండి, ఆపై దీన్ని మళ్లీ తెరవండి.</string>
+    <string name="usage_failed_title">సంఖ్య రాలేదు</string>
+    <string name="usage_failed_body">ఇంటర్నెట్ చూసి కొద్దిసేపటి తర్వాత దీన్ని మళ్లీ తెరవండి.</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_sunset">Sunset</string>
+    <string name="theme_sunset_body">केशरी-गुलाबी संध्याकाळचे आकाश</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_ocean_body">गडद निळा समुद्र</string>
+    <string name="theme_emerald">Emerald</string>
+    <string name="theme_emerald_body">पाचू-हिरवी आकाशगंगा</string>
+    <string name="theme_mars">Mars</string>
+    <string name="theme_mars_body">धुळीने भरलेले लाल आकाश</string>
+    <string name="theme_royal_gold">Royal Gold</string>
+    <string name="theme_royal_gold_body">सोनेरी आणि शाही जांभळा</string>
+    <string name="theme_frost">Frost</string>
+    <string name="theme_frost_body">बर्फाळ निळा • हलका उत्तरीय प्रकाश</string>
+    <string name="theme_space_glass">Space Glass</string>
+    <string name="theme_space_glass_body">खोल अवकाश • आकाशी चमक • हलती ट्रेडिंग ग्रिड आणि चार्ट-रेषा</string>
+</resources>

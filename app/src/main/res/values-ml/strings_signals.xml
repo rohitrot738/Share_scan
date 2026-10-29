@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_from_high">20D ഉയർന്നതിൽ നിന്നുള്ള ദൂരം</string>
+    <string name="metric_base_range">ശാന്തമായ പരിധി (ഉയർന്നത്–താഴ്ന്നത്)</string>
+    <string name="metric_vs_sma50">50 DMA-യിൽ നിന്നുള്ള ദൂരം</string>
+    <string name="hint_from_high">20 ദിവസത്തെ ഉയർന്ന വിലയിൽ (റെസിസ്റ്റൻസ്) നിന്ന് വില എത്ര താഴെ • നെഗറ്റീവ് = ഉയർന്നതിന് മുകളിൽ ബ്രേക്ക്ഔട്ട്</string>
+    <string name="hint_base_range">തിരഞ്ഞെടുത്ത ആഴ്ചകളിലെ ഉയർന്നതും താഴ്ന്നതുമായ വിലകൾ തമ്മിലുള്ള അകലം • കുറവ് = ശാന്തമായ ഓഹരി, വളരെ മുകളിലുമല്ല വളരെ താഴെയുമല്ല</string>
+    <string name="hint_vs_sma50">50 ദിവസത്തെ ശരാശരിക്ക് മുകളിൽ (+) അല്ലെങ്കിൽ താഴെ (-) • പോസിറ്റീവ് = ഉയരുന്ന ട്രെൻഡ്</string>
+    <string name="hint_score_mix">ബ്രേക്ക്ഔട്ട് സെറ്റപ്പ്, ട്രെൻഡ്, വോള്യം, ലിക്വിഡിറ്റി, മൊമന്റം എന്നിവയുടെ മിശ്രണം • %1$s+ STRONG, %2$s+ WATCH</string>
+</resources>

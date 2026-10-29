@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_sky">ಆಕಾಶದ ಅನಿಮೇಷನ್</string>
+    <string name="settings_sky_body">ನಕ್ಷತ್ರಗಳು ಮಿನುಗುತ್ತವೆ, ಉದುರುತ್ತವೆ, ಹೊಳೆಯುತ್ತವೆ; ಆಫ್ ಮಾಡಿದರೆ ಆಕಾಶ ಸ್ಥಿರವಾಗಿರುತ್ತದೆ (ಬ್ಯಾಟರಿ ಉಳಿತಾಯ)</string>
+    <string name="settings_section_glass">ಗಾಜಿನ ಮೋಡ್</string>
+    <string name="settings_glass_on">ಗಾಜಿನ ಪರಿಣಾಮ</string>
+    <string name="settings_glass_on_body">ಆಫ್ ಮಾಡಿದರೆ ಬೋರ್ಡ್, ಕಾರ್ಡ್‌ಗಳು, ಬಟನ್‌ಗಳು, ಶೀಟ್‌ಗಳು ಸರಳ, ಘನವಾಗಿರುತ್ತವೆ • ಗಾಜು, ಹೊಳಪು, ಮಸುಕು ಇಲ್ಲ</string>
+    <string name="glass_off_body">ಈಗ: ಗಾಜು ಆಫ್ • ಮೇಲಿನ ಸ್ವಿಚ್ ಆನ್ ಮಾಡಿದರೆ ಆಯ್ಕೆ ಮಾಡಿದ ಮೋಡ್ ಮರಳುತ್ತದೆ</string>
+    <string name="settings_glass_body">ಸ್ಕ್ಯಾನ್ ಬೋರ್ಡ್, ಕಾರ್ಡ್‌ಗಳು, ಶೀಟ್‌ಗಳು, ಚಿಪ್‌ಗಳು, ಸ್ವಿಚ್‌ಗಳ ಗಾಜು • ಆಯ್ಕೆ ಮಾಡಿದ ತಕ್ಷಣ ಇಡೀ ಆ್ಯಪ್‌ಗೆ ಅನ್ವಯಿಸುತ್ತದೆ</string>
+    <string name="glass_frosted">Frosted</string>
+    <string name="glass_clear">Clear</string>
+    <string name="glass_smoky">Smoky</string>
+    <string name="glass_tinted">Tinted</string>
+    <string name="glass_liquid">Iridescent</string>
+    <string name="glass_solid">Solid</string>
+    <string name="glass_frosted_body">ಈಗ: ಆಕಾಶ ಕಾಣುವ ಹಗುರ ಮಂಜಿನ ಗಾಜು • ಡೀಫಾಲ್ಟ್</string>
+    <string name="glass_clear_body">ಈಗ: ಪ್ರಕಾಶಮಾನ ಅಂಚುಗಳೊಂದಿಗೆ ಸ್ಫಟಿಕದಂತೆ ಸ್ಪಷ್ಟ ಗಾಜು • ಆಕಾಶ ಹೆಚ್ಚು ಕಾಣುತ್ತದೆ</string>
+    <string name="glass_smoky_body">ಈಗ: ಗಾಢ, ಹೊಗೆಯಂತಹ ಗಾಜು • ಆಕಾಶ ಸ್ವಲ್ಪ ಮಾತ್ರ ಮಿನುಗುತ್ತದೆ</string>
+    <string name="glass_tinted_body">ಈಗ: ಥೀಮ್‌ನ ಬಣ್ಣದ ಗಾಜು</string>
+    <string name="glass_liquid_body">ಈಗ: ನೀರಿನ ಮೇಲಿನ ಎಣ್ಣೆಯಂತೆ ಆಕಾಶ ನೀಲಿಯಿಂದ ಗುಲಾಬಿವರೆಗೆ ಮಿನುಗುವ ಅಂಚುಗಳು</string>
+    <string name="glass_solid_body">ಈಗ: ಸ್ವಲ್ಪ ಹೊಳಪಿನೊಂದಿಗೆ ದೃಢ ಘನ ಕಾರ್ಡ್‌ಗಳು • ಓದಲು ಸುಲಭ, ಫೋನ್‌ಗೆ ಹಗುರ</string>
+</resources>

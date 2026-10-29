@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_layout">লেআউট</string>
+    <string name="layout_title">লেআউট বাছুন</string>
+    <string name="layout_subtitle">শেয়ারের তালিকা কেমন দেখাবে · ব্যাকগ্রাউন্ড আর থিম একই থাকে</string>
+    <string name="layout_auto">ব্যাকগ্রাউন্ডের নিজস্ব</string>
+    <string name="layout_auto_now_cards">এখন Galaxy ব্যাকগ্রাউন্ড: বড় কার্ড</string>
+    <string name="layout_auto_now_table">এখন Space Glass ব্যাকগ্রাউন্ড: সংক্ষিপ্ত টেবিল</string>
+    <string name="layout_accordion">অ্যাকর্ডিয়ন</string>
+    <string name="layout_accordion_body">প্রতিটি শেয়ার একটি সরু লাইন · টিপলে সেখানেই পুরো বিস্তারিত খোলে</string>
+    <string name="layout_bento">বেন্টো গ্রিড</string>
+    <string name="layout_bento_body">দুই সারিতে টাইল: স্কোর ডায়াল, 15 দিনের রেখা আর দাম</string>
+    <string name="layout_swipe">সোয়াইপ কার্ড</string>
+    <string name="layout_swipe_body">সংখ্যা ছোট ক্যাপসুলে · বাঁয়ে সোয়াইপ করলে ★ ওয়াচলিস্ট আর চার্ট</string>
+    <string name="layout_action_chart">চার্ট</string>
+    <string name="layout_action_details">বিস্তারিত</string>
+    <string name="layout_action_watchlist">ওয়াচলিস্ট</string>
+    <string name="layout_action_unwatch">সরান</string>
+    <string name="layout_action_alert">অ্যালার্ট দিন</string>
+    <string name="layout_action_alert_on">★ অ্যালার্ট চালু</string>
+    <string name="layout_expand">%1$s-এর বিস্তারিত খুলুন</string>
+    <string name="layout_collapse">%1$s-এর বিস্তারিত বন্ধ করুন</string>
+    <string name="layout_swipe_hint">%1$s: বাঁয়ে সোয়াইপ করলে ওয়াচলিস্ট আর চার্টের বোতাম</string>
+    <string name="cap_mcap">MCap %1$s</string>
+    <string name="cap_volume">ভলিউম %1$s</string>
+    <string name="cap_rvol">RVOL %1$s×</string>
+    <string name="cap_support">সাপোর্ট ₹%1$s</string>
+    <string name="cap_rs">R/S %1$s</string>
+    <string name="help_layout_title">লেআউট: তালিকা কেমন দেখাবে</string>
+    <string name="help_layout_body">মেনু → লেআউট-এ তালিকার রূপ বাছুন। \"ব্যাকগ্রাউন্ডের নিজস্ব\"-তে Galaxy-তে বড় কার্ড আর Space Glass-এ সংক্ষিপ্ত টেবিল থাকে। অ্যাকর্ডিয়নে প্রতিটি শেয়ার একটি সরু লাইন; টিপলে সেখানেই স্কোরের বার, MCap, ভলিউম, RVOL, R/S আর সাপোর্ট খোলে, সাথে অ্যালার্ট, চার্ট আর বিস্তারিতর বোতাম। বেন্টো গ্রিডে দুই সারিতে টাইল: স্কোরের গোল ডায়াল, গত 15 দিনের রেখা, দাম আর 5 দিনের পরিবর্তন; টাইল চেপে ধরে রাখলে সেটি ওয়াচলিস্টে যোগ হয়। সোয়াইপ কার্ডে সংখ্যাগুলো ছোট ক্যাপসুলে, আর কার্ড বাঁয়ে টানলে ★ ওয়াচলিস্ট আর চার্টের বোতাম দেখা যায়।</string>
+</resources>

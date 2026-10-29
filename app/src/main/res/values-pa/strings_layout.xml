@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_layout">ਰੂਪ</string>
+    <string name="layout_title">ਸੂਚੀ ਦਾ ਰੂਪ ਚੁਣੋ</string>
+    <string name="layout_subtitle">ਸ਼ੇਅਰਾਂ ਦੀ ਸੂਚੀ ਕਿਵੇਂ ਦਿਸੇ · ਪਿਛੋਕੜ ਅਤੇ ਥੀਮ ਉਹੀ ਰਹਿੰਦੇ ਹਨ</string>
+    <string name="layout_auto">ਪਿਛੋਕੜ ਵਾਲਾ</string>
+    <string name="layout_auto_now_cards">ਹੁਣ Galaxy ਪਿਛੋਕੜ: ਵੱਡੇ ਕਾਰਡ</string>
+    <string name="layout_auto_now_table">ਹੁਣ Space Glass ਪਿਛੋਕੜ: ਸੰਖੇਪ ਸਾਰਣੀ</string>
+    <string name="layout_accordion">ਅਕੌਰਡੀਅਨ</string>
+    <string name="layout_accordion_body">ਹਰ ਸ਼ੇਅਰ ਇੱਕ ਪਤਲੀ ਲਾਈਨ · ਦਬਾਉਣ ਉੱਤੇ ਉੱਥੇ ਹੀ ਪੂਰਾ ਵੇਰਵਾ ਖੁੱਲ੍ਹਦਾ ਹੈ</string>
+    <string name="layout_bento">ਬੈਂਟੋ ਗਰਿੱਡ</string>
+    <string name="layout_bento_body">ਦੋ ਕਤਾਰਾਂ ਵਿੱਚ ਟਾਈਲਾਂ: ਸਕੋਰ ਡਾਇਲ, 15 ਦਿਨਾਂ ਦੀ ਰੇਖਾ ਅਤੇ ਭਾਅ</string>
+    <string name="layout_swipe">ਸਵਾਈਪ ਕਾਰਡ</string>
+    <string name="layout_swipe_body">ਅੰਕੜੇ ਛੋਟੇ ਕੈਪਸੂਲਾਂ ਵਿੱਚ · ਖੱਬੇ ਸਵਾਈਪ ਉੱਤੇ ★ ਵਾਚਲਿਸਟ ਅਤੇ ਚਾਰਟ</string>
+    <string name="layout_action_chart">ਚਾਰਟ</string>
+    <string name="layout_action_details">ਵੇਰਵਾ</string>
+    <string name="layout_action_watchlist">ਵਾਚਲਿਸਟ</string>
+    <string name="layout_action_unwatch">ਹਟਾਓ</string>
+    <string name="layout_action_alert">ਅਲਰਟ ਲਾਓ</string>
+    <string name="layout_action_alert_on">★ ਅਲਰਟ ਚਾਲੂ</string>
+    <string name="layout_expand">%1$s ਦਾ ਵੇਰਵਾ ਖੋਲ੍ਹੋ</string>
+    <string name="layout_collapse">%1$s ਦਾ ਵੇਰਵਾ ਬੰਦ ਕਰੋ</string>
+    <string name="layout_swipe_hint">%1$s: ਖੱਬੇ ਸਵਾਈਪ ਕਰੋ ਤਾਂ ਵਾਚਲਿਸਟ ਅਤੇ ਚਾਰਟ ਦੇ ਬਟਨ</string>
+    <string name="cap_mcap">MCap %1$s</string>
+    <string name="cap_volume">ਵਾਲੀਅਮ %1$s</string>
+    <string name="cap_rvol">RVOL %1$s×</string>
+    <string name="cap_support">ਸਪੋਰਟ ₹%1$s</string>
+    <string name="cap_rs">R/S %1$s</string>
+    <string name="help_layout_title">ਰੂਪ: ਸੂਚੀ ਕਿਵੇਂ ਦਿਸੇ</string>
+    <string name="help_layout_body">ਮੀਨੂ → ਰੂਪ ਵਿੱਚ ਸੂਚੀ ਦਾ ਰੂਪ ਚੁਣੋ। \"ਪਿਛੋਕੜ ਵਾਲਾ\" ਵਿੱਚ Galaxy ਉੱਤੇ ਵੱਡੇ ਕਾਰਡ ਅਤੇ Space Glass ਉੱਤੇ ਸੰਖੇਪ ਸਾਰਣੀ ਰਹਿੰਦੀ ਹੈ। ਅਕੌਰਡੀਅਨ ਵਿੱਚ ਹਰ ਸ਼ੇਅਰ ਇੱਕ ਪਤਲੀ ਲਾਈਨ ਹੈ; ਦਬਾਉਣ ਉੱਤੇ ਉੱਥੇ ਹੀ ਸਕੋਰ ਦੀ ਪੱਟੀ, MCap, ਵਾਲੀਅਮ, RVOL, R/S ਅਤੇ ਸਪੋਰਟ ਖੁੱਲ੍ਹਦੇ ਹਨ, ਨਾਲ ਅਲਰਟ, ਚਾਰਟ ਅਤੇ ਵੇਰਵੇ ਦੇ ਬਟਨ। ਬੈਂਟੋ ਗਰਿੱਡ ਵਿੱਚ ਦੋ ਕਤਾਰਾਂ ਵਿੱਚ ਟਾਈਲਾਂ ਹਨ: ਸਕੋਰ ਦਾ ਗੋਲ ਡਾਇਲ, ਪਿਛਲੇ 15 ਦਿਨਾਂ ਦੀ ਰੇਖਾ, ਭਾਅ ਅਤੇ 5 ਦਿਨਾਂ ਦਾ ਬਦਲਾਅ; ਟਾਈਲ ਨੂੰ ਦਬਾ ਕੇ ਰੱਖਣ ਨਾਲ ਉਹ ਵਾਚਲਿਸਟ ਵਿੱਚ ਜੁੜਦੀ ਹੈ। ਸਵਾਈਪ ਕਾਰਡਾਂ ਵਿੱਚ ਅੰਕੜੇ ਛੋਟੇ ਕੈਪਸੂਲਾਂ ਵਿੱਚ ਹਨ, ਅਤੇ ਕਾਰਡ ਨੂੰ ਖੱਬੇ ਖਿੱਚਣ ਉੱਤੇ ★ ਵਾਚਲਿਸਟ ਅਤੇ ਚਾਰਟ ਦੇ ਬਟਨ ਦਿਸਦੇ ਹਨ।</string>
+</resources>

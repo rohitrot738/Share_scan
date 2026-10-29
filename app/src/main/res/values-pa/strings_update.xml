@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_title">ਨਵਾਂ ਸੰਸਕਰਣ ਉਪਲਬਧ</string>
+    <string name="update_title_ready">ਅੱਪਡੇਟ ਡਾਊਨਲੋਡ ਹੋ ਗਿਆ</string>
+    <string name="update_versions">%1$s • ਹੁਣ %2$s</string>
+    <string name="update_available_body">ਇੱਕ ਟੈਪ ਵਿੱਚ ਡਾਊਨਲੋਡ ਕਰਕੇ ਪੁਰਾਣੀ ਐਪ ਉੱਤੇ ਇੰਸਟਾਲ ਕਰੋ — ਵਾਚਲਿਸਟ ਅਤੇ ਫਿਲਟਰ ਉਵੇਂ ਹੀ ਰਹਿਣਗੇ।</string>
+    <string name="update_downloading_body">ਡਾਊਨਲੋਡ ਹੋ ਰਿਹਾ ਹੈ… %1$d%%</string>
+    <string name="update_ready_body">ਇੰਸਟਾਲ ਦਬਾਓ — ਨਵਾਂ ਸੰਸਕਰਣ ਪੁਰਾਣੇ ਉੱਤੇ ਇੰਸਟਾਲ ਹੋ ਜਾਵੇਗਾ।</string>
+    <string name="update_ready_permission_body">ਇੰਸਟਾਲ ਦਬਾਓ। ਪਹਿਲੀ ਵਾਰ Android “ਇਸ ਸਰੋਤ ਤੋਂ ਇੰਸਟਾਲ” ਦੀ ਇਜਾਜ਼ਤ ਮੰਗੇਗਾ — ਉਸਨੂੰ ਚਾਲੂ ਕਰਕੇ ਵਾਪਸ ਦਬਾਓ, ਇੰਸਟਾਲ ਉੱਥੋਂ ਹੀ ਅੱਗੇ ਚੱਲੇਗਾ।</string>
+    <string name="update_failed_body">ਡਾਊਨਲੋਡ ਨਹੀਂ ਹੋ ਸਕਿਆ। ਇੰਟਰਨੈੱਟ ਕਨੈਕਸ਼ਨ ਜਾਂਚੋ ਅਤੇ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ।</string>
+    <string name="update_action_download">ਅੱਪਡੇਟ ਕਰੋ</string>
+    <string name="update_action_install">ਇੰਸਟਾਲ ਕਰੋ</string>
+    <string name="update_action_retry">ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ</string>
+    <string name="update_action_later">ਬਾਅਦ ਵਿੱਚ</string>
+    <string name="update_install_failed">ਇੰਸਟਾਲਰ ਨਹੀਂ ਖੁੱਲ੍ਹ ਸਕਿਆ</string>
+</resources>

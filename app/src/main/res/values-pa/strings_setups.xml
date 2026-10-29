@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="item_setup_learned">🎯 ਸਿੱਖਿਆ ਸੈੱਟਅੱਪ • %1$d%% ਸਫਲ: %2$s</string>
+    <string name="detail_setup_learned">🎯 ਸਿੱਖਿਆ ਸੈੱਟਅੱਪ: %1$s। ਪਿਛਲੇ 2 ਸਾਲਾਂ ਵਿੱਚ ਅਜਿਹੀਆਂ %2$d ਯੋਜਨਾਵਾਂ ਵਿੱਚੋਂ %3$d%% ਵਿੱਚ ਟੀਚਾ 1 ਤੈਅ ਦਿਨਾਂ ਵਿੱਚ ਸਟਾਪ ਤੋਂ ਪਹਿਲਾਂ ਲੱਗਿਆ (ਸਾਰੇ ਸ਼ੇਅਰਾਂ ਦੀ ਔਸਤ %4$d%%)।</string>
+    <string name="detail_setup_learned_none">ਇਸ ਸ਼ੇਅਰ ਉੱਤੇ ਅੱਜ ਕੋਈ ਸਿੱਖਿਆ ਸੈੱਟਅੱਪ ਲਾਗੂ ਨਹੀਂ। ਸਾਰੇ ਸ਼ੇਅਰਾਂ ਵਿੱਚ ਟੀਚਾ 1 ਤੈਅ ਦਿਨਾਂ ਵਿੱਚ %1$d%% ਵਾਰ ਲੱਗਿਆ। ਸਭ ਤੋਂ ਸਫਲ ਸੈੱਟਅੱਪ: %2$s</string>
+    <string name="detail_setup_learned_top">%1$s (%2$d%%)</string>
+    <string name="item_setup_rally">📈 ਤੇਜ਼ੀ ਸੈੱਟਅੱਪ • %1$d%%: %2$s</string>
+    <string name="detail_plan_stop_learned">ਸਿੱਖਿਆ ਸਟਾਪ: ਐਂਟਰੀ ਤੋਂ %1$s ATR ਹੇਠਾਂ</string>
+    <string name="detail_plan_quick_time_learned">⏱ ਐਂਟਰੀ ਤੋਂ ਬਾਅਦ ਲਗਭਗ %1$d–%2$d ਦਿਨ</string>
+    <string name="detail_plan_learned">🧠 ਸਿੱਖੀ ਯੋਜਨਾ: ਸਟਾਪ %1$s, ਟੀਚਾ 1 = +%2$s, %3$d ਦਿਨਾਂ ਦੇ ਅੰਦਰ। ਪਿਛਲੇ 2 ਸਾਲਾਂ ਵਿੱਚ ਅਜਿਹੀਆਂ ਯੋਜਨਾਵਾਂ ਵਿੱਚ %4$d%% ਸਫਲ, ਔਸਤ %5$s ਪ੍ਰਤੀ ਟ੍ਰੇਡ (ਸਾਰੇ ਸ਼ੇਅਰਾਂ ਉੱਤੇ ਐਪ ਦੀ ਪੁਰਾਣੀ ਯੋਜਨਾ: %6$d%% ਸਫਲ, %7$s)।</string>
+    <string name="detail_plan_learned_stop_atr">ਐਂਟਰੀ ਤੋਂ %1$s ATR ਹੇਠਾਂ</string>
+    <string name="detail_plan_learned_stop_own">10 ਦਿਨਾਂ ਦੇ ਨੀਵੇਂ ਭਾਅ ਤੋਂ ਹੇਠਾਂ (ਐਪ ਦਾ ਆਪਣਾ)</string>
+    <string name="detail_plan_learned_own">🧠 ਸਿੱਖਿਆ: ਐਪ ਦਾ ਆਪਣਾ ਸਟਾਪ ਅਤੇ ਟੀਚਾ ਹੀ ਹੁਣ ਤੱਕ ਸਭ ਤੋਂ ਵਧੀਆ ਰਿਹਾ — %1$d%% ਸਫਲ, ਔਸਤ %2$s ਪ੍ਰਤੀ ਟ੍ਰੇਡ।</string>
+    <string name="detail_rally_setup">📈 ਤੇਜ਼ੀ ਦਾ ਸੈੱਟਅੱਪ: %1$s। ਪਿਛਲੇ 2 ਸਾਲਾਂ ਵਿੱਚ ਅਜਿਹੇ %2$d%% ਮੌਕਿਆਂ ਉੱਤੇ ਭਾਅ %3$d ਦਿਨਾਂ ਦੇ ਅੰਦਰ %4$s ATR (ਅੱਜ ਦੇ ਹਿਸਾਬ ਨਾਲ ≈ %5$s) ਉੱਪਰ ਗਿਆ, ਪਹਿਲਾਂ ਡਿੱਗੇ ਬਿਨਾਂ (ਸਾਰੇ ਸ਼ੇਅਰਾਂ ਵਿੱਚ %6$d%%)।</string>
+    <string name="detail_rally_why">📈 ਤੇਜ਼ੀ ਤੋਂ ਪਹਿਲਾਂ ਅਕਸਰ ਦਿਸਿਆ: %1$s</string>
+    <string name="item_setup_mistake">⚠ ਸਿੱਖੀ ਗ਼ਲਤੀ • ਸਿਰਫ਼ %1$d%% ਸਫਲ: %2$s</string>
+    <string name="detail_setup_mistake">⚠ ਸਿੱਖੀ ਗ਼ਲਤੀ: %1$s। ਪਿਛਲੇ 2 ਸਾਲਾਂ ਵਿੱਚ ਅਜਿਹੇ %2$d ਟ੍ਰੇਡਾਂ ਵਿੱਚੋਂ ਸਿਰਫ਼ %3$d%% ਸਫਲ ਰਹੇ (ਸਾਰੇ ਸ਼ੇਅਰਾਂ ਦੀ ਔਸਤ %4$d%%) — %5$d%% ਵਿੱਚ ਪਹਿਲਾਂ ਸਟਾਪ ਲੱਗਿਆ, %6$d%% ਵਿੱਚ ਟੀਚਾ ਤੈਅ ਦਿਨਾਂ ਵਿੱਚ ਨਹੀਂ ਆਇਆ। ਅਜਿਹੇ ਸੈੱਟਅੱਪ ਉੱਤੇ ਟ੍ਰੇਡ ਉਲਟਾ ਜਾਣ ਦੀ ਸੰਭਾਵਨਾ ਵੱਧ ਰਹੀ ਹੈ।</string>
+    <string name="setup_breakout_today">ਅੱਜ ਬ੍ਰੇਕਆਊਟ</string>
+    <string name="setup_near_trigger">ਬ੍ਰੇਕਆਊਟ ਤੋਂ 1 ATR ਦੂਰ</string>
+    <string name="setup_volume_2x">ਵਾਲੀਅਮ 2×+</string>
+    <string name="setup_volume_1_5x">ਵਾਲੀਅਮ 1.5×+</string>
+    <string name="setup_quiet_before">ਪਹਿਲਾਂ 5 ਦਿਨ ਵਾਲੀਅਮ ਘੱਟ</string>
+    <string name="setup_tight_week">1 ਹਫ਼ਤੇ ਦੀ ਰੇਂਜ 5% ਵਿੱਚ</string>
+    <string name="setup_tight_two_weeks">2 ਹਫ਼ਤਿਆਂ ਦੀ ਰੇਂਜ 8% ਵਿੱਚ</string>
+    <string name="setup_above_sma50">50 DMA ਤੋਂ ਉੱਪਰ</string>
+    <string name="setup_sma20_over_sma50">20 DMA, 50 DMA ਤੋਂ ਉੱਪਰ</string>
+    <string name="setup_up_20_days">20 ਦਿਨਾਂ ਵਿੱਚ ਉੱਪਰ</string>
+    <string name="setup_up_5_percent_week">5 ਦਿਨਾਂ ਵਿੱਚ 5%+ ਉੱਪਰ</string>
+    <string name="setup_rsi_50_70">RSI 50–70</string>
+    <string name="setup_rsi_70_plus">RSI 70+</string>
+    <string name="setup_rsi_under_50">RSI 50 ਤੋਂ ਘੱਟ</string>
+    <string name="setup_macd_above_signal">MACD ਸਿਗਨਲ ਤੋਂ ਉੱਪਰ</string>
+    <string name="setup_macd_fresh_cross">MACD ਕਰਾਸਓਵਰ 3 ਦਿਨਾਂ ਵਿੱਚ</string>
+    <string name="setup_macd_above_zero">MACD ਜ਼ੀਰੋ ਤੋਂ ਉੱਪਰ</string>
+    <string name="setup_near_support">ਸਪੋਰਟ ਤੋਂ 5% ਵਿੱਚ</string>
+    <string name="setup_long_support">ਪੁਰਾਣਾ ਸਪੋਰਟ</string>
+    <string name="setup_liquid_10cr">ਰੋਜ਼ ₹10 Cr+ ਕਾਰੋਬਾਰ</string>
+    <string name="setup_score_strong">ਸਕੋਰ STRONG</string>
+    <string name="setup_score_watch">ਸਕੋਰ WATCH+</string>
+    <string name="setup_prev_strong">ਕੱਲ੍ਹ ਵੀ STRONG</string>
+    <string name="setup_near_6m_high">6 ਮਹੀਨਿਆਂ ਦੇ ਉੱਚੇ ਭਾਅ ਤੋਂ 3% ਵਿੱਚ</string>
+    <string name="setup_up_4_percent_today">ਅੱਜ 4%+ ਉੱਪਰ</string>
+    <string name="setup_close_near_day_high">ਦਿਨ ਦੇ ਉੱਚੇ ਭਾਅ ਦੇ ਨੇੜੇ ਬੰਦ</string>
+    <string name="setup_calm_ranges">10 ਦਿਨਾਂ ਤੋਂ ਰੋਜ਼ਾਨਾ ਉਤਰਾਅ-ਚੜ੍ਹਾਅ ਘੱਟ</string>
+    <string name="help_setups_title">ਸਿੱਖੇ ਹੋਏ ਸੈੱਟਅੱਪ</string>
+    <string name="help_setups_body">ਹਰ ਸ਼ਾਮ (ਬਾਜ਼ਾਰ ਦੇ ਦਿਨਾਂ ਵਿੱਚ) ਐਪ ਪੂਰੇ ਬਾਜ਼ਾਰ ਦੇ ਹਰ ਸ਼ੇਅਰ ਦੇ ਪਿਛਲੇ 2 ਸਾਲਾਂ ਦੇ ਹਰ ਦਿਨ ਉੱਤੇ ਉਹੀ ਸਕੋਰ ਅਤੇ ਟ੍ਰੇਡ ਯੋਜਨਾ ਬਣਾਉਂਦੀ ਹੈ ਜੋ ਉਸ ਦਿਨ ਦਿਸਦੀ, ਅਤੇ ਦੇਖਦੀ ਹੈ ਕਿ ਅੱਗੇ ਕੀ ਹੋਇਆ: ਟੀਚਾ 1 ਦੱਸੇ ਦਿਨਾਂ ਦੇ ਅੰਦਰ ਸਟਾਪ ਤੋਂ ਪਹਿਲਾਂ ਲੱਗਿਆ ਤਾਂ ਸਫਲ; ਸਟਾਪ ਪਹਿਲਾਂ ਲੱਗਿਆ ਜਾਂ ਟੀਚਾ ਸਮੇਂ ਸਿਰ ਨਹੀਂ ਆਇਆ ਤਾਂ ਅਸਫਲ। ਫਿਰ 1 ਤੋਂ 3 ਸ਼ਰਤਾਂ ਦੇ ਮੇਲ (ਜਿਵੇਂ ਅੱਜ ਬ੍ਰੇਕਆਊਟ + ਵਾਲੀਅਮ 2×+ + RSI 50–70) ਵਿੱਚੋਂ ਉਹੀ ਸੈੱਟਅੱਪ ਰੱਖੇ ਜਾਂਦੇ ਹਨ ਜੋ ਪੂਰੇ ਬਾਜ਼ਾਰ ਦੀ ਔਸਤ ਤੋਂ ਸਾਫ਼ ਵੱਧ ਸਫਲ ਰਹੇ — ਪੁਰਾਣੇ ਡਾਟੇ ਉੱਤੇ ਵੀ ਅਤੇ ਪਿਛਲੇ 60 ਦਿਨਾਂ ਉੱਤੇ ਵੀ, ਜਿਹਨਾਂ ਉੱਤੇ ਉਹਨਾਂ ਨੂੰ ਚੁਣਿਆ ਨਹੀਂ ਗਿਆ ਸੀ। ਜੋ ਸੈੱਟਅੱਪ ਅੱਗੇ ਚੱਲ ਕੇ ਔਸਤ ਤੋਂ ਉੱਪਰ ਨਹੀਂ ਰਹਿੰਦਾ, ਉਹ ਹਟ ਜਾਂਦਾ ਹੈ। ਗ਼ਲਤੀਆਂ ਤੋਂ ਵੀ ਸਿੱਖਦੀ ਹੈ: ਜਿਹਨਾਂ ਸ਼ਰਤਾਂ ਦੇ ਮੇਲ ਉੱਤੇ ਟ੍ਰੇਡ ਔਸਤ ਤੋਂ ਸਾਫ਼ ਵੱਧ ਉਲਟੇ ਗਏ (ਸਟਾਪ ਪਹਿਲਾਂ ਲੱਗਿਆ ਜਾਂ ਟੀਚਾ ਦੇਰ ਨਾਲ ਆਇਆ) — ਉਹ ਵੀ ਪੁਰਾਣੇ ਡਾਟੇ ਅਤੇ ਪਿਛਲੇ 60 ਦਿਨਾਂ ਦੋਵਾਂ ਉੱਤੇ — ਉਹ \"⚠ ਸਿੱਖੀ ਗ਼ਲਤੀ\" ਬਣ ਕੇ ਕਾਰਡ ਅਤੇ ਵੇਰਵੇ ਵਿੱਚ ਚੇਤਾਵਨੀ ਦਿੰਦੇ ਹਨ, ਨਾਲ ਕਿੰਨੇ % ਵਿੱਚ ਸਟਾਪ ਲੱਗਿਆ ਅਤੇ ਕਿੰਨੇ % ਵਿੱਚ ਟੀਚਾ ਦੇਰ ਨਾਲ ਆਇਆ। ਕੋਈ ਗ਼ਲਤੀ ਅੱਗੇ ਚੱਲ ਕੇ ਸੁਧਰ ਜਾਵੇ ਤਾਂ ਚੇਤਾਵਨੀ ਹਟ ਜਾਂਦੀ ਹੈ। ਸਟਾਪ, ਟੀਚਾ ਅਤੇ ਸਮਾਂ ਵੀ ਸਿੱਖੇ ਜਾਂਦੇ ਹਨ: ਹਰ ਪੁਰਾਣੀ ਯੋਜਨਾ ਨੂੰ 30,000 ਤਰੀਕਿਆਂ ਨਾਲ ਜਾਂਚਿਆ ਜਾਂਦਾ ਹੈ (ਸਟਾਪ ਐਂਟਰੀ ਤੋਂ 1 ਤੋਂ 3.4 ATR ਹੇਠਾਂ ਜਾਂ ਐਪ ਦਾ ਆਪਣਾ, ਟੀਚਾ 1 = 0.5R ਤੋਂ 5.45R, ਅਤੇ ਟੀਚੇ ਦਾ ਸਮਾਂ ਅੱਧੇ ਤੋਂ ਤਿੰਨ ਗੁਣਾ ਦਿਨ) ਅਤੇ ਜੋ ਮੇਲ ਪੂਰੇ ਬਾਜ਼ਾਰ ਵਿੱਚ ਪ੍ਰਤੀ ਟ੍ਰੇਡ ਸਭ ਤੋਂ ਵੱਧ ਕਮਾਈ (ਔਸਤ R) ਦਿੰਦਾ ਹੈ — ਪੁਰਾਣੇ ਡਾਟੇ ਉੱਤੇ ਵੀ ਅਤੇ ਪਿਛਲੇ 60 ਦਿਨਾਂ ਉੱਤੇ ਵੀ, ਅਤੇ ਜਿਸਦੇ ਆਲੇ-ਦੁਆਲੇ ਦੇ ਮੇਲ ਵੀ ਚੰਗੇ ਰਹੇ, ਤਾਂ ਜੋ ਕਿਸਮਤ ਨਾਲ ਚੰਗਾ ਦਿਸਿਆ ਮੇਲ ਨਾ ਚੁਣਿਆ ਜਾਵੇ — ਉਹੀ ਯੋਜਨਾ ਵਿੱਚ ਲੱਗਦਾ ਹੈ; ਕਿਸੇ ਸੈੱਟਅੱਪ ਲਈ ਵੱਖਰਾ ਮੇਲ ਹੋਰ ਬਿਹਤਰ ਰਿਹਾ ਤਾਂ ਉਸਨੂੰ ਆਪਣਾ ਮਿਲਦਾ ਹੈ। ਨਵਾਂ ਮੇਲ ਪੁਰਾਣੇ ਤੋਂ ਸਾਫ਼ ਬਿਹਤਰ ਹੋਵੇ ਤਾਂ ਹੀ ਉਸਦੀ ਥਾਂ ਲੈਂਦਾ ਹੈ, ਅਤੇ ਪਿੱਛੇ ਰਹਿ ਜਾਵੇ ਤਾਂ ਹਟ ਜਾਂਦਾ ਹੈ; ਵਾਚਲਿਸਟ ਅਲਰਟ ਵੀ ਇਹੀ ਸਟਾਪ ਅਤੇ ਟੀਚਾ ਮੰਨਦੇ ਹਨ। ਤੇਜ਼ੀ ਤੋਂ ਵੀ ਸਿੱਖਦੀ ਹੈ: ਹਰ ਸ਼ੇਅਰ ਦੇ ਹਰ ਦਿਨ ਨੂੰ ਦੇਖਿਆ ਜਾਂਦਾ ਹੈ ਕਿ ਕੀ ਭਾਅ ਅਗਲੇ 20 ਦਿਨਾਂ ਵਿੱਚ 3 ATR ਉੱਪਰ ਗਿਆ, ਪਹਿਲਾਂ 1.5 ATR ਡਿੱਗੇ ਬਿਨਾਂ — ਅਤੇ ਉਸ ਤੋਂ ਪਹਿਲਾਂ ਕਿਹੜੀਆਂ ਸ਼ਰਤਾਂ ਸਨ; ਜਿਹਨਾਂ ਸ਼ਰਤਾਂ ਤੋਂ ਬਾਅਦ ਅਜਿਹੀ ਤੇਜ਼ੀ ਔਸਤ ਤੋਂ ਸਾਫ਼ ਵੱਧ ਆਈ, ਉਹ \"📈 ਤੇਜ਼ੀ ਸੈੱਟਅੱਪ\" ਬਣ ਕੇ ਦਿਸਦੀਆਂ ਹਨ। ਇਹ ਸਭ ਹਰ ਸ਼ਾਮ ਆਪਣੇ-ਆਪ ਹੁੰਦਾ ਹੈ। ਕਾਰਡ ਅਤੇ ਸ਼ੇਅਰ ਦੇ ਵੇਰਵੇ ਵਿੱਚ ਐਪ ਦੇ ਆਪਣੇ ਪੁਰਾਣੇ ਸੈੱਟਅੱਪ ਦੀ ਥਾਂ ਇਹੀ ਸਿੱਖੇ ਸੈੱਟਅੱਪ ਅਤੇ ਉਹਨਾਂ ਦਾ ਅਸਲ ਸਫਲਤਾ % ਦਿਸਦਾ ਹੈ, ਅਤੇ ਟ੍ਰੇਡ ਯੋਜਨਾ ਦੇ ਜਲਦੀ ਟੀਚੇ ਦੇ % ਵੀ ਤਾਜ਼ਾ ਡਾਟੇ ਤੋਂ ਆਉਂਦੇ ਹਨ। ਇਹ ਪਿਛਲੇ ਡਾਟੇ ਦੇ ਅੰਕੜੇ ਹਨ, ਅੱਗੇ ਦੀ ਗਾਰੰਟੀ ਨਹੀਂ; ਨਿਵੇਸ਼ ਸਲਾਹ ਨਹੀਂ।</string>
+</resources>

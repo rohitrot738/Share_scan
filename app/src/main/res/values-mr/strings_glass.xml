@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_sky">आकाशाचे ॲनिमेशन</string>
+    <string name="settings_sky_body">तारे, तुटणारे तारे आणि चमक हलत राहतील; बंद केल्यास आकाश स्थिर राहील (बॅटरी वाचेल)</string>
+    <string name="settings_section_glass">काच मोड</string>
+    <string name="settings_glass_on">काचेचा परिणाम</string>
+    <string name="settings_glass_on_body">बंद केल्यास बोर्ड, कार्ड, बटणे आणि शीट साधी आणि भरीव • काच, चमक किंवा धूसरपणा नाही</string>
+    <string name="glass_off_body">सध्या: काच बंद • वरचा स्विच सुरू करताच निवडलेला मोड परत येईल</string>
+    <string name="settings_glass_body">स्कॅन बोर्ड, कार्ड, शीट, चिप आणि स्विचची काच • निवडताच संपूर्ण ॲप त्यातच</string>
+    <string name="glass_frosted">धूसर</string>
+    <string name="glass_clear">पारदर्शक</string>
+    <string name="glass_smoky">गडद</string>
+    <string name="glass_tinted">रंगीत</string>
+    <string name="glass_liquid">इंद्रधनुषी</string>
+    <string name="glass_solid">भरीव</string>
+    <string name="glass_frosted_body">सध्या: हलकी धूसर काच, मागे आकाश दिसते • डीफॉल्ट</string>
+    <string name="glass_clear_body">सध्या: अगदी स्वच्छ काच, चमकणाऱ्या कडा • आकाश सर्वात जास्त दिसते</string>
+    <string name="glass_smoky_body">सध्या: धुरासारखी गडद काळी काच • आकाश किंचित दिसते</string>
+    <string name="glass_tinted_body">सध्या: थीमच्या रंगात रंगलेली काच</string>
+    <string name="glass_liquid_body">सध्या: आकाशी ते गुलाबी चमकणाऱ्या कडा, पाण्यावरील तेलाच्या थरासारख्या</string>
+    <string name="glass_solid_body">सध्या: पक्की, भरीव कार्डे, फक्त हलकी चमक • वाचायला सर्वात सोपे, फोनवर सर्वात हलके</string>
+</resources>

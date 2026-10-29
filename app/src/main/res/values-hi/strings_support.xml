@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_breakout">ब्रेकआउट स्कैन</string>
+    <string name="mode_support">सपोर्ट स्कैन</string>
+    <string name="support_ready_title">सपोर्ट स्कैन</string>
+    <string name="support_ready_body">वे शेयर जो 6 महीने से एक भाव के नीचे बंद नहीं हुए, जबकि बार-बार उस तक आए</string>
+    <string name="support_done_title">सपोर्ट स्कैन पूरा</string>
+    <string name="support_done_body">%1$d शेयर 6 महीने से सपोर्ट पर टिके • %2$s का स्कैन</string>
+    <string name="support_action_start">सपोर्ट स्कैन करें</string>
+    <string name="support_action_rescan">दोबारा सपोर्ट स्कैन करें</string>
+    <string name="support_stat_long">6M सपोर्ट</string>
+    <string name="support_stat_near">5% के अंदर</string>
+    <string name="support_reach_any">कोई भी दूरी</string>
+    <string name="support_reach_within">%1$d%% तक पास</string>
+    <string name="support_list_empty_title">6 महीने वाला कोई सपोर्ट नहीं मिला</string>
+    <string name="support_list_empty_body">इस स्कैन में, इन फ़िल्टरों के अंदर, कोई शेयर 6 महीने से अपने सपोर्ट के ऊपर नहीं टिका। दूरी बढ़ाएँ, फ़िल्टर ढीले करें, या मेन्यू → स्कैन में और एक्सचेंज / सेक्टर चालू करें।</string>
+    <string name="sort_support">सपोर्ट</string>
+    <string name="item_support">सपोर्ट ₹%1$s · %2$s · %3$d बार</string>
+    <string name="item_support_description">सपोर्ट %1$s रुपये पर, %2$s से, %3$d बार परखा</string>
+    <string name="detail_stat_support">सपोर्ट</string>
+    <string name="detail_stat_support_note">%1$s से · %2$d बार परखा · भाव %3$s ऊपर</string>
+    <string name="detail_stat_support_long_note">%1$s से · %2$d बार परखा · भाव %3$s ऊपर · 6 महीने में इसके नीचे बंद नहीं हुआ</string>
+    <string name="detail_chart_support">सपोर्ट %1$s</string>
+    <string name="detail_part_support">सपोर्ट बोनस</string>
+    <string name="detail_part_bonus">+%1$d तक</string>
+    <string name="metric_support_age">सपोर्ट कितना पुराना</string>
+    <string name="metric_support_gap">सपोर्ट से दूरी</string>
+    <string name="hint_support_age">भाव जिस स्तर तक बार-बार आकर लौटा और जिसके नीचे बंद नहीं हुआ, वह कितने समय से टिका है</string>
+    <string name="hint_support_gap">आज का भाव सपोर्ट से कितने % ऊपर है; कम = सपोर्ट के पास</string>
+    <string name="help_part_support">सपोर्ट बोनस • %1$d अंक तक</string>
+    <string name="help_part_support_body">जिस भाव तक शेयर बार-बार आकर लौटा और जिसके नीचे बंद नहीं हुआ, वह उसका सपोर्ट है: उसके नीचे बेचने वाले भाव नहीं गिरा पाए। सपोर्ट जितना पुराना (6 महीने पर पूरे अंक) और जितनी बार परखा गया (5 बार पर पूरे), स्कोर में उतने ज़्यादा अंक जुड़ते हैं; बिना सपोर्ट वाले शेयर के अंक नहीं कटते। ऊपर \"सपोर्ट स्कैन\" चुनें तो सिर्फ़ वे शेयर दिखते हैं जो 6 महीने में अपने सपोर्ट के नीचे कभी बंद नहीं हुए और जिनका सपोर्ट कम से कम %1$d महीने से और कम से कम 3 बार परखा गया है। सपोर्ट स्कैन के अपने फ़िल्टर हैं, ब्रेकआउट वाले से अलग। दोनों स्कैन एक ही डेटा पढ़ते हैं, इसलिए एक स्कैन से दोनों सूचियाँ ताज़ा हो जाती हैं।</string>
+</resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_sunset">Sunset</string>
+    <string name="theme_sunset_body">કેસરી-ગુલાબી સાંજનું આકાશ</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_ocean_body">ઘેરો વાદળી સમુદ્ર</string>
+    <string name="theme_emerald">Emerald</string>
+    <string name="theme_emerald_body">પન્ના-લીલી આકાશગંગા</string>
+    <string name="theme_mars">Mars</string>
+    <string name="theme_mars_body">ધૂળભર્યું લાલ આકાશ</string>
+    <string name="theme_royal_gold">Royal Gold</string>
+    <string name="theme_royal_gold_body">સોનેરી અને શાહી જાંબલી</string>
+    <string name="theme_frost">Frost</string>
+    <string name="theme_frost_body">બરફીલો વાદળી • હળવો ઉત્તરીય પ્રકાશ</string>
+    <string name="theme_space_glass">Space Glass</string>
+    <string name="theme_space_glass_body">ઊંડું અવકાશ • આસમાની ચમક • ચાલતી ટ્રેડિંગ ગ્રિડ અને ચાર્ટ-રેખા</string>
+</resources>

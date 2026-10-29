@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unit_today">today</string>
+    <string name="unit_days_ago">%1$s days ago</string>
+    <string name="unit_days">%1$s days</string>
+    <string name="unit_month">%1$s month</string>
+    <string name="unit_months">%1$s months</string>
+    <string name="unit_week">%1$s week</string>
+    <string name="unit_weeks">%1$s weeks</string>
+    <string name="unit_lakh">lakh</string>
+    <string name="scan_error_no_lists">No stock list found</string>
+    <string name="scan_error_no_sector_stocks">No stocks in the chosen sectors — choose sectors in Menu → Scan</string>
+</resources>

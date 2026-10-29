@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_from_high">20D ਉੱਚੇ ਭਾਅ ਤੋਂ ਦੂਰੀ</string>
+    <string name="metric_base_range">ਸ਼ਾਂਤ ਰੇਂਜ (ਉੱਚਾ–ਨੀਵਾਂ)</string>
+    <string name="metric_vs_sma50">50 DMA ਤੋਂ ਦੂਰੀ</string>
+    <string name="hint_from_high">20 ਦਿਨਾਂ ਦੇ ਉੱਚੇ ਭਾਅ (ਰੁਕਾਵਟ) ਤੋਂ ਭਾਅ ਕਿੰਨਾ ਹੇਠਾਂ ਹੈ • ਮਾਈਨਸ = ਉੱਚੇ ਭਾਅ ਤੋਂ ਉੱਪਰ ਬ੍ਰੇਕਆਊਟ</string>
+    <string name="hint_base_range">ਚੁਣੇ ਹਫ਼ਤਿਆਂ ਵਿੱਚ ਸਭ ਤੋਂ ਉੱਚੇ ਅਤੇ ਸਭ ਤੋਂ ਨੀਵੇਂ ਭਾਅ ਦਾ ਫ਼ਾਸਲਾ • ਘੱਟ = ਸ਼ਾਂਤ ਸ਼ੇਅਰ, ਨਾ ਬਹੁਤਾ ਉੱਪਰ ਨਾ ਬਹੁਤਾ ਹੇਠਾਂ</string>
+    <string name="hint_vs_sma50">50 ਦਿਨਾਂ ਦੀ ਔਸਤ ਤੋਂ ਉੱਪਰ (+) ਜਾਂ ਹੇਠਾਂ (-) • ਪਲੱਸ = ਵਧਦਾ ਰੁਝਾਨ</string>
+    <string name="hint_score_mix">ਬ੍ਰੇਕਆਊਟ ਸੈੱਟਅੱਪ, ਰੁਝਾਨ, ਵਾਲੀਅਮ, ਤਰਲਤਾ ਅਤੇ ਗਤੀ ਦਾ ਮਿਸ਼ਰਣ • %1$s+ STRONG, %2$s+ WATCH</string>
+</resources>

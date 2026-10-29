@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_breakout">Breakout scan</string>
+    <string name="mode_support">Support scan</string>
+    <string name="support_ready_title">Support scan</string>
+    <string name="support_ready_body">Stocks that haven\'t closed under a price for 6 months, though they kept coming down to it</string>
+    <string name="support_done_title">Support scan done</string>
+    <string name="support_done_body">%1$d stocks held on support for 6 months • scan of %2$s</string>
+    <string name="support_action_start">Run a Support scan</string>
+    <string name="support_action_rescan">Run the Support scan again</string>
+    <string name="support_stat_long">6M support</string>
+    <string name="support_stat_near">Within 5%</string>
+    <string name="support_reach_any">Any distance</string>
+    <string name="support_reach_within">Within %1$d%%</string>
+    <string name="support_list_empty_title">No 6-month support found</string>
+    <string name="support_list_empty_body">In this scan, within these filters, no stock has held above its support for 6 months. Widen the distance, loosen the Filters, or turn on more exchanges / sectors in Menu → Scan.</string>
+    <string name="sort_support">Support</string>
+    <string name="item_support">Support ₹%1$s · %2$s · %3$d times</string>
+    <string name="item_support_description">Support at %1$s rupees, since %2$s, tested %3$d times</string>
+    <string name="detail_stat_support">Support</string>
+    <string name="detail_stat_support_note">Since %1$s · tested %2$d times · price %3$s above</string>
+    <string name="detail_stat_support_long_note">Since %1$s · tested %2$d times · price %3$s above · no close under it in 6 months</string>
+    <string name="detail_chart_support">Support %1$s</string>
+    <string name="detail_part_support">Support bonus</string>
+    <string name="detail_part_bonus">up to +%1$d</string>
+    <string name="metric_support_age">Support\'s age</string>
+    <string name="metric_support_gap">From support</string>
+    <string name="hint_support_age">How long the level the price kept coming back to, and never closed under, has held</string>
+    <string name="hint_support_gap">How far today\'s price sits above support (in %); small = near support</string>
+    <string name="help_part_support">Support bonus • up to %1$d points</string>
+    <string name="help_part_support_body">The price a stock kept coming down to and turning back from, without closing under it, is its support: sellers couldn\'t push the price below it. The older the support (full points at 6 months) and the more times it was tested (full at 5), the more points it adds to the score; a stock without support loses no points. Choose \"Support scan\" above to see only the stocks that never closed under their support in 6 months, and whose support has held at least %1$d months and been tested at least 3 times. The Support scan has its own Filters, apart from the Breakout scan\'s. Both scans read the same data, so one scan refreshes both lists.</string>
+</resources>

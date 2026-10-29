@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_stop">ఆపు</string>
+    <string name="action_stopping">ఆపుతోంది…</string>
+    <string name="status_stopped_title">స్కాన్ ఆపబడింది</string>
+    <string name="status_stopped_body">%1$s / %2$s స్టాక్‌లు చెక్ అయ్యాయి • %3$sలో</string>
+    <string name="status_stopped_early_body">స్టాక్ జాబితా రాకముందే ఆపబడింది.</string>
+    <string name="empty_stopped_title">ఏ స్టాక్‌కూ స్కోర్ రాలేదు</string>
+    <string name="empty_stopped_body">స్కాన్ అంతకుముందే ఆపబడింది. పై బటన్ నొక్కి మళ్లీ స్కాన్ చేయండి.</string>
+</resources>

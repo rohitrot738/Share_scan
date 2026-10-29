@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_text">ભાષા અને ફૉન્ટ</string>
+    <string name="menu_text_body">હાલ: %1$s · %2$s</string>
+    <string name="text_title">ભાષા અને ફૉન્ટ</string>
+    <string name="text_subtitle">આખી એપ કઈ ભાષામાં અને કયા ફૉન્ટમાં દેખાય</string>
+    <string name="text_language">ભાષા</string>
+    <string name="text_language_note">અનુવાદ એપમાં જ બનાવેલો છે, કોઈ શબ્દ ખોટો લાગે તો જણાવો. શેર અને કંપનીઓનાં નામ, સમાચાર અને \"નવું શું છે\" જેમ છે તેમ જ રહે છે.</string>
+    <string name="text_font">ફૉન્ટ</string>
+    <string name="text_font_sample">Share Scan · બ્રેકઆઉટ સ્કેન · ₹1,234.50 ▲ 2.40% · 86.0</string>
+    <string name="font_system">ફોનનો ફૉન્ટ</string>
+    <string name="text_font_description">%1$s ફૉન્ટ પસંદ કરો</string>
+    <string name="text_language_description">%1$s ભાષા પસંદ કરો</string>
+</resources>

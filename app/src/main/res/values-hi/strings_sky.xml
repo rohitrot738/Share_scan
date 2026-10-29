@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_background">पृष्ठभूमि</string>
+    <string name="background_title">पृष्ठभूमि चुनें</string>
+    <string name="background_subtitle">हर पृष्ठभूमि का अपना रूप और एनिमेशन • रंग वही जो थीम के हैं</string>
+    <string name="background_galaxy">Galaxy</string>
+    <string name="background_galaxy_body">आकाशगंगा, टिमटिमाते और टूटते तारे • बड़े कार्ड वाला रूप</string>
+    <string name="background_space_glass">Space Glass</string>
+    <string name="background_space_glass_body">तैरती रोशनियाँ, चलती ट्रेडिंग ग्रिड और चार्ट-रेखा • सघन तालिका वाला रूप</string>
+    <string name="help_sky_title">पृष्ठभूमि और थीम</string>
+    <string name="help_sky_body">मेन्यू → पृष्ठभूमि से दो में से एक चुनें — हर एक का अपना रूप और अपना एनिमेशन है: Galaxy में आकाशगंगा (टिमटिमाते और टूटते तारे, आकाशगंगा की ओर उड़ान) के साथ बड़े कार्ड वाला रूप, और Space Glass में तैरती रोशनियाँ, चलती ट्रेडिंग ग्रिड और चार्ट-रेखा के साथ सघन तालिका (पतली पट्टी ऊपर, हर शेयर की एक पंक्ति, नीचे तैरती पट्टी)। मेन्यू → थीम से रंग चुनें: कोई भी थीम दोनों पृष्ठभूमियों पर लगती है और उसके रंग पृष्ठभूमि में भी आ जाते हैं। सेटिंग्स → आसमान का एनिमेशन बंद करने पर पृष्ठभूमि रुक जाती है।</string>
+</resources>

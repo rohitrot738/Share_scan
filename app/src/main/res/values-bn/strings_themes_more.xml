@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_sunset">Sunset</string>
+    <string name="theme_sunset_body">কমলা-গোলাপি সন্ধ্যার আকাশ</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_ocean_body">গভীর নীল সমুদ্র</string>
+    <string name="theme_emerald">Emerald</string>
+    <string name="theme_emerald_body">পান্না-সবুজ ছায়াপথ</string>
+    <string name="theme_mars">Mars</string>
+    <string name="theme_mars_body">ধুলোমাখা লাল আকাশ</string>
+    <string name="theme_royal_gold">Royal Gold</string>
+    <string name="theme_royal_gold_body">সোনালি আর রাজকীয় বেগুনি</string>
+    <string name="theme_frost">Frost</string>
+    <string name="theme_frost_body">বরফ-নীল • হালকা মেরুজ্যোতি</string>
+    <string name="theme_space_glass">Space Glass</string>
+    <string name="theme_space_glass_body">গভীর মহাকাশ • আকাশি আভা • চলমান ট্রেডিং গ্রিড আর চার্ট-রেখা</string>
+</resources>

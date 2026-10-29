@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_watchlist">★ વૉચલિસ્ટ</string>
+    <string name="list_watchlist_count">★ વૉચલિસ્ટ (%1$d)</string>
+    <string name="list_watchlist_leave">વૉચલિસ્ટ બંધ કરો, બધા શેર બતાવો</string>
+    <string name="list_star_add">%1$s ને વૉચલિસ્ટમાં ઉમેરો</string>
+    <string name="list_star_remove">%1$s ને વૉચલિસ્ટમાંથી કાઢો</string>
+    <string name="list_starred_description">વૉચલિસ્ટમાં</string>
+    <string name="list_empty_watchlist_title">વૉચલિસ્ટ ખાલી છે</string>
+    <string name="list_empty_watchlist_body">કોઈ પણ કાર્ડ પર ☆ દબાવો — તે શેર અહીં દેખાશે.</string>
+    <string name="list_empty_watchlist_body_compact">કોઈ પણ લીટી દબાવી રાખો — તે શેર ★ સાથે અહીં દેખાશે.</string>
+    <string name="list_empty_watchlist_waiting_title">★ શેરનો ભાવ હજી આવ્યો નથી</string>
+    <string name="list_empty_watchlist_waiting_body">તમારા પસંદ કરેલા શેર આગલા સ્કેન સાથે અહીં દેખાશે.</string>
+    <string name="list_rank_new">NEW</string>
+    <string name="list_rank_up">▲%1$d</string>
+    <string name="list_rank_down">▼%1$d</string>
+    <string name="list_rank_new_description">પાછલા સ્કેન પછી ઉપરના %1$d માં નવો</string>
+    <string name="list_rank_up_description">પાછલા સ્કેનથી %1$d ક્રમ ઉપર</string>
+    <string name="list_rank_down_description">પાછલા સ્કેનથી %1$d ક્રમ નીચે</string>
+    <string name="list_search_open">સિમ્બૉલ શોધો</string>
+    <string name="list_search_hint">સિમ્બૉલ અથવા નામ — જેમ કે TCS, Reliance</string>
+    <string name="list_search_close">શોધ બંધ કરો</string>
+    <string name="list_empty_search_title">કોઈ શેર મેળ ખાતો નથી</string>
+    <string name="list_empty_search_body">“%1$s” કોઈ સ્કેન થયેલા શેરના સિમ્બૉલ કે નામમાં મળ્યું નહીં — જોડણી તપાસો અથવા ફિલ્ટર ઢીલા કરો.</string>
+    <string name="list_share_open">ઉપરના 10 શેર કરો</string>
+    <string name="list_share_filters">%1$d ફિલ્ટર લાગુ</string>
+    <string name="list_share_no_filters">કોઈ ફિલ્ટર નથી</string>
+    <string name="list_share_line">%1$d. %2$s ₹%3$s • સ્કોર %4$s • RVOL %5$s×</string>
+    <string name="list_share_failed">શેર કરવા માટે કોઈ એપ મળી નહીં</string>
+</resources>

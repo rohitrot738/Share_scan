@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_sky">আকাশের অ্যানিমেশন</string>
+    <string name="settings_sky_body">তারা, খসে পড়া তারা আর ঝলক চলতে থাকে; বন্ধ করলে আকাশ স্থির থাকবে (ব্যাটারি বাঁচবে)</string>
+    <string name="settings_section_glass">কাচ মোড</string>
+    <string name="settings_glass_on">কাচের প্রভাব</string>
+    <string name="settings_glass_on_body">বন্ধ করলে বোর্ড, কার্ড, বোতাম আর শিট সাদামাটা ও নিরেট • কোনো কাচ, ঝলক বা ঝাপসা ভাব নেই</string>
+    <string name="glass_off_body">এখন: কাচ বন্ধ • উপরের সুইচ চালু করলেই বেছে নেওয়া মোড ফিরে আসবে</string>
+    <string name="settings_glass_body">স্ক্যান বোর্ড, কার্ড, শিট, চিপ আর সুইচের কাচ • বাছতেই পুরো অ্যাপ তাতে</string>
+    <string name="glass_frosted">ঝাপসা</string>
+    <string name="glass_clear">স্বচ্ছ</string>
+    <string name="glass_smoky">গাঢ়</string>
+    <string name="glass_tinted">রঙিন</string>
+    <string name="glass_liquid">রামধনু</string>
+    <string name="glass_solid">নিরেট</string>
+    <string name="glass_frosted_body">এখন: হালকা ঝাপসা কাচ, পিছনে আকাশ উঁকি দেয় • ডিফল্ট</string>
+    <string name="glass_clear_body">এখন: একেবারে স্বচ্ছ কাচ, ঝকঝকে কিনারা • আকাশ সবচেয়ে বেশি দেখা যায়</string>
+    <string name="glass_smoky_body">এখন: ধোঁয়ার মতো গাঢ় কালো কাচ • আকাশ সামান্য উঁকি দেয়</string>
+    <string name="glass_tinted_body">এখন: থিমের রঙে রাঙানো কাচ</string>
+    <string name="glass_liquid_body">এখন: আকাশি থেকে গোলাপি ঝকঝকে কিনারা, জলের উপর তেলের স্তরের মতো</string>
+    <string name="glass_solid_body">এখন: মজবুত, নিরেট কার্ড, শুধু হালকা ঝলক • পড়তে সবচেয়ে সহজ, ফোনে সবচেয়ে হালকা</string>
+</resources>

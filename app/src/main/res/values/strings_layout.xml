@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu → Layout (LayoutSheet) and the list's accordion, bento and swipe styles (StockAdapter). -->
+<resources>
+    <string name="menu_layout">Layout</string>
+    <string name="layout_title">Layout चुनें</string>
+    <string name="layout_subtitle">Stocks की list किस रूप में दिखे · background और theme वही रहते हैं</string>
+    <string name="layout_auto">Background वाला</string>
+    <string name="layout_auto_now_cards">अभी Galaxy background है: बड़े cards</string>
+    <string name="layout_auto_now_table">अभी Space Glass background है: compact table</string>
+    <string name="layout_accordion">Accordion</string>
+    <string name="layout_accordion_body">हर stock एक पतली line · दबाने पर वहीं पूरा detail खुलता है</string>
+    <string name="layout_bento">Bento grid</string>
+    <string name="layout_bento_body">दो कतारों में tiles: score dial, 15 दिन की line और भाव</string>
+    <string name="layout_swipe">Swipe cards</string>
+    <string name="layout_swipe_body">आँकड़े छोटे capsules में · बाएँ swipe पर ★ Watchlist और Chart</string>
+
+    <!-- Buttons on an opened accordion card and behind a swipe card -->
+    <string name="layout_action_chart">Chart</string>
+    <string name="layout_action_details">Details</string>
+    <string name="layout_action_watchlist">Watchlist</string>
+    <string name="layout_action_unwatch">हटाएँ</string>
+    <string name="layout_action_alert">Alert लगाएँ</string>
+    <string name="layout_action_alert_on">★ Alert चालू</string>
+    <string name="layout_expand">%1$s का detail खोलें</string>
+    <string name="layout_collapse">%1$s का detail बंद करें</string>
+    <string name="layout_swipe_hint">%1$s: बाएँ swipe करें तो Watchlist और Chart के buttons</string>
+
+    <!-- The figures as capsules -->
+    <string name="cap_mcap">MCap %1$s</string>
+    <string name="cap_volume">Vol %1$s</string>
+    <string name="cap_rvol">RVOL %1$s×</string>
+    <string name="cap_support">Supp ₹%1$s</string>
+    <string name="cap_rs">R/S %1$s</string>
+
+    <!-- Help -->
+    <string name="help_layout_title">Layout: list का रूप</string>
+    <string name="help_layout_body">Menu → Layout में list का रूप चुनें। "Background वाला" में Galaxy पर बड़े cards और Space Glass पर compact table रहते हैं। Accordion में हर stock एक पतली line है; दबाने पर वहीं score की पट्टी, MCap, Volume, RVOL, R/S और support खुलते हैं, साथ में Alert, Chart और Details के buttons। Bento grid में दो कतारों में tiles हैं: score का गोल dial, पिछले 15 दिन की line, भाव और 5 दिन का बदलाव; tile को दबाकर रखने से watchlist में जुड़ता है। Swipe cards में आँकड़े छोटे capsules में हैं, और card को बाएँ खींचने पर ★ Watchlist और Chart के buttons दिखते हैं।</string>
+</resources>

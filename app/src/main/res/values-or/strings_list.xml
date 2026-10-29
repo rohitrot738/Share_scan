@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_watchlist">★ ୱାଚଲିଷ୍ଟ</string>
+    <string name="list_watchlist_count">★ ୱାଚଲିଷ୍ଟ (%1$d)</string>
+    <string name="list_watchlist_leave">ୱାଚଲିଷ୍ଟ ବନ୍ଦ କରି ସବୁ ସେୟାର ଦେଖାନ୍ତୁ</string>
+    <string name="list_star_add">%1$s ୱାଚଲିଷ୍ଟରେ ଯୋଡନ୍ତୁ</string>
+    <string name="list_star_remove">%1$s ୱାଚଲିଷ୍ଟରୁ ହଟାନ୍ତୁ</string>
+    <string name="list_starred_description">ୱାଚଲିଷ୍ଟରେ ଅଛି</string>
+    <string name="list_empty_watchlist_title">ଆପଣଙ୍କ ୱାଚଲିଷ୍ଟ ଖାଲି</string>
+    <string name="list_empty_watchlist_body">ଯେକୌଣସି କାର୍ଡରେ ☆ ଟ୍ୟାପ କରନ୍ତୁ — ସେହି ସେୟାର ଏଠାରେ ଦେଖାଯିବ।</string>
+    <string name="list_empty_watchlist_body_compact">ଯେକୌଣସି ଧାଡ଼ିକୁ ଦବାଇ ଧରନ୍ତୁ — ସେହି ସେୟାର ★ ସହ ଏଠାରେ ଦେଖାଯିବ।</string>
+    <string name="list_empty_watchlist_waiting_title">ଆପଣଙ୍କ ★ ସେୟାର ପାଇଁ ଏପର୍ଯ୍ୟନ୍ତ ଦର ନାହିଁ</string>
+    <string name="list_empty_watchlist_waiting_body">ଆପଣ ★ ଦେଇଥିବା ସେୟାର ପରବର୍ତ୍ତୀ ସ୍କାନ ସହ ଏଠାରେ ଦେଖାଯିବ।</string>
+    <string name="list_rank_new">NEW</string>
+    <string name="list_rank_up">▲%1$d</string>
+    <string name="list_rank_down">▼%1$d</string>
+    <string name="list_rank_new_description">ଶେଷ ସ୍କାନ ପରେ ଟପ %1$dରେ ନୂଆ</string>
+    <string name="list_rank_up_description">ଶେଷ ସ୍କାନରୁ %1$d ସ୍ଥାନ ଉପରକୁ</string>
+    <string name="list_rank_down_description">ଶେଷ ସ୍କାନରୁ %1$d ସ୍ଥାନ ତଳକୁ</string>
+    <string name="list_search_open">ସିମ୍ବଲ ଖୋଜନ୍ତୁ</string>
+    <string name="list_search_hint">ସିମ୍ବଲ ବା ନାମ — TCS, Reliance ପରି</string>
+    <string name="list_search_close">ଖୋଜା ବନ୍ଦ କରନ୍ତୁ</string>
+    <string name="list_empty_search_title">କୌଣସି ସେୟାର ମେଳ ଖାଉନାହିଁ</string>
+    <string name="list_empty_search_body">“%1$s” ସ୍କାନ ହୋଇଥିବା କୌଣସି ସେୟାରର ସିମ୍ବଲ ବା ନାମରେ ନାହିଁ — ବନାନ ଯାଞ୍ଚ କରନ୍ତୁ ବା ଫିଲ୍ଟର ଢିଲା କରନ୍ତୁ।</string>
+    <string name="list_share_open">ଟପ 10 ସେୟାର କରନ୍ତୁ</string>
+    <string name="list_share_filters">%1$d ଫିଲ୍ଟର ଚାଲୁ</string>
+    <string name="list_share_no_filters">କୌଣସି ଫିଲ୍ଟର ନାହିଁ</string>
+    <string name="list_share_line">%1$d. %2$s ₹%3$s • ସ୍କୋର %4$s • RVOL %5$s×</string>
+    <string name="list_share_failed">ସେୟାର କରିବାକୁ କୌଣସି ଆପ ମିଳିଲା ନାହିଁ</string>
+</resources>

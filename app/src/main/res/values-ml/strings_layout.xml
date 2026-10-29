@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_layout">ലേഔട്ട്</string>
+    <string name="layout_title">ലേഔട്ട് തിരഞ്ഞെടുക്കുക</string>
+    <string name="layout_subtitle">ഓഹരികളുടെ ലിസ്റ്റ് എങ്ങനെ കാണണം · പശ്ചാത്തലവും തീമും അതേപടി</string>
+    <string name="layout_auto">പശ്ചാത്തലത്തിന്റേത്</string>
+    <string name="layout_auto_now_cards">ഇപ്പോൾ Galaxy പശ്ചാത്തലം: വലിയ കാർഡുകൾ</string>
+    <string name="layout_auto_now_table">ഇപ്പോൾ Space Glass പശ്ചാത്തലം: കോംപാക്റ്റ് ടേബിൾ</string>
+    <string name="layout_accordion">അക്കോർഡിയൻ</string>
+    <string name="layout_accordion_body">ഓരോ ഓഹരിക്കും ഒരു നേർത്ത വരി · ടാപ്പ് ചെയ്താൽ അവിടെത്തന്നെ പൂർണ്ണ വിശദാംശം</string>
+    <string name="layout_bento">ബെന്റോ ഗ്രിഡ്</string>
+    <string name="layout_bento_body">രണ്ട് നിരകളിൽ ടൈലുകൾ: സ്കോർ ഡയൽ, 15 ദിവസത്തെ രേഖ, വില</string>
+    <string name="layout_swipe">സ്വൈപ്പ് കാർഡുകൾ</string>
+    <string name="layout_swipe_body">ചെറിയ ക്യാപ്സ്യൂളുകളിൽ അക്കങ്ങൾ · ഇടത്തേക്ക് സ്വൈപ്പ് ചെയ്താൽ ★ വാച്ച്‌ലിസ്റ്റ്, ചാർട്ട്</string>
+    <string name="layout_action_chart">ചാർട്ട്</string>
+    <string name="layout_action_details">വിശദാംശങ്ങൾ</string>
+    <string name="layout_action_watchlist">വാച്ച്‌ലിസ്റ്റ്</string>
+    <string name="layout_action_unwatch">നീക്കുക</string>
+    <string name="layout_action_alert">അലേർട്ട് വയ്ക്കുക</string>
+    <string name="layout_action_alert_on">★ അലേർട്ട് ഓൺ</string>
+    <string name="layout_expand">%1$s വിശദാംശം തുറക്കുക</string>
+    <string name="layout_collapse">%1$s വിശദാംശം അടയ്ക്കുക</string>
+    <string name="layout_swipe_hint">%1$s: വാച്ച്‌ലിസ്റ്റ്, ചാർട്ട് ബട്ടണുകൾക്ക് ഇടത്തേക്ക് സ്വൈപ്പ് ചെയ്യുക</string>
+    <string name="cap_mcap">MCap %1$s</string>
+    <string name="cap_volume">Vol %1$s</string>
+    <string name="cap_rvol">RVOL %1$s×</string>
+    <string name="cap_support">സപ്പോർട്ട് ₹%1$s</string>
+    <string name="cap_rs">R/S %1$s</string>
+    <string name="help_layout_title">ലേഔട്ട്: ലിസ്റ്റ് എങ്ങനെ കാണുന്നു</string>
+    <string name="help_layout_body">മെനു → ലേഔട്ടിൽ ലിസ്റ്റിന്റെ രൂപം തിരഞ്ഞെടുക്കുക. \"പശ്ചാത്തലത്തിന്റേത്\" Galaxy-യിൽ വലിയ കാർഡുകളും Space Glass-ൽ കോംപാക്റ്റ് ടേബിളും നിലനിർത്തുന്നു. അക്കോർഡിയനിൽ ഓരോ ഓഹരിയും ഒരു നേർത്ത വരി; ടാപ്പ് ചെയ്താൽ സ്കോർ ബാർ, MCap, വോള്യം, RVOL, R/S, സപ്പോർട്ട് എന്നിവ അവിടെത്തന്നെ തുറക്കും, അലേർട്ട്, ചാർട്ട്, വിശദാംശങ്ങൾ ബട്ടണുകളോടെ. ബെന്റോ ഗ്രിഡ് രണ്ട് നിരകളിൽ ടൈലുകൾ നിരത്തുന്നു: വൃത്താകൃതിയിലുള്ള സ്കോർ ഡയൽ, അവസാന 15 ദിവസത്തെ രേഖ, വില, 5 ദിവസത്തെ മാറ്റം; ഒരു ടൈൽ ദീർഘനേരം അമർത്തിയാൽ വാച്ച്‌ലിസ്റ്റിൽ ചേരും. സ്വൈപ്പ് കാർഡുകൾ അക്കങ്ങൾ ചെറിയ ക്യാപ്സ്യൂളുകളിൽ കാണിക്കുന്നു, കാർഡ് ഇടത്തേക്ക് വലിച്ചാൽ ★ വാച്ച്‌ലിസ്റ്റ്, ചാർട്ട് ബട്ടണുകൾ കാണാം.</string>
+</resources>

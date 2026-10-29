@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="score_detail_old">ఈ భాగం పూర్తి లెక్క గత స్కాన్‌లో ఉంచలేదు — మళ్లీ స్కాన్ చేస్తే కనిపిస్తుంది</string>
+    <string name="score_swing">ఈ స్టాక్ సాధారణ రోజువారీ కదలిక (గత 50 రోజుల సగటు గరిష్ఠ–కనిష్ఠ పరిధి): %1$s%% — దూరాలు దీని గుణకాల్లో కొలుస్తారు</string>
+    <string name="score_total">మొత్తం: %1$s = %2$s పాయింట్లు → %3$s</string>
+    <string name="score_total_simple">మొత్తం: %1$s పాయింట్లు → %2$s</string>
+    <string name="score_soft_note">85 పైన, 15 కింద పాయింట్లు నెమ్మదిగా 100, 0 వైపు నొక్కబడతాయి, ఉత్తమ స్టాక్‌ల క్రమం నిలిచేలా</string>
+    <string name="score_breakout_high">చివరి సెషన్‌కు ముందు 20 రోజుల గరిష్ఠ ధర ₹%1$s; ధర ₹%2$s దానికి %3$s%% కింద, అంటే రోజువారీ కదలికకు %4$s రెట్లు → %5$s పాయింట్లు (భాగం 55%%)</string>
+    <string name="score_breakout_high_above">చివరి సెషన్‌కు ముందు 20 రోజుల గరిష్ఠ ధర ₹%1$s; ధర ₹%2$s దానికి %3$s%% పైకి వెళ్లింది, రోజువారీ కదలికకు %4$s రెట్లు → %5$s పాయింట్లు (భాగం 55%%)</string>
+    <string name="score_breakout_high_rule">గరిష్ఠ ధరకు కొంచెం కింద నుంచి దాని పైన ఒక రోజువారీ కదలిక వరకు పూర్తి 100 పాయింట్లు; అక్కడి నుంచి ప్రతి ఒక రోజువారీ కదలిక దూరానికి 20 పాయింట్లు తక్కువ</string>
+    <string name="score_breakout_base">గత 10 రోజుల బేస్ ₹%1$s – ₹%2$s, వెడల్పు %3$s%%, అంటే రోజువారీ కదలికకు %4$s రెట్లు (2 రెట్లు లేదా తక్కువ = బిగుతు) → %5$s పాయింట్లు</string>
+    <string name="score_breakout_calm">ఆ రోజుల రోజువారీ పరిధి సాధారణ కదలికకు %1$s రెట్లు (0.6 లేదా తక్కువ = పూర్తిగా ప్రశాంతం) → %2$s పాయింట్లు</string>
+    <string name="score_breakout_tight">బేస్ బిగుతు: పై రెండింటి సగటు (110 వరకు) → %1$s పాయింట్లు (భాగం 30%%)</string>
+    <string name="score_breakout_position">బేస్‌లో ధర ఎక్కడ: %1$s/100 (0 = అట్టడుగు, 100 = అత్యంత పైన) (భాగం 15%%)</string>
+    <string name="score_breakout_total">మొత్తం: 0.55 × %1$s + 0.30 × %2$s + 0.15 × %3$s = %4$s పాయింట్లు → %5$s</string>
+    <string name="score_base_title">గత 10 సెషన్‌ల బేస్</string>
+    <string name="score_trend_term">%1$s: %2$s రోజువారీ కదలికలు → %3$s × %2$s = %4$s పాయింట్లు</string>
+    <string name="score_trend_above20">ధర, 20 రోజుల సగటు ₹%1$s పైన (+) / కింద (−)</string>
+    <string name="score_trend_slope">20 రోజుల సగటు వాలు, గత 5 రోజుల్లో</string>
+    <string name="score_trend_above50">ధర, 50 రోజుల సగటు ₹%1$s పైన (+) / కింద (−)</string>
+    <string name="score_trend_stacked">20 రోజుల సగటు, 50 రోజుల సగటు పైన (+) / కింద (−)</string>
+    <string name="score_trend_limits">ప్రతి భాగం ఒక పరిమితి వరకే లెక్కిస్తారు: 20 రోజులు ±3, వాలు ±2, 50 రోజులు ±4, రెండు సగటుల తేడా ±2 రోజువారీ కదలికలు</string>
+    <string name="score_trend_short">50 రోజుల డేటా లేదు, కాబట్టి 20 రోజుల రెండు భాగాలు 1.75 రెట్లుగా లెక్కించబడ్డాయి</string>
+    <string name="score_volume_rvol">గత సెషన్ వాల్యూమ్ %1$s షేర్లు, అంతకుముందు 20 సెషన్‌ల సగటు %2$sకు %3$s రెట్లు (RVOL) → %4$s పాయింట్లు (1 రెట్టు = 50, 2 = 75, 4 = 100) (భాగం 60%%)</string>
+    <string name="score_volume_live">మార్కెట్ ఇప్పుడు తెరిచి ఉంది: నేటి ఇప్పటివరకు వాల్యూమ్, రోజులో ఈ సమయానికి సాధారణంగా జరిగే భాగం ఆధారంగా పూర్తి రోజుదిగా లెక్కించబడింది</string>
+    <string name="score_volume_quiet">అంతకుముందు 5 సెషన్‌లు: సగటుకు %1$s రెట్లు (0.5 లేదా తక్కువ = వాల్యూమ్ ఎండిపోయింది, 1.15 లేదా ఎక్కువ = కాదు) → %2$s పాయింట్లు (భాగం 40%%)</string>
+    <string name="score_volume_total">మొత్తం: 0.6 × %1$s + 0.4 × %2$s = %3$s పాయింట్లు → %4$s</string>
+    <string name="score_liquidity_median">గత 20 సెషన్‌లలో రోజువారీ టర్నోవర్ (ధర × వాల్యూమ్) మధ్యగతం %1$s</string>
+    <string name="score_liquidity_scale">స్కేల్: ₹10 లక్షలు = 0, ₹1 Cr = 33, ₹10 Cr = 67, ₹100 Cr = 100 పాయింట్లు</string>
+    <string name="score_momentum_5d">5 సెషన్‌లలో %1$s%% → 4 × %1$s = %2$s పాయింట్లు</string>
+    <string name="score_momentum_20d">20 సెషన్‌లలో %1$s%% → 1.5 × %1$s = %2$s పాయింట్లు</string>
+    <string name="score_support_level">సపోర్ట్ ₹%1$s; ధర దానికి %2$s%% పైన</string>
+    <string name="score_support_age">%1$d సెషన్‌లుగా (%2$s) దీని కింద ముగియలేదు → %3$s/70 పాయింట్లు (6 నెలలకు పూర్తి)</string>
+    <string name="score_support_touches">%1$d సార్లు ఇక్కడికి వచ్చి తిరిగి వెళ్లింది → %2$s/30 పాయింట్లు (5 సార్లకు పూర్తి)</string>
+    <string name="score_support_total">బలం %1$s/100 → బోనస్ %2$s పాయింట్లు (గరిష్ఠం 5)</string>
+    <string name="score_support_none">గత 6 నెలల చార్ట్‌లో నిలకడైన సపోర్ట్ దొరకలేదు — బోనస్ 0 (స్కోర్ నుంచి ఏమీ తగ్గదు)</string>
+    <string name="score_recent_title">గత 10 సెషన్‌లు</string>
+    <string name="score_col_day">రోజు</string>
+    <string name="score_col_close">ధర</string>
+    <string name="score_col_change">మార్పు</string>
+    <string name="score_col_volume">వాల్యూమ్</string>
+    <string name="score_col_times">× సగటు</string>
+    <string name="score_col_turnover">₹ Cr</string>
+    <string name="score_col_high">గరిష్ఠం</string>
+    <string name="score_col_low">కనిష్ఠం</string>
+    <string name="score_recent_note">× సగటు: ఆ రోజు వాల్యూమ్, నేటికి ముందు 20 సెషన్‌ల సగటుకు ఎన్ని రెట్లు; ₹ Cr: ఆ రోజు టర్నోవర్</string>
+</resources>

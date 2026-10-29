@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_account">ଆକାଉଣ୍ଟ</string>
+    <string name="menu_account_signed_out">ସାଇନ ଇନ ହୋଇନାହିଁ</string>
+    <string name="account_signed_in_generic">ସାଇନ ଇନ ହୋଇଛି</string>
+    <string name="account_title">ଆକାଉଣ୍ଟ</string>
+    <string name="account_subtitle_signed_out">Google, GitHub ବା ଇମେଲ ସହ ସାଇନ ଇନ କରନ୍ତୁ</string>
+    <string name="account_subtitle_signed_in">ଆପଣଙ୍କ ପ୍ରୋଫାଇଲ ଓ ସାଇନ-ଇନ</string>
+    <string name="account_subtitle_unconfigured">ସାଇନ-ଇନ ଶୀଘ୍ର ଆସୁଛି</string>
+    <string name="account_unconfigured_title">ସାଇନ-ଇନ ଏପର୍ଯ୍ୟନ୍ତ ସେଟ ହୋଇନାହିଁ</string>
+    <string name="account_unconfigured_body">ଏହି ସଂସ୍କରଣରେ ସାଇନ-ଇନ ଏପର୍ଯ୍ୟନ୍ତ ଚାଲୁ ହୋଇନାହିଁ। ବାକି ଆପ — ସ୍କାନ, ୱାଚଲିଷ୍ଟ, ଫିଲ୍ଟର ଓ ଥିମ — ସାଇନ ଇନ ବିନା ପୂର୍ବ ପରି କାମ କରେ।</string>
+    <string name="account_working">ଟିକେ ଅପେକ୍ଷା କରନ୍ତୁ…</string>
+    <string name="account_google">Google ସହ ସାଇନ ଇନ</string>
+    <string name="account_github">GitHub ସହ ସାଇନ ଇନ</string>
+    <string name="account_or_email">ବା ଇମେଲ ଓ ପାସୱାର୍ଡ ସହ</string>
+    <string name="account_email_hint">ଇମେଲ</string>
+    <string name="account_password_hint">ପାସୱାର୍ଡ</string>
+    <string name="account_sign_in">ସାଇନ ଇନ</string>
+    <string name="account_create">ନୂଆ ଆକାଉଣ୍ଟ ତିଆରି କରନ୍ତୁ</string>
+    <string name="account_forgot">ପାସୱାର୍ଡ ଭୁଲିଗଲେ?</string>
+    <string name="account_email_needed">ଆପଣଙ୍କ ଇମେଲ ଦିଅନ୍ତୁ</string>
+    <string name="account_password_needed">ଆପଣଙ୍କ ପାସୱାର୍ଡ ଦିଅନ୍ତୁ</string>
+    <string name="account_reset_sent">ପାସୱାର୍ଡ ରିସେଟ ଲିଙ୍କ %1$sକୁ ପଠାଗଲା — ଆପଣଙ୍କ ଇନବକ୍ସ (ଓ ସ୍ପାମ) ଦେଖନ୍ତୁ</string>
+    <string name="account_created">ଆକାଉଣ୍ଟ ତିଆରି ହେଲା! ଆପଣଙ୍କ ଇମେଲ ଯାଞ୍ଚ କରିବାକୁ ଲିଙ୍କ ପଠାଯାଇଛି</string>
+    <string name="account_signed_in_toast">ସାଇନ ଇନ ହେଲା</string>
+    <string name="account_signed_out_toast">ସାଇନ ଆଉଟ ହେଲା</string>
+    <string name="account_no_name">କୌଣସି ନାମ ଯୋଡ଼ାଯାଇନାହିଁ</string>
+    <string name="account_verified">✓ ଯାଞ୍ଚିତ</string>
+    <string name="account_unverified">ଯାଞ୍ଚ ହୋଇନାହିଁ</string>
+    <string name="account_section_details">ବିବରଣୀ</string>
+    <string name="account_phone">ଫୋନ</string>
+    <string name="account_methods">ସାଇନ-ଇନ ପଦ୍ଧତି</string>
+    <string name="account_created_at">ଆକାଉଣ୍ଟ ତିଆରି ତାରିଖ</string>
+    <string name="account_last_sign_in">ଶେଷ ସାଇନ-ଇନ</string>
+    <string name="account_unknown">ଅଜଣା</string>
+    <string name="account_uid">ୟୁଜର ID</string>
+    <string name="account_copy_uid">ୟୁଜର ID କପି କରନ୍ତୁ</string>
+    <string name="account_uid_copied">ୟୁଜର ID କପି ହେଲା</string>
+    <string name="account_provider_google">Google</string>
+    <string name="account_provider_github">GitHub</string>
+    <string name="account_provider_password">ଇମେଲ + ପାସୱାର୍ଡ</string>
+    <string name="account_provider_phone">ଫୋନ</string>
+    <string name="account_section_actions">ଆକାଉଣ୍ଟ ସେଟିଂସ</string>
+    <string name="account_edit_name">ନାମ ବଦଳାନ୍ତୁ</string>
+    <string name="account_name_hint">ଆପଣଙ୍କ ନାମ</string>
+    <string name="account_name_saved">ନାମ ବଦଳିଗଲା</string>
+    <string name="account_send_verification">ଯାଞ୍ଚ ଇମେଲ ପଠାନ୍ତୁ</string>
+    <string name="account_verification_sent">ଯାଞ୍ଚ ଲିଙ୍କ %1$sକୁ ପଠାଗଲା</string>
+    <string name="account_change_password">ପାସୱାର୍ଡ ବଦଳାନ୍ତୁ</string>
+    <string name="account_password_current_hint">ବର୍ତ୍ତମାନର ପାସୱାର୍ଡ</string>
+    <string name="account_password_new_hint">ନୂଆ ପାସୱାର୍ଡ (ଅନ୍ତତଃ 6 ଅକ୍ଷର)</string>
+    <string name="account_password_changed">ପାସୱାର୍ଡ ବଦଳିଗଲା</string>
+    <string name="account_password_send_reset">ରିସେଟ ଇମେଲ ପଠାନ୍ତୁ</string>
+    <string name="account_link_google">Google ଆକାଉଣ୍ଟ ଲିଙ୍କ କରନ୍ତୁ</string>
+    <string name="account_link_github">GitHub ଆକାଉଣ୍ଟ ଲିଙ୍କ କରନ୍ତୁ</string>
+    <string name="account_linked">%1$s ଲିଙ୍କ ହେଲା — ଏବେ ଏହା ସହ ମଧ୍ୟ ସାଇନ ଇନ କରିପାରିବେ</string>
+    <string name="account_sign_out">ସାଇନ ଆଉଟ</string>
+    <string name="account_delete">ଆକାଉଣ୍ଟ ଡିଲିଟ କରନ୍ତୁ</string>
+    <string name="account_delete_title">ଆକାଉଣ୍ଟ ଡିଲିଟ କରିବେ?</string>
+    <string name="account_delete_message">ଆପଣଙ୍କ Share Scan ଆକାଉଣ୍ଟ ସବୁଦିନ ପାଇଁ ହଟିଯିବ। ଏହି ଫୋନର ୱାଚଲିଷ୍ଟ ଓ ସେଟିଂସ ଯେମିତି ଅଛି ସେମିତି ରହିବ।</string>
+    <string name="account_delete_yes">ହଁ, ଡିଲିଟ କରନ୍ତୁ</string>
+    <string name="account_deleted">ଆକାଉଣ୍ଟ ଡିଲିଟ ହେଲା</string>
+    <string name="account_save">ସେଭ କରନ୍ତୁ</string>
+    <string name="account_cancel">ବାତିଲ</string>
+    <string name="account_relogin_title">ପୁଣି ସାଇନ ଇନ କରନ୍ତୁ</string>
+    <string name="account_relogin_message">ଆପଣଙ୍କ ସୁରକ୍ଷା ପାଇଁ ଏଥିରେ ନୂଆ ସାଇନ-ଇନ ଦରକାର। ସାଇନ ଆଉଟ କରି, ପୁଣି ସାଇନ ଇନ କରି, ଆଉ ଥରେ ଚେଷ୍ଟା କରନ୍ତୁ।</string>
+    <string name="account_relogin_yes">ସାଇନ ଆଉଟ</string>
+    <string name="account_error_wrong_password">ଇମେଲ ବା ପାସୱାର୍ଡ ଭୁଲ</string>
+    <string name="account_error_no_user">ଏହି ଇମେଲରେ କୌଣସି ଆକାଉଣ୍ଟ ନାହିଁ — ପ୍ରଥମେ ନୂଆ ଆକାଉଣ୍ଟ ତିଆରି କରନ୍ତୁ</string>
+    <string name="account_error_disabled">ଏହି ଆକାଉଣ୍ଟ ନିଷ୍କ୍ରିୟ କରାଯାଇଛି</string>
+    <string name="account_error_weak_password">ପାସୱାର୍ଡ ବହୁତ ଦୁର୍ବଳ — ଅନ୍ତତଃ 6 ଅକ୍ଷର ବ୍ୟବହାର କରନ୍ତୁ</string>
+    <string name="account_error_email_used">ଏହି ଇମେଲରେ ପୂର୍ବରୁ ଆକାଉଣ୍ଟ ଅଛି — ସାଇନ ଇନ କରନ୍ତୁ</string>
+    <string name="account_error_other_method">ଏହି ଇମେଲର ଆକାଉଣ୍ଟ ଅନ୍ୟ ପଦ୍ଧତିରେ (Google, GitHub ବା ପାସୱାର୍ଡ) ତିଆରି — ତାହା ସହ ସାଇନ ଇନ କରି, ତା ପରେ ଏହି ପଦ୍ଧତିକୁ ଏଠାରୁ ଲିଙ୍କ କରନ୍ତୁ</string>
+    <string name="account_error_already_linked">ଏହି ଆକାଉଣ୍ଟ ପୂର୍ବରୁ ଲିଙ୍କ ହୋଇଛି, ବା ଅନ୍ୟ ଏକ Share Scan ଆକାଉଣ୍ଟର</string>
+    <string name="account_error_bad_email">ସେହି ଇମେଲ ବୈଧ ନୁହେଁ</string>
+    <string name="account_error_network">ଇଣ୍ଟରନେଟ ସଂଯୋଗ ନାହିଁ — ଯାଞ୍ଚ କରି ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="account_error_too_many">ବହୁତ ଅଧିକ ଚେଷ୍ଟା — କିଛି ସମୟ ପରେ ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="account_error_no_google_account">ଏହି ଫୋନରେ Google ଆକାଉଣ୍ଟ ନାହିଁ — ଫୋନର ସେଟିଂସରେ ଗୋଟିଏ ଯୋଡ଼ନ୍ତୁ</string>
+    <string name="account_error_google">Google ସହ ସାଇନ ଇନ ହେଲା ନାହିଁ — ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="account_error_browser">ବ୍ରାଉଜରରେ ସାଇନ-ଇନ ସମ୍ପୂର୍ଣ୍ଣ ହେଲା ନାହିଁ — ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string name="account_error_method_off">ଏହି ସାଇନ-ଇନ ପଦ୍ଧତି ଏପର୍ଯ୍ୟନ୍ତ ଚାଲୁ ହୋଇନାହିଁ</string>
+    <string name="account_error_generic">କିଛି ଭୁଲ ହେଲା — ପୁଣି ଚେଷ୍ଟା କରନ୍ତୁ</string>
+    <string-array name="account_months">
+        <item>ଜାନୁ</item>
+        <item>ଫେବ୍ରୁ</item>
+        <item>ମାର୍ଚ୍ଚ</item>
+        <item>ଏପ୍ରି</item>
+        <item>ମେ</item>
+        <item>ଜୁନ</item>
+        <item>ଜୁଲାଇ</item>
+        <item>ଅଗ</item>
+        <item>ସେପ୍ଟେ</item>
+        <item>ଅକ୍ଟୋ</item>
+        <item>ନଭେ</item>
+        <item>ଡିସେ</item>
+    </string-array>
+    <string name="menu_usage">ଆପ ବ୍ୟବହାର</string>
+    <string name="menu_usage_body">କେତେ ଫୋନରେ ଆପ ଚାଲୁଛି • କେବଳ ଆପଣ ଦେଖିପାରିବେ</string>
+    <string name="usage_title">ଆପ ବ୍ୟବହାର</string>
+    <string name="usage_subtitle">କେବଳ %1$sଙ୍କ GitHub ସାଇନ-ଇନରେ ଦେଖାଯାଏ</string>
+    <string name="usage_loading_title">ଗଣନା ହେଉଛି…</string>
+    <string name="usage_loading_body">Firebaseରୁ ଫୋନ ସଂଖ୍ୟା ଆସୁଛି।</string>
+    <string name="usage_today">ଆଜି</string>
+    <string name="usage_days">%1$d ଦିନ</string>
+    <string name="usage_phones">ଫୋନ</string>
+    <string name="usage_total_title">ଏପର୍ଯ୍ୟନ୍ତ</string>
+    <string name="usage_total_body">ମୋଟ %1$s ଫୋନରେ ଆପ ଖୋଲାଯାଇଛି (ଗଣନା ଆରମ୍ଭରୁ)</string>
+    <string name="usage_downloads">GitHubରୁ APK %1$s ଥର ଡାଉନଲୋଡ ହୋଇଛି</string>
+    <string name="usage_downloads_unknown">GitHubର ଡାଉନଲୋଡ ସଂଖ୍ୟା ଏପର୍ଯ୍ୟନ୍ତ ଆସିନାହିଁ</string>
+    <string name="usage_versions_title">ସଂସ୍କରଣ ଅନୁସାରେ (ଶେଷ %1$d ଦିନ)</string>
+    <string name="usage_version_line">v%1$s — %2$s ଫୋନ</string>
+    <string name="usage_how_title">ଗଣନା କିପରି କାମ କରେ</string>
+    <string name="usage_how_body">ଦିନକୁ ଥରେ, ଆପ ଖୋଲିଲେ, ପ୍ରତ୍ୟେକ ଫୋନ କେବଳ ଏକ ଅନିୟମିତ ID ଓ ତାର ସଂସ୍କରଣ ପଠାଏ — ନାମ, ନମ୍ବର ବା ସ୍ଥାନ ନୁହେଁ। ଏହି ସଂସ୍କରଣ ସହ ଗଣନା ଆରମ୍ଭ ହେଲା; ପୁରୁଣା ସଂସ୍କରଣର ଫୋନ ଅପଡେଟ ହେବା ପରେ ଗଣାଯିବ। ଆପ ହଟାଇ ପୁଣି ଇନଷ୍ଟଲ କରିଥିବା ଫୋନ ନୂଆ ଭାବେ ଗଣାଯାଏ, ଓ APK ଡାଉନଲୋଡରେ ଜଣେ ବ୍ୟକ୍ତିଙ୍କ ଅନେକ ଡାଉନଲୋଡ ଅନ୍ତର୍ଭୁକ୍ତ।</string>
+    <string name="usage_rules_title">Firestore ନିୟମ ଏବେ ବି ବଦଳାଇବାକୁ ପଡ଼ିବ</string>
+    <string name="usage_rules_body">Firebase Console → Firestore Database → Rulesରେ docs/LOGIN_SETUP.md (Step 6.5)ରୁ ନୂଆ ନିୟମ ପେଷ୍ଟ କରି Publish କରନ୍ତୁ, ତା ପରେ ଏହାକୁ ପୁଣି ଖୋଲନ୍ତୁ।</string>
+    <string name="usage_failed_title">ଗଣନା ମିଳିଲା ନାହିଁ</string>
+    <string name="usage_failed_body">ଇଣ୍ଟରନେଟ ଯାଞ୍ଚ କରି କିଛି ସମୟ ପରେ ଏହାକୁ ପୁଣି ଖୋଲନ୍ତୁ।</string>
+</resources>

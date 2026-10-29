@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_rsi">RSI (14)</string>
+    <string name="metric_macd">MACD, ਸਿਗਨਲ ਤੋਂ ਦੂਰੀ</string>
+    <string name="metric_macd_cross">MACD ਕਰਾਸਓਵਰ</string>
+    <string name="hint_rsi">70 ਤੋਂ ਉੱਪਰ = ਓਵਰਬੌਟ (ਬਹੁਤ ਚੜ੍ਹਿਆ), 30 ਤੋਂ ਹੇਠਾਂ = ਓਵਰਸੋਲਡ (ਬਹੁਤ ਡਿੱਗਿਆ) • 50–70 = ਤੇਜ਼ੀ, ਪਰ ਬਹੁਤੀ ਨਹੀਂ</string>
+    <string name="hint_macd" formatted="false">MACD ਰੇਖਾ ਆਪਣੀ ਸਿਗਨਲ ਰੇਖਾ ਤੋਂ ਕਿੰਨੀ ਉੱਪਰ (+) ਜਾਂ ਹੇਠਾਂ (-), ਭਾਅ ਦੇ % ਵਿੱਚ • 0% ਤੋਂ ਉੱਪਰ = ਤੇਜ਼ੀ</string>
+    <string name="hint_macd_cross">MACD ਨੇ ਕਿੰਨੇ ਦਿਨ ਪਹਿਲਾਂ ਸਿਗਨਲ ਰੇਖਾ ਨੂੰ ਹੇਠਾਂ ਤੋਂ ਉੱਪਰ ਕੱਟਿਆ • \"3 ਦਿਨ ਪਹਿਲਾਂ\" ਤੱਕ = ਤਾਜ਼ਾ ਤੇਜ਼ੀ ਵਾਲਾ ਕਰਾਸਓਵਰ; ਸਿਗਨਲ ਤੋਂ ਹੇਠਾਂ ਵਾਲੇ ਸ਼ੇਅਰ ਛਾਂਟੇ ਜਾਂਦੇ ਹਨ</string>
+    <string name="detail_stat_rsi">RSI (14)</string>
+    <string name="detail_stat_rsi_overbought">70+ ਓਵਰਬੌਟ: ਬਹੁਤ ਚੜ੍ਹਿਆ</string>
+    <string name="detail_stat_rsi_strong">50–70: ਤੇਜ਼ੀ</string>
+    <string name="detail_stat_rsi_weak">30–50: ਕਮਜ਼ੋਰ</string>
+    <string name="detail_stat_rsi_oversold">30 ਤੋਂ ਘੱਟ ਓਵਰਸੋਲਡ: ਬਹੁਤ ਡਿੱਗਿਆ</string>
+    <string name="detail_stat_macd">MACD (12, 26, 9)</string>
+    <string name="detail_stat_macd_bull">ਤੇਜ਼ੀ</string>
+    <string name="detail_stat_macd_bear">ਮੰਦੀ</string>
+    <string name="detail_stat_macd_crossed">ਸਿਗਨਲ ਨੂੰ %1$s ਉੱਪਰ ਕੱਟਿਆ</string>
+    <string name="detail_stat_macd_below">ਸਿਗਨਲ ਰੇਖਾ ਤੋਂ ਹੇਠਾਂ</string>
+    <string name="detail_stat_macd_zero_above">ਜ਼ੀਰੋ ਤੋਂ ਉੱਪਰ</string>
+    <string name="detail_stat_macd_zero_below">ਜ਼ੀਰੋ ਤੋਂ ਹੇਠਾਂ</string>
+    <string name="help_indicators_title">RSI ਅਤੇ MACD</string>
+    <string name="help_indicators_body" formatted="false">ਦੋਵੇਂ ਹਰ ਸ਼ੇਅਰ ਦੇ 6 ਮਹੀਨਿਆਂ ਦੇ ਰੋਜ਼ਾਨਾ ਭਾਅ ਤੋਂ ਬਣਦੇ ਹਨ, ਚਾਰਟ ਸਾਈਟਾਂ ਵਾਂਗ। RSI (14) 0 ਤੋਂ 100 ਵਿਚਕਾਰ: 70 ਤੋਂ ਉੱਪਰ ਓਵਰਬੌਟ (ਬਹੁਤ ਚੜ੍ਹ ਚੁੱਕਾ), 30 ਤੋਂ ਹੇਠਾਂ ਓਵਰਸੋਲਡ (ਬਹੁਤ ਡਿੱਗ ਚੁੱਕਾ), 50–70 ਤੇਜ਼ੀ। MACD (12, 26, 9): 12 ਅਤੇ 26 ਦਿਨਾਂ ਦੀ ਘਾਤਅੰਕੀ ਔਸਤ ਦਾ ਫ਼ਰਕ, ਅਤੇ ਉਸਦੀ 9 ਦਿਨਾਂ ਦੀ ਸਿਗਨਲ ਰੇਖਾ। MACD ਸਿਗਨਲ ਤੋਂ ਉੱਪਰ = ਤੇਜ਼ੀ; ਜਿਸ ਦਿਨ ਉਹ ਸਿਗਨਲ ਨੂੰ ਹੇਠਾਂ ਤੋਂ ਉੱਪਰ ਕੱਟੇ, ਉਹ ਤੇਜ਼ੀ ਵਾਲਾ ਕਰਾਸਓਵਰ ਹੈ। ਫਿਲਟਰਾਂ ਵਿੱਚ ਤਿੰਨੇ ਹਨ: RSI ਦੀ ਰੇਂਜ, MACD ਸਿਗਨਲ ਤੋਂ ਕਿੰਨੀ ਉੱਪਰ/ਹੇਠਾਂ (ਭਾਅ ਦੇ %), ਅਤੇ ਕਰਾਸਓਵਰ ਕਿੰਨੇ ਦਿਨ ਪਹਿਲਾਂ ਹੋਇਆ (\"3 ਦਿਨ ਪਹਿਲਾਂ\" ਤੱਕ = ਤਾਜ਼ਾ ਕਰਾਸਓਵਰ)। ਸ਼ੇਅਰ ਦੇ ਵੇਰਵੇ ਵਿੱਚ ਦੋਵਾਂ ਦਾ ਅੱਜ ਦਾ ਮੁੱਲ ਦਿਸਦਾ ਹੈ। ਲਾਈਵ ਬਾਜ਼ਾਰ ਵਿੱਚ ਅੱਜ ਦਾ ਚੱਲਦਾ ਭਾਅ ਵੀ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ।</string>
+</resources>
