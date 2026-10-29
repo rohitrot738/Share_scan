@@ -57,6 +57,8 @@ def join(in_dir: str, asset: str) -> None:
             part = json.load(open(os.path.join(in_dir, name)))
             made.update(part["made"])
             missed.extend(part["missed"])
+    if len(made) < 1000:
+        raise SystemExit(f"only {len(made)} companies read; the app's file is left as it is")
     stocks = {s: keys for s, keys in sorted(made.items()) if keys}
     ist = datetime.now(timezone(timedelta(hours=5, minutes=30)))
     with open(asset, "w", encoding="utf-8") as f:
