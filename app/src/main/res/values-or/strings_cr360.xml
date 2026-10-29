@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sort_cr360">R/S</string>
+    <string name="item_cr360">R/S %1$s</string>
+    <string name="item_cr360_description">Rohit Selection %1$s, %2$s</string>
+    <string name="detail_section_cr360">R/S · Rohit Selection</string>
+    <string name="detail_cr360_subtitle">କମ୍ପାନୀର ଫଳାଫଳ, କ୍ୟାଶ ଫ୍ଲୋ, ଋଣ, ଅଂଶୀଦାରୀ, ଇନସାଇଡର ଓ ବଲ୍କ ଡିଲ, ମୂଲ୍ୟାୟନ ଓ 3 ବର୍ଷର ଦର</string>
+    <string name="detail_cr360_score">%1$s / 100</string>
+    <string name="detail_cr360_data">ଡାଟା %1$d%% · %2$s ପର୍ଯ୍ୟନ୍ତ ଫଳାଫଳ · %3$sରେ ପଢ଼ାଗଲା</string>
+    <string name="detail_cr360_unknown">ଏଗୁଡ଼ିକର ଡାଟା ନାହିଁ, ତେଣୁ ସ୍କୋରରେ ଏଗୁଡ଼ିକ ମଝିଆ 50 ଗଣାଯାଏ: %1$s</string>
+    <string name="detail_cr360_missing">ଏହି ସେୟାରର R/S ଏପର୍ଯ୍ୟନ୍ତ ନାହିଁ — ରାତିର କ୍ୟାଶ ଶୀଘ୍ର ଯୋଡ଼ିବ</string>
+    <string name="detail_cr360_note">ଉତ୍ସ: Screener.in, NSE, Yahoo · ପ୍ରତି ସନ୍ଧ୍ୟାରେ ଅପଡେଟ · ନିବେଶ ପରାମର୍ଶ ନୁହେଁ</string>
+    <string name="cr360_high_conviction">ବହୁତ ମଜବୁତ</string>
+    <string name="cr360_positive">ମଜବୁତ</string>
+    <string name="cr360_neutral">ଠିକ</string>
+    <string name="cr360_caution">ସାବଧାନ</string>
+    <string name="cr360_avoid">ଦୂରେଇ ରୁହନ୍ତୁ</string>
+    <string name="cr360_insufficient">କମ ଡାଟା</string>
+    <string name="cr360_part_financial_quality">ଫଳାଫଳର ଗୁଣ</string>
+    <string name="cr360_part_growth">ବୃଦ୍ଧି</string>
+    <string name="cr360_part_cashflow">କ୍ୟାଶ ଫ୍ଲୋ</string>
+    <string name="cr360_part_balance_sheet">ଋଣ / ବାଲାନ୍ସ ସିଟ</string>
+    <string name="cr360_part_ownership">ଅଂଶୀଦାରୀ</string>
+    <string name="cr360_part_insider_deals">ଇନସାଇଡର ଓ ବଲ୍କ ଡିଲ</string>
+    <string name="cr360_part_valuation">ମୂଲ୍ୟାୟନ</string>
+    <string name="cr360_part_price">3 ବର୍ଷର ଦର</string>
+    <string name="cr360_part_stability">ସ୍ଥିରତା</string>
+    <string name="cr360_part_technical_risk">ଜୋଖିମ ଓ R:R</string>
+    <string name="cr360_quarters">ତ୍ରୈମାସିକ</string>
+    <string name="cr360_half_years">ଷାଣ୍ମାସିକ</string>
+    <string name="cr360_fact_profit">%1$dଟି %3$s ମଧ୍ୟରୁ %2$dଟିରେ ଲାଭ</string>
+    <string name="cr360_fact_growth">ବିକ୍ରି %1$s · ଲାଭ %2$s (%3$dଟି %4$sରେ)</string>
+    <string name="cr360_fact_margin">ନେଟ ମାର୍ଜିନ %1$s</string>
+    <string name="cr360_fact_debt">ଋଣ/ଇକ୍ୱିଟି %1$s</string>
+    <string name="cr360_fact_promoter">ପ୍ରମୋଟର %1$s%% (%2$s)</string>
+    <string name="cr360_fact_institutions">FII %1$s · DII %2$s</string>
+    <string name="cr360_fact_institutions_span">FII %1$s%% · DII %2$s%% (%3$dଟି ତ୍ରୈମାସିକରେ)</string>
+    <string name="cr360_fact_insider">ଇନସାଇଡର: ₹%1$s Cr କିଣିଲେ · ₹%2$s Cr ବିକିଲେ</string>
+    <string name="cr360_fact_deals">ବଲ୍କ/ବ୍ଲକ: ₹%1$s Cr କିଣିଲେ · ₹%2$s Cr ବିକିଲେ</string>
+    <string name="cr360_fact_pe">P/E %1$s</string>
+    <string name="cr360_fact_history_pe">ନିଜର ସାଧାରଣ 3 ବର୍ଷର P/E %1$s</string>
+    <string name="cr360_fact_fair_value">ଉଚିତ ମୂଲ୍ୟ: %1$s</string>
+    <string name="cr360_fair_sector">ସେକ୍ଟରରୁ ₹%1$s (%2$s)</string>
+    <string name="cr360_fair_framework">ଫ୍ରେମୱାର୍କରୁ ₹%1$s (%2$s)</string>
+    <string name="cr360_fair_history">ନିଜ P/Eରୁ ₹%1$s (%2$s)</string>
+    <string name="cr360_fact_position">3 ବର୍ଷର ପରିସରର %1$s%%ରେ</string>
+    <string name="cr360_fact_volatility">ଅସ୍ଥିରତା %1$s%%</string>
+    <string name="cr360_trades_buy">କିଣା</string>
+    <string name="cr360_trades_sell">ବିକ୍ରି</string>
+    <string name="cr360_trades_insider_note">ତାରିଖ = ଡିଲର ଦିନ · NSEରେ = ଫାଇଲିଂ NSEରେ ପହଞ୍ଚିବାର ଦିନ ଓ ସମୟ · ପରେ ଅଂଶ = ଡିଲ ପରେ ସେହି ବ୍ୟକ୍ତିଙ୍କ ଅଂଶ · ନୂଆ ପ୍ରଥମେ, 5 ବର୍ଷ ପର୍ଯ୍ୟନ୍ତ। ସବୁ ସ୍ତମ୍ଭ ଦେଖିବାକୁ ଟେବୁଲକୁ ପାଖକୁ ସରାନ୍ତୁ।</string>
+    <string name="cr360_trades_deals_note">NSE ବଲ୍କ/ବ୍ଲକ ଡିଲର କେବଳ ଦିନ ଦିଏ, ସମୟ ନୁହେଁ · ନୂଆ ପ୍ରଥମେ। ସବୁ ସ୍ତମ୍ଭ ଦେଖିବାକୁ ଟେବୁଲକୁ ପାଖକୁ ସରାନ୍ତୁ।</string>
+    <string name="cr360_trades_none">ଏହି ସେୟାରର ଡିଲ ତାଲିକା ଏପର୍ଯ୍ୟନ୍ତ ନାହିଁ</string>
+    <string name="cr360_open_loading">ଲୋଡ ହେଉଛି…</string>
+    <string name="cr360_part_no_detail">ଏହି ଅଂଶର ବିବରଣୀ ଏପର୍ଯ୍ୟନ୍ତ ନାହିଁ</string>
+    <string name="cr360_trades_deals_heading">ବଲ୍କ/ବ୍ଲକ ଡିଲ</string>
+    <string-array name="cr360_trades_insider_columns">
+        <item>ତାରିଖ</item>
+        <item>NSEରେ</item>
+        <item>ନାମ</item>
+        <item>କିଏ</item>
+        <item>ଡିଲ</item>
+        <item>ସେୟାର</item>
+        <item>ଦର ₹</item>
+        <item>ରାଶି</item>
+        <item>ମାଧ୍ୟମ</item>
+        <item>ପରେ ଅଂଶ</item>
+    </string-array>
+    <string-array name="cr360_trades_deals_columns">
+        <item>ତାରିଖ</item>
+        <item>ପ୍ରକାର</item>
+        <item>ନାମ</item>
+        <item>ଡିଲ</item>
+        <item>ସେୟାର</item>
+        <item>ଦର ₹</item>
+        <item>ରାଶି</item>
+    </string-array>
+    <string name="detail_section_cr360_history">R/S ଇତିହାସ</string>
+    <string name="detail_cr360_history_loading">ଇତିହାସ ଆଣୁଛି…</string>
+    <string name="detail_cr360_history_subtitle">କ୍ୟାଶରେ ଥିବା ପ୍ରତ୍ୟେକ ତ୍ରୈମାସିକ ଓ ବର୍ଷର ଡାଟା (5 ବର୍ଷ ପର୍ଯ୍ୟନ୍ତ)</string>
+    <string name="detail_cr360_history_missing">ଏହି ସେୟାରର ଇତିହାସ ଏପର୍ଯ୍ୟନ୍ତ ନାହିଁ — ଇଣ୍ଟରନେଟ ଥିଲେ ପରେ ଖୋଲିବା ବେଳେ ଆସିବ</string>
+    <string name="cr360_history_holders_title" formatted="false">FII / DII କିଣା ଓ ବିକ୍ରି (ଅଂଶ %)</string>
+    <string name="cr360_history_holders_note" formatted="false">▲ ଅଂଶ ବଢ଼ିଲା = ସେହି ତ୍ରୈମାସିକରେ କିଣିଲେ · ▼ କମିଲା = ବିକିଲେ (% ପଏଣ୍ଟ)</string>
+    <string name="cr360_history_holders_summary">%1$s → %2$s: FII %3$s%% → %4$s%% (%5$s) · DII %6$s%% → %7$s%% (%8$s)</string>
+    <string name="cr360_history_quarters_title">ତ୍ରୈମାସିକ ଫଳାଫଳ (₹ କୋଟି)</string>
+    <string name="cr360_history_halves_title">ଷାଣ୍ମାସିକ ଫଳାଫଳ (₹ କୋଟି)</string>
+    <string name="cr360_history_years_title">ବାର୍ଷିକ: ଫଳାଫଳ, କ୍ୟାଶ ଫ୍ଲୋ, ଋଣ (₹ କୋଟି)</string>
+    <string name="cr360_history_quarter">ତ୍ରୈମାସିକ</string>
+    <string name="cr360_history_half">ଷାଣ୍ମାସିକ</string>
+    <string name="cr360_history_year">ବର୍ଷ</string>
+    <string name="cr360_history_promoter">ପ୍ରମୋଟର</string>
+    <string name="cr360_history_public">ସାଧାରଣ</string>
+    <string name="cr360_history_sales">ବିକ୍ରି</string>
+    <string name="cr360_history_profit">ଲାଭ</string>
+    <string name="cr360_history_eps">EPS ₹</string>
+    <string name="cr360_history_operating_cash">ଅପ. କ୍ୟାଶ</string>
+    <string name="cr360_history_free_cash">ଫ୍ରି କ୍ୟାଶ</string>
+    <string name="cr360_history_debt">ଋଣ</string>
+    <string name="cr360_history_chart_title">3 ବର୍ଷର ଦର (ପ୍ରତି ମାସର ଶେଷ ବନ୍ଦ ଦର)</string>
+    <string name="cr360_history_chart_note">ଏବେ ₹%1$s · ସର୍ବୋଚ୍ଚ ₹%2$s (%3$s) · ସର୍ବନିମ୍ନ ₹%4$s (%5$s)</string>
+    <string name="cr360_history_chart_description">%1$sରୁ %2$s ପର୍ଯ୍ୟନ୍ତ ମାସିକ ଦର: ସର୍ବନିମ୍ନ ₹%3$s, ସର୍ବୋଚ୍ଚ ₹%4$s, ଏବେ ₹%5$s</string>
+    <string name="help_cr360_title">R/S · Rohit Selection</string>
+    <string name="help_cr360_body">R/S (Rohit Selection) କମ୍ପାନୀକୁ 10ଟି ଅଂଶରେ ଯାଞ୍ଚ କରେ: ଫଳାଫଳର ଗୁଣ (18), ବୃଦ୍ଧି (12), କ୍ୟାଶ ଫ୍ଲୋ (10), ଋଣ (10), ଅଂଶୀଦାରୀ (12), ଇନସାଇଡର ଓ ବଲ୍କ/ବ୍ଲକ ଡିଲ (8), ମୂଲ୍ୟାୟନ (12), 3 ବର୍ଷର ଦର (8), ସ୍ଥିରତା (5) ଓ ଜୋଖିମ (5)। ମୂଲ୍ୟାୟନ ଏବେ ସେକ୍ଟର ଅନୁସାରେ ଅଲଗା ଭାବେ ହୁଏ (ତଳେ \"R/Sର ମୂଲ୍ୟାୟନ ଫ୍ରେମୱାର୍କ\" ଦେଖନ୍ତୁ); ଯେଉଁ ସେକ୍ଟରର ନିଜସ୍ୱ ପଦ୍ଧତି ନାହିଁ ବା ଡାଟା କମ, ସେଠାରେ ଅଧା ଓଜନ ସେକ୍ଟରର ସାଧାରଣ P/E ଓ P/B ସହ ତୁଳନାରେ ଓ ଅଧା ଗତ 3 ବର୍ଷର କମ୍ପାନୀର ନିଜ ସାଧାରଣ P/Eରେ। କ୍ଷତିରେ ଥିବା କମ୍ପାନୀ ଓ 3ରୁ କମ P/E ଥିବା (ଏକ-ଥରିଆ ଲାଭ ବା ପୁରୁଣା ସଂଖ୍ୟା) କମ୍ପାନୀର ମୂଲ୍ୟାୟନ ହୁଏ ନାହିଁ, ଓ କୌଣସି ତ୍ରୈମାସିକର ଆୟ ବର୍ଷର ମଝିଆ ତ୍ରୈମାସିକର 10 ଗୁଣରୁ ଅଧିକ ହେଲେ ତାହା ଏକ-ଥରିଆ ଗଣାଯାଏ। ବୃଦ୍ଧି ଶେଷ 4 ତ୍ରୈମାସିକର ଯୋଗକୁ ପ୍ରଥମ 4ର ଯୋଗ ସହ ତୁଳନା କରେ; ଆରମ୍ଭ କ୍ଷତି ବା ପ୍ରାୟ ଶୂନ ହେଲେ ପ୍ରତିଶତ ଦେଖାଯାଏ ନାହିଁ। ବ୍ୟାଙ୍କ, NBFC ଓ ବୀମା ଭଳି ଆର୍ଥିକ କମ୍ପାନୀରେ ଋଣ ଓ କ୍ୟାଶ ଫ୍ଲୋ ଅଂଶ ଗଣାଯାଏ ନାହିଁ, କାରଣ ଋଣ ଦେବାକୁ ଋଣ ନେବା ହିଁ ସେମାନଙ୍କ ବ୍ୟବସାୟ। ଡାଟା ନଥିବା ଅଂଶକୁ ସ୍କୋରରେ ମଝିଆ 50 ମିଳେ (ନା ଭଲ ନା ଖରାପ), ଯାହାଦ୍ୱାରା କେବଳ 2–3 ଅଂଶରେ ଭଲ ଓ ବାକିରେ ଅଜଣା କମ୍ପାନୀ ପୂରା ଡାଟା ଥିବା ଭଲ କମ୍ପାନୀଠାରୁ ଉପରକୁ ନ ଯାଏ; କାର୍ଡ କହେ କେଉଁ ଅଂଶର ଡାଟା ନଥିଲା। 0–100 ସ୍କୋରରୁ ଗ୍ରେଡ: 75+ ବହୁତ ମଜବୁତ, 62+ ମଜବୁତ, 48+ ଠିକ, 35+ ସାବଧାନ, ତା ତଳେ ଦୂରେଇ ରୁହନ୍ତୁ; ଡାଟା 40%ରୁ କମ ହେଲେ: \"କମ ଡାଟା\"। NSE, NSE SME ଓ କେବଳ BSEରେ ତାଲିକାଭୁକ୍ତ ସବୁ ସେୟାର ସାମିଲ; SME କମ୍ପାନୀ ଷାଣ୍ମାସିକ ଫଳାଫଳ ଦିଅନ୍ତି, ତେଣୁ ସେମାନଙ୍କ ସଂଖ୍ୟା ଷାଣ୍ମାସିକରେ। Screener.in, NSE ଓ Yahooର ଡାଟା ପ୍ରତି ସନ୍ଧ୍ୟାରେ ଥରେ କ୍ୟାଶରେ ଯୋଡ଼ିହୁଏ — ପୁରୁଣା ତ୍ରୈମାସିକ ବଦଳେ ନାହିଁ, ତେଣୁ କେବଳ ନୂଆ ଫଳାଫଳ, ଅଂଶୀଦାରୀ ଓ ଡିଲ ଯୋଡ଼ିହୁଏ, ଓ 20 ତ୍ରୈମାସିକ / 5 ବର୍ଷରୁ ପୁରୁଣା ଡାଟା ହଟାଯାଏ। ଆପ ଦିନକୁ ଦୁଇଥର ପର୍ଯ୍ୟନ୍ତ ନୂଆ ଫାଇଲ ଆଣେ ଓ କେବଳ ଗୋଟିଏ କପି ରଖେ। ସେୟାର ବିବରଣୀରେ \"R/S ଇତିହାସ\" ପ୍ରତ୍ୟେକ ତ୍ରୈମାସିକର ଫଳାଫଳ, FII/DII/ପ୍ରମୋଟର ଅଂଶ (▲ କିଣିଲେ, ▼ ବିକିଲେ), ବାର୍ଷିକ କ୍ୟାଶ ଫ୍ଲୋ ଓ ଋଣ, ଓ 3 ବର୍ଷର ଦର ଦେଖାଏ; ଏହାର ଛୋଟ ଫାଇଲ ସେହି ସେୟାର ଖୋଲିବା ବେଳେ ଆସେ। R/S କାର୍ଡର କୌଣସି ଅଂଶ ଟ୍ୟାପ କଲେ ତାର ଡାଟା ତଳେ ଖୋଲେ: ଗୁଣ ଓ ବୃଦ୍ଧି ପାଇଁ ପ୍ରତ୍ୟେକ ତ୍ରୈମାସିକର ଫଳାଫଳ, କ୍ୟାଶ ଫ୍ଲୋ ଓ ଋଣ ପାଇଁ ବାର୍ଷିକ ଟେବୁଲ, ଅଂଶୀଦାରୀ ପାଇଁ ପ୍ରମୋଟର/FII/DII, ଇନସାଇଡର ପାଇଁ ପ୍ରତ୍ୟେକ ଡିଲ (ତାରିଖ, NSEରେ ପହଞ୍ଚିବାର ଦିନ ଓ ସମୟ, ନାମ, କିଏ, କିଣା/ବିକ୍ରି, ସେୟାର, ଦର, ରାଶି, ମାଧ୍ୟମ, ଡିଲ ପରେ ଅଂଶ), ମୂଲ୍ୟାୟନ ପାଇଁ P/E, ଉଚିତ ମୂଲ୍ୟ ଓ ଫ୍ରେମୱାର୍କର ପୂରା ହିସାବ, ଓ ଦର, ସ୍ଥିରତା ଓ ଜୋଖିମ ପାଇଁ 3 ବର୍ଷର ଚାର୍ଟ; ଇନସାଇଡର ଓ ବଲ୍କ/ବ୍ଲକ ଧାଡ଼ି ମଧ୍ୟ ସେହିପରି ଖୋଲେ, ଓ ଦ୍ୱିତୀୟ ଟ୍ୟାପରେ ବନ୍ଦ ହୁଏ। ବଲ୍କ/ବ୍ଲକ ଡିଲ ଏବେ ହିଁ ଯୋଡ଼ିହେବା ଆରମ୍ଭ ହୋଇଛି, ତେଣୁ ସେଗୁଡ଼ିକର ଇତିହାସ ଧୀରେ ଧୀରେ ବଢ଼ିବ; ଇନସାଇଡର ଟ୍ରେଡ ଓ ବଲ୍କ/ବ୍ଲକ ଡିଲ NSEର, ତେଣୁ କେବଳ-BSE ସେୟାରରେ ସେହି ଅଂଶ ଖାଲି ରହେ। ନିବେଶ ପରାମର୍ଶ ନୁହେଁ।</string>
+</resources>

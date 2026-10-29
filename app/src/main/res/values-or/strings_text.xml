@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_text">ଭାଷା ଓ ଫଣ୍ଟ</string>
+    <string name="menu_text_body">ଏବେ: %1$s · %2$s</string>
+    <string name="text_title">ଭାଷା ଓ ଫଣ୍ଟ</string>
+    <string name="text_subtitle">ସମଗ୍ର ଆପ କେଉଁ ଭାଷାରେ ଓ କେଉଁ ଫଣ୍ଟରେ ଦେଖାଯିବ</string>
+    <string name="text_language">ଭାଷା</string>
+    <string name="text_language_note">ଅନୁବାଦ ଆପ ଭିତରେ ହିଁ ତିଆରି, କୌଣସି ଶବ୍ଦରେ ଭୁଲ ଦେଖିଲେ ଜଣାନ୍ତୁ। ସେୟାର ଓ କମ୍ପାନୀର ନାମ, ଖବର ଓ \"ନୂଆ କ\'ଣ\" ଯେମିତି ଅଛି ସେମିତି ରହିବ।</string>
+    <string name="text_font">ଫଣ୍ଟ</string>
+    <string name="text_font_sample">Share Scan · ବ୍ରେକଆଉଟ ସ୍କାନ · ₹1,234.50 ▲ 2.40% · 86.0</string>
+    <string name="font_system">ଫୋନର ଫଣ୍ଟ</string>
+    <string name="text_font_description">%1$s ଫଣ୍ଟ ବାଛନ୍ତୁ</string>
+    <string name="text_language_description">%1$s ଭାଷା ବାଛନ୍ତୁ</string>
+</resources>

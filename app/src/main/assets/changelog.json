@@ -5,7 +5,7 @@
     "items": [
       "नया Watchlist page (★ Watchlist दबाएँ): हर stock किस भाव पर जोड़ा और तब से कितना % फ़ायदा या नुकसान, ऊपर पूरी watchlist का औसत return, पिछले 20 दिन की line और कितने फ़ायदे/नुकसान में; हर stock पर SL या support से अगले breakout/target तक की पट्टी और उसका alert; Return, नए पहले या Target के पास के हिसाब से क्रम; बाएँ swipe करके हटाएँ (वापस भी ला सकते हैं), दबाकर रखें तो जोड़ने का भाव बदलें; ↻ से दाम तुरंत ताज़ा, और पूरी watchlist शेयर करें",
       "नया Menu → Layout: list के तीन नए रूप, दोनों backgrounds पर — Accordion (हर stock एक पतली line, दबाने पर वहीं score की पट्टी, MCap/Vol/RVOL/R/S/Support और Alert, Chart, Details के buttons), Bento grid (दो कतारों में tiles: score का गोल dial, 15 दिन की line, भाव और 5 दिन का बदलाव) और Swipe cards (आँकड़े छोटे capsules में, बाएँ swipe पर ★ Watchlist और Chart); \"Background वाला\" चुनें तो पहले जैसे cards या table",
-      "नया Menu → भाषा और Font: पूरी app का font चुनें — Mukta, Hind, Poppins (तीनों हिंदी अक्षरों के साथ), Inter, Space Grotesk, JetBrains Mono या phone का अपना",
+      "नया Menu → भाषा और Font: पूरी app 12 भाषाओं में — Hinglish (पहले जैसी), हिन्दी, English, বাংলা, ગુજરાતી, मराठी, తెలుగు, தமிழ், ಕನ್ನಡ, മലയാളം, ਪੰਜਾਬੀ और ଓଡ଼ିଆ; और पूरी app का font चुनें — Mukta, Hind, Poppins (तीनों हिंदी अक्षरों के साथ), Inter, Space Grotesk, JetBrains Mono या phone का अपना",
       "नया: हर stock के detail में \"क्या बनाती है\" — company के products उनके icon के साथ (जैसे 🛞 टायर, 🚗 कार, 💊 दवाइयाँ); किसी product पर दबाएँ तो list में उसे बनाने वाली सारी companies दिखेंगी, ऊपर ✕ या Back से सब वापस। Cards पर नाम के आगे मुख्य products के icon भी (Menu → Settings से बंद कर सकते हैं)। Products का data अगले कुछ दिनों में सभी stocks के लिए भरेगा"
     ]
   },

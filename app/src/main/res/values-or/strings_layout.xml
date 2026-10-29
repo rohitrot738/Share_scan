@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_layout">ଲେଆଉଟ</string>
+    <string name="layout_title">ଲେଆଉଟ ବାଛନ୍ତୁ</string>
+    <string name="layout_subtitle">ସେୟାର ତାଲିକା କିପରି ଦେଖାଯିବ · ପୃଷ୍ଠଭୂମି ଓ ଥିମ ଯେମିତି ଅଛି ସେମିତି ରହିବ</string>
+    <string name="layout_auto">ପୃଷ୍ଠଭୂମିର ନିଜସ୍ୱ</string>
+    <string name="layout_auto_now_cards">ଏବେ Galaxy ପୃଷ୍ଠଭୂମି: ବଡ଼ କାର୍ଡ</string>
+    <string name="layout_auto_now_table">ଏବେ Space Glass ପୃଷ୍ଠଭୂମି: କମ୍ପାକ୍ଟ ଟେବୁଲ</string>
+    <string name="layout_accordion">ଆକର୍ଡିଅନ</string>
+    <string name="layout_accordion_body">ପ୍ରତ୍ୟେକ ସେୟାରର ଗୋଟିଏ ପତଳା ଧାଡ଼ି · ଟ୍ୟାପ କଲେ ସେଇଠି ସମ୍ପୂର୍ଣ୍ଣ ବିବରଣୀ</string>
+    <string name="layout_bento">ବେଣ୍ଟୋ ଗ୍ରିଡ</string>
+    <string name="layout_bento_body">ଦୁଇ ସ୍ତମ୍ଭରେ ଟାଇଲ: ସ୍କୋର ଡାଏଲ, 15 ଦିନର ରେଖା ଓ ଦର</string>
+    <string name="layout_swipe">ସ୍ୱାଇପ କାର୍ଡ</string>
+    <string name="layout_swipe_body">ଛୋଟ କ୍ୟାପସୁଲରେ ସଂଖ୍ୟା · ବାମକୁ ସ୍ୱାଇପ କଲେ ★ ୱାଚଲିଷ୍ଟ ଓ ଚାର୍ଟ</string>
+    <string name="layout_action_chart">ଚାର୍ଟ</string>
+    <string name="layout_action_details">ବିବରଣୀ</string>
+    <string name="layout_action_watchlist">ୱାଚଲିଷ୍ଟ</string>
+    <string name="layout_action_unwatch">ହଟାନ୍ତୁ</string>
+    <string name="layout_action_alert">ଆଲର୍ଟ ସେଟ କରନ୍ତୁ</string>
+    <string name="layout_action_alert_on">★ ଆଲର୍ଟ ଚାଲୁ</string>
+    <string name="layout_expand">%1$sର ବିବରଣୀ ଖୋଲନ୍ତୁ</string>
+    <string name="layout_collapse">%1$sର ବିବରଣୀ ବନ୍ଦ କରନ୍ତୁ</string>
+    <string name="layout_swipe_hint">%1$s: ୱାଚଲିଷ୍ଟ ଓ ଚାର୍ଟ ବଟନ ପାଇଁ ବାମକୁ ସ୍ୱାଇପ କରନ୍ତୁ</string>
+    <string name="cap_mcap">MCap %1$s</string>
+    <string name="cap_volume">Vol %1$s</string>
+    <string name="cap_rvol">RVOL %1$s×</string>
+    <string name="cap_support">ସପୋର୍ଟ ₹%1$s</string>
+    <string name="cap_rs">R/S %1$s</string>
+    <string name="help_layout_title">ଲେଆଉଟ: ତାଲିକା କିପରି ଦେଖାଯାଏ</string>
+    <string name="help_layout_body">ମେନୁ → ଲେଆଉଟରେ ତାଲିକାର ରୂପ ବାଛନ୍ତୁ। \"ପୃଷ୍ଠଭୂମିର ନିଜସ୍ୱ\" Galaxyରେ ବଡ଼ କାର୍ଡ ଓ Space Glassରେ କମ୍ପାକ୍ଟ ଟେବୁଲ ରଖେ। ଆକର୍ଡିଅନରେ ପ୍ରତ୍ୟେକ ସେୟାର ଗୋଟିଏ ପତଳା ଧାଡ଼ି; ଟ୍ୟାପ କଲେ ସ୍କୋର ବାର, MCap, ଭଲ୍ୟୁମ, RVOL, R/S ଓ ସପୋର୍ଟ ସେଇଠି ଖୋଲେ, ଆଲର୍ଟ, ଚାର୍ଟ ଓ ବିବରଣୀ ବଟନ ସହ। ବେଣ୍ଟୋ ଗ୍ରିଡ ଦୁଇ ସ୍ତମ୍ଭରେ ଟାଇଲ ସଜାଏ: ଗୋଲ ସ୍କୋର ଡାଏଲ, ଶେଷ 15 ଦିନର ରେଖା, ଦର ଓ 5 ଦିନର ପରିବର୍ତ୍ତନ; ଟାଇଲକୁ ଦବାଇ ଧରିଲେ ୱାଚଲିଷ୍ଟରେ ଯୋଡ଼ିହୁଏ। ସ୍ୱାଇପ କାର୍ଡ ସଂଖ୍ୟାକୁ ଛୋଟ କ୍ୟାପସୁଲରେ ଦେଖାଏ, ଆଉ କାର୍ଡକୁ ବାମକୁ ଟାଣିଲେ ★ ୱାଚଲିଷ୍ଟ ଓ ଚାର୍ଟ ବଟନ ଦେଖାଯାଏ।</string>
+</resources>

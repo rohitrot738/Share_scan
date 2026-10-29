@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_sky">ଆକାଶ ଆନିମେସନ</string>
+    <string name="settings_sky_body">ତାରା ଝଲସେ, ଖସେ ଓ ଚମକେ; ବନ୍ଦ କଲେ ଆକାଶ ସ୍ଥିର ରହେ (ବ୍ୟାଟେରୀ ସଞ୍ଚୟ)</string>
+    <string name="settings_section_glass">ଗ୍ଲାସ ମୋଡ</string>
+    <string name="settings_glass_on">ଗ୍ଲାସ ଇଫେକ୍ଟ</string>
+    <string name="settings_glass_on_body">ବନ୍ଦ କଲେ ବୋର୍ଡ, କାର୍ଡ, ବଟନ ଓ ସିଟ ସରଳ ଓ ଦୃଢ଼ ହୁଏ • ଗ୍ଲାସ, ଚମକ ବା ଝାପସା ନାହିଁ</string>
+    <string name="glass_off_body">ଏବେ: ଗ୍ଲାସ ବନ୍ଦ • ଉପରର ସୁଇଚ ଅନ କଲେ ବଛା ମୋଡ ଫେରିଆସେ</string>
+    <string name="settings_glass_body">ସ୍କାନ ବୋର୍ଡ, କାର୍ଡ, ସିଟ, ଚିପ ଓ ସୁଇଚର ଗ୍ଲାସ • ବାଛିବା କ୍ଷଣି ସମଗ୍ର ଆପରେ ଲାଗୁ ହୁଏ</string>
+    <string name="glass_frosted">Frosted</string>
+    <string name="glass_clear">Clear</string>
+    <string name="glass_smoky">Smoky</string>
+    <string name="glass_tinted">Tinted</string>
+    <string name="glass_liquid">Iridescent</string>
+    <string name="glass_solid">Solid</string>
+    <string name="glass_frosted_body">ଏବେ: ଆକାଶ ଦେଖାଯାଉଥିବା ହାଲୁକା କୁହୁଡ଼ି ଗ୍ଲାସ • ଡିଫଲ୍ଟ</string>
+    <string name="glass_clear_body">ଏବେ: ଉଜ୍ଜ୍ୱଳ ଧାର ସହ ସ୍ଫଟିକ ପରି ସ୍ୱଚ୍ଛ ଗ୍ଲାସ • ଆକାଶ ସବୁଠୁ ଅଧିକ ଦେଖାଯାଏ</string>
+    <string name="glass_smoky_body">ଏବେ: ଗାଢ଼, ଧୂଆଁ ପରି ଗ୍ଲାସ • ଆକାଶ କେବଳ ଟିକେ ଝଲସେ</string>
+    <string name="glass_tinted_body">ଏବେ: ଥିମର ରଙ୍ଗରେ ଗ୍ଲାସ</string>
+    <string name="glass_liquid_body">ଏବେ: ପାଣି ଉପରେ ତେଲ ପରି ଆକାଶୀ ନୀଳରୁ ଗୋଲାପୀ ପର୍ଯ୍ୟନ୍ତ ଝଲସୁଥିବା ଧାର</string>
+    <string name="glass_solid_body">ଏବେ: ଟିକେ ଚମକ ସହ ଦୃଢ଼ କାର୍ଡ • ପଢ଼ିବାକୁ ସହଜ, ଫୋନ ପାଇଁ ହାଲୁକା</string>
+</resources>

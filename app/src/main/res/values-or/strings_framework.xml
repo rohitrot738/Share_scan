@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fw_value_line">ଉଚିତ ମୂଲ୍ୟ ₹%1$s · କିଣିବା ଦର ₹%2$s</string>
+    <string name="fw_value_only">ଉଚିତ ମୂଲ୍ୟ ₹%1$s</string>
+    <string name="fw_summary">%1$s · ସୁରକ୍ଷା ମାର୍ଜିନ %2$s%% (%3$s)</string>
+    <string name="fw_price_above">ଦର ₹%1$s, କିଣିବା ଦରରୁ %2$s%% ଉପରେ</string>
+    <string name="fw_price_below">ଦର ₹%1$s, କିଣିବା ଦରରୁ %2$s%% ତଳେ ✓</string>
+    <string name="fw_model_general">ସେକ୍ଟର P/E–P/B ପଦ୍ଧତି</string>
+    <string name="fw_model_bank">ବ୍ୟାଙ୍କ/NBFC: ସଂଶୋଧିତ P/B</string>
+    <string name="fw_model_asset">EV/EBITDA</string>
+    <string name="fw_model_cyclical">ମିଡ-ସାଇକେଲ EV/EBITDA</string>
+    <string name="fw_model_cash">PEG</string>
+    <string name="fw_size_large">ଲାର୍ଜ କ୍ୟାପ</string>
+    <string name="fw_size_mid">ମିଡ କ୍ୟାପ</string>
+    <string name="fw_size_small">ସ୍ମଲ କ୍ୟାପ</string>
+    <string name="fw_open">ଫ୍ରେମୱାର୍କର ପୂରା ହିସାବ</string>
+    <string name="fw_flag_reject">⛔ ଅସ୍ୱୀକାର: ପ୍ରମୋଟରମାନେ ସେମାନଙ୍କ ସେୟାରର %1$s%% ବନ୍ଧକ ରଖିଛନ୍ତି (15%%ରୁ ଅଧିକ)</string>
+    <string name="fw_flag_high_risk">⚠ ଉଚ୍ଚ ଜୋଖିମ: ସୁଧ କଭର କେବଳ %1$s ଗୁଣ (2.5ରୁ କମ)</string>
+    <string name="fw_flag_manipulation">⚠ ସନ୍ଦେହଜନକ ଆୟ: 3 ବର୍ଷର ଅପରେଟିଂ କ୍ୟାଶ ଲାଭର କେବଳ %1$s ଗୁଣ (0.6ରୁ କମ)</string>
+    <string name="fw_flag_low_roa">⚠ ROA %1$s%%: ବ୍ୟାଙ୍କ/NBFC ପାଇଁ 1%%ରୁ କମ, କିଣିବା ନାହିଁ</string>
+    <string name="fw_flag_red">🚩 ରେଡ ଫ୍ଲାଗ: ଭଲ୍ୟୁମ ହାରାହାରିର %1$s ଗୁଣ, କିନ୍ତୁ 3 ଦିନରେ କୌଣସି ଫାଇଲିଂ ବା ଖବର ନାହିଁ — ଅପରେଟରର ଖେଳ ହୋଇପାରେ</string>
+    <string name="fw_flag_blocked">ଏହି କାରଣରୁ ଫ୍ରେମୱାର୍କ ଏବେ କିଣିବା ରୋକି ରଖିଛି</string>
+    <string name="fw_flag_best">⭐ ସର୍ବୋତ୍ତମ ସୁଯୋଗ: ଦର କିଣିବା ଦର ତଳେ, ଓ ସାପ୍ତାହିକ ଡିମାଣ୍ଡ ଜୋନର ଲିକ୍ୱିଡିଟି ସ୍ୱିପ</string>
+    <string name="fw_flag_buy_zone">✅ ବାଇ ଜୋନ: ଦର 200 ଦିନର EMA ₹%1$s ଉପରେ, ₹%2$s – ₹%3$sର ବୁଲିଶ FVG ଉପରେ</string>
+    <string name="fw_flag_sweep">🎯 ସାପ୍ତାହିକ ସ୍ୱିପ: ଏହି ବା ଗତ ସପ୍ତାହରେ ₹%1$sର ସାପ୍ତାହିକ ସ୍ୱିଙ୍ଗ ଲୋ ତଳକୁ ଯାଇ ପୁଣି ଉପରେ ବନ୍ଦ ହେଲା</string>
+    <string name="fw_flag_cyclical">⚠ ସାଇକ୍ଲିକାଲ: ଧାତୁ ଓ ତେଲରେ କମ P/E ଅନେକ ଥର ଶିଖର ଆୟ, ତେଣୁ ମିଡ-ସାଇକେଲ EBITDAରେ ମୂଲ୍ୟାୟନ</string>
+    <string name="fw_flag_peg_low">✅ PEG %1$s: 1ରୁ କମ, ବୃଦ୍ଧି ତୁଳନାରେ ଶସ୍ତା</string>
+    <string name="fw_flag_peg_high">⚠ PEG %1$s: 2ରୁ ଅଧିକ, ବୃଦ୍ଧି ତୁଳନାରେ ମହଙ୍ଗା</string>
+    <string name="fw_penalties">ପେନାଲ୍ଟି: %1$s</string>
+    <string name="fw_penalty_auditor">ଅଡିଟର ଇସ୍ତଫା −40%%</string>
+    <string name="fw_penalty_debt">ଋଣ −20%%</string>
+    <string name="fw_penalty_institutions">FII/DII ବିକ୍ରି −10%%</string>
+    <string name="fw_penalty_roce">କମ ROCE −20%%</string>
+    <string name="fw_calc_model">%1$s ପଦ୍ଧତି (%2$s)</string>
+    <string name="fw_calc_fallback">%1$s ପାଇଁ ଡାଟା କମ (ଛୋଟ ଇତିହାସ, କ୍ଷତି ବା ଧୀର ବୃଦ୍ଧି), ତେଣୁ ସେକ୍ଟର P/E–P/B ପଦ୍ଧତି ବ୍ୟବହୃତ</string>
+    <string name="fw_calc_bank_book">ବୁକ ଭାଲ୍ୟୁ ₹%1$s/ସେୟାର − ଖରାପ ଋଣ ₹%2$s/ସେୟାର (ନେଟ NPA ଋଣର %3$s%%) = ସଂଶୋଧିତ ବୁକ ₹%4$s</string>
+    <string name="fw_calc_bank_no_npa">ବୁକ ଭାଲ୍ୟୁ ₹%1$s/ସେୟାର; ନେଟ NPA ମିଳିଲା ନାହିଁ (କନସୋଲିଡେଟେଡ ପେଜରେ ନାହିଁ), ତେଣୁ ପୂରା ବୁକ ଗଣାଗଲା</string>
+    <string name="fw_calc_bank_pb">ନିଜର 3 ବର୍ଷର ମଝିଆ P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_bank_pb_sector">ନିଜ ଇତିହାସ ଛୋଟ, ତେଣୁ ସେକ୍ଟରର P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_roa">ROA (12 ମାସର ଲାଭ ÷ ମୋଟ ସମ୍ପତ୍ତି) %1$s%%; 1%%ରୁ ଅଧିକ ଦରକାର</string>
+    <string name="fw_calc_ev_multiple">ନିଜର 3 ବର୍ଷର ମଝିଆ EV/EBITDA %1$s (ଆଜି %2$s)</string>
+    <string name="fw_calc_ev_multiple_only">ନିଜର 3 ବର୍ଷର ମଝିଆ EV/EBITDA %1$s</string>
+    <string name="fw_calc_ebitda">EBITDA (12 ମାସ): %1$s</string>
+    <string name="fw_calc_ebitda_mid">ମିଡ-ସାଇକେଲ EBITDA (ବାର୍ଷିକ EBITDAର ହାରାହାରି): %1$s</string>
+    <string name="fw_calc_ev_value">(%1$s × %2$s − ଋଣ %3$s) ÷ %4$s Cr ସେୟାର = ₹%5$s</string>
+    <string name="fw_calc_ev_note">EV = ବଜାର ମୂଲ୍ୟ + ଋଣ (Screenerର ସାରାଂଶରେ ଅଲଗା କ୍ୟାଶ ନାହିଁ, ତେଣୁ ଦୁଇ ପଟରୁ ଏହା ବାଦ)</string>
+    <string name="fw_calc_roce_cut">ROCE %1$s%%, 12%%ରୁ କମ → 20%% କମ: ₹%2$s</string>
+    <string name="fw_calc_roce_ok">ROCE %1$s%% (12%% ବା ଅଧିକ) ✓</string>
+    <string name="fw_calc_peg">P/E %1$s ÷ 3 ବର୍ଷରେ EPSର ବାର୍ଷିକ ବୃଦ୍ଧି %2$s%% = PEG %3$s (1ରୁ କମ ଶସ୍ତା, 2ରୁ ଅଧିକ ମହଙ୍ଗା)</string>
+    <string name="fw_calc_peg_fair">ଉଚିତ P/E: %1$s %2$s, କିନ୍ତୁ PEG 2 (2 × ବୃଦ୍ଧି) %3$sରେ ସୀମିତ → %4$s</string>
+    <string name="fw_calc_peg_own">ନିଜର ସାଧାରଣ 3 ବର୍ଷର P/E</string>
+    <string name="fw_calc_peg_sector">ସେକ୍ଟରର ସାଧାରଣ P/E (ନିଜ ଇତିହାସ ଛୋଟ)</string>
+    <string name="fw_calc_peg_band">ଉଚିତ P/E: ନିଜର ବା ସେକ୍ଟରର P/E ମିଳିଲା ନାହିଁ, ତେଣୁ PEG 1.5ରେ: %1$s</string>
+    <string name="fw_calc_peg_value">ଉଚିତ ମୂଲ୍ୟ = EPS ₹%1$s × ଉଚିତ P/E %2$s = ₹%3$s</string>
+    <string name="fw_calc_peg_slow">3 ବର୍ଷରେ EPSର ବାର୍ଷିକ ବୃଦ୍ଧି %1$s%%: 5%%ରୁ କମରେ PEG କିଛି କହେ ନାହିଁ</string>
+    <string name="fw_calc_general">ସେକ୍ଟରର P/E–P/B ଓ କମ୍ପାନୀର ନିଜ P/Eରୁ ଦରର ହାରାହାରି = ₹%1$s</string>
+    <string name="fw_calc_penalty_auditor">ଷ୍ଟାଟୁଟୋରୀ ଅଡିଟର %1$sରେ ଇସ୍ତଫା ଦେଲେ → −40%%</string>
+    <string name="fw_calc_penalty_debt">ଋଣ ଇକ୍ୱିଟିର 1.5 ଗୁଣରୁ ଅଧିକ → −20%%</string>
+    <string name="fw_calc_penalty_institutions">FII + DII ଅଂଶ ଲଗାତାର 3 ତ୍ରୈମାସିକ କମିଲା → −10%%</string>
+    <string name="fw_calc_after_penalties">ପେନାଲ୍ଟି ପରେ ଉଚିତ ମୂଲ୍ୟ: ₹%1$s × %2$s = ₹%3$s</string>
+    <string name="fw_calc_no_penalties">କୌଣସି ପେନାଲ୍ଟି ନାହିଁ (ଅଡିଟର, ଋଣ, FII/DII ଠିକ) → ଉଚିତ ମୂଲ୍ୟ ₹%1$s</string>
+    <string name="fw_calc_margin">ସୁରକ୍ଷା ମାର୍ଜିନ %1$s%% (%2$s) → କିଣିବା ଦର ₹%3$s × %4$s = ₹%5$s</string>
+    <string name="fw_calc_screen">ସାର୍ବଜନୀନ ଯାଞ୍ଚ</string>
+    <string name="fw_calc_pledge">ପ୍ରମୋଟର ବନ୍ଧକ %1$s%% (15%%ରୁ ଅଧିକ = ଅସ୍ୱୀକାର)</string>
+    <string name="fw_calc_pledge_none">ପ୍ରମୋଟର ବନ୍ଧକ: NSEରେ ମିଳିଲା ନାହିଁ</string>
+    <string name="fw_calc_icr">ସୁଧ କଭର: (12 ମାସର PBT + ସୁଧ) ÷ ସୁଧ = %1$s ଗୁଣ (2.5ରୁ କମ = ଉଚ୍ଚ ଜୋଖିମ)</string>
+    <string name="fw_calc_cash">3 ବର୍ଷର ଅପରେଟିଂ କ୍ୟାଶ ÷ ଲାଭ = %1$s (0.6ରୁ କମ = ସନ୍ଦେହଜନକ ଆୟ)</string>
+    <string name="fw_calc_lender">ବ୍ୟାଙ୍କ/NBFCର ସୁଧ ଓ କ୍ୟାଶ ଫ୍ଲୋ ଏହିପରି ଯାଞ୍ଚ ହୋଇପାରେ ନାହିଁ</string>
+    <string name="fw_calc_chart">ଚାର୍ଟ (SMC)</string>
+    <string name="fw_calc_ema_above">200 ଦିନର EMA ₹%1$s: ଦର ଏହା ଉପରେ</string>
+    <string name="fw_calc_ema_below">200 ଦିନର EMA ₹%1$s: ଦର ଏହା ତଳେ</string>
+    <string name="fw_calc_gap">ଅପୂରଣ ବୁଲିଶ FVG ₹%1$s – ₹%2$s; ଦର ଏହା ଭିତରେ ବା 5%% ପର୍ଯ୍ୟନ୍ତ ଉପରେ</string>
+    <string name="fw_calc_no_gap">ଗତ 60 ସେସନରେ ଦର ପାଖରେ କୌଣସି ଅପୂରଣ ବୁଲିଶ FVG ନାହିଁ</string>
+    <string name="fw_calc_sweep">ସାପ୍ତାହିକ ସ୍ୱିପ: ₹%1$sର ସାପ୍ତାହିକ ସ୍ୱିଙ୍ଗ ଲୋ ଭାଙ୍ଗି ଉପରେ ବନ୍ଦ ହେଲା</string>
+    <string name="fw_calc_no_sweep">ଏହି ବା ଗତ ସପ୍ତାହରେ କୌଣସି ସାପ୍ତାହିକ ଲିକ୍ୱିଡିଟି ସ୍ୱିପ ନାହିଁ</string>
+    <string name="fw_calc_best_rule">ସର୍ବୋତ୍ତମ ସୁଯୋଗ = ଦର କିଣିବା ଦର ତଳେ + ସାପ୍ତାହିକ ସ୍ୱିପ + କିଛି ରୋକୁ ନାହିଁ</string>
+    <string name="fw_cr">₹%1$s Cr</string>
+    <string name="help_framework_title">R/Sର ମୂଲ୍ୟାୟନ ଫ୍ରେମୱାର୍କ (ଉଚିତ ମୂଲ୍ୟ ଓ କିଣିବା ଦର)</string>
+    <string name="help_framework_body">R/S ପ୍ରତ୍ୟେକ କମ୍ପାନୀର ଉଚିତ (ଆନ୍ତରିକ) ମୂଲ୍ୟ ତାର ସେକ୍ଟର ଅନୁସାରେ ବାହାର କରେ। ବ୍ୟାଙ୍କ, NBFC ଓ ଅନ୍ୟ ଆର୍ଥିକ କମ୍ପାନୀ: ପ୍ରତି ସେୟାର ବୁକ ଭାଲ୍ୟୁରୁ ନେଟ NPA (ଖରାପ ଋଣ) ବାଦ, ଗୁଣନ କମ୍ପାନୀର ଗତ 3 ବର୍ଷର ମଝିଆ P/B (ଇତିହାସ ଛୋଟ ହେଲେ ସେକ୍ଟରର); ROA 1%ରୁ କମ ହେଲେ — କିଣିବା ନାହିଁ। ମେସିନ ଓ କାରଖାନା ଥିବା କମ୍ପାନୀ, ଯେପରି କ୍ୟାପିଟାଲ ଗୁଡ୍ସ, ଅଟୋ, କେମିକାଲ, ନିର୍ମାଣ ଓ ବିଦ୍ୟୁତ: ନିଜର 3 ବର୍ଷର ମଝିଆ EV/EBITDA × ଆଜିର EBITDA, ଋଣ ବାଦ, ପ୍ରତି ସେୟାର; ROCE 12%ରୁ କମ ହେଲେ — 20% କମ। ଧାତୁ, ଖଣି, ତେଲ ଓ ଗ୍ୟାସ: ସେହିପରି, କିନ୍ତୁ ବର୍ଷଗୁଡ଼ିକର ହାରାହାରି (ମିଡ-ସାଇକେଲ) EBITDAରେ, ଚେତାବନୀ ସହ ଯେ ସେଠାରେ କମ P/E ଅନେକ ଥର ଶିଖର ଆୟ। IT, FMCG ଓ ଫାର୍ମା: PEG = P/E ÷ ଗତ 3 ବର୍ଷରେ EPSର ବାର୍ଷିକ ବୃଦ୍ଧି (ବୃଦ୍ଧିର ପୂର୍ବାନୁମାନ ମାଗଣା ନୁହେଁ); 1ରୁ କମ ଶସ୍ତା, 2ରୁ ଅଧିକ ମହଙ୍ଗା; ଉଚିତ ମୂଲ୍ୟ = EPS × କମ୍ପାନୀର ନିଜ ସାଧାରଣ P/E, କିନ୍ତୁ PEG 2 (2 × ବୃଦ୍ଧି)ର P/Eରୁ ଅଧିକ ନୁହେଁ। ଅନ୍ୟ ସେକ୍ଟର, ବା ଡାଟା କମ ହେଲେ: ପୁରୁଣା ସେକ୍ଟର P/E–P/B ଓ ନିଜ-P/E ପଦ୍ଧତି। ତା ପରେ ପେନାଲ୍ଟି: ଗତ ବର୍ଷରେ ଷ୍ଟାଟୁଟୋରୀ ଅଡିଟର ଇସ୍ତଫା −40%; ଋଣ ଇକ୍ୱିଟିର 1.5 ଗୁଣରୁ ଅଧିକ −20%; FII + DII ଅଂଶ ଲଗାତାର 3 ତ୍ରୈମାସିକ କମିଲେ −10%। କିଣିବା ଦର = ଉଚିତ ମୂଲ୍ୟ × (1 − ସୁରକ୍ଷା ମାର୍ଜିନ): ବଜାର ମୂଲ୍ୟରେ ଉପର 100 କମ୍ପାନୀ (ଲାର୍ଜ କ୍ୟାପ) 20%; 101–250 (ମିଡ କ୍ୟାପ) 27.5%; ବାକି (ସ୍ମଲ କ୍ୟାପ) 35%। ପ୍ରତ୍ୟେକ କମ୍ପାନୀର ସାର୍ବଜନୀନ ଯାଞ୍ଚ ମଧ୍ୟ ହୁଏ: ପ୍ରମୋଟରଙ୍କ ବନ୍ଧକ ସେୟାର 15%ରୁ ଅଧିକ → ଅସ୍ୱୀକାର (R/S \"ଦୂରେଇ ରୁହନ୍ତୁ\"); ସୁଧ କଭର 2.5 ଗୁଣରୁ କମ ମାନେ ଉଚ୍ଚ ଜୋଖିମ, ଓ 3 ବର୍ଷର ଅପରେଟିଂ କ୍ୟାଶ ଲାଭର 0.6 ଗୁଣରୁ କମ ମାନେ ସନ୍ଦେହଜନକ ଆୟ (ଯେକୌଣସି R/Sକୁ \"ସାବଧାନ\"ରେ ସୀମିତ କରେ)। ଚାର୍ଟରେ: ଦର 200 ଦିନର EMA ଉପରେ ଓ ଅପୂରଣ ବୁଲିଶ FVG ଉପରେ ହେଲେ ବାଇ ଜୋନ; ଏହି ବା ଗତ ସପ୍ତାହରେ ଦର ସାପ୍ତାହିକ ସ୍ୱିଙ୍ଗ ଲୋ ତଳକୁ ଯାଇ ପୁଣି ଉପରେ ବନ୍ଦ ହେଲେ ସାପ୍ତାହିକ ସ୍ୱିପ। ଦର କିଣିବା ଦର ତଳେ, ସାପ୍ତାହିକ ସ୍ୱିପ ଓ କିଛି ରୋକୁ ନଥିଲେ ⭐ ସର୍ବୋତ୍ତମ ସୁଯୋଗ। ସେୟାର ଖୋଲିଲେ ତାର ଖବର ମଧ୍ୟ ଦେଖାଯାଏ: ଭଲ୍ୟୁମ ହାରାହାରିର 3 ଗୁଣ ବା ଅଧିକ କିନ୍ତୁ ଗତ 3 ଦିନରେ କୌଣସି ଫାଇଲିଂ ବା ଖବର ନାହିଁ ହେଲେ 🚩 ରେଡ ଫ୍ଲାଗ (ଅପରେଟରର ଖେଳ ହୋଇପାରେ) ଓ ଫ୍ରେମୱାର୍କ କିଣିବା ରୋକେ। ପ୍ରମୋଟର ବନ୍ଧକ ଓ ଅଡିଟର ଇସ୍ତଫା NSEରୁ ଆସେ, ତେଣୁ କେବଳ-BSE ସେୟାରରେ ଏହି ଯାଞ୍ଚ ହୁଏ ନାହିଁ। R/S କାର୍ଡ ଉଚିତ ମୂଲ୍ୟ, କିଣିବା ଦର ଓ ଫ୍ଲାଗ ଦେଖାଏ, ଓ \"ଫ୍ରେମୱାର୍କର ପୂରା ହିସାବ\" ପ୍ରତ୍ୟେକ ପଦକ୍ଷେପ ଦେଖାଏ। ନୂଆ ସଂଖ୍ୟା ପ୍ରତ୍ୟେକ ସେୟାରର Screener ପେଜ ପୁଣି ପଢ଼ାଯିବା ସହ ଆସିବ, ଯାହାକୁ କିଛି ଦିନ ଲାଗିବ; ସେ ପର୍ଯ୍ୟନ୍ତ କିଛି ସେୟାର ପୁରୁଣା ପଦ୍ଧତିରେ ରହିବ। ନିବେଶ ପରାମର୍ଶ ନୁହେଁ।</string>
+</resources>

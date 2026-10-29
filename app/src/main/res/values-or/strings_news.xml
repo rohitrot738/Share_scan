@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="news_kind_results">ଫଳାଫଳ</string>
+    <string name="news_kind_order">ଅର୍ଡର</string>
+    <string name="news_kind_dividend">ଲାଭାଂଶ / ବୋନସ</string>
+    <string name="news_kind_fundraise">ପୁଞ୍ଜି ସଂଗ୍ରହ</string>
+    <string name="news_kind_deal">ଅଧିଗ୍ରହଣ</string>
+    <string name="news_kind_expansion">ସମ୍ପ୍ରସାରଣ</string>
+    <string name="news_kind_management">ପରିଚାଳନା</string>
+    <string name="news_kind_rating">ରେଟିଂ</string>
+    <string name="news_kind_legal">ଆଇନଗତ</string>
+    <string name="news_kind_meeting">ବୋର୍ଡ ବୈଠକ</string>
+    <string name="news_kind_investor">ବିଶ୍ଳେଷକ ବୈଠକ</string>
+    <string name="news_kind_other">ଖବର</string>
+    <string name="news_kind_routine">ସାଧାରଣ ସୂଚନା</string>
+    <string name="news_pre_open">ବଜାର ପୂର୍ବରୁ</string>
+    <string name="news_live">ଲାଇଭ</string>
+    <string name="news_today">ଆଜି %1$s</string>
+    <string name="news_yesterday">ଗତକାଲି %1$s</string>
+    <string name="detail_tab_overview">ସୂଚନା</string>
+    <string name="detail_tab_news">ଖବର</string>
+    <string name="detail_tab_news_count">ଖବର · %1$d</string>
+    <string name="news_loading">NSE/BSE ଘୋଷଣା ଓ ଖବରକାଗଜର ଖବର ଆସୁଛି…</string>
+    <string name="news_subtitle">ଏକ୍ସଚେଞ୍ଜ ଘୋଷଣା (30 ଦିନ) ଓ ଖବରକାଗଜର ଖବର (7 ଦିନ) • ନୂଆ ଉପରେ • ପୂରା ଖବର ପଢ଼ିବାକୁ ଟ୍ୟାପ କରନ୍ତୁ</string>
+    <string name="news_subtitle_wide">ଏହି ସେୟାରର ଖବର କମ ଆସେ, ତେଣୁ ଗତ 1 ବର୍ଷ ପର୍ଯ୍ୟନ୍ତ ଘୋଷଣା ଓ ଖବର • ନୂଆ ଉପରେ • ପୂରା ଖବର ପଢ଼ିବାକୁ ଟ୍ୟାପ କରନ୍ତୁ</string>
+    <string name="news_none">ଗତ 1 ବର୍ଷରେ ଏହି ସେୟାରର କୌଣସି ଘୋଷଣା ବା ଖବର ମିଳିଲା ନାହିଁ</string>
+    <string name="news_failed">ଖବର ଆସିଲା ନାହିଁ — ଇଣ୍ଟରନେଟ ଯାଞ୍ଚ କରି ସିଟ ପୁଣି ଖୋଲନ୍ତୁ</string>
+    <string name="news_source_filing">%1$s ଘୋଷଣା • PDF</string>
+    <string name="news_source_filing_page">%1$s ଘୋଷଣା</string>
+    <string name="news_more">ଆଉ %1$d ଖବର ଦେଖାନ୍ତୁ</string>
+    <string name="news_routine">+%1$d ସାଧାରଣ ସୂଚନା (ଖବରକାଗଜରେ ନୋଟିସ, ଟ୍ରେଡିଂ ୱିଣ୍ଡୋ, ପ୍ରମାଣପତ୍ର…)</string>
+    <string name="news_open_failed">ଖବର ଖୋଲିବାକୁ କୌଣସି ବ୍ରାଉଜର ମିଳିଲା ନାହିଁ</string>
+    <string name="item_news_badge">📰 %1$s</string>
+    <string name="item_news_badge_more">📰 %1$s +%2$d</string>
+    <string name="item_news_description">ଗତ 24 ଘଣ୍ଟାରେ %1$d ଘୋଷଣା, ସବୁଠୁ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ: %2$s</string>
+    <string name="settings_news_alerts">ୱାଚଲିଷ୍ଟ ଖବର</string>
+    <string name="settings_news_alerts_body">ସକାଳ 8ରୁ 9:15 ମଧ୍ୟରେ ★ ସେୟାରର ରାତିସାରା ଖବର ଗୋଟିଏ ବିଜ୍ଞପ୍ତିରେ, ଓ ଦିନରେ (ସକାଳ 7ରୁ ରାତି 10) ଫଳାଫଳ, ଅର୍ଡର, ଲାଭାଂଶ ପରି ବଡ଼ ଘୋଷଣା ଆସିବା କ୍ଷଣି ବିଜ୍ଞପ୍ତି</string>
+    <string name="notify_channel_news">ୱାଚଲିଷ୍ଟ ଖବର</string>
+    <string name="notify_channel_news_body">★ ସେୟାରର ସକାଳର ଖବର ଓ ବଡ଼ ଘୋଷଣା</string>
+    <string name="notify_news_alert">📰 %1$s: %2$s</string>
+    <string name="notify_news_read">ପୂରା ଖବର</string>
+    <string name="notify_news_digest">🗞 ସକାଳର ଖବର • %1$d ସେୟାର</string>
+    <string name="notify_news_digest_line">%1$s · %2$s: %3$s</string>
+    <string name="help_news_title">ଖବର</string>
+    <string name="help_news_body">ପ୍ରତ୍ୟେକ ସେୟାରର ବିବରଣୀରେ ଅଲଗା \"ଖବର\" ଟ୍ୟାବ ଅଛି: NSEର (କେବଳ BSEରେ ତାଲିକାଭୁକ୍ତ ସେୟାର ପାଇଁ BSEର) ଗତ 30 ଦିନର ଘୋଷଣା ଓ ଗତ ସପ୍ତାହର ଖବରକାଗଜର ଖବର (Google Newsରୁ, ଇଂରାଜୀ ଓ ହିନ୍ଦୀ), ନୂଆ ଉପରେ। ଅନ୍ତତଃ 10ଟି ଖବର ଦେଖାଯାଏ: ଯେଉଁ ସେୟାରର ଖବର କମ ଆସେ, ତାର ଗତ 1 ବର୍ଷ ପର୍ଯ୍ୟନ୍ତ ଘୋଷଣା ଓ ଖବର ଆସେ। ତାଜା ଖବର ଥିଲେ ଟ୍ୟାବରେ ଗୋଟିଏ ବିନ୍ଦୁ ଦେଖାଯାଏ। ପ୍ରତ୍ୟେକ ଖବରରେ ତାର ପ୍ରକାର (ଫଳାଫଳ, ଅର୍ଡର, ଲାଭାଂଶ, ସମ୍ପ୍ରସାରଣ, ଆଇନଗତ…) ଲେଖାଥାଏ, ଓ \"ବଜାର ପୂର୍ବରୁ\" (ପୂର୍ବ ବନ୍ଦ ପରେ ଆସିଛି, ପରବର୍ତ୍ତୀ ସେସନ ଏହା ଉପରେ ଖୋଲିବ) ବା \"ଲାଇଭ\" (ଆଜି ବଜାର ସମୟରେ ଆସିଛି)। ଟ୍ୟାପ କଲେ ପୂରା ଖବର ବା ଘୋଷଣାର PDF ଖୋଲେ। ତାଲିକାରେ 📰 ଚିହ୍ନ ଜଣାଏ ଯେ ଗତ 24 ଘଣ୍ଟାରେ ସେହି ସେୟାରର ଏକ୍ସଚେଞ୍ଜରେ ଘୋଷଣା ଆସିଛି; ଏହାକୁ ଟ୍ୟାପ କଲେ ସେୟାର ସିଧା \"ଖବର\" ଟ୍ୟାବରେ ଖୋଲେ, ଖବର ବିଜ୍ଞପ୍ତି ମଧ୍ୟ ସେହିପରି। ମେନୁ → ସ୍କାନରେ \"ୱାଚଲିଷ୍ଟ ଖବର\" ଚାଲୁ ଥିଲେ ★ ସେୟାରର ସକାଳର ଖବର ଓ ଦିନର ବଡ଼ ଘୋଷଣା ବିଜ୍ଞପ୍ତିରେ ଆସେ। ଖବର ଭଲ କି ଖରାପ, ଆପ କହେ ନାହିଁ — ପଢ଼ି ନିଜେ ସ୍ଥିର କରନ୍ତୁ।</string>
+</resources>

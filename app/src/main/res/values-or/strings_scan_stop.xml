@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_stop">ବନ୍ଦ କରନ୍ତୁ</string>
+    <string name="action_stopping">ବନ୍ଦ ହେଉଛି…</string>
+    <string name="status_stopped_title">ସ୍କାନ ବନ୍ଦ ହେଲା</string>
+    <string name="status_stopped_body">%1$s / %2$s ସେୟାର ଯାଞ୍ଚ ହେଲା • %3$sରେ</string>
+    <string name="status_stopped_early_body">ସେୟାର ତାଲିକା ଆସିବା ପୂର୍ବରୁ ବନ୍ଦ ହୋଇଗଲା।</string>
+    <string name="empty_stopped_title">କୌଣସି ସେୟାରର ସ୍କୋର ତିଆରି ହେଲା ନାହିଁ</string>
+    <string name="empty_stopped_body">ସ୍କାନ ତା ପୂର୍ବରୁ ବନ୍ଦ ହୋଇଗଲା। ଉପରର ବଟନ ଟ୍ୟାପ କରି ପୁଣି ସ୍କାନ କରନ୍ତୁ।</string>
+</resources>

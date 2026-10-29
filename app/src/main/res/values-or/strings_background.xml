@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notify_channel_scan">ସ୍କାନ ଚାଲିଛି</string>
+    <string name="notify_channel_scan_body">ଆପ ବନ୍ଦ ଥିଲେ ମଧ୍ୟ ଆପଣଙ୍କ ସ୍କାନ ଚାଲୁ ରହୁଥିବାରୁ, ତାର ପ୍ରଗତି</string>
+    <string name="notify_channel_scan_done">ସ୍କାନ ସମ୍ପୂର୍ଣ୍ଣ</string>
+    <string name="notify_channel_scan_done_body">ଆପଣ ଆପ ବାହାରେ ଥିବା ବେଳେ ଶେଷ ହୋଇଥିବା ସ୍କାନର ଫଳାଫଳ</string>
+    <string name="notify_scan_title">ସ୍କାନ ଚାଲିଛି</string>
+    <string name="notify_scan_loading">ସେୟାର ତାଲିକା ଆସୁଛି…</string>
+    <string name="notify_scan_body">%1$s / %2$s ସେୟାର • %3$d%%</string>
+    <string name="notify_scan_stopping">ସ୍କାନ ବନ୍ଦ ହେଉଛି…</string>
+    <string name="notify_scan_done">✅ ସ୍କାନ ସମ୍ପୂର୍ଣ୍ଣ • %1$d ସର୍ବୋତ୍ତମ ପ୍ରାର୍ଥୀ</string>
+    <string name="notify_scan_stopped">⏹ ସ୍କାନ ବନ୍ଦ ହେଲା • %1$d ସର୍ବୋତ୍ତମ ପ୍ରାର୍ଥୀ</string>
+    <string name="notify_scan_stopped_early">⏹ ସ୍କାନ ବନ୍ଦ ହେଲା</string>
+    <string name="notify_scan_stopped_early_body">କୌଣସି ସେୟାର ଯାଞ୍ଚ ହେବା ପୂର୍ବରୁ ବନ୍ଦ ହେଲା — ପୂର୍ବ ସ୍କାନ ବଦଳିନାହିଁ</string>
+    <string name="notify_scan_top">ଟପ: %1$s • ସ୍କୋର %2$s — ଦେଖିବାକୁ ଟ୍ୟାପ କରନ୍ତୁ</string>
+    <string name="notify_scan_none">ଆପଣଙ୍କ ଫିଲ୍ଟରକୁ କୌଣସି ସେୟାର ପାର କଲା ନାହିଁ — ଦେଖିବାକୁ ଟ୍ୟାପ କରନ୍ତୁ</string>
+    <string name="status_reading_title">ଶେଷ ସ୍କାନ ଖୋଲୁଛି…</string>
+    <string name="status_reading_body">ସେଭ ହୋଇଥିବା ତାଲିକା ପଢ଼ୁଛି — ଟିକେ ଅପେକ୍ଷା କରନ୍ତୁ</string>
+    <string name="empty_reading_body">ଶେଷ ସ୍କାନର ତାଲିକା ଆସୁଛି; ବିଜ୍ଞପ୍ତିରୁ ଖୋଲା ସେୟାର ଏହା ସହ ଖୋଲିବ।</string>
+    <string name="notify_open_missing">%1$s ବର୍ତ୍ତମାନର ତାଲିକାରେ ନାହିଁ — ନୂଆ ସ୍କାନ କରନ୍ତୁ</string>
+    <string name="notify_channel_update">ଆପ ଅପଡେଟ</string>
+    <string name="notify_channel_update_body">ନୂଆ ସଂସ୍କରଣ ଡାଉନଲୋଡ ହୋଇ ଇନଷ୍ଟଲ ପାଇଁ ପ୍ରସ୍ତୁତ ହେଲେ</string>
+    <string name="update_download_title">Share Scan %1$s</string>
+    <string name="update_download_body">ନୂଆ ସଂସ୍କରଣ ଡାଉନଲୋଡ ହେଉଛି</string>
+    <string name="notify_update_ready">Share Scan %1$s ପ୍ରସ୍ତୁତ</string>
+    <string name="notify_update_ready_body">ଡାଉନଲୋଡ ସମ୍ପୂର୍ଣ୍ଣ — ଇନଷ୍ଟଲ କରିବାକୁ ଟ୍ୟାପ କରନ୍ତୁ</string>
+    <string name="settings_background">ପୃଷ୍ଠଭୂମିରେ ଚାଲିବାକୁ ଦିଅନ୍ତୁ</string>
+    <string name="settings_background_off">⚠ ଏବେ ବ୍ୟାଟେରୀ ବଞ୍ଚାଇବାକୁ Android ଅଟୋ-ସ୍କାନ ଓ ଆଲର୍ଟକୁ ବିଳମ୍ବ ବା ବନ୍ଦ କରିପାରେ। ଏଠାରେ ଟ୍ୟାପ କରି “Allow” ବାଛନ୍ତୁ। Xiaomi, Redmi, Vivo, Oppo ଓ Realmeରେ App infoରେ “Autostart” ମଧ୍ୟ ଚାଲୁ କରନ୍ତୁ।</string>
+    <string name="settings_background_on">✓ ଚାଲୁ — ବ୍ୟାଟେରୀ ବଞ୍ଚାଇବାକୁ Android ଏହି ଆପର ଅଟୋ-ସ୍କାନ ଓ ଆଲର୍ଟ ବନ୍ଦ କରିବ ନାହିଁ। Xiaomi, Redmi, Vivo, Oppo ଓ Realmeରେ App infoରେ “Autostart” ମଧ୍ୟ ଚାଲୁ ରଖନ୍ତୁ (ଖୋଲିବାକୁ ଏଠାରେ ଟ୍ୟାପ କରନ୍ତୁ)।</string>
+    <string name="help_background_title">ପୃଷ୍ଠଭୂମିରେ ସ୍କାନ</string>
+    <string name="help_background_body">ସ୍କାନ ଟ୍ୟାପ କରିବା ପରେ ଆପରୁ ବାହାରିଗଲେ ବା ସ୍କ୍ରିନ ବନ୍ଦ କଲେ ମଧ୍ୟ ସ୍କାନ ଚାଲୁ ରହେ — ଗୋଟିଏ ବିଜ୍ଞପ୍ତି ତାର ପ୍ରଗତି ଓ “ବନ୍ଦ କରନ୍ତୁ” ବଟନ ଦେଖାଏ, ଶେଷ ହେଲେ ଆଉ ଗୋଟିଏ ଫଳାଫଳ ଆଣେ। ଅପଡେଟ ଡାଉନଲୋଡ ମଧ୍ୟ Androidର ଡାଉନଲୋଡ ମ୍ୟାନେଜର ଦ୍ୱାରା ହୁଏ, ତେଣୁ ଆପ ବନ୍ଦ ଥିଲେ ମଧ୍ୟ ଶେଷ ହୁଏ, ତା ପରେ “ଇନଷ୍ଟଲ କରିବାକୁ ଟ୍ୟାପ କରନ୍ତୁ” ବିଜ୍ଞପ୍ତି ଆସେ। ବଜାର ସମୟର ଅଟୋ-ସ୍କାନ Android ନିଜେ ଚଳାଏ: ମେନୁ → ସ୍କାନରେ “ପୃଷ୍ଠଭୂମିରେ ଚାଲିବାକୁ ଦିଅନ୍ତୁ” ଟ୍ୟାପ କରି ଅନୁମତି ଦିଅନ୍ତୁ, ନଚେତ ବ୍ୟାଟେରୀ ବଞ୍ଚାଇବାକୁ Android ଏହାକୁ ବିଳମ୍ବ ବା ବନ୍ଦ କରିପାରେ। Xiaomi, Redmi, Vivo, Oppo ଓ Realme ପରି ଫୋନରେ App infoରେ “Autostart” ମଧ୍ୟ ଚାଲୁ କରନ୍ତୁ।</string>
+</resources>

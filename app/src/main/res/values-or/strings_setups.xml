@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="item_setup_learned">🎯 ଶିଖା ସେଟଅପ • %1$d%% ସଫଳ: %2$s</string>
+    <string name="detail_setup_learned">🎯 ଶିଖା ସେଟଅପ: %1$s। ଗତ 2 ବର୍ଷରେ ଏପରି %2$dଟି ଯୋଜନାର %3$d%%ରେ ଲକ୍ଷ୍ୟ 1 ନିର୍ଦ୍ଧାରିତ ଦିନ ମଧ୍ୟରେ ଷ୍ଟପ ପୂର୍ବରୁ ପହଞ୍ଚିଲା (ସବୁ ସେୟାରର ହାରାହାରି %4$d%%)।</string>
+    <string name="detail_setup_learned_none">ଏହି ସେୟାରରେ ଆଜି କୌଣସି ଶିଖା ସେଟଅପ ଲାଗୁ ହେଉନାହିଁ। ସବୁ ସେୟାରରେ ଲକ୍ଷ୍ୟ 1 ନିର୍ଦ୍ଧାରିତ ଦିନ ମଧ୍ୟରେ %1$d%% ଥର ପହଞ୍ଚିଲା। ସବୁଠୁ ସଫଳ ସେଟଅପ: %2$s</string>
+    <string name="detail_setup_learned_top">%1$s (%2$d%%)</string>
+    <string name="item_setup_rally">📈 ରାଲି ସେଟଅପ • %1$d%%: %2$s</string>
+    <string name="detail_plan_stop_learned">ଶିଖା ଷ୍ଟପ: ଏଣ୍ଟ୍ରିରୁ %1$s ATR ତଳେ</string>
+    <string name="detail_plan_quick_time_learned">⏱ ଏଣ୍ଟ୍ରି ପରେ ପ୍ରାୟ %1$d–%2$d ଦିନ</string>
+    <string name="detail_plan_learned">🧠 ଶିଖା ଯୋଜନା: ଷ୍ଟପ %1$s, ଲକ୍ଷ୍ୟ 1 = +%2$s, %3$d ଦିନ ମଧ୍ୟରେ। ଗତ 2 ବର୍ଷରେ ଏପରି ଯୋଜନାରେ %4$d%% ସଫଳ, ପ୍ରତି ଟ୍ରେଡରେ ହାରାହାରି %5$s (ସବୁ ସେୟାରରେ ଆପର ପୁରୁଣା ଯୋଜନା: %6$d%% ସଫଳ, %7$s)।</string>
+    <string name="detail_plan_learned_stop_atr">ଏଣ୍ଟ୍ରିରୁ %1$s ATR ତଳେ</string>
+    <string name="detail_plan_learned_stop_own">10 ଦିନର ସର୍ବନିମ୍ନ ତଳେ (ଆପର ନିଜସ୍ୱ)</string>
+    <string name="detail_plan_learned_own">🧠 ଶିଖିଲା: ଆପର ନିଜସ୍ୱ ଷ୍ଟପ ଓ ଲକ୍ଷ୍ୟ ହିଁ ଏପର୍ଯ୍ୟନ୍ତ ସର୍ବୋତ୍ତମ — %1$d%% ସଫଳ, ପ୍ରତି ଟ୍ରେଡରେ ହାରାହାରି %2$s।</string>
+    <string name="detail_rally_setup">📈 ରାଲିର ସେଟଅପ: %1$s। ଗତ 2 ବର୍ଷରେ ଏପରି %2$d%% ସୁଯୋଗରେ ଦର %3$d ଦିନ ମଧ୍ୟରେ %4$s ATR (ଆଜିର ହିସାବରେ ≈ %5$s) ବଢ଼ିଲା, ପୂର୍ବରୁ ନ ଖସି (ସବୁ ସେୟାରରେ %6$d%%)।</string>
+    <string name="detail_rally_why">📈 ରାଲି ପୂର୍ବରୁ ପ୍ରାୟତଃ ଦେଖାଗଲା: %1$s</string>
+    <string name="item_setup_mistake">⚠ ଶିଖା ଭୁଲ • କେବଳ %1$d%% ସଫଳ: %2$s</string>
+    <string name="detail_setup_mistake">⚠ ଶିଖା ଭୁଲ: %1$s। ଗତ 2 ବର୍ଷରେ ଏପରି %2$dଟି ଟ୍ରେଡର କେବଳ %3$d%% ସଫଳ ହେଲା (ସବୁ ସେୟାରର ହାରାହାରି %4$d%%) — %5$d%%ରେ ପ୍ରଥମେ ଷ୍ଟପ ଲାଗିଲା, %6$d%%ରେ ଲକ୍ଷ୍ୟ ନିର୍ଦ୍ଧାରିତ ଦିନରେ ଆସିଲା ନାହିଁ। ଏପରି ସେଟଅପରେ ଟ୍ରେଡ ଓଲଟା ଯିବାର ସମ୍ଭାବନା ଅଧିକ ରହିଛି।</string>
+    <string name="setup_breakout_today">ଆଜି ବ୍ରେକଆଉଟ</string>
+    <string name="setup_near_trigger">ବ୍ରେକଆଉଟରୁ 1 ATR ଦୂରରେ</string>
+    <string name="setup_volume_2x">ଭଲ୍ୟୁମ 2×+</string>
+    <string name="setup_volume_1_5x">ଭଲ୍ୟୁମ 1.5×+</string>
+    <string name="setup_quiet_before">ପୂର୍ବ 5 ଦିନ ଭଲ୍ୟୁମ କମ</string>
+    <string name="setup_tight_week">1 ସପ୍ତାହର ପରିସର 5% ମଧ୍ୟରେ</string>
+    <string name="setup_tight_two_weeks">2 ସପ୍ତାହର ପରିସର 8% ମଧ୍ୟରେ</string>
+    <string name="setup_above_sma50">50 DMA ଉପରେ</string>
+    <string name="setup_sma20_over_sma50">20 DMA, 50 DMA ଉପରେ</string>
+    <string name="setup_up_20_days">20 ଦିନରେ ଉପରେ</string>
+    <string name="setup_up_5_percent_week">5 ଦିନରେ 5%+ ଉପରେ</string>
+    <string name="setup_rsi_50_70">RSI 50–70</string>
+    <string name="setup_rsi_70_plus">RSI 70+</string>
+    <string name="setup_rsi_under_50">RSI 50 ତଳେ</string>
+    <string name="setup_macd_above_signal">MACD ସିଗନାଲ ଉପରେ</string>
+    <string name="setup_macd_fresh_cross">MACD କ୍ରସଓଭର 3 ଦିନରେ</string>
+    <string name="setup_macd_above_zero">MACD ଶୂନ ଉପରେ</string>
+    <string name="setup_near_support">ସପୋର୍ଟରୁ 5% ମଧ୍ୟରେ</string>
+    <string name="setup_long_support">ପୁରୁଣା ସପୋର୍ଟ</string>
+    <string name="setup_liquid_10cr">ଦୈନିକ ₹10 Cr+ କାରବାର</string>
+    <string name="setup_score_strong">ସ୍କୋର STRONG</string>
+    <string name="setup_score_watch">ସ୍କୋର WATCH+</string>
+    <string name="setup_prev_strong">ଗତକାଲି ମଧ୍ୟ STRONG</string>
+    <string name="setup_near_6m_high">6 ମାସର ସର୍ବୋଚ୍ଚରୁ 3% ମଧ୍ୟରେ</string>
+    <string name="setup_up_4_percent_today">ଆଜି 4%+ ଉପରେ</string>
+    <string name="setup_close_near_day_high">ଦିନର ସର୍ବୋଚ୍ଚ ପାଖରେ ବନ୍ଦ</string>
+    <string name="setup_calm_ranges">10 ଦିନ ଧରି ଦୈନିକ ଉଠାଣି-ପକାଣି କମ</string>
+    <string name="help_setups_title">ଶିଖା ସେଟଅପ</string>
+    <string name="help_setups_body">ପ୍ରତି ସନ୍ଧ୍ୟାରେ (ବଜାର ଦିନରେ) ଆପ ସମଗ୍ର ବଜାରର ପ୍ରତ୍ୟେକ ସେୟାରର ଗତ 2 ବର୍ଷର ପ୍ରତ୍ୟେକ ଦିନ ପାଇଁ ସେଦିନ ଦେଖାଯାଉଥିବା ସ୍କୋର ଓ ଟ୍ରେଡ ଯୋଜନା ତିଆରି କରେ, ଓ ଦେଖେ ପରେ କ\'ଣ ହେଲା: ଲକ୍ଷ୍ୟ 1 କୁହାଯାଇଥିବା ଦିନ ମଧ୍ୟରେ ଷ୍ଟପ ପୂର୍ବରୁ ପହଞ୍ଚିଲେ ସଫଳ; ଷ୍ଟପ ପ୍ରଥମେ ଲାଗିଲେ ବା ଲକ୍ଷ୍ୟ ସମୟରେ ନ ଆସିଲେ ବିଫଳ। ତା ପରେ 1ରୁ 3ଟି ସର୍ତ୍ତର ମିଶ୍ରଣ (ଯେପରି ଆଜି ବ୍ରେକଆଉଟ + ଭଲ୍ୟୁମ 2×+ + RSI 50–70) ମଧ୍ୟରୁ କେବଳ ସେହି ସେଟଅପ ରଖାଯାଏ ଯାହା ସମଗ୍ର ବଜାରର ହାରାହାରିଠାରୁ ସ୍ପଷ୍ଟ ଭାବେ ଅଧିକ ସଫଳ — ପୁରୁଣା ଡାଟାରେ ମଧ୍ୟ ଓ ଗତ 60 ଦିନରେ ମଧ୍ୟ, ଯାହା ଉପରେ ସେଗୁଡ଼ିକ ବଛାଯାଇନଥିଲା। ଯେଉଁ ସେଟଅପ ପରେ ହାରାହାରି ଉପରେ ରହେ ନାହିଁ, ତାହା ହଟିଯାଏ। ଭୁଲରୁ ମଧ୍ୟ ଶିଖେ: ଯେଉଁ ସର୍ତ୍ତ ମିଶ୍ରଣରେ ଟ୍ରେଡ ହାରାହାରିଠାରୁ ସ୍ପଷ୍ଟ ଭାବେ ଅଧିକ ଓଲଟା ଗଲା (ଷ୍ଟପ ପ୍ରଥମେ ଲାଗିଲା ବା ଲକ୍ଷ୍ୟ ସମୟରେ ଆସିଲା ନାହିଁ) — ତାହା ମଧ୍ୟ ପୁରୁଣା ଡାଟା ଓ ଗତ 60 ଦିନ ଦୁହିଁରେ — ସେଗୁଡ଼ିକ \"⚠ ଶିଖା ଭୁଲ\" ହୋଇ କାର୍ଡ ଓ ବିବରଣୀରେ ସତର୍କ କରେ, ସାଙ୍ଗରେ କେତେ %ରେ ଷ୍ଟପ ଲାଗିଲା ଓ କେତେ %ରେ ଲକ୍ଷ୍ୟ ଡେରିରେ ଆସିଲା। କୌଣସି ଭୁଲ ପରେ ସୁଧୁରିଗଲେ ସତର୍କତା ହଟିଯାଏ। ଷ୍ଟପ, ଲକ୍ଷ୍ୟ ଓ ସମୟ ମଧ୍ୟ ଶିଖାଯାଏ: ପ୍ରତ୍ୟେକ ପୁରୁଣା ଯୋଜନାକୁ 30,000 ପ୍ରକାରରେ ଯାଞ୍ଚ କରାଯାଏ (ଷ୍ଟପ ଏଣ୍ଟ୍ରିରୁ 1ରୁ 3.4 ATR ତଳେ ବା ଆପର ନିଜସ୍ୱ, ଲକ୍ଷ୍ୟ 1 = 0.5Rରୁ 5.45R, ଓ ଲକ୍ଷ୍ୟର ସମୟ ଅଧାରୁ ତିନି ଗୁଣ ଦିନ) ଓ ଯେଉଁ ମିଶ୍ରଣ ସମଗ୍ର ବଜାରରେ ପ୍ରତି ଟ୍ରେଡରେ ସବୁଠୁ ଅଧିକ ଆୟ (ହାରାହାରି R) ଦିଏ — ପୁରୁଣା ଡାଟାରେ ମଧ୍ୟ ଓ ଗତ 60 ଦିନରେ ମଧ୍ୟ, ଓ ଯାହାର ଆଖପାଖ ମିଶ୍ରଣ ମଧ୍ୟ ଭଲ ଥିଲା, ଯାହାଦ୍ୱାରା ଭାଗ୍ୟକ୍ରମେ ଭଲ ଦେଖାଯାଉଥିବା ମିଶ୍ରଣ ବଛା ନ ହୁଏ — ତାହା ହିଁ ଯୋଜନାରେ ଲାଗେ; କୌଣସି ସେଟଅପ ପାଇଁ ଅଲଗା ମିଶ୍ରଣ ଆହୁରି ଭଲ ହେଲେ ତାକୁ ନିଜର ମିଳେ। ନୂଆ ମିଶ୍ରଣ ପୁରୁଣାଠାରୁ ସ୍ପଷ୍ଟ ଭାବେ ଭଲ ହେଲେ ହିଁ ତାର ସ୍ଥାନ ନିଏ, ଓ ପଛରେ ପଡ଼ିଲେ ହଟିଯାଏ; ୱାଚଲିଷ୍ଟ ଆଲର୍ଟ ମଧ୍ୟ ଏହି ଷ୍ଟପ ଓ ଲକ୍ଷ୍ୟ ମାନେ। ରାଲିରୁ ମଧ୍ୟ ଶିଖେ: ପ୍ରତ୍ୟେକ ସେୟାରର ପ୍ରତ୍ୟେକ ଦିନ ଦେଖାଯାଏ ଦର ପରବର୍ତ୍ତୀ 20 ଦିନରେ 3 ATR ବଢ଼ିଲା କି, ପୂର୍ବରୁ 1.5 ATR ନ ଖସି — ଓ ତା ପୂର୍ବରୁ କେଉଁ ସର୍ତ୍ତ ଥିଲା; ଯେଉଁ ସର୍ତ୍ତ ପରେ ଏପରି ରାଲି ହାରାହାରିଠାରୁ ସ୍ପଷ୍ଟ ଭାବେ ଅଧିକ ଆସିଲା, ସେଗୁଡ଼ିକ \"📈 ରାଲି ସେଟଅପ\" ହୋଇ ଦେଖାଯାଏ। ଏସବୁ ପ୍ରତି ସନ୍ଧ୍ୟାରେ ନିଜେ ହୁଏ। କାର୍ଡ ଓ ସେୟାର ବିବରଣୀରେ ଆପର ପୁରୁଣା ନିଜସ୍ୱ ସେଟଅପ ସ୍ଥାନରେ ଏହି ଶିଖା ସେଟଅପ ଓ ସେଗୁଡ଼ିକର ପ୍ରକୃତ ସଫଳତା % ଦେଖାଯାଏ, ଓ ଟ୍ରେଡ ଯୋଜନାର ଶୀଘ୍ର ଲକ୍ଷ୍ୟର % ମଧ୍ୟ ତାଜା ଡାଟାରୁ ଆସେ। ଏଗୁଡ଼ିକ ଅତୀତ ଡାଟାର ପରିସଂଖ୍ୟାନ, ଭବିଷ୍ୟତର ଗ୍ୟାରେଣ୍ଟି ନୁହେଁ; ନିବେଶ ପରାମର୍ଶ ନୁହେଁ।</string>
+</resources>

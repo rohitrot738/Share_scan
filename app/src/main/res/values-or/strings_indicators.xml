@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_rsi">RSI (14)</string>
+    <string name="metric_macd">MACD, ସିଗନାଲରୁ ଦୂରତା</string>
+    <string name="metric_macd_cross">MACD କ୍ରସଓଭର</string>
+    <string name="hint_rsi">70 ଉପରେ = ଓଭରବଟ (ବହୁତ ବଢ଼ିଛି), 30 ତଳେ = ଓଭରସୋଲ୍ଡ (ବହୁତ ଖସିଛି) • 50–70 = ବଢ଼ୁଛି, କିନ୍ତୁ ଅଧିକ ନୁହେଁ</string>
+    <string name="hint_macd" formatted="false">MACD ରେଖା ତାର ସିଗନାଲ ରେଖାଠାରୁ କେତେ ଉପରେ (+) ବା ତଳେ (-), ଦରର ପ୍ରତିଶତ ଭାବେ • 0% ଉପରେ = ବଢ଼ୁଛି</string>
+    <string name="hint_macd_cross">MACD ତାର ସିଗନାଲ ରେଖାକୁ ତଳୁ ପାର କରି କେତେ ଦିନ ହେଲା • \"3 ଦିନ ପୂର୍ବେ\" ପର୍ଯ୍ୟନ୍ତ = ନୂଆ ବୁଲିଶ କ୍ରସଓଭର; ସିଗନାଲ ତଳେ ଥିବା ସେୟାର ବାଦ ପଡ଼େ</string>
+    <string name="detail_stat_rsi">RSI (14)</string>
+    <string name="detail_stat_rsi_overbought">70+ ଓଭରବଟ: ବହୁତ ବଢ଼ିଛି</string>
+    <string name="detail_stat_rsi_strong">50–70: ବଢ଼ୁଛି</string>
+    <string name="detail_stat_rsi_weak">30–50: ଦୁର୍ବଳ</string>
+    <string name="detail_stat_rsi_oversold">30 ତଳେ ଓଭରସୋଲ୍ଡ: ବହୁତ ଖସିଛି</string>
+    <string name="detail_stat_macd">MACD (12, 26, 9)</string>
+    <string name="detail_stat_macd_bull">ବୁଲିଶ</string>
+    <string name="detail_stat_macd_bear">ବେୟାରିଶ</string>
+    <string name="detail_stat_macd_crossed">%1$s ସିଗନାଲ ଉପରକୁ ପାର ହେଲା</string>
+    <string name="detail_stat_macd_below">ସିଗନାଲ ରେଖା ତଳେ</string>
+    <string name="detail_stat_macd_zero_above">ଶୂନ ଉପରେ</string>
+    <string name="detail_stat_macd_zero_below">ଶୂନ ତଳେ</string>
+    <string name="help_indicators_title">RSI ଓ MACD</string>
+    <string name="help_indicators_body" formatted="false">ଦୁହେଁ ଚାର୍ଟିଂ ସାଇଟ ପରି ପ୍ରତ୍ୟେକ ସେୟାରର 6 ମାସର ଦୈନିକ ଦରରୁ ଆସନ୍ତି। RSI (14) 0 ରୁ 100: 70 ଉପରେ ଓଭରବଟ (ବହୁତ ବଢ଼ିଛି), 30 ତଳେ ଓଭରସୋଲ୍ଡ (ବହୁତ ଖସିଛି), 50–70 ବଢ଼ୁଛି। MACD (12, 26, 9): 12 ଓ 26 ଦିନର ଏକ୍ସପୋନେନସିଆଲ ହାରାହାରି ମଧ୍ୟରେ ବ୍ୟବଧାନ, ଓ ତାର 9 ଦିନର ସିଗନାଲ ରେଖା। MACD ତାର ସିଗନାଲ ଉପରେ = ବଢ଼ୁଛି; ଯେଉଁ ଦିନ ଏହା ସିଗନାଲକୁ ତଳୁ ପାର କରେ ତାହା ବୁଲିଶ କ୍ରସଓଭର। ଫିଲ୍ଟରରେ ତିନୋଟି ଅଛି: RSI ପରିସର, MACD ତାର ସିଗନାଲଠାରୁ କେତେ ଉପରେ ବା ତଳେ (ଦରର ପ୍ରତିଶତ ଭାବେ), ଓ କ୍ରସଓଭର କେତେ ଦିନ ପୂର୍ବେ ଆସିଲା (\"3 ଦିନ ପୂର୍ବେ\" ପର୍ଯ୍ୟନ୍ତ = ନୂଆ କ୍ରସଓଭର)। ସେୟାରର ବିବରଣୀରେ ଦୁହିଁଙ୍କର ଆଜିର ମୂଲ୍ୟ ଦେଖାଯାଏ। ଲାଇଭ ବଜାରରେ ଆଜିର ଚଳନ୍ତି ଦର ମଧ୍ୟ ହିସାବକୁ ଆସେ।</string>
+</resources>

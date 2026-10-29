@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_background">ପୃଷ୍ଠଭୂମି</string>
+    <string name="background_title">ପୃଷ୍ଠଭୂମି ବାଛନ୍ତୁ</string>
+    <string name="background_subtitle">ପ୍ରତ୍ୟେକ ପୃଷ୍ଠଭୂମିର ନିଜସ୍ୱ ରୂପ ଓ ଆନିମେସନ • ରଙ୍ଗ ଥିମର</string>
+    <string name="background_galaxy">Galaxy</string>
+    <string name="background_galaxy_body">ଛାୟାପଥ, ଝଲସୁଥିବା ଓ ଖସୁଥିବା ତାରା • ବଡ଼ କାର୍ଡର ରୂପ</string>
+    <string name="background_space_glass">Space Glass</string>
+    <string name="background_space_glass_body">ଭାସମାନ ଆଲୋକ, ଚଳନ୍ତି ଟ୍ରେଡିଂ ଗ୍ରିଡ ଓ ଚାର୍ଟ ରେଖା • କମ୍ପାକ୍ଟ ଟେବୁଲର ରୂପ</string>
+    <string name="help_sky_title">ପୃଷ୍ଠଭୂମି ଓ ଥିମ</string>
+    <string name="help_sky_body">ମେନୁ → ପୃଷ୍ଠଭୂମିରେ ଦୁଇଟିରୁ ଗୋଟିଏ ବାଛନ୍ତୁ — ପ୍ରତ୍ୟେକର ନିଜସ୍ୱ ରୂପ ଓ ଆନିମେସନ ଅଛି: Galaxyରେ ଛାୟାପଥ (ଝଲସୁଥିବା ଓ ଖସୁଥିବା ତାରା, ଛାୟାପଥ ଆଡ଼କୁ ଉଡ଼ାଣ) ସହ ବଡ଼ କାର୍ଡର ରୂପ, ଓ Space Glassରେ ଭାସମାନ ଆଲୋକ, ଚଳନ୍ତି ଟ୍ରେଡିଂ ଗ୍ରିଡ ଓ ଚାର୍ଟ ରେଖା ସହ କମ୍ପାକ୍ଟ ଟେବୁଲ (ଉପରେ ପତଳା ବାର, ପ୍ରତ୍ୟେକ ସେୟାରର ଗୋଟିଏ ଧାଡ଼ି, ତଳେ ଭାସମାନ ବାର)। ମେନୁ → ଥିମରେ ରଙ୍ଗ ବାଛନ୍ତୁ: ଯେକୌଣସି ଥିମ ଦୁଇଟି ପୃଷ୍ଠଭୂମିରେ ଲାଗୁ ହୁଏ ଓ ତାର ରଙ୍ଗ ପୃଷ୍ଠଭୂମିରେ ମଧ୍ୟ ଆସେ। ସେଟିଂସ → ଆକାଶ ଆନିମେସନ ବନ୍ଦ କଲେ ପୃଷ୍ଠଭୂମି ସ୍ଥିର ହୋଇଯାଏ।</string>
+</resources>
