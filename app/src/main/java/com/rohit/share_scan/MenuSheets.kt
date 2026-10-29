@@ -88,6 +88,34 @@ private val BackgroundChoice.body: Int
     }
 
 @get:StringRes
+val ListLayout.title: Int
+    get() = when (this) {
+        ListLayout.AUTO -> R.string.layout_auto
+        ListLayout.ACCORDION -> R.string.layout_accordion
+        ListLayout.BENTO -> R.string.layout_bento
+        ListLayout.SWIPE -> R.string.layout_swipe
+    }
+
+@get:StringRes
+private val ListLayout.body: Int
+    get() = when (this) {
+        ListLayout.AUTO -> R.string.layout_auto_now_cards
+        ListLayout.ACCORDION -> R.string.layout_accordion_body
+        ListLayout.BENTO -> R.string.layout_bento_body
+        ListLayout.SWIPE -> R.string.layout_swipe_body
+    }
+
+/** A sketch of the layout's list in the theme's colours, for the picker. */
+@get:DrawableRes
+private val ListLayout.preview: Int
+    get() = when (this) {
+        ListLayout.AUTO -> R.drawable.preview_layout_auto
+        ListLayout.ACCORDION -> R.drawable.preview_layout_accordion
+        ListLayout.BENTO -> R.drawable.preview_layout_bento
+        ListLayout.SWIPE -> R.drawable.preview_layout_swipe
+    }
+
+@get:StringRes
 val ThemeChoice.title: Int
     get() = when (this) {
         ThemeChoice.GALAXY -> R.string.theme_galaxy
@@ -186,9 +214,10 @@ class MenuSheet(
     private val version: String,
     private val theme: ThemeChoice,
     private val background: BackgroundChoice,
+    private val layout: ListLayout,
     private val onPick: (Entry) -> Unit,
 ) {
-    enum class Entry { ACCOUNT, USAGE, SCAN, TRACK_RECORD, SECTORS, SETTINGS, THEME, BACKGROUND, UPDATE, HELP, SHARE, ABOUT }
+    enum class Entry { ACCOUNT, USAGE, SCAN, TRACK_RECORD, SECTORS, SETTINGS, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
 
     fun show(): BottomSheetDialog {
         val ui = SheetMenuBinding.inflate(activity.layoutInflater)
@@ -221,6 +250,7 @@ class MenuSheet(
             R.string.menu_background,
             activity.getString(R.string.menu_theme_body, activity.getString(background.title)),
         )
+        add(Entry.LAYOUT, R.drawable.ic_view_agenda, R.string.menu_layout, activity.getString(R.string.menu_theme_body, activity.getString(layout.title)))
         add(Entry.UPDATE, R.drawable.ic_system_update, R.string.menu_update, activity.getString(R.string.menu_update_body, version))
         add(Entry.HELP, R.drawable.ic_help, R.string.menu_help, activity.getString(R.string.menu_help_body))
         add(Entry.SHARE, R.drawable.ic_share, R.string.menu_share, activity.getString(R.string.menu_share_body))
@@ -498,6 +528,64 @@ class BackgroundSheet(
     private fun color(@ColorRes id: Int) = ContextCompat.getColor(activity, id)
 }
 
+/**
+ * The list's four layouts in a two-by-two grid, each a sketch in the theme's colours: the background's own, accordion
+ * cards, the bento grid and swipe cards. Picking one hands it to [onPick], which re-creates the screen; the background
+ * and the theme stay.
+ */
+class LayoutSheet(
+    private val activity: AppCompatActivity,
+    private val theme: ThemeChoice,
+    private val background: BackgroundChoice,
+    private val current: ListLayout,
+    private val onPick: (ListLayout) -> Unit,
+    private val onBack: () -> Unit,
+) {
+    fun show(): BottomSheetDialog {
+        val ui = SheetThemeBinding.inflate(activity.layoutInflater)
+        ui.themeTitle.setText(R.string.layout_title)
+        ui.themeSubtitle.setText(R.string.layout_subtitle)
+        val corner = activity.resources.getDimension(R.dimen.background_preview_corner)
+        val accent = ContextCompat.getColor(activity, theme.preview.third)
+        lateinit var dialog: BottomSheetDialog
+        ListLayout.entries.chunked(2).forEach { pair ->
+            val row = LinearLayout(activity).apply { orientation = LinearLayout.HORIZONTAL }
+            ui.themeGrid.addView(row)
+            pair.forEach { choice ->
+                val card = ItemThemeBinding.inflate(activity.layoutInflater, row, true)
+                card.themePreview.background = AppCompatResources.getDrawable(activity, choice.preview)
+                card.themePreview.layoutParams.height = activity.resources.getDimensionPixelSize(R.dimen.layout_preview_height)
+                card.themePreview.outlineProvider = object : ViewOutlineProvider() {
+                    override fun getOutline(view: View, outline: Outline) = outline.setRoundRect(0, 0, view.width, view.height, corner)
+                }
+                card.themePreview.clipToOutline = true
+                card.themeLogo.isVisible = false
+                card.themeAccent.backgroundTintList = ColorStateList.valueOf(accent)
+                card.themeName.setText(choice.title)
+                // The background's own says which it is now: cards or the table.
+                card.themeBody.text = if (choice == ListLayout.AUTO) {
+                    activity.getString(if (background.compact) R.string.layout_auto_now_table else R.string.layout_auto_now_cards)
+                } else {
+                    activity.getString(choice.body)
+                }
+                val selected = choice == current
+                card.themeCheck.isVisible = selected
+                card.root.strokeWidth = activity.resources.getDimensionPixelSize(
+                    if (selected) R.dimen.theme_card_stroke_selected else R.dimen.theme_card_stroke,
+                )
+                if (selected) card.root.setStrokeColor(ColorStateList.valueOf(accent))
+                card.root.contentDescription = activity.getString(choice.title) + ", " + card.themeBody.text
+                card.root.setOnClickListener {
+                    dialog.dismiss()
+                    if (choice != current) onPick(choice)
+                }
+            }
+        }
+        dialog = activity.showSheet(ui.root, ui.sheetTopBar, onBack)
+        return dialog
+    }
+}
+
 /** How the score, tiers, badges and trade plan work, in the same words the cards and detail sheet use. */
 class HelpSheet(private val activity: AppCompatActivity, private val onBack: () -> Unit) {
     fun show(): BottomSheetDialog {
@@ -554,6 +642,8 @@ class HelpSheet(private val activity: AppCompatActivity, private val onBack: () 
         add(activity.getString(R.string.help_cloud_title), activity.getString(R.string.help_cloud_body))
         add(activity.getString(R.string.help_compact_title), activity.getString(R.string.help_compact_body))
         add(activity.getString(R.string.help_sky_title), activity.getString(R.string.help_sky_body))
+        add(activity.getString(R.string.help_layout_title), activity.getString(R.string.help_layout_body))
+        add(activity.getString(R.string.help_watchlist_title), activity.getString(R.string.help_watchlist_body))
         add(activity.getString(R.string.about_disclaimer_title), activity.getString(R.string.help_disclaimer))
         return activity.showSheet(ui.root, ui.sheetTopBar, onBack, fullHeight = true)
     }

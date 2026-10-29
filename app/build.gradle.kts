@@ -60,6 +60,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    // The swipe layout's cards slide aside to show their buttons (SwipeRevealLayout).
+    implementation("androidx.customview:customview:1.1.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     // Live mode: scans through market hours in the background (LiveScanWorker).
     implementation("androidx.work:work-runtime-ktx:2.9.1")

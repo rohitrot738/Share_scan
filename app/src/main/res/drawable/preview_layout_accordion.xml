@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu → Layout preview: accordion cards, the first one opened. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="160dp"
+    android:height="180dp"
+    android:viewportWidth="160"
+    android:viewportHeight="180">
+    <path android:fillColor="?android:attr/colorBackground" android:pathData="M0,0h160v180h-160z" />
+    <!-- The open card -->
+    <path android:fillAlpha="0.12" android:fillColor="#FFFFFF" android:pathData="M14,10h132a7,7 0,0 1,7 7v62a7,7 0,0 1,-7 7h-132a7,7 0,0 1,-7 -7v-62a7,7 0,0 1,7 -7z" />
+    <path android:fillColor="?attr/colorPrimary" android:pathData="M13,22a6,6 0,1 0,12 0a6,6 0,1 0,-12 0z" />
+    <path android:fillAlpha="0.7" android:fillColor="#FFFFFF" android:pathData="M30,20h30v5h-30z" />
+    <path android:fillColor="?attr/colorPrimary" android:pathData="M128,18h18a4,4 0,0 1,0 8h-18a4,4 0,0 1,0 -8z" />
+    <path android:fillAlpha="0.15" android:fillColor="#FFFFFF" android:pathData="M14,38h132v4h-132z" />
+    <path android:fillColor="?attr/colorPrimary" android:pathData="M14,38h96v4h-96z" />
+    <path android:fillAlpha="0.18" android:fillColor="#FFFFFF" android:pathData="M14,50h30a4,4 0,0 1,0 8h-30a4,4 0,0 1,0 -8zM52,50h26a4,4 0,0 1,0 8h-26a4,4 0,0 1,0 -8zM86,50h30a4,4 0,0 1,0 8h-30a4,4 0,0 1,0 -8z" />
+    <path android:fillAlpha="0.4" android:fillColor="?attr/colorPrimary" android:pathData="M14,66h38a5,5 0,0 1,0 10h-38a5,5 0,0 1,0 -10zM60,66h38a5,5 0,0 1,0 10h-38a5,5 0,0 1,0 -10zM106,66h38a5,5 0,0 1,0 10h-38a5,5 0,0 1,0 -10z" />
+    <!-- Closed lines -->
+    <path android:fillAlpha="0.1" android:fillColor="#FFFFFF" android:pathData="M14,92h132a6,6 0,0 1,0 14h-132a6,6 0,0 1,0 -14zM14,110h132a6,6 0,0 1,0 14h-132a6,6 0,0 1,0 -14zM14,128h132a6,6 0,0 1,0 14h-132a6,6 0,0 1,0 -14zM14,146h132a6,6 0,0 1,0 14h-132a6,6 0,0 1,0 -14zM14,164h132a6,6 0,0 1,0 14h-132a6,6 0,0 1,0 -14z" />
+    <path android:fillAlpha="0.6" android:fillColor="#FFFFFF" android:pathData="M24,97h26v4h-26zM24,115h22v4h-22zM24,133h28v4h-28zM24,151h24v4h-24zM24,169h26v4h-26z" />
+    <path android:fillColor="?attr/colorPrimary" android:pathData="M128,96h14a3,3 0,0 1,0 6h-14a3,3 0,0 1,0 -6zM128,114h14a3,3 0,0 1,0 6h-14a3,3 0,0 1,0 -6zM128,132h14a3,3 0,0 1,0 6h-14a3,3 0,0 1,0 -6zM128,150h14a3,3 0,0 1,0 6h-14a3,3 0,0 1,0 -6zM128,168h14a3,3 0,0 1,0 6h-14a3,3 0,0 1,0 -6z" />
+</vector>

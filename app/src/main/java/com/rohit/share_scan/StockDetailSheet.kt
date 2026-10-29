@@ -109,7 +109,7 @@ class StockDetailSheet(
             ui.detailOpenChart.iconTint = null
             ui.detailOpenChart.iconSize = activity.resources.getDimensionPixelSize(R.dimen.broker_icon)
         }
-        ui.detailOpenChart.setOnClickListener { openChart(siteBroker) }
+        ui.detailOpenChart.setOnClickListener { openChart() }
         // The other trading apps, one tap away; the one the chart button already opens is left out.
         listOf(
             ui.detailOpenGroww to Broker.GROWW,
@@ -1546,17 +1546,7 @@ class StockDetailSheet(
         tile.root.contentDescription = listOfNotNull(stat.label, stat.value, stat.note).joinToString(", ")
     }
 
-    private fun openChart(broker: Broker?) {
-        if (broker != null) {
-            brokers.open(broker, stock)
-            return
-        }
-        try {
-            activity.startActivity(Intent(Intent.ACTION_VIEW, chartSite.url(stock.symbol, stock.market, stock.bseCode).toUri()))
-        } catch (error: ActivityNotFoundException) {
-            Toast.makeText(activity, R.string.open_chart_failed, Toast.LENGTH_SHORT).show()
-        }
-    }
+    private fun openChart() = activity.openStockChart(stock, chartSite)
 
     @ColorInt
     private fun color(@ColorRes id: Int): Int = ContextCompat.getColor(activity, id)

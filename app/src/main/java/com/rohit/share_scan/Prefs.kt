@@ -34,6 +34,9 @@ object Prefs {
     /** [BackgroundChoice.key] of the picked background, which brings its layout; until one is picked, [COMPACT_LIST]. */
     const val BACKGROUND = "background"
 
+    /** [ListLayout.key] of how the home list draws its stocks; missing is the background's own. */
+    const val LIST_LAYOUT = "list_layout"
+
     /** [ChartSite.key] the detail sheet's chart button opens. */
     const val CHART_SITE = "chart_site"
 

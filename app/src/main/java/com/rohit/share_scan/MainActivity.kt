@@ -45,6 +45,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.withStarted
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -75,6 +76,7 @@ class MainActivity : AppCompatActivity() {
         onOpen = { openChart(it) },
         onStar = { scan.toggleStar(it.symbol) },
         onNews = { openChart(it, onNews = true) },
+        onChart = { openStockChart(it, settings.chartSite) },
     )
     private var shownResults: List<ScanResult>? = null
     private var shownFilters: ScanFilters? = null
@@ -98,8 +100,15 @@ class MainActivity : AppCompatActivity() {
     /** The menu or whichever of its sheets is open; only one shows at a time. */
     private var menuSheet: BottomSheetDialog? = null
     private var shownRing = -1
-    /** The list as a compact table (the Space Glass background, Menu → Background), read when the screen is created. */
+    /**
+     * The Space Glass background's screen (Menu → Background): the slim header, the scan panel and the floating bar,
+     * read when the screen is created. The list itself is drawn in [listStyle].
+     */
     private var compact = false
+    /** How the list draws its stocks: Menu → Layout's pick, or the background's own (cards, or the compact table). */
+    private var listStyle = ItemStyle.CARD
+    /** Room on either side of the list beyond the system bars': the bento grid's tiles keep their gutter. */
+    private var listSide = 0
     /** The compact list's scan controls (the Breakout/Support chips and the scan board), shown in [scanPanel]. */
     private var panelContent: LinearLayout? = null
     private var scanPanel: BottomSheetDialog? = null
@@ -131,7 +140,14 @@ class MainActivity : AppCompatActivity() {
         compact = settings.background.compact
         ui.galaxySky.isVisible = !compact
         ui.spaceSky.isVisible = compact
-        adapter.compact = compact
+        // Menu → Layout draws the list on either background; its cards wear the background's glass or flat look.
+        listStyle = settings.listLayout.style(settings.background)
+        adapter.style = listStyle
+        adapter.flat = compact
+        if (listStyle == ItemStyle.BENTO) {
+            ui.results.layoutManager = GridLayoutManager(this, BENTO_COLUMNS)
+            listSide = resources.getDimensionPixelSize(R.dimen.bento_side)
+        }
         ui.galaxySky.palette = settings.theme.skyPalette
         if (settings.theme != ThemeChoice.SPACE_GLASS) ui.spaceSky.tintWith(this)
         ui.galaxySky.animate = settings.skyAnimation
@@ -511,7 +527,8 @@ class MainActivity : AppCompatActivity() {
         ui.resultsHeading.isVisible = false
         ui.resultsSection.updatePadding(top = 0, bottom = 0)
         ui.compactHeader.isVisible = true
-        ui.compactColumns.isVisible = true
+        // The table's column names, over the table alone.
+        ui.compactColumns.isVisible = listStyle == ItemStyle.ROW
         // The version's major and minor, as the redesign's "Share Scan v1.2"; the About sheet has the full one.
         updates.installedName.takeIf { it.isNotEmpty() }?.let {
             ui.compactVersion.text = getString(R.string.header_version, it.split('.').take(2).joinToString("."))
@@ -820,7 +837,7 @@ class MainActivity : AppCompatActivity() {
             ui.bottomBar.updateLayoutParams<ViewGroup.MarginLayoutParams> { bottomMargin = barBottom + inset.bottom }
             // While the search keyboard is up, the last cards can still scroll above it.
             val bottom = maxOf(inset.bottom, insets.getInsets(WindowInsetsCompat.Type.ime()).bottom)
-            ui.results.updatePadding(left = inset.left, right = inset.right, bottom = listBottom + bottom)
+            ui.results.updatePadding(left = inset.left + listSide, right = inset.right + listSide, bottom = listBottom + bottom)
             ui.emptyState.updatePadding(bottom = emptyBottom + bottom)
             insets
         }
@@ -1112,7 +1129,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openMenu() {
-        showMenuSheet { MenuSheet(this, updates.installedName, settings.theme, settings.background, ::onMenuPick).show() }
+        showMenuSheet {
+            MenuSheet(this, updates.installedName, settings.theme, settings.background, settings.listLayout, ::onMenuPick).show()
+        }
     }
 
     private fun onMenuPick(entry: MenuSheet.Entry) {
@@ -1130,6 +1149,9 @@ class MainActivity : AppCompatActivity() {
             MenuSheet.Entry.THEME -> showMenuSheet { ThemeSheet(this, settings.theme, ::applyTheme, ::openMenu).show() }
             MenuSheet.Entry.BACKGROUND -> showMenuSheet {
                 BackgroundSheet(this, settings.theme, settings.background, ::applyBackground, ::openMenu).show()
+            }
+            MenuSheet.Entry.LAYOUT -> showMenuSheet {
+                LayoutSheet(this, settings.theme, settings.background, settings.listLayout, ::applyLayout, ::openMenu).show()
             }
             MenuSheet.Entry.UPDATE -> {
                 if (updates.canCheck) Toast.makeText(this, R.string.update_checking, Toast.LENGTH_SHORT).show()
@@ -1226,6 +1248,12 @@ class MainActivity : AppCompatActivity() {
         recreate()
     }
 
+    /** The list's layout; the background, its screen and the theme's colours stay. */
+    private fun applyLayout(layout: ListLayout) {
+        settings.listLayout = layout
+        recreate()
+    }
+
     private fun showUpdateCheck(result: UpdateCheck) {
         val message = when (result) {
             UpdateCheck.Found -> {
@@ -1256,6 +1284,9 @@ class MainActivity : AppCompatActivity() {
         const val MARKET_REFRESH_S = 30
         val CLOCK: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.US)
         val DAY_TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE d MMM HH:mm", Locale.forLanguageTag("hi-IN"))
+
+        /** The bento grid's columns. */
+        const val BENTO_COLUMNS = 2
 
         /** The Support scan's reach choices, percent above the floor; null is any distance. */
         val SUPPORT_REACHES = listOf(null, 5.0, 10.0, 20.0)

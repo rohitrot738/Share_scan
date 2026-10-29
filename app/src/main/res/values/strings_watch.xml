@@ -58,6 +58,10 @@
     <string name="watch_empty_title">Watchlist खाली है</string>
     <string name="watch_empty_body">किसी stock का ☆ दबाएँ (या table में उसकी line दबाकर रखें) — वह यहाँ अपने जोड़ने के भाव के साथ दिखेगा, और उसके breakout, target और stop के alerts आएँगे।</string>
 
+    <!-- Help -->
+    <string name="help_watchlist_title">Watchlist page: जोड़ने के बाद का फ़ायदा</string>
+    <string name="help_watchlist_body">★ Watchlist दबाने पर हर starred stock दिखता है: किस भाव पर जोड़ा, तब से कितना % ऊपर या नीचे, और ऊपर पूरी watchlist का औसत return, पिछले 20 दिन की line और कितने stocks फ़ायदे या नुकसान में। हर stock पर एक पट्टी है: breakout के इंतज़ार में base के निचले भाव (support) से breakout भाव तक, और breakout के बाद SL से अगले target तक; गोला बताता है कि भाव अभी कहाँ है। नीचे उसका alert लिखा है। इस update से पहले जुड़े stocks का भाव पहले स्कैन से गिना जाता है; stock को दबाकर रखें तो अपना खरीद भाव डाल सकते हैं। बाएँ swipe करके हटाएँ, ↻ से दाम तुरंत ताज़ा करें, ☰ से वही stocks home की list में देखें।</string>
+
     <!-- Sharing -->
     <string name="watch_share_title">⭐ Share Scan Watchlist — %1$s</string>
     <string name="watch_share_summary">जोड़ने के बाद से औसत return: %1$s (%2$d stocks)</string>
