@@ -1,12 +1,13 @@
 package com.rohit.share_scan
 
 /**
- * What a company makes or sells, as the daily 360CR job reads it from the company's Screener profile
- * (cr360/products.py, [Cr360Book.Entry.products]): each product's key with its icon. The names are product_<key> in
- * strings_products.xml ([ProductLabels]). Free of Android types so it can be unit tested.
+ * What a company makes or sells, as cr360/products.py reads it from the company's Screener profile (the file the app
+ * carries, [ProductBook], or the daily 360CR file, [Cr360Book.Entry.products]): each product's key with its emoji,
+ * which stands for its picture in text. The names and pictures are in [ProductLabels]. Free of Android types so it can
+ * be unit tested.
  */
 object Products {
-    /** Icons on a card when Settings → "Cards पर products के icon" is on. */
+    /** Pictures on a card when Settings → "Cards पर products के icon" is on. */
     const val CARD_ICONS = 3
 
     /** Every key cr360/products.py can give, in its order, with its icon. */
@@ -20,7 +21,7 @@ object Products {
         "cement" to "🧱", "steel" to "🔩", "metals" to "🪙", "mining" to "⛏️", "chemicals" to "🧪", "fertiliser" to "🌱",
         "plastics" to "🪣", "pipes" to "🚰", "paint" to "🎨", "tiles" to "🛁", "paper" to "📄", "packaging" to "📦",
         "textile" to "🧵", "apparel" to "👕", "footwear" to "👟", "jewellery" to "💍", "watch" to "⌚", "bags" to "👜",
-        "cable" to "➰", "light" to "💡", "appliance" to "🌀", "electrical" to "🧲", "electronics" to "📺",
+        "cable" to "🪢", "light" to "💡", "appliance" to "🌀", "electrical" to "🧲", "electronics" to "📺",
         "telecom" to "📶", "software" to "💻", "internet" to "🌐",
         "media" to "🎬", "news" to "🗞️", "gaming" to "🎮", "toys" to "🧸",
         "edibleoil" to "🌻", "oil" to "🛢️", "gas" to "🔥", "power" to "⚡", "solar" to "☀️",

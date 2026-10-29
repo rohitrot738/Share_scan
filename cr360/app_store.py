@@ -15,8 +15,9 @@ from .engine import analyse_360cr
 from .models import ResearchInput
 
 VERSION = 1
-PAGE_VERSION = 3            # what a page reading keeps; a stock read before a change is read again (2: the framework's rows,
-                            # 3: the About and Key Points text its products are read from)
+PAGE_VERSION = 2            # what a page reading keeps; a stock read before a change is read again (2: the framework's rows).
+                            # The About and Key Points text its products are read from comes as each page is read again:
+                            # the app carries every company's products already (app/src/main/assets/products.json).
 QUARTERS_KEPT = 20          # quarterly results and shareholding: 5 years
 YEARS_KEPT = 5              # yearly results, balance sheet and cash flow
 EVENT_YEARS = 5             # insider trades and bulk/block deals

@@ -1,9 +1,13 @@
 package com.rohit.share_scan
 
 import android.content.Context
+import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
-/** Each [Products] key's name (strings_products.xml). */
+/**
+ * Each [Products] key's name (strings_products.xml) and picture (drawable-nodpi/product_<key>.webp, from Microsoft's
+ * Fluent Emoji in 3D, MIT licence: assets/licenses/images-fluentui-emoji-MIT.txt).
+ */
 object ProductLabels {
     private val NAMES: Map<String, Int> = mapOf(
         "bank" to R.string.product_bank,
@@ -97,10 +101,108 @@ object ProductLabels {
         "staffing" to R.string.product_staffing,
     )
 
+    private val IMAGES: Map<String, Int> = mapOf(
+        "bank" to R.drawable.product_bank,
+        "loans" to R.drawable.product_loans,
+        "insurance" to R.drawable.product_insurance,
+        "investing" to R.drawable.product_investing,
+        "payments" to R.drawable.product_payments,
+        "car" to R.drawable.product_car,
+        "suv" to R.drawable.product_suv,
+        "bike" to R.drawable.product_bike,
+        "auto3w" to R.drawable.product_auto3w,
+        "truck" to R.drawable.product_truck,
+        "bus" to R.drawable.product_bus,
+        "tractor" to R.drawable.product_tractor,
+        "ev" to R.drawable.product_ev,
+        "tyre" to R.drawable.product_tyre,
+        "autoparts" to R.drawable.product_autoparts,
+        "battery" to R.drawable.product_battery,
+        "aircraft" to R.drawable.product_aircraft,
+        "ship" to R.drawable.product_ship,
+        "rail" to R.drawable.product_rail,
+        "defence" to R.drawable.product_defence,
+        "logistics" to R.drawable.product_logistics,
+        "port" to R.drawable.product_port,
+        "api" to R.drawable.product_api,
+        "medicine" to R.drawable.product_medicine,
+        "vaccine" to R.drawable.product_vaccine,
+        "hospital" to R.drawable.product_hospital,
+        "diagnostics" to R.drawable.product_diagnostics,
+        "meddevice" to R.drawable.product_meddevice,
+        "ayurveda" to R.drawable.product_ayurveda,
+        "cement" to R.drawable.product_cement,
+        "steel" to R.drawable.product_steel,
+        "metals" to R.drawable.product_metals,
+        "mining" to R.drawable.product_mining,
+        "chemicals" to R.drawable.product_chemicals,
+        "fertiliser" to R.drawable.product_fertiliser,
+        "plastics" to R.drawable.product_plastics,
+        "pipes" to R.drawable.product_pipes,
+        "paint" to R.drawable.product_paint,
+        "tiles" to R.drawable.product_tiles,
+        "paper" to R.drawable.product_paper,
+        "packaging" to R.drawable.product_packaging,
+        "textile" to R.drawable.product_textile,
+        "apparel" to R.drawable.product_apparel,
+        "footwear" to R.drawable.product_footwear,
+        "jewellery" to R.drawable.product_jewellery,
+        "watch" to R.drawable.product_watch,
+        "bags" to R.drawable.product_bags,
+        "cable" to R.drawable.product_cable,
+        "light" to R.drawable.product_light,
+        "appliance" to R.drawable.product_appliance,
+        "electrical" to R.drawable.product_electrical,
+        "electronics" to R.drawable.product_electronics,
+        "telecom" to R.drawable.product_telecom,
+        "software" to R.drawable.product_software,
+        "internet" to R.drawable.product_internet,
+        "media" to R.drawable.product_media,
+        "news" to R.drawable.product_news,
+        "gaming" to R.drawable.product_gaming,
+        "toys" to R.drawable.product_toys,
+        "edibleoil" to R.drawable.product_edibleoil,
+        "oil" to R.drawable.product_oil,
+        "gas" to R.drawable.product_gas,
+        "power" to R.drawable.product_power,
+        "solar" to R.drawable.product_solar,
+        "household" to R.drawable.product_household,
+        "personalcare" to R.drawable.product_personalcare,
+        "food" to R.drawable.product_food,
+        "dairy" to R.drawable.product_dairy,
+        "tea" to R.drawable.product_tea,
+        "sugar" to R.drawable.product_sugar,
+        "grains" to R.drawable.product_grains,
+        "beverage" to R.drawable.product_beverage,
+        "alcohol" to R.drawable.product_alcohol,
+        "tobacco" to R.drawable.product_tobacco,
+        "spices" to R.drawable.product_spices,
+        "meat" to R.drawable.product_meat,
+        "animalfeed" to R.drawable.product_animalfeed,
+        "restaurant" to R.drawable.product_restaurant,
+        "hotel" to R.drawable.product_hotel,
+        "retail" to R.drawable.product_retail,
+        "furniture" to R.drawable.product_furniture,
+        "cookware" to R.drawable.product_cookware,
+        "machinery" to R.drawable.product_machinery,
+        "construction" to R.drawable.product_construction,
+        "realty" to R.drawable.product_realty,
+        "water" to R.drawable.product_water,
+        "recycling" to R.drawable.product_recycling,
+        "education" to R.drawable.product_education,
+        "staffing" to R.drawable.product_staffing,
+    )
+
     @StringRes
     fun of(key: String): Int? = NAMES[key]
 
+    @DrawableRes
+    fun image(key: String): Int? = IMAGES[key]
+
+    /** The product's name alone: "टायर". */
+    fun name(context: Context, key: String): String = of(key)?.let(context::getString) ?: key
+
     /** The product's icon and name, as its chip shows them: "🛞 टायर". */
     fun chip(context: Context, key: String): String =
-        listOf(Products.icon(key), of(key)?.let(context::getString) ?: key).filter { it.isNotEmpty() }.joinToString(" ")
+        listOf(Products.icon(key), name(context, key)).filter { it.isNotEmpty() }.joinToString(" ")
 }

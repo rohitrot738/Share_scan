@@ -87,6 +87,8 @@ class MainActivity : AppCompatActivity() {
     private var shownSupportReach: Double? = null
     private var shownQuery: String? = null
     private var shownProduct: String? = null
+    /** The product the list's product chip shows, so its picture is set once per product. */
+    private var shownProductChip: String? = null
     private var shownWatchlist: Set<String>? = null
     private var shownCr360: Cr360Book? = null
     private val closeSearchOnBack = object : OnBackPressedCallback(false) {
@@ -717,9 +719,10 @@ class MainActivity : AppCompatActivity() {
         // A star toggle only rebinds its card; anything that changes which stocks show, or their order, jumps to the top.
         // A fresh 360CR file redraws the cards' scores, and reorders a list sorted by them.
         val freshCr360 = state.cr360 !== shownCr360
-        if (freshCr360 || state.setups !== adapter.setups || state.news !== adapter.news) {
+        if (freshCr360 || state.setups !== adapter.setups || state.news !== adapter.news || state.products !== adapter.products) {
             shownCr360 = state.cr360
             adapter.cr360 = state.cr360
+            adapter.products = state.products
             adapter.setups = state.setups
             adapter.news = state.news
             adapter.notifyItemRangeChanged(0, adapter.itemCount)
@@ -913,9 +916,13 @@ class MainActivity : AppCompatActivity() {
         val product = state.product
         ui.productChip.isVisible = product != null
         clearProductOnBack.isEnabled = product != null
-        if (product != null) {
-            val productLabel = ProductLabels.chip(this, product)
-            if (ui.productChip.text.toString() != productLabel) ui.productChip.text = productLabel
+        if (product != null && product != shownProductChip) {
+            // The product's picture leads the chip, its tint left off so the picture keeps its colours.
+            shownProductChip = product
+            ui.productChip.text = ProductLabels.name(this, product)
+            ui.productChip.chipIcon = ProductLabels.image(product)?.let { ContextCompat.getDrawable(this, it) }
+            ui.productChip.chipIconTint = null
+            ui.productChip.isChipIconVisible = ui.productChip.chipIcon != null
         }
 
         // The Support scan has its own list and filters, a reach to pick and no watchlist view.
@@ -1113,6 +1120,7 @@ class MainActivity : AppCompatActivity() {
             alerts = settings.watchAlerts,
             alert = alert,
             cr360 = state.cr360.of(stock.symbol),
+            products = state.products.of(stock.symbol, state.cr360),
             setups = state.setups,
             openOnNews = onNews,
             onProduct = ::pickProduct,

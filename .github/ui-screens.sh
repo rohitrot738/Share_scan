@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper (Watchlist page, list layouts, fonts, languages, products). Removed before merging.
+# Temporary review helper (Watchlist page, list layouts, fonts, languages, products with their pictures). Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens

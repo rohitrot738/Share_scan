@@ -29,7 +29,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.chip.Chip
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.tabs.TabLayout
 import com.rohit.share_scan.Cr360Book.Fact
@@ -39,6 +38,7 @@ import com.rohit.share_scan.databinding.ItemDetailLevelBinding
 import com.rohit.share_scan.databinding.ItemDetailScoreBinding
 import com.rohit.share_scan.databinding.ItemDetailStatBinding
 import com.rohit.share_scan.databinding.ItemNewsBinding
+import com.rohit.share_scan.databinding.ItemProductTileBinding
 import com.rohit.share_scan.databinding.SheetStockDetailBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -71,7 +71,9 @@ class StockDetailSheet(
     private val setups: SetupBook = SetupBook.EMPTY,
     /** Opens on the खबरें tab (from a 📰 mark or a news notification) rather than on जानकारी. */
     private val openOnNews: Boolean = false,
-    /** A product chip's tap: the list shows the companies making it ([Products] key); null leaves the chips still. */
+    /** What the company makes ([ProductBook.of]), the main one first. */
+    private val products: List<String> = emptyList(),
+    /** A product's tap: the list shows the companies making it ([Products] key); null leaves the products still. */
     private val onProduct: ((String) -> Unit)? = null,
 ) {
     private val dialog = BottomSheetDialog(activity)
@@ -165,26 +167,27 @@ class StockDetailSheet(
         ui.detailScore.setTextColor(color(tierColor))
     }
 
-    /** What the company makes, each with its icon; a tap closes the sheet and lists the companies making it. */
+    /** What the company makes, each a tile with its picture and name; a tap closes the sheet and lists the companies making it. */
     private fun bindProducts() {
-        val products = cr360?.products.orEmpty()
         ui.detailProductsSection.isVisible = products.isNotEmpty()
         val onProduct = onProduct
         ui.detailProductsHint.isVisible = onProduct != null
         for (key in products) {
-            val chip = activity.layoutInflater.inflate(R.layout.chip_product, ui.detailProducts, false) as Chip
-            val name = ProductLabels.chip(activity, key)
-            chip.text = name
+            val tile = ItemProductTileBinding.inflate(activity.layoutInflater, ui.detailProducts, false)
+            val name = ProductLabels.name(activity, key)
+            tile.productName.text = name
+            ProductLabels.image(key)?.let(tile.productImage::setImageResource)
             if (onProduct != null) {
-                chip.contentDescription = activity.getString(R.string.product_chip_description, name)
-                chip.setOnClickListener {
+                tile.root.contentDescription = activity.getString(R.string.product_chip_description, name)
+                tile.root.setOnClickListener {
                     dialog.dismiss()
                     onProduct(key)
                 }
             } else {
-                chip.isClickable = false
+                tile.root.contentDescription = name
+                tile.root.isClickable = false
             }
-            ui.detailProducts.addView(chip)
+            ui.detailProducts.addView(tile.root)
         }
     }
 

@@ -59,6 +59,9 @@ class WatchlistSearchTest {
         // With the search too, both must match.
         assertEquals(listOf("INFY" to 5), ranks(state.copy(query = "inf").sortedResults))
         assertEquals(listOf("TECHM" to 1, "TCS" to 2), ranks(state.copy(product = null).sortedResults))
+        // The file the app carries comes first; the daily file only fills in a company it does not have.
+        val carried = ProductBook.parse("""{"v":1,"stocks":{"TECHM":["telecom"],"TCS":["software"]}}""")
+        assertEquals(listOf("TCS" to 2, "INFY" to 5), ranks(state.copy(products = carried).sortedResults))
     }
 
     @Test

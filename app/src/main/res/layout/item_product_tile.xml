@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One thing the company makes on the detail sheet: its picture over its name (StockDetailSheet.bindProducts). -->
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/ShareScanCard"
+    android:layout_width="74dp"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    app:cardCornerRadius="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingHorizontal="4dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="8dp">
+
+        <ImageView
+            android:id="@+id/productImage"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:importantForAccessibility="no"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:id="@+id/productName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:importantForAccessibility="no"
+            android:lineSpacingMultiplier="0.95"
+            android:maxLines="2"
+            android:textColor="@color/text_primary"
+            android:textSize="11sp" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -82,6 +82,8 @@ data class ScanUiState(
     val narrowed: Boolean = false,
     /** Every stock's 360CR, from the daily file ([Cr360Repository]); empty until it is read. */
     val cr360: Cr360Book = Cr360Book.EMPTY,
+    /** What every company makes, from the file the app carries ([ProductRepository]); empty until it is read. */
+    val products: ProductBook = ProductBook.EMPTY,
     /** The learned setups, from the daily learner ([SetupRepository]); empty until read, when the app's own apply. */
     val setups: SetupBook = SetupBook.EMPTY,
     /** Live mode's background scan is under way (the list still shows the previous scan). */
@@ -182,7 +184,7 @@ data class ScanUiState(
             }
             pool.filter {
                 (query.isBlank() || StockSearch.matches(it.stock, query)) &&
-                    (product == null || product in cr360.productsOf(it.stock.symbol))
+                    (product == null || product in products.of(it.stock.symbol, cr360))
             }
         }
     }

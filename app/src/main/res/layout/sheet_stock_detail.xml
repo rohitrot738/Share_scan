@@ -172,7 +172,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- What the company makes (Cr360Book.Entry.products): icon chips, filled in code; a tap filters the list. -->
+                <!-- What the company makes (ProductBook): a tile per product with its picture and name, filled in code; a tap
+                     filters the list. -->
                 <LinearLayout
                     android:id="@+id/detailProductsSection"
                     android:layout_width="match_parent"
@@ -204,8 +205,10 @@
                         android:id="@+id/detailProducts"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:paddingHorizontal="16dp" />
+                        android:layout_marginTop="10dp"
+                        android:paddingHorizontal="20dp"
+                        app:chipSpacingHorizontal="8dp"
+                        app:chipSpacingVertical="8dp" />
                 </LinearLayout>
 
                 <!-- Shown instead of the chart, plan and technical stats when the scan had no price structure. -->
