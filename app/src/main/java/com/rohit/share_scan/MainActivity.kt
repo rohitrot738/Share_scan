@@ -138,6 +138,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Hinglish stays the app's language on a phone set to another one, until a language is picked.
         Languages.settle(this)
+        Languages.applyWords(this)
         enableEdgeToEdge()
         ui = ActivityMainBinding.inflate(layoutInflater)
         setContentView(ui.root)
@@ -460,7 +461,7 @@ class MainActivity : AppCompatActivity() {
             }
             ScanPhase.FAILED -> showStatus(
                 getString(R.string.status_failed_title),
-                state.error?.let { getString(R.string.status_failed_detail, it) }
+                state.error?.let { getString(R.string.status_failed_detail, scanFailure(it)) }
                     ?: getString(R.string.status_failed_body),
                 R.drawable.ic_error,
                 0,

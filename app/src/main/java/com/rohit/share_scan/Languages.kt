@@ -95,6 +95,20 @@ object Languages {
         return context.createConfigurationContext(config)
     }
 
+    /** The number formats' words for days, months and lakh ([StockFormat.words]) in [context]'s language. */
+    fun applyWords(context: Context) {
+        StockFormat.words = StockFormat.UnitWords(
+            today = context.getString(R.string.unit_today),
+            daysAgo = context.getString(R.string.unit_days_ago),
+            days = context.getString(R.string.unit_days),
+            month = context.getString(R.string.unit_month),
+            months = context.getString(R.string.unit_months),
+            week = context.getString(R.string.unit_week),
+            weeks = context.getString(R.string.unit_weeks),
+            lakh = context.getString(R.string.unit_lakh),
+        )
+    }
+
     private fun prefs(context: Context) = context.getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE)
 }
 

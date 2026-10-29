@@ -64,7 +64,7 @@ object TradeSheet {
         val text = when {
             v >= 1e9 -> count(v / 1e7) + " Cr"
             v >= 1e7 -> Cr360Format.number(v / 1e7, 2) + " Cr"
-            v >= 1e5 -> Cr360Format.number(v / 1e5, 2) + " लाख"
+            v >= 1e5 -> Cr360Format.number(v / 1e5, 2) + " " + StockFormat.words.lakh
             else -> count(v)
         }
         return (if (value < 0) "−₹" else "₹") + text

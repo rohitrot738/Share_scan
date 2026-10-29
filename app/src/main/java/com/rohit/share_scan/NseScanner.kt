@@ -30,6 +30,15 @@ object ScoreKeys {
     const val SUPPORT = "support"
 }
 
+/**
+ * A scan that cannot start, for a [reason] the screen words in the app's language: no exchange's stock list came
+ * ([Reason.NO_LISTS]), or the industries picked hold no stock ([Reason.NO_SECTOR_STOCKS]). Its message is the reason's
+ * name, which [ScanEngine.Failure.message] carries.
+ */
+class ScanBlocked(val reason: Reason) : IllegalStateException(reason.name) {
+    enum class Reason { NO_LISTS, NO_SECTOR_STOCKS }
+}
+
 /** One ingredient of the score: its 0–100 value and its weight in the total. */
 data class ScorePart(val key: String, val value: Double, val weight: Double)
 
@@ -229,9 +238,9 @@ object NseScanner {
         val bse = if (includeBse) daily("bse") { loadBseListings(isStopped) } else emptyList()
         if (isStopped()) return ScanOutput(emptyList(), null, stopped = true)
         val listed = combine(if (includeNse) main else emptyList(), sme, bse)
-        if (listed.isEmpty()) error("कोई stock list नहीं मिली")
+        if (listed.isEmpty()) throw ScanBlocked(ScanBlocked.Reason.NO_LISTS)
         val symbols = listed.filter { scope.includes(it.market, sectors.of(it.isin)) }
-        if (symbols.isEmpty()) error("चुने हुए sectors में कोई stock नहीं — Menu → स्कैन में sectors चुनें")
+        if (symbols.isEmpty()) throw ScanBlocked(ScanBlocked.Reason.NO_SECTOR_STOCKS)
         val nseSymbolByIsin = main.filter { it.isin.isNotEmpty() }.associate { it.isin to it.symbol }
         val isinBySymbol = symbols.associate { it.symbol to it.isin }
         onProgress(0, symbols.size)

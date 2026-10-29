@@ -288,7 +288,7 @@ object Notifier {
         val latest = ScanEngine.latest.value
         val (title, body) = when {
             failure != null && !failure.stoppedEarly -> context.getString(R.string.status_failed_title) to
-                (failure.message?.let { context.getString(R.string.status_failed_detail, it) }
+                (failure.message?.let { context.getString(R.string.status_failed_detail, context.scanFailure(it)) }
                     ?: context.getString(R.string.status_failed_body))
             failure != null || latest == null -> context.getString(R.string.notify_scan_stopped_early) to
                 context.getString(R.string.notify_scan_stopped_early_body)
@@ -374,4 +374,11 @@ object Notifier {
 
     /** Android shows at most three buttons on a notification. */
     private const val MAX_ACTIONS = 3
+}
+
+/** A failed scan's reason: the scan's own ([ScanBlocked]) in the app's words, else the error as it came. */
+internal fun Context.scanFailure(message: String): String = when (message) {
+    ScanBlocked.Reason.NO_LISTS.name -> getString(R.string.scan_error_no_lists)
+    ScanBlocked.Reason.NO_SECTOR_STOCKS.name -> getString(R.string.scan_error_no_sector_stocks)
+    else -> message
 }
