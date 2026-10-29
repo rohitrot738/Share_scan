@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_from_high">20D உச்சத்திலிருந்து தூரம்</string>
+    <string name="metric_base_range">அமைதியான வரம்பு (உச்சம்–தாழ்வு)</string>
+    <string name="metric_vs_sma50">50 DMA இலிருந்து தூரம்</string>
+    <string name="hint_from_high">20 நாள் உச்ச விலையை (ரெசிஸ்டன்ஸ்) விட விலை எவ்வளவு கீழே • எதிர்மறை = உச்சத்துக்கு மேல் பிரேக்அவுட்</string>
+    <string name="hint_base_range">தேர்ந்த வாரங்களில் உச்ச, தாழ்வு விலைகளின் இடைவெளி • குறைவு = அமைதியான பங்கு, மிக மேலேயும் இல்லை மிகக் கீழேயும் இல்லை</string>
+    <string name="hint_vs_sma50">50 நாள் சராசரிக்கு மேல் (+) அல்லது கீழ் (-) • நேர்மறை = ஏறும் ட்ரெண்ட்</string>
+    <string name="hint_score_mix">பிரேக்அவுட் அமைப்பு, ட்ரெண்ட், வால்யூம், லிக்விடிட்டி, மொமென்டம் கலவை • %1$s+ STRONG, %2$s+ WATCH</string>
+</resources>

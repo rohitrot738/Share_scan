@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compact_news_mark">📰</string>
+    <string name="compact_no_data">விலை இல்லை</string>
+    <string name="compact_col_rank">#</string>
+    <string name="compact_col_stock">பங்கு / நிறுவனம்</string>
+    <string name="compact_col_price">விலை</string>
+    <string name="compact_col_change">5D மாற்றம் / RVOL</string>
+    <string name="compact_col_score">ஸ்கோர்</string>
+    <string name="compact_share">பகிர்</string>
+    <string name="compact_rank">#%1$d</string>
+    <string name="pill_idle">ஸ்கேன் தொடங்கு ▸</string>
+    <string name="pill_reading">கடைசி ஸ்கேன் திறக்கிறது…</string>
+    <string name="pill_loading">ஸ்கேன் தொடங்குகிறது…</string>
+    <string name="pill_scanning">ஸ்கேன் %1$d%% • %2$s/%3$s</string>
+    <string name="pill_stopped">நிறுத்தப்பட்டது %1$d%% • %2$s/%3$s</string>
+    <string name="pill_done">ஸ்கேன் 100%% • %1$s பங்குகள்</string>
+    <string name="pill_live_done">லைவ் ஸ்கேன் 100%% • %1$s பங்குகள்</string>
+    <string name="pill_support_done">சப்போர்ட் 100%% • %1$s பங்குகள்</string>
+    <string name="pill_failed">ஸ்கேன் தோல்வி • மீண்டும் முயல்க</string>
+    <string name="empty_body_compact">ஸ்கேன் தொடங்க மேலே உள்ள பில்லைத் தட்டவும் — முடிந்ததும் சிறந்த வேட்பாளர்கள் ஸ்கோர் வரிசையில் இங்கே தெரிவார்கள்.</string>
+    <string name="pill_description">%1$s; ஸ்கேன் பொத்தான்களைத் திற</string>
+    <string name="help_compact_title">Space Glass காம்பாக்ட் அட்டவணை</string>
+    <string name="help_compact_body">மெனு → பின்னணியில் Space Glass தேர்ந்தெடுத்தால் பட்டியல் ஒரு அட்டவணையாகும்: ஒவ்வொரு பங்குக்கும் ஒரு வரி — தரவரிசை, டிக்கர் (NSE/BSE, NEW அல்லது ▲▼, 📰 உடன்), அதன் கீழ் நிறுவனப் பெயர், விலை, 5 நாள் மாற்றம் அதன் கீழ் RVOL, மற்றும் ஸ்கோர் — ஒரு திரையில் 8–10 பங்குகள். வாட்ச்லிஸ்ட் பங்குகளின் ஸ்கோர் தங்க நிறத்தில் ★ உடன்; ஒரு வரியை நீண்ட நேரம் அழுத்தினால் பங்கு வாட்ச்லிஸ்டில் சேரும் அல்லது நீங்கும். மேலே மெல்லிய தலைப்பில் பச்சைப் பில் ஸ்கேன் எங்கே உள்ளது என்று சொல்லும் (எ.கா. \"லைவ் ஸ்கேன் 100% • 2,618 பங்குகள்\"); அதைத் தட்டினால் பிரேக்அவுட்/சப்போர்ட், ஸ்கேன்/நிறுத்து, ஸ்கேனை அழி பேனல் திறக்கும். வடிகட்டிகள், வாட்ச்லிஸ்ட், வரிசைகள், துறை, பகிர்வு கீழே மிதக்கும் பட்டையில், கட்டைவிரல் எட்டும் தூரத்தில்; அதைப் பக்கவாட்டில் நகர்த்தவும். ஒரு வரியைத் தட்டினால் பங்கின் முழு விவரம் — அமைப்பு, சப்போர்ட், R/S உடன் — திறக்கும். வடிகட்டிகள், துறைத் தாள்களும் அதே எளிய பாணியில் திறக்கும். பெரிய கார்டுகள் மீண்டும் வேண்டுமானால் Galaxy பின்னணியைத் தேர்ந்தெடுக்கவும்.</string>
+</resources>

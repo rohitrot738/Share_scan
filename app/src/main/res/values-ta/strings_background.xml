@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notify_channel_scan">ஸ்கேன் நடக்கிறது</string>
+    <string name="notify_channel_scan_body">ஆப் மூடியிருந்தாலும் உங்கள் ஸ்கேன் தொடர்வதால், அதன் முன்னேற்றம்</string>
+    <string name="notify_channel_scan_done">ஸ்கேன் முடிந்தது</string>
+    <string name="notify_channel_scan_done_body">நீங்கள் ஆப்புக்கு வெளியே இருந்தபோது முடிந்த ஸ்கேனின் முடிவு</string>
+    <string name="notify_scan_title">ஸ்கேன் நடக்கிறது</string>
+    <string name="notify_scan_loading">பங்குப் பட்டியல் வருகிறது…</string>
+    <string name="notify_scan_body">%1$s / %2$s பங்குகள் • %3$d%%</string>
+    <string name="notify_scan_stopping">ஸ்கேன் நிறுத்தப்படுகிறது…</string>
+    <string name="notify_scan_done">✅ ஸ்கேன் முடிந்தது • %1$d சிறந்த வேட்பாளர்கள்</string>
+    <string name="notify_scan_stopped">⏹ ஸ்கேன் நிறுத்தப்பட்டது • %1$d சிறந்த வேட்பாளர்கள்</string>
+    <string name="notify_scan_stopped_early">⏹ ஸ்கேன் நிறுத்தப்பட்டது</string>
+    <string name="notify_scan_stopped_early_body">எந்தப் பங்கும் சரிபார்க்கப்படும் முன் நிறுத்தப்பட்டது — முந்தைய ஸ்கேன் மாறவில்லை</string>
+    <string name="notify_scan_top">டாப்: %1$s • ஸ்கோர் %2$s — பார்க்கத் தட்டவும்</string>
+    <string name="notify_scan_none">உங்கள் வடிகட்டிகளை எந்தப் பங்கும் கடக்கவில்லை — பார்க்கத் தட்டவும்</string>
+    <string name="status_reading_title">கடைசி ஸ்கேன் திறக்கிறது…</string>
+    <string name="status_reading_body">சேமித்த பட்டியல் படிக்கப்படுகிறது — ஒரு நொடி</string>
+    <string name="empty_reading_body">கடைசி ஸ்கேனின் பட்டியல் வருகிறது; அறிவிப்பிலிருந்து திறந்த பங்கு அதனுடன் திறக்கும்.</string>
+    <string name="notify_open_missing">%1$s தற்போதைய பட்டியலில் இல்லை — புதிய ஸ்கேன் செய்யவும்</string>
+    <string name="notify_channel_update">ஆப் புதுப்பிப்பு</string>
+    <string name="notify_channel_update_body">புதிய பதிப்பு பதிவிறங்கி நிறுவத் தயாராக இருக்கும்போது</string>
+    <string name="update_download_title">Share Scan %1$s</string>
+    <string name="update_download_body">புதிய பதிப்பு பதிவிறங்குகிறது</string>
+    <string name="notify_update_ready">Share Scan %1$s தயார்</string>
+    <string name="notify_update_ready_body">பதிவிறக்கம் முடிந்தது — நிறுவத் தட்டவும்</string>
+    <string name="settings_background">பின்னணியில் இயங்க விடு</string>
+    <string name="settings_background_off">⚠ இப்போது பேட்டரி சேமிக்க Android ஆட்டோ-ஸ்கேன், அலர்ட்களைத் தாமதப்படுத்தலாம் அல்லது நிறுத்தலாம். இங்கே தட்டி “Allow” தேர்ந்தெடுக்கவும். Xiaomi, Redmi, Vivo, Oppo, Realme இல் App info இல் “Autostart” ஐயும் இயக்கவும்.</string>
+    <string name="settings_background_on">✓ இயக்கத்தில் — பேட்டரி சேமிக்க Android இந்த ஆப்பின் ஆட்டோ-ஸ்கேன், அலர்ட்களை நிறுத்தாது. Xiaomi, Redmi, Vivo, Oppo, Realme இல் App info இல் “Autostart” ஐயும் இயக்கத்தில் வைக்கவும் (திறக்க இங்கே தட்டவும்).</string>
+    <string name="help_background_title">பின்னணியில் ஸ்கேன்</string>
+    <string name="help_background_body">ஸ்கேன் தட்டிய பிறகு ஆப்பை விட்டு வெளியேறினாலும் திரையை அணைத்தாலும் ஸ்கேன் தொடரும் — ஒரு அறிவிப்பு அதன் முன்னேற்றத்தையும் “நிறுத்து” பொத்தானையும் காட்டும், முடிந்ததும் இன்னொன்று முடிவைக் கொண்டுவரும். புதுப்பிப்புப் பதிவிறக்கமும் Android பதிவிறக்க மேலாளர் வழியாக நடக்கும், எனவே ஆப் மூடியிருந்தாலும் முடியும், பிறகு “நிறுவத் தட்டவும்” அறிவிப்பு வரும். சந்தை நேரத்தில் ஆட்டோ-ஸ்கேனை Android தானே இயக்கும்: மெனு → ஸ்கேனில் “பின்னணியில் இயங்க விடு” தட்டி அனுமதி கொடுங்கள், இல்லையெனில் பேட்டரி சேமிக்க Android அதைத் தாமதப்படுத்தலாம் அல்லது நிறுத்தலாம். Xiaomi, Redmi, Vivo, Oppo, Realme போன்ற ஃபோன்களில் App info இல் “Autostart” ஐயும் இயக்கவும்.</string>
+</resources>

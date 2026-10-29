@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="score_detail_old">இந்தப் பகுதியின் முழுக் கணக்கு கடந்த ஸ்கேனில் வைக்கப்படவில்லை — மீண்டும் ஸ்கேன் செய்தால் தெரியும்</string>
+    <string name="score_swing">இந்தப் பங்கின் வழக்கமான தினசரி நகர்வு (கடந்த 50 நாள் சராசரி உச்சம்–தாழ்வு வரம்பு): %1$s%% — தூரங்கள் இதன் மடங்குகளில் அளக்கப்படுகின்றன</string>
+    <string name="score_total">மொத்தம்: %1$s = %2$s புள்ளிகள் → %3$s</string>
+    <string name="score_total_simple">மொத்தம்: %1$s புள்ளிகள் → %2$s</string>
+    <string name="score_soft_note">85க்கு மேலும் 15க்குக் கீழும் உள்ள புள்ளிகள் மெதுவாக 100, 0 நோக்கி அழுத்தப்படுகின்றன, சிறந்த பங்குகளின் வரிசை நிலைக்க</string>
+    <string name="score_breakout_high">கடைசி அமர்வுக்கு முந்தைய 20 நாள் உச்ச விலை ₹%1$s; விலை ₹%2$s அதைவிட %3$s%% கீழே, அதாவது தினசரி நகர்வின் %4$s மடங்கு → %5$s புள்ளிகள் (பங்கு 55%%)</string>
+    <string name="score_breakout_high_above">கடைசி அமர்வுக்கு முந்தைய 20 நாள் உச்ச விலை ₹%1$s; விலை ₹%2$s அதைவிட %3$s%% மேலே சென்றுவிட்டது, தினசரி நகர்வின் %4$s மடங்கு → %5$s புள்ளிகள் (பங்கு 55%%)</string>
+    <string name="score_breakout_high_rule">உச்சத்துக்குச் சற்றுக் கீழிருந்து அதற்கு ஒரு தினசரி நகர்வு மேல் வரை முழு 100 புள்ளிகள்; அங்கிருந்து ஒவ்வொரு தினசரி நகர்வு தூரத்துக்கும் 20 புள்ளிகள் குறைவு</string>
+    <string name="score_breakout_base">கடந்த 10 நாள் அடித்தளம் ₹%1$s – ₹%2$s, அகலம் %3$s%%, அதாவது தினசரி நகர்வின் %4$s மடங்கு (2 மடங்கு அல்லது குறைவு = இறுக்கம்) → %5$s புள்ளிகள்</string>
+    <string name="score_breakout_calm">அந்த நாட்களின் தினசரி வரம்பு வழக்கமான நகர்வின் %1$s மடங்கு (0.6 அல்லது குறைவு = முழு அமைதி) → %2$s புள்ளிகள்</string>
+    <string name="score_breakout_tight">அடித்தள இறுக்கம்: மேலே உள்ள இரண்டின் சராசரி (110 வரை) → %1$s புள்ளிகள் (பங்கு 30%%)</string>
+    <string name="score_breakout_position">அடித்தளத்தில் விலை எங்கே: %1$s/100 (0 = அடிமட்டம், 100 = உச்சி) (பங்கு 15%%)</string>
+    <string name="score_breakout_total">மொத்தம்: 0.55 × %1$s + 0.30 × %2$s + 0.15 × %3$s = %4$s புள்ளிகள் → %5$s</string>
+    <string name="score_base_title">கடந்த 10 அமர்வுகளின் அடித்தளம்</string>
+    <string name="score_trend_term">%1$s: %2$s தினசரி நகர்வுகள் → %3$s × %2$s = %4$s புள்ளிகள்</string>
+    <string name="score_trend_above20">விலை, 20 நாள் சராசரி ₹%1$s க்கு மேல் (+) / கீழ் (−)</string>
+    <string name="score_trend_slope">20 நாள் சராசரியின் சாய்வு, கடந்த 5 நாட்களில்</string>
+    <string name="score_trend_above50">விலை, 50 நாள் சராசரி ₹%1$s க்கு மேல் (+) / கீழ் (−)</string>
+    <string name="score_trend_stacked">20 நாள் சராசரி, 50 நாள் சராசரிக்கு மேல் (+) / கீழ் (−)</string>
+    <string name="score_trend_limits">ஒவ்வொரு பகுதியும் ஒரு வரம்பு வரை மட்டுமே எண்ணப்படும்: 20 நாள் ±3, சாய்வு ±2, 50 நாள் ±4, இரு சராசரிகளின் இடைவெளி ±2 தினசரி நகர்வுகள்</string>
+    <string name="score_trend_short">50 நாள் தரவு இல்லை, எனவே 20 நாள் இரண்டு பகுதிகளும் 1.75 மடங்காக எண்ணப்பட்டன</string>
+    <string name="score_volume_rvol">கடந்த அமர்வின் வால்யூம் %1$s பங்குகள், அதற்கு முந்தைய 20 அமர்வுகளின் சராசரி %2$s இன் %3$s மடங்கு (RVOL) → %4$s புள்ளிகள் (1 மடங்கு = 50, 2 = 75, 4 = 100) (பங்கு 60%%)</string>
+    <string name="score_volume_live">சந்தை இப்போது திறந்துள்ளது: இன்று இதுவரையான வால்யூம், நாளின் இந்த நேரம் வரை வழக்கமாக நடக்கும் பங்கின் அடிப்படையில் முழு நாளாகக் கணக்கிடப்பட்டது</string>
+    <string name="score_volume_quiet">அதற்கு முந்தைய 5 அமர்வுகள்: சராசரியின் %1$s மடங்கு (0.5 அல்லது குறைவு = வால்யூம் வறண்டது, 1.15 அல்லது அதிகம் = இல்லை) → %2$s புள்ளிகள் (பங்கு 40%%)</string>
+    <string name="score_volume_total">மொத்தம்: 0.6 × %1$s + 0.4 × %2$s = %3$s புள்ளிகள் → %4$s</string>
+    <string name="score_liquidity_median">கடந்த 20 அமர்வுகளில் தினசரி டர்ன்ஓவரின் (விலை × வால்யூம்) இடைநிலை %1$s</string>
+    <string name="score_liquidity_scale">அளவுகோல்: ₹10 லட்சம் = 0, ₹1 Cr = 33, ₹10 Cr = 67, ₹100 Cr = 100 புள்ளிகள்</string>
+    <string name="score_momentum_5d">5 அமர்வுகளில் %1$s%% → 4 × %1$s = %2$s புள்ளிகள்</string>
+    <string name="score_momentum_20d">20 அமர்வுகளில் %1$s%% → 1.5 × %1$s = %2$s புள்ளிகள்</string>
+    <string name="score_support_level">சப்போர்ட் ₹%1$s; விலை அதைவிட %2$s%% மேலே</string>
+    <string name="score_support_age">%1$d அமர்வுகளாக (%2$s) இதற்குக் கீழ் முடியவில்லை → %3$s/70 புள்ளிகள் (6 மாதத்தில் முழு)</string>
+    <string name="score_support_touches">%1$d முறை இங்கு வந்து திரும்பியது → %2$s/30 புள்ளிகள் (5 முறையில் முழு)</string>
+    <string name="score_support_total">வலிமை %1$s/100 → போனஸ் %2$s புள்ளிகள் (அதிகபட்சம் 5)</string>
+    <string name="score_support_none">கடந்த 6 மாத சார்ட்டில் நிலையான சப்போர்ட் கிடைக்கவில்லை — போனஸ் 0 (ஸ்கோரிலிருந்து எதுவும் குறையாது)</string>
+    <string name="score_recent_title">கடந்த 10 அமர்வுகள்</string>
+    <string name="score_col_day">நாள்</string>
+    <string name="score_col_close">விலை</string>
+    <string name="score_col_change">மாற்றம்</string>
+    <string name="score_col_volume">வால்யூம்</string>
+    <string name="score_col_times">× சராசரி</string>
+    <string name="score_col_turnover">₹ Cr</string>
+    <string name="score_col_high">உச்சம்</string>
+    <string name="score_col_low">தாழ்வு</string>
+    <string name="score_recent_note">× சராசரி: அந்த நாளின் வால்யூம், இன்றுக்கு முந்தைய 20 அமர்வுகளின் சராசரியின் எத்தனை மடங்கு; ₹ Cr: அந்த நாளின் டர்ன்ஓவர்</string>
+</resources>

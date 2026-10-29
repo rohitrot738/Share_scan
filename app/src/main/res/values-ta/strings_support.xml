@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_breakout">பிரேக்அவுட் ஸ்கேன்</string>
+    <string name="mode_support">சப்போர்ட் ஸ்கேன்</string>
+    <string name="support_ready_title">சப்போர்ட் ஸ்கேன்</string>
+    <string name="support_ready_body">6 மாதங்களாக ஒரு விலைக்குக் கீழ் முடியாத, ஆனாலும் மீண்டும் மீண்டும் அதுவரை வந்த பங்குகள்</string>
+    <string name="support_done_title">சப்போர்ட் ஸ்கேன் முடிந்தது</string>
+    <string name="support_done_body">%1$d பங்குகள் 6 மாதங்களாக சப்போர்ட்டில் நிற்கின்றன • %2$s ஸ்கேன்</string>
+    <string name="support_action_start">சப்போர்ட் ஸ்கேன் செய்</string>
+    <string name="support_action_rescan">மீண்டும் சப்போர்ட் ஸ்கேன் செய்</string>
+    <string name="support_stat_long">6M சப்போர்ட்</string>
+    <string name="support_stat_near">5% க்குள்</string>
+    <string name="support_reach_any">எந்தத் தூரமும்</string>
+    <string name="support_reach_within">%1$d%% வரை அருகில்</string>
+    <string name="support_list_empty_title">6 மாத சப்போர்ட் எதுவும் கிடைக்கவில்லை</string>
+    <string name="support_list_empty_body">இந்த ஸ்கேனில், இந்த வடிகட்டிகளுக்குள், எந்தப் பங்கும் 6 மாதங்களாகத் தன் சப்போர்ட்டுக்கு மேல் நிற்கவில்லை. தூரத்தை அதிகரிக்கவும், வடிகட்டிகளைத் தளர்த்தவும், அல்லது மெனு → ஸ்கேனில் மேலும் பரிமாற்றங்கள் / துறைகளை இயக்கவும்.</string>
+    <string name="sort_support">சப்போர்ட்</string>
+    <string name="item_support">சப்போர்ட் ₹%1$s · %2$s · %3$d முறை</string>
+    <string name="item_support_description">சப்போர்ட் %1$s ரூபாயில், %2$s முதல், %3$d முறை சோதிக்கப்பட்டது</string>
+    <string name="detail_stat_support">சப்போர்ட்</string>
+    <string name="detail_stat_support_note">%1$s முதல் · %2$d முறை சோதிக்கப்பட்டது · விலை %3$s மேலே</string>
+    <string name="detail_stat_support_long_note">%1$s முதல் · %2$d முறை சோதிக்கப்பட்டது · விலை %3$s மேலே · 6 மாதங்களில் இதற்குக் கீழ் முடியவில்லை</string>
+    <string name="detail_chart_support">சப்போர்ட் %1$s</string>
+    <string name="detail_part_support">சப்போர்ட் போனஸ்</string>
+    <string name="detail_part_bonus">+%1$d வரை</string>
+    <string name="metric_support_age">சப்போர்ட் எவ்வளவு பழையது</string>
+    <string name="metric_support_gap">சப்போர்ட்டிலிருந்து தூரம்</string>
+    <string name="hint_support_age">விலை மீண்டும் மீண்டும் வந்து திரும்பிய, கீழே முடியாத நிலை எவ்வளவு காலமாக நிற்கிறது</string>
+    <string name="hint_support_gap">இன்றைய விலை சப்போர்ட்டை விட எத்தனை % மேலே; குறைவு = சப்போர்ட் அருகில்</string>
+    <string name="help_part_support">சப்போர்ட் போனஸ் • %1$d புள்ளிகள் வரை</string>
+    <string name="help_part_support_body">பங்கு மீண்டும் மீண்டும் வந்து திரும்பிய, கீழே முடியாத விலையே அதன் சப்போர்ட்: விற்பவர்களால் விலையை அதற்குக் கீழ் இறக்க முடியவில்லை. சப்போர்ட் எவ்வளவு பழையதோ (6 மாதத்தில் முழுப் புள்ளிகள்) எத்தனை முறை சோதிக்கப்பட்டதோ (5 முறையில் முழு), ஸ்கோரில் அவ்வளவு அதிகப் புள்ளிகள் சேரும்; சப்போர்ட் இல்லாத பங்குக்குப் புள்ளிகள் குறையாது. மேலே \"சப்போர்ட் ஸ்கேன்\" தேர்ந்தெடுத்தால் 6 மாதங்களில் ஒருபோதும் தன் சப்போர்ட்டுக்குக் கீழ் முடியாத, சப்போர்ட் குறைந்தது %1$d மாதங்களாகக் குறைந்தது 3 முறை சோதிக்கப்பட்ட பங்குகள் மட்டும் தெரியும். சப்போர்ட் ஸ்கேனுக்குத் தனி வடிகட்டிகள் உள்ளன, பிரேக்அவுட்டுடையவற்றிலிருந்து வேறு. இரண்டு ஸ்கேன்களும் ஒரே தரவைப் படிக்கின்றன, எனவே ஒரு ஸ்கேனில் இரண்டு பட்டியல்களும் புதுப்பிக்கப்படும்.</string>
+</resources>

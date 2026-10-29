@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_watchlist">★ வாட்ச்லிஸ்ட்</string>
+    <string name="list_watchlist_count">★ வாட்ச்லிஸ்ட் (%1$d)</string>
+    <string name="list_watchlist_leave">வாட்ச்லிஸ்டை மூடி, எல்லாப் பங்குகளையும் காட்டு</string>
+    <string name="list_star_add">%1$s ஐ வாட்ச்லிஸ்டில் சேர்</string>
+    <string name="list_star_remove">%1$s ஐ வாட்ச்லிஸ்டிலிருந்து நீக்கு</string>
+    <string name="list_starred_description">வாட்ச்லிஸ்டில் உள்ளது</string>
+    <string name="list_empty_watchlist_title">உங்கள் வாட்ச்லிஸ்ட் காலியாக உள்ளது</string>
+    <string name="list_empty_watchlist_body">எந்த கார்டிலும் ☆ தட்டவும் — அந்தப் பங்கு இங்கே தெரியும்.</string>
+    <string name="list_empty_watchlist_body_compact">எந்த வரியையும் நீண்ட நேரம் அழுத்தவும் — அந்தப் பங்கு ★ உடன் இங்கே தெரியும்.</string>
+    <string name="list_empty_watchlist_waiting_title">உங்கள் ★ பங்குகளுக்கு இன்னும் விலை இல்லை</string>
+    <string name="list_empty_watchlist_waiting_body">நீங்கள் ★ இட்ட பங்குகள் அடுத்த ஸ்கேனுடன் இங்கே தெரியும்.</string>
+    <string name="list_rank_new">NEW</string>
+    <string name="list_rank_up">▲%1$d</string>
+    <string name="list_rank_down">▼%1$d</string>
+    <string name="list_rank_new_description">கடைசி ஸ்கேனுக்குப் பிறகு டாப் %1$d இல் புதியது</string>
+    <string name="list_rank_up_description">கடைசி ஸ்கேனிலிருந்து %1$d இடங்கள் மேலே</string>
+    <string name="list_rank_down_description">கடைசி ஸ்கேனிலிருந்து %1$d இடங்கள் கீழே</string>
+    <string name="list_search_open">சின்னங்களைத் தேடு</string>
+    <string name="list_search_hint">சின்னம் அல்லது பெயர் — TCS, Reliance போல</string>
+    <string name="list_search_close">தேடலை மூடு</string>
+    <string name="list_empty_search_title">எந்தப் பங்கும் பொருந்தவில்லை</string>
+    <string name="list_empty_search_body">“%1$s” ஸ்கேன் செய்த எந்தப் பங்கின் சின்னத்திலும் பெயரிலும் இல்லை — எழுத்துப்பிழையைச் சரிபார்க்கவும் அல்லது வடிகட்டிகளைத் தளர்த்தவும்.</string>
+    <string name="list_share_open">டாப் 10 பகிர்</string>
+    <string name="list_share_filters">%1$d வடிகட்டிகள் இயக்கத்தில்</string>
+    <string name="list_share_no_filters">வடிகட்டிகள் இல்லை</string>
+    <string name="list_share_line">%1$d. %2$s ₹%3$s • ஸ்கோர் %4$s • RVOL %5$s×</string>
+    <string name="list_share_failed">பகிர ஆப் இல்லை</string>
+</resources>

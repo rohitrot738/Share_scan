@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="update_title">புதிய பதிப்பு கிடைக்கிறது</string>
+    <string name="update_title_ready">புதுப்பிப்பு பதிவிறங்கியது</string>
+    <string name="update_versions">%1$s • இப்போது %2$s</string>
+    <string name="update_available_body">ஒரே தட்டலில் பதிவிறக்கி பழைய ஆப்பின் மேலேயே நிறுவவும் — வாட்ச்லிஸ்ட், வடிகட்டிகள் அப்படியே இருக்கும்.</string>
+    <string name="update_downloading_body">பதிவிறங்குகிறது… %1$d%%</string>
+    <string name="update_ready_body">நிறுவு தட்டவும் — புதிய பதிப்பு பழையதன் மேலேயே நிறுவப்படும்.</string>
+    <string name="update_ready_permission_body">நிறுவு தட்டவும். முதல் முறை Android “இந்த மூலத்திலிருந்து நிறுவ” அனுமதி கேட்கும் — அதை இயக்கித் திரும்பி வாருங்கள், நிறுவல் அங்கிருந்தே தொடரும்.</string>
+    <string name="update_failed_body">பதிவிறக்கம் ஆகவில்லை. இணைய இணைப்பைச் சரிபார்த்து மீண்டும் முயலவும்.</string>
+    <string name="update_action_download">புதுப்பி</string>
+    <string name="update_action_install">நிறுவு</string>
+    <string name="update_action_retry">மீண்டும் முயல்க</string>
+    <string name="update_action_later">பிறகு</string>
+    <string name="update_install_failed">நிறுவியைத் திறக்க முடியவில்லை</string>
+</resources>

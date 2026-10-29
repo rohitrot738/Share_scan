@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_layout">தளவமைப்பு</string>
+    <string name="layout_title">தளவமைப்பைத் தேர்ந்தெடு</string>
+    <string name="layout_subtitle">பங்குப் பட்டியல் எப்படித் தெரிய வேண்டும் · பின்னணி, தீம் அப்படியே இருக்கும்</string>
+    <string name="layout_auto">பின்னணியினுடையது</string>
+    <string name="layout_auto_now_cards">இப்போது Galaxy பின்னணி: பெரிய கார்டுகள்</string>
+    <string name="layout_auto_now_table">இப்போது Space Glass பின்னணி: காம்பாக்ட் அட்டவணை</string>
+    <string name="layout_accordion">அக்கார்டியன்</string>
+    <string name="layout_accordion_body">ஒவ்வொரு பங்குக்கும் ஒரு மெல்லிய வரி · தட்டினால் அங்கேயே முழு விவரம்</string>
+    <string name="layout_bento">பென்டோ கிரிட்</string>
+    <string name="layout_bento_body">இரண்டு நெடுவரிசைகளில் டைல்கள்: ஸ்கோர் டயல், 15 நாள் கோடு, விலை</string>
+    <string name="layout_swipe">ஸ்வைப் கார்டுகள்</string>
+    <string name="layout_swipe_body">சிறிய காப்ஸ்யூல்களில் எண்கள் · இடப்பக்கம் ஸ்வைப் செய்தால் ★ வாட்ச்லிஸ்ட், சார்ட்</string>
+    <string name="layout_action_chart">சார்ட்</string>
+    <string name="layout_action_details">விவரங்கள்</string>
+    <string name="layout_action_watchlist">வாட்ச்லிஸ்ட்</string>
+    <string name="layout_action_unwatch">நீக்கு</string>
+    <string name="layout_action_alert">அலர்ட் அமை</string>
+    <string name="layout_action_alert_on">★ அலர்ட் இயக்கத்தில்</string>
+    <string name="layout_expand">%1$s விவரத்தைத் திற</string>
+    <string name="layout_collapse">%1$s விவரத்தை மூடு</string>
+    <string name="layout_swipe_hint">%1$s: வாட்ச்லிஸ்ட், சார்ட் பொத்தான்களுக்கு இடப்பக்கம் ஸ்வைப் செய்யவும்</string>
+    <string name="cap_mcap">MCap %1$s</string>
+    <string name="cap_volume">Vol %1$s</string>
+    <string name="cap_rvol">RVOL %1$s×</string>
+    <string name="cap_support">சப்போர்ட் ₹%1$s</string>
+    <string name="cap_rs">R/S %1$s</string>
+    <string name="help_layout_title">தளவமைப்பு: பட்டியல் எப்படித் தெரியும்</string>
+    <string name="help_layout_body">மெனு → தளவமைப்பில் பட்டியலின் தோற்றத்தைத் தேர்ந்தெடுக்கவும். \"பின்னணியினுடையது\" Galaxy இல் பெரிய கார்டுகளையும் Space Glass இல் காம்பாக்ட் அட்டவணையையும் வைக்கும். அக்கார்டியனில் ஒவ்வொரு பங்கும் ஒரு மெல்லிய வரி; தட்டினால் ஸ்கோர் பட்டை, MCap, வால்யூம், RVOL, R/S, சப்போர்ட் அங்கேயே திறக்கும், அலர்ட், சார்ட், விவரங்கள் பொத்தான்களுடன். பென்டோ கிரிட் இரண்டு நெடுவரிசைகளில் டைல்களை வைக்கும்: வட்ட ஸ்கோர் டயல், கடைசி 15 நாள் கோடு, விலை, 5 நாள் மாற்றம்; டைலை நீண்ட நேரம் அழுத்தினால் வாட்ச்லிஸ்டில் சேரும். ஸ்வைப் கார்டுகள் எண்களைச் சிறிய காப்ஸ்யூல்களில் காட்டும், கார்டை இடப்பக்கம் இழுத்தால் ★ வாட்ச்லிஸ்ட், சார்ட் பொத்தான்கள் தெரியும்.</string>
+</resources>

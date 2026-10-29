@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="news_kind_results">முடிவுகள்</string>
+    <string name="news_kind_order">ஆர்டர்</string>
+    <string name="news_kind_dividend">ஈவுத்தொகை / போனஸ்</string>
+    <string name="news_kind_fundraise">நிதி திரட்டல்</string>
+    <string name="news_kind_deal">கையகப்படுத்தல்</string>
+    <string name="news_kind_expansion">விரிவாக்கம்</string>
+    <string name="news_kind_management">நிர்வாகம்</string>
+    <string name="news_kind_rating">மதிப்பீடு</string>
+    <string name="news_kind_legal">சட்டம்</string>
+    <string name="news_kind_meeting">வாரியக் கூட்டம்</string>
+    <string name="news_kind_investor">ஆய்வாளர் கூட்டம்</string>
+    <string name="news_kind_other">செய்தி</string>
+    <string name="news_kind_routine">வழக்கமான அறிவிப்பு</string>
+    <string name="news_pre_open">சந்தைக்கு முன்</string>
+    <string name="news_live">லைவ்</string>
+    <string name="news_today">இன்று %1$s</string>
+    <string name="news_yesterday">நேற்று %1$s</string>
+    <string name="detail_tab_overview">தகவல்</string>
+    <string name="detail_tab_news">செய்திகள்</string>
+    <string name="detail_tab_news_count">செய்திகள் · %1$d</string>
+    <string name="news_loading">NSE/BSE அறிவிப்புகளும் செய்தித்தாள் செய்திகளும் வருகின்றன…</string>
+    <string name="news_subtitle">பரிமாற்ற அறிவிப்புகள் (30 நாட்கள்), செய்தித்தாள் செய்திகள் (7 நாட்கள்) • புதியவை மேலே • முழுச் செய்தியைப் படிக்கத் தட்டவும்</string>
+    <string name="news_subtitle_wide">இந்தப் பங்குக்குச் செய்திகள் குறைவு, எனவே கடந்த 1 ஆண்டு வரையிலான அறிவிப்புகளும் செய்திகளும் • புதியவை மேலே • முழுச் செய்தியைப் படிக்கத் தட்டவும்</string>
+    <string name="news_none">கடந்த 1 ஆண்டில் இந்தப் பங்குக்கு எந்த அறிவிப்பும் செய்தியும் கிடைக்கவில்லை</string>
+    <string name="news_failed">செய்திகள் வரவில்லை — இணையத்தைச் சரிபார்த்து தாளை மீண்டும் திறக்கவும்</string>
+    <string name="news_source_filing">%1$s அறிவிப்பு • PDF</string>
+    <string name="news_source_filing_page">%1$s அறிவிப்பு</string>
+    <string name="news_more">மேலும் %1$d செய்திகளைக் காட்டு</string>
+    <string name="news_routine">+%1$d வழக்கமான அறிவிப்புகள் (பத்திரிகை அறிவிப்பு, டிரேடிங் விண்டோ, சான்றிதழ்கள்…)</string>
+    <string name="news_open_failed">செய்தியைத் திறக்க உலாவி இல்லை</string>
+    <string name="item_news_badge">📰 %1$s</string>
+    <string name="item_news_badge_more">📰 %1$s +%2$d</string>
+    <string name="item_news_description">கடந்த 24 மணி நேரத்தில் %1$d அறிவிப்புகள், முக்கியமானது: %2$s</string>
+    <string name="settings_news_alerts">வாட்ச்லிஸ்ட் செய்திகள்</string>
+    <string name="settings_news_alerts_body">காலை 8 முதல் 9:15 வரை ★ பங்குகளின் இரவு முழுவதுமான செய்திகள் ஒரே அறிவிப்பில், பகலில் (காலை 7 முதல் இரவு 10) முடிவுகள், ஆர்டர், ஈவுத்தொகை போன்ற பெரிய அறிவிப்பு வந்தவுடன் அறிவிப்பு</string>
+    <string name="notify_channel_news">வாட்ச்லிஸ்ட் செய்திகள்</string>
+    <string name="notify_channel_news_body">★ பங்குகளின் காலைச் செய்திகளும் பெரிய அறிவிப்புகளும்</string>
+    <string name="notify_news_alert">📰 %1$s: %2$s</string>
+    <string name="notify_news_read">முழுச் செய்தி</string>
+    <string name="notify_news_digest">🗞 காலைச் செய்திகள் • %1$d பங்குகள்</string>
+    <string name="notify_news_digest_line">%1$s · %2$s: %3$s</string>
+    <string name="help_news_title">செய்திகள்</string>
+    <string name="help_news_body">ஒவ்வொரு பங்கின் விவரத்திலும் தனி \"செய்திகள்\" தாவல் உள்ளது: NSE இன் (BSE இல் மட்டும் பட்டியலிட்ட பங்குகளுக்கு BSE இன்) கடந்த 30 நாள் அறிவிப்புகளும் கடந்த வாரச் செய்தித்தாள் செய்திகளும் (Google News இலிருந்து, ஆங்கிலம், இந்தி), புதியவை மேலே. குறைந்தது 10 செய்திகள் தெரியும்: செய்திகள் குறைவாக வரும் பங்குக்குக் கடந்த 1 ஆண்டு வரையிலான அறிவிப்புகளும் செய்திகளும் வரும். புதிய செய்தி இருந்தால் தாவலில் புள்ளி தெரியும். ஒவ்வொரு செய்தியிலும் அதன் வகை (முடிவுகள், ஆர்டர், ஈவுத்தொகை, விரிவாக்கம், சட்டம்…) எழுதப்பட்டிருக்கும், மேலும் \"சந்தைக்கு முன்\" (கடந்த முடிவுக்குப் பின் வந்தது, அடுத்த அமர்வு இதன் மீதே திறக்கும்) அல்லது \"லைவ்\" (இன்று சந்தை நேரத்தில் வந்தது). தட்டினால் முழுச் செய்தி அல்லது அறிவிப்பின் PDF திறக்கும். பட்டியலில் 📰 குறி கடந்த 24 மணி நேரத்தில் அந்தப் பங்குக்குப் பரிமாற்றத்தில் அறிவிப்பு வந்ததைச் சொல்கிறது; அதைத் தட்டினால் பங்கு நேரடியாக \"செய்திகள்\" தாவலில் திறக்கும், செய்தி அறிவிப்புகளும் அப்படியே. மெனு → ஸ்கேனில் \"வாட்ச்லிஸ்ட் செய்திகள்\" இயக்கத்தில் இருந்தால் ★ பங்குகளின் காலைச் செய்திகளும் பகலின் பெரிய அறிவிப்புகளும் அறிவிப்பில் வரும். செய்தி நல்லதா கெட்டதா என்று ஆப் சொல்லாது — படித்து நீங்களே முடிவு செய்யுங்கள்.</string>
+</resources>

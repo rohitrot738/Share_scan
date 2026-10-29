@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_sunset">Sunset</string>
+    <string name="theme_sunset_body">ஆரஞ்சு-இளஞ்சிவப்பு மாலை வானம்</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_ocean_body">ஆழ்ந்த நீலக் கடல்</string>
+    <string name="theme_emerald">Emerald</string>
+    <string name="theme_emerald_body">மரகதப் பச்சை பால்வீதி</string>
+    <string name="theme_mars">Mars</string>
+    <string name="theme_mars_body">தூசி நிறைந்த சிவப்பு வானம்</string>
+    <string name="theme_royal_gold">Royal Gold</string>
+    <string name="theme_royal_gold_body">தங்கமும் அரச ஊதாவும்</string>
+    <string name="theme_frost">Frost</string>
+    <string name="theme_frost_body">பனி நீலம் • மெல்லிய துருவ ஒளி</string>
+    <string name="theme_space_glass">Space Glass</string>
+    <string name="theme_space_glass_body">ஆழ்ந்த விண்வெளி • வான நீல ஒளிர்வு • நகரும் டிரேடிங் கிரிட், சார்ட் கோடு</string>
+</resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_rsi">RSI (14)</string>
+    <string name="metric_macd">MACD, சிக்னலிலிருந்து தூரம்</string>
+    <string name="metric_macd_cross">MACD கிராஸ்ஓவர்</string>
+    <string name="hint_rsi">70க்கு மேல் = ஓவர்பாட் (நிறைய ஏறியது), 30க்குக் கீழ் = ஓவர்சோல்ட் (நிறைய விழுந்தது) • 50–70 = ஏறுகிறது, ஆனால் அதிகம் இல்லை</string>
+    <string name="hint_macd" formatted="false">MACD கோடு அதன் சிக்னல் கோட்டுக்கு எவ்வளவு மேலே (+) அல்லது கீழே (-), விலையின் சதவீதமாக • 0%க்கு மேல் = ஏறுகிறது</string>
+    <string name="hint_macd_cross">MACD அதன் சிக்னல் கோட்டைக் கீழிருந்து கடந்து எத்தனை நாட்கள் ஆனது • \"3 நாட்களுக்கு முன்\" வரை = புதிய புல்லிஷ் கிராஸ்ஓவர்; சிக்னலுக்குக் கீழ் உள்ள பங்குகள் விலகும்</string>
+    <string name="detail_stat_rsi">RSI (14)</string>
+    <string name="detail_stat_rsi_overbought">70+ ஓவர்பாட்: நிறைய ஏறியது</string>
+    <string name="detail_stat_rsi_strong">50–70: ஏறுகிறது</string>
+    <string name="detail_stat_rsi_weak">30–50: பலவீனம்</string>
+    <string name="detail_stat_rsi_oversold">30க்குக் கீழ் ஓவர்சோல்ட்: நிறைய விழுந்தது</string>
+    <string name="detail_stat_macd">MACD (12, 26, 9)</string>
+    <string name="detail_stat_macd_bull">புல்லிஷ்</string>
+    <string name="detail_stat_macd_bear">பேரிஷ்</string>
+    <string name="detail_stat_macd_crossed">%1$s சிக்னலுக்கு மேல் கடந்தது</string>
+    <string name="detail_stat_macd_below">சிக்னல் கோட்டுக்குக் கீழ்</string>
+    <string name="detail_stat_macd_zero_above">பூஜ்ஜியத்துக்கு மேல்</string>
+    <string name="detail_stat_macd_zero_below">பூஜ்ஜியத்துக்குக் கீழ்</string>
+    <string name="help_indicators_title">RSI மற்றும் MACD</string>
+    <string name="help_indicators_body" formatted="false">இரண்டும் சார்ட் தளங்களைப் போலவே ஒவ்வொரு பங்கின் 6 மாத தினசரி விலைகளிலிருந்து வருகின்றன. RSI (14) 0 முதல் 100 வரை: 70க்கு மேல் ஓவர்பாட் (நிறைய ஏறியது), 30க்குக் கீழ் ஓவர்சோல்ட் (நிறைய விழுந்தது), 50–70 ஏறுகிறது. MACD (12, 26, 9): 12, 26 நாள் எக்ஸ்போனென்ஷியல் சராசரிகளின் இடைவெளி, அதன் 9 நாள் சிக்னல் கோடு. MACD அதன் சிக்னலுக்கு மேல் = ஏறுகிறது; அது சிக்னலைக் கீழிருந்து கடக்கும் நாள் புல்லிஷ் கிராஸ்ஓவர். வடிகட்டிகளில் மூன்றும் உள்ளன: RSI வரம்பு, MACD அதன் சிக்னலுக்கு எவ்வளவு மேலே அல்லது கீழே (விலையின் சதவீதமாக), கிராஸ்ஓவர் எத்தனை நாட்களுக்கு முன் வந்தது (\"3 நாட்களுக்கு முன்\" வரை = புதிய கிராஸ்ஓவர்). பங்கின் விவரத்தில் இரண்டின் இன்றைய மதிப்பு தெரியும். லைவ் சந்தையில் இன்றைய நகரும் விலையும் கணக்கில் வரும்.</string>
+</resources>
