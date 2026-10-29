@@ -212,7 +212,8 @@ def run(symbols: dict[str, dict], made: dict[str, list[str]]) -> dict:
 
 
 # How each kind of picture is stored: the box it is shrunk into, whether it is cropped to fill it, and its quality.
-SHAPES = {"logo": ((128, 128), False, 80), "banner": ((480, 250), True, 60), "photo": ((168, 168), True, 70)}
+# As small as still shows the company plainly, so the app stays light.
+SHAPES = {"logo": ((96, 96), False, 65), "banner": ((400, 210), True, 40), "photo": ((120, 120), True, 55)}
 
 
 def store(url: str, kind: str, path: str) -> bool:
