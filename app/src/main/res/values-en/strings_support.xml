@@ -26,7 +26,7 @@
     <string name="metric_support_age">Support\'s age</string>
     <string name="metric_support_gap">From support</string>
     <string name="hint_support_age">How long the level the price kept coming back to, and never closed under, has held</string>
-    <string name="hint_support_gap">How many % today\'s price sits above support; small = near support</string>
+    <string name="hint_support_gap">How far today\'s price sits above support (in %); small = near support</string>
     <string name="help_part_support">Support bonus • up to %1$d points</string>
     <string name="help_part_support_body">The price a stock kept coming down to and turning back from, without closing under it, is its support: sellers couldn\'t push the price below it. The older the support (full points at 6 months) and the more times it was tested (full at 5), the more points it adds to the score; a stock without support loses no points. Choose \"Support scan\" above to see only the stocks that never closed under their support in 6 months, and whose support has held at least %1$d months and been tested at least 3 times. The Support scan has its own Filters, apart from the Breakout scan\'s. Both scans read the same data, so one scan refreshes both lists.</string>
 </resources>

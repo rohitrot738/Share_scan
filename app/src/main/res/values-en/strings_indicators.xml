@@ -4,7 +4,7 @@
     <string name="metric_macd">MACD, distance from signal</string>
     <string name="metric_macd_cross">MACD crossover</string>
     <string name="hint_rsi">Above 70 = overbought (run up a lot), below 30 = oversold (fallen a lot) • 50–70 = rising, but not too much</string>
-    <string name="hint_macd" formatted="false">How far the MACD line sits above (+) or below (-) its signal line, as % of the price • above 0% = rising</string>
+    <string name="hint_macd" formatted="false">How far the MACD line sits above (+) or below (-) its signal line, as a percentage of the price • above 0% = rising</string>
     <string name="hint_macd_cross">How many days ago the MACD crossed its signal line from below • up to \"3 days ago\" = a fresh bullish crossover; stocks below the signal drop out</string>
     <string name="detail_stat_rsi">RSI (14)</string>
     <string name="detail_stat_rsi_overbought">70+ overbought: run up a lot</string>
@@ -19,5 +19,5 @@
     <string name="detail_stat_macd_zero_above">above zero</string>
     <string name="detail_stat_macd_zero_below">below zero</string>
     <string name="help_indicators_title">RSI and MACD</string>
-    <string name="help_indicators_body" formatted="false">Both come from each stock\'s 6 months of daily prices, as on charting sites. RSI (14) runs from 0 to 100: above 70 is overbought (run up a lot), below 30 oversold (fallen a lot), 50–70 rising. MACD (12, 26, 9): the gap between the 12- and 26-day exponential averages, and its 9-day signal line. MACD above its signal = rising; the day it crosses the signal from below is a bullish crossover. The Filters have all three: an RSI range, how far MACD sits above or below its signal (as % of the price), and how many days ago the crossover came (up to \"3 days ago\" = a fresh crossover). The stock\'s detail shows today\'s value of both. In a live market, today\'s moving price counts too.</string>
+    <string name="help_indicators_body" formatted="false">Both come from each stock\'s 6 months of daily prices, as on charting sites. RSI (14) runs from 0 to 100: above 70 is overbought (run up a lot), below 30 oversold (fallen a lot), 50–70 rising. MACD (12, 26, 9): the gap between the 12- and 26-day exponential averages, and its 9-day signal line. MACD above its signal = rising; the day it crosses the signal from below is a bullish crossover. The Filters have all three: an RSI range, how far MACD sits above or below its signal (as a percentage of the price), and how many days ago the crossover came (up to \"3 days ago\" = a fresh crossover). The stock\'s detail shows today\'s value of both. In a live market, today\'s moving price counts too.</string>
 </resources>
