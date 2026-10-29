@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="news_kind_results">ഫലങ്ങൾ</string>
+    <string name="news_kind_order">ഓർഡർ</string>
+    <string name="news_kind_dividend">ലാഭവിഹിതം / ബോണസ്</string>
+    <string name="news_kind_fundraise">ധനസമാഹരണം</string>
+    <string name="news_kind_deal">ഏറ്റെടുക്കൽ</string>
+    <string name="news_kind_expansion">വിപുലീകരണം</string>
+    <string name="news_kind_management">മാനേജ്മെന്റ്</string>
+    <string name="news_kind_rating">റേറ്റിംഗ്</string>
+    <string name="news_kind_legal">നിയമപരം</string>
+    <string name="news_kind_meeting">ബോർഡ് യോഗം</string>
+    <string name="news_kind_investor">അനലിസ്റ്റ് യോഗം</string>
+    <string name="news_kind_other">വാർത്ത</string>
+    <string name="news_kind_routine">പതിവ് അറിയിപ്പ്</string>
+    <string name="news_pre_open">വിപണിക്ക് മുമ്പ്</string>
+    <string name="news_live">ലൈവ്</string>
+    <string name="news_today">ഇന്ന് %1$s</string>
+    <string name="news_yesterday">ഇന്നലെ %1$s</string>
+    <string name="detail_tab_overview">വിവരം</string>
+    <string name="detail_tab_news">വാർത്തകൾ</string>
+    <string name="detail_tab_news_count">വാർത്തകൾ · %1$d</string>
+    <string name="news_loading">NSE/BSE അറിയിപ്പുകളും പത്രവാർത്തകളും വരുന്നു…</string>
+    <string name="news_subtitle">എക്സ്ചേഞ്ച് അറിയിപ്പുകൾ (30 ദിവസം), പത്രവാർത്തകൾ (7 ദിവസം) • പുതിയത് മുകളിൽ • പൂർണ്ണ വാർത്ത വായിക്കാൻ ടാപ്പ് ചെയ്യുക</string>
+    <string name="news_subtitle_wide">ഈ ഓഹരിക്ക് വാർത്തകൾ കുറവാണ്, അതിനാൽ കഴിഞ്ഞ 1 വർഷം വരെയുള്ള അറിയിപ്പുകളും വാർത്തകളും • പുതിയത് മുകളിൽ • പൂർണ്ണ വാർത്ത വായിക്കാൻ ടാപ്പ് ചെയ്യുക</string>
+    <string name="news_none">കഴിഞ്ഞ 1 വർഷത്തിൽ ഈ ഓഹരിക്ക് ഒരു അറിയിപ്പോ വാർത്തയോ ലഭിച്ചില്ല</string>
+    <string name="news_failed">വാർത്തകൾ വന്നില്ല — ഇന്റർനെറ്റ് പരിശോധിച്ച് ഷീറ്റ് വീണ്ടും തുറക്കുക</string>
+    <string name="news_source_filing">%1$s അറിയിപ്പ് • PDF</string>
+    <string name="news_source_filing_page">%1$s അറിയിപ്പ്</string>
+    <string name="news_more">%1$d വാർത്തകൾ കൂടി കാണിക്കുക</string>
+    <string name="news_routine">+%1$d പതിവ് അറിയിപ്പുകൾ (പത്ര നോട്ടീസ്, ട്രേഡിംഗ് വിൻഡോ, സർട്ടിഫിക്കറ്റുകൾ…)</string>
+    <string name="news_open_failed">വാർത്ത തുറക്കാൻ ബ്രൗസർ കണ്ടെത്തിയില്ല</string>
+    <string name="item_news_badge">📰 %1$s</string>
+    <string name="item_news_badge_more">📰 %1$s +%2$d</string>
+    <string name="item_news_description">കഴിഞ്ഞ 24 മണിക്കൂറിൽ %1$d അറിയിപ്പുകൾ, പ്രധാനം: %2$s</string>
+    <string name="settings_news_alerts">വാച്ച്‌ലിസ്റ്റ് വാർത്തകൾ</string>
+    <string name="settings_news_alerts_body">രാവിലെ 8 മുതൽ 9:15 വരെ ★ ഓഹരികളുടെ രാത്രിയിലെ വാർത്തകൾ ഒറ്റ അറിയിപ്പിൽ, പകൽ (രാവിലെ 7 മുതൽ രാത്രി 10 വരെ) ഫലങ്ങൾ, ഓർഡർ, ലാഭവിഹിതം പോലുള്ള വലിയ അറിയിപ്പ് വന്നാലുടൻ അറിയിപ്പ്</string>
+    <string name="notify_channel_news">വാച്ച്‌ലിസ്റ്റ് വാർത്തകൾ</string>
+    <string name="notify_channel_news_body">★ ഓഹരികളുടെ പ്രഭാത വാർത്തകളും വലിയ അറിയിപ്പുകളും</string>
+    <string name="notify_news_alert">📰 %1$s: %2$s</string>
+    <string name="notify_news_read">പൂർണ്ണ വാർത്ത</string>
+    <string name="notify_news_digest">🗞 പ്രഭാത വാർത്തകൾ • %1$d ഓഹരികൾ</string>
+    <string name="notify_news_digest_line">%1$s · %2$s: %3$s</string>
+    <string name="help_news_title">വാർത്തകൾ</string>
+    <string name="help_news_body">ഓരോ ഓഹരിയുടെയും വിശദാംശത്തിൽ പ്രത്യേക \"വാർത്തകൾ\" ടാബ് ഉണ്ട്: NSE-യുടെ (BSE-യിൽ മാത്രം ലിസ്റ്റ് ചെയ്ത ഓഹരികൾക്ക് BSE-യുടെ) കഴിഞ്ഞ 30 ദിവസത്തെ അറിയിപ്പുകളും കഴിഞ്ഞ ആഴ്ചയിലെ പത്രവാർത്തകളും (Google News-ൽ നിന്ന്, ഇംഗ്ലീഷിലും ഹിന്ദിയിലും), പുതിയത് മുകളിൽ. കുറഞ്ഞത് 10 വാർത്തകൾ കാണാം: വാർത്തകൾ കുറവുള്ള ഓഹരിക്ക് കഴിഞ്ഞ 1 വർഷം വരെയുള്ള അറിയിപ്പുകളും വാർത്തകളും വരും. പുതിയ വാർത്തയുണ്ടെങ്കിൽ ടാബിൽ ഒരു കുത്ത് കാണാം. ഓരോ വാർത്തയിലും അതിന്റെ തരം (ഫലങ്ങൾ, ഓർഡർ, ലാഭവിഹിതം, വിപുലീകരണം, നിയമപരം…) എഴുതിയിരിക്കും, കൂടാതെ \"വിപണിക്ക് മുമ്പ്\" (കഴിഞ്ഞ ക്ലോസിന് ശേഷം വന്നത്, അടുത്ത സെഷൻ ഇതിന്മേൽ തുറക്കും) അല്ലെങ്കിൽ \"ലൈവ്\" (ഇന്ന് വിപണി സമയത്ത് വന്നത്). ടാപ്പ് ചെയ്താൽ പൂർണ്ണ വാർത്തയോ അറിയിപ്പിന്റെ PDF-ഓ തുറക്കും. ലിസ്റ്റിലെ 📰 അടയാളം കഴിഞ്ഞ 24 മണിക്കൂറിൽ ആ ഓഹരിക്ക് എക്സ്ചേഞ്ചിൽ അറിയിപ്പ് വന്നുവെന്ന് പറയുന്നു; അത് ടാപ്പ് ചെയ്താൽ ഓഹരി നേരിട്ട് \"വാർത്തകൾ\" ടാബിൽ തുറക്കും, വാർത്താ അറിയിപ്പുകളും അങ്ങനെ തന്നെ. മെനു → സ്കാനിൽ \"വാച്ച്‌ലിസ്റ്റ് വാർത്തകൾ\" ഓണാണെങ്കിൽ ★ ഓഹരികളുടെ പ്രഭാത വാർത്തകളും പകലത്തെ വലിയ അറിയിപ്പുകളും അറിയിപ്പായി വരും. വാർത്ത നല്ലതോ ചീത്തയോ എന്ന് ആപ്പ് പറയില്ല — വായിച്ച് നിങ്ങൾ തന്നെ തീരുമാനിക്കുക.</string>
+</resources>

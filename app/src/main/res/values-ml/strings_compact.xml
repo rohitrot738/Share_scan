@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compact_news_mark">📰</string>
+    <string name="compact_no_data">വിലയില്ല</string>
+    <string name="compact_col_rank">#</string>
+    <string name="compact_col_stock">ഓഹരി / കമ്പനി</string>
+    <string name="compact_col_price">വില</string>
+    <string name="compact_col_change">5D മാറ്റം / RVOL</string>
+    <string name="compact_col_score">സ്കോർ</string>
+    <string name="compact_share">പങ്കിടുക</string>
+    <string name="compact_rank">#%1$d</string>
+    <string name="pill_idle">സ്കാൻ ആരംഭിക്കുക ▸</string>
+    <string name="pill_reading">അവസാന സ്കാൻ തുറക്കുന്നു…</string>
+    <string name="pill_loading">സ്കാൻ ആരംഭിക്കുന്നു…</string>
+    <string name="pill_scanning">സ്കാൻ %1$d%% • %2$s/%3$s</string>
+    <string name="pill_stopped">നിർത്തി %1$d%% • %2$s/%3$s</string>
+    <string name="pill_done">സ്കാൻ 100%% • %1$s ഓഹരികൾ</string>
+    <string name="pill_live_done">ലൈവ് സ്കാൻ 100%% • %1$s ഓഹരികൾ</string>
+    <string name="pill_support_done">സപ്പോർട്ട് 100%% • %1$s ഓഹരികൾ</string>
+    <string name="pill_failed">സ്കാൻ പരാജയം • വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="empty_body_compact">സ്കാൻ ആരംഭിക്കാൻ മുകളിലെ പിൽ ടാപ്പ് ചെയ്യുക — തീർന്നാൽ മികച്ച സ്ഥാനാർത്ഥികൾ സ്കോർ അനുസരിച്ച് ഇവിടെ കാണാം.</string>
+    <string name="pill_description">%1$s; സ്കാൻ ബട്ടണുകൾ തുറക്കുക</string>
+    <string name="help_compact_title">Space Glass കോംപാക്റ്റ് ടേബിൾ</string>
+    <string name="help_compact_body">മെനു → പശ്ചാത്തലത്തിൽ Space Glass തിരഞ്ഞെടുത്താൽ ലിസ്റ്റ് ഒരു ടേബിളാകും: ഓരോ ഓഹരിക്കും ഒരു വരി — റാങ്ക്, ടിക്കർ (NSE/BSE, NEW അല്ലെങ്കിൽ ▲▼, 📰 സഹിതം), അതിനു താഴെ കമ്പനിയുടെ പേര്, വില, 5 ദിവസത്തെ മാറ്റം അതിനു താഴെ RVOL, പിന്നെ സ്കോർ — ഒരു സ്ക്രീനിൽ 8–10 ഓഹരികൾ. വാച്ച്‌ലിസ്റ്റ് ഓഹരികളുടെ സ്കോർ സ്വർണ്ണ നിറത്തിൽ ★ സഹിതം; ഒരു വരി ദീർഘനേരം അമർത്തിയാൽ ഓഹരി വാച്ച്‌ലിസ്റ്റിൽ ചേരും അല്ലെങ്കിൽ നീങ്ങും. മുകളിലെ നേർത്ത ഹെഡറിലെ പച്ച പിൽ സ്കാൻ എവിടെയെത്തി എന്ന് പറയുന്നു (ഉദാ. \"ലൈവ് സ്കാൻ 100% • 2,618 ഓഹരികൾ\"); അത് ടാപ്പ് ചെയ്താൽ ബ്രേക്ക്ഔട്ട്/സപ്പോർട്ട്, സ്കാൻ/നിർത്തുക, സ്കാൻ മായ്ക്കുക പാനൽ തുറക്കും. ഫിൽട്ടറുകൾ, വാച്ച്‌ലിസ്റ്റ്, ക്രമങ്ങൾ, മേഖല, പങ്കിടൽ എന്നിവ താഴെ ഒഴുകുന്ന ബാറിൽ, തള്ളവിരലിന് എത്തുന്നിടത്ത്; അത് വശത്തേക്ക് നീക്കുക. ഒരു വരി ടാപ്പ് ചെയ്താൽ ഓഹരിയുടെ പൂർണ്ണ വിശദാംശം — സെറ്റപ്പ്, സപ്പോർട്ട്, R/S സഹിതം — തുറക്കും. ഫിൽട്ടറുകളും മേഖല ഷീറ്റുകളും അതേ ലളിത ശൈലിയിൽ തുറക്കും. വലിയ കാർഡുകൾ വീണ്ടും വേണമെങ്കിൽ Galaxy പശ്ചാത്തലം തിരഞ്ഞെടുക്കുക.</string>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_sky">ആകാശ ആനിമേഷൻ</string>
+    <string name="settings_sky_body">നക്ഷത്രങ്ങൾ മിന്നുന്നു, വീഴുന്നു, തിളങ്ങുന്നു; ഓഫാക്കിയാൽ ആകാശം നിശ്ചലമാകും (ബാറ്ററി ലാഭിക്കും)</string>
+    <string name="settings_section_glass">ഗ്ലാസ് മോഡ്</string>
+    <string name="settings_glass_on">ഗ്ലാസ് ഇഫക്റ്റ്</string>
+    <string name="settings_glass_on_body">ഓഫാക്കിയാൽ ബോർഡ്, കാർഡുകൾ, ബട്ടണുകൾ, ഷീറ്റുകൾ എന്നിവ ലളിതവും ഉറച്ചതുമാകും • ഗ്ലാസ്, തിളക്കം, മങ്ങൽ ഇല്ല</string>
+    <string name="glass_off_body">ഇപ്പോൾ: ഗ്ലാസ് ഓഫ് • മുകളിലെ സ്വിച്ച് ഓണാക്കിയാൽ തിരഞ്ഞെടുത്ത മോഡ് തിരികെ വരും</string>
+    <string name="settings_glass_body">സ്കാൻ ബോർഡ്, കാർഡുകൾ, ഷീറ്റുകൾ, ചിപ്പുകൾ, സ്വിച്ചുകൾ എന്നിവയുടെ ഗ്ലാസ് • തിരഞ്ഞെടുത്താലുടൻ ആപ്പ് മുഴുവൻ ബാധകമാകും</string>
+    <string name="glass_frosted">Frosted</string>
+    <string name="glass_clear">Clear</string>
+    <string name="glass_smoky">Smoky</string>
+    <string name="glass_tinted">Tinted</string>
+    <string name="glass_liquid">Iridescent</string>
+    <string name="glass_solid">Solid</string>
+    <string name="glass_frosted_body">ഇപ്പോൾ: ആകാശം കാണാവുന്ന നേരിയ മഞ്ഞുഗ്ലാസ് • ഡിഫോൾട്ട്</string>
+    <string name="glass_clear_body">ഇപ്പോൾ: തിളങ്ങുന്ന അരികുകളോടെ സ്ഫടികം പോലെ തെളിഞ്ഞ ഗ്ലാസ് • ആകാശം ഏറ്റവും കൂടുതൽ കാണാം</string>
+    <string name="glass_smoky_body">ഇപ്പോൾ: ഇരുണ്ട, പുക പോലുള്ള ഗ്ലാസ് • ആകാശം നേരിയതായി മിന്നുന്നു</string>
+    <string name="glass_tinted_body">ഇപ്പോൾ: തീമിന്റെ നിറത്തിലുള്ള ഗ്ലാസ്</string>
+    <string name="glass_liquid_body">ഇപ്പോൾ: വെള്ളത്തിലെ എണ്ണ പോലെ ആകാശനീല മുതൽ പിങ്ക് വരെ മിന്നുന്ന അരികുകൾ</string>
+    <string name="glass_solid_body">ഇപ്പോൾ: അൽപ്പം തിളക്കമുള്ള ഉറച്ച കാർഡുകൾ • വായിക്കാൻ എളുപ്പം, ഫോണിന് ഭാരം കുറവ്</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_breakout">ബ്രേക്ക്ഔട്ട് സ്കാൻ</string>
+    <string name="mode_support">സപ്പോർട്ട് സ്കാൻ</string>
+    <string name="support_ready_title">സപ്പോർട്ട് സ്കാൻ</string>
+    <string name="support_ready_body">6 മാസമായി ഒരു വിലയ്ക്ക് താഴെ ക്ലോസ് ചെയ്യാത്ത, എന്നാൽ വീണ്ടും വീണ്ടും അവിടെ വരെ വന്ന ഓഹരികൾ</string>
+    <string name="support_done_title">സപ്പോർട്ട് സ്കാൻ പൂർത്തിയായി</string>
+    <string name="support_done_body">%1$d ഓഹരികൾ 6 മാസമായി സപ്പോർട്ടിൽ നിൽക്കുന്നു • %2$s സ്കാൻ</string>
+    <string name="support_action_start">സപ്പോർട്ട് സ്കാൻ ചെയ്യുക</string>
+    <string name="support_action_rescan">വീണ്ടും സപ്പോർട്ട് സ്കാൻ ചെയ്യുക</string>
+    <string name="support_stat_long">6M സപ്പോർട്ട്</string>
+    <string name="support_stat_near">5%-നുള്ളിൽ</string>
+    <string name="support_reach_any">ഏത് ദൂരവും</string>
+    <string name="support_reach_within">%1$d%% വരെ അടുത്ത്</string>
+    <string name="support_list_empty_title">6 മാസത്തെ സപ്പോർട്ട് ഒന്നും ലഭിച്ചില്ല</string>
+    <string name="support_list_empty_body">ഈ സ്കാനിൽ, ഈ ഫിൽട്ടറുകൾക്കുള്ളിൽ, ഒരു ഓഹരിയും 6 മാസമായി അതിന്റെ സപ്പോർട്ടിന് മുകളിൽ നിന്നിട്ടില്ല. ദൂരം കൂട്ടുക, ഫിൽട്ടറുകൾ അയയ്ക്കുക, അല്ലെങ്കിൽ മെനു → സ്കാനിൽ കൂടുതൽ എക്സ്ചേഞ്ചുകൾ / മേഖലകൾ ഓണാക്കുക.</string>
+    <string name="sort_support">സപ്പോർട്ട്</string>
+    <string name="item_support">സപ്പോർട്ട് ₹%1$s · %2$s · %3$d തവണ</string>
+    <string name="item_support_description">സപ്പോർട്ട് %1$s രൂപയിൽ, %2$s മുതൽ, %3$d തവണ പരീക്ഷിച്ചു</string>
+    <string name="detail_stat_support">സപ്പോർട്ട്</string>
+    <string name="detail_stat_support_note">%1$s മുതൽ · %2$d തവണ പരീക്ഷിച്ചു · വില %3$s മുകളിൽ</string>
+    <string name="detail_stat_support_long_note">%1$s മുതൽ · %2$d തവണ പരീക്ഷിച്ചു · വില %3$s മുകളിൽ · 6 മാസത്തിൽ ഇതിന് താഴെ ക്ലോസ് ചെയ്തിട്ടില്ല</string>
+    <string name="detail_chart_support">സപ്പോർട്ട് %1$s</string>
+    <string name="detail_part_support">സപ്പോർട്ട് ബോണസ്</string>
+    <string name="detail_part_bonus">+%1$d വരെ</string>
+    <string name="metric_support_age">സപ്പോർട്ട് എത്ര പഴയത്</string>
+    <string name="metric_support_gap">സപ്പോർട്ടിൽ നിന്നുള്ള ദൂരം</string>
+    <string name="hint_support_age">വില വീണ്ടും വീണ്ടും വന്ന് തിരിച്ചുപോയ, താഴെ ക്ലോസ് ചെയ്യാത്ത നില എത്ര കാലമായി നിൽക്കുന്നു</string>
+    <string name="hint_support_gap">ഇന്നത്തെ വില സപ്പോർട്ടിനേക്കാൾ എത്ര % മുകളിൽ; കുറവ് = സപ്പോർട്ടിന് അടുത്ത്</string>
+    <string name="help_part_support">സപ്പോർട്ട് ബോണസ് • %1$d പോയിന്റ് വരെ</string>
+    <string name="help_part_support_body">ഓഹരി വീണ്ടും വീണ്ടും വന്ന് തിരിച്ചുപോയ, താഴെ ക്ലോസ് ചെയ്യാത്ത വിലയാണ് അതിന്റെ സപ്പോർട്ട്: വിൽപ്പനക്കാർക്ക് വില അതിന് താഴെ ഇറക്കാനായില്ല. സപ്പോർട്ട് എത്ര പഴയതോ (6 മാസത്തിൽ പൂർണ്ണ പോയിന്റ്) എത്ര തവണ പരീക്ഷിക്കപ്പെട്ടോ (5 തവണയിൽ പൂർണ്ണം), സ്കോറിൽ അത്രയും കൂടുതൽ പോയിന്റ് ചേരും; സപ്പോർട്ട് ഇല്ലാത്ത ഓഹരിക്ക് പോയിന്റ് കുറയില്ല. മുകളിൽ \"സപ്പോർട്ട് സ്കാൻ\" തിരഞ്ഞെടുത്താൽ 6 മാസത്തിൽ ഒരിക്കലും തങ്ങളുടെ സപ്പോർട്ടിന് താഴെ ക്ലോസ് ചെയ്യാത്ത, സപ്പോർട്ട് കുറഞ്ഞത് %1$d മാസമായി കുറഞ്ഞത് 3 തവണ പരീക്ഷിക്കപ്പെട്ട ഓഹരികൾ മാത്രം കാണാം. സപ്പോർട്ട് സ്കാനിന് സ്വന്തം ഫിൽട്ടറുകളുണ്ട്, ബ്രേക്ക്ഔട്ടിന്റേതിൽ നിന്ന് വേറിട്ട്. രണ്ട് സ്കാനുകളും ഒരേ ഡാറ്റ വായിക്കുന്നു, അതിനാൽ ഒരു സ്കാനിൽ രണ്ട് ലിസ്റ്റുകളും പുതുക്കപ്പെടും.</string>
+</resources>

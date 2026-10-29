@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notify_channel_scan">സ്കാൻ നടക്കുന്നു</string>
+    <string name="notify_channel_scan_body">ആപ്പ് അടച്ചാലും നിങ്ങളുടെ സ്കാൻ തുടരുന്നതിനാൽ, അതിന്റെ പുരോഗതി</string>
+    <string name="notify_channel_scan_done">സ്കാൻ പൂർത്തിയായി</string>
+    <string name="notify_channel_scan_done_body">നിങ്ങൾ ആപ്പിന് പുറത്തായിരുന്നപ്പോൾ തീർന്ന സ്കാനിന്റെ ഫലം</string>
+    <string name="notify_scan_title">സ്കാൻ നടക്കുന്നു</string>
+    <string name="notify_scan_loading">ഓഹരി ലിസ്റ്റ് വരുന്നു…</string>
+    <string name="notify_scan_body">%1$s / %2$s ഓഹരികൾ • %3$d%%</string>
+    <string name="notify_scan_stopping">സ്കാൻ നിർത്തുന്നു…</string>
+    <string name="notify_scan_done">✅ സ്കാൻ പൂർത്തിയായി • %1$d മികച്ച സ്ഥാനാർത്ഥികൾ</string>
+    <string name="notify_scan_stopped">⏹ സ്കാൻ നിർത്തി • %1$d മികച്ച സ്ഥാനാർത്ഥികൾ</string>
+    <string name="notify_scan_stopped_early">⏹ സ്കാൻ നിർത്തി</string>
+    <string name="notify_scan_stopped_early_body">ഒരു ഓഹരിയും പരിശോധിക്കുന്നതിന് മുമ്പേ നിർത്തി — മുൻ സ്കാൻ മാറിയിട്ടില്ല</string>
+    <string name="notify_scan_top">ടോപ്പ്: %1$s • സ്കോർ %2$s — കാണാൻ ടാപ്പ് ചെയ്യുക</string>
+    <string name="notify_scan_none">നിങ്ങളുടെ ഫിൽട്ടറുകൾ ഒരു ഓഹരിയും കടന്നില്ല — കാണാൻ ടാപ്പ് ചെയ്യുക</string>
+    <string name="status_reading_title">അവസാന സ്കാൻ തുറക്കുന്നു…</string>
+    <string name="status_reading_body">സേവ് ചെയ്ത ലിസ്റ്റ് വായിക്കുന്നു — ഒരു നിമിഷം</string>
+    <string name="empty_reading_body">അവസാന സ്കാനിന്റെ ലിസ്റ്റ് വരുന്നു; അറിയിപ്പിൽ നിന്ന് തുറന്ന ഓഹരി അതിനൊപ്പം തുറക്കും.</string>
+    <string name="notify_open_missing">%1$s നിലവിലെ ലിസ്റ്റിൽ ഇല്ല — പുതിയ സ്കാൻ ചെയ്യുക</string>
+    <string name="notify_channel_update">ആപ്പ് അപ്ഡേറ്റ്</string>
+    <string name="notify_channel_update_body">പുതിയ പതിപ്പ് ഡൗൺലോഡ് ചെയ്ത് ഇൻസ്റ്റാളിന് തയ്യാറാകുമ്പോൾ</string>
+    <string name="update_download_title">Share Scan %1$s</string>
+    <string name="update_download_body">പുതിയ പതിപ്പ് ഡൗൺലോഡ് ചെയ്യുന്നു</string>
+    <string name="notify_update_ready">Share Scan %1$s തയ്യാർ</string>
+    <string name="notify_update_ready_body">ഡൗൺലോഡ് പൂർത്തിയായി — ഇൻസ്റ്റാൾ ചെയ്യാൻ ടാപ്പ് ചെയ്യുക</string>
+    <string name="settings_background">പശ്ചാത്തലത്തിൽ പ്രവർത്തിക്കാൻ അനുവദിക്കുക</string>
+    <string name="settings_background_off">⚠ ഇപ്പോൾ ബാറ്ററി ലാഭിക്കാൻ Android ഓട്ടോ-സ്കാനും അലേർട്ടുകളും വൈകിപ്പിക്കുകയോ നിർത്തുകയോ ചെയ്തേക്കാം. ഇവിടെ ടാപ്പ് ചെയ്ത് “Allow” തിരഞ്ഞെടുക്കുക. Xiaomi, Redmi, Vivo, Oppo, Realme എന്നിവയിൽ App info-യിൽ “Autostart”-ഉം ഓണാക്കുക.</string>
+    <string name="settings_background_on">✓ ഓൺ — ബാറ്ററി ലാഭിക്കാൻ Android ഈ ആപ്പിന്റെ ഓട്ടോ-സ്കാനും അലേർട്ടുകളും നിർത്തില്ല. Xiaomi, Redmi, Vivo, Oppo, Realme എന്നിവയിൽ App info-യിൽ “Autostart”-ഉം ഓണാക്കി വയ്ക്കുക (തുറക്കാൻ ഇവിടെ ടാപ്പ് ചെയ്യുക).</string>
+    <string name="help_background_title">പശ്ചാത്തലത്തിൽ സ്കാൻ</string>
+    <string name="help_background_body">സ്കാൻ ടാപ്പ് ചെയ്ത ശേഷം ആപ്പിൽ നിന്ന് പുറത്തുപോയാലും സ്ക്രീൻ ഓഫാക്കിയാലും സ്കാൻ തുടരും — ഒരു അറിയിപ്പ് അതിന്റെ പുരോഗതിയും “നിർത്തുക” ബട്ടണും കാണിക്കും, തീർന്നാൽ മറ്റൊന്ന് ഫലം കൊണ്ടുവരും. അപ്ഡേറ്റ് ഡൗൺലോഡും Android ഡൗൺലോഡ് മാനേജർ വഴിയാണ്, അതിനാൽ ആപ്പ് അടച്ചാലും പൂർത്തിയാകും, തുടർന്ന് “ഇൻസ്റ്റാൾ ചെയ്യാൻ ടാപ്പ് ചെയ്യുക” അറിയിപ്പ് വരും. വിപണി സമയത്തെ ഓട്ടോ-സ്കാൻ Android തന്നെ നടത്തുന്നു: മെനു → സ്കാനിൽ “പശ്ചാത്തലത്തിൽ പ്രവർത്തിക്കാൻ അനുവദിക്കുക” ടാപ്പ് ചെയ്ത് അനുമതി നൽകുക, അല്ലെങ്കിൽ ബാറ്ററി ലാഭിക്കാൻ Android അത് വൈകിപ്പിക്കുകയോ നിർത്തുകയോ ചെയ്തേക്കാം. Xiaomi, Redmi, Vivo, Oppo, Realme പോലുള്ള ഫോണുകളിൽ App info-യിൽ “Autostart”-ഉം ഓണാക്കുക.</string>
+</resources>

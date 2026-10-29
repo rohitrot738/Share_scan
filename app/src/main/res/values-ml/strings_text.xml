@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_text">ഭാഷയും ഫോണ്ടും</string>
+    <string name="menu_text_body">ഇപ്പോൾ: %1$s · %2$s</string>
+    <string name="text_title">ഭാഷയും ഫോണ്ടും</string>
+    <string name="text_subtitle">ആപ്പ് മുഴുവൻ ഏത് ഭാഷയിൽ, ഏത് ഫോണ്ടിൽ കാണണം</string>
+    <string name="text_language">ഭാഷ</string>
+    <string name="text_language_note">വിവർത്തനം ആപ്പിൽ തന്നെ തയ്യാറാക്കിയതാണ്, ഏതെങ്കിലും വാക്കിൽ തെറ്റ് കണ്ടാൽ അറിയിക്കുക. ഓഹരി, കമ്പനി പേരുകൾ, വാർത്തകൾ, \"പുതിയതെന്ത്\" എന്നിവ അതേപടി നിലനിൽക്കും.</string>
+    <string name="text_font">ഫോണ്ട്</string>
+    <string name="text_font_sample">Share Scan · ബ്രേക്ക്ഔട്ട് സ്കാൻ · ₹1,234.50 ▲ 2.40% · 86.0</string>
+    <string name="font_system">ഫോണിന്റെ ഫോണ്ട്</string>
+    <string name="text_font_description">%1$s ഫോണ്ട് തിരഞ്ഞെടുക്കുക</string>
+    <string name="text_language_description">%1$s ഭാഷ തിരഞ്ഞെടുക്കുക</string>
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fw_value_line">ന്യായ മൂല്യം ₹%1$s · വാങ്ങൽ വില ₹%2$s</string>
+    <string name="fw_value_only">ന്യായ മൂല്യം ₹%1$s</string>
+    <string name="fw_summary">%1$s · സുരക്ഷാ മാർജിൻ %2$s%% (%3$s)</string>
+    <string name="fw_price_above">വില ₹%1$s, വാങ്ങൽ വിലയേക്കാൾ %2$s%% മുകളിൽ</string>
+    <string name="fw_price_below">വില ₹%1$s, വാങ്ങൽ വിലയേക്കാൾ %2$s%% താഴെ ✓</string>
+    <string name="fw_model_general">മേഖല P/E–P/B രീതി</string>
+    <string name="fw_model_bank">ബാങ്ക്/NBFC: ക്രമീകരിച്ച P/B</string>
+    <string name="fw_model_asset">EV/EBITDA</string>
+    <string name="fw_model_cyclical">മിഡ്-സൈക്കിൾ EV/EBITDA</string>
+    <string name="fw_model_cash">PEG</string>
+    <string name="fw_size_large">ലാർജ് ക്യാപ്</string>
+    <string name="fw_size_mid">മിഡ് ക്യാപ്</string>
+    <string name="fw_size_small">സ്മോൾ ക്യാപ്</string>
+    <string name="fw_open">ചട്ടക്കൂടിന്റെ പൂർണ്ണ കണക്ക്</string>
+    <string name="fw_flag_reject">⛔ നിരസിക്കുക: പ്രൊമോട്ടർമാർ അവരുടെ ഓഹരികളുടെ %1$s%% പണയം വച്ചിട്ടുണ്ട് (15%%-ൽ കൂടുതൽ)</string>
+    <string name="fw_flag_high_risk">⚠ ഉയർന്ന റിസ്ക്: പലിശ കവർ വെറും %1$s മടങ്ങ് (2.5-ൽ താഴെ)</string>
+    <string name="fw_flag_manipulation">⚠ സംശയകരമായ വരുമാനം: 3 വർഷത്തെ പ്രവർത്തന പണം ലാഭത്തിന്റെ വെറും %1$s മടങ്ങ് (0.6-ൽ താഴെ)</string>
+    <string name="fw_flag_low_roa">⚠ ROA %1$s%%: ബാങ്ക്/NBFC-ക്ക് 1%%-ൽ താഴെ, വാങ്ങരുത്</string>
+    <string name="fw_flag_red">🚩 റെഡ് ഫ്ലാഗ്: വോള്യം ശരാശരിയുടെ %1$s മടങ്ങ്, പക്ഷേ 3 ദിവസത്തിൽ ഫയലിംഗോ വാർത്തയോ ഇല്ല — ഓപ്പറേറ്ററുടെ കളിയാകാം</string>
+    <string name="fw_flag_blocked">ഈ കാരണങ്ങളാൽ ചട്ടക്കൂട് തൽക്കാലം വാങ്ങൽ തടയുന്നു</string>
+    <string name="fw_flag_best">⭐ മികച്ച അവസരം: വില വാങ്ങൽ വിലയേക്കാൾ താഴെ, കൂടാതെ പ്രതിവാര ഡിമാൻഡ് സോണിൽ ലിക്വിഡിറ്റി സ്വീപ്പ്</string>
+    <string name="fw_flag_buy_zone">✅ വാങ്ങൽ സോൺ: വില 200 ദിവസ EMA ₹%1$s-ന് മുകളിൽ, ₹%2$s – ₹%3$s ബുള്ളിഷ് FVG-ൽ</string>
+    <string name="fw_flag_sweep">🎯 പ്രതിവാര സ്വീപ്പ്: ഈ ആഴ്ചയോ കഴിഞ്ഞ ആഴ്ചയോ ₹%1$s പ്രതിവാര സ്വിംഗ് താഴ്ന്നതിന് താഴെ പോയി വീണ്ടും മുകളിൽ ക്ലോസ് ചെയ്തു</string>
+    <string name="fw_flag_cyclical">⚠ ചാക്രികം: ലോഹങ്ങളിലും എണ്ണയിലും കുറഞ്ഞ P/E പലപ്പോഴും ഉയർന്ന വരുമാനമാണ്, അതിനാൽ മിഡ്-സൈക്കിൾ EBITDA-യിൽ മൂല്യനിർണ്ണയം</string>
+    <string name="fw_flag_peg_low">✅ PEG %1$s: 1-ൽ താഴെ, വളർച്ചയ്ക്ക് വിലകുറവ്</string>
+    <string name="fw_flag_peg_high">⚠ PEG %1$s: 2-ൽ കൂടുതൽ, വളർച്ചയ്ക്ക് വിലകൂടുതൽ</string>
+    <string name="fw_penalties">പിഴ: %1$s</string>
+    <string name="fw_penalty_auditor">ഓഡിറ്റർ രാജി −40%%</string>
+    <string name="fw_penalty_debt">കടം −20%%</string>
+    <string name="fw_penalty_institutions">FII/DII വിൽപ്പന −10%%</string>
+    <string name="fw_penalty_roce">കുറഞ്ഞ ROCE −20%%</string>
+    <string name="fw_calc_model">%1$s രീതി (%2$s)</string>
+    <string name="fw_calc_fallback">%1$s-ന് ഡാറ്റ വളരെ കുറവ് (ചെറിയ ചരിത്രം, നഷ്ടം അല്ലെങ്കിൽ മന്ദഗതിയിലുള്ള വളർച്ച), അതിനാൽ മേഖല P/E–P/B രീതി ഉപയോഗിച്ചു</string>
+    <string name="fw_calc_bank_book">ബുക്ക് മൂല്യം ₹%1$s/ഓഹരി − കിട്ടാക്കടം ₹%2$s/ഓഹരി (അറ്റ NPA വായ്പകളുടെ %3$s%%) = ക്രമീകരിച്ച ബുക്ക് ₹%4$s</string>
+    <string name="fw_calc_bank_no_npa">ബുക്ക് മൂല്യം ₹%1$s/ഓഹരി; അറ്റ NPA ലഭിച്ചില്ല (കൺസോളിഡേറ്റഡ് പേജിൽ ഇല്ല), അതിനാൽ മുഴുവൻ ബുക്കും എണ്ണുന്നു</string>
+    <string name="fw_calc_bank_pb">അതിന്റെ സ്വന്തം 3 വർഷ മീഡിയൻ P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_bank_pb_sector">സ്വന്തം ചരിത്രം ചെറുതാണ്, അതിനാൽ മേഖലയുടെ P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_roa">ROA (12 മാസത്തെ ലാഭം ÷ ആകെ ആസ്തി) %1$s%%; 1%%-ന് മുകളിൽ വേണം</string>
+    <string name="fw_calc_ev_multiple">അതിന്റെ സ്വന്തം 3 വർഷ മീഡിയൻ EV/EBITDA %1$s (ഇന്ന് %2$s)</string>
+    <string name="fw_calc_ev_multiple_only">അതിന്റെ സ്വന്തം 3 വർഷ മീഡിയൻ EV/EBITDA %1$s</string>
+    <string name="fw_calc_ebitda">EBITDA (12 മാസം): %1$s</string>
+    <string name="fw_calc_ebitda_mid">മിഡ്-സൈക്കിൾ EBITDA (വാർഷിക EBITDA-യുടെ ശരാശരി): %1$s</string>
+    <string name="fw_calc_ev_value">(%1$s × %2$s − കടം %3$s) ÷ %4$s Cr ഓഹരികൾ = ₹%5$s</string>
+    <string name="fw_calc_ev_note">EV = വിപണി മൂല്യം + കടം (Screener സംഗ്രഹത്തിൽ പണം വേറെയില്ല, അതിനാൽ രണ്ട് വശത്തും അത് ഒഴിവാക്കി)</string>
+    <string name="fw_calc_roce_cut">ROCE %1$s%%, 12%%-ൽ താഴെ → 20%% കുറവ്: ₹%2$s</string>
+    <string name="fw_calc_roce_ok">ROCE %1$s%% (12%% അല്ലെങ്കിൽ കൂടുതൽ) ✓</string>
+    <string name="fw_calc_peg">P/E %1$s ÷ 3 വർഷത്തിൽ EPS-ന്റെ വാർഷിക വളർച്ച %2$s%% = PEG %3$s (1-ൽ താഴെ വിലകുറവ്, 2-ൽ കൂടുതൽ വിലകൂടുതൽ)</string>
+    <string name="fw_calc_peg_fair">ന്യായ P/E: %1$s %2$s, പക്ഷേ PEG 2 (2 × വളർച്ച) %3$s-ൽ പരിധി → %4$s</string>
+    <string name="fw_calc_peg_own">അതിന്റെ സ്വന്തം സാധാരണ 3 വർഷ P/E</string>
+    <string name="fw_calc_peg_sector">മേഖലയുടെ സാധാരണ P/E (സ്വന്തം ചരിത്രം ചെറുത്)</string>
+    <string name="fw_calc_peg_band">ന്യായ P/E: സ്വന്തമോ മേഖലയുടേതോ ആയ P/E ലഭിച്ചില്ല, അതിനാൽ PEG 1.5-ൽ: %1$s</string>
+    <string name="fw_calc_peg_value">ന്യായ മൂല്യം = EPS ₹%1$s × ന്യായ P/E %2$s = ₹%3$s</string>
+    <string name="fw_calc_peg_slow">3 വർഷത്തിൽ EPS-ന്റെ വാർഷിക വളർച്ച %1$s%%: 5%%-ൽ താഴെയാണെങ്കിൽ PEG ഒന്നും പറയുന്നില്ല</string>
+    <string name="fw_calc_general">മേഖലയുടെ P/E–P/B, കമ്പനിയുടെ സ്വന്തം P/E എന്നിവയിൽ നിന്നുള്ള വിലകളുടെ ശരാശരി = ₹%1$s</string>
+    <string name="fw_calc_penalty_auditor">നിയമാനുസൃത ഓഡിറ്റർ %1$s-ന് രാജിവച്ചു → −40%%</string>
+    <string name="fw_calc_penalty_debt">കടം ഇക്വിറ്റിയുടെ 1.5 മടങ്ങിലധികം → −20%%</string>
+    <string name="fw_calc_penalty_institutions">FII + DII പങ്ക് തുടർച്ചയായി 3 പാദം കുറഞ്ഞു → −10%%</string>
+    <string name="fw_calc_after_penalties">പിഴകൾക്ക് ശേഷമുള്ള ന്യായ മൂല്യം: ₹%1$s × %2$s = ₹%3$s</string>
+    <string name="fw_calc_no_penalties">പിഴയില്ല (ഓഡിറ്റർ, കടം, FII/DII ശരി) → ന്യായ മൂല്യം ₹%1$s</string>
+    <string name="fw_calc_margin">സുരക്ഷാ മാർജിൻ %1$s%% (%2$s) → വാങ്ങൽ വില ₹%3$s × %4$s = ₹%5$s</string>
+    <string name="fw_calc_screen">സാർവത്രിക പരിശോധന</string>
+    <string name="fw_calc_pledge">പ്രൊമോട്ടർ പണയം %1$s%% (15%%-ൽ കൂടുതൽ = നിരസിക്കുക)</string>
+    <string name="fw_calc_pledge_none">പ്രൊമോട്ടർ പണയം: NSE-യിൽ ലഭിച്ചില്ല</string>
+    <string name="fw_calc_icr">പലിശ കവർ: (12 മാസത്തെ PBT + പലിശ) ÷ പലിശ = %1$s മടങ്ങ് (2.5-ൽ താഴെ = ഉയർന്ന റിസ്ക്)</string>
+    <string name="fw_calc_cash">3 വർഷത്തെ പ്രവർത്തന പണം ÷ ലാഭം = %1$s (0.6-ൽ താഴെ = സംശയകരമായ വരുമാനം)</string>
+    <string name="fw_calc_lender">ബാങ്ക്/NBFC-യുടെ പലിശയും പണമൊഴുക്കും ഈ രീതിയിൽ പരിശോധിക്കാനാവില്ല</string>
+    <string name="fw_calc_chart">ചാർട്ട് (SMC)</string>
+    <string name="fw_calc_ema_above">200 ദിവസ EMA ₹%1$s: വില അതിന് മുകളിൽ</string>
+    <string name="fw_calc_ema_below">200 ദിവസ EMA ₹%1$s: വില അതിന് താഴെ</string>
+    <string name="fw_calc_gap">നിറയാത്ത ബുള്ളിഷ് FVG ₹%1$s – ₹%2$s; വില അതിനുള്ളിൽ അല്ലെങ്കിൽ 5%% വരെ മുകളിൽ</string>
+    <string name="fw_calc_no_gap">കഴിഞ്ഞ 60 സെഷനുകളിൽ വിലയ്ക്കടുത്ത് നിറയാത്ത ബുള്ളിഷ് FVG ഇല്ല</string>
+    <string name="fw_calc_sweep">പ്രതിവാര സ്വീപ്പ്: ₹%1$s പ്രതിവാര സ്വിംഗ് താഴ്ന്നത് തകർത്ത് മുകളിൽ ക്ലോസ് ചെയ്തു</string>
+    <string name="fw_calc_no_sweep">ഈ ആഴ്ചയോ കഴിഞ്ഞ ആഴ്ചയോ പ്രതിവാര ലിക്വിഡിറ്റി സ്വീപ്പ് ഇല്ല</string>
+    <string name="fw_calc_best_rule">മികച്ച അവസരം = വില വാങ്ങൽ വിലയേക്കാൾ താഴെ + പ്രതിവാര സ്വീപ്പ് + തടസ്സങ്ങളൊന്നുമില്ല</string>
+    <string name="fw_cr">₹%1$s Cr</string>
+    <string name="help_framework_title">R/S മൂല്യനിർണ്ണയ ചട്ടക്കൂട് (ന്യായ മൂല്യവും വാങ്ങൽ വിലയും)</string>
+    <string name="help_framework_body">R/S ഓരോ കമ്പനിയുടെയും ന്യായ (ആന്തരിക) മൂല്യം അതിന്റെ മേഖല അനുസരിച്ച് കണക്കാക്കുന്നു. ബാങ്കുകൾ, NBFC-കൾ, മറ്റ് ധനകാര്യ കമ്പനികൾ: ഓരോ ഓഹരിക്കും ബുക്ക് മൂല്യം കുറവ് അറ്റ NPA (കിട്ടാക്കടം), കമ്പനിയുടെ കഴിഞ്ഞ 3 വർഷത്തെ സ്വന്തം മീഡിയൻ P/B കൊണ്ട് ഗുണിച്ച് (ചരിത്രം ചെറുതാണെങ്കിൽ മേഖലയുടേത്); ROA 1%-ൽ താഴെയാണെങ്കിൽ — വാങ്ങരുത്. ക്യാപിറ്റൽ ഗുഡ്സ്, ഓട്ടോ, രാസവസ്തുക്കൾ, നിർമ്മാണം, വൈദ്യുതി പോലുള്ള യന്ത്രങ്ങളും ഫാക്ടറികളുമുള്ള കമ്പനികൾ: അവയുടെ സ്വന്തം 3 വർഷ മീഡിയൻ EV/EBITDA × ഇന്നത്തെ EBITDA, കുറവ് കടം, ഓരോ ഓഹരിക്കും; ROCE 12%-ൽ താഴെയാണെങ്കിൽ — 20% കുറവ്. ലോഹങ്ങൾ, ഖനനം, എണ്ണ, വാതകം: അതുതന്നെ, പക്ഷേ വർഷങ്ങളുടെ ശരാശരി (മിഡ്-സൈക്കിൾ) EBITDA-യിൽ, അവിടെ കുറഞ്ഞ P/E പലപ്പോഴും ഉയർന്ന വരുമാനമാണെന്ന മുന്നറിയിപ്പോടെ. IT, FMCG, ഫാർമ: PEG = P/E ÷ കഴിഞ്ഞ 3 വർഷത്തിൽ EPS-ന്റെ വാർഷിക വളർച്ച (വളർച്ചാ പ്രവചനങ്ങൾ സൗജന്യമായി ലഭ്യമല്ല); 1-ൽ താഴെ വിലകുറവ്, 2-ൽ കൂടുതൽ വിലകൂടുതൽ; ന്യായ മൂല്യം = EPS × കമ്പനിയുടെ സ്വന്തം സാധാരണ P/E, പക്ഷേ PEG 2 (2 × വളർച്ച)-ലെ P/E-യേക്കാൾ കൂടരുത്. മറ്റ് മേഖലകൾ, അല്ലെങ്കിൽ ഡാറ്റ വളരെ കുറവാണെങ്കിൽ: പഴയ മേഖല P/E–P/B, സ്വന്തം-P/E രീതി. തുടർന്ന് പിഴകൾ: കഴിഞ്ഞ വർഷത്തിൽ നിയമാനുസൃത ഓഡിറ്റർ രാജി −40%; കടം ഇക്വിറ്റിയുടെ 1.5 മടങ്ങിലധികം −20%; FII + DII പങ്ക് തുടർച്ചയായി 3 പാദം കുറഞ്ഞാൽ −10%. വാങ്ങൽ വില = ന്യായ മൂല്യം × (1 − സുരക്ഷാ മാർജിൻ): വിപണി മൂല്യത്തിൽ ടോപ്പ് 100 കമ്പനികൾ (ലാർജ് ക്യാപ്) 20%; 101–250 (മിഡ് ക്യാപ്) 27.5%; ബാക്കി (സ്മോൾ ക്യാപ്) 35%. ഓരോ കമ്പനിക്കും ഒരു സാർവത്രിക പരിശോധനയുമുണ്ട്: പ്രൊമോട്ടർമാരുടെ പണയം വച്ച ഓഹരികൾ 15%-ൽ കൂടുതലാണെങ്കിൽ → നിരസിക്കുക (R/S \"ഒഴിവാക്കുക\"); പലിശ കവർ 2.5 മടങ്ങിൽ താഴെയെങ്കിൽ ഉയർന്ന റിസ്ക്, 3 വർഷത്തെ പ്രവർത്തന പണം ലാഭത്തിന്റെ 0.6 മടങ്ങിൽ താഴെയെങ്കിൽ സംശയകരമായ വരുമാനം (ഏതും R/S-നെ \"ശ്രദ്ധിക്കുക\"-യിൽ നിർത്തും). ചാർട്ടിൽ: വില 200 ദിവസ EMA-ക്ക് മുകളിലും നിറയാത്ത ബുള്ളിഷ് FVG-ലും ആണെങ്കിൽ വാങ്ങൽ സോൺ; ഈ ആഴ്ചയോ കഴിഞ്ഞ ആഴ്ചയോ വില പ്രതിവാര സ്വിംഗ് താഴ്ന്നതിന് താഴെ പോയി വീണ്ടും മുകളിൽ ക്ലോസ് ചെയ്താൽ പ്രതിവാര സ്വീപ്പ്. വില വാങ്ങൽ വിലയേക്കാൾ താഴെ, പ്രതിവാര സ്വീപ്പ്, തടസ്സങ്ങളൊന്നുമില്ലെങ്കിൽ ⭐ മികച്ച അവസരം. ഓഹരി തുറക്കുമ്പോൾ അതിന്റെ വാർത്തകളും നോക്കുന്നു: വോള്യം ശരാശരിയുടെ 3 മടങ്ങോ കൂടുതലോ ആണെങ്കിലും കഴിഞ്ഞ 3 ദിവസത്തിൽ ഫയലിംഗോ വാർത്തയോ ഇല്ലെങ്കിൽ 🚩 റെഡ് ഫ്ലാഗ് (ഓപ്പറേറ്ററുടെ കളിയാകാം), ചട്ടക്കൂട് വാങ്ങൽ തടയുന്നു. പ്രൊമോട്ടർ പണയവും ഓഡിറ്റർ രാജിയും NSE-യിൽ നിന്ന് വരുന്നു, അതിനാൽ BSE-മാത്രം ഓഹരികൾക്ക് ഈ പരിശോധനകളില്ല. R/S കാർഡ് ന്യായ മൂല്യം, വാങ്ങൽ വില, ഫ്ലാഗുകൾ എന്നിവ കാണിക്കുന്നു, \"ചട്ടക്കൂടിന്റെ പൂർണ്ണ കണക്ക്\" ഓരോ ഘട്ടവും കാണിക്കുന്നു. ഓരോ ഓഹരിയുടെയും Screener പേജ് വീണ്ടും വായിക്കുമ്പോൾ പുതിയ അക്കങ്ങൾ വരും, അതിന് കുറച്ച് ദിവസമെടുക്കും; അതുവരെ ചില ഓഹരികൾ പഴയ രീതിയിൽ തുടരും. നിക്ഷേപ ഉപദേശമല്ല.</string>
+</resources>

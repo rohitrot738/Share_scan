@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_account">അക്കൗണ്ട്</string>
+    <string name="menu_account_signed_out">സൈൻ ഇൻ ചെയ്തിട്ടില്ല</string>
+    <string name="account_signed_in_generic">സൈൻ ഇൻ ചെയ്തു</string>
+    <string name="account_title">അക്കൗണ്ട്</string>
+    <string name="account_subtitle_signed_out">Google, GitHub അല്ലെങ്കിൽ ഇമെയിൽ വഴി സൈൻ ഇൻ ചെയ്യുക</string>
+    <string name="account_subtitle_signed_in">നിങ്ങളുടെ പ്രൊഫൈലും സൈൻ-ഇന്നും</string>
+    <string name="account_subtitle_unconfigured">സൈൻ-ഇൻ ഉടൻ വരുന്നു</string>
+    <string name="account_unconfigured_title">സൈൻ-ഇൻ ഇതുവരെ സജ്ജമാക്കിയിട്ടില്ല</string>
+    <string name="account_unconfigured_body">ഈ പതിപ്പിൽ സൈൻ-ഇൻ ഇതുവരെ ഓണാക്കിയിട്ടില്ല. ബാക്കി ആപ്പ് — സ്കാനുകൾ, വാച്ച്‌ലിസ്റ്റ്, ഫിൽട്ടറുകൾ, തീമുകൾ — സൈൻ ഇൻ ചെയ്യാതെ മുമ്പത്തെ പോലെ പ്രവർത്തിക്കും.</string>
+    <string name="account_working">ഒരു നിമിഷം…</string>
+    <string name="account_google">Google ഉപയോഗിച്ച് സൈൻ ഇൻ</string>
+    <string name="account_github">GitHub ഉപയോഗിച്ച് സൈൻ ഇൻ</string>
+    <string name="account_or_email">അല്ലെങ്കിൽ ഇമെയിലും പാസ്‌വേഡും ഉപയോഗിച്ച്</string>
+    <string name="account_email_hint">ഇമെയിൽ</string>
+    <string name="account_password_hint">പാസ്‌വേഡ്</string>
+    <string name="account_sign_in">സൈൻ ഇൻ</string>
+    <string name="account_create">പുതിയ അക്കൗണ്ട് സൃഷ്ടിക്കുക</string>
+    <string name="account_forgot">പാസ്‌വേഡ് മറന്നോ?</string>
+    <string name="account_email_needed">നിങ്ങളുടെ ഇമെയിൽ നൽകുക</string>
+    <string name="account_password_needed">നിങ്ങളുടെ പാസ്‌വേഡ് നൽകുക</string>
+    <string name="account_reset_sent">പാസ്‌വേഡ് റീസെറ്റ് ലിങ്ക് %1$s ലേക്ക് അയച്ചു — നിങ്ങളുടെ ഇൻബോക്സ് (സ്പാമും) നോക്കുക</string>
+    <string name="account_created">അക്കൗണ്ട് സൃഷ്ടിച്ചു! നിങ്ങളുടെ ഇമെയിൽ സ്ഥിരീകരിക്കാൻ ലിങ്ക് അയച്ചിട്ടുണ്ട്</string>
+    <string name="account_signed_in_toast">സൈൻ ഇൻ ചെയ്തു</string>
+    <string name="account_signed_out_toast">സൈൻ ഔട്ട് ചെയ്തു</string>
+    <string name="account_no_name">പേര് ചേർത്തിട്ടില്ല</string>
+    <string name="account_verified">✓ സ്ഥിരീകരിച്ചു</string>
+    <string name="account_unverified">സ്ഥിരീകരിച്ചിട്ടില്ല</string>
+    <string name="account_section_details">വിശദാംശങ്ങൾ</string>
+    <string name="account_phone">ഫോൺ</string>
+    <string name="account_methods">സൈൻ-ഇൻ രീതികൾ</string>
+    <string name="account_created_at">അക്കൗണ്ട് സൃഷ്ടിച്ചത്</string>
+    <string name="account_last_sign_in">അവസാന സൈൻ-ഇൻ</string>
+    <string name="account_unknown">അജ്ഞാതം</string>
+    <string name="account_uid">ഉപയോക്തൃ ID</string>
+    <string name="account_copy_uid">ഉപയോക്തൃ ID പകർത്തുക</string>
+    <string name="account_uid_copied">ഉപയോക്തൃ ID പകർത്തി</string>
+    <string name="account_provider_google">Google</string>
+    <string name="account_provider_github">GitHub</string>
+    <string name="account_provider_password">ഇമെയിൽ + പാസ്‌വേഡ്</string>
+    <string name="account_provider_phone">ഫോൺ</string>
+    <string name="account_section_actions">അക്കൗണ്ട് ക്രമീകരണങ്ങൾ</string>
+    <string name="account_edit_name">പേര് മാറ്റുക</string>
+    <string name="account_name_hint">നിങ്ങളുടെ പേര്</string>
+    <string name="account_name_saved">പേര് മാറ്റി</string>
+    <string name="account_send_verification">സ്ഥിരീകരണ ഇമെയിൽ അയയ്ക്കുക</string>
+    <string name="account_verification_sent">സ്ഥിരീകരണ ലിങ്ക് %1$s ലേക്ക് അയച്ചു</string>
+    <string name="account_change_password">പാസ്‌വേഡ് മാറ്റുക</string>
+    <string name="account_password_current_hint">നിലവിലെ പാസ്‌വേഡ്</string>
+    <string name="account_password_new_hint">പുതിയ പാസ്‌വേഡ് (കുറഞ്ഞത് 6 അക്ഷരങ്ങൾ)</string>
+    <string name="account_password_changed">പാസ്‌വേഡ് മാറ്റി</string>
+    <string name="account_password_send_reset">റീസെറ്റ് ഇമെയിൽ അയയ്ക്കുക</string>
+    <string name="account_link_google">Google അക്കൗണ്ട് ലിങ്ക് ചെയ്യുക</string>
+    <string name="account_link_github">GitHub അക്കൗണ്ട് ലിങ്ക് ചെയ്യുക</string>
+    <string name="account_linked">%1$s ലിങ്ക് ചെയ്തു — ഇനി അതുപയോഗിച്ചും സൈൻ ഇൻ ചെയ്യാം</string>
+    <string name="account_sign_out">സൈൻ ഔട്ട്</string>
+    <string name="account_delete">അക്കൗണ്ട് ഇല്ലാതാക്കുക</string>
+    <string name="account_delete_title">അക്കൗണ്ട് ഇല്ലാതാക്കണോ?</string>
+    <string name="account_delete_message">നിങ്ങളുടെ Share Scan അക്കൗണ്ട് എന്നെന്നേക്കുമായി നീക്കം ചെയ്യപ്പെടും. ഈ ഫോണിലെ വാച്ച്‌ലിസ്റ്റും ക്രമീകരണങ്ങളും അതേപടി നിലനിൽക്കും.</string>
+    <string name="account_delete_yes">അതെ, ഇല്ലാതാക്കുക</string>
+    <string name="account_deleted">അക്കൗണ്ട് ഇല്ലാതാക്കി</string>
+    <string name="account_save">സേവ് ചെയ്യുക</string>
+    <string name="account_cancel">റദ്ദാക്കുക</string>
+    <string name="account_relogin_title">വീണ്ടും സൈൻ ഇൻ ചെയ്യുക</string>
+    <string name="account_relogin_message">നിങ്ങളുടെ സുരക്ഷയ്ക്കായി ഇതിന് പുതിയ സൈൻ-ഇൻ വേണം. സൈൻ ഔട്ട് ചെയ്ത്, വീണ്ടും സൈൻ ഇൻ ചെയ്ത്, ഒരിക്കൽക്കൂടി ശ്രമിക്കുക.</string>
+    <string name="account_relogin_yes">സൈൻ ഔട്ട്</string>
+    <string name="account_error_wrong_password">ഇമെയിൽ അല്ലെങ്കിൽ പാസ്‌വേഡ് തെറ്റാണ്</string>
+    <string name="account_error_no_user">ഈ ഇമെയിലിൽ അക്കൗണ്ടില്ല — ആദ്യം പുതിയ അക്കൗണ്ട് സൃഷ്ടിക്കുക</string>
+    <string name="account_error_disabled">ഈ അക്കൗണ്ട് പ്രവർത്തനരഹിതമാക്കി</string>
+    <string name="account_error_weak_password">പാസ്‌വേഡ് വളരെ ദുർബലം — കുറഞ്ഞത് 6 അക്ഷരങ്ങൾ ഉപയോഗിക്കുക</string>
+    <string name="account_error_email_used">ഈ ഇമെയിലിൽ ഇതിനകം അക്കൗണ്ടുണ്ട് — സൈൻ ഇൻ ചെയ്യുക</string>
+    <string name="account_error_other_method">ഈ ഇമെയിലിന്റെ അക്കൗണ്ട് മറ്റൊരു രീതിയിൽ (Google, GitHub അല്ലെങ്കിൽ പാസ്‌വേഡ്) സൃഷ്ടിച്ചതാണ് — അതുപയോഗിച്ച് സൈൻ ഇൻ ചെയ്ത്, തുടർന്ന് ഈ രീതി ഇവിടെ നിന്ന് ലിങ്ക് ചെയ്യുക</string>
+    <string name="account_error_already_linked">ഈ അക്കൗണ്ട് ഇതിനകം ലിങ്ക് ചെയ്തതാണ്, അല്ലെങ്കിൽ മറ്റൊരു Share Scan അക്കൗണ്ടിന്റേതാണ്</string>
+    <string name="account_error_bad_email">ആ ഇമെയിൽ സാധുവല്ല</string>
+    <string name="account_error_network">ഇന്റർനെറ്റ് കണക്ഷനില്ല — പരിശോധിച്ച് വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="account_error_too_many">വളരെയധികം ശ്രമങ്ങൾ — കുറച്ച് കഴിഞ്ഞ് വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="account_error_no_google_account">ഈ ഫോണിൽ Google അക്കൗണ്ടില്ല — ഫോണിന്റെ ക്രമീകരണങ്ങളിൽ ഒന്ന് ചേർക്കുക</string>
+    <string name="account_error_google">Google ഉപയോഗിച്ച് സൈൻ ഇൻ ആയില്ല — വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="account_error_browser">ബ്രൗസറിലെ സൈൻ-ഇൻ പൂർത്തിയായില്ല — വീണ്ടും ശ്രമിക്കുക</string>
+    <string name="account_error_method_off">ഈ സൈൻ-ഇൻ രീതി ഇതുവരെ ഓണാക്കിയിട്ടില്ല</string>
+    <string name="account_error_generic">എന്തോ പിഴച്ചു — വീണ്ടും ശ്രമിക്കുക</string>
+    <string-array name="account_months">
+        <item>ജനു</item>
+        <item>ഫെബ്രു</item>
+        <item>മാർച്ച്</item>
+        <item>ഏപ്രി</item>
+        <item>മേയ്</item>
+        <item>ജൂൺ</item>
+        <item>ജൂലൈ</item>
+        <item>ഓഗ</item>
+        <item>സെപ്റ്റം</item>
+        <item>ഒക്ടോ</item>
+        <item>നവം</item>
+        <item>ഡിസം</item>
+    </string-array>
+    <string name="menu_usage">ആപ്പ് ഉപയോഗം</string>
+    <string name="menu_usage_body">എത്ര ഫോണുകളിൽ ആപ്പ് പ്രവർത്തിക്കുന്നു • നിങ്ങൾക്ക് മാത്രം കാണാം</string>
+    <string name="usage_title">ആപ്പ് ഉപയോഗം</string>
+    <string name="usage_subtitle">%1$s-ന്റെ GitHub സൈൻ-ഇന്നിന് മാത്രം കാണാം</string>
+    <string name="usage_loading_title">എണ്ണുന്നു…</string>
+    <string name="usage_loading_body">Firebase-ൽ നിന്ന് ഫോണുകളുടെ എണ്ണം വരുന്നു.</string>
+    <string name="usage_today">ഇന്ന്</string>
+    <string name="usage_days">%1$d ദിവസം</string>
+    <string name="usage_phones">ഫോണുകൾ</string>
+    <string name="usage_total_title">ഇതുവരെ</string>
+    <string name="usage_total_body">ആകെ %1$s ഫോണുകളിൽ ആപ്പ് തുറന്നു (എണ്ണൽ ആരംഭിച്ചതു മുതൽ)</string>
+    <string name="usage_downloads">GitHub-ൽ നിന്ന് APK %1$s തവണ ഡൗൺലോഡ് ചെയ്തു</string>
+    <string name="usage_downloads_unknown">GitHub ഡൗൺലോഡ് എണ്ണം ഇതുവരെ വന്നിട്ടില്ല</string>
+    <string name="usage_versions_title">പതിപ്പ് അനുസരിച്ച് (അവസാന %1$d ദിവസം)</string>
+    <string name="usage_version_line">v%1$s — %2$s ഫോണുകൾ</string>
+    <string name="usage_how_title">എണ്ണൽ എങ്ങനെ പ്രവർത്തിക്കുന്നു</string>
+    <string name="usage_how_body">ദിവസത്തിൽ ഒരിക്കൽ, ആപ്പ് തുറക്കുമ്പോൾ, ഓരോ ഫോണും ഒരു ക്രമരഹിത ID-യും അതിന്റെ പതിപ്പും മാത്രം അയയ്ക്കുന്നു — പേര്, നമ്പർ, സ്ഥലം എന്നിവയല്ല. ഈ പതിപ്പോടെ എണ്ണൽ ആരംഭിച്ചു; പഴയ പതിപ്പുകളിലെ ഫോണുകൾ അപ്ഡേറ്റ് ചെയ്ത ശേഷം എണ്ണപ്പെടും. ആപ്പ് നീക്കി വീണ്ടും ഇൻസ്റ്റാൾ ചെയ്ത ഫോൺ പുതിയതായി എണ്ണപ്പെടും, APK ഡൗൺലോഡുകളിൽ ഒരേ വ്യക്തിയുടെ പല ഡൗൺലോഡുകളും ഉൾപ്പെടും.</string>
+    <string name="usage_rules_title">Firestore നിയമങ്ങൾ ഇനിയും മാറ്റണം</string>
+    <string name="usage_rules_body">Firebase Console → Firestore Database → Rules-ൽ docs/LOGIN_SETUP.md (Step 6.5) ൽ നിന്നുള്ള പുതിയ നിയമങ്ങൾ ഒട്ടിച്ച് Publish ചെയ്യുക, തുടർന്ന് ഇത് വീണ്ടും തുറക്കുക.</string>
+    <string name="usage_failed_title">എണ്ണം ലഭിച്ചില്ല</string>
+    <string name="usage_failed_body">ഇന്റർനെറ്റ് പരിശോധിച്ച് കുറച്ച് കഴിഞ്ഞ് ഇത് വീണ്ടും തുറക്കുക.</string>
+</resources>
