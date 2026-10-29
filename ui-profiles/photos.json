@@ -1,23 +1,30 @@
 {
+ "AMBUJACEM": {
+  "p": {
+   "cement": "product-photos/AMBUJACEM/cement.webp"
+  },
+  "c": {
+   "product-photos/AMBUJACEM/cement.webp": "Biswarup Ganguly · CC BY-SA 3.0 · Wikimedia Commons"
+  }
+ },
  "APOLLOTYRE": {
   "logo": "product-photos/APOLLOTYRE/logo.webp",
   "c": {
-   "product-photos/APOLLOTYRE/logo.webp": "Wikimedia Commons",
-   "product-photos/APOLLOTYRE/tyre.webp": "Edvin Varghese M · CC BY 4.0 · Wikimedia Commons"
+   "product-photos/APOLLOTYRE/logo.webp": "Apollo Tyres Ltd · Public domain · Wikimedia Commons",
+   "product-photos/APOLLOTYRE/tyre.webp": "LeanneVarney · CC BY-SA 4.0 · Wikimedia Commons"
   },
-  "banner": "product-photos/APOLLOTYRE/banner.webp",
   "p": {
    "tyre": "product-photos/APOLLOTYRE/tyre.webp"
   }
  },
  "ASHOKLEY": {
-  "logo": "product-photos/ASHOKLEY/logo.webp",
-  "c": {
-   "product-photos/ASHOKLEY/logo.webp": "Wikimedia Commons",
-   "product-photos/ASHOKLEY/bus.webp": "Shadman Samee from Dhaka, Bangladesh · CC BY-SA 2.0 · Wikimedia Commons"
-  },
   "p": {
+   "truck": "product-photos/ASHOKLEY/truck.webp",
    "bus": "product-photos/ASHOKLEY/bus.webp"
+  },
+  "c": {
+   "product-photos/ASHOKLEY/truck.webp": "Photohelp13 · CC BY-SA 4.0 · Wikimedia Commons",
+   "product-photos/ASHOKLEY/bus.webp": "Shadman Samee from Dhaka, Bangladesh · CC BY-SA 2.0 · Wikimedia Commons"
   }
  },
  "ASIANPAINT": {
@@ -26,7 +33,6 @@
    "product-photos/ASIANPAINT/logo.webp": "Asian Paints · Public domain · Wikimedia Commons",
    "product-photos/ASIANPAINT/paint.webp": "1810278ranjini · CC BY-SA 4.0 · Wikimedia Commons"
   },
-  "banner": "product-photos/ASIANPAINT/banner.webp",
   "p": {
    "paint": "product-photos/ASIANPAINT/paint.webp"
   }
@@ -40,7 +46,7 @@
  "BAJAJ-AUTO": {
   "logo": "product-photos/BAJAJ_AUTO/logo.webp",
   "c": {
-   "product-photos/BAJAJ_AUTO/logo.webp": "Wikimedia Commons"
+   "product-photos/BAJAJ_AUTO/logo.webp": "Unknown authorUnknown author · Public domain · Wikimedia Commons"
   }
  },
  "BAJFINANCE": {
@@ -49,37 +55,56 @@
    "product-photos/BAJFINANCE/logo.webp": "Bajaj Finance Limited · Public domain · Wikimedia Commons"
   }
  },
- "BALKRISIND": {
-  "logo": "product-photos/BALKRISIND/logo.webp",
-  "c": {
-   "product-photos/BALKRISIND/logo.webp": "Wikimedia Commons"
+ "BATAINDIA": {
+  "p": {
+   "footwear": "product-photos/BATAINDIA/footwear.webp"
   },
-  "banner": "product-photos/BALKRISIND/banner.webp"
+  "c": {
+   "product-photos/BATAINDIA/footwear.webp": "bata shoe company · CC BY-SA 3.0 · Wikimedia Commons"
+  }
  },
  "BEL": {
   "p": {
-   "electronics": "product-photos/BEL/electronics.webp"
+   "electronics": "product-photos/BEL/electronics.webp",
+   "defence": "product-photos/BEL/defence.webp"
   },
   "c": {
-   "product-photos/BEL/electronics.webp": "Psubhashish · CC BY-SA 4.0 · Wikimedia Commons"
+   "product-photos/BEL/electronics.webp": "Ministry of Defence · GODL-India · Wikimedia Commons",
+   "product-photos/BEL/defence.webp": "Ministry of Defence · GODL-India · Wikimedia Commons"
   }
  },
  "BHARTIARTL": {
   "logo": "product-photos/BHARTIARTL/logo.webp",
   "c": {
-   "product-photos/BHARTIARTL/logo.webp": "Bharti Airtel Limited · Public domain · Wikimedia Commons"
+   "product-photos/BHARTIARTL/logo.webp": "Bharti Airtel Limited · Public domain · Wikimedia Commons",
+   "product-photos/BHARTIARTL/telecom.webp": "Gppande · CC BY-SA 3.0 · Wikimedia Commons"
+  },
+  "p": {
+   "telecom": "product-photos/BHARTIARTL/telecom.webp"
+  }
+ },
+ "BRITANNIA": {
+  "p": {
+   "food": "product-photos/BRITANNIA/food.webp"
+  },
+  "c": {
+   "product-photos/BRITANNIA/food.webp": "Chocovision Org · CC BY-SA 2.0 · Wikimedia Commons"
   }
  },
  "CEATLTD": {
   "logo": "product-photos/CEATLTD/logo.webp",
   "c": {
-   "product-photos/CEATLTD/logo.webp": "CEAT · Public domain · Wikimedia Commons"
+   "product-photos/CEATLTD/logo.webp": "CEAT · Public domain · Wikimedia Commons",
+   "product-photos/CEATLTD/tyre.webp": "Sabrata · Public domain · Wikimedia Commons"
+  },
+  "p": {
+   "tyre": "product-photos/CEATLTD/tyre.webp"
   }
  },
  "CIPLA": {
   "logo": "product-photos/CIPLA/logo.webp",
   "c": {
-   "product-photos/CIPLA/logo.webp": "Wikimedia Commons"
+   "product-photos/CIPLA/logo.webp": "Cipla · Public domain · Wikimedia Commons"
   }
  },
  "COALINDIA": {
@@ -103,16 +128,19 @@
  "HDFCBANK": {
   "logo": "product-photos/HDFCBANK/logo.webp",
   "c": {
-   "product-photos/HDFCBANK/logo.webp": "HDFC Bank · Public domain · Wikimedia Commons"
+   "product-photos/HDFCBANK/logo.webp": "HDFC Bank · Public domain · Wikimedia Commons",
+   "product-photos/HDFCBANK/bank.webp": "Ministry of Defence · GODL-India · Wikimedia Commons"
+  },
+  "p": {
+   "bank": "product-photos/HDFCBANK/bank.webp"
   }
  },
  "HEROMOTOCO": {
   "logo": "product-photos/HEROMOTOCO/logo.webp",
   "c": {
-   "product-photos/HEROMOTOCO/logo.webp": "Wikimedia Commons",
-   "product-photos/HEROMOTOCO/bike.webp": "Gpkp · CC BY-SA 4.0 · Wikimedia Commons"
+   "product-photos/HEROMOTOCO/logo.webp": "Hero MotoCorp · Public domain · Wikimedia Commons",
+   "product-photos/HEROMOTOCO/bike.webp": "Jim Cartar · CC BY-SA 3.0 · Wikimedia Commons"
   },
-  "banner": "product-photos/HEROMOTOCO/banner.webp",
   "p": {
    "bike": "product-photos/HEROMOTOCO/bike.webp"
   }
@@ -120,19 +148,17 @@
  "ICICIBANK": {
   "logo": "product-photos/ICICIBANK/logo.webp",
   "c": {
-   "product-photos/ICICIBANK/logo.webp": "Wikimedia Commons"
+   "product-photos/ICICIBANK/logo.webp": "ICICI Bank · Public domain · Wikimedia Commons",
+   "product-photos/ICICIBANK/bank.webp": "Partha Sarathi Goswa… · CC BY-SA 3.0 · Wikimedia Commons"
+  },
+  "p": {
+   "bank": "product-photos/ICICIBANK/bank.webp"
   }
  },
  "INFY": {
   "logo": "product-photos/INFY/logo.webp",
   "c": {
    "product-photos/INFY/logo.webp": "Infosys, Ltd · Public domain · Wikimedia Commons"
-  }
- },
- "ITC": {
-  "logo": "product-photos/ITC/logo.webp",
-  "c": {
-   "product-photos/ITC/logo.webp": "Wikimedia Commons"
   }
  },
  "JSWSTEEL": {
@@ -146,19 +172,12 @@
  "MARUTI": {
   "logo": "product-photos/MARUTI/logo.webp",
   "c": {
-   "product-photos/MARUTI/logo.webp": "Wikimedia Commons",
+   "product-photos/MARUTI/logo.webp": "Maruti Suzuki · Public domain · Wikimedia Commons",
    "product-photos/MARUTI/suv.webp": "Ank Kumar · CC BY-SA 4.0 · Wikimedia Commons"
   },
   "p": {
    "suv": "product-photos/MARUTI/suv.webp"
   }
- },
- "MRF": {
-  "logo": "product-photos/MRF/logo.webp",
-  "c": {
-   "product-photos/MRF/logo.webp": "Wikimedia Commons"
-  },
-  "banner": "product-photos/MRF/banner.webp"
  },
  "NESTLEIND": {
   "logo": "product-photos/NESTLEIND/logo.webp",
@@ -167,19 +186,11 @@
   }
  },
  "NTPC": {
-  "logo": "product-photos/NTPC/logo.webp",
-  "c": {
-   "product-photos/NTPC/logo.webp": "Wikimedia Commons",
-   "product-photos/NTPC/power.webp": "Skmishraindia · Public domain · Wikimedia Commons"
-  },
   "p": {
    "power": "product-photos/NTPC/power.webp"
-  }
- },
- "ONGC": {
-  "logo": "product-photos/ONGC/logo.webp",
+  },
   "c": {
-   "product-photos/ONGC/logo.webp": "Wikimedia Commons"
+   "product-photos/NTPC/power.webp": "Skmishraindia · Public domain · Wikimedia Commons"
   }
  },
  "PIDILITIND": {
@@ -200,19 +211,14 @@
    "product-photos/PVRINOX/logo.webp": "Deepak Asrani · Public domain · Wikimedia Commons"
   }
  },
- "RELIANCE": {
-  "banner": "product-photos/RELIANCE/banner.webp"
- },
  "SBILIFE": {
   "logo": "product-photos/SBILIFE/logo.webp",
   "c": {
-   "product-photos/SBILIFE/logo.webp": "Rupturestriker · CC BY-SA 4.0 · Wikimedia Commons"
-  }
- },
- "SUNPHARMA": {
-  "logo": "product-photos/SUNPHARMA/logo.webp",
-  "c": {
-   "product-photos/SUNPHARMA/logo.webp": "Wikimedia Commons"
+   "product-photos/SBILIFE/logo.webp": "Rupturestriker · CC BY-SA 4.0 · Wikimedia Commons",
+   "product-photos/SBILIFE/insurance.webp": "SBI Insurance Group Co., Ltd. · Public domain · Wikimedia Commons"
+  },
+  "p": {
+   "insurance": "product-photos/SBILIFE/insurance.webp"
   }
  },
  "SUPREMEIND": {
@@ -230,7 +236,13 @@
  "TATAPOWER": {
   "logo": "product-photos/TATAPOWER/logo.webp",
   "c": {
-   "product-photos/TATAPOWER/logo.webp": "Wikimedia Commons"
+   "product-photos/TATAPOWER/logo.webp": "Tata Power · CC BY-SA 4.0 · Wikimedia Commons",
+   "product-photos/TATAPOWER/solar.webp": "Tata Power Solar Systems Limited · Public domain · Wikimedia Commons",
+   "product-photos/TATAPOWER/power.webp": "Prime Minister's Office · GODL-India · Wikimedia Commons"
+  },
+  "p": {
+   "solar": "product-photos/TATAPOWER/solar.webp",
+   "power": "product-photos/TATAPOWER/power.webp"
   }
  },
  "TATASTEEL": {
@@ -244,11 +256,12 @@
  "TCS": {
   "logo": "product-photos/TCS/logo.webp",
   "c": {
-   "product-photos/TCS/logo.webp": "Wikimedia Commons"
+   "product-photos/TCS/logo.webp": "Unknown authorUnknown author · Public domain · Wikimedia Commons",
+   "product-photos/TCS/software.webp": "President's Secretariat · GODL-India · Wikimedia Commons"
+  },
+  "p": {
+   "software": "product-photos/TCS/software.webp"
   }
- },
- "TVSMOTOR": {
-  "banner": "product-photos/TVSMOTOR/banner.webp"
  },
  "UBL": {
   "p": {

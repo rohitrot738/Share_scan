@@ -1,25 +1,31 @@
 {
+ "AMBUJACEM": {
+  "p": {
+   "cement": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Ambuja_Cements_Limited_20020400.jpg/330px-Ambuja_Cements_Limited_20020400.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "c": {
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/01/Ambuja_Cements_Limited_20020400.jpg/330px-Ambuja_Cements_Limited_20020400.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Biswarup Ganguly · CC BY-SA 3.0 · Wikimedia Commons"
+  }
+ },
  "APOLLOTYRE": {
   "p": {
-   "tyre": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Pookkalam_at_Apollo_Tyres.jpg/330px-Pookkalam_at_Apollo_Tyres.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+   "tyre": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Apollo_Tyres_Ltd_%26_A_Lock_up_stacked_Black_RGB_L.png/330px-Apollo_Tyres_Ltd_%26_A_Lock_up_stacked_Black_RGB_L.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
   },
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/Apollo%20Tyres%20logo.svg?width=256",
+  "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Apollo_Tyres_logo.svg/330px-Apollo_Tyres_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
   "c": {
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Apollo_Tyres_logo.svg/330px-Apollo_Tyres_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Apollo Tyres Ltd · Public domain · Wikimedia Commons",
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/48/Pookkalam_at_Apollo_Tyres.jpg/330px-Pookkalam_at_Apollo_Tyres.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Edvin Varghese M · CC BY 4.0 · Wikimedia Commons",
-   "https://commons.wikimedia.org/wiki/Special:FilePath/Apollo%20Tyres%20logo.svg?width=256": "Wikimedia Commons"
-  },
-  "banner": "https://corporate.apollotyres.com/content/dam/orbit/apollo-corporate/brand-identity/atl-logo_transparent_208x80_textonly.png"
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Apollo_Tyres_Ltd_%26_A_Lock_up_stacked_Black_RGB_L.png/330px-Apollo_Tyres_Ltd_%26_A_Lock_up_stacked_Black_RGB_L.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "LeanneVarney · CC BY-SA 4.0 · Wikimedia Commons",
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Apollo_Tyres_logo.svg/330px-Apollo_Tyres_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Apollo Tyres Ltd · Public domain · Wikimedia Commons"
+  }
  },
  "ASHOKLEY": {
   "p": {
+   "truck": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Ashok_leyland_5525_01.jpg/330px-Ashok_leyland_5525_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
    "bus": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/BRTC_Ashok_Leyland_articulated_bus_%2825213964615%29.jpg/330px-BRTC_Ashok_Leyland_articulated_bus_%2825213964615%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
   },
   "c": {
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/BRTC_Ashok_Leyland_articulated_bus_%2825213964615%29.jpg/330px-BRTC_Ashok_Leyland_articulated_bus_%2825213964615%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Shadman Samee from Dhaka, Bangladesh · CC BY-SA 2.0 · Wikimedia Commons",
-   "https://commons.wikimedia.org/wiki/Special:FilePath/Ashok%20Leyland%20Logo.JPG?width=256": "Wikimedia Commons"
-  },
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/Ashok%20Leyland%20Logo.JPG?width=256"
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Ashok_leyland_5525_01.jpg/330px-Ashok_leyland_5525_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Photohelp13 · CC BY-SA 4.0 · Wikimedia Commons",
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/BRTC_Ashok_Leyland_articulated_bus_%2825213964615%29.jpg/330px-BRTC_Ashok_Leyland_articulated_bus_%2825213964615%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Shadman Samee from Dhaka, Bangladesh · CC BY-SA 2.0 · Wikimedia Commons"
+  }
  },
  "ASIANPAINT": {
   "p": {
@@ -29,8 +35,7 @@
   "c": {
    "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/Asian_Paints_Logo.svg/330px-Asian_Paints_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Asian Paints · Public domain · Wikimedia Commons",
    "https://upload.wikimedia.org/wikipedia/commons/0/09/Asian_paints_logo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled": "1810278ranjini · CC BY-SA 4.0 · Wikimedia Commons"
-  },
-  "banner": "https://www.asianpaints.com/media_1f917adc3fc08a73c6608afeaf5fad9b1e81a6179.png?width=1200&format=pjpg&optimize=medium"
+  }
  },
  "ASTRAL": {
   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1d/Astral_Chain_logo_%28Japanese%29.png/330px-Astral_Chain_logo_%28Japanese%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
@@ -39,10 +44,9 @@
   }
  },
  "BAJAJ-AUTO": {
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/Bajaj%20Auto%20Ltd%20logo.svg?width=256",
+  "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Bajaj_Auto_logo.svg/330px-Bajaj_Auto_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
   "c": {
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Bajaj_Auto_logo.svg/330px-Bajaj_Auto_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Unknown authorUnknown author · Public domain · Wikimedia Commons",
-   "https://commons.wikimedia.org/wiki/Special:FilePath/Bajaj%20Auto%20Ltd%20logo.svg?width=256": "Wikimedia Commons"
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3b/Bajaj_Auto_logo.svg/330px-Bajaj_Auto_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Unknown authorUnknown author · Public domain · Wikimedia Commons"
   }
  },
  "BAJFINANCE": {
@@ -51,38 +55,56 @@
    "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/Bajaj_Finance_Logo.svg/330px-Bajaj_Finance_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Bajaj Finance Limited · Public domain · Wikimedia Commons"
   }
  },
- "BALKRISIND": {
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/Balkrishna%20Tyres%20Logo.svg?width=256",
-  "c": {
-   "https://commons.wikimedia.org/wiki/Special:FilePath/Balkrishna%20Tyres%20Logo.svg?width=256": "Wikimedia Commons"
+ "BATAINDIA": {
+  "p": {
+   "footwear": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Tomas_Bata.jpg/330px-Tomas_Bata.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
   },
-  "banner": "https://www.bkt-tires.com/wp-content/uploads/2025/11/Image-2.png"
+  "c": {
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Tomas_Bata.jpg/330px-Tomas_Bata.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "bata shoe company · CC BY-SA 3.0 · Wikimedia Commons"
+  }
  },
  "BEL": {
   "p": {
-   "electronics": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Bharat_Electronics.jpg/330px-Bharat_Electronics.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+   "electronics": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/A._K._Antony_presenting_the_Raksha_Mantri%27s_Award_for_Excellence_2011-12_to_Bharat_Electronics_Ltd._for_best_performance_in_export%2C_in_New_Delhi._The_Minister_of_State_for_Defence%2C_Shri_Jitendra_Singh_is_also_seen.jpg/330px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+   "defence": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Nirmala_Sitharaman_receiving_a_cheque_of_Rs.262.29_crore_as_interim_dividend_for_the_financial_year_2017-18_from_the_Chairman_%26_Managing_Director%2C_Bharat_Electronics_Ltd._%28BEL%29%2C_Shri_M.V._Gowtama%2C_in_New_Delhi.jpg/330px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
   },
   "c": {
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Bharat_Electronics.jpg/330px-Bharat_Electronics.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Psubhashish · CC BY-SA 4.0 · Wikimedia Commons"
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/A._K._Antony_presenting_the_Raksha_Mantri%27s_Award_for_Excellence_2011-12_to_Bharat_Electronics_Ltd._for_best_performance_in_export%2C_in_New_Delhi._The_Minister_of_State_for_Defence%2C_Shri_Jitendra_Singh_is_also_seen.jpg/330px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Ministry of Defence · GODL-India · Wikimedia Commons",
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/90/Nirmala_Sitharaman_receiving_a_cheque_of_Rs.262.29_crore_as_interim_dividend_for_the_financial_year_2017-18_from_the_Chairman_%26_Managing_Director%2C_Bharat_Electronics_Ltd._%28BEL%29%2C_Shri_M.V._Gowtama%2C_in_New_Delhi.jpg/330px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Ministry of Defence · GODL-India · Wikimedia Commons"
   }
  },
  "BHARTIARTL": {
+  "p": {
+   "telecom": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Bharti-Airtel-Country-Map.PNG/330px-Bharti-Airtel-Country-Map.PNG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Bharti_Airtel_Logo.svg/330px-Bharti_Airtel_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
   "c": {
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/64/Bharti-Airtel-Country-Map.PNG/330px-Bharti-Airtel-Country-Map.PNG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Gppande · CC BY-SA 3.0 · Wikimedia Commons",
    "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Bharti_Airtel_Logo.svg/330px-Bharti_Airtel_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Bharti Airtel Limited · Public domain · Wikimedia Commons"
   }
  },
+ "BRITANNIA": {
+  "p": {
+   "food": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Vinita_Bali%2C_Managing_Director_%26_CEO_Britannia_Industries_Ltd._%287295083942%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
+  "c": {
+   "https://upload.wikimedia.org/wikipedia/commons/e/e8/Vinita_Bali%2C_Managing_Director_%26_CEO_Britannia_Industries_Ltd._%287295083942%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled": "Chocovision Org · CC BY-SA 2.0 · Wikimedia Commons"
+  }
+ },
  "CEATLTD": {
+  "p": {
+   "tyre": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/CEAT_Tyres_Ltd.png/330px-CEAT_Tyres_Ltd.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/CEAT_Logo.svg/330px-CEAT_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
   "c": {
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/CEAT_Logo.svg/330px-CEAT_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "CEAT · Public domain · Wikimedia Commons"
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/ba/CEAT_Logo.svg/330px-CEAT_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "CEAT · Public domain · Wikimedia Commons",
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/CEAT_Tyres_Ltd.png/330px-CEAT_Tyres_Ltd.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Sabrata · Public domain · Wikimedia Commons"
   }
  },
  "CIPLA": {
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/Cipla%20logo.svg?width=256",
+  "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Cipla_logo.svg/330px-Cipla_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
   "c": {
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Cipla_logo.svg/330px-Cipla_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Cipla · Public domain · Wikimedia Commons",
-   "https://commons.wikimedia.org/wiki/Special:FilePath/Cipla%20logo.svg?width=256": "Wikimedia Commons"
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Cipla_logo.svg/330px-Cipla_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Cipla · Public domain · Wikimedia Commons"
   }
  },
  "COALINDIA": {
@@ -104,40 +126,39 @@
   }
  },
  "HDFCBANK": {
+  "p": {
+   "bank": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/A_Memorandum_of_Understanding_%28MoU%29_was_signed_between_the_Indian_Army_and_HDFC_Bank_on_the_Defence_Salary_Package_in_the_presence_of_the_Adjutant_General_of_Indian_Army%2C_Lt._Gen._Rakesh_Sharma%2C_in_New_Delhi.jpg/330px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/HDFC-Bank-Logo.svg/330px-HDFC-Bank-Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
   "c": {
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3d/A_Memorandum_of_Understanding_%28MoU%29_was_signed_between_the_Indian_Army_and_HDFC_Bank_on_the_Defence_Salary_Package_in_the_presence_of_the_Adjutant_General_of_Indian_Army%2C_Lt._Gen._Rakesh_Sharma%2C_in_New_Delhi.jpg/330px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Ministry of Defence · GODL-India · Wikimedia Commons",
    "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f7/HDFC-Bank-Logo.svg/330px-HDFC-Bank-Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "HDFC Bank · Public domain · Wikimedia Commons"
   }
  },
  "HEROMOTOCO": {
   "p": {
-   "bike": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/Hero_Motocorp_motorcycle%2C_Bengaluru_%282026%29_01.jpg/330px-Hero_Motocorp_motorcycle%2C_Bengaluru_%282026%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+   "bike": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Hero_Honda_SuperSplendor_%28Hero_Motocorp%29.jpg/330px-Hero_Honda_SuperSplendor_%28Hero_Motocorp%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
   },
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/Hero%20MotoCorp.svg?width=256",
+  "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e2/Hero_MotoCorp_Logo.svg/330px-Hero_MotoCorp_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
   "c": {
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e2/Hero_MotoCorp_Logo.svg/330px-Hero_MotoCorp_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Hero MotoCorp · Public domain · Wikimedia Commons",
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/44/Hero_Motocorp_motorcycle%2C_Bengaluru_%282026%29_01.jpg/330px-Hero_Motocorp_motorcycle%2C_Bengaluru_%282026%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Gpkp · CC BY-SA 4.0 · Wikimedia Commons",
-   "https://commons.wikimedia.org/wiki/Special:FilePath/Hero%20MotoCorp.svg?width=256": "Wikimedia Commons"
-  },
-  "banner": "https://www.heromotocorp.com/content/dam/hero-aem-website/brand/logo/hero-logo-og-image.png"
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Hero_Honda_SuperSplendor_%28Hero_Motocorp%29.jpg/330px-Hero_Honda_SuperSplendor_%28Hero_Motocorp%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Jim Cartar · CC BY-SA 3.0 · Wikimedia Commons",
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e2/Hero_MotoCorp_Logo.svg/330px-Hero_MotoCorp_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Hero MotoCorp · Public domain · Wikimedia Commons"
+  }
  },
  "ICICIBANK": {
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/ICICI%20Bank%20Logo.svg?width=256",
+  "p": {
+   "bank": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/ICICI_BANK%2C_2nd_Mile%2C_Sevoke_Road%2C_Siliguri%2C_West_Bengal%2C_India_-_panoramio.jpg/330px-ICICI_BANK%2C_2nd_Mile%2C_Sevoke_Road%2C_Siliguri%2C_West_Bengal%2C_India_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/330px-ICICI_Bank_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
   "c": {
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/330px-ICICI_Bank_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "ICICI Bank · Public domain · Wikimedia Commons",
-   "https://commons.wikimedia.org/wiki/Special:FilePath/ICICI%20Bank%20Logo.svg?width=256": "Wikimedia Commons"
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/ICICI_BANK%2C_2nd_Mile%2C_Sevoke_Road%2C_Siliguri%2C_West_Bengal%2C_India_-_panoramio.jpg/330px-ICICI_BANK%2C_2nd_Mile%2C_Sevoke_Road%2C_Siliguri%2C_West_Bengal%2C_India_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Partha Sarathi Goswa… · CC BY-SA 3.0 · Wikimedia Commons",
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/ICICI_Bank_Logo.svg/330px-ICICI_Bank_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "ICICI Bank · Public domain · Wikimedia Commons"
   }
  },
  "INFY": {
   "logo": "https://upload.wikimedia.org/wikipedia/commons/6/65/Infosys_Consulting_Logo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
   "c": {
    "https://upload.wikimedia.org/wikipedia/commons/6/65/Infosys_Consulting_Logo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled": "Infosys, Ltd · Public domain · Wikimedia Commons"
-  }
- },
- "ITC": {
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/ITC%20Limited%20Logo.svg?width=256",
-  "c": {
-   "https://commons.wikimedia.org/wiki/Special:FilePath/ITC%20Limited%20Logo.svg?width=256": "Wikimedia Commons"
   }
  },
  "JSWSTEEL": {
@@ -152,20 +173,11 @@
   "p": {
    "suv": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Maruti_Suzuki%27s_Vitara_Brezza_ZDi_Plus_compact_SUV_%28Ank_Kumar%2C_Infosys_Limited%29_01.jpg/330px-Maruti_Suzuki%27s_Vitara_Brezza_ZDi_Plus_compact_SUV_%28Ank_Kumar%2C_Infosys_Limited%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
   },
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/Maruti%20Suzuki%20logo.svg?width=256",
+  "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/Maruti_Suzuki_logo_%282009%29.svg/330px-Maruti_Suzuki_logo_%282009%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
   "c": {
    "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Maruti_Suzuki%27s_Vitara_Brezza_ZDi_Plus_compact_SUV_%28Ank_Kumar%2C_Infosys_Limited%29_01.jpg/330px-Maruti_Suzuki%27s_Vitara_Brezza_ZDi_Plus_compact_SUV_%28Ank_Kumar%2C_Infosys_Limited%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Ank Kumar · CC BY-SA 4.0 · Wikimedia Commons",
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/Maruti_Suzuki_logo_%282009%29.svg/330px-Maruti_Suzuki_logo_%282009%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Maruti Suzuki · Public domain · Wikimedia Commons",
-   "https://commons.wikimedia.org/wiki/Special:FilePath/Maruti%20Suzuki%20logo.svg?width=256": "Wikimedia Commons"
-  },
-  "banner": "https://www.marutisuzuki.com/adobe/assets/urn:aaid:aem:791b5601-4cfa-4b0f-a77b-ec588eba84ad/as/Maruti-suzuki_logo_v1.svg?width=1200&format=pjpg&optimize=medium"
- },
- "MRF": {
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/Madras%20Rubber%20Factory%20Logo.svg?width=256",
-  "c": {
-   "https://commons.wikimedia.org/wiki/Special:FilePath/Madras%20Rubber%20Factory%20Logo.svg?width=256": "Wikimedia Commons"
-  },
-  "banner": "https://www.mrftyres.com/images/mrf-logo.png"
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/Maruti_Suzuki_logo_%282009%29.svg/330px-Maruti_Suzuki_logo_%282009%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Maruti Suzuki · Public domain · Wikimedia Commons"
+  }
  },
  "NESTLEIND": {
   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Nestle_logo_1912.png/330px-Nestle_logo_1912.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
@@ -178,15 +190,7 @@
    "power": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/NTPC_thermal_power_plant.jpg/330px-NTPC_thermal_power_plant.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
   },
   "c": {
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/NTPC_thermal_power_plant.jpg/330px-NTPC_thermal_power_plant.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Skmishraindia · Public domain · Wikimedia Commons",
-   "https://commons.wikimedia.org/wiki/Special:FilePath/National%20Thermal%20Power%20logo.svg?width=256": "Wikimedia Commons"
-  },
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/National%20Thermal%20Power%20logo.svg?width=256"
- },
- "ONGC": {
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/ONGC%20Logo.svg?width=256",
-  "c": {
-   "https://commons.wikimedia.org/wiki/Special:FilePath/ONGC%20Logo.svg?width=256": "Wikimedia Commons"
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/NTPC_thermal_power_plant.jpg/330px-NTPC_thermal_power_plant.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Skmishraindia · Public domain · Wikimedia Commons"
   }
  },
  "PIDILITIND": {
@@ -207,19 +211,14 @@
    "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/PVR_INOX_Logo_After_Merger.png/330px-PVR_INOX_Logo_After_Merger.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Deepak Asrani · Public domain · Wikimedia Commons"
   }
  },
- "RELIANCE": {
-  "banner": "https://rilstaticasset.akamaized.net/sites/default/files/images/ril-logo-social_media.jpg"
- },
  "SBILIFE": {
+  "p": {
+   "insurance": "https://upload.wikimedia.org/wikipedia/commons/0/04/SBI_Life_Insurance_Logo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+  },
   "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/SBI_Life_Insurance_2022_Logo.svg/330px-SBI_Life_Insurance_2022_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
   "c": {
-   "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/SBI_Life_Insurance_2022_Logo.svg/330px-SBI_Life_Insurance_2022_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Rupturestriker · CC BY-SA 4.0 · Wikimedia Commons"
-  }
- },
- "SUNPHARMA": {
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20Sun%20Pharmaceutical.png?width=256",
-  "c": {
-   "https://commons.wikimedia.org/wiki/Special:FilePath/Logo%20Sun%20Pharmaceutical.png?width=256": "Wikimedia Commons"
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/SBI_Life_Insurance_2022_Logo.svg/330px-SBI_Life_Insurance_2022_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Rupturestriker · CC BY-SA 4.0 · Wikimedia Commons",
+   "https://upload.wikimedia.org/wikipedia/commons/0/04/SBI_Life_Insurance_Logo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled": "SBI Insurance Group Co., Ltd. · Public domain · Wikimedia Commons"
   }
  },
  "SUPREMEIND": {
@@ -235,10 +234,15 @@
   }
  },
  "TATAPOWER": {
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/TPDDL%20Brand%20Logo.png?width=256",
+  "p": {
+   "solar": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tata_Power_Solar_logo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+   "power": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/The_Chief_Executive_Officer%2C_Tata_Power%2C_Shri_Anil_Sardana_and_the_Deputy_Director_General_of_the_Energy_Department%2C_Vietnam.jpg/330px-The_Chief_Executive_Officer%2C_Tata_Power%2C_Shri_Anil_Sardana_and_the_Deputy_Director_General_of_the_Energy_Department%2C_Vietnam.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Tata_Power_Logo.png/330px-Tata_Power_Logo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
   "c": {
    "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/32/Tata_Power_Logo.png/330px-Tata_Power_Logo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Tata Power · CC BY-SA 4.0 · Wikimedia Commons",
-   "https://commons.wikimedia.org/wiki/Special:FilePath/TPDDL%20Brand%20Logo.png?width=256": "Wikimedia Commons"
+   "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tata_Power_Solar_logo.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled": "Tata Power Solar Systems Limited · Public domain · Wikimedia Commons",
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/The_Chief_Executive_Officer%2C_Tata_Power%2C_Shri_Anil_Sardana_and_the_Deputy_Director_General_of_the_Energy_Department%2C_Vietnam.jpg/330px-The_Chief_Executive_Officer%2C_Tata_Power%2C_Shri_Anil_Sardana_and_the_Deputy_Director_General_of_the_Energy_Department%2C_Vietnam.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Prime Minister's Office · GODL-India · Wikimedia Commons"
   }
  },
  "TATASTEEL": {
@@ -250,14 +254,14 @@
   }
  },
  "TCS": {
-  "logo": "https://commons.wikimedia.org/wiki/Special:FilePath/Tcs-logo-1.svg?width=256",
+  "p": {
+   "software": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/The_President%2C_Smt._Pratibha_Devisingh_Patil_meeting_with_the_Software_Engineers_of_Tata_Consultancy_Services_at_Guadalajara%2C_Mexico_on_April_19%2C_2008.jpg/330px-The_President%2C_Smt._Pratibha_Devisingh_Patil_meeting_with_the_Software_Engineers_of_Tata_Consultancy_Services_at_Guadalajara%2C_Mexico_on_April_19%2C_2008.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail"
+  },
+  "logo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/TATA_Consultancy_Services_Logo.svg/330px-TATA_Consultancy_Services_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
   "c": {
    "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/TATA_Consultancy_Services_Logo.svg/330px-TATA_Consultancy_Services_Logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "Unknown authorUnknown author · Public domain · Wikimedia Commons",
-   "https://commons.wikimedia.org/wiki/Special:FilePath/Tcs-logo-1.svg?width=256": "Wikimedia Commons"
+   "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/The_President%2C_Smt._Pratibha_Devisingh_Patil_meeting_with_the_Software_Engineers_of_Tata_Consultancy_Services_at_Guadalajara%2C_Mexico_on_April_19%2C_2008.jpg/330px-The_President%2C_Smt._Pratibha_Devisingh_Patil_meeting_with_the_Software_Engineers_of_Tata_Consultancy_Services_at_Guadalajara%2C_Mexico_on_April_19%2C_2008.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail": "President's Secretariat · GODL-India · Wikimedia Commons"
   }
- },
- "TVSMOTOR": {
-  "banner": "https://www.tvsmotor.com/-/media/Feature/Hero-Banner/April-2022/Website-Banner-Desktop-1366-x-600-Pix--1.jpg"
  },
  "UBL": {
   "p": {
