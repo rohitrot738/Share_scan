@@ -8,6 +8,7 @@ them rather than waiting for the nightly cache to read every page again. Removed
 import gzip
 import json
 import os
+import re
 import sys
 import time
 import urllib.parse
@@ -16,6 +17,17 @@ from datetime import date, datetime, timedelta, timezone
 from cr360 import build_app_cache as cache, products, screener_page
 
 STOP_AFTER = 335 * 60  # seconds a slice may read, inside its job's 6 hours
+_LINKS = re.compile(r'<div class="company-links[^"]*">(.*?)</div>', re.S)
+_HREF = re.compile(r'href="(https?://[^"]+)"')
+
+
+def website(html: str) -> str:
+    """The company's own website from the links under its name on the Screener page; empty when it shows none."""
+    block = _LINKS.search(html)
+    for url in _HREF.findall(block.group(1) if block else ""):
+        if not re.search(r"bseindia|nseindia|screener\.in", url):
+            return url
+    return ""
 
 
 def read(part: int, count: int, out_dir: str) -> None:
@@ -39,7 +51,7 @@ def read(part: int, count: int, out_dir: str) -> None:
             continue
         page = screener_page.parse(html)
         about, points, sector = page.get("about", ""), page.get("points", ""), sectors.get(symbol, "")
-        profiles[symbol] = {"about": about, "points": points, "sector": sector}
+        profiles[symbol] = {"name": stock.get("name", ""), "site": website(html), "about": about, "points": points, "sector": sector}
         made[symbol] = products.classify(about, points, sector)
         if i % 100 == 0:
             cache.log(f"  {i}/{len(mine)} {symbol}: {made[symbol]}")

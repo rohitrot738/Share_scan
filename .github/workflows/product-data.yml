@@ -1,5 +1,6 @@
 # Temporary, run once: the products file the app carries, from every company's Screener page. The stocks are read in
-# three slices one after another (never two at once), at the nightly cache's pace. Removed before merging.
+# three slices one after another (never two at once), at the nightly cache's pace, keeping each company's name and
+# website for its product photos. Removed before merging.
 name: Product data
 on:
   push:
