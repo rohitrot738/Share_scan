@@ -38,6 +38,10 @@ NOT_PRODUCT = re.compile(r"\b(?:mr|mrs|shri|smt|dr|ceo|chairman|chairperson|dire
                          r"meets|inaugurat\w*|ceremony|award\w*|conference|summit|visit\w*|signing|signs|launch\w*|event|"
                          r"office|offices|headquarters|hq|building|tower|campus|house|bhawan|bhavan|map|chart|graph|share|"
                          r"certificate|stamp|cheque|team|staff|employees|workers|protest|strike|rally|school|hospital|people)\b")
+# Products a photo can show: things, not services. A bank, a software company or a hospital is shown by its logo.
+PHYSICAL_GROUPS = {"auto", "materials", "clothing", "electrical", "food", "home", "energy", "industry"}
+PHYSICAL_KEYS = {"aircraft", "ship", "rail", "defence", "api", "medicine", "vaccine", "meddevice", "ayurveda", "news", "gaming", "toys"}
+PHYSICAL = {p.key for p in products.PRODUCTS if p.group in PHYSICAL_GROUPS or p.key in PHYSICAL_KEYS} - {"realty", "water", "recycling"}
 WEAK = {"the", "india", "indian", "industries", "industry", "enterprises", "international", "global", "national", "bharat",
         "hindustan", "united", "new", "general", "shree", "shri", "sri", "and", "of", "group", "holdings", "ventures"}
 
@@ -160,12 +164,13 @@ def match(name: str, made: list[str], files: list[dict]) -> dict:
         if "logo" in title and "logo" not in out:
             out["logo"], credits[f["thumb"]] = f["thumb"], credit
             continue
-        if f["mime"] == "image/svg+xml" or NOT_PRODUCT.search(title):
+        # A product photo is a photograph: drawings and PNGs are mostly logos and charts.
+        if f["mime"] != "image/jpeg" or NOT_PRODUCT.search(title):
             continue
         # The product must be named in the title itself; a description often names it in passing.
         words = " " + title + " "
         for key in made:
-            if key in out["p"]:
+            if key in out["p"] or key not in PHYSICAL:
                 continue
             pattern = next(p for prod, p in products._COMPILED if prod.key == key)
             if pattern.search(words):
