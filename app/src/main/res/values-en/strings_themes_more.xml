@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_sunset">Sunset</string>
+    <string name="theme_sunset_body">Orange-pink evening sky</string>
+    <string name="theme_ocean">Ocean</string>
+    <string name="theme_ocean_body">Deep blue sea</string>
+    <string name="theme_emerald">Emerald</string>
+    <string name="theme_emerald_body">Emerald-green galaxy</string>
+    <string name="theme_mars">Mars</string>
+    <string name="theme_mars_body">Dusty red sky</string>
+    <string name="theme_royal_gold">Royal Gold</string>
+    <string name="theme_royal_gold_body">Gold and royal purple</string>
+    <string name="theme_frost">Frost</string>
+    <string name="theme_frost_body">Icy blue • faint northern lights</string>
+    <string name="theme_space_glass">Space Glass</string>
+    <string name="theme_space_glass_body">Deep space • cyan glow • a moving trading grid and chart line</string>
+</resources>

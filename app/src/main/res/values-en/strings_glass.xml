@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_sky">Sky animation</string>
+    <string name="settings_sky_body">Stars twinkle, shoot and glow; turn it off and the sky holds still (saves battery)</string>
+    <string name="settings_section_glass">Glass mode</string>
+    <string name="settings_glass_on">Glass effect</string>
+    <string name="settings_glass_on_body">Off makes the board, cards, buttons and sheets plain and solid • no glass, shine or blur</string>
+    <string name="glass_off_body">Now: glass off • turn the switch above on and the picked mode comes back</string>
+    <string name="settings_glass_body">The glass of the scan board, cards, sheets, chips and switches • the whole app takes it as soon as you pick</string>
+    <string name="glass_frosted">Frosted</string>
+    <string name="glass_clear">Clear</string>
+    <string name="glass_smoky">Smoky</string>
+    <string name="glass_tinted">Tinted</string>
+    <string name="glass_liquid">Iridescent</string>
+    <string name="glass_solid">Solid</string>
+    <string name="glass_frosted_body">Now: lightly frosted glass with the sky showing through • default</string>
+    <string name="glass_clear_body">Now: crystal-clear glass with bright edges • shows the most sky</string>
+    <string name="glass_smoky_body">Now: dark, smoky glass • the sky just glimmers through</string>
+    <string name="glass_tinted_body">Now: glass tinted in the theme\'s colour</string>
+    <string name="glass_liquid_body">Now: sky-blue to pink shimmering edges, like oil on water</string>
+    <string name="glass_solid_body">Now: firm, solid cards with just a little shine • easiest to read, lightest on the phone</string>
+</resources>

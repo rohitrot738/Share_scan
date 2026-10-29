@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="score_detail_old">The last scan didn\'t keep this part\'s full working — it shows after a new scan</string>
+    <string name="score_swing">This stock\'s usual daily move (the average high–low range of the last 50 days): %1$s%% — distances are measured in multiples of it</string>
+    <string name="score_total">Total: %1$s = %2$s points → %3$s</string>
+    <string name="score_total_simple">Total: %1$s points → %2$s</string>
+    <string name="score_soft_note">Points above 85 and below 15 are eased towards 100 and 0, so the best stocks keep their order</string>
+    <string name="score_breakout_high">The 20-day high before the last session ₹%1$s; price ₹%2$s is %3$s%% below it, %4$s daily moves → %5$s points (share 55%%)</string>
+    <string name="score_breakout_high_above">The 20-day high before the last session ₹%1$s; price ₹%2$s is already %3$s%% above it, %4$s daily moves → %5$s points (share 55%%)</string>
+    <string name="score_breakout_high_rule">From just under the high to one daily move above it, the full 100 points; 20 fewer for each daily move further away</string>
+    <string name="score_breakout_base">The last 10 days\' base ₹%1$s – ₹%2$s, %3$s%% wide, %4$s daily moves (2 or less = tight) → %5$s points</string>
+    <string name="score_breakout_calm">Those days\' daily range %1$s times the usual move (0.6 or less = fully calm) → %2$s points</string>
+    <string name="score_breakout_tight">Base tightness: the average of the two above (up to 110) → %1$s points (share 30%%)</string>
+    <string name="score_breakout_position">Where the price sits in the base: %1$s/100 (0 = the bottom, 100 = the top) (share 15%%)</string>
+    <string name="score_breakout_total">Total: 0.55 × %1$s + 0.30 × %2$s + 0.15 × %3$s = %4$s points → %5$s</string>
+    <string name="score_base_title">The last 10 sessions\' base</string>
+    <string name="score_trend_term">%1$s: %2$s daily moves → %3$s × %2$s = %4$s points</string>
+    <string name="score_trend_above20">Price above (+) / below (−) the 20-day average ₹%1$s</string>
+    <string name="score_trend_slope">The 20-day average\'s slope over the last 5 days</string>
+    <string name="score_trend_above50">Price above (+) / below (−) the 50-day average ₹%1$s</string>
+    <string name="score_trend_stacked">The 20-day average above (+) / below (−) the 50-day average</string>
+    <string name="score_trend_limits">Each part counts only so far: 20-day ±3, slope ±2, 50-day ±4 and the gap between the two averages ±2 daily moves</string>
+    <string name="score_trend_short">No 50 days of data, so the two 20-day parts count 1.75 times</string>
+    <string name="score_volume_rvol">The last session\'s volume %1$s shares, %3$s times the average %2$s of the 20 sessions before (RVOL) → %4$s points (1 time = 50, 2 = 75, 4 = 100) (share 60%%)</string>
+    <string name="score_volume_live">The market is open: today\'s volume so far is counted as a whole day, by the share usually traded by this time of day</string>
+    <string name="score_volume_quiet">The 5 sessions before that: %1$s times the average (0.5 or less = volume dried up, 1.15 or more = not) → %2$s points (share 40%%)</string>
+    <string name="score_volume_total">Total: 0.6 × %1$s + 0.4 × %2$s = %3$s points → %4$s</string>
+    <string name="score_liquidity_median">Median daily turnover (price × volume) over the last 20 sessions %1$s</string>
+    <string name="score_liquidity_scale">Scale: ₹10 lakh = 0, ₹1 Cr = 33, ₹10 Cr = 67, ₹100 Cr = 100 points</string>
+    <string name="score_momentum_5d">%1$s%% in 5 sessions → 4 × %1$s = %2$s points</string>
+    <string name="score_momentum_20d">%1$s%% in 20 sessions → 1.5 × %1$s = %2$s points</string>
+    <string name="score_support_level">Support ₹%1$s; price %2$s%% above it</string>
+    <string name="score_support_age">No close below it for %1$d sessions (%2$s) → %3$s/70 points (full at 6 months)</string>
+    <string name="score_support_touches">Came down to it and turned back %1$d times → %2$s/30 points (full at 5 times)</string>
+    <string name="score_support_total">Strength %1$s/100 → bonus %2$s points (at most 5)</string>
+    <string name="score_support_none">No lasting support in the last 6 months\' chart — bonus 0 (nothing is taken off the score)</string>
+    <string name="score_recent_title">The last 10 sessions</string>
+    <string name="score_col_day">Day</string>
+    <string name="score_col_close">Close</string>
+    <string name="score_col_change">Change</string>
+    <string name="score_col_volume">Volume</string>
+    <string name="score_col_times">× avg</string>
+    <string name="score_col_turnover">₹ Cr</string>
+    <string name="score_col_high">High</string>
+    <string name="score_col_low">Low</string>
+    <string name="score_recent_note">× avg: that day\'s volume as a multiple of the average of the 20 sessions before today; ₹ Cr: that day\'s turnover</string>
+</resources>

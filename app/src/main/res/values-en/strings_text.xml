@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_text">Language and font</string>
+    <string name="menu_text_body">Now: %1$s · %2$s</string>
+    <string name="text_title">Language and font</string>
+    <string name="text_subtitle">Which language and which font the whole app shows in</string>
+    <string name="text_language">Language</string>
+    <string name="text_language_note">The translation is the app\'s own; if a word looks wrong, please tell us. Stock and company names, news and \"What\'s new\" stay as they are.</string>
+    <string name="text_font">Font</string>
+    <string name="text_font_sample">Share Scan · Breakout scan · ₹1,234.50 ▲ 2.40% · 86.0</string>
+    <string name="font_system">The phone\'s font</string>
+    <string name="text_font_description">Choose the %1$s font</string>
+    <string name="text_language_description">Choose %1$s</string>
+</resources>

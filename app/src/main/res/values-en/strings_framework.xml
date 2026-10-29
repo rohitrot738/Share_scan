@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fw_value_line">Fair value ₹%1$s · buy price ₹%2$s</string>
+    <string name="fw_value_only">Fair value ₹%1$s</string>
+    <string name="fw_summary">%1$s · Margin of safety %2$s%% (%3$s)</string>
+    <string name="fw_price_above">Price ₹%1$s, %2$s%% above the buy price</string>
+    <string name="fw_price_below">Price ₹%1$s, %2$s%% below the buy price ✓</string>
+    <string name="fw_model_general">Sector P/E–P/B method</string>
+    <string name="fw_model_bank">Bank/NBFC: adjusted P/B</string>
+    <string name="fw_model_asset">EV/EBITDA</string>
+    <string name="fw_model_cyclical">Mid-cycle EV/EBITDA</string>
+    <string name="fw_model_cash">PEG</string>
+    <string name="fw_size_large">large cap</string>
+    <string name="fw_size_mid">mid cap</string>
+    <string name="fw_size_small">small cap</string>
+    <string name="fw_open">The framework\'s full working</string>
+    <string name="fw_flag_reject">⛔ Reject: promoters have pledged %1$s%% of their shares (over 15%%)</string>
+    <string name="fw_flag_high_risk">⚠ High Risk: interest cover only %1$s times (under 2.5)</string>
+    <string name="fw_flag_manipulation">⚠ Doubtful earnings: 3 years\' operating cash only %1$s times the profit (under 0.6)</string>
+    <string name="fw_flag_low_roa">⚠ ROA %1$s%%: under 1%% for a bank/NBFC, no buy</string>
+    <string name="fw_flag_red">🚩 Red Flag: volume %1$s times the average, but no filing or news in 3 days — could be an operator\'s game</string>
+    <string name="fw_flag_blocked">For these reasons the framework holds off buying for now</string>
+    <string name="fw_flag_best">⭐ Best chance: price below the buy price, and a liquidity sweep of the weekly demand zone</string>
+    <string name="fw_flag_buy_zone">✅ Buy Zone: price above the 200-day EMA ₹%1$s, on a bullish FVG at ₹%2$s – ₹%3$s</string>
+    <string name="fw_flag_sweep">🎯 Weekly sweep: this or last week it went under the weekly swing low of ₹%1$s and closed back above</string>
+    <string name="fw_flag_cyclical">⚠ Cyclical: in metals and oil a low P/E is often peak earnings, so it is valued on mid-cycle EBITDA</string>
+    <string name="fw_flag_peg_low">✅ PEG %1$s: under 1, cheap for its growth</string>
+    <string name="fw_flag_peg_high">⚠ PEG %1$s: over 2, dear for its growth</string>
+    <string name="fw_penalties">Penalty: %1$s</string>
+    <string name="fw_penalty_auditor">auditor resigned −40%%</string>
+    <string name="fw_penalty_debt">debt −20%%</string>
+    <string name="fw_penalty_institutions">FII/DII selling −10%%</string>
+    <string name="fw_penalty_roce">low ROCE −20%%</string>
+    <string name="fw_calc_model">%1$s method (%2$s)</string>
+    <string name="fw_calc_fallback">Too little data for %1$s (short history, a loss or slow growth), so the sector P/E–P/B method was used</string>
+    <string name="fw_calc_bank_book">Book value ₹%1$s/share − bad loans ₹%2$s/share (net NPA %3$s%% of loans) = adjusted book ₹%4$s</string>
+    <string name="fw_calc_bank_no_npa">Book value ₹%1$s/share; no net NPA found (the consolidated page doesn\'t have it), so the whole book counts</string>
+    <string name="fw_calc_bank_pb">Its own 3-year median P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_bank_pb_sector">Its own history is short, so the sector\'s P/B %1$s → ₹%2$s × %1$s = ₹%3$s</string>
+    <string name="fw_calc_roa">ROA (12 months\' profit ÷ total assets) %1$s%%; above 1%% needed</string>
+    <string name="fw_calc_ev_multiple">Its own 3-year median EV/EBITDA %1$s (today %2$s)</string>
+    <string name="fw_calc_ev_multiple_only">Its own 3-year median EV/EBITDA %1$s</string>
+    <string name="fw_calc_ebitda">EBITDA (12 months): %1$s</string>
+    <string name="fw_calc_ebitda_mid">Mid-cycle EBITDA (average of the yearly EBITDA): %1$s</string>
+    <string name="fw_calc_ev_value">(%1$s × %2$s − debt %3$s) ÷ %4$s Cr shares = ₹%5$s</string>
+    <string name="fw_calc_ev_note">EV = market value + debt (Screener\'s summary has no separate cash, so both sides leave it out)</string>
+    <string name="fw_calc_roce_cut">ROCE %1$s%%, under 12%% → 20%% less: ₹%2$s</string>
+    <string name="fw_calc_roce_ok">ROCE %1$s%% (12%% or more) ✓</string>
+    <string name="fw_calc_peg">P/E %1$s ÷ EPS\'s yearly growth over 3 years %2$s%% = PEG %3$s (under 1 cheap, over 2 dear)</string>
+    <string name="fw_calc_peg_fair">Fair P/E: %1$s %2$s, but capped at PEG 2 (2 × growth) %3$s → %4$s</string>
+    <string name="fw_calc_peg_own">its own usual 3-year P/E</string>
+    <string name="fw_calc_peg_sector">the sector\'s usual P/E (its own history is short)</string>
+    <string name="fw_calc_peg_band">Fair P/E: neither its own nor the sector\'s P/E found, so at PEG 1.5: %1$s</string>
+    <string name="fw_calc_peg_value">Fair value = EPS ₹%1$s × fair P/E %2$s = ₹%3$s</string>
+    <string name="fw_calc_peg_slow">EPS\'s yearly growth over 3 years %1$s%%: under 5%% PEG says nothing</string>
+    <string name="fw_calc_general">Average of the prices from the sector\'s P/E–P/B and the company\'s own P/E = ₹%1$s</string>
+    <string name="fw_calc_penalty_auditor">The statutory auditor resigned on %1$s → −40%%</string>
+    <string name="fw_calc_penalty_debt">Debt over 1.5 times equity → −20%%</string>
+    <string name="fw_calc_penalty_institutions">FII + DII stake fell 3 quarters in a row → −10%%</string>
+    <string name="fw_calc_after_penalties">Fair value after penalties: ₹%1$s × %2$s = ₹%3$s</string>
+    <string name="fw_calc_no_penalties">No penalty (auditor, debt, FII/DII fine) → fair value ₹%1$s</string>
+    <string name="fw_calc_margin">Margin of safety %1$s%% (%2$s) → buy price ₹%3$s × %4$s = ₹%5$s</string>
+    <string name="fw_calc_screen">Universal screen</string>
+    <string name="fw_calc_pledge">Promoter pledge %1$s%% (over 15%% = Reject)</string>
+    <string name="fw_calc_pledge_none">Promoter pledge: not found on NSE</string>
+    <string name="fw_calc_icr">Interest cover: (12 months\' PBT + interest) ÷ interest = %1$s times (under 2.5 = High Risk)</string>
+    <string name="fw_calc_cash">3 years\' operating cash ÷ profit = %1$s (under 0.6 = doubtful earnings)</string>
+    <string name="fw_calc_lender">A bank\'s/NBFC\'s interest and cash flow can\'t be checked this way</string>
+    <string name="fw_calc_chart">Chart (SMC)</string>
+    <string name="fw_calc_ema_above">200-day EMA ₹%1$s: price above it</string>
+    <string name="fw_calc_ema_below">200-day EMA ₹%1$s: price below it</string>
+    <string name="fw_calc_gap">Unfilled bullish FVG ₹%1$s – ₹%2$s; price in it or up to 5%% above</string>
+    <string name="fw_calc_no_gap">No unfilled bullish FVG near the price in the last 60 sessions</string>
+    <string name="fw_calc_sweep">Weekly sweep: broke the weekly swing low of ₹%1$s and closed above</string>
+    <string name="fw_calc_no_sweep">No weekly liquidity sweep this or last week</string>
+    <string name="fw_calc_best_rule">Best chance = price below the buy price + weekly sweep + nothing holding it off</string>
+    <string name="fw_cr">₹%1$s Cr</string>
+    <string name="help_framework_title">R/S\'s valuation framework (fair value and buy price)</string>
+    <string name="help_framework_body">R/S works out each company\'s fair (intrinsic) value by its sector. Banks, NBFCs and other financial companies: book value less net NPA (bad loans) per share, times the company\'s own median P/B of the last 3 years (the sector\'s when its history is short); with an ROA under 1%, no buy. Companies with machines and factories, like capital goods, auto, chemicals, construction and power: their own 3-year median EV/EBITDA × today\'s EBITDA, less debt, per share; with an ROCE under 12%, 20% less. Metals, mining, oil and gas: the same, but on the average (mid-cycle) EBITDA of the years, with a warning that a low P/E there is often peak earnings. IT, FMCG and pharma: PEG = P/E ÷ EPS\'s yearly growth over the last 3 years (forecasts of growth aren\'t free); under 1 cheap, over 2 dear; fair value = EPS × the company\'s own usual P/E, but no more than the P/E at PEG 2 (2 × growth). Other sectors, or with too little data: the older sector P/E–P/B and own-P/E method. Then penalties: the statutory auditor resigned in the last year −40%, debt over 1.5 times equity −20%, FII + DII stake down 3 quarters in a row −10%. Buy price = fair value × (1 − margin of safety): 20% for the top 100 companies by market value (large cap), 27.5% for 101–250 (mid cap) and 35% for the rest (small cap). Every company also gets a universal screen: promoters pledging over 15% of their shares means Reject (R/S \"Avoid\"); interest cover under 2.5 times means High Risk, and 3 years\' operating cash under 0.6 times the profit means doubtful earnings (either caps R/S at \"Caution\"). On the chart: price above the 200-day EMA and on an unfilled bullish FVG is the Buy Zone; this or last week the price went under a weekly swing low and closed back above is a weekly sweep. Price below the buy price, a weekly sweep and nothing holding it off is ⭐ the best chance. Opening a stock also looks at its news: volume 3 times the average or more but no filing or news in the last 3 days is a 🚩 Red Flag (could be an operator\'s game) and the framework holds off buying. Promoter pledges and auditor resignations come from NSE, so BSE-only stocks don\'t get these checks. The R/S card shows the fair value, buy price and flags, and \"The framework\'s full working\" shows every step. The new figures come as each stock\'s Screener page is read again, which will take a few days; until then some stocks stay on the older method. Not investment advice.</string>
+</resources>

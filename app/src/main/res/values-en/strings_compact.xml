@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compact_news_mark">📰</string>
+    <string name="compact_no_data">No price</string>
+    <string name="compact_col_rank">#</string>
+    <string name="compact_col_stock">Stock / Company</string>
+    <string name="compact_col_price">Price</string>
+    <string name="compact_col_change">5D CHG / RVOL</string>
+    <string name="compact_col_score">Score</string>
+    <string name="compact_share">Share</string>
+    <string name="compact_rank">#%1$d</string>
+    <string name="pill_idle">Start SCAN ▸</string>
+    <string name="pill_reading">Opening the last scan…</string>
+    <string name="pill_loading">Starting SCAN…</string>
+    <string name="pill_scanning">SCAN %1$d%% • %2$s/%3$s</string>
+    <string name="pill_stopped">Stopped %1$d%% • %2$s/%3$s</string>
+    <string name="pill_done">SCAN 100%% • %1$s STOCKS</string>
+    <string name="pill_live_done">LIVE SCAN 100%% • %1$s STOCKS</string>
+    <string name="pill_support_done">SUPPORT 100%% • %1$s STOCKS</string>
+    <string name="pill_failed">SCAN failed • retry</string>
+    <string name="empty_body_compact">Tap the pill at the top to start a scan — once it finishes, the top candidates show here by score.</string>
+    <string name="pill_description">%1$s; open the scan buttons</string>
+    <string name="help_compact_title">Space Glass\'s compact table</string>
+    <string name="help_compact_body">Pick Space Glass in Menu → Background and the list becomes a table: one line a stock with its rank, ticker (with NSE/BSE, NEW or ▲▼ and 📰), the company\'s name under it, the price, the 5-day change with RVOL under it, and the score — 8 to 10 stocks a screen. Watchlist stocks have a gold score with a ★; long-press a line to add the stock to the watchlist or take it off. In the slim header at the top, the green pill says where the scan stands (like \"LIVE SCAN 100% • 2,618 STOCKS\"); tap it for the panel with Breakout/Support, SCAN/Stop and Clear scan. Filters, Watchlist, the sorts, the sector and sharing are in the floating bar at the bottom, within thumb\'s reach; slide it sideways. Tap a line for the stock\'s full detail, with its setup, support and R/S. The Filters and sector sheets open in the same plain style. Pick the Galaxy background to get the big cards back.</string>
+</resources>
