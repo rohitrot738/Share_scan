@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The Watchlist & P&L page (WatchlistSheet): each starred stock's return since it was added, its levels and alerts. -->
+<resources>
+    <string name="watch_title">★ Watchlist (%1$d)</string>
+    <string name="watch_subtitle">जोड़ने के बाद से फ़ायदा या नुकसान और हर stock का alert · बाएँ swipe करके हटाएँ, दबाकर रखें तो जोड़ने का भाव बदलें</string>
+    <string name="watch_refresh">Watchlist के दाम ताज़ा करें</string>
+    <string name="watch_show_in_list">Watchlist के stocks home की list में दिखाएँ</string>
+    <string name="watch_export">Watchlist शेयर करें</string>
+
+    <!-- The top card: the watchlist as one basket -->
+    <string name="watch_summary_label">जोड़ने के बाद से औसत return</string>
+    <string name="watch_summary_note">%1$d stocks · हर stock बराबर गिना · दाम %2$s के</string>
+    <string name="watch_summary_curve">पिछले 20 दिन</string>
+    <string name="watch_summary_gaining">▲ %1$d फ़ायदे में</string>
+    <string name="watch_summary_losing">▼ %1$d नुकसान में</string>
+    <string name="watch_summary_alerts">🔔 %1$d alerts चालू</string>
+    <string name="watch_summary_alerts_off">🔕 Alerts बंद</string>
+    <string name="watch_summary_description">जोड़ने के बाद से औसत return %1$s, %2$d फ़ायदे में, %3$d नुकसान में</string>
+
+    <!-- Order -->
+    <string name="watch_sort_return">Return ↓</string>
+    <string name="watch_sort_recent">नए पहले</string>
+    <string name="watch_sort_nearest">Target के पास</string>
+
+    <!-- A stock's card -->
+    <string name="watch_added">₹%1$s पर जोड़ा · %2$s</string>
+    <string name="watch_added_estimated">₹%1$s से गिना · %2$s (जोड़ने का भाव पता नहीं था)</string>
+    <string name="watch_today">आज</string>
+    <string name="watch_added_waiting">जोड़ने का भाव अगले स्कैन से गिना जाएगा</string>
+    <string name="watch_no_data">दाम अगले स्कैन के साथ आएँगे</string>
+    <string name="watch_change_5d">5D %1$s</string>
+    <string name="watch_score">Score %1$s</string>
+    <string name="watch_level_support">Support ₹%1$s</string>
+    <string name="watch_level_stop">SL ₹%1$s</string>
+    <string name="watch_level_trigger">Breakout ₹%1$s</string>
+    <string name="watch_level_target">Target %1$d · ₹%2$s</string>
+    <string name="watch_alert_waiting">🔔 Breakout ₹%1$s पर alert</string>
+    <string name="watch_alert_broke_out">🚀 Breakout हुआ · अब Target 1</string>
+    <string name="watch_alert_target">🎯 Target %1$d पूरा</string>
+    <string name="watch_alert_pending">⏳ अगले स्कैन से alert</string>
+    <string name="watch_alert_off">🔕 Alerts बंद</string>
+    <string name="watch_star_remove">%1$s को watchlist से हटाएँ</string>
+    <string name="watch_item_description">%1$s, भाव ₹%2$s, जोड़ने के बाद से %3$s</string>
+
+    <!-- Removing, editing, refreshing -->
+    <string name="watch_removed">%1$s watchlist से हटाया</string>
+    <string name="watch_undo">वापस लाएँ</string>
+    <string name="watch_edit_title">%1$s का जोड़ने का भाव</string>
+    <string name="watch_edit_body">जिस भाव पर आपने इसे खरीदा या देखा था, वह डालें; return उसी से गिना जाएगा।</string>
+    <string name="watch_edit_save">सहेजें</string>
+    <string name="watch_edit_invalid">सही भाव डालें, जैसे 275.50</string>
+    <string name="watch_refreshing">Watchlist के दाम ला रहे हैं…</string>
+    <string name="watch_refreshed">Watchlist के दाम ताज़ा हो गए</string>
+    <string name="watch_refresh_scanning">स्कैन चल रहा है — वह पूरा होते ही दाम ताज़ा हो जाएँगे</string>
+    <string name="watch_refresh_no_scan">पहले एक स्कैन चलाएँ, फिर दाम ताज़ा होंगे</string>
+
+    <!-- Empty -->
+    <string name="watch_empty_title">Watchlist खाली है</string>
+    <string name="watch_empty_body">किसी stock का ☆ दबाएँ (या table में उसकी line दबाकर रखें) — वह यहाँ अपने जोड़ने के भाव के साथ दिखेगा, और उसके breakout, target और stop के alerts आएँगे।</string>
+
+    <!-- Sharing -->
+    <string name="watch_share_title">⭐ Share Scan Watchlist — %1$s</string>
+    <string name="watch_share_summary">जोड़ने के बाद से औसत return: %1$s (%2$d stocks)</string>
+    <string name="watch_share_line">%1$s (%2$s) ₹%3$s · %4$s, ₹%5$s पर जोड़ा</string>
+    <string name="watch_share_line_no_entry">%1$s (%2$s) ₹%3$s</string>
+    <string name="watch_share_open">Watchlist भेजें</string>
+</resources>

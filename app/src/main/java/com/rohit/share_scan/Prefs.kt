@@ -10,6 +10,9 @@ object Prefs {
     /** String set of watchlisted NSE symbols. */
     const val WATCHLIST = "watchlist"
 
+    /** [WatchBook.encode] text: when and at what price each watchlisted stock was added. */
+    const val WATCH_ADDED = "watch_added"
+
     /** Score ranks from the previous completed scan, used for NEW badges and rank changes. */
     const val LAST_RANKS = "last_ranks"
 

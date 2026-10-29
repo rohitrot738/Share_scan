@@ -110,6 +110,7 @@ class MainActivity : AppCompatActivity() {
     /** The pending stock opens on its खबरें tab (a news notification's). */
     private var pendingNews = false
     private var sectorSheet: BottomSheetDialog? = null
+    private var watchlistSheet: BottomSheetDialog? = null
     private var clearDialog: AlertDialog? = null
     private val notifyPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
@@ -295,6 +296,7 @@ class MainActivity : AppCompatActivity() {
         detailSheet?.dismiss()
         menuSheet?.dismiss()
         sectorSheet?.dismiss()
+        watchlistSheet?.dismiss()
         clearDialog?.dismiss()
         scanPanel?.dismiss()
         super.onDestroy()
@@ -831,7 +833,11 @@ class MainActivity : AppCompatActivity() {
         // Added last, the search's callback runs first: Back closes the search, then leaves the watchlist.
         onBackPressedDispatcher.addCallback(this, leaveWatchlistOnBack)
         onBackPressedDispatcher.addCallback(this, closeSearchOnBack)
-        ui.watchlistChip.setOnCheckedChangeListener { _, checked -> scan.setWatchlistOnly(checked) }
+        // The chip opens the Watchlist page; while the list shows only the watchlist (from that page), it goes back to all.
+        ui.watchlistChip.setOnClickListener {
+            if (scan.uiState.value.watchlistOnly) scan.setWatchlistOnly(false) else openWatchlist()
+            ui.watchlistChip.isChecked = scan.uiState.value.watchlistOnly
+        }
         ui.watchlistChip.setOnCloseIconClickListener { scan.setWatchlistOnly(false) }
         ui.watchlistChip.closeIconContentDescription = getString(R.string.list_watchlist_leave)
         ui.modeBreakout.setOnClickListener { scan.setScanMode(ScanMode.BREAKOUT) }
@@ -1059,6 +1065,18 @@ class MainActivity : AppCompatActivity() {
             setups = state.setups,
             openOnNews = onNews,
         ).show()
+    }
+
+    /**
+     * The Watchlist & P&L page: the starred stocks with their return since added, levels and alerts. Its list button
+     * shows them in the home list instead, on the Breakout scan (the Support scan has no watchlist view).
+     */
+    private fun openWatchlist() {
+        watchlistSheet?.dismiss()
+        watchlistSheet = WatchlistSheet(this, scan, settings, compact, { openChart(it) }) {
+            if (scan.uiState.value.scanMode == ScanMode.SUPPORT) scan.setScanMode(ScanMode.BREAKOUT)
+            scan.setWatchlistOnly(true)
+        }.show()
     }
 
     /** Industries by strength; picking one filters the list to it, the reset row clears the industry filter. */
