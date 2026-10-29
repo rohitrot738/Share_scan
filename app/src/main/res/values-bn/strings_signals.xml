@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_from_high">20D সর্বোচ্চ থেকে দূরত্ব</string>
+    <string name="metric_base_range">শান্ত পরিসর (সর্বোচ্চ–সর্বনিম্ন)</string>
+    <string name="metric_vs_sma50">50 DMA থেকে দূরত্ব</string>
+    <string name="hint_from_high">20 দিনের সর্বোচ্চ দাম (রেজিস্ট্যান্স) থেকে দাম কতটা নিচে • ঋণাত্মক = সর্বোচ্চের উপরে ব্রেকআউট</string>
+    <string name="hint_base_range">বাছাই করা সপ্তাহগুলোতে সর্বোচ্চ আর সর্বনিম্ন দামের ফারাক • কম = শান্ত শেয়ার, খুব উপরেও নয় খুব নিচেও নয়</string>
+    <string name="hint_vs_sma50">50 দিনের গড়ের উপরে (+) বা নিচে (-) • ধনাত্মক = বাড়ন্ত ট্রেন্ড</string>
+    <string name="hint_score_mix">ব্রেকআউট সেটআপ, ট্রেন্ড, ভলিউম, তারল্য আর গতির মিশ্রণ • %1$s+ STRONG, %2$s+ WATCH</string>
+</resources>

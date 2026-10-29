@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_breakout">ব্রেকআউট স্ক্যান</string>
+    <string name="mode_support">সাপোর্ট স্ক্যান</string>
+    <string name="support_ready_title">সাপোর্ট স্ক্যান</string>
+    <string name="support_ready_body">যেসব শেয়ার 6 মাস ধরে একটি দামের নিচে বন্ধ হয়নি, যদিও বারবার সেখানে এসেছে</string>
+    <string name="support_done_title">সাপোর্ট স্ক্যান সম্পূর্ণ</string>
+    <string name="support_done_body">%1$dটি শেয়ার 6 মাস ধরে সাপোর্টে টিকে আছে • %2$s-এর স্ক্যান</string>
+    <string name="support_action_start">সাপোর্ট স্ক্যান করুন</string>
+    <string name="support_action_rescan">আবার সাপোর্ট স্ক্যান করুন</string>
+    <string name="support_stat_long">6M সাপোর্ট</string>
+    <string name="support_stat_near">5%-এর মধ্যে</string>
+    <string name="support_reach_any">যেকোনো দূরত্ব</string>
+    <string name="support_reach_within">%1$d%% পর্যন্ত কাছে</string>
+    <string name="support_list_empty_title">6 মাসের কোনো সাপোর্ট পাওয়া যায়নি</string>
+    <string name="support_list_empty_body">এই স্ক্যানে, এই ফিল্টারগুলোর মধ্যে, কোনো শেয়ার 6 মাস ধরে তার সাপোর্টের উপরে টিকে নেই। দূরত্ব বাড়ান, ফিল্টার ঢিলে করুন, বা মেনু → স্ক্যান-এ আরও এক্সচেঞ্জ / সেক্টর চালু করুন।</string>
+    <string name="sort_support">সাপোর্ট</string>
+    <string name="item_support">সাপোর্ট ₹%1$s · %2$s · %3$d বার</string>
+    <string name="item_support_description">সাপোর্ট %1$s টাকায়, %2$s থেকে, %3$d বার পরীক্ষিত</string>
+    <string name="detail_stat_support">সাপোর্ট</string>
+    <string name="detail_stat_support_note">%1$s থেকে · %2$d বার পরীক্ষিত · দাম %3$s উপরে</string>
+    <string name="detail_stat_support_long_note">%1$s থেকে · %2$d বার পরীক্ষিত · দাম %3$s উপরে · 6 মাসে এর নিচে বন্ধ হয়নি</string>
+    <string name="detail_chart_support">সাপোর্ট %1$s</string>
+    <string name="detail_part_support">সাপোর্ট বোনাস</string>
+    <string name="detail_part_bonus">+%1$d পর্যন্ত</string>
+    <string name="metric_support_age">সাপোর্ট কত পুরোনো</string>
+    <string name="metric_support_gap">সাপোর্ট থেকে দূরত্ব</string>
+    <string name="hint_support_age">দাম যে স্তর পর্যন্ত বারবার এসে ফিরে গেছে আর যার নিচে বন্ধ হয়নি, সেটি কত দিন ধরে টিকে আছে</string>
+    <string name="hint_support_gap">আজকের দাম সাপোর্ট থেকে কত % উপরে; কম = সাপোর্টের কাছে</string>
+    <string name="help_part_support">সাপোর্ট বোনাস • %1$d নম্বর পর্যন্ত</string>
+    <string name="help_part_support_body">যে দাম পর্যন্ত শেয়ার বারবার এসে ফিরে গেছে আর যার নিচে বন্ধ হয়নি, সেটিই তার সাপোর্ট: বিক্রেতারা দামকে তার নিচে নামাতে পারেনি। সাপোর্ট যত পুরোনো (6 মাসে পুরো নম্বর) আর যত বার পরীক্ষিত (5 বারে পুরো), স্কোরে তত বেশি নম্বর যোগ হয়; সাপোর্ট নেই এমন শেয়ারের নম্বর কাটা হয় না। উপরে \"সাপোর্ট স্ক্যান\" বাছলে শুধু সেই শেয়ারগুলো দেখা যায় যেগুলো 6 মাসে কখনও তাদের সাপোর্টের নিচে বন্ধ হয়নি আর যাদের সাপোর্ট অন্তত %1$d মাস ধরে এবং অন্তত 3 বার পরীক্ষিত। সাপোর্ট স্ক্যানের নিজস্ব ফিল্টার আছে, ব্রেকআউটেরটি থেকে আলাদা। দুটো স্ক্যান একই ডেটা পড়ে, তাই একটি স্ক্যানেই দুটো তালিকা টাটকা হয়ে যায়।</string>
+</resources>

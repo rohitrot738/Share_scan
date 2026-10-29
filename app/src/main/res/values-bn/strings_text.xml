@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_text">ভাষা আর ফন্ট</string>
+    <string name="menu_text_body">এখন: %1$s · %2$s</string>
+    <string name="text_title">ভাষা আর ফন্ট</string>
+    <string name="text_subtitle">পুরো অ্যাপ কোন ভাষায় আর কোন ফন্টে দেখাবে</string>
+    <string name="text_language">ভাষা</string>
+    <string name="text_language_note">অনুবাদ অ্যাপের ভেতরেই তৈরি, কোনো শব্দে ভুল চোখে পড়লে জানান। শেয়ার আর কোম্পানির নাম, খবর আর \"নতুন কী\" যেমন আছে তেমনই থাকে।</string>
+    <string name="text_font">ফন্ট</string>
+    <string name="text_font_sample">Share Scan · ব্রেকআউট স্ক্যান · ₹1,234.50 ▲ 2.40% · 86.0</string>
+    <string name="font_system">ফোনের ফন্ট</string>
+    <string name="text_font_description">%1$s ফন্ট বাছুন</string>
+    <string name="text_language_description">%1$s ভাষা বাছুন</string>
+</resources>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_account">অ্যাকাউন্ট</string>
+    <string name="menu_account_signed_out">লগইন নেই</string>
+    <string name="account_signed_in_generic">লগইন আছে</string>
+    <string name="account_title">অ্যাকাউন্ট</string>
+    <string name="account_subtitle_signed_out">Google, GitHub বা ইমেল দিয়ে লগইন করুন</string>
+    <string name="account_subtitle_signed_in">আপনার প্রোফাইল আর লগইন</string>
+    <string name="account_subtitle_unconfigured">লগইন শিগগিরই আসছে</string>
+    <string name="account_unconfigured_title">লগইন এখনও তৈরি নয়</string>
+    <string name="account_unconfigured_body">এই সংস্করণে লগইন এখনও চালু করা হয়নি। বাকি পুরো অ্যাপ — স্ক্যান, ওয়াচলিস্ট, ফিল্টার আর থিম — লগইন ছাড়াই আগের মতো চলে।</string>
+    <string name="account_working">একটু অপেক্ষা করুন…</string>
+    <string name="account_google">Google দিয়ে লগইন</string>
+    <string name="account_github">GitHub দিয়ে লগইন</string>
+    <string name="account_or_email">অথবা ইমেল আর পাসওয়ার্ড দিয়ে</string>
+    <string name="account_email_hint">ইমেল</string>
+    <string name="account_password_hint">পাসওয়ার্ড</string>
+    <string name="account_sign_in">লগইন</string>
+    <string name="account_create">নতুন অ্যাকাউন্ট খুলুন</string>
+    <string name="account_forgot">পাসওয়ার্ড ভুলে গেছেন?</string>
+    <string name="account_email_needed">ইমেল লিখুন</string>
+    <string name="account_password_needed">পাসওয়ার্ড লিখুন</string>
+    <string name="account_reset_sent">পাসওয়ার্ড বদলানোর লিঙ্ক %1$s-এ পাঠানো হয়েছে — ইনবক্স (আর স্প্যাম) দেখুন</string>
+    <string name="account_created">অ্যাকাউন্ট তৈরি হয়েছে! ইমেল যাচাইয়ের লিঙ্ক পাঠানো হয়েছে</string>
+    <string name="account_signed_in_toast">লগইন হয়েছে</string>
+    <string name="account_signed_out_toast">লগ আউট হয়েছে</string>
+    <string name="account_no_name">নাম যোগ করা হয়নি</string>
+    <string name="account_verified">✓ যাচাই হয়েছে</string>
+    <string name="account_unverified">যাচাই বাকি</string>
+    <string name="account_section_details">তথ্য</string>
+    <string name="account_phone">ফোন</string>
+    <string name="account_methods">লগইনের উপায়</string>
+    <string name="account_created_at">অ্যাকাউন্ট তৈরি</string>
+    <string name="account_last_sign_in">শেষ লগইন</string>
+    <string name="account_unknown">জানা নেই</string>
+    <string name="account_uid">ইউজার ID</string>
+    <string name="account_copy_uid">ইউজার ID কপি করুন</string>
+    <string name="account_uid_copied">ইউজার ID কপি হয়েছে</string>
+    <string name="account_provider_google">Google</string>
+    <string name="account_provider_github">GitHub</string>
+    <string name="account_provider_password">ইমেল + পাসওয়ার্ড</string>
+    <string name="account_provider_phone">ফোন</string>
+    <string name="account_section_actions">অ্যাকাউন্টের সেটিংস</string>
+    <string name="account_edit_name">নাম বদলান</string>
+    <string name="account_name_hint">আপনার নাম</string>
+    <string name="account_name_saved">নাম বদলেছে</string>
+    <string name="account_send_verification">যাচাইয়ের ইমেল পাঠান</string>
+    <string name="account_verification_sent">যাচাইয়ের লিঙ্ক %1$s-এ পাঠানো হয়েছে</string>
+    <string name="account_change_password">পাসওয়ার্ড বদলান</string>
+    <string name="account_password_current_hint">বর্তমান পাসওয়ার্ড</string>
+    <string name="account_password_new_hint">নতুন পাসওয়ার্ড (অন্তত 6 অক্ষর)</string>
+    <string name="account_password_changed">পাসওয়ার্ড বদলেছে</string>
+    <string name="account_password_send_reset">পাসওয়ার্ড বদলানোর ইমেল পাঠান</string>
+    <string name="account_link_google">Google অ্যাকাউন্ট যোগ করুন</string>
+    <string name="account_link_github">GitHub অ্যাকাউন্ট যোগ করুন</string>
+    <string name="account_linked">%1$s যুক্ত হয়েছে — এখন এটি দিয়েও লগইন করতে পারবেন</string>
+    <string name="account_sign_out">লগ আউট</string>
+    <string name="account_delete">অ্যাকাউন্ট মুছুন</string>
+    <string name="account_delete_title">অ্যাকাউন্ট মুছবেন?</string>
+    <string name="account_delete_message">আপনার Share Scan অ্যাকাউন্ট চিরতরে মুছে যাবে। এই ফোনের ওয়াচলিস্ট আর সেটিংস থেকে যাবে।</string>
+    <string name="account_delete_yes">হ্যাঁ, মুছুন</string>
+    <string name="account_deleted">অ্যাকাউন্ট মুছে গেছে</string>
+    <string name="account_save">সংরক্ষণ করুন</string>
+    <string name="account_cancel">থাক</string>
+    <string name="account_relogin_title">আবার লগইন করুন</string>
+    <string name="account_relogin_message">নিরাপত্তার জন্য এই কাজ নতুন করে লগইনের পরেই হয়। লগ আউট করে আবার লগইন করুন, তারপর আবার চেষ্টা করুন।</string>
+    <string name="account_relogin_yes">লগ আউট করুন</string>
+    <string name="account_error_wrong_password">ইমেল বা পাসওয়ার্ড ভুল</string>
+    <string name="account_error_no_user">এই ইমেলে কোনো অ্যাকাউন্ট পাওয়া যায়নি — আগে নতুন অ্যাকাউন্ট খুলুন</string>
+    <string name="account_error_disabled">এই অ্যাকাউন্ট বন্ধ করা হয়েছে</string>
+    <string name="account_error_weak_password">পাসওয়ার্ড দুর্বল — অন্তত 6 অক্ষর রাখুন</string>
+    <string name="account_error_email_used">এই ইমেলে অ্যাকাউন্ট আগেই আছে — লগইন করুন</string>
+    <string name="account_error_other_method">এই ইমেলের অ্যাকাউন্ট অন্য উপায়ে (Google, GitHub বা পাসওয়ার্ড) খোলা — সেটি দিয়েই লগইন করুন, তারপর এখান থেকে এই উপায় যোগ করুন</string>
+    <string name="account_error_already_linked">এই অ্যাকাউন্ট আগেই যুক্ত বা অন্য কোনো Share Scan অ্যাকাউন্টে আছে</string>
+    <string name="account_error_bad_email">ইমেল সঠিক নয়</string>
+    <string name="account_error_network">ইন্টারনেট সংযোগ নেই — দেখে আবার চেষ্টা করুন</string>
+    <string name="account_error_too_many">অনেক বেশি চেষ্টা হয়েছে — কিছুক্ষণ পরে আবার করুন</string>
+    <string name="account_error_no_google_account">এই ফোনে কোনো Google অ্যাকাউন্ট পাওয়া যায়নি — ফোনের সেটিংসে যোগ করুন</string>
+    <string name="account_error_google">Google দিয়ে লগইন হয়নি — আবার চেষ্টা করুন</string>
+    <string name="account_error_browser">ব্রাউজারে লগইন সম্পূর্ণ হয়নি — আবার চেষ্টা করুন</string>
+    <string name="account_error_method_off">এই লগইন উপায় এখনও চালু নয়</string>
+    <string name="account_error_generic">কিছু গোলমাল হয়েছে — আবার চেষ্টা করুন</string>
+    <string-array name="account_months">
+        <item>জানু</item>
+        <item>ফেব্রু</item>
+        <item>মার্চ</item>
+        <item>এপ্রি</item>
+        <item>মে</item>
+        <item>জুন</item>
+        <item>জুলা</item>
+        <item>আগ</item>
+        <item>সেপ্টে</item>
+        <item>অক্টো</item>
+        <item>নভে</item>
+        <item>ডিসে</item>
+    </string-array>
+    <string name="menu_usage">অ্যাপের ব্যবহার</string>
+    <string name="menu_usage_body">কতগুলো ফোনে অ্যাপ চলছে • শুধু আপনি দেখতে পান</string>
+    <string name="usage_title">অ্যাপের ব্যবহার</string>
+    <string name="usage_subtitle">শুধু %1$s-এর GitHub লগইনে দেখা যায়</string>
+    <string name="usage_loading_title">গণনা আসছে…</string>
+    <string name="usage_loading_body">Firebase থেকে ফোনের গণনা নেওয়া হচ্ছে।</string>
+    <string name="usage_today">আজ</string>
+    <string name="usage_days">%1$d দিন</string>
+    <string name="usage_phones">ফোন</string>
+    <string name="usage_total_title">এখন পর্যন্ত</string>
+    <string name="usage_total_body">মোট %1$s ফোনে অ্যাপ খোলা হয়েছে (গণনা শুরুর পর থেকে)</string>
+    <string name="usage_downloads">GitHub থেকে APK %1$s বার ডাউনলোড হয়েছে</string>
+    <string name="usage_downloads_unknown">GitHub থেকে ডাউনলোডের গণনা এখনও পাওয়া যায়নি</string>
+    <string name="usage_versions_title">কোন সংস্করণে (গত %1$d দিন)</string>
+    <string name="usage_version_line">v%1$s — %2$s ফোন</string>
+    <string name="usage_how_title">গণনা কীভাবে হয়</string>
+    <string name="usage_how_body">প্রতিটি ফোন দিনে একবার, অ্যাপ খুললে, শুধু একটি এলোমেলো ID আর নিজের সংস্করণ পাঠায়; নাম, নম্বর বা অবস্থান নয়। গণনা এই সংস্করণ থেকে শুরু হয়েছে, পুরোনো সংস্করণের ফোন আপডেটের পরে গোনা হবে। অ্যাপ সরিয়ে আবার ইনস্টল করলে সেই ফোন নতুন করে গোনা হয়, আর APK ডাউনলোডে একজনের একাধিক ডাউনলোডও গোনা হয়।</string>
+    <string name="usage_rules_title">Firestore-এর নিয়ম বদলানো বাকি</string>
+    <string name="usage_rules_body">Firebase Console → Firestore Database → Rules-এ docs/LOGIN_SETUP.md (Step 6.5)-এর নতুন নিয়ম পেস্ট করে Publish করুন, তারপর এটি আবার খুলুন।</string>
+    <string name="usage_failed_title">গণনা আসেনি</string>
+    <string name="usage_failed_body">ইন্টারনেট দেখুন আর কিছুক্ষণ পরে আবার খুলুন।</string>
+</resources>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="score_detail_old">এই অংশের পুরো হিসাব আগের স্ক্যানে রাখা হয়নি — আবার স্ক্যান করলে দেখা যাবে</string>
+    <string name="score_swing">এই শেয়ারের সাধারণ দৈনিক চলন (গত 50 দিনের গড় সর্বোচ্চ–সর্বনিম্ন পরিসর): %1$s%% — দূরত্ব এরই গুণিতকে মাপা হয়</string>
+    <string name="score_total">মোট: %1$s = %2$s নম্বর → %3$s</string>
+    <string name="score_total_simple">মোট: %1$s নম্বর → %2$s</string>
+    <string name="score_soft_note">85-এর উপরে আর 15-এর নিচের নম্বর ধীরে ধীরে 100 আর 0-এর দিকে চেপে আনা হয়, যাতে সেরা শেয়ারগুলোর ক্রম বজায় থাকে</string>
+    <string name="score_breakout_high">শেষ সেশনের আগের 20 দিনের সর্বোচ্চ দাম ₹%1$s; দাম ₹%2$s তার থেকে %3$s%% নিচে, অর্থাৎ দৈনিক চলনের %4$s গুণ → %5$s নম্বর (অংশ 55%%)</string>
+    <string name="score_breakout_high_above">শেষ সেশনের আগের 20 দিনের সর্বোচ্চ দাম ₹%1$s; দাম ₹%2$s তার থেকে %3$s%% উপরে উঠে গেছে, দৈনিক চলনের %4$s গুণ → %5$s নম্বর (অংশ 55%%)</string>
+    <string name="score_breakout_high_rule">সর্বোচ্চ দামের ঠিক নিচ থেকে তার এক দৈনিক-চলন উপর পর্যন্ত পুরো 100 নম্বর; তার থেকে প্রতি এক দৈনিক-চলন দূরে 20 নম্বর কম</string>
+    <string name="score_breakout_base">গত 10 দিনের ভিত্তি ₹%1$s – ₹%2$s, চওড়া %3$s%%, অর্থাৎ দৈনিক চলনের %4$s গুণ (2 গুণ বা কম = আঁটসাঁট) → %5$s নম্বর</string>
+    <string name="score_breakout_calm">সেই দিনগুলোর দৈনিক পরিসর সাধারণ চলনের %1$s গুণ (0.6 বা কম = পুরো শান্ত) → %2$s নম্বর</string>
+    <string name="score_breakout_tight">ভিত্তির আঁটসাঁটভাব: উপরের দুটির গড় (110 পর্যন্ত) → %1$s নম্বর (অংশ 30%%)</string>
+    <string name="score_breakout_position">ভিত্তির মধ্যে দাম কোথায়: %1$s/100 (0 = একদম নিচে, 100 = একদম উপরে) (অংশ 15%%)</string>
+    <string name="score_breakout_total">মোট: 0.55 × %1$s + 0.30 × %2$s + 0.15 × %3$s = %4$s নম্বর → %5$s</string>
+    <string name="score_base_title">গত 10 সেশনের ভিত্তি</string>
+    <string name="score_trend_term">%1$s: %2$s দৈনিক-চলন → %3$s × %2$s = %4$s নম্বর</string>
+    <string name="score_trend_above20">দাম, 20-দিনের গড় ₹%1$s-এর উপরে (+) / নিচে (−)</string>
+    <string name="score_trend_slope">20-দিনের গড়ের ঢাল, গত 5 দিনে</string>
+    <string name="score_trend_above50">দাম, 50-দিনের গড় ₹%1$s-এর উপরে (+) / নিচে (−)</string>
+    <string name="score_trend_stacked">20-দিনের গড়, 50-দিনের গড়ের উপরে (+) / নিচে (−)</string>
+    <string name="score_trend_limits">প্রতিটি অংশ একটা সীমা পর্যন্তই গোনা হয়: 20-দিন ±3, ঢাল ±2, 50-দিন ±4 আর দুই গড়ের ফারাক ±2 দৈনিক-চলন</string>
+    <string name="score_trend_short">50 দিনের ডেটা নেই, তাই 20-দিনের দুটো অংশ 1.75 গুণ ধরা হয়েছে</string>
+    <string name="score_volume_rvol">আগের সেশনের ভলিউম %1$s শেয়ার, তার আগের 20 সেশনের গড় %2$s-এর %3$s গুণ (RVOL) → %4$s নম্বর (1 গুণ = 50, 2 = 75, 4 = 100) (অংশ 60%%)</string>
+    <string name="score_volume_live">বাজার এখন খোলা: আজকের এখন পর্যন্ত ভলিউম, দিনের এই সময় পর্যন্ত সাধারণত যতটা হয় সেই হিসাবে পুরো দিনের ধরে গোনা হয়েছে</string>
+    <string name="score_volume_quiet">তার আগের 5 সেশন: গড়ের %1$s গুণ (0.5 বা কম = ভলিউম শুকনো, 1.15 বা বেশি = নয়) → %2$s নম্বর (অংশ 40%%)</string>
+    <string name="score_volume_total">মোট: 0.6 × %1$s + 0.4 × %2$s = %3$s নম্বর → %4$s</string>
+    <string name="score_liquidity_median">গত 20 সেশনে দৈনিক লেনদেনের (দাম × ভলিউম) মধ্যমা %1$s</string>
+    <string name="score_liquidity_scale">মাপকাঠি: ₹10 লাখ = 0, ₹1 Cr = 33, ₹10 Cr = 67, ₹100 Cr = 100 নম্বর</string>
+    <string name="score_momentum_5d">5 সেশনে %1$s%% → 4 × %1$s = %2$s নম্বর</string>
+    <string name="score_momentum_20d">20 সেশনে %1$s%% → 1.5 × %1$s = %2$s নম্বর</string>
+    <string name="score_support_level">সাপোর্ট ₹%1$s; দাম তার থেকে %2$s%% উপরে</string>
+    <string name="score_support_age">%1$dটি সেশন (%2$s) ধরে এর নিচে বন্ধ হয়নি → %3$s/70 নম্বর (6 মাসে পুরো)</string>
+    <string name="score_support_touches">%1$d বার এখানে এসে ফিরে গেছে → %2$s/30 নম্বর (5 বারে পুরো)</string>
+    <string name="score_support_total">শক্তি %1$s/100 → বোনাস %2$s নম্বর (সর্বোচ্চ 5)</string>
+    <string name="score_support_none">গত 6 মাসের চার্টে কোনো টেকসই সাপোর্ট পাওয়া যায়নি — বোনাস 0 (স্কোর থেকে কিছু কাটা হয় না)</string>
+    <string name="score_recent_title">গত 10 সেশন</string>
+    <string name="score_col_day">দিন</string>
+    <string name="score_col_close">দাম</string>
+    <string name="score_col_change">পরিবর্তন</string>
+    <string name="score_col_volume">ভলিউম</string>
+    <string name="score_col_times">× গড়</string>
+    <string name="score_col_turnover">₹ Cr</string>
+    <string name="score_col_high">সর্বোচ্চ</string>
+    <string name="score_col_low">সর্বনিম্ন</string>
+    <string name="score_recent_note">× গড়: সেই দিনের ভলিউম, আজকের আগের 20 সেশনের গড়ের কত গুণ; ₹ Cr: সেই দিনের লেনদেন</string>
+</resources>

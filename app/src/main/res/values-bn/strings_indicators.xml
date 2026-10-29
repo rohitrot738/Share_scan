@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_rsi">RSI (14)</string>
+    <string name="metric_macd">MACD, সিগন্যাল থেকে দূরত্ব</string>
+    <string name="metric_macd_cross">MACD ক্রসওভার</string>
+    <string name="hint_rsi">70-এর উপরে = ওভারবট (অনেক উঠেছে), 30-এর নিচে = ওভারসোল্ড (অনেক পড়েছে) • 50–70 = ঊর্ধ্বমুখী, তবে খুব বেশি নয়</string>
+    <string name="hint_macd" formatted="false">MACD রেখা তার সিগন্যাল রেখা থেকে কতটা উপরে (+) বা নিচে (-), দামের % হিসেবে • 0%-এর উপরে = ঊর্ধ্বমুখী</string>
+    <string name="hint_macd_cross">MACD কত দিন আগে সিগন্যাল রেখাকে নিচ থেকে উপরে কেটেছে • \"3 দিন আগে\" পর্যন্ত = টাটকা বুলিশ ক্রসওভার; সিগন্যালের নিচের শেয়ার বাদ পড়ে</string>
+    <string name="detail_stat_rsi">RSI (14)</string>
+    <string name="detail_stat_rsi_overbought">70+ ওভারবট: অনেক উঠেছে</string>
+    <string name="detail_stat_rsi_strong">50–70: ঊর্ধ্বমুখী</string>
+    <string name="detail_stat_rsi_weak">30–50: দুর্বল</string>
+    <string name="detail_stat_rsi_oversold">30-এর নিচে ওভারসোল্ড: অনেক পড়েছে</string>
+    <string name="detail_stat_macd">MACD (12, 26, 9)</string>
+    <string name="detail_stat_macd_bull">বুলিশ</string>
+    <string name="detail_stat_macd_bear">বেয়ারিশ</string>
+    <string name="detail_stat_macd_crossed">সিগন্যাল %1$s উপরে কেটেছে</string>
+    <string name="detail_stat_macd_below">সিগন্যাল রেখার নিচে</string>
+    <string name="detail_stat_macd_zero_above">শূন্যের উপরে</string>
+    <string name="detail_stat_macd_zero_below">শূন্যের নিচে</string>
+    <string name="help_indicators_title">RSI আর MACD</string>
+    <string name="help_indicators_body" formatted="false">দুটোই প্রতিটি শেয়ারের 6 মাসের দৈনিক দাম থেকে তৈরি, চার্টের সাইটগুলোর মতো। RSI (14) 0 থেকে 100-এর মধ্যে: 70-এর উপরে ওভারবট (অনেক উঠে গেছে), 30-এর নিচে ওভারসোল্ড (অনেক পড়ে গেছে), 50–70 ঊর্ধ্বমুখী। MACD (12, 26, 9): 12 আর 26 দিনের এক্সপোনেনশিয়াল গড়ের পার্থক্য, আর তার 9 দিনের সিগন্যাল রেখা। MACD সিগন্যালের উপরে = ঊর্ধ্বমুখী; যেদিন সেটি সিগন্যালকে নিচ থেকে উপরে কাটে, সেটি বুলিশ ক্রসওভার। ফিল্টারে তিনটিই আছে: RSI-এর পরিসর, MACD সিগন্যাল থেকে কতটা উপরে/নিচে (দামের %), আর ক্রসওভার কত দিন আগে হয়েছে (\"3 দিন আগে\" পর্যন্ত = টাটকা ক্রসওভার)। শেয়ারের বিস্তারিততে দুটোরই আজকের মান দেখা যায়। লাইভ বাজারে আজকের চলতি দামও গোনা হয়।</string>
+</resources>

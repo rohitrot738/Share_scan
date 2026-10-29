@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notify_channel_scan">চলমান স্ক্যান</string>
+    <string name="notify_channel_scan_body">অ্যাপ বন্ধ থাকলেও আপনার স্ক্যান চলতে থাকে, তাই তার অগ্রগতি</string>
+    <string name="notify_channel_scan_done">স্ক্যান সম্পূর্ণ</string>
+    <string name="notify_channel_scan_done_body">অ্যাপের বাইরে থাকার সময় স্ক্যান শেষ হলে তার ফল</string>
+    <string name="notify_scan_title">স্ক্যান চলছে</string>
+    <string name="notify_scan_loading">শেয়ারের তালিকা আসছে…</string>
+    <string name="notify_scan_body">%1$s / %2$s শেয়ার • %3$d%%</string>
+    <string name="notify_scan_stopping">স্ক্যান থামানো হচ্ছে…</string>
+    <string name="notify_scan_done">✅ স্ক্যান সম্পূর্ণ • %1$d সেরা প্রার্থী</string>
+    <string name="notify_scan_stopped">⏹ স্ক্যান থামানো হয়েছে • %1$d সেরা প্রার্থী</string>
+    <string name="notify_scan_stopped_early">⏹ স্ক্যান থামানো হয়েছে</string>
+    <string name="notify_scan_stopped_early_body">কোনো শেয়ার যাচাইয়ের আগেই থেমেছে — আগের স্ক্যান যেমন ছিল তেমনই আছে</string>
+    <string name="notify_scan_top">সবার উপরে %1$s • স্কোর %2$s — দেখতে টিপুন</string>
+    <string name="notify_scan_none">কোনো শেয়ার আপনার ফিল্টারে আসেনি — দেখতে টিপুন</string>
+    <string name="status_reading_title">আগের স্ক্যান খুলছে…</string>
+    <string name="status_reading_body">সংরক্ষিত তালিকা পড়া হচ্ছে — এক মুহূর্ত</string>
+    <string name="empty_reading_body">শেষ স্ক্যানের তালিকা আসছে; বিজ্ঞপ্তি থেকে খোলা শেয়ারও তার সাথে খুলবে।</string>
+    <string name="notify_open_missing">%1$s এখনকার তালিকায় নেই — নতুন স্ক্যান চালান</string>
+    <string name="notify_channel_update">অ্যাপ আপডেট</string>
+    <string name="notify_channel_update_body">নতুন সংস্করণ ডাউনলোড হয়ে ইনস্টলের জন্য তৈরি হলে</string>
+    <string name="update_download_title">Share Scan %1$s</string>
+    <string name="update_download_body">নতুন সংস্করণ ডাউনলোড হচ্ছে</string>
+    <string name="notify_update_ready">Share Scan %1$s তৈরি</string>
+    <string name="notify_update_ready_body">ডাউনলোড সম্পূর্ণ — ইনস্টল করতে টিপুন</string>
+    <string name="settings_background">ব্যাকগ্রাউন্ডে চলতে দিন</string>
+    <string name="settings_background_off">⚠ এখন Android ব্যাটারি বাঁচাতে অটো-স্ক্যান আর অ্যালার্ট দেরিতে চালাতে বা থামাতে পারে। এখানে টিপে “Allow / অনুমতি দিন” বেছে নিন। Xiaomi, Redmi, Vivo, Oppo, Realme-তে App info-তে “Autostart”-ও চালু করুন।</string>
+    <string name="settings_background_on">✓ চালু — Android ব্যাটারির নামে এই অ্যাপের অটো-স্ক্যান আর অ্যালার্ট থামাবে না। Xiaomi, Redmi, Vivo, Oppo, Realme-তে App info-তে “Autostart”-ও চালু রাখুন (এখানে টিপে খুলুন)।</string>
+    <string name="help_background_title">ব্যাকগ্রাউন্ডে স্ক্যান</string>
+    <string name="help_background_body">স্ক্যান টেপার পরে অ্যাপ থেকে বেরিয়ে যান বা স্ক্রিন বন্ধ করুন, স্ক্যান চলতে থাকে — বিজ্ঞপ্তিতে তার অগ্রগতি আর “থামান” বোতাম দেখা যায়, আর শেষ হলে ফলের বিজ্ঞপ্তি আসে। আপডেটের ডাউনলোডও Android-এর ডাউনলোড ম্যানেজার দিয়ে হয়, তাই অ্যাপ বন্ধ করলেও শেষ হয় আর তারপর “ইনস্টল করতে টিপুন” বিজ্ঞপ্তি আসে। বাজারের সময়ের অটো-স্ক্যান Android নিজে চালায়: মেনু → স্ক্যান-এ “ব্যাকগ্রাউন্ডে চলতে দিন” টিপে অনুমতি দিন, নইলে ব্যাটারি বাঁচাতে Android এটি দেরিতে চালাতে বা থামাতে পারে। Xiaomi, Redmi, Vivo, Oppo, Realme-এর মতো ফোনে App info-তে “Autostart”-ও চালু করুন।</string>
+</resources>

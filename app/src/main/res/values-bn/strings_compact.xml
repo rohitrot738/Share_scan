@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compact_news_mark">📰</string>
+    <string name="compact_no_data">দাম নেই</string>
+    <string name="compact_col_rank">#</string>
+    <string name="compact_col_stock">শেয়ার / কোম্পানি</string>
+    <string name="compact_col_price">দাম</string>
+    <string name="compact_col_change">5D পরিবর্তন / RVOL</string>
+    <string name="compact_col_score">স্কোর</string>
+    <string name="compact_share">শেয়ার করুন</string>
+    <string name="compact_rank">#%1$d</string>
+    <string name="pill_idle">স্ক্যান শুরু করুন ▸</string>
+    <string name="pill_reading">আগের স্ক্যান খুলছে…</string>
+    <string name="pill_loading">স্ক্যান শুরু হচ্ছে…</string>
+    <string name="pill_scanning">স্ক্যান %1$d%% • %2$s/%3$s</string>
+    <string name="pill_stopped">থেমেছে %1$d%% • %2$s/%3$s</string>
+    <string name="pill_done">স্ক্যান 100%% • %1$s শেয়ার</string>
+    <string name="pill_live_done">লাইভ স্ক্যান 100%% • %1$s শেয়ার</string>
+    <string name="pill_support_done">সাপোর্ট 100%% • %1$s শেয়ার</string>
+    <string name="pill_failed">স্ক্যান হয়নি • আবার করুন</string>
+    <string name="empty_body_compact">উপরের পিল টিপে স্ক্যান শুরু করুন — স্ক্যান শেষ হলেই সেরা প্রার্থীরা স্কোর অনুযায়ী এখানে দেখা যাবে।</string>
+    <string name="pill_description">%1$s; স্ক্যানের বোতাম খুলুন</string>
+    <string name="help_compact_title">Space Glass-এর সংক্ষিপ্ত টেবিল</string>
+    <string name="help_compact_body">মেনু → ব্যাকগ্রাউন্ড-এ Space Glass বাছলে তালিকা একটি টেবিল হয়ে যায়: প্রতিটি শেয়ারের একটি লাইন, যাতে র‍্যাঙ্ক, টিকার (সাথে NSE/BSE, NEW বা ▲▼ আর 📰), নিচে কোম্পানির নাম, দাম, 5 দিনের পরিবর্তন আর তার নিচে RVOL, আর স্কোর — এক স্ক্রিনে 8–10টি শেয়ার। ওয়াচলিস্টের শেয়ারের স্কোর সোনালি আর সাথে ★; কোনো লাইন চেপে ধরে রাখলে সেই শেয়ার ওয়াচলিস্টে যোগ হয় বা সরে যায়। উপরের পাতলা হেডারে সবুজ পিল জানায় স্ক্যান কোথায় আছে (যেমন \"লাইভ স্ক্যান 100% • 2,618 শেয়ার\"); সেটি টিপলে ব্রেকআউট/সাপোর্ট, স্ক্যান/থামান আর স্ক্যান মুছুন-এর প্যানেল খোলে। ফিল্টার, ওয়াচলিস্ট, সাজানো, সেক্টর আর শেয়ার করা নিচের ভাসমান বারে আছে, বুড়ো আঙুলের নাগালে; সেটি ডানে-বাঁয়ে সরান। লাইন টিপলে শেয়ারের পুরো বিস্তারিত খোলে, যেখানে সেটআপ, সাপোর্ট আর R/S পাওয়া যায়। ফিল্টার আর সেক্টরের শিটও একই সাদামাটা ধাঁচে খোলে। Galaxy ব্যাকগ্রাউন্ড বাছলে আবার বড় কার্ডের রূপ ফিরে আসে।</string>
+</resources>

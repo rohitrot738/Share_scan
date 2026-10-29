@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="news_kind_results">ফলাফল</string>
+    <string name="news_kind_order">অর্ডার</string>
+    <string name="news_kind_dividend">লভ্যাংশ / বোনাস</string>
+    <string name="news_kind_fundraise">মূলধন সংগ্রহ</string>
+    <string name="news_kind_deal">অধিগ্রহণ</string>
+    <string name="news_kind_expansion">সম্প্রসারণ</string>
+    <string name="news_kind_management">পরিচালনা</string>
+    <string name="news_kind_rating">রেটিং</string>
+    <string name="news_kind_legal">আইনি</string>
+    <string name="news_kind_meeting">বোর্ড মিটিং</string>
+    <string name="news_kind_investor">বিশ্লেষক মিটিং</string>
+    <string name="news_kind_other">খবর</string>
+    <string name="news_kind_routine">সাধারণ বিজ্ঞপ্তি</string>
+    <string name="news_pre_open">বাজার খোলার আগে</string>
+    <string name="news_live">লাইভ</string>
+    <string name="news_today">আজ %1$s</string>
+    <string name="news_yesterday">গতকাল %1$s</string>
+    <string name="detail_tab_overview">তথ্য</string>
+    <string name="detail_tab_news">খবর</string>
+    <string name="detail_tab_news_count">খবর · %1$d</string>
+    <string name="news_loading">NSE/BSE-র ঘোষণা আর সংবাদপত্রের খবর আসছে…</string>
+    <string name="news_subtitle">এক্সচেঞ্জের ঘোষণা (30 দিন) আর সংবাদপত্রের খবর (7 দিন) • সবচেয়ে নতুন উপরে • টিপে পুরো খবর পড়ুন</string>
+    <string name="news_subtitle_wide">এই শেয়ারের খবর কম আসে, তাই গত 1 বছর পর্যন্ত ঘোষণা আর খবর • সবচেয়ে নতুন উপরে • টিপে পুরো খবর পড়ুন</string>
+    <string name="news_none">গত 1 বছরে এই শেয়ারের কোনো ঘোষণা বা খবর পাওয়া যায়নি</string>
+    <string name="news_failed">খবর আসেনি — ইন্টারনেট দেখে শিটটি আবার খুলুন</string>
+    <string name="news_source_filing">%1$s ঘোষণা • PDF</string>
+    <string name="news_source_filing_page">%1$s ঘোষণা</string>
+    <string name="news_more">আরও %1$dটি খবর দেখান</string>
+    <string name="news_routine">+%1$dটি সাধারণ বিজ্ঞপ্তি (সংবাদপত্রে নোটিস, ট্রেডিং উইন্ডো, শংসাপত্র…)</string>
+    <string name="news_open_failed">খবর খোলার জন্য কোনো ব্রাউজার পাওয়া যায়নি</string>
+    <string name="item_news_badge">📰 %1$s</string>
+    <string name="item_news_badge_more">📰 %1$s +%2$d</string>
+    <string name="item_news_description">গত 24 ঘণ্টায় %1$dটি ঘোষণা, সবচেয়ে গুরুত্বপূর্ণ: %2$s</string>
+    <string name="settings_news_alerts">ওয়াচলিস্টের খবর</string>
+    <string name="settings_news_alerts_body">সকাল 8টা থেকে 9:15-এর মধ্যে ★ দেওয়া শেয়ারের সারা রাতের খবর একটি বিজ্ঞপ্তিতে, আর দিনে (সকাল 7টা থেকে রাত 10টা) ফলাফল, অর্ডার, লভ্যাংশের মতো বড় ঘোষণা আসামাত্র বিজ্ঞপ্তি</string>
+    <string name="notify_channel_news">ওয়াচলিস্টের খবর</string>
+    <string name="notify_channel_news_body">★ দেওয়া শেয়ারের সকালের খবর আর বড় ঘোষণা</string>
+    <string name="notify_news_alert">📰 %1$s: %2$s</string>
+    <string name="notify_news_read">পুরো খবর</string>
+    <string name="notify_news_digest">🗞 সকালের খবর • %1$dটি শেয়ার</string>
+    <string name="notify_news_digest_line">%1$s · %2$s: %3$s</string>
+    <string name="help_news_title">খবর</string>
+    <string name="help_news_body">প্রতিটি শেয়ারের বিস্তারিততে আলাদা \"খবর\" ট্যাব আছে: NSE-র (শুধু BSE-তে তালিকাভুক্ত শেয়ারের জন্য BSE-র) গত 30 দিনের ঘোষণা আর গত সপ্তাহের সংবাদপত্রের খবর (Google News থেকে, ইংরেজি আর হিন্দি), সবচেয়ে নতুন উপরে। অন্তত 10টি খবর দেখা যায়: যে শেয়ারের খবর কম আসে, তার গত 1 বছর পর্যন্ত ঘোষণা আর খবর আসে। টাটকা খবর থাকলে ট্যাবে একটি বিন্দু দেখা যায়। প্রতিটি খবরে তার ধরন (ফলাফল, অর্ডার, লভ্যাংশ, সম্প্রসারণ, আইনি…) লেখা থাকে, আর \"বাজার খোলার আগে\" (আগের বন্ধের পরে এসেছে, পরের সেশন এর উপরেই খুলবে) বা \"লাইভ\" (আজ বাজার চলার সময় এসেছে)। টিপলে পুরো খবর বা ঘোষণার PDF খোলে। তালিকায় 📰 চিহ্ন জানায় যে গত 24 ঘণ্টায় সেই শেয়ারের এক্সচেঞ্জে কোনো ঘোষণা এসেছে; সেটি টিপলে শেয়ারটি সরাসরি \"খবর\" ট্যাবে খোলে, খবরের বিজ্ঞপ্তিও তাই। মেনু → স্ক্যান-এ \"ওয়াচলিস্টের খবর\" চালু থাকলে ★ দেওয়া শেয়ারের সকালের খবর আর দিনের বড় ঘোষণা বিজ্ঞপ্তিতে আসে। খবর ভালো না খারাপ, অ্যাপ তা বলে না — পড়ে নিজেই ঠিক করুন।</string>
+</resources>
