@@ -1,0 +1,28 @@
+name: Probe company products (temporary)
+on:
+  push:
+    paths:
+      - '.github/workflows/probe-products.yml'
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Screener company profiles
+        run: |
+          python3 - <<'PY'
+          import re, time, urllib.request, html
+          UA = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
+          for slug in ["TATAMOTORS", "SUNPHARMA", "HDFCBANK", "ASIANPAINT", "ULTRACEMCO", "ITC", "INFY", "BAJAJ-AUTO",
+                       "TATASTEEL", "DABUR", "MRF", "TITAN", "539410", "TSC"]:
+              try:
+                  req = urllib.request.Request(f"https://www.screener.in/company/{slug}/", headers={"User-Agent": UA})
+                  page = urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "replace")
+              except Exception as e:
+                  print("=====", slug, "ERROR", e); continue
+              i = page.find('company-profile')
+              j = page.find('</section>', i)
+              seg = page[i - 40:j] if i >= 0 else ""
+              print("=====", slug, len(page), i)
+              print(seg[:5000])
+              time.sleep(4)
+          PY
