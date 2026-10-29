@@ -24,7 +24,7 @@ class SwipeRevealLayout @JvmOverloads constructor(context: Context, attrs: Attri
     /** Called when this one opens, so a list can close the one open before. */
     var onOpened: ((SwipeRevealLayout) -> Unit)? = null
 
-    private val drag = ViewDragHelper.create(this, 1f, object : ViewDragHelper.Callback() {
+    private val drag: ViewDragHelper = ViewDragHelper.create(this, 1f, object : ViewDragHelper.Callback() {
         override fun tryCaptureView(child: View, pointerId: Int) = child === card
 
         override fun getViewHorizontalDragRange(child: View) = actions.width
