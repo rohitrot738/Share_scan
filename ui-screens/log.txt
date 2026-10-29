@@ -1,9 +1,1 @@
 shot 01-start-hinglish
-scan done after ~50s
-shot 02-list-table
-shot 03-detail-products
-shot 04-list-tyre-makers
-shot 05-list-after-back
-shot 06-detail-products-maruti
-shot 07-detail-products-hul
-shot 07-detail-products-tatasteel
