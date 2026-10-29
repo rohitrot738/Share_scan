@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compact_news_mark">📰</string>
+    <string name="compact_no_data">ਭਾਅ ਨਹੀਂ</string>
+    <string name="compact_col_rank">#</string>
+    <string name="compact_col_stock">ਸ਼ੇਅਰ / ਕੰਪਨੀ</string>
+    <string name="compact_col_price">ਭਾਅ</string>
+    <string name="compact_col_change">5D ਬਦਲਾਅ / RVOL</string>
+    <string name="compact_col_score">ਸਕੋਰ</string>
+    <string name="compact_share">ਸਾਂਝਾ ਕਰੋ</string>
+    <string name="compact_rank">#%1$d</string>
+    <string name="pill_idle">ਸਕੈਨ ਸ਼ੁਰੂ ਕਰੋ ▸</string>
+    <string name="pill_reading">ਪਿਛਲਾ ਸਕੈਨ ਖੁੱਲ੍ਹ ਰਿਹਾ ਹੈ…</string>
+    <string name="pill_loading">ਸਕੈਨ ਸ਼ੁਰੂ ਹੋ ਰਿਹਾ ਹੈ…</string>
+    <string name="pill_scanning">ਸਕੈਨ %1$d%% • %2$s/%3$s</string>
+    <string name="pill_stopped">ਰੁਕਿਆ %1$d%% • %2$s/%3$s</string>
+    <string name="pill_done">ਸਕੈਨ 100%% • %1$s ਸ਼ੇਅਰ</string>
+    <string name="pill_live_done">ਲਾਈਵ ਸਕੈਨ 100%% • %1$s ਸ਼ੇਅਰ</string>
+    <string name="pill_support_done">ਸਪੋਰਟ 100%% • %1$s ਸ਼ੇਅਰ</string>
+    <string name="pill_failed">ਸਕੈਨ ਨਹੀਂ ਹੋਇਆ • ਮੁੜ ਕਰੋ</string>
+    <string name="empty_body_compact">ਉੱਪਰਲੀ ਪੱਟੀ ਦਬਾ ਕੇ ਸਕੈਨ ਸ਼ੁਰੂ ਕਰੋ — ਸਕੈਨ ਪੂਰਾ ਹੁੰਦਿਆਂ ਹੀ ਸਭ ਤੋਂ ਵਧੀਆ ਉਮੀਦਵਾਰ ਸਕੋਰ ਮੁਤਾਬਕ ਇੱਥੇ ਦਿਸਣਗੇ।</string>
+    <string name="pill_description">%1$s; ਸਕੈਨ ਦੇ ਬਟਨ ਖੋਲ੍ਹੋ</string>
+    <string name="help_compact_title">Space Glass ਦੀ ਸੰਖੇਪ ਸਾਰਣੀ</string>
+    <string name="help_compact_body">ਮੀਨੂ → ਪਿਛੋਕੜ ਵਿੱਚ Space Glass ਚੁਣਨ ਉੱਤੇ ਸੂਚੀ ਇੱਕ ਸਾਰਣੀ ਬਣ ਜਾਂਦੀ ਹੈ: ਹਰ ਸ਼ੇਅਰ ਦੀ ਇੱਕ ਲਾਈਨ, ਜਿਸ ਵਿੱਚ ਦਰਜਾ, ਟਿਕਰ (ਨਾਲ NSE/BSE, NEW ਜਾਂ ▲▼ ਅਤੇ 📰), ਹੇਠਾਂ ਕੰਪਨੀ ਦਾ ਨਾਂ, ਭਾਅ, 5 ਦਿਨਾਂ ਦਾ ਬਦਲਾਅ ਅਤੇ ਉਸਦੇ ਹੇਠਾਂ RVOL, ਅਤੇ ਸਕੋਰ — ਇੱਕ ਸਕ੍ਰੀਨ ਉੱਤੇ 8–10 ਸ਼ੇਅਰ। ਵਾਚਲਿਸਟ ਵਾਲੇ ਸ਼ੇਅਰਾਂ ਦਾ ਸਕੋਰ ਸੁਨਹਿਰੀ ਹੁੰਦਾ ਹੈ ਅਤੇ ਨਾਲ ★; ਕਿਸੇ ਲਾਈਨ ਨੂੰ ਦਬਾ ਕੇ ਰੱਖਣ ਨਾਲ ਉਹ ਸ਼ੇਅਰ ਵਾਚਲਿਸਟ ਵਿੱਚ ਜੁੜਦਾ ਜਾਂ ਹਟਦਾ ਹੈ। ਉੱਪਰਲੀ ਪਤਲੀ ਪੱਟੀ ਵਿੱਚ ਹਰੀ ਗੋਲੀ ਦੱਸਦੀ ਹੈ ਕਿ ਸਕੈਨ ਕਿੱਥੇ ਹੈ (ਜਿਵੇਂ \"ਲਾਈਵ ਸਕੈਨ 100% • 2,618 ਸ਼ੇਅਰ\"); ਉਸਨੂੰ ਦਬਾਉਣ ਉੱਤੇ ਬ੍ਰੇਕਆਊਟ/ਸਪੋਰਟ, ਸਕੈਨ/ਰੋਕੋ ਅਤੇ ਸਕੈਨ ਮਿਟਾਓ ਵਾਲਾ ਪੈਨਲ ਖੁੱਲ੍ਹਦਾ ਹੈ। ਫਿਲਟਰ, ਵਾਚਲਿਸਟ, ਤਰਤੀਬ, ਸੈਕਟਰ ਅਤੇ ਸਾਂਝਾ ਕਰਨਾ ਹੇਠਲੀ ਤੈਰਦੀ ਪੱਟੀ ਵਿੱਚ ਹਨ, ਅੰਗੂਠੇ ਦੀ ਪਹੁੰਚ ਵਿੱਚ; ਉਸਨੂੰ ਸੱਜੇ-ਖੱਬੇ ਖਿਸਕਾਓ। ਲਾਈਨ ਦਬਾਉਣ ਉੱਤੇ ਸ਼ੇਅਰ ਦਾ ਪੂਰਾ ਵੇਰਵਾ ਖੁੱਲ੍ਹਦਾ ਹੈ, ਜਿੱਥੇ ਸੈੱਟਅੱਪ, ਸਪੋਰਟ ਅਤੇ R/S ਮਿਲਦੇ ਹਨ। ਫਿਲਟਰ ਅਤੇ ਸੈਕਟਰ ਵਾਲੀਆਂ ਸ਼ੀਟਾਂ ਵੀ ਇਸੇ ਸਾਦੇ ਢੰਗ ਵਿੱਚ ਖੁੱਲ੍ਹਦੀਆਂ ਹਨ। Galaxy ਪਿਛੋਕੜ ਚੁਣਨ ਉੱਤੇ ਮੁੜ ਵੱਡੇ ਕਾਰਡਾਂ ਵਾਲਾ ਰੂਪ ਆ ਜਾਂਦਾ ਹੈ।</string>
+</resources>

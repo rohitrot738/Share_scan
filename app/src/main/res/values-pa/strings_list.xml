@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_watchlist">★ ਵਾਚਲਿਸਟ</string>
+    <string name="list_watchlist_count">★ ਵਾਚਲਿਸਟ (%1$d)</string>
+    <string name="list_watchlist_leave">ਵਾਚਲਿਸਟ ਬੰਦ ਕਰੋ, ਸਾਰੇ ਸ਼ੇਅਰ ਦਿਖਾਓ</string>
+    <string name="list_star_add">%1$s ਨੂੰ ਵਾਚਲਿਸਟ ਵਿੱਚ ਜੋੜੋ</string>
+    <string name="list_star_remove">%1$s ਨੂੰ ਵਾਚਲਿਸਟ ਤੋਂ ਹਟਾਓ</string>
+    <string name="list_starred_description">ਵਾਚਲਿਸਟ ਵਿੱਚ</string>
+    <string name="list_empty_watchlist_title">ਵਾਚਲਿਸਟ ਖ਼ਾਲੀ ਹੈ</string>
+    <string name="list_empty_watchlist_body">ਕਿਸੇ ਵੀ ਕਾਰਡ ਉੱਤੇ ☆ ਦਬਾਓ — ਉਹ ਸ਼ੇਅਰ ਇੱਥੇ ਦਿਸੇਗਾ।</string>
+    <string name="list_empty_watchlist_body_compact">ਕਿਸੇ ਵੀ ਲਾਈਨ ਨੂੰ ਦਬਾ ਕੇ ਰੱਖੋ — ਉਹ ਸ਼ੇਅਰ ★ ਨਾਲ ਇੱਥੇ ਦਿਸੇਗਾ।</string>
+    <string name="list_empty_watchlist_waiting_title">★ ਸ਼ੇਅਰਾਂ ਦਾ ਭਾਅ ਹਾਲੇ ਨਹੀਂ ਆਇਆ</string>
+    <string name="list_empty_watchlist_waiting_body">ਤੁਹਾਡੇ ਚੁਣੇ ਸ਼ੇਅਰ ਅਗਲੇ ਸਕੈਨ ਨਾਲ ਇੱਥੇ ਦਿਸਣਗੇ।</string>
+    <string name="list_rank_new">NEW</string>
+    <string name="list_rank_up">▲%1$d</string>
+    <string name="list_rank_down">▼%1$d</string>
+    <string name="list_rank_new_description">ਪਿਛਲੇ ਸਕੈਨ ਤੋਂ ਬਾਅਦ ਉੱਪਰਲੇ %1$d ਵਿੱਚ ਨਵਾਂ</string>
+    <string name="list_rank_up_description">ਪਿਛਲੇ ਸਕੈਨ ਤੋਂ %1$d ਦਰਜੇ ਉੱਪਰ</string>
+    <string name="list_rank_down_description">ਪਿਛਲੇ ਸਕੈਨ ਤੋਂ %1$d ਦਰਜੇ ਹੇਠਾਂ</string>
+    <string name="list_search_open">ਸਿੰਬਲ ਖੋਜੋ</string>
+    <string name="list_search_hint">ਸਿੰਬਲ ਜਾਂ ਨਾਂ — ਜਿਵੇਂ TCS, Reliance</string>
+    <string name="list_search_close">ਖੋਜ ਬੰਦ ਕਰੋ</string>
+    <string name="list_empty_search_title">ਕੋਈ ਸ਼ੇਅਰ ਮੇਲ ਨਹੀਂ ਖਾਂਦਾ</string>
+    <string name="list_empty_search_body">“%1$s” ਕਿਸੇ ਸਕੈਨ ਹੋਏ ਸ਼ੇਅਰ ਦੇ ਸਿੰਬਲ ਜਾਂ ਨਾਂ ਵਿੱਚ ਨਹੀਂ ਮਿਲਿਆ — ਸ਼ਬਦ-ਜੋੜ ਜਾਂਚੋ ਜਾਂ ਫਿਲਟਰ ਢਿੱਲੇ ਕਰੋ।</string>
+    <string name="list_share_open">ਉੱਪਰਲੇ 10 ਸਾਂਝੇ ਕਰੋ</string>
+    <string name="list_share_filters">%1$d ਫਿਲਟਰ ਲਾਗੂ</string>
+    <string name="list_share_no_filters">ਕੋਈ ਫਿਲਟਰ ਨਹੀਂ</string>
+    <string name="list_share_line">%1$d. %2$s ₹%3$s • ਸਕੋਰ %4$s • RVOL %5$s×</string>
+    <string name="list_share_failed">ਸਾਂਝਾ ਕਰਨ ਲਈ ਕੋਈ ਐਪ ਨਹੀਂ ਮਿਲੀ</string>
+</resources>

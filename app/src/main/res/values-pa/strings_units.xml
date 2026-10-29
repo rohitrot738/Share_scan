@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unit_today">ਅੱਜ</string>
+    <string name="unit_days_ago">%1$s ਦਿਨ ਪਹਿਲਾਂ</string>
+    <string name="unit_days">%1$s ਦਿਨ</string>
+    <string name="unit_month">%1$s ਮਹੀਨਾ</string>
+    <string name="unit_months">%1$s ਮਹੀਨੇ</string>
+    <string name="unit_week">%1$s ਹਫ਼ਤਾ</string>
+    <string name="unit_weeks">%1$s ਹਫ਼ਤੇ</string>
+    <string name="unit_lakh">ਲੱਖ</string>
+    <string name="scan_error_no_lists">ਕੋਈ ਸ਼ੇਅਰ ਸੂਚੀ ਨਹੀਂ ਮਿਲੀ</string>
+    <string name="scan_error_no_sector_stocks">ਚੁਣੇ ਸੈਕਟਰਾਂ ਵਿੱਚ ਕੋਈ ਸ਼ੇਅਰ ਨਹੀਂ — ਮੀਨੂ → ਸਕੈਨ ਵਿੱਚ ਸੈਕਟਰ ਚੁਣੋ</string>
+</resources>

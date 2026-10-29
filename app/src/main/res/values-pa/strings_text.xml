@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_text">ਭਾਸ਼ਾ ਅਤੇ ਫੌਂਟ</string>
+    <string name="menu_text_body">ਹੁਣ: %1$s · %2$s</string>
+    <string name="text_title">ਭਾਸ਼ਾ ਅਤੇ ਫੌਂਟ</string>
+    <string name="text_subtitle">ਪੂਰੀ ਐਪ ਕਿਸ ਭਾਸ਼ਾ ਵਿੱਚ ਅਤੇ ਕਿਸ ਫੌਂਟ ਵਿੱਚ ਦਿਸੇ</string>
+    <string name="text_language">ਭਾਸ਼ਾ</string>
+    <string name="text_language_note">ਅਨੁਵਾਦ ਐਪ ਵਿੱਚ ਹੀ ਬਣਿਆ ਹੈ, ਕਿਸੇ ਸ਼ਬਦ ਵਿੱਚ ਗ਼ਲਤੀ ਦਿਸੇ ਤਾਂ ਦੱਸੋ। ਸ਼ੇਅਰਾਂ ਅਤੇ ਕੰਪਨੀਆਂ ਦੇ ਨਾਂ, ਖ਼ਬਰਾਂ ਅਤੇ \"ਨਵਾਂ ਕੀ ਹੈ\" ਜਿਵੇਂ ਹਨ ਉਵੇਂ ਹੀ ਰਹਿੰਦੇ ਹਨ।</string>
+    <string name="text_font">ਫੌਂਟ</string>
+    <string name="text_font_sample">Share Scan · ਬ੍ਰੇਕਆਊਟ ਸਕੈਨ · ₹1,234.50 ▲ 2.40% · 86.0</string>
+    <string name="font_system">ਫ਼ੋਨ ਦਾ ਫੌਂਟ</string>
+    <string name="text_font_description">%1$s ਫੌਂਟ ਚੁਣੋ</string>
+    <string name="text_language_description">%1$s ਭਾਸ਼ਾ ਚੁਣੋ</string>
+</resources>

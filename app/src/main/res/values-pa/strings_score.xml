@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="score_detail_old">ਇਸ ਹਿੱਸੇ ਦਾ ਪੂਰਾ ਹਿਸਾਬ ਪਿਛਲੇ ਸਕੈਨ ਵਿੱਚ ਨਹੀਂ ਰੱਖਿਆ ਗਿਆ ਸੀ — ਮੁੜ ਸਕੈਨ ਕਰਨ ਉੱਤੇ ਦਿਸੇਗਾ</string>
+    <string name="score_swing">ਇਸ ਸ਼ੇਅਰ ਦੀ ਆਮ ਰੋਜ਼ਾਨਾ ਚਾਲ (ਪਿਛਲੇ 50 ਦਿਨਾਂ ਦੀ ਔਸਤ ਉੱਚੀ–ਨੀਵੀਂ ਰੇਂਜ): %1$s%% — ਦੂਰੀਆਂ ਇਸੇ ਦੇ ਗੁਣਾ ਵਿੱਚ ਮਾਪੀਆਂ ਜਾਂਦੀਆਂ ਹਨ</string>
+    <string name="score_total">ਕੁੱਲ: %1$s = %2$s ਅੰਕ → %3$s</string>
+    <string name="score_total_simple">ਕੁੱਲ: %1$s ਅੰਕ → %2$s</string>
+    <string name="score_soft_note">85 ਤੋਂ ਉੱਪਰ ਅਤੇ 15 ਤੋਂ ਹੇਠਾਂ ਦੇ ਅੰਕ ਹੌਲੀ-ਹੌਲੀ 100 ਅਤੇ 0 ਵੱਲ ਦਬਾਏ ਜਾਂਦੇ ਹਨ, ਤਾਂ ਜੋ ਸਭ ਤੋਂ ਵਧੀਆ ਸ਼ੇਅਰਾਂ ਦੀ ਤਰਤੀਬ ਬਣੀ ਰਹੇ</string>
+    <string name="score_breakout_high">ਆਖ਼ਰੀ ਸੈਸ਼ਨ ਤੋਂ ਪਹਿਲਾਂ ਦੇ 20 ਦਿਨਾਂ ਦਾ ਉੱਚਾ ਭਾਅ ₹%1$s; ਭਾਅ ₹%2$s ਉਸ ਤੋਂ %3$s%% ਹੇਠਾਂ, ਯਾਨੀ ਰੋਜ਼ਾਨਾ ਚਾਲ ਦਾ %4$s ਗੁਣਾ → %5$s ਅੰਕ (ਹਿੱਸਾ 55%%)</string>
+    <string name="score_breakout_high_above">ਆਖ਼ਰੀ ਸੈਸ਼ਨ ਤੋਂ ਪਹਿਲਾਂ ਦੇ 20 ਦਿਨਾਂ ਦਾ ਉੱਚਾ ਭਾਅ ₹%1$s; ਭਾਅ ₹%2$s ਉਸ ਤੋਂ %3$s%% ਉੱਪਰ ਨਿਕਲ ਚੁੱਕਾ, ਰੋਜ਼ਾਨਾ ਚਾਲ ਦਾ %4$s ਗੁਣਾ → %5$s ਅੰਕ (ਹਿੱਸਾ 55%%)</string>
+    <string name="score_breakout_high_rule">ਉੱਚੇ ਭਾਅ ਦੇ ਠੀਕ ਹੇਠਾਂ ਤੋਂ ਉਸਦੀ ਇੱਕ ਰੋਜ਼ਾਨਾ ਚਾਲ ਉੱਪਰ ਤੱਕ ਪੂਰੇ 100 ਅੰਕ; ਉਸ ਤੋਂ ਹਰ ਇੱਕ ਰੋਜ਼ਾਨਾ ਚਾਲ ਦੂਰ ਉੱਤੇ 20 ਅੰਕ ਘੱਟ</string>
+    <string name="score_breakout_base">ਪਿਛਲੇ 10 ਦਿਨਾਂ ਦਾ ਅਧਾਰ ₹%1$s – ₹%2$s, ਚੌੜਾਈ %3$s%%, ਯਾਨੀ ਰੋਜ਼ਾਨਾ ਚਾਲ ਦਾ %4$s ਗੁਣਾ (2 ਗੁਣਾ ਜਾਂ ਘੱਟ = ਤੰਗ) → %5$s ਅੰਕ</string>
+    <string name="score_breakout_calm">ਉਹਨਾਂ ਦਿਨਾਂ ਦੀ ਰੋਜ਼ਾਨਾ ਰੇਂਜ ਆਮ ਚਾਲ ਦਾ %1$s ਗੁਣਾ (0.6 ਜਾਂ ਘੱਟ = ਪੂਰੀ ਤਰ੍ਹਾਂ ਸ਼ਾਂਤ) → %2$s ਅੰਕ</string>
+    <string name="score_breakout_tight">ਅਧਾਰ ਦੀ ਤੰਗੀ: ਉੱਪਰਲੇ ਦੋਵਾਂ ਦੀ ਔਸਤ (110 ਤੱਕ) → %1$s ਅੰਕ (ਹਿੱਸਾ 30%%)</string>
+    <string name="score_breakout_position">ਅਧਾਰ ਵਿੱਚ ਭਾਅ ਕਿੱਥੇ: %1$s/100 (0 = ਸਭ ਤੋਂ ਹੇਠਾਂ, 100 = ਸਭ ਤੋਂ ਉੱਪਰ) (ਹਿੱਸਾ 15%%)</string>
+    <string name="score_breakout_total">ਕੁੱਲ: 0.55 × %1$s + 0.30 × %2$s + 0.15 × %3$s = %4$s ਅੰਕ → %5$s</string>
+    <string name="score_base_title">ਪਿਛਲੇ 10 ਸੈਸ਼ਨਾਂ ਦਾ ਅਧਾਰ</string>
+    <string name="score_trend_term">%1$s: %2$s ਰੋਜ਼ਾਨਾ ਚਾਲਾਂ → %3$s × %2$s = %4$s ਅੰਕ</string>
+    <string name="score_trend_above20">ਭਾਅ, 20-ਦਿਨ ਔਸਤ ₹%1$s ਤੋਂ ਉੱਪਰ (+) / ਹੇਠਾਂ (−)</string>
+    <string name="score_trend_slope">20-ਦਿਨ ਔਸਤ ਦੀ ਢਲਾਣ, ਪਿਛਲੇ 5 ਦਿਨਾਂ ਵਿੱਚ</string>
+    <string name="score_trend_above50">ਭਾਅ, 50-ਦਿਨ ਔਸਤ ₹%1$s ਤੋਂ ਉੱਪਰ (+) / ਹੇਠਾਂ (−)</string>
+    <string name="score_trend_stacked">20-ਦਿਨ ਔਸਤ, 50-ਦਿਨ ਔਸਤ ਤੋਂ ਉੱਪਰ (+) / ਹੇਠਾਂ (−)</string>
+    <string name="score_trend_limits">ਹਰ ਹਿੱਸਾ ਇੱਕ ਹੱਦ ਤੱਕ ਹੀ ਗਿਣਿਆ ਜਾਂਦਾ ਹੈ: 20-ਦਿਨ ±3, ਢਲਾਣ ±2, 50-ਦਿਨ ±4 ਅਤੇ ਦੋਵਾਂ ਔਸਤਾਂ ਦਾ ਫ਼ਰਕ ±2 ਰੋਜ਼ਾਨਾ ਚਾਲਾਂ</string>
+    <string name="score_trend_short">50 ਦਿਨਾਂ ਦਾ ਡਾਟਾ ਨਹੀਂ, ਇਸ ਲਈ 20-ਦਿਨ ਵਾਲੇ ਦੋਵੇਂ ਹਿੱਸੇ 1.75 ਗੁਣਾ ਗਿਣੇ</string>
+    <string name="score_volume_rvol">ਪਿਛਲੇ ਸੈਸ਼ਨ ਦਾ ਵਾਲੀਅਮ %1$s ਸ਼ੇਅਰ, ਉਸ ਤੋਂ ਪਹਿਲਾਂ ਦੇ 20 ਸੈਸ਼ਨਾਂ ਦੀ ਔਸਤ %2$s ਦਾ %3$s ਗੁਣਾ (RVOL) → %4$s ਅੰਕ (1 ਗੁਣਾ = 50, 2 = 75, 4 = 100) (ਹਿੱਸਾ 60%%)</string>
+    <string name="score_volume_live">ਬਾਜ਼ਾਰ ਹਾਲੇ ਚਾਲੂ ਹੈ: ਅੱਜ ਦਾ ਹੁਣ ਤੱਕ ਦਾ ਵਾਲੀਅਮ, ਦਿਨ ਦੇ ਇਸ ਸਮੇਂ ਤੱਕ ਆਮ ਤੌਰ ਉੱਤੇ ਹੋਣ ਵਾਲੇ ਹਿੱਸੇ ਮੁਤਾਬਕ ਪੂਰੇ ਦਿਨ ਦਾ ਮੰਨ ਕੇ ਗਿਣਿਆ</string>
+    <string name="score_volume_quiet">ਉਸ ਤੋਂ ਪਹਿਲਾਂ ਦੇ 5 ਸੈਸ਼ਨ: ਔਸਤ ਦਾ %1$s ਗੁਣਾ (0.5 ਜਾਂ ਘੱਟ = ਵਾਲੀਅਮ ਸੁੱਕਾ, 1.15 ਜਾਂ ਵੱਧ = ਨਹੀਂ) → %2$s ਅੰਕ (ਹਿੱਸਾ 40%%)</string>
+    <string name="score_volume_total">ਕੁੱਲ: 0.6 × %1$s + 0.4 × %2$s = %3$s ਅੰਕ → %4$s</string>
+    <string name="score_liquidity_median">ਪਿਛਲੇ 20 ਸੈਸ਼ਨਾਂ ਵਿੱਚ ਰੋਜ਼ਾਨਾ ਕਾਰੋਬਾਰ (ਭਾਅ × ਵਾਲੀਅਮ) ਦਾ ਮੱਧਕ %1$s</string>
+    <string name="score_liquidity_scale">ਪੈਮਾਨਾ: ₹10 ਲੱਖ = 0, ₹1 Cr = 33, ₹10 Cr = 67, ₹100 Cr = 100 ਅੰਕ</string>
+    <string name="score_momentum_5d">5 ਸੈਸ਼ਨਾਂ ਵਿੱਚ %1$s%% → 4 × %1$s = %2$s ਅੰਕ</string>
+    <string name="score_momentum_20d">20 ਸੈਸ਼ਨਾਂ ਵਿੱਚ %1$s%% → 1.5 × %1$s = %2$s ਅੰਕ</string>
+    <string name="score_support_level">ਸਪੋਰਟ ₹%1$s; ਭਾਅ ਉਸ ਤੋਂ %2$s%% ਉੱਪਰ</string>
+    <string name="score_support_age">%1$d ਸੈਸ਼ਨਾਂ (%2$s) ਤੋਂ ਇਸ ਤੋਂ ਹੇਠਾਂ ਬੰਦ ਨਹੀਂ ਹੋਇਆ → %3$s/70 ਅੰਕ (6 ਮਹੀਨਿਆਂ ਉੱਤੇ ਪੂਰੇ)</string>
+    <string name="score_support_touches">%1$d ਵਾਰ ਇੱਥੇ ਤੱਕ ਆ ਕੇ ਮੁੜਿਆ → %2$s/30 ਅੰਕ (5 ਵਾਰ ਉੱਤੇ ਪੂਰੇ)</string>
+    <string name="score_support_total">ਤਾਕਤ %1$s/100 → ਬੋਨਸ %2$s ਅੰਕ (ਵੱਧ ਤੋਂ ਵੱਧ 5)</string>
+    <string name="score_support_none">ਪਿਛਲੇ 6 ਮਹੀਨਿਆਂ ਦੇ ਚਾਰਟ ਵਿੱਚ ਕੋਈ ਟਿਕਾਊ ਸਪੋਰਟ ਨਹੀਂ ਮਿਲਿਆ — ਬੋਨਸ 0 (ਸਕੋਰ ਵਿੱਚੋਂ ਕੁਝ ਨਹੀਂ ਕੱਟਦਾ)</string>
+    <string name="score_recent_title">ਪਿਛਲੇ 10 ਸੈਸ਼ਨ</string>
+    <string name="score_col_day">ਦਿਨ</string>
+    <string name="score_col_close">ਭਾਅ</string>
+    <string name="score_col_change">ਬਦਲਾਅ</string>
+    <string name="score_col_volume">ਵਾਲੀਅਮ</string>
+    <string name="score_col_times">× ਔਸਤ</string>
+    <string name="score_col_turnover">₹ Cr</string>
+    <string name="score_col_high">ਉੱਚਾ</string>
+    <string name="score_col_low">ਨੀਵਾਂ</string>
+    <string name="score_recent_note">× ਔਸਤ: ਉਸ ਦਿਨ ਦਾ ਵਾਲੀਅਮ, ਅੱਜ ਤੋਂ ਪਹਿਲਾਂ ਦੇ 20 ਸੈਸ਼ਨਾਂ ਦੀ ਔਸਤ ਦਾ ਕਿੰਨੇ ਗੁਣਾ; ₹ Cr: ਉਸ ਦਿਨ ਦਾ ਕਾਰੋਬਾਰ</string>
+</resources>

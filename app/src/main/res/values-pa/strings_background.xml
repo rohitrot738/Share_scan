@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notify_channel_scan">ਚੱਲ ਰਿਹਾ ਸਕੈਨ</string>
+    <string name="notify_channel_scan_body">ਐਪ ਬੰਦ ਹੋਣ ਉੱਤੇ ਵੀ ਤੁਹਾਡਾ ਸਕੈਨ ਚੱਲਦਾ ਰਹੇ, ਇਸ ਲਈ ਉਸਦੀ ਪ੍ਰਗਤੀ</string>
+    <string name="notify_channel_scan_done">ਸਕੈਨ ਪੂਰਾ</string>
+    <string name="notify_channel_scan_done_body">ਐਪ ਤੋਂ ਬਾਹਰ ਰਹਿੰਦਿਆਂ ਸਕੈਨ ਪੂਰਾ ਹੋਵੇ ਤਾਂ ਉਸਦਾ ਨਤੀਜਾ</string>
+    <string name="notify_scan_title">ਸਕੈਨ ਚੱਲ ਰਿਹਾ ਹੈ</string>
+    <string name="notify_scan_loading">ਸ਼ੇਅਰਾਂ ਦੀ ਸੂਚੀ ਆ ਰਹੀ ਹੈ…</string>
+    <string name="notify_scan_body">%1$s / %2$s ਸ਼ੇਅਰ • %3$d%%</string>
+    <string name="notify_scan_stopping">ਸਕੈਨ ਰੋਕ ਰਹੇ ਹਾਂ…</string>
+    <string name="notify_scan_done">✅ ਸਕੈਨ ਪੂਰਾ • %1$d ਸਭ ਤੋਂ ਵਧੀਆ ਉਮੀਦਵਾਰ</string>
+    <string name="notify_scan_stopped">⏹ ਸਕੈਨ ਰੋਕਿਆ • %1$d ਸਭ ਤੋਂ ਵਧੀਆ ਉਮੀਦਵਾਰ</string>
+    <string name="notify_scan_stopped_early">⏹ ਸਕੈਨ ਰੋਕਿਆ</string>
+    <string name="notify_scan_stopped_early_body">ਕੋਈ ਸ਼ੇਅਰ ਜਾਂਚਣ ਤੋਂ ਪਹਿਲਾਂ ਰੁਕਿਆ — ਪਿਛਲਾ ਸਕੈਨ ਉਵੇਂ ਹੀ ਹੈ</string>
+    <string name="notify_scan_top">ਸਭ ਤੋਂ ਉੱਪਰ %1$s • ਸਕੋਰ %2$s — ਦੇਖਣ ਲਈ ਦਬਾਓ</string>
+    <string name="notify_scan_none">ਕੋਈ ਸ਼ੇਅਰ ਤੁਹਾਡੇ ਫਿਲਟਰਾਂ ਵਿੱਚ ਨਹੀਂ ਆਇਆ — ਦੇਖਣ ਲਈ ਦਬਾਓ</string>
+    <string name="status_reading_title">ਪਿਛਲਾ ਸਕੈਨ ਖੁੱਲ੍ਹ ਰਿਹਾ ਹੈ…</string>
+    <string name="status_reading_body">ਸੰਭਾਲੀ ਸੂਚੀ ਪੜ੍ਹੀ ਜਾ ਰਹੀ ਹੈ — ਇੱਕ ਪਲ</string>
+    <string name="empty_reading_body">ਆਖ਼ਰੀ ਸਕੈਨ ਦੀ ਸੂਚੀ ਆ ਰਹੀ ਹੈ; ਸੂਚਨਾ ਤੋਂ ਖੋਲ੍ਹਿਆ ਸ਼ੇਅਰ ਵੀ ਉਸ ਨਾਲ ਖੁੱਲ੍ਹੇਗਾ।</string>
+    <string name="notify_open_missing">%1$s ਮੌਜੂਦਾ ਸੂਚੀ ਵਿੱਚ ਨਹੀਂ ਹੈ — ਨਵਾਂ ਸਕੈਨ ਚਲਾਓ</string>
+    <string name="notify_channel_update">ਐਪ ਅੱਪਡੇਟ</string>
+    <string name="notify_channel_update_body">ਨਵਾਂ ਸੰਸਕਰਣ ਡਾਊਨਲੋਡ ਹੋ ਕੇ ਇੰਸਟਾਲ ਲਈ ਤਿਆਰ ਹੋਵੇ</string>
+    <string name="update_download_title">Share Scan %1$s</string>
+    <string name="update_download_body">ਨਵਾਂ ਸੰਸਕਰਣ ਡਾਊਨਲੋਡ ਹੋ ਰਿਹਾ ਹੈ</string>
+    <string name="notify_update_ready">Share Scan %1$s ਤਿਆਰ</string>
+    <string name="notify_update_ready_body">ਡਾਊਨਲੋਡ ਪੂਰਾ — ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਦਬਾਓ</string>
+    <string name="settings_background">ਪਿਛੋਕੜ ਵਿੱਚ ਚੱਲਣ ਦਿਓ</string>
+    <string name="settings_background_off">⚠ ਹਾਲੇ Android ਬੈਟਰੀ ਬਚਾਉਣ ਲਈ ਆਟੋ-ਸਕੈਨ ਅਤੇ ਅਲਰਟ ਦੇਰ ਨਾਲ ਚਲਾ ਸਕਦਾ ਹੈ ਜਾਂ ਰੋਕ ਸਕਦਾ ਹੈ। ਇੱਥੇ ਦਬਾ ਕੇ “Allow / ਇਜਾਜ਼ਤ ਦਿਓ” ਚੁਣੋ। Xiaomi, Redmi, Vivo, Oppo, Realme ਉੱਤੇ App info ਵਿੱਚ “Autostart” ਵੀ ਚਾਲੂ ਕਰੋ।</string>
+    <string name="settings_background_on">✓ ਚਾਲੂ — Android ਬੈਟਰੀ ਦੇ ਨਾਂ ਉੱਤੇ ਇਸ ਐਪ ਦਾ ਆਟੋ-ਸਕੈਨ ਅਤੇ ਅਲਰਟ ਨਹੀਂ ਰੋਕੇਗਾ। Xiaomi, Redmi, Vivo, Oppo, Realme ਉੱਤੇ App info ਵਿੱਚ “Autostart” ਵੀ ਚਾਲੂ ਰੱਖੋ (ਇੱਥੇ ਦਬਾ ਕੇ ਖੋਲ੍ਹੋ)।</string>
+    <string name="help_background_title">ਪਿਛੋਕੜ ਵਿੱਚ ਸਕੈਨ</string>
+    <string name="help_background_body">ਸਕੈਨ ਦਬਾਉਣ ਤੋਂ ਬਾਅਦ ਐਪ ਤੋਂ ਬਾਹਰ ਜਾਓ ਜਾਂ ਸਕ੍ਰੀਨ ਬੰਦ ਕਰ ਦਿਓ, ਸਕੈਨ ਚੱਲਦਾ ਰਹਿੰਦਾ ਹੈ — ਸੂਚਨਾ ਵਿੱਚ ਉਸਦੀ ਪ੍ਰਗਤੀ ਅਤੇ “ਰੋਕੋ” ਦਾ ਬਟਨ ਦਿਸਦਾ ਹੈ, ਅਤੇ ਪੂਰਾ ਹੋਣ ਉੱਤੇ ਨਤੀਜੇ ਦੀ ਸੂਚਨਾ ਆਉਂਦੀ ਹੈ। ਅੱਪਡੇਟ ਦਾ ਡਾਊਨਲੋਡ ਵੀ Android ਦੇ ਡਾਊਨਲੋਡ ਮੈਨੇਜਰ ਨਾਲ ਹੁੰਦਾ ਹੈ, ਇਸ ਲਈ ਐਪ ਬੰਦ ਕਰਨ ਉੱਤੇ ਵੀ ਪੂਰਾ ਹੁੰਦਾ ਹੈ ਅਤੇ ਫਿਰ “ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਦਬਾਓ” ਦੀ ਸੂਚਨਾ ਆਉਂਦੀ ਹੈ। ਬਾਜ਼ਾਰ ਦੇ ਸਮੇਂ ਦਾ ਆਟੋ-ਸਕੈਨ Android ਖ਼ੁਦ ਚਲਾਉਂਦਾ ਹੈ: ਮੀਨੂ → ਸਕੈਨ ਵਿੱਚ “ਪਿਛੋਕੜ ਵਿੱਚ ਚੱਲਣ ਦਿਓ” ਦਬਾ ਕੇ ਇਜਾਜ਼ਤ ਦਿਓ, ਨਹੀਂ ਤਾਂ ਬੈਟਰੀ ਬਚਾਉਣ ਲਈ Android ਉਸਨੂੰ ਦੇਰ ਨਾਲ ਚਲਾ ਸਕਦਾ ਹੈ ਜਾਂ ਰੋਕ ਸਕਦਾ ਹੈ। Xiaomi, Redmi, Vivo, Oppo, Realme ਵਰਗੇ ਫ਼ੋਨਾਂ ਉੱਤੇ App info ਵਿੱਚ “Autostart” ਵੀ ਚਾਲੂ ਕਰੋ।</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mode_breakout">ਬ੍ਰੇਕਆਊਟ ਸਕੈਨ</string>
+    <string name="mode_support">ਸਪੋਰਟ ਸਕੈਨ</string>
+    <string name="support_ready_title">ਸਪੋਰਟ ਸਕੈਨ</string>
+    <string name="support_ready_body">ਉਹ ਸ਼ੇਅਰ ਜੋ 6 ਮਹੀਨਿਆਂ ਤੋਂ ਇੱਕ ਭਾਅ ਤੋਂ ਹੇਠਾਂ ਬੰਦ ਨਹੀਂ ਹੋਏ, ਜਦੋਂ ਕਿ ਵਾਰ-ਵਾਰ ਉਸ ਤੱਕ ਆਏ</string>
+    <string name="support_done_title">ਸਪੋਰਟ ਸਕੈਨ ਪੂਰਾ</string>
+    <string name="support_done_body">%1$d ਸ਼ੇਅਰ 6 ਮਹੀਨਿਆਂ ਤੋਂ ਸਪੋਰਟ ਉੱਤੇ ਟਿਕੇ • %2$s ਦਾ ਸਕੈਨ</string>
+    <string name="support_action_start">ਸਪੋਰਟ ਸਕੈਨ ਕਰੋ</string>
+    <string name="support_action_rescan">ਮੁੜ ਸਪੋਰਟ ਸਕੈਨ ਕਰੋ</string>
+    <string name="support_stat_long">6M ਸਪੋਰਟ</string>
+    <string name="support_stat_near">5% ਦੇ ਅੰਦਰ</string>
+    <string name="support_reach_any">ਕੋਈ ਵੀ ਦੂਰੀ</string>
+    <string name="support_reach_within">%1$d%% ਤੱਕ ਨੇੜੇ</string>
+    <string name="support_list_empty_title">6 ਮਹੀਨਿਆਂ ਵਾਲਾ ਕੋਈ ਸਪੋਰਟ ਨਹੀਂ ਮਿਲਿਆ</string>
+    <string name="support_list_empty_body">ਇਸ ਸਕੈਨ ਵਿੱਚ, ਇਹਨਾਂ ਫਿਲਟਰਾਂ ਦੇ ਅੰਦਰ, ਕੋਈ ਸ਼ੇਅਰ 6 ਮਹੀਨਿਆਂ ਤੋਂ ਆਪਣੇ ਸਪੋਰਟ ਤੋਂ ਉੱਪਰ ਨਹੀਂ ਟਿਕਿਆ। ਦੂਰੀ ਵਧਾਓ, ਫਿਲਟਰ ਢਿੱਲੇ ਕਰੋ, ਜਾਂ ਮੀਨੂ → ਸਕੈਨ ਵਿੱਚ ਹੋਰ ਐਕਸਚੇਂਜ / ਸੈਕਟਰ ਚਾਲੂ ਕਰੋ।</string>
+    <string name="sort_support">ਸਪੋਰਟ</string>
+    <string name="item_support">ਸਪੋਰਟ ₹%1$s · %2$s · %3$d ਵਾਰ</string>
+    <string name="item_support_description">ਸਪੋਰਟ %1$s ਰੁਪਏ ਉੱਤੇ, %2$s ਤੋਂ, %3$d ਵਾਰ ਪਰਖਿਆ</string>
+    <string name="detail_stat_support">ਸਪੋਰਟ</string>
+    <string name="detail_stat_support_note">%1$s ਤੋਂ · %2$d ਵਾਰ ਪਰਖਿਆ · ਭਾਅ %3$s ਉੱਪਰ</string>
+    <string name="detail_stat_support_long_note">%1$s ਤੋਂ · %2$d ਵਾਰ ਪਰਖਿਆ · ਭਾਅ %3$s ਉੱਪਰ · 6 ਮਹੀਨਿਆਂ ਵਿੱਚ ਇਸ ਤੋਂ ਹੇਠਾਂ ਬੰਦ ਨਹੀਂ ਹੋਇਆ</string>
+    <string name="detail_chart_support">ਸਪੋਰਟ %1$s</string>
+    <string name="detail_part_support">ਸਪੋਰਟ ਬੋਨਸ</string>
+    <string name="detail_part_bonus">+%1$d ਤੱਕ</string>
+    <string name="metric_support_age">ਸਪੋਰਟ ਕਿੰਨਾ ਪੁਰਾਣਾ</string>
+    <string name="metric_support_gap">ਸਪੋਰਟ ਤੋਂ ਦੂਰੀ</string>
+    <string name="hint_support_age">ਭਾਅ ਜਿਸ ਪੱਧਰ ਤੱਕ ਵਾਰ-ਵਾਰ ਆ ਕੇ ਮੁੜਿਆ ਅਤੇ ਜਿਸ ਤੋਂ ਹੇਠਾਂ ਬੰਦ ਨਹੀਂ ਹੋਇਆ, ਉਹ ਕਿੰਨੇ ਸਮੇਂ ਤੋਂ ਟਿਕਿਆ ਹੈ</string>
+    <string name="hint_support_gap">ਅੱਜ ਦਾ ਭਾਅ ਸਪੋਰਟ ਤੋਂ ਕਿੰਨੇ % ਉੱਪਰ ਹੈ; ਘੱਟ = ਸਪੋਰਟ ਦੇ ਨੇੜੇ</string>
+    <string name="help_part_support">ਸਪੋਰਟ ਬੋਨਸ • %1$d ਅੰਕਾਂ ਤੱਕ</string>
+    <string name="help_part_support_body">ਜਿਸ ਭਾਅ ਤੱਕ ਸ਼ੇਅਰ ਵਾਰ-ਵਾਰ ਆ ਕੇ ਮੁੜਿਆ ਅਤੇ ਜਿਸ ਤੋਂ ਹੇਠਾਂ ਬੰਦ ਨਹੀਂ ਹੋਇਆ, ਉਹ ਉਸਦਾ ਸਪੋਰਟ ਹੈ: ਉਸ ਤੋਂ ਹੇਠਾਂ ਵੇਚਣ ਵਾਲੇ ਭਾਅ ਨਹੀਂ ਡੇਗ ਸਕੇ। ਸਪੋਰਟ ਜਿੰਨਾ ਪੁਰਾਣਾ (6 ਮਹੀਨਿਆਂ ਉੱਤੇ ਪੂਰੇ ਅੰਕ) ਅਤੇ ਜਿੰਨੀ ਵਾਰ ਪਰਖਿਆ ਗਿਆ (5 ਵਾਰ ਉੱਤੇ ਪੂਰੇ), ਸਕੋਰ ਵਿੱਚ ਓਨੇ ਵੱਧ ਅੰਕ ਜੁੜਦੇ ਹਨ; ਬਿਨਾਂ ਸਪੋਰਟ ਵਾਲੇ ਸ਼ੇਅਰ ਦੇ ਅੰਕ ਨਹੀਂ ਕੱਟਦੇ। ਉੱਪਰ \"ਸਪੋਰਟ ਸਕੈਨ\" ਚੁਣੋ ਤਾਂ ਸਿਰਫ਼ ਉਹ ਸ਼ੇਅਰ ਦਿਸਦੇ ਹਨ ਜੋ 6 ਮਹੀਨਿਆਂ ਵਿੱਚ ਆਪਣੇ ਸਪੋਰਟ ਤੋਂ ਹੇਠਾਂ ਕਦੇ ਬੰਦ ਨਹੀਂ ਹੋਏ ਅਤੇ ਜਿਹਨਾਂ ਦਾ ਸਪੋਰਟ ਘੱਟੋ-ਘੱਟ %1$d ਮਹੀਨਿਆਂ ਤੋਂ ਅਤੇ ਘੱਟੋ-ਘੱਟ 3 ਵਾਰ ਪਰਖਿਆ ਗਿਆ ਹੈ। ਸਪੋਰਟ ਸਕੈਨ ਦੇ ਆਪਣੇ ਫਿਲਟਰ ਹਨ, ਬ੍ਰੇਕਆਊਟ ਵਾਲੇ ਤੋਂ ਵੱਖਰੇ। ਦੋਵੇਂ ਸਕੈਨ ਇੱਕੋ ਡਾਟਾ ਪੜ੍ਹਦੇ ਹਨ, ਇਸ ਲਈ ਇੱਕ ਸਕੈਨ ਨਾਲ ਦੋਵੇਂ ਸੂਚੀਆਂ ਤਾਜ਼ਾ ਹੋ ਜਾਂਦੀਆਂ ਹਨ।</string>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="news_kind_results">ਨਤੀਜੇ</string>
+    <string name="news_kind_order">ਆਰਡਰ</string>
+    <string name="news_kind_dividend">ਲਾਭਅੰਸ਼ / ਬੋਨਸ</string>
+    <string name="news_kind_fundraise">ਪੂੰਜੀ ਇਕੱਠੀ ਕਰਨਾ</string>
+    <string name="news_kind_deal">ਪ੍ਰਾਪਤੀ</string>
+    <string name="news_kind_expansion">ਵਿਸਥਾਰ</string>
+    <string name="news_kind_management">ਪ੍ਰਬੰਧਨ</string>
+    <string name="news_kind_rating">ਰੇਟਿੰਗ</string>
+    <string name="news_kind_legal">ਕਾਨੂੰਨੀ</string>
+    <string name="news_kind_meeting">ਬੋਰਡ ਮੀਟਿੰਗ</string>
+    <string name="news_kind_investor">ਵਿਸ਼ਲੇਸ਼ਕ ਮੀਟਿੰਗ</string>
+    <string name="news_kind_other">ਖ਼ਬਰ</string>
+    <string name="news_kind_routine">ਆਮ ਸੂਚਨਾ</string>
+    <string name="news_pre_open">ਬਾਜ਼ਾਰ ਤੋਂ ਪਹਿਲਾਂ</string>
+    <string name="news_live">ਲਾਈਵ</string>
+    <string name="news_today">ਅੱਜ %1$s</string>
+    <string name="news_yesterday">ਕੱਲ੍ਹ %1$s</string>
+    <string name="detail_tab_overview">ਜਾਣਕਾਰੀ</string>
+    <string name="detail_tab_news">ਖ਼ਬਰਾਂ</string>
+    <string name="detail_tab_news_count">ਖ਼ਬਰਾਂ · %1$d</string>
+    <string name="news_loading">NSE/BSE ਦੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਅਤੇ ਅਖ਼ਬਾਰਾਂ ਦੀਆਂ ਖ਼ਬਰਾਂ ਆ ਰਹੀਆਂ ਹਨ…</string>
+    <string name="news_subtitle">ਐਕਸਚੇਂਜ ਦੀਆਂ ਘੋਸ਼ਣਾਵਾਂ (30 ਦਿਨ) ਅਤੇ ਅਖ਼ਬਾਰਾਂ ਦੀਆਂ ਖ਼ਬਰਾਂ (7 ਦਿਨ) • ਸਭ ਤੋਂ ਨਵੀਂ ਉੱਪਰ • ਪੂਰੀ ਖ਼ਬਰ ਪੜ੍ਹਨ ਲਈ ਦਬਾਓ</string>
+    <string name="news_subtitle_wide">ਇਸ ਸ਼ੇਅਰ ਦੀਆਂ ਖ਼ਬਰਾਂ ਘੱਟ ਆਉਂਦੀਆਂ ਹਨ, ਇਸ ਲਈ ਪਿਛਲੇ 1 ਸਾਲ ਤੱਕ ਦੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਅਤੇ ਖ਼ਬਰਾਂ • ਸਭ ਤੋਂ ਨਵੀਂ ਉੱਪਰ • ਪੂਰੀ ਖ਼ਬਰ ਪੜ੍ਹਨ ਲਈ ਦਬਾਓ</string>
+    <string name="news_none">ਪਿਛਲੇ 1 ਸਾਲ ਵਿੱਚ ਇਸ ਸ਼ੇਅਰ ਦੀ ਕੋਈ ਘੋਸ਼ਣਾ ਜਾਂ ਖ਼ਬਰ ਨਹੀਂ ਮਿਲੀ</string>
+    <string name="news_failed">ਖ਼ਬਰਾਂ ਨਹੀਂ ਆ ਸਕੀਆਂ — ਇੰਟਰਨੈੱਟ ਜਾਂਚੋ ਅਤੇ ਸ਼ੀਟ ਮੁੜ ਖੋਲ੍ਹੋ</string>
+    <string name="news_source_filing">%1$s ਘੋਸ਼ਣਾ • PDF</string>
+    <string name="news_source_filing_page">%1$s ਘੋਸ਼ਣਾ</string>
+    <string name="news_more">ਹੋਰ %1$d ਖ਼ਬਰਾਂ ਦਿਖਾਓ</string>
+    <string name="news_routine">+%1$d ਆਮ ਸੂਚਨਾਵਾਂ (ਅਖ਼ਬਾਰ ਵਿੱਚ ਨੋਟਿਸ, ਟ੍ਰੇਡਿੰਗ ਵਿੰਡੋ, ਸਰਟੀਫਿਕੇਟ…)</string>
+    <string name="news_open_failed">ਖ਼ਬਰ ਖੋਲ੍ਹਣ ਲਈ ਕੋਈ ਬ੍ਰਾਊਜ਼ਰ ਨਹੀਂ ਮਿਲਿਆ</string>
+    <string name="item_news_badge">📰 %1$s</string>
+    <string name="item_news_badge_more">📰 %1$s +%2$d</string>
+    <string name="item_news_description">ਪਿਛਲੇ 24 ਘੰਟਿਆਂ ਵਿੱਚ %1$d ਘੋਸ਼ਣਾਵਾਂ, ਸਭ ਤੋਂ ਅਹਿਮ: %2$s</string>
+    <string name="settings_news_alerts">ਵਾਚਲਿਸਟ ਦੀਆਂ ਖ਼ਬਰਾਂ</string>
+    <string name="settings_news_alerts_body">ਸਵੇਰੇ 8 ਤੋਂ 9:15 ਵਿਚਕਾਰ ★ ਵਾਲੇ ਸ਼ੇਅਰਾਂ ਦੀਆਂ ਰਾਤ ਭਰ ਦੀਆਂ ਖ਼ਬਰਾਂ ਇੱਕ ਸੂਚਨਾ ਵਿੱਚ, ਅਤੇ ਦਿਨ ਵਿੱਚ (ਸਵੇਰੇ 7 ਤੋਂ ਰਾਤ 10) ਨਤੀਜੇ, ਆਰਡਰ, ਲਾਭਅੰਸ਼ ਵਰਗੀ ਵੱਡੀ ਘੋਸ਼ਣਾ ਆਉਂਦਿਆਂ ਹੀ ਸੂਚਨਾ</string>
+    <string name="notify_channel_news">ਵਾਚਲਿਸਟ ਦੀਆਂ ਖ਼ਬਰਾਂ</string>
+    <string name="notify_channel_news_body">★ ਵਾਲੇ ਸ਼ੇਅਰਾਂ ਦੀਆਂ ਸਵੇਰ ਦੀਆਂ ਖ਼ਬਰਾਂ ਅਤੇ ਵੱਡੀਆਂ ਘੋਸ਼ਣਾਵਾਂ</string>
+    <string name="notify_news_alert">📰 %1$s: %2$s</string>
+    <string name="notify_news_read">ਪੂਰੀ ਖ਼ਬਰ</string>
+    <string name="notify_news_digest">🗞 ਸਵੇਰ ਦੀਆਂ ਖ਼ਬਰਾਂ • %1$d ਸ਼ੇਅਰ</string>
+    <string name="notify_news_digest_line">%1$s · %2$s: %3$s</string>
+    <string name="help_news_title">ਖ਼ਬਰਾਂ</string>
+    <string name="help_news_body">ਹਰ ਸ਼ੇਅਰ ਦੇ ਵੇਰਵੇ ਵਿੱਚ ਵੱਖਰਾ \"ਖ਼ਬਰਾਂ\" ਟੈਬ ਹੈ: NSE ਦੀਆਂ (ਸਿਰਫ਼ BSE ਉੱਤੇ ਸੂਚੀਬੱਧ ਸ਼ੇਅਰ ਲਈ BSE ਦੀਆਂ) ਪਿਛਲੇ 30 ਦਿਨਾਂ ਦੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਅਤੇ ਪਿਛਲੇ ਹਫ਼ਤੇ ਦੀਆਂ ਅਖ਼ਬਾਰਾਂ ਦੀਆਂ ਖ਼ਬਰਾਂ (Google News ਤੋਂ, ਅੰਗਰੇਜ਼ੀ ਅਤੇ ਹਿੰਦੀ), ਸਭ ਤੋਂ ਨਵੀਂ ਉੱਪਰ। ਘੱਟੋ-ਘੱਟ 10 ਖ਼ਬਰਾਂ ਦਿਸਦੀਆਂ ਹਨ: ਜਿਸ ਸ਼ੇਅਰ ਦੀਆਂ ਖ਼ਬਰਾਂ ਘੱਟ ਆਉਂਦੀਆਂ ਹਨ, ਉਸਦੀਆਂ ਪਿਛਲੇ 1 ਸਾਲ ਤੱਕ ਦੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਅਤੇ ਖ਼ਬਰਾਂ ਆਉਂਦੀਆਂ ਹਨ। ਤਾਜ਼ਾ ਖ਼ਬਰ ਹੋਵੇ ਤਾਂ ਟੈਬ ਉੱਤੇ ਬਿੰਦੀ ਦਿਸਦੀ ਹੈ। ਹਰ ਖ਼ਬਰ ਉੱਤੇ ਉਸਦੀ ਕਿਸਮ (ਨਤੀਜੇ, ਆਰਡਰ, ਲਾਭਅੰਸ਼, ਵਿਸਥਾਰ, ਕਾਨੂੰਨੀ…) ਲਿਖੀ ਹੈ, ਅਤੇ \"ਬਾਜ਼ਾਰ ਤੋਂ ਪਹਿਲਾਂ\" (ਪਿਛਲੇ ਬੰਦ ਤੋਂ ਬਾਅਦ ਆਈ, ਅਗਲਾ ਸੈਸ਼ਨ ਇਸੇ ਉੱਤੇ ਖੁੱਲ੍ਹੇਗਾ) ਜਾਂ \"ਲਾਈਵ\" (ਅੱਜ ਬਾਜ਼ਾਰ ਦੌਰਾਨ ਆਈ)। ਦਬਾਉਣ ਉੱਤੇ ਪੂਰੀ ਖ਼ਬਰ ਜਾਂ ਘੋਸ਼ਣਾ ਦੀ PDF ਖੁੱਲ੍ਹਦੀ ਹੈ। ਸੂਚੀ ਵਿੱਚ 📰 ਦਾ ਨਿਸ਼ਾਨ ਦੱਸਦਾ ਹੈ ਕਿ ਉਸ ਸ਼ੇਅਰ ਦੀ ਪਿਛਲੇ 24 ਘੰਟਿਆਂ ਵਿੱਚ ਐਕਸਚੇਂਜ ਉੱਤੇ ਕੋਈ ਘੋਸ਼ਣਾ ਆਈ ਹੈ; ਉਸਨੂੰ ਦਬਾਉਣ ਉੱਤੇ ਸ਼ੇਅਰ ਸਿੱਧਾ \"ਖ਼ਬਰਾਂ\" ਟੈਬ ਉੱਤੇ ਖੁੱਲ੍ਹਦਾ ਹੈ, ਅਤੇ ਖ਼ਬਰਾਂ ਵਾਲੀਆਂ ਸੂਚਨਾਵਾਂ ਵੀ। ਮੀਨੂ → ਸਕੈਨ ਵਿੱਚ \"ਵਾਚਲਿਸਟ ਦੀਆਂ ਖ਼ਬਰਾਂ\" ਚਾਲੂ ਹੋਵੇ ਤਾਂ ★ ਵਾਲੇ ਸ਼ੇਅਰਾਂ ਦੀਆਂ ਸਵੇਰ ਦੀਆਂ ਖ਼ਬਰਾਂ ਅਤੇ ਦਿਨ ਦੀਆਂ ਵੱਡੀਆਂ ਘੋਸ਼ਣਾਵਾਂ ਸੂਚਨਾ ਵਿੱਚ ਆਉਂਦੀਆਂ ਹਨ। ਖ਼ਬਰ ਚੰਗੀ ਹੈ ਜਾਂ ਮਾੜੀ, ਐਪ ਇਹ ਨਹੀਂ ਦੱਸਦੀ — ਪੜ੍ਹ ਕੇ ਖ਼ੁਦ ਫ਼ੈਸਲਾ ਕਰੋ।</string>
+</resources>
