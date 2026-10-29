@@ -84,7 +84,7 @@ data class ScanUiState(
     val cr360: Cr360Book = Cr360Book.EMPTY,
     /** What every company makes, from the file the app carries ([ProductRepository]); empty until it is read. */
     val products: ProductBook = ProductBook.EMPTY,
-    /** Pictures for the products section from the internet ([ProductRepository.photos]); empty until read. */
+    /** Pictures for the products section, carried in the app ([ProductRepository.photos]); empty until read. */
     val photos: ProductPhotos = ProductPhotos.EMPTY,
     /** The learned setups, from the daily learner ([SetupRepository]); empty until read, when the app's own apply. */
     val setups: SetupBook = SetupBook.EMPTY,

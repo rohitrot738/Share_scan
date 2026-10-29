@@ -1,5 +1,5 @@
 # Temporary: finds real pictures for the products section (product-photos.py). A probe on a few well-known companies
-# first, with a contact sheet to check them by eye. Removed before merging.
+# first, stored the way the app carries them, with a contact sheet to check them by eye. Removed before merging.
 name: Product photos
 on:
   push:

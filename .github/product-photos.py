@@ -6,12 +6,12 @@
   - Wikimedia Commons, searched by the company's name: photos whose title names the company and one of its products
     (cr360/products.py's words), and its logo
 
-Only the pictures' addresses are written (app/src/main/assets/product-photos.json); the app loads each picture when a
-stock is opened and keeps it on the phone. Commons pictures carry their author and licence, which the app shows.
-Removed before merging.
+Each picture is downloaded, shrunk and stored in the app (app/src/main/assets/product-photos/SYMBOL/*.webp), with an
+index of them (product-photos.json); the app needs no internet for them. Commons pictures carry their author and
+licence, which the app shows. Removed before merging.
 
-    python .github/product-photos.py probe OUT_DIR SYMBOL...     a few companies, with a contact sheet to look at
-    python .github/product-photos.py all PROFILES_DIR ASSET      every company read by product-data.py
+    python .github/product-photos.py probe OUT_DIR SYMBOL...       a few companies, with a contact sheet to look at
+    python .github/product-photos.py all PROFILES_DIR ASSETS_DIR   every company read by product-data.py
 """
 import gzip
 import html
@@ -205,7 +205,65 @@ def run(symbols: dict[str, dict], made: dict[str, list[str]]) -> dict:
     return out
 
 
-def sheet(found: dict, path: str) -> None:
+# How each kind of picture is stored: the box it is shrunk into, whether it is cropped to fill it, and its quality.
+SHAPES = {"logo": ((128, 128), False, 80), "banner": ((480, 250), True, 60), "photo": ((168, 168), True, 70)}
+
+
+def store(url: str, kind: str, path: str) -> bool:
+    """Downloads [url] and writes it as a small WebP at [path]; false when it is not a usable picture."""
+    from PIL import Image, ImageOps
+    try:
+        _, data = get(url, ua=BROWSER_UA if "wikimedia" not in url else UA, timeout=25)
+        pic = Image.open(io.BytesIO(data))
+        pic.load()
+    except Exception:  # noqa: BLE001 - a picture that does not come or does not open is left out
+        return False
+    (w, h), crop, quality = SHAPES[kind]
+    if pic.width < 32 or pic.height < 32:
+        return False
+    pic = pic.convert("RGBA")
+    pic = ImageOps.fit(pic, (w, h), Image.LANCZOS) if crop else ImageOps.contain(pic, (w, h), Image.LANCZOS)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    pic.save(path, "WEBP", quality=quality, method=6)
+    return True
+
+
+def safe(symbol: str) -> str:
+    return re.sub(r"[^A-Za-z0-9]+", "_", symbol)
+
+
+def download_all(found: dict, assets: str) -> dict:
+    """Every picture found, stored under [assets]/product-photos; the index names the stored files instead."""
+    jobs = []
+    for sym, f in found.items():
+        folder = f"product-photos/{safe(sym)}"
+        for kind in ("logo", "banner"):
+            if f.get(kind):
+                jobs.append((sym, kind, None, f[kind], f"{folder}/{kind}.webp"))
+        for key, url in f.get("p", {}).items():
+            jobs.append((sym, "photo", key, url, f"{folder}/{key}.webp"))
+
+    def one(job):
+        sym, kind, key, url, rel = job
+        return job, store(url, kind, os.path.join(assets, rel))
+
+    index = {}
+    with ThreadPoolExecutor(6) as pool:
+        for (sym, kind, key, url, rel), ok in pool.map(one, jobs):
+            if not ok:
+                continue
+            entry = index.setdefault(sym, {})
+            credit = found[sym].get("c", {}).get(url)
+            if key:
+                entry.setdefault("p", {})[key] = rel
+            else:
+                entry[kind] = rel
+            if credit:
+                entry.setdefault("c", {})[rel] = credit
+    return index
+
+
+def sheet(found: dict, assets: str, path: str) -> None:
     """A contact sheet of what was found, to look at: one row per company (logo, banner, products)."""
     from PIL import Image, ImageDraw
     rows = list(found.items())[:70]
@@ -214,14 +272,13 @@ def sheet(found: dict, path: str) -> None:
     draw = ImageDraw.Draw(img)
     for r, (sym, f) in enumerate(rows):
         draw.text((4, r * cell + 4), sym, fill=(255, 255, 255))
-        urls = [("logo", f.get("logo")), ("banner", f.get("banner"))] + list(f.get("p", {}).items())
-        for c, (label, url) in enumerate(urls[:7]):
-            if not url:
+        files = [("logo", f.get("logo")), ("banner", f.get("banner"))] + list(f.get("p", {}).items())
+        for c, (label, rel) in enumerate(files[:7]):
+            if not rel:
                 continue
             x, y = 160 + c * cell, r * cell
             try:
-                _, data = get(url, ua=BROWSER_UA, timeout=15)
-                pic = Image.open(io.BytesIO(data)).convert("RGBA")
+                pic = Image.open(os.path.join(assets, rel)).convert("RGBA")
                 pic.thumbnail((cell - 8, cell - 22))
                 img.paste(pic, (x + 4, y + 4), pic)
             except Exception:  # noqa: BLE001
@@ -241,10 +298,14 @@ def main():
                                      profiles.get(s, {}).get("sector", "")) for s in symbols}
         found = run(symbols, made)
         os.makedirs(out_dir, exist_ok=True)
-        json.dump(found, open(f"{out_dir}/photos.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-        sheet(found, f"{out_dir}/photos-sheet.png")
+        json.dump(found, open(f"{out_dir}/photos-found.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        stored = download_all(found, f"{out_dir}/assets")
+        json.dump(stored, open(f"{out_dir}/photos.json", "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        sheet(stored, f"{out_dir}/assets", f"{out_dir}/photos-sheet.png")
+        size = sum(os.path.getsize(os.path.join(d, n)) for d, _, ns in os.walk(f"{out_dir}/assets") for n in ns)
+        cache.log(f"{len(stored)} companies, {size // 1024} KB of pictures")
     else:
-        profiles_dir, asset = sys.argv[2], sys.argv[3]
+        profiles_dir, assets = sys.argv[2], sys.argv[3]
         universe, _ = cache.load_universe(date.today())
         symbols, made = {}, {}
         for name in os.listdir(profiles_dir):
@@ -253,10 +314,13 @@ def main():
                     symbols[sym] = {**universe.get(sym, {}), "name": p.get("name") or universe.get(sym, {}).get("name", ""), "site": p.get("site", "")}
                     made[sym] = products.classify(p.get("about", ""), p.get("points", ""), p.get("sector", ""))
         found = run(symbols, made)
-        with open(asset, "w", encoding="utf-8") as f:
-            json.dump({"v": 1, "stocks": found}, f, ensure_ascii=False, separators=(",", ":"))
+        stored = download_all(found, assets)
+        with open(os.path.join(assets, "product-photos.json"), "w", encoding="utf-8") as f:
+            json.dump({"v": 1, "stocks": stored}, f, ensure_ascii=False, separators=(",", ":"))
             f.write("\n")
-        cache.log(f"{len(found)} companies with pictures, {sum(1 for v in found.values() if v.get('p'))} with product photos")
+        size = sum(os.path.getsize(os.path.join(d, n)) for d, _, ns in os.walk(os.path.join(assets, "product-photos")) for n in ns)
+        cache.log(f"{len(stored)} companies with pictures, {sum(1 for v in stored.values() if v.get('p'))} with product photos, "
+                  f"{size // 1024} KB")
 
 
 if __name__ == "__main__":
