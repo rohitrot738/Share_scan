@@ -822,6 +822,20 @@
                         app:closeIconSize="16dp"
                         app:closeIconTint="@color/glass_chip_text" />
 
+                    <!-- Only while the list shows the companies making one product (from a stock's detail sheet); ✕ clears it. -->
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/productChip"
+                        style="@style/ShareScanChip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:checkable="false"
+                        android:visibility="gone"
+                        app:closeIcon="@drawable/ic_close"
+                        app:closeIconSize="16dp"
+                        app:closeIconTint="@color/glass_chip_text"
+                        app:closeIconVisible="true" />
+
                     <!-- Support scan only: how far above its floor a stock may sit. -->
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/supportReachChips"
