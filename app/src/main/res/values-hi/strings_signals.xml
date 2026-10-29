@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_from_high">20D ऊँचे भाव से दूरी</string>
+    <string name="metric_base_range">शांत दायरा (ऊँचा–नीचा)</string>
+    <string name="metric_vs_sma50">50 DMA से दूरी</string>
+    <string name="hint_from_high">20 दिन के ऊँचे भाव (प्रतिरोध) से भाव कितना नीचे है • ऋण = ऊँचे भाव के ऊपर ब्रेकआउट</string>
+    <string name="hint_base_range">चुने हफ़्तों में सबसे ऊँचे और सबसे नीचे भाव का फ़ासला • कम = शांत शेयर, न ज़्यादा ऊपर न ज़्यादा नीचे</string>
+    <string name="hint_vs_sma50">50 दिन के औसत से ऊपर (+) या नीचे (-) • धन = बढ़ता रुझान</string>
+    <string name="hint_score_mix">ब्रेकआउट सेटअप, रुझान, वॉल्यूम, तरलता और गति का मिश्रण • %1$s+ STRONG, %2$s+ WATCH</string>
+</resources>

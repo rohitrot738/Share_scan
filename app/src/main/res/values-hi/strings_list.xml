@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="list_watchlist">★ वॉचलिस्ट</string>
+    <string name="list_watchlist_count">★ वॉचलिस्ट (%1$d)</string>
+    <string name="list_watchlist_leave">वॉचलिस्ट बंद करें, सभी शेयर दिखाएँ</string>
+    <string name="list_star_add">%1$s को वॉचलिस्ट में जोड़ें</string>
+    <string name="list_star_remove">%1$s को वॉचलिस्ट से हटाएँ</string>
+    <string name="list_starred_description">वॉचलिस्ट में</string>
+    <string name="list_empty_watchlist_title">वॉचलिस्ट खाली है</string>
+    <string name="list_empty_watchlist_body">किसी भी कार्ड पर ☆ दबाएँ — वह शेयर यहाँ दिखेगा।</string>
+    <string name="list_empty_watchlist_body_compact">किसी भी पंक्ति को दबाकर रखें — वह शेयर ★ के साथ यहाँ दिखेगा।</string>
+    <string name="list_empty_watchlist_waiting_title">★ शेयरों का भाव अभी नहीं आया</string>
+    <string name="list_empty_watchlist_waiting_body">आपके चुने हुए शेयर अगले स्कैन के साथ यहाँ दिखेंगे।</string>
+    <string name="list_rank_new">NEW</string>
+    <string name="list_rank_up">▲%1$d</string>
+    <string name="list_rank_down">▼%1$d</string>
+    <string name="list_rank_new_description">पिछले स्कैन के बाद ऊपर के %1$d में नया</string>
+    <string name="list_rank_up_description">पिछले स्कैन से %1$d क्रम ऊपर</string>
+    <string name="list_rank_down_description">पिछले स्कैन से %1$d क्रम नीचे</string>
+    <string name="list_search_open">सिंबल खोजें</string>
+    <string name="list_search_hint">सिंबल या नाम — जैसे TCS, Reliance</string>
+    <string name="list_search_close">खोज बंद करें</string>
+    <string name="list_empty_search_title">कोई शेयर मेल नहीं खाया</string>
+    <string name="list_empty_search_body">“%1$s” किसी स्कैन हुए शेयर के सिंबल या नाम में नहीं मिला — वर्तनी जाँचें या फ़िल्टर ढीले करें।</string>
+    <string name="list_share_open">ऊपर के 10 साझा करें</string>
+    <string name="list_share_filters">%1$d फ़िल्टर लागू</string>
+    <string name="list_share_no_filters">कोई फ़िल्टर नहीं</string>
+    <string name="list_share_line">%1$d. %2$s ₹%3$s • स्कोर %4$s • RVOL %5$s×</string>
+    <string name="list_share_failed">साझा करने के लिए कोई ऐप नहीं मिला</string>
+</resources>

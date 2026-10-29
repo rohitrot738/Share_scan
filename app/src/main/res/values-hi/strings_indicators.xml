@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="metric_rsi">RSI (14)</string>
+    <string name="metric_macd">MACD, सिग्नल से दूरी</string>
+    <string name="metric_macd_cross">MACD क्रॉसओवर</string>
+    <string name="hint_rsi">70 से ऊपर = ओवरबॉट (बहुत चढ़ा), 30 से नीचे = ओवरसोल्ड (बहुत गिरा) • 50–70 = तेज़ी, पर ज़्यादा नहीं</string>
+    <string name="hint_macd" formatted="false">MACD रेखा अपनी सिग्नल रेखा से कितनी ऊपर (+) या नीचे (-), भाव के % में • 0% से ऊपर = तेज़ी</string>
+    <string name="hint_macd_cross">MACD ने कितने दिन पहले सिग्नल रेखा को नीचे से ऊपर काटा • \"3 दिन पहले\" तक = ताज़ा तेज़ी वाला क्रॉसओवर; सिग्नल के नीचे वाले शेयर छँट जाते हैं</string>
+    <string name="detail_stat_rsi">RSI (14)</string>
+    <string name="detail_stat_rsi_overbought">70+ ओवरबॉट: बहुत चढ़ा</string>
+    <string name="detail_stat_rsi_strong">50–70: तेज़ी</string>
+    <string name="detail_stat_rsi_weak">30–50: कमज़ोर</string>
+    <string name="detail_stat_rsi_oversold">30 से कम ओवरसोल्ड: बहुत गिरा</string>
+    <string name="detail_stat_macd">MACD (12, 26, 9)</string>
+    <string name="detail_stat_macd_bull">तेज़ी</string>
+    <string name="detail_stat_macd_bear">मंदी</string>
+    <string name="detail_stat_macd_crossed">सिग्नल को %1$s ऊपर काटा</string>
+    <string name="detail_stat_macd_below">सिग्नल रेखा के नीचे</string>
+    <string name="detail_stat_macd_zero_above">शून्य के ऊपर</string>
+    <string name="detail_stat_macd_zero_below">शून्य के नीचे</string>
+    <string name="help_indicators_title">RSI और MACD</string>
+    <string name="help_indicators_body" formatted="false">दोनों हर शेयर के 6 महीने के रोज़ाना भाव से बनते हैं, जैसे चार्ट वाली साइटों पर। RSI (14) 0 से 100 के बीच: 70 से ऊपर ओवरबॉट (बहुत चढ़ चुका), 30 से नीचे ओवरसोल्ड (बहुत गिर चुका), 50–70 तेज़ी। MACD (12, 26, 9): 12 और 26 दिन के घातांकी औसत का फ़र्क़, और उसकी 9 दिन की सिग्नल रेखा। MACD सिग्नल के ऊपर = तेज़ी; जिस दिन वह सिग्नल को नीचे से ऊपर काटे, वह तेज़ी वाला क्रॉसओवर है। फ़िल्टर में तीनों हैं: RSI का दायरा, MACD सिग्नल से कितनी ऊपर/नीचे (भाव के %), और क्रॉसओवर कितने दिन पहले हुआ (जैसे \"3 दिन पहले\" तक = ताज़ा क्रॉसओवर)। शेयर के विवरण में दोनों का आज का मान दिखता है। लाइव बाज़ार में आज का चलता भाव भी गिना जाता है।</string>
+</resources>

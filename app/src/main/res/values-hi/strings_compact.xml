@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="compact_news_mark">📰</string>
+    <string name="compact_no_data">भाव नहीं</string>
+    <string name="compact_col_rank">#</string>
+    <string name="compact_col_stock">शेयर / कंपनी</string>
+    <string name="compact_col_price">भाव</string>
+    <string name="compact_col_change">5D बदलाव / RVOL</string>
+    <string name="compact_col_score">स्कोर</string>
+    <string name="compact_share">साझा करें</string>
+    <string name="compact_rank">#%1$d</string>
+    <string name="pill_idle">स्कैन शुरू करें ▸</string>
+    <string name="pill_reading">पिछला स्कैन खुल रहा है…</string>
+    <string name="pill_loading">स्कैन शुरू हो रहा है…</string>
+    <string name="pill_scanning">स्कैन %1$d%% • %2$s/%3$s</string>
+    <string name="pill_stopped">रुका %1$d%% • %2$s/%3$s</string>
+    <string name="pill_done">स्कैन 100%% • %1$s शेयर</string>
+    <string name="pill_live_done">लाइव स्कैन 100%% • %1$s शेयर</string>
+    <string name="pill_support_done">सपोर्ट 100%% • %1$s शेयर</string>
+    <string name="pill_failed">स्कैन नहीं हुआ • फिर करें</string>
+    <string name="empty_body_compact">ऊपर की पट्टी दबाकर स्कैन शुरू करें — स्कैन पूरा होते ही सबसे अच्छे उम्मीदवार स्कोर के हिसाब से यहाँ दिखेंगे।</string>
+    <string name="pill_description">%1$s; स्कैन के बटन खोलें</string>
+    <string name="help_compact_title">Space Glass की सघन तालिका</string>
+    <string name="help_compact_body">मेन्यू → पृष्ठभूमि में Space Glass चुनने पर सूची एक तालिका बन जाती है: हर शेयर की एक पंक्ति, जिसमें क्रम, टिकर (साथ में NSE/BSE, NEW या ▲▼ और 📰), नीचे कंपनी का नाम, भाव, 5 दिन का बदलाव और उसके नीचे RVOL, और स्कोर — एक स्क्रीन पर 8–10 शेयर। वॉचलिस्ट वाले शेयरों का स्कोर सुनहरा होता है और साथ में ★; किसी पंक्ति को दबाकर रखने से वह शेयर वॉचलिस्ट में जुड़ता या उससे हटता है। ऊपर की पतली पट्टी में हरी गोली बताती है कि स्कैन कहाँ है (जैसे \"लाइव स्कैन 100% • 2,618 शेयर\"); उसे दबाने पर ब्रेकआउट/सपोर्ट, स्कैन/रोकें और स्कैन मिटाएँ वाला पैनल खुलता है। फ़िल्टर, वॉचलिस्ट, क्रम, सेक्टर और साझा करना नीचे की तैरती पट्टी में हैं, अंगूठे की पहुँच में; उसे दाएँ-बाएँ खिसकाएँ। पंक्ति दबाने पर शेयर का पूरा विवरण खुलता है, जहाँ सेटअप, सपोर्ट और R/S मिलते हैं। फ़िल्टर और सेक्टर वाली शीट भी इसी सादी शैली में खुलती हैं। Galaxy पृष्ठभूमि चुनने पर फिर से बड़े कार्ड वाला रूप आ जाता है।</string>
+</resources>

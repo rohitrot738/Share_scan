@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_account">खाता</string>
+    <string name="menu_account_signed_out">लॉगिन नहीं</string>
+    <string name="account_signed_in_generic">लॉगिन है</string>
+    <string name="account_title">खाता</string>
+    <string name="account_subtitle_signed_out">Google, GitHub या ईमेल से लॉगिन करें</string>
+    <string name="account_subtitle_signed_in">आपकी प्रोफ़ाइल और लॉगिन</string>
+    <string name="account_subtitle_unconfigured">लॉगिन जल्द आ रहा है</string>
+    <string name="account_unconfigured_title">लॉगिन अभी तैयार नहीं है</string>
+    <string name="account_unconfigured_body">इस संस्करण में लॉगिन अभी चालू नहीं किया गया है। बाकी पूरा ऐप — स्कैन, वॉचलिस्ट, फ़िल्टर और थीम — बिना लॉगिन के पहले जैसा चलता है।</string>
+    <string name="account_working">थोड़ा रुकें…</string>
+    <string name="account_google">Google से लॉगिन</string>
+    <string name="account_github">GitHub से लॉगिन</string>
+    <string name="account_or_email">या ईमेल और पासवर्ड से</string>
+    <string name="account_email_hint">ईमेल</string>
+    <string name="account_password_hint">पासवर्ड</string>
+    <string name="account_sign_in">लॉगिन</string>
+    <string name="account_create">नया खाता बनाएँ</string>
+    <string name="account_forgot">पासवर्ड भूल गए?</string>
+    <string name="account_email_needed">ईमेल डालें</string>
+    <string name="account_password_needed">पासवर्ड डालें</string>
+    <string name="account_reset_sent">पासवर्ड बदलने का लिंक %1$s पर भेज दिया — इनबॉक्स (और स्पैम) देखें</string>
+    <string name="account_created">खाता बन गया! ईमेल की पुष्टि का लिंक भेजा है</string>
+    <string name="account_signed_in_toast">लॉगिन हो गया</string>
+    <string name="account_signed_out_toast">लॉग आउट हो गया</string>
+    <string name="account_no_name">नाम नहीं जोड़ा</string>
+    <string name="account_verified">✓ पुष्टि हो गई</string>
+    <string name="account_unverified">पुष्टि बाकी</string>
+    <string name="account_section_details">जानकारी</string>
+    <string name="account_phone">फ़ोन</string>
+    <string name="account_methods">लॉगिन के तरीके</string>
+    <string name="account_created_at">खाता बना</string>
+    <string name="account_last_sign_in">आख़िरी लॉगिन</string>
+    <string name="account_unknown">पता नहीं</string>
+    <string name="account_uid">यूज़र ID</string>
+    <string name="account_copy_uid">यूज़र ID कॉपी करें</string>
+    <string name="account_uid_copied">यूज़र ID कॉपी हो गई</string>
+    <string name="account_provider_google">Google</string>
+    <string name="account_provider_github">GitHub</string>
+    <string name="account_provider_password">ईमेल + पासवर्ड</string>
+    <string name="account_provider_phone">फ़ोन</string>
+    <string name="account_section_actions">खाते की सेटिंग्स</string>
+    <string name="account_edit_name">नाम बदलें</string>
+    <string name="account_name_hint">आपका नाम</string>
+    <string name="account_name_saved">नाम बदल गया</string>
+    <string name="account_send_verification">पुष्टि वाला ईमेल भेजें</string>
+    <string name="account_verification_sent">पुष्टि का लिंक %1$s पर भेज दिया</string>
+    <string name="account_change_password">पासवर्ड बदलें</string>
+    <string name="account_password_current_hint">अभी का पासवर्ड</string>
+    <string name="account_password_new_hint">नया पासवर्ड (कम से कम 6 अक्षर)</string>
+    <string name="account_password_changed">पासवर्ड बदल गया</string>
+    <string name="account_password_send_reset">पासवर्ड बदलने का ईमेल भेजें</string>
+    <string name="account_link_google">Google खाता जोड़ें</string>
+    <string name="account_link_github">GitHub खाता जोड़ें</string>
+    <string name="account_linked">%1$s जुड़ गया — अब इससे भी लॉगिन कर सकते हैं</string>
+    <string name="account_sign_out">लॉग आउट</string>
+    <string name="account_delete">खाता हटाएँ</string>
+    <string name="account_delete_title">खाता हटाएँ?</string>
+    <string name="account_delete_message">आपका Share Scan खाता हमेशा के लिए हट जाएगा। इस फ़ोन की वॉचलिस्ट और सेटिंग्स बनी रहेंगी।</string>
+    <string name="account_delete_yes">हाँ, हटाएँ</string>
+    <string name="account_deleted">खाता हट गया</string>
+    <string name="account_save">सहेजें</string>
+    <string name="account_cancel">रहने दें</string>
+    <string name="account_relogin_title">दोबारा लॉगिन करें</string>
+    <string name="account_relogin_message">सुरक्षा के लिए यह काम ताज़ा लॉगिन के बाद ही होता है। लॉग आउट करके फिर से लॉगिन करें, फिर दोबारा कोशिश करें।</string>
+    <string name="account_relogin_yes">लॉग आउट करें</string>
+    <string name="account_error_wrong_password">ईमेल या पासवर्ड ग़लत है</string>
+    <string name="account_error_no_user">इस ईमेल से कोई खाता नहीं मिला — पहले नया खाता बनाएँ</string>
+    <string name="account_error_disabled">यह खाता बंद कर दिया गया है</string>
+    <string name="account_error_weak_password">पासवर्ड कमज़ोर है — कम से कम 6 अक्षर रखें</string>
+    <string name="account_error_email_used">इस ईमेल से खाता पहले से बना है — लॉगिन करें</string>
+    <string name="account_error_other_method">इस ईमेल का खाता किसी दूसरे तरीके (Google, GitHub या पासवर्ड) से बना है — उसी से लॉगिन करें, फिर यहाँ से यह तरीका जोड़ें</string>
+    <string name="account_error_already_linked">यह खाता पहले से जुड़ा है या किसी दूसरे Share Scan खाते में है</string>
+    <string name="account_error_bad_email">ईमेल सही नहीं है</string>
+    <string name="account_error_network">इंटरनेट कनेक्शन नहीं है — जाँचकर फिर कोशिश करें</string>
+    <string name="account_error_too_many">बहुत ज़्यादा कोशिशें हुईं — थोड़ी देर बाद फिर करें</string>
+    <string name="account_error_no_google_account">इस फ़ोन पर कोई Google खाता नहीं मिला — फ़ोन की सेटिंग्स में जोड़ें</string>
+    <string name="account_error_google">Google से लॉगिन नहीं हो पाया — फिर कोशिश करें</string>
+    <string name="account_error_browser">ब्राउज़र में लॉगिन पूरा नहीं हुआ — फिर कोशिश करें</string>
+    <string name="account_error_method_off">यह लॉगिन तरीका अभी चालू नहीं है</string>
+    <string name="account_error_generic">कुछ गड़बड़ हुई — फिर कोशिश करें</string>
+    <string-array name="account_months">
+        <item>जन</item>
+        <item>फ़र</item>
+        <item>मार्च</item>
+        <item>अप्रै</item>
+        <item>मई</item>
+        <item>जून</item>
+        <item>जुला</item>
+        <item>अग</item>
+        <item>सितं</item>
+        <item>अक्टू</item>
+        <item>नवं</item>
+        <item>दिसं</item>
+    </string-array>
+    <string name="menu_usage">ऐप का इस्तेमाल</string>
+    <string name="menu_usage_body">कितने फ़ोन पर ऐप चल रहा है • सिर्फ़ आपको दिखता है</string>
+    <string name="usage_title">ऐप का इस्तेमाल</string>
+    <string name="usage_subtitle">सिर्फ़ %1$s के GitHub लॉगिन पर दिखता है</string>
+    <string name="usage_loading_title">गिनती आ रही है…</string>
+    <string name="usage_loading_body">Firebase से फ़ोनों की गिनती ली जा रही है।</string>
+    <string name="usage_today">आज</string>
+    <string name="usage_days">%1$d दिन</string>
+    <string name="usage_phones">फ़ोन</string>
+    <string name="usage_total_title">अब तक</string>
+    <string name="usage_total_body">कुल %1$s फ़ोन पर ऐप खुला (गिनती शुरू होने से)</string>
+    <string name="usage_downloads">GitHub से APK %1$s बार डाउनलोड हुई</string>
+    <string name="usage_downloads_unknown">GitHub से डाउनलोड की गिनती अभी नहीं मिली</string>
+    <string name="usage_versions_title">किस संस्करण पर (पिछले %1$d दिन)</string>
+    <string name="usage_version_line">v%1$s — %2$s फ़ोन</string>
+    <string name="usage_how_title">गिनती कैसे होती है</string>
+    <string name="usage_how_body">हर फ़ोन दिन में एक बार, ऐप खुलने पर, सिर्फ़ एक बेतरतीब ID और अपना संस्करण भेजता है; नाम, नंबर या जगह नहीं। गिनती इसी संस्करण से शुरू हुई, पुराने संस्करण वाले फ़ोन अपडेट के बाद गिने जाएँगे। ऐप हटाकर फिर इंस्टॉल करने पर वही फ़ोन नया गिना जाता है, और APK डाउनलोड में एक व्यक्ति के कई डाउनलोड भी गिने जाते हैं।</string>
+    <string name="usage_rules_title">Firestore के नियम बदलने बाकी हैं</string>
+    <string name="usage_rules_body">Firebase Console → Firestore Database → Rules में docs/LOGIN_SETUP.md (Step 6.5) वाले नए नियम चिपकाकर Publish करें, फिर यह दोबारा खोलें।</string>
+    <string name="usage_failed_title">गिनती नहीं आ पाई</string>
+    <string name="usage_failed_body">इंटरनेट देखें और थोड़ी देर बाद फिर खोलें।</string>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_stop">रोकें</string>
+    <string name="action_stopping">रोक रहे हैं…</string>
+    <string name="status_stopped_title">स्कैन रोका गया</string>
+    <string name="status_stopped_body">%1$s / %2$s शेयर जाँचे • %3$s में</string>
+    <string name="status_stopped_early_body">शेयर सूची आने से पहले ही रोक दिया गया।</string>
+    <string name="empty_stopped_title">किसी शेयर का स्कोर नहीं बना</string>
+    <string name="empty_stopped_body">स्कैन इससे पहले ही रोक दिया गया। ऊपर का बटन दबाकर फिर से स्कैन करें।</string>
+</resources>

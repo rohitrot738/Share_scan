@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="news_kind_results">नतीजे</string>
+    <string name="news_kind_order">ऑर्डर</string>
+    <string name="news_kind_dividend">लाभांश / बोनस</string>
+    <string name="news_kind_fundraise">पूँजी जुटाना</string>
+    <string name="news_kind_deal">अधिग्रहण</string>
+    <string name="news_kind_expansion">विस्तार</string>
+    <string name="news_kind_management">प्रबंधन</string>
+    <string name="news_kind_rating">रेटिंग</string>
+    <string name="news_kind_legal">क़ानूनी</string>
+    <string name="news_kind_meeting">बोर्ड बैठक</string>
+    <string name="news_kind_investor">विश्लेषक बैठक</string>
+    <string name="news_kind_other">ख़बर</string>
+    <string name="news_kind_routine">सामान्य सूचना</string>
+    <string name="news_pre_open">बाज़ार से पहले</string>
+    <string name="news_live">लाइव</string>
+    <string name="news_today">आज %1$s</string>
+    <string name="news_yesterday">कल %1$s</string>
+    <string name="detail_tab_overview">जानकारी</string>
+    <string name="detail_tab_news">ख़बरें</string>
+    <string name="detail_tab_news_count">ख़बरें · %1$d</string>
+    <string name="news_loading">NSE/BSE की घोषणाएँ और अख़बारों की ख़बरें आ रही हैं…</string>
+    <string name="news_subtitle">एक्सचेंज की घोषणाएँ (30 दिन) और अख़बारों की ख़बरें (7 दिन) • सबसे नई ऊपर • दबाकर पूरी ख़बर पढ़ें</string>
+    <string name="news_subtitle_wide">इस शेयर की ख़बरें कम आती हैं, इसलिए पिछले 1 साल तक की घोषणाएँ और ख़बरें • सबसे नई ऊपर • दबाकर पूरी ख़बर पढ़ें</string>
+    <string name="news_none">पिछले 1 साल में इस शेयर की कोई घोषणा या ख़बर नहीं मिली</string>
+    <string name="news_failed">ख़बरें नहीं आ पाईं — इंटरनेट जाँचें और शीट दोबारा खोलें</string>
+    <string name="news_source_filing">%1$s घोषणा • PDF</string>
+    <string name="news_source_filing_page">%1$s घोषणा</string>
+    <string name="news_more">और %1$d ख़बरें दिखाएँ</string>
+    <string name="news_routine">+%1$d सामान्य सूचनाएँ (अख़बार में नोटिस, ट्रेडिंग विंडो, प्रमाणपत्र…)</string>
+    <string name="news_open_failed">ख़बर खोलने के लिए कोई ब्राउज़र नहीं मिला</string>
+    <string name="item_news_badge">📰 %1$s</string>
+    <string name="item_news_badge_more">📰 %1$s +%2$d</string>
+    <string name="item_news_description">पिछले 24 घंटे में %1$d घोषणाएँ, सबसे अहम: %2$s</string>
+    <string name="settings_news_alerts">वॉचलिस्ट की ख़बरें</string>
+    <string name="settings_news_alerts_body">सुबह 8 से 9:15 के बीच ★ वाले शेयरों की रात भर की ख़बरें एक सूचना में, और दिन में (सुबह 7 से रात 10) नतीजे, ऑर्डर, लाभांश जैसी बड़ी घोषणा आते ही सूचना</string>
+    <string name="notify_channel_news">वॉचलिस्ट की ख़बरें</string>
+    <string name="notify_channel_news_body">★ वाले शेयरों की सुबह की ख़बरें और बड़ी घोषणाएँ</string>
+    <string name="notify_news_alert">📰 %1$s: %2$s</string>
+    <string name="notify_news_read">पूरी ख़बर</string>
+    <string name="notify_news_digest">🗞 सुबह की ख़बरें • %1$d शेयर</string>
+    <string name="notify_news_digest_line">%1$s · %2$s: %3$s</string>
+    <string name="help_news_title">ख़बरें</string>
+    <string name="help_news_body">हर शेयर के विवरण में अलग \"ख़बरें\" टैब है: NSE की (सिर्फ़ BSE पर सूचीबद्ध शेयर के लिए BSE की) पिछले 30 दिन की घोषणाएँ और पिछले हफ़्ते की अख़बारों की ख़बरें (Google News से, अंग्रेज़ी और हिंदी), सबसे नई ऊपर। कम से कम 10 ख़बरें दिखती हैं: जिस शेयर की ख़बरें कम आती हैं, उसकी पिछले 1 साल तक की घोषणाएँ और ख़बरें आती हैं। ताज़ा ख़बर हो तो टैब पर बिंदु दिखता है। हर ख़बर पर उसका प्रकार (नतीजे, ऑर्डर, लाभांश, विस्तार, क़ानूनी…) लिखा है, और \"बाज़ार से पहले\" (पिछले बंद के बाद आई, अगला सत्र इसी पर खुलेगा) या \"लाइव\" (आज बाज़ार के दौरान आई)। दबाने पर पूरी ख़बर या घोषणा की PDF खुलती है। सूची में 📰 का निशान बताता है कि उस शेयर की पिछले 24 घंटे में एक्सचेंज पर कोई घोषणा आई है; उसे दबाने पर शेयर सीधे \"ख़बरें\" टैब पर खुलता है, और ख़बरों वाली सूचनाएँ भी। मेन्यू → स्कैन में \"वॉचलिस्ट की ख़बरें\" चालू हो तो ★ वाले शेयरों की सुबह की ख़बरें और दिन की बड़ी घोषणाएँ सूचना में आती हैं। ख़बर अच्छी है या बुरी, ऐप यह नहीं बताता — पढ़कर ख़ुद तय करें।</string>
+</resources>
