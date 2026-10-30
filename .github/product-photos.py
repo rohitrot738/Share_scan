@@ -1,17 +1,20 @@
 """Temporary, run once: real pictures for each company's products section, found on the internet.
 
-  - Wikidata, by the company's ISIN: its logo (a Commons file) and official website
-  - the company's own website: its icon (apple-touch-icon) and its share picture (og:image), the picture its own
-    pages show when linked
+  - the company's Screener page: its logo (the 96px picture by its name) and its website (the link under its name)
+  - Wikidata, by the company's ISIN or its NSE/BSE ticker: its logo (a Commons file) and official website, where
+    Screener has none
+  - the company's own website: its share picture (og:image), the picture its own pages show when linked, and its
+    icon (apple-touch-icon) when no logo is found elsewhere
   - Wikimedia Commons, searched by the company's name: photos whose title names the company and one of its products
-    (cr360/products.py's words), and its logo
+    (cr360/products.py's words)
 
 Each picture is downloaded, shrunk and stored in the app (app/src/main/assets/product-photos/SYMBOL/*.webp), with an
 index of them (product-photos.json); the app needs no internet for them. Commons pictures carry their author and
 licence, which the app shows. Removed before merging.
 
-    python .github/product-photos.py probe OUT_DIR SYMBOL...       a few companies, with a contact sheet to look at
-    python .github/product-photos.py all PROFILES_DIR ASSETS_DIR   every company read by product-data.py
+    python .github/product-photos.py probe OUT_DIR SYMBOL...        a few companies, with a contact sheet to look at
+    python .github/product-photos.py screener PART PARTS ASSETS_DIR  one part of the companies in products.json, read
+                                                                     from Screener one page every six seconds
 """
 import gzip
 import html
@@ -19,6 +22,7 @@ import io
 import json
 import os
 import re
+import shutil
 import sys
 import time
 import urllib.parse
@@ -88,6 +92,40 @@ def wikidata(isins: list[str]) -> dict[str, dict]:
             cache.log(f"wikidata batch {i}: {e}")
         time.sleep(1)
     return out
+
+
+NSE, BSE = "Q638740", "Q638398"  # Wikidata's National Stock Exchange of India and Bombay Stock Exchange
+
+
+def wikidata_listed() -> dict[str, dict]:
+    """Logo file and website of each company Wikidata lists on NSE or BSE, by its ticker there (symbol or code)."""
+    query = f"""SELECT ?ticker ?logo ?site WHERE {{ VALUES ?ex {{ wd:{NSE} wd:{BSE} }} ?item p:P414 ?st . ?st ps:P414 ?ex ;
+                pq:P249 ?ticker . OPTIONAL {{ ?item wdt:P154 ?logo }} OPTIONAL {{ ?item wdt:P856 ?site }} }}"""
+    out = {}
+    try:
+        _, body = get(WIKIDATA + "?format=json&query=" + urllib.parse.quote(query), accept="application/sparql-results+json", timeout=90)
+        for row in json.loads(body)["results"]["bindings"]:
+            d = out.setdefault(row["ticker"]["value"].strip().upper(), {})
+            if "logo" in row and "logo" not in d:
+                d["logo"] = row["logo"]["value"].replace("http://", "https://") + "?width=256"
+            if "site" in row and "site" not in d:
+                d["site"] = row["site"]["value"]
+    except Exception as e:  # noqa: BLE001 - without it the other sources still serve
+        cache.log(f"wikidata listed: {e}")
+    return out
+
+
+# On a Screener page: the company's logo in its heading, and its website, the link with the link icon under its name.
+_SCREENER_LOGO = re.compile(r"https://cdn-media\.screener\.in/company-logos/thumbnails/[0-9A-Za-z_-]+\.(?:webp|png|jpe?g)")
+_SCREENER_SITE = re.compile(r'<a href="(https?://[^"]+)"[^>]*>\s*<i class="icon-link"></i>')
+
+
+def screener_links(html: str) -> tuple[str, str]:
+    """The logo and website a Screener page shows for its company; empty when it shows none."""
+    end = html.find("</h1>")
+    logo = _SCREENER_LOGO.search(html[:end]) if end > 0 else None
+    site = _SCREENER_SITE.search(html)
+    return (logo.group(0) if logo else ""), (site.group(1) if site else "")
 
 
 _META = re.compile(r"<meta\s[^>]*>", re.I)
@@ -218,7 +256,8 @@ def run(symbols: dict[str, dict], made: dict[str, list[str]]) -> dict:
 
 # How each kind of picture is stored: the box it is shrunk into, whether it is cropped to fill it, and its quality.
 # As small as still shows the company plainly, so the app stays light.
-SHAPES = {"logo": ((96, 96), False, 65), "banner": ((400, 210), True, 40), "photo": ((120, 120), True, 55)}
+SHAPES = {"logo": ((96, 96), False, 55), "banner": ((360, 189), True, 35), "photo": ((120, 120), True, 55)}
+SMALLEST = {"logo": 32, "banner": 300, "photo": 100}  # narrower pictures would only blur
 
 
 def store(url: str, kind: str, path: str) -> bool:
@@ -231,7 +270,7 @@ def store(url: str, kind: str, path: str) -> bool:
     except Exception:  # noqa: BLE001 - a picture that does not come or does not open is left out
         return False
     (w, h), crop, quality = SHAPES[kind]
-    if pic.width < 32 or pic.height < 32:
+    if pic.width < SMALLEST[kind] or min(pic.width, pic.height) < 32:
         return False
     pic = pic.convert("RGBA")
     pic = ImageOps.fit(pic, (w, h), Image.LANCZOS) if crop else ImageOps.contain(pic, (w, h), Image.LANCZOS)
@@ -299,6 +338,100 @@ def sheet(found: dict, assets: str, path: str) -> None:
     img.save(path)
 
 
+GAP = 6.0  # seconds from one Screener page to the next, as the nightly cache reads them
+STOP_AFTER = 320 * 60  # seconds a part may read, inside its job's six hours
+
+
+def finish(sym: str, stock: dict, made: list[str], logo: str, site: str, wd: dict, assets: str) -> dict:
+    """Stores one company's pictures under [assets]; returns its index entry, empty when none was found."""
+    site = site or wd.get("site", "")
+    name = stock.get("name", "")
+    found = match(name, made, commons(core_name(name))) if name else {"p": {}}
+    pics = site_pictures(site)
+    folder = f"product-photos/{safe(sym)}"
+    entry, credits = {}, {}
+    logos = ((logo, "Screener.in"), (wd.get("logo"), "Wikimedia Commons"), (pics.get("icon"), ""),
+             (found.get("logo"), found.get("c", {}).get(found.get("logo", ""), "")))
+    for url, credit in logos:
+        if url and store(url, "logo", os.path.join(assets, f"{folder}/logo.webp")):
+            entry["logo"] = f"{folder}/logo.webp"
+            if credit:
+                credits[entry["logo"]] = credit
+            break
+    if pics.get("banner") and store(pics["banner"], "banner", os.path.join(assets, f"{folder}/banner.webp")):
+        entry["banner"] = f"{folder}/banner.webp"
+    for key, url in found.get("p", {}).items():
+        rel = f"{folder}/{key}.webp"
+        if store(url, "photo", os.path.join(assets, rel)):
+            entry.setdefault("p", {})[key] = rel
+            credits[rel] = found["c"][url]
+    if credits:
+        entry["c"] = credits
+    return entry
+
+
+def screener_part(part: int, parts: int, assets: str) -> None:
+    """Pictures for one part of the companies the app knows products of: NSE first, then SME, then BSE. Part 0
+    starts the pictures afresh; the later parts add to them."""
+    started = time.time()
+    universe, _ = cache.load_universe(date.today())
+    made = json.load(open(os.path.join(assets, "products.json"), encoding="utf-8"))["stocks"]
+    rank = {"nse": 0, "sme": 1, "bse": 2}
+    symbols = sorted((s for s in made if s in universe), key=lambda s: (rank.get(universe[s].get("market", "nse"), 3), s))
+    size = -(-len(symbols) // parts)
+    mine = symbols[part * size:(part + 1) * size]
+    index_path = os.path.join(assets, "product-photos.json")
+    if part == 0:
+        shutil.rmtree(os.path.join(assets, "product-photos"), ignore_errors=True)
+        index = {}
+    else:
+        index = json.load(open(index_path, encoding="utf-8"))["stocks"]
+    known = wikidata(sorted({universe[s].get("isin", "") for s in mine}))
+    listed = wikidata_listed()
+    cache.log(f"part {part}: {len(mine)} of {len(symbols)} companies; wikidata {len(known)} by ISIN, {len(listed)} by ticker")
+    jobs, missed, last, refusals = {}, [], 0.0, 0
+    with ThreadPoolExecutor(4) as pool:
+        for i, sym in enumerate(mine):
+            if refusals >= 5 or time.time() - started > STOP_AFTER:
+                missed.extend(mine[i:])
+                break
+            stock = universe[sym]
+            for attempt in range(2):  # a refusal waits, then asks once more
+                wait = GAP - (time.time() - last)
+                if wait > 0:
+                    time.sleep(wait)
+                last = time.time()
+                status, html, headers = cache.http_get("https://www.screener.in/company/"
+                                                       + urllib.parse.quote(cache.screener_slug(sym, stock)) + "/")
+                if status != 429:
+                    break
+                refusals += 1
+                pause = min(600, int(headers.get("Retry-After") or 0) or 60 * refusals)
+                cache.log(f"  screener refused ({refusals}), waiting {pause}s")
+                time.sleep(pause)
+            if status == 200:
+                refusals = 0
+            logo, site = screener_links(html) if status == 200 else ("", "")
+            if status != 200:
+                missed.append(sym)
+            wd = known.get(stock.get("isin", "")) or listed.get(sym.upper()) or listed.get(str(stock.get("code", "")).upper()) or {}
+            jobs[sym] = pool.submit(finish, sym, stock, made[sym], logo, site, wd, assets)
+            if i % 100 == 0:
+                cache.log(f"  {i}/{len(mine)} {sym}: {status} logo {bool(logo)} site {site}")
+        for sym, job in jobs.items():
+            entry = job.result()
+            if entry:
+                index[sym] = entry
+    with open(index_path, "w", encoding="utf-8") as f:
+        json.dump({"v": 1, "stocks": dict(sorted(index.items()))}, f, ensure_ascii=False, separators=(",", ":"))
+        f.write("\n")
+    mine_found = [index[s] for s in mine if s in index]
+    size_kb = sum(os.path.getsize(os.path.join(d, n)) for d, _, ns in os.walk(os.path.join(assets, "product-photos")) for n in ns) // 1024
+    cache.log(f"part {part}: {len(mine_found)} of {len(mine)} with pictures - logos {sum('logo' in e for e in mine_found)}, "
+              f"banners {sum('banner' in e for e in mine_found)}, photos {sum(len(e.get('p', {})) for e in mine_found)}; "
+              f"missed {len(missed)}: {' '.join(missed[:60])}; all pictures {size_kb} KB")
+
+
 def main():
     mode = sys.argv[1]
     if mode == "probe":
@@ -316,23 +449,8 @@ def main():
         sheet(stored, f"{out_dir}/assets", f"{out_dir}/photos-sheet.png")
         size = sum(os.path.getsize(os.path.join(d, n)) for d, _, ns in os.walk(f"{out_dir}/assets") for n in ns)
         cache.log(f"{len(stored)} companies, {size // 1024} KB of pictures")
-    else:
-        profiles_dir, assets = sys.argv[2], sys.argv[3]
-        universe, _ = cache.load_universe(date.today())
-        symbols, made = {}, {}
-        for name in os.listdir(profiles_dir):
-            if name.startswith("profiles-") and name.endswith(".json.gz"):
-                for sym, p in json.load(gzip.open(os.path.join(profiles_dir, name), "rt", encoding="utf-8")).items():
-                    symbols[sym] = {**universe.get(sym, {}), "name": p.get("name") or universe.get(sym, {}).get("name", ""), "site": p.get("site", "")}
-                    made[sym] = products.classify(p.get("about", ""), p.get("points", ""), p.get("sector", ""))
-        found = run(symbols, made)
-        stored = download_all(found, assets)
-        with open(os.path.join(assets, "product-photos.json"), "w", encoding="utf-8") as f:
-            json.dump({"v": 1, "stocks": stored}, f, ensure_ascii=False, separators=(",", ":"))
-            f.write("\n")
-        size = sum(os.path.getsize(os.path.join(d, n)) for d, _, ns in os.walk(os.path.join(assets, "product-photos")) for n in ns)
-        cache.log(f"{len(stored)} companies with pictures, {sum(1 for v in stored.values() if v.get('p'))} with product photos, "
-                  f"{size // 1024} KB")
+    elif mode == "screener":
+        screener_part(int(sys.argv[2]), int(sys.argv[3]), sys.argv[4])
 
 
 if __name__ == "__main__":

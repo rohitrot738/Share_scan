@@ -1,41 +1,30 @@
-# Temporary: every company's pictures for the products section, stored in the app (product-photos.py all), from the
-# profiles the product-data runs read (the product-data-all artifact of the missed-companies run). Started by writing
-# that run's id to .github/product-photos-go.txt. Removed before merging.
+# Temporary: every company's pictures for the products section, stored in the app (product-photos.py screener). Each
+# company's Screener page is read once more, one page every six seconds, for its logo and website; three parts run
+# one after another, NSE companies first, and each commits its pictures when it ends. Removed before merging.
 name: Product photos (all)
 on:
   push:
     branches: [claude/fervent-turing-3b79hv]
-    paths: ['.github/product-photos-go.txt']
+    paths: ['.github/workflows/product-photos-all.yml']
 permissions:
   contents: write
-  actions: read
+concurrency:
+  group: product-photos-all
+  cancel-in-progress: false
 jobs:
-  all:
-    runs-on: ubuntu-latest
-    timeout-minutes: 350
-    env:
-      PYTHONPATH: ${{ github.workspace }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - run: pip install requests pillow
-      - name: The product-data run's id
-        id: data
-        run: echo "run=$(tr -dc 0-9 < .github/product-photos-go.txt)" >> "$GITHUB_OUTPUT"
-      - uses: actions/download-artifact@v4
-        with:
-          name: product-data-all
-          path: product-data
-          run-id: ${{ steps.data.outputs.run }}
-          github-token: ${{ github.token }}
-      - run: python .github/product-photos.py all product-data app/src/main/assets
-      - name: Commit the pictures to the branch
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add app/src/main/assets/product-photos app/src/main/assets/product-photos.json
-          git commit -m "Pictures for every company's products section, stored in the app" || exit 0
-          git pull --rebase -X theirs origin "${GITHUB_REF_NAME}"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+  part0:
+    uses: ./.github/workflows/product-photos-part.yml
+    with:
+      part: 0
+  part1:
+    needs: part0
+    if: always()
+    uses: ./.github/workflows/product-photos-part.yml
+    with:
+      part: 1
+  part2:
+    needs: part1
+    if: always()
+    uses: ./.github/workflows/product-photos-part.yml
+    with:
+      part: 2
