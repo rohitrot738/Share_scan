@@ -1,0 +1,29 @@
+# Temporary: checks why the picture run found so few pictures, and which sources reach more companies
+# (product-photos-check.py). Removed before merging.
+name: Product photos (check)
+on:
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['.github/product-photos-check.py', '.github/workflows/product-photos-check.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONPATH: ${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests pillow
+      - uses: actions/download-artifact@v4
+        with:
+          name: product-data-all
+          path: product-data
+          run-id: 41068751984
+          github-token: ${{ github.token }}
+      - run: python .github/product-photos-check.py product-data
