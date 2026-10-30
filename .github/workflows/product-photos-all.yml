@@ -1,6 +1,6 @@
 # Temporary: every company's pictures for the products section, stored in the app (product-photos.py all), from the
-# profiles the product-data run read. Started by writing that run's id to .github/product-photos-go.txt. Removed
-# before merging.
+# profiles the product-data runs read (the product-data-all artifact of the missed-companies run). Started by writing
+# that run's id to .github/product-photos-go.txt. Removed before merging.
 name: Product photos (all)
 on:
   push:
@@ -26,8 +26,7 @@ jobs:
         run: echo "run=$(tr -dc 0-9 < .github/product-photos-go.txt)" >> "$GITHUB_OUTPUT"
       - uses: actions/download-artifact@v4
         with:
-          pattern: product-data-*
-          merge-multiple: true
+          name: product-data-all
           path: product-data
           run-id: ${{ steps.data.outputs.run }}
           github-token: ${{ github.token }}
