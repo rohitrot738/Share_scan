@@ -1,0 +1,25 @@
+stocks: ASIANPAINT MARUTI MRF BALKRISIND HEROMOTOCO HAVELLS ESCORTS TVSMOTOR SAFARI BPCL COALINDIA TITAN TCS HDFCBANK
+closed a not-responding app
+scan done after ~45s
+shot 01-list-table
+shot 02-detail-ASIANPAINT
+shot 03-detail-MARUTI
+shot 04-detail-MRF
+shot 05-detail-BALKRISIND
+shot 06-detail-HEROMOTOCO
+shot 07-detail-HAVELLS
+shot 08-detail-ESCORTS
+shot 09-detail-TVSMOTOR
+shot 10-detail-SAFARI
+shot 11-detail-BPCL
+shot 12-detail-COALINDIA
+shot 13-detail-TITAN
+shot 14-detail-TCS
+shot 15-detail-HDFCBANK
+shot 30-photo-credit
+could not find text टायर
+shot 31-list-tyre-makers
+pref background=galaxy
+shot 32-galaxy-cards
+pref background=space_glass
+shot 33-detail-english
