@@ -1,9 +1,9 @@
 [
   {
     "version": "",
-    "date": "2026-10-30",
+    "date": "2026-10-31",
     "items": [
-      "नया: हर stock के detail में \"क्या बनाती है\" — company का logo और उसके products तस्वीर व नाम के साथ (जैसे टायर, कार, दवाइयाँ), जहाँ मिली वहाँ product की असली photo भी; सभी companies के products app में ही शामिल हैं। किसी product पर दबाएँ तो list में उसे बनाने वाली सारी companies दिखेंगी, ऊपर ✕ या Back से सब वापस। Cards पर नाम के आगे मुख्य products की छोटी तस्वीरें भी (Menu → Settings से बंद कर सकते हैं)"
+      "नया: हर stock के detail में \"क्या बनाती है\" — company का logo और उसके products तस्वीर व नाम के साथ (जैसे टायर, कार, दवाइयाँ), जहाँ मिली वहाँ company की website की तस्वीर और product की असली photo भी; सभी companies के products app में ही शामिल हैं। किसी product पर दबाएँ तो list में उसे बनाने वाली सारी companies दिखेंगी, ऊपर ✕ या Back से सब वापस। Cards पर नाम के आगे मुख्य products की छोटी तस्वीरें भी (Menu → Settings से बंद कर सकते हैं)"
     ]
   },
   {
