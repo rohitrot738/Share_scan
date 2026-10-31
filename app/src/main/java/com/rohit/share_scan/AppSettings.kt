@@ -176,6 +176,11 @@ class AppSettings(context: Context) {
         get() = prefs.getBoolean(Prefs.SKY_ANIMATION, true)
         set(value) = prefs.edit { putBoolean(Prefs.SKY_ANIMATION, value) }
 
+    /** The list's cards show the icons of what each company makes ([Products]) before its name. */
+    var productIcons: Boolean
+        get() = prefs.getBoolean(Prefs.PRODUCT_ICONS, true)
+        set(value) = prefs.edit { putBoolean(Prefs.PRODUCT_ICONS, value) }
+
     /** Look for a newer release every time the app opens. */
     var checkUpdates: Boolean
         get() = prefs.getBoolean(Prefs.CHECK_UPDATES, true)

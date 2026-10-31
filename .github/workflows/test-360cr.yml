@@ -20,7 +20,7 @@ jobs:
       - run: pip install pytest pandas yfinance requests beautifulsoup4 lxml
       - name: Verify package import
         run: python -c "import cr360; print('cr360 import OK:', cr360.__file__)"
-      - run: python -m pytest -q tests/test_cr360.py tests/test_cr360_collector.py tests/test_nse_public_adapter.py tests/test_cr360_app_cache.py
+      - run: python -m pytest -q tests/test_cr360.py tests/test_cr360_collector.py tests/test_nse_public_adapter.py tests/test_cr360_app_cache.py tests/test_cr360_products.py
       - name: Research-agent candidate diagnostic
         continue-on-error: true
         run: |
