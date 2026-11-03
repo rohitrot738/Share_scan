@@ -90,6 +90,18 @@
                     android:textSize="13sp" />
             </LinearLayout>
 
+            <!-- Paper Trading's own way in (PaperSheet). -->
+            <ImageButton
+                android:id="@+id/paperButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/paper_open"
+                android:padding="12dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_paper_trade"
+                app:tint="@color/text_primary" />
+
             <ImageButton
                 android:id="@+id/menuButton"
                 android:layout_width="48dp"
@@ -644,6 +656,17 @@
                     android:padding="8dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_search"
+                    app:tint="@color/text_primary" />
+
+                <ImageButton
+                    android:id="@+id/compactPaper"
+                    android:layout_width="36dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/paper_open"
+                    android:padding="8dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_paper_trade"
                     app:tint="@color/text_primary" />
 
                 <ImageButton

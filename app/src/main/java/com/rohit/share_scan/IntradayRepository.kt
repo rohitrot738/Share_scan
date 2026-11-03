@@ -76,6 +76,41 @@ object IntradayRepository {
         return null
     }
 
+    /**
+     * [ticker]'s 5-minute candles reaching back to [since] (epoch seconds), for the paper account ([PaperStore]):
+     * the latest session's, the last five days', or the last month's (the oldest Yahoo keeps 5-minute candles for).
+     * Kept [RECENT_FRESH_MS]. Null when Yahoo did not answer.
+     */
+    fun recent(ticker: String, since: Long, now: Long = System.currentTimeMillis(), isStopped: () -> Boolean = { false }): List<IntradayPlan.Candle>? {
+        val days = java.time.temporal.ChronoUnit.DAYS.between(MarketClock.dayOf(since), MarketClock.now(now).toLocalDate())
+        val range = when {
+            days <= 0 -> "1d"
+            days <= 5 -> "5d"
+            else -> "1mo"
+        }
+        val key = "$ticker/$range"
+        keptRecent[key]?.let { (at, candles) -> if (now - at < RECENT_FRESH_MS) return candles }
+        repeat(2) {
+            if (!yahoo.acquire(isStopped)) return null
+            val body = try {
+                get("https://query1.finance.yahoo.com/v8/finance/chart/$ticker?range=$range&interval=5m")
+            } catch (limited: HttpStatus) {
+                if (limited.status != HTTP_TOO_MANY_REQUESTS) return null
+                yahoo.pause(RATE_LIMIT_PAUSE_MS)
+                null
+            } catch (_: IOException) {
+                return null
+            } ?: return@repeat
+            val candles = runCatching { candles(body) }.getOrNull() ?: return null
+            keptRecent[key] = now to candles
+            return candles
+        }
+        return null
+    }
+
+    private val keptRecent = ConcurrentHashMap<String, Pair<Long, List<IntradayPlan.Candle>>>()
+    private const val RECENT_FRESH_MS = 20_000L
+
     /** The candles in a Yahoo chart answer; a candle with a missing price is left out. */
     internal fun candles(json: String): List<IntradayPlan.Candle> {
         val chart = JSONObject(json).getJSONObject("chart").optJSONArray("result")?.optJSONObject(0) ?: return emptyList()

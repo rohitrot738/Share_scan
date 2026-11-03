@@ -215,7 +215,7 @@ class MenuSheet(
     private val settings: AppSettings,
     private val onPick: (Entry) -> Unit,
 ) {
-    enum class Entry { ACCOUNT, USAGE, SCAN, INTRADAY, TRADE_LOG, TRACK_RECORD, SECTORS, SETTINGS, TEXT, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
+    enum class Entry { ACCOUNT, USAGE, SCAN, PAPER, INTRADAY, TRADE_LOG, TRACK_RECORD, SECTORS, SETTINGS, TEXT, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
 
     fun show(): BottomSheetDialog {
         val ui = SheetMenuBinding.inflate(activity.layoutInflater)
@@ -238,6 +238,7 @@ class MenuSheet(
             add(Entry.USAGE, R.drawable.ic_trending_up, R.string.menu_usage, activity.getString(R.string.menu_usage_body))
         }
         add(Entry.SCAN, R.drawable.ic_radar, R.string.menu_scan, activity.getString(R.string.menu_scan_body))
+        add(Entry.PAPER, R.drawable.ic_paper_trade, R.string.menu_paper, activity.getString(R.string.menu_paper_body))
         add(Entry.INTRADAY, R.drawable.ic_trending_up, R.string.menu_intraday, activity.getString(R.string.menu_intraday_body))
         add(Entry.TRADE_LOG, R.drawable.ic_edit, R.string.menu_trade_log, activity.getString(R.string.menu_trade_log_body))
         add(Entry.TRACK_RECORD, R.drawable.ic_history, R.string.menu_track_record, activity.getString(R.string.menu_track_record_body))
@@ -660,6 +661,7 @@ class HelpSheet(private val activity: AppCompatActivity, private val onBack: () 
         add(activity.getString(R.string.help_products_title), activity.getString(R.string.help_products_body))
         add(activity.getString(R.string.help_intraday_title), activity.getString(R.string.help_intraday_body))
         add(activity.getString(R.string.help_trade_title), activity.getString(R.string.help_trade_body))
+        add(activity.getString(R.string.help_paper_title), activity.getString(R.string.help_paper_body))
         add(activity.getString(R.string.help_long_title), activity.getString(R.string.help_long_body))
         add(activity.getString(R.string.help_cloud_title), activity.getString(R.string.help_cloud_body))
         add(activity.getString(R.string.help_compact_title), activity.getString(R.string.help_compact_body))

@@ -3,6 +3,18 @@
     "version": "",
     "date": "2026-11-04",
     "items": [
+      "नया section: 📝 Paper Trading। नकली पैसे (शुरू में ₹10 लाख) से असली भाव पर intraday और delivery की practice; कोई असली order नहीं जाता। ऊपर 📝 बटन या Menu → Paper Trading से खुलता है",
+      "Market, Limit, SL और SL-M orders, stop-loss और target के साथ: orders Yahoo की 5-minute candles से exchange की तरह भरते हैं (gap में खुलने वाले भाव पर), stop-loss या target लगते ही trade अपने-आप बंद; intraday में पाँचवाँ हिस्सा margin, short sell, और 15:15 पर square-off अपने-आप; market बंद हो तो order अगली सुबह भरता है (AMO)",
+      "हर trade पर असली जैसे charges: brokerage, STT, exchange charges, SEBI fee, GST, stamp duty और DP charge",
+      "Paper Trading के tabs: खुले intraday trades, delivery शेयर, रुके और पिछले orders, और हिसाब (जीत-हार, profit factor, charges, सबसे बड़ी गिरावट, app के plan से लिए trades बनाम अपने चुने); account की value रोज़ के graph के साथ, और account फिर से शुरू करने का बटन",
+      "App बंद हो तब भी market के समय हर 15 मिनट paper trades की जाँच: order भरने, stop-loss, target या square-off पर notification",
+      "Trade window में \"📝 Paper trade करें\": plan के entry, stop-loss और target से भरा order, paper account के हिसाब से शेयर गिनकर"
+    ]
+  },
+  {
+    "version": "1.2.143",
+    "date": "2026-11-04",
+    "items": [
       "\"लक्ष्य\" और पूरा Trade plan अब stock के detail के चार्ट पर दबाने से खुलने वाली नई window में: बड़ा चार्ट, तीनों अवधि के लक्ष्य और Trade plan एक जगह (detail में चार्ट के नीचे की पट्टी से भी खुलती है)",
       "नई window में \"कितने शेयर लें\": अपनी पूँजी, हर trade का जोखिम (0.5–2%) और Delivery या Intraday चुनें; app बताता है कितने शेयर, कितना लगेगा, stop पर कितना नुकसान और हर target पर कितना फ़ायदा। साथ में Order ticket: entry, stop और target के orders (Kite, Angel One, Groww के लिए) copy या share करें; app कभी order नहीं भेजता",
       "Smart money: पिछले 6 महीने की candles से खुले FVG और order blocks, नीचे का सहारा और ऊपर की रुकावट (चार्ट पर भी); और जीतने के आसार: इसी stock की रोज़ की चाल से 10,000 बनावटी रास्तों में target stop से पहले कितनी बार आया",

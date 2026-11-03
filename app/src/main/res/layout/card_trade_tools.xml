@@ -175,6 +175,19 @@
                 android:textAllCaps="false"
                 app:cornerRadius="14dp" />
 
+            <!-- The same trade on the paper account (PaperOrderSheet), filled in from the plan. -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sizePaper"
+                style="@style/Widget.ShareScan.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="6dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/paper_from_trade"
+                android:textAllCaps="false"
+                app:icon="@drawable/ic_paper_trade" />
+
             <TextView
                 android:id="@+id/sizeGuard"
                 android:layout_width="match_parent"
