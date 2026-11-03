@@ -23,12 +23,14 @@ import json
 import math
 import random
 import sys
+import time
+import urllib.error
 import urllib.request
 import zlib
 from datetime import datetime, timezone, timedelta
 
 IST = timezone(timedelta(hours=5, minutes=30))
-UA = "Mozilla/5.0 (Linux; Android 14) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Mobile Safari/537.36"
+UA = "ShareScan (trader tools)"  # the name the app's own nightly cache reads Yahoo and GitHub under
 RELEASE = "https://github.com/rohitrot738/Share_scan/releases/download/cr360-data/"
 HISTORY_SHARDS = 32
 SQUARE_OFF = "15:15"  # brokers square intraday (MIS) positions off from about 15:15-15:20 IST
@@ -42,9 +44,16 @@ class DataError(Exception):
 # ---------------------------------------------------------------- data
 
 def _get(url: str, timeout: int = 20) -> bytes:
-    req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read()
+    """The body at [url]; a busy server (429 or 5xx) is asked again after a pause, twice at most."""
+    for pause in (2, 5, None):
+        req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "*/*"})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.read()
+        except urllib.error.HTTPError as e:
+            if pause is None or not (e.code == 429 or e.code >= 500):
+                raise
+            time.sleep(pause)
 
 
 def yahoo_symbol(symbol: str) -> str:
