@@ -33,7 +33,7 @@ jobs:
           python tools/invest.py short-scanner TITAN POLYCAB DIXON SBIN
           python tools/invest.py short-setup TRENT
           python tools/invest.py short-risk --entry 3500 --symbol TITAN --since 2026-10-01
-          python tools/invest.py short-catalysts RELIANCE
+          python tools/invest.py short-catalysts RELIANCE --bse-code 500325 || echo "BSE did not answer GitHub's servers"
           python tools/invest.py short-broker TITAN --qty 10 --entry 3500 --stop 3400 --target 3750 | head -20
           python tools/invest.py long-screener --top 10
           python tools/invest.py long-valuation HDFCBANK
