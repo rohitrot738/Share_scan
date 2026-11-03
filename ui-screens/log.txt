@@ -1,0 +1,33 @@
+IST now: 2026-11-04 01:01
+scan done after ~35s
+shot 01-list
+shot 02-detail-top
+shot 06-trade-top
+shot 07-trade-plan
+shot 08-size-filled
+shot 09-ticket
+shot 10-logged
+✓ यह trade लिया: Trade log में जोड़ें
+shot 11-smc-odds
+shot 12-smc-odds-more
+🎯 Target 1 (₹1,410.08) stop से पहले: 17.3%
+🎯 Target 2 (₹1,483.46) stop से पहले: 7.2%
+🛑 Stop (₹1,226.61) पहले: 53.3%
+10000 बनावटी रास्ते, इसी stock के पिछले 125 दिनों की रोज़ की चाल से, entry ₹1,300.00 मानकर। यह अनुमान है, गारंटी नहीं।
+खुले zones (पिछले 60 दिन): 2 FVG, 1 order blocks
+🟢 नीचे सहारा: Bullish FVG ₹1,182.10–₹1,214.20 (6.6% नीचे)
+🔴 ऊपर रुकावट: Bearish FVG ₹1,294.70–₹1,301.90 (0.4% ऊपर)
+FVG: तेज़ चाल में छूटा खाली gap; order block: तेज़ चाल से पहले की उल्टी candle। खुले zones पर भाव अक्सर रुकता या पलटता है।
+shot 13-back-to-detail
+shot 14-moat
+shot 15-history-closed
+shot 16-history-open
+shot 17-stats-open
+shot 18-trade-log
+shot 19-watchlist
+shot 20-watch-menu
+shot 21-watch-gaining
+shot 22-watch-reversed
+shot 23-watch-split-ask
+shot 24-watch-split
+shot 25-filter-quality
