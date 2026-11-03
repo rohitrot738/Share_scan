@@ -1,0 +1,60 @@
+IST now: 2026-11-03 15:06
+closed a not-responding app
+could not find id statusPill
+could not find id startButton
+scan done after ~760s
+shot 01-list
+shot 10-menu
+picks done after ~180s at IST 15:38
+shot 11-intraday-top
+आज के Intraday picks
+Scan के सबसे ज़्यादा trade हुए 120 stocks में से: 9:15–9:30 के range से ऊपर (VWAP के ऊपर) निकले तो BUY, नीचे (VWAP के नीचे) गिरे तो SELL। Stop range के बीच, target 1:1.5 और 1:2, 15:15 तक square-off। ये अनुमान हैं, निवेश की सलाह नहीं।
+14:45 के बाद नई entry नहीं; 15:15 तक सब square-off करें
+BUY (0)
+अभी कोई नहीं
+SELL (0)
+अभी कोई नहीं
+आज के बाकी calls (115): अब लेने लायक नहीं, वजह हर एक पर लिखी है
+ITC • BUY ₹272.40 (15:00)
+Stop ₹267.73 • Target ₹279.41, ₹281.75 • अभी ₹272.90
+14:45 के बाद आया: आज नई entry नहीं
+POWERGRID • SELL ₹260.65 (15:00)
+Stop ₹263.75 • Target ₹256.00, ₹254.45 • अभी ₹258.30
+14:45 के बाद आया: आज नई entry नहीं
+ULTRACEMCO • BUY ₹11,637.00 (14:40)
+Stop ₹11,479.00 • Target ₹11,874.00, ₹11,953.00 • अभी ₹11,625.00
+भाव वापस 9:15–9:30 के range में: breakout कमज़ोर पड़ा, अभी entry नहीं
+shot 12-intraday-scrolled
+shot 13-intraday-more
+shot 14-intraday-end
+आज के Intraday picks
+Scan के सबसे ज़्यादा trade हुए 120 stocks में से: 9:15–9:30 के range से ऊपर (VWAP के ऊपर) निकले तो BUY, नीचे (VWAP के नीचे) गिरे तो SELL। Stop range के बीच, target 1:1.5 और 1:2, 15:15 तक square-off। ये अनुमान हैं, निवेश की सलाह नहीं।
+Stop ₹8,370.75 • Target ₹8,513.88, ₹8,542.50 • अभी ₹8,444.00
+14:45 के बाद नई entry नहीं; 15:15 तक सब square-off करें
+COALINDIA • SELL ₹405.40 (12:30)
+Stop ₹407.28 • Target ₹402.59, ₹401.65 • अभी ₹407.75
+अब तक: Stop लग चुका
+INDUSTOWER • BUY ₹388.35 (12:30)
+Stop ₹385.67 • Target ₹392.36, ₹393.70 • अभी ₹391.50
+अब तक: Target 2 भी लग चुका
+UNIONBANK • SELL ₹184.25 (12:15)
+Stop ₹185.75 • Target ₹181.99, ₹181.24 • अभी ₹183.25
+Entry से काफ़ी आगे निकल चुका: अब पीछा न करें
+KITEX • BUY ₹135.33 (11:50)
+Stop ₹131.18 • Target ₹141.56, ₹143.64 • अभी ₹131.70
+भाव वापस 9:15–9:30 के range में: breakout कमज़ोर पड़ा, अभी entry नहीं
+SUNPHARMA • BUY ₹1,770.00 (11:40)
+Stop ₹1,758.50 • Target ₹1,787.25, ₹1,793.00 • अभी ₹1,776.40
+Entry से काफ़ी आगे निकल चुका: अब पीछा न करें
+shot 15-pick-opens-detail
+could not find id compactSearch
+could not find the line RELIANCE
+shot 02-targets-RELIANCE
+could not find id compactSearch
+could not find the line HDFCBANK
+shot 03-targets-HDFCBANK
+shot 04-targets-TATASTEEL
+shot 05-targets-INFY
+shot 06-targets-ASIANPAINT
+shot 20-targets-english
+shot 21-intraday-english
