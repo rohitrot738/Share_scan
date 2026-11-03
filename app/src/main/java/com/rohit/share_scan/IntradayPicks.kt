@@ -19,7 +19,7 @@ object IntradayPicks {
     data class Picks(
         val buys: List<Pick>,
         val sells: List<Pick>,
-        /** Called today but no longer to be taken: late, run too far past the entry, stopped out or at a target. */
+        /** Called today but no longer to be taken ([IntradayPlan.actionable]); each card says why. */
         val done: List<Pick>,
         /** Inside the range, or not yet past 9:30. */
         val waiting: Int,
@@ -37,8 +37,8 @@ object IntradayPicks {
         val (open, closed) = checked.filter { it.plan.side == IntradayPlan.Side.BUY || it.plan.side == IntradayPlan.Side.SELL }
             .partition { it.plan.actionable }
         return Picks(
-            buys = open.filter { it.plan.side == IntradayPlan.Side.BUY }.sortedBy { it.plan.run },
-            sells = open.filter { it.plan.side == IntradayPlan.Side.SELL }.sortedBy { it.plan.run },
+            buys = open.filter { it.plan.side == IntradayPlan.Side.BUY }.sortedBy { kotlin.math.abs(it.plan.run) },
+            sells = open.filter { it.plan.side == IntradayPlan.Side.SELL }.sortedBy { kotlin.math.abs(it.plan.run) },
             done = closed.sortedByDescending { it.plan.triggeredAt ?: 0L },
             waiting = checked.count { it.plan.side == IntradayPlan.Side.WAIT || it.plan.side == IntradayPlan.Side.FORMING },
         )

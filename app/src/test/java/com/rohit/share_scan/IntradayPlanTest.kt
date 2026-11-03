@@ -110,8 +110,18 @@ class IntradayPlanTest {
         assertTrue(far.run > IntradayPlan.MAX_CHASE_R)
         assertTrue(far.chased)
         assertFalse(far.actionable)
-        val back = IntradayPlan.of(candles(*range, c(101.0, 104.5, 101.0, 104.0), c(104.0, 104.2, 102.5, 102.8)))!!
-        assertTrue(back.run < 0.0)
-        assertTrue(back.actionable)
+        val dipped = IntradayPlan.of(candles(*range, c(101.0, 104.5, 101.0, 104.0), c(104.0, 104.2, 103.2, 103.5)))!!
+        assertTrue(dipped.run < 0.0)
+        assertFalse(dipped.backInRange)
+        assertTrue(dipped.actionable)
+    }
+
+    @Test
+    fun aBreakoutBackInsideTheRangeIsNoEntry() {
+        // Over the range at 104, then back to 102.8 under its 103 high, still above the stop at 101.
+        val faded = IntradayPlan.of(candles(*range, c(101.0, 104.5, 101.0, 104.0), c(104.0, 104.2, 102.5, 102.8)))!!
+        assertEquals(IntradayPlan.Outcome.OPEN, faded.outcome)
+        assertTrue(faded.backInRange)
+        assertFalse(faded.actionable)
     }
 }

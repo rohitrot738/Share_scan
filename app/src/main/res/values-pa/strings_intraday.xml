@@ -13,6 +13,7 @@
     <string name="horizon_sell">SELL ₹%1$s (%2$s ਵਜੇ ਰੇਂਜ ਅਤੇ VWAP ਤੋਂ ਹੇਠਾਂ) • ਸਟਾਪ ₹%3$s • ਟੀਚਾ ₹%4$s (1:1.5), ₹%5$s (1:2) • 15:15 ਤੱਕ ਵਾਪਸ ਖਰੀਦ ਕੇ ਨਿਕਲੋ</string>
     <string name="horizon_late">14:45 ਤੋਂ ਬਾਅਦ ਆਇਆ: ਅੱਜ ਨਵੀਂ ਐਂਟਰੀ ਨਹੀਂ</string>
     <string name="horizon_chased">ਐਂਟਰੀ ਤੋਂ ਕਾਫ਼ੀ ਅੱਗੇ ਨਿਕਲ ਗਿਆ: ਹੁਣ ਪਿੱਛਾ ਨਾ ਕਰੋ</string>
+    <string name="horizon_back_in_range">ਭਾਅ ਮੁੜ 9:15–9:30 ਦੀ ਰੇਂਜ ਦੇ ਅੰਦਰ: ਬ੍ਰੇਕਆਊਟ ਕਮਜ਼ੋਰ ਪਿਆ, ਹੁਣ ਐਂਟਰੀ ਨਹੀਂ</string>
     <string name="horizon_target1">ਹੁਣ ਤੱਕ: ਟੀਚਾ 1 ਪੂਰਾ ਹੋਇਆ</string>
     <string name="horizon_target2">ਹੁਣ ਤੱਕ: ਟੀਚਾ 2 ਵੀ ਪੂਰਾ ਹੋਇਆ</string>
     <string name="horizon_stopped">ਹੁਣ ਤੱਕ: ਸਟਾਪ ਲੱਗਿਆ</string>
@@ -32,7 +33,7 @@
     <string name="intraday_checking">%2$d ਵਿੱਚੋਂ %1$d ਸ਼ੇਅਰ ਜਾਂਚੇ…</string>
     <string name="intraday_buys">BUY (%1$d)</string>
     <string name="intraday_sells">SELL (%1$d)</string>
-    <string name="intraday_done">ਅੱਜ ਦੇ ਬਾਕੀ ਸੰਕੇਤ (%1$d): ਦੇਰ ਨਾਲ ਆਏ, ਐਂਟਰੀ ਤੋਂ ਅੱਗੇ ਨਿਕਲ ਗਏ, ਜਾਂ ਸਟਾਪ ਜਾਂ ਟੀਚਾ ਪੂਰਾ ਹੋ ਗਿਆ</string>
+    <string name="intraday_done">ਅੱਜ ਦੇ ਬਾਕੀ ਸੰਕੇਤ (%1$d): ਹੁਣ ਲੈਣ ਯੋਗ ਨਹੀਂ, ਹਰ ਇੱਕ ਤੇ ਕਾਰਨ ਲਿਖਿਆ ਹੈ</string>
     <string name="intraday_none">ਹਾਲੇ ਕੋਈ ਨਹੀਂ</string>
     <string name="intraday_waiting">%1$d ਸ਼ੇਅਰ ਹਾਲੇ ਰੇਂਜ ਦੇ ਅੰਦਰ, ਕੋਈ ਸੰਕੇਤ ਨਹੀਂ</string>
     <string name="intraday_before">ਬਾਜ਼ਾਰ 9:15 ਵਜੇ ਖੁੱਲ੍ਹਦਾ ਹੈ; ਚੋਣ 9:30 ਤੋਂ ਬਾਅਦ ਹੋਵੇਗੀ</string>

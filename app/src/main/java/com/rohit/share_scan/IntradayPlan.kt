@@ -54,7 +54,7 @@ data class IntradayPlan(
 
     /**
      * How far price now stands past the entry, in units of [risk]: 0 at the entry, below 0 when it has come back
-     * towards the stop, 1.5 at the first target. The picks rank by it, the nearest to the entry first.
+     * towards the stop, 1.5 at the first target. The picks rank by its size, the nearest to the entry first.
      */
     val run: Double
         get() {
@@ -73,9 +73,21 @@ data class IntradayPlan(
     /** The latest candle started at or after [LAST_ENTRY]: no new entry today, whatever was called earlier. */
     val entriesClosed: Boolean get() = MarketClock.timeOf(asOf) >= LAST_ENTRY
 
-    /** Still worth taking now: called, not late, entries still open, nothing reached yet, price still near the entry. */
+    /** Price has come back inside the opening range since the call: the breakout faded, so it is no entry now. */
+    val backInRange: Boolean
+        get() = outcome == Outcome.OPEN && when (side) {
+            Side.BUY -> price <= rangeHigh
+            Side.SELL -> price >= rangeLow
+            else -> false
+        }
+
+    /**
+     * Still worth taking now: called, not late, entries still open, nothing reached yet, and price still past the
+     * range and not too far beyond the entry.
+     */
     val actionable: Boolean
-        get() = (side == Side.BUY || side == Side.SELL) && !late && !entriesClosed && outcome == Outcome.OPEN && !chased
+        get() = (side == Side.BUY || side == Side.SELL) && !late && !entriesClosed && outcome == Outcome.OPEN &&
+            !chased && !backInRange
 
     /** One 5-minute candle; [at] is its start in epoch seconds. */
     data class Candle(val at: Long, val open: Double, val high: Double, val low: Double, val close: Double, val volume: Double)

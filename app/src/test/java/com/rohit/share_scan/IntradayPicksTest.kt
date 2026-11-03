@@ -36,7 +36,8 @@ class IntradayPicksTest {
         val picks = IntradayPicks.of(
             listOf(
                 IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 104.5)), // 0.4 R past the entry
-                IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 103.0)), // back under the entry
+                IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 103.2)), // a little under the entry, still over the range
+                IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 102.5)), // back inside the 99-103 range: faded
                 IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 106.0)), // 1 R past: too far to chase
                 IntradayPicks.Pick(s, plan(IntradayPlan.Side.SELL, 98.0)),
                 IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 104.0, late = true)),
@@ -45,9 +46,9 @@ class IntradayPicksTest {
                 IntradayPicks.Pick(s, plan(IntradayPlan.Side.WAIT, 101.0)),
             ),
         )
-        assertEquals(listOf(103.0, 104.5), picks.buys.map { it.plan.price })
+        assertEquals(listOf(103.2, 104.5), picks.buys.map { it.plan.price })
         assertEquals(listOf(98.0), picks.sells.map { it.plan.price })
-        assertEquals(4, picks.done.size)
+        assertEquals(5, picks.done.size)
         assertEquals(1, picks.waiting)
     }
 }

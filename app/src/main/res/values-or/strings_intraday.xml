@@ -13,6 +13,7 @@
     <string name="horizon_sell">SELL ₹%1$s (%2$s ରେ ରେଞ୍ଜ ଓ VWAP ତଳେ) • ଷ୍ଟପ ₹%3$s • ଲକ୍ଷ୍ୟ ₹%4$s (1:1.5), ₹%5$s (1:2) • 15:15 ସୁଦ୍ଧା ପୁଣି କିଣି ବାହାରି ଯାଆନ୍ତୁ</string>
     <string name="horizon_late">14:45 ପରେ ଆସିଛି: ଆଜି ନୂଆ ଏଣ୍ଟ୍ରି ନୁହେଁ</string>
     <string name="horizon_chased">ଏଣ୍ଟ୍ରିଠାରୁ ବହୁତ ଆଗକୁ ଚାଲିଗଲାଣି: ଏବେ ପିଛା କରନ୍ତୁ ନାହିଁ</string>
+    <string name="horizon_back_in_range">ଦର ପୁଣି 9:15–9:30 ରେଞ୍ଜ ଭିତରେ: ବ୍ରେକଆଉଟ ଦୁର୍ବଳ ହେଲା, ଏବେ ଏଣ୍ଟ୍ରି ନୁହେଁ</string>
     <string name="horizon_target1">ଏ ପର୍ଯ୍ୟନ୍ତ: ଲକ୍ଷ୍ୟ 1 ପୂରଣ ହେଲା</string>
     <string name="horizon_target2">ଏ ପର୍ଯ୍ୟନ୍ତ: ଲକ୍ଷ୍ୟ 2 ମଧ୍ୟ ପୂରଣ ହେଲା</string>
     <string name="horizon_stopped">ଏ ପର୍ଯ୍ୟନ୍ତ: ଷ୍ଟପ ଲାଗିଲା</string>
@@ -32,7 +33,7 @@
     <string name="intraday_checking">%2$d ମଧ୍ୟରୁ %1$d ସେୟାର ଦେଖାଗଲା…</string>
     <string name="intraday_buys">BUY (%1$d)</string>
     <string name="intraday_sells">SELL (%1$d)</string>
-    <string name="intraday_done">ଆଜିର ବାକି ସଙ୍କେତ (%1$d): ଡେରିରେ ଆସିଥିବା, ଏଣ୍ଟ୍ରିଠାରୁ ଆଗକୁ ଚାଲିଯାଇଥିବା, ବା ଷ୍ଟପ ବା ଲକ୍ଷ୍ୟ ପୂରଣ ହୋଇଥିବା</string>
+    <string name="intraday_done">ଆଜିର ବାକି ସଙ୍କେତ (%1$d): ଏବେ ନେବା ଯୋଗ୍ୟ ନୁହେଁ, ପ୍ରତ୍ୟେକରେ କାରଣ ଲେଖାଅଛି</string>
     <string name="intraday_none">ଏବେ କିଛି ନାହିଁ</string>
     <string name="intraday_waiting">%1$d ସେୟାର ଏବେ ବି ରେଞ୍ଜ ଭିତରେ, କୌଣସି ସଙ୍କେତ ନାହିଁ</string>
     <string name="intraday_before">ବଜାର 9:15 ରେ ଖୋଲେ; ବଛା 9:30 ପରେ ହେବ</string>

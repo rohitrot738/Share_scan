@@ -13,6 +13,7 @@
     <string name="horizon_sell">SELL ₹%1$s (%2$s-க்கு வரம்பு, VWAP-க்குக் கீழ்) • ஸ்டாப் ₹%3$s • இலக்கு ₹%4$s (1:1.5), ₹%5$s (1:2) • 15:15-க்குள் திரும்ப வாங்கி வெளியேறுங்கள்</string>
     <string name="horizon_late">14:45-க்குப் பிறகு வந்தது: இன்று புதிய நுழைவு வேண்டாம்</string>
     <string name="horizon_chased">நுழைவைத் தாண்டி வெகுதூரம் போய்விட்டது: இப்போது துரத்த வேண்டாம்</string>
+    <string name="horizon_back_in_range">விலை மீண்டும் 9:15–9:30 வரம்புக்குள்: பிரேக்அவுட் வலுவிழந்தது, இப்போது நுழைவு வேண்டாம்</string>
     <string name="horizon_target1">இதுவரை: இலக்கு 1 எட்டியது</string>
     <string name="horizon_target2">இதுவரை: இலக்கு 2-உம் எட்டியது</string>
     <string name="horizon_stopped">இதுவரை: ஸ்டாப் தொட்டது</string>
@@ -32,7 +33,7 @@
     <string name="intraday_checking">%2$d-ல் %1$d பங்குகள் பார்க்கப்பட்டன…</string>
     <string name="intraday_buys">BUY (%1$d)</string>
     <string name="intraday_sells">SELL (%1$d)</string>
-    <string name="intraday_done">இன்றைய மற்ற சமிக்ஞைகள் (%1$d): தாமதமாக வந்தவை, நுழைவைத் தாண்டியவை, அல்லது ஸ்டாப் அல்லது இலக்கு எட்டியவை</string>
+    <string name="intraday_done">இன்றைய மற்ற சமிக்ஞைகள் (%1$d): இனி எடுக்கத் தக்கவை அல்ல, ஒவ்வொன்றிலும் காரணம் உள்ளது</string>
     <string name="intraday_none">இன்னும் எதுவும் இல்லை</string>
     <string name="intraday_waiting">%1$d பங்குகள் இன்னும் வரம்புக்குள், சமிக்ஞை இல்லை</string>
     <string name="intraday_before">சந்தை 9:15-க்குத் திறக்கும்; தேர்வுகள் 9:30-க்குப் பிறகு</string>

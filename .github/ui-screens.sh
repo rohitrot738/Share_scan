@@ -163,7 +163,8 @@ adb shell am start -n "$PKG/.MainActivity" > /dev/null
 shot 01-list 6
 
 SEARCH=compactSearch
-# Menu -> today's intraday first (before 14:45 IST): the app's own BUY and SELL picks among the most traded stocks.
+# Menu -> today's intraday first: the app's own BUY and SELL picks among the most traded stocks, and after 14:45 the
+# day's calls with why each is no longer to be taken.
 front
 tap compactMenu
 sleep 3

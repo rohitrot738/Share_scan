@@ -45,17 +45,19 @@ object IntradayText {
                     p(plan.targets[0]),
                     p(plan.targets[1]),
                 )
-                val closed = context.getString(R.string.intraday_after_cutoff).takeIf { plan.entriesClosed && plan.day == today && !plan.late }
-                (listOf(call) + notes(context, plan) + listOfNotNull(closed)).joinToString("\n")
+                (listOf(call) + notes(context, plan)).joinToString("\n")
             }
         }
         return past + body
     }
 
-    /** Too late to enter, too far past the entry to chase, and the first level reached since. */
+    /** Why a call is no longer to be taken (too late, too far past the entry, back in the range), and what it reached. */
     fun notes(context: Context, plan: IntradayPlan): List<String> = listOfNotNull(
         context.getString(R.string.horizon_late).takeIf { plan.late },
         context.getString(R.string.horizon_chased).takeIf { plan.chased && !plan.late },
+        context.getString(R.string.horizon_back_in_range).takeIf { plan.backInRange && !plan.late },
+        context.getString(R.string.intraday_after_cutoff)
+            .takeIf { plan.entriesClosed && !plan.late && !plan.chased && !plan.backInRange && plan.outcome == IntradayPlan.Outcome.OPEN },
         when (plan.outcome) {
             IntradayPlan.Outcome.TARGET_1 -> R.string.horizon_target1
             IntradayPlan.Outcome.TARGET_2 -> R.string.horizon_target2

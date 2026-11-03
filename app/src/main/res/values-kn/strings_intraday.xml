@@ -13,6 +13,7 @@
     <string name="horizon_sell">SELL ₹%1$s (%2$s ಕ್ಕೆ ರೇಂಜ್ ಮತ್ತು VWAP ಕೆಳಗೆ) • ಸ್ಟಾಪ್ ₹%3$s • ಗುರಿ ₹%4$s (1:1.5), ₹%5$s (1:2) • 15:15 ರೊಳಗೆ ಮರಳಿ ಖರೀದಿಸಿ ಹೊರಬನ್ನಿ</string>
     <string name="horizon_late">14:45 ನಂತರ ಬಂದಿದೆ: ಇಂದು ಹೊಸ ಎಂಟ್ರಿ ಬೇಡ</string>
     <string name="horizon_chased">ಎಂಟ್ರಿಯಿಂದ ಬಹಳ ಮುಂದೆ ಹೋಗಿದೆ: ಈಗ ಬೆನ್ನಟ್ಟಬೇಡಿ</string>
+    <string name="horizon_back_in_range">ಬೆಲೆ ಮತ್ತೆ 9:15–9:30 ರೇಂಜ್ ಒಳಗೆ: ಬ್ರೇಕ್‌ಔಟ್ ದುರ್ಬಲವಾಯಿತು, ಈಗ ಎಂಟ್ರಿ ಬೇಡ</string>
     <string name="horizon_target1">ಇದುವರೆಗೆ: ಗುರಿ 1 ತಲುಪಿದೆ</string>
     <string name="horizon_target2">ಇದುವರೆಗೆ: ಗುರಿ 2 ಕೂಡ ತಲುಪಿದೆ</string>
     <string name="horizon_stopped">ಇದುವರೆಗೆ: ಸ್ಟಾಪ್ ತಾಗಿದೆ</string>
@@ -32,7 +33,7 @@
     <string name="intraday_checking">%2$d ರಲ್ಲಿ %1$d ಷೇರುಗಳನ್ನು ನೋಡಲಾಗಿದೆ…</string>
     <string name="intraday_buys">BUY (%1$d)</string>
     <string name="intraday_sells">SELL (%1$d)</string>
-    <string name="intraday_done">ಇಂದಿನ ಉಳಿದ ಸಂಕೇತಗಳು (%1$d): ತಡವಾಗಿ ಬಂದವು, ಎಂಟ್ರಿ ದಾಟಿ ಹೋದವು, ಅಥವಾ ಸ್ಟಾಪ್ ಅಥವಾ ಗುರಿ ತಲುಪಿದವು</string>
+    <string name="intraday_done">ಇಂದಿನ ಉಳಿದ ಸಂಕೇತಗಳು (%1$d): ಈಗ ತೆಗೆದುಕೊಳ್ಳಲು ಯೋಗ್ಯವಲ್ಲ, ಪ್ರತಿಯೊಂದರಲ್ಲೂ ಕಾರಣ ಇದೆ</string>
     <string name="intraday_none">ಇನ್ನೂ ಏನೂ ಇಲ್ಲ</string>
     <string name="intraday_waiting">%1$d ಷೇರುಗಳು ಇನ್ನೂ ರೇಂಜ್ ಒಳಗೆ, ಸಂಕೇತ ಇಲ್ಲ</string>
     <string name="intraday_before">ಮಾರುಕಟ್ಟೆ 9:15 ಕ್ಕೆ ತೆರೆಯುತ್ತದೆ; ಆಯ್ಕೆಗಳು 9:30 ನಂತರ</string>
