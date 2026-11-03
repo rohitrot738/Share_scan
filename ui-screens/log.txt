@@ -1,0 +1,46 @@
+IST now: 2026-11-03 13:23
+closed a not-responding app
+could not find id statusPill
+could not find id startButton
+scan done after ~760s
+shot 01-list
+shot 02-targets-RELIANCE
+⚡ Intraday (आज ही, MIS)
+अभी entry नहीं: भाव ₹1,288.60, 9:15–9:30 के range ₹1,284.30–₹1,306.60 के अंदर है। ₹1,306.60 के ऊपर close (VWAP के ऊपर) हो तो BUY, ₹1,284.30 के नीचे close (VWAP के नीचे) हो तो SELL
+shot 03-targets-HDFCBANK
+⚡ Intraday (आज ही, MIS)
+BUY ₹716.25 (09:35 पर range के ऊपर, VWAP के ऊपर) • Stop ₹711.12 • Target ₹723.94 (1:1.5), ₹726.50 (1:2) • 15:15 तक बेचकर निकलें
+shot 04-targets-TATASTEEL
+⚡ Intraday (आज ही, MIS)
+SELL ₹176.66 (10:45 पर range के नीचे, VWAP के नीचे) • Stop ₹177.81 • Target ₹174.94 (1:1.5), ₹174.36 (1:2) • 15:15 तक वापस खरीदकर निकलें
+shot 05-targets-INFY
+⚡ Intraday (आज ही, MIS)
+SELL ₹1,146.50 (10:00 पर range के नीचे, VWAP के नीचे) • Stop ₹1,154.45 • Target ₹1,134.58 (1:1.5), ₹1,130.60 (1:2) • 15:15 तक वापस खरीदकर निकलें
+shot 06-targets-ASIANPAINT
+⚡ Intraday (आज ही, MIS)
+BUY ₹2,424.20 (10:35 पर range के ऊपर, VWAP के ऊपर) • Stop ₹2,386.50 • Target ₹2,480.75 (1:1.5), ₹2,499.60 (1:2) • 15:15 तक बेचकर निकलें
+shot 10-menu
+picks done after ~180s
+shot 11-intraday-top
+आज के Intraday picks
+Scan के सबसे ज़्यादा trade हुए 120 stocks में से: 9:15–9:30 के range से ऊपर (VWAP के ऊपर) निकले तो BUY, नीचे (VWAP के नीचे) गिरे तो SELL। Stop range के बीच, target 1:1.5 और 1:2, 15:15 तक square-off। ये अनुमान हैं, निवेश की सलाह नहीं।
+BUY (40)
+TECHNOCRAF • BUY ₹466.15 (10:10)
+Stop ₹438.80 • Target ₹507.17, ₹520.85 • अभी ₹504.20
+अब तक: Target 1 लग चुका
+MAXHEALTH • BUY ₹880.35 (09:35)
+Stop ₹876.00 • Target ₹886.87, ₹889.05 • अभी ₹889.70
+अब तक: Target 1 लग चुका
+SOLARINDS • BUY ₹19,883.00 (09:35)
+Stop ₹19,591.00 • Target ₹20,321.00, ₹20,467.00 • अभी ₹20,021.00
+GROWW • BUY ₹201.24 (09:50)
+Stop ₹198.33 • Target ₹205.60, ₹207.05 • अभी ₹204.50
+EICHERMOT • BUY ₹7,252.00 (09:35)
+Stop ₹7,201.25 • Target ₹7,328.12, ₹7,353.50 • अभी ₹7,336.50
+अब तक: Target 1 लग चुका
+LICI • BUY ₹394.90 (09:35)
+shot 12-intraday-scrolled
+shot 13-intraday-more
+no pick to open
+shot 20-targets-english
+shot 21-intraday-english
