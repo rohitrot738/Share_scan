@@ -72,6 +72,7 @@
     <string name="moat_promoter">ప్రమోటర్ల వద్ద %1$s%% (50%% లేదా ఎక్కువ)</string>
     <string name="moat_promoter_change">ప్రమోటర్ వాటాలో మార్పు %1$s%% (అమ్మడం లేదు)</string>
     <string name="moat_pledge">తాకట్టు %1$s%% (లేదు)</string>
+    <string name="moat_unknown">సమాచారం లేదు</string>
     <string name="moat_auditor_ok">ఆడిటర్ రాజీనామా చేయలేదు</string>
     <string name="moat_auditor_bad">ఆడిటర్ రాజీనామా చేశారు</string>
     <string name="notify_square_off">⏰ 15:15 లోపు స్క్వేర్-ఆఫ్ చేయండి (%1$d ఇంట్రాడే ట్రేడ్‌లు)</string>

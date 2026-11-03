@@ -72,6 +72,7 @@
     <string name="moat_promoter">പ്രമോട്ടർമാരുടെ കൈയിൽ %1$s%% (50%% അല്ലെങ്കിൽ കൂടുതൽ)</string>
     <string name="moat_promoter_change">പ്രമോട്ടർ ഓഹരിയിലെ മാറ്റം %1$s%% (വിൽക്കുന്നില്ല)</string>
     <string name="moat_pledge">പണയം %1$s%% (ഇല്ല)</string>
+    <string name="moat_unknown">വിവരം ലഭ്യമല്ല</string>
     <string name="moat_auditor_ok">ഓഡിറ്റർ രാജിവച്ചിട്ടില്ല</string>
     <string name="moat_auditor_bad">ഓഡിറ്റർ രാജിവച്ചു</string>
     <string name="notify_square_off">⏰ 15:15-നകം സ്ക്വയർ-ഓഫ് ചെയ്യുക (%1$d ഇൻട്രാഡേ ട്രേഡുകൾ)</string>

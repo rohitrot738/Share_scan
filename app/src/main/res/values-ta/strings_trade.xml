@@ -72,6 +72,7 @@
     <string name="moat_promoter">புரமோட்டர்களிடம் %1$s%% (50%% அல்லது அதிகம்)</string>
     <string name="moat_promoter_change">புரமோட்டர் பங்கில் மாற்றம் %1$s%% (விற்கவில்லை)</string>
     <string name="moat_pledge">அடமானம் %1$s%% (இல்லை)</string>
+    <string name="moat_unknown">தரவு கிடைக்கவில்லை</string>
     <string name="moat_auditor_ok">ஆடிட்டர் ராஜினாமா செய்யவில்லை</string>
     <string name="moat_auditor_bad">ஆடிட்டர் ராஜினாமா செய்தார்</string>
     <string name="notify_square_off">⏰ 15:15-க்குள் ஸ்கொயர்-ஆஃப் செய்யுங்கள் (%1$d இன்ட்ராடே வர்த்தகங்கள்)</string>

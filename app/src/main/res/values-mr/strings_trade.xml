@@ -72,6 +72,7 @@
     <string name="moat_promoter">प्रवर्तकांकडे %1$s%% (50%% किंवा जास्त)</string>
     <string name="moat_promoter_change">प्रवर्तक हिश्श्यात बदल %1$s%% (विकत नाहीत)</string>
     <string name="moat_pledge">तारण %1$s%% (नाही)</string>
+    <string name="moat_unknown">माहिती मिळाली नाही</string>
     <string name="moat_auditor_ok">ऑडिटरने राजीनामा दिला नाही</string>
     <string name="moat_auditor_bad">ऑडिटरने राजीनामा दिला</string>
     <string name="notify_square_off">⏰ 15:15 पर्यंत स्क्वेअर-ऑफ करा (%1$d इंट्राडे ट्रेड)</string>

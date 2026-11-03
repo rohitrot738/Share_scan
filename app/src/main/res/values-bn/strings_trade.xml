@@ -72,6 +72,7 @@
     <string name="moat_promoter">প্রোমোটারের হাতে %1$s%% (50%% বা বেশি)</string>
     <string name="moat_promoter_change">প্রোমোটার অংশে পরিবর্তন %1$s%% (বিক্রি করছে না)</string>
     <string name="moat_pledge">বন্ধক %1$s%% (নেই)</string>
+    <string name="moat_unknown">তথ্য পাওয়া যায়নি</string>
     <string name="moat_auditor_ok">অডিটর পদত্যাগ করেননি</string>
     <string name="moat_auditor_bad">অডিটর পদত্যাগ করেছেন</string>
     <string name="notify_square_off">⏰ 15:15-এর মধ্যে স্কোয়ার-অফ করুন (%1$dটি ইন্ট্রাডে ট্রেড)</string>

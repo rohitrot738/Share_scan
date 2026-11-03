@@ -72,6 +72,7 @@
     <string name="moat_promoter">Promoters के पास %1$s%% (50%% या ज़्यादा)</string>
     <string name="moat_promoter_change">Promoter हिस्सेदारी में बदलाव %1$s%% (बेच नहीं रहे)</string>
     <string name="moat_pledge">Pledge %1$s%% (कोई नहीं)</string>
+    <string name="moat_unknown">data नहीं मिला</string>
     <string name="moat_auditor_ok">Auditor ने इस्तीफ़ा नहीं दिया</string>
     <string name="moat_auditor_bad">Auditor ने इस्तीफ़ा दिया</string>
     <string name="notify_square_off">⏰ 15:15 तक square-off करें (%1$d intraday trade)</string>
@@ -107,7 +108,7 @@
     <string name="smc_failed">Daily candles नहीं आईं; थोड़ी देर बाद फिर खोलें</string>
     <string name="smc_short">इस stock के इतने दिनों के आँकड़े नहीं</string>
     <string name="smc_status">पिछले %1$d दिनों की candles से</string>
-    <string name="smc_count">खुले zones (पिछले 60 दिन): %1$d FVG, %2$d order blocks</string>
+    <string name="smc_count">खुले zones (पिछले 60 दिन): %1$d FVG, %2$d order block</string>
     <string name="smc_support">🟢 नीचे सहारा: %1$s ₹%2$s–₹%3$s (%4$s नीचे)</string>
     <string name="smc_resistance">🔴 ऊपर रुकावट: %1$s ₹%2$s–₹%3$s (%4$s ऊपर)</string>
     <string name="smc_no_support">🟢 नीचे कोई खुला zone नहीं</string>

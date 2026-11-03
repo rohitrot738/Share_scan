@@ -72,6 +72,7 @@
     <string name="moat_promoter">Promoters hold %1$s%% (50%% or more)</string>
     <string name="moat_promoter_change">Promoter stake change %1$s%% (not selling)</string>
     <string name="moat_pledge">Pledge %1$s%% (none)</string>
+    <string name="moat_unknown">no data</string>
     <string name="moat_auditor_ok">No auditor resigned</string>
     <string name="moat_auditor_bad">An auditor resigned</string>
     <string name="notify_square_off">⏰ Square off by 15:15 (%1$d intraday trades)</string>
@@ -107,7 +108,7 @@
     <string name="smc_failed">The daily candles did not come; open it again in a while</string>
     <string name="smc_short">Not enough days of data for this stock</string>
     <string name="smc_status">From the last %1$d days\' candles</string>
-    <string name="smc_count">Open zones (last 60 days): %1$d FVG, %2$d order blocks</string>
+    <string name="smc_count">Open zones (last 60 days): FVGs %1$d, order blocks %2$d</string>
     <string name="smc_support">🟢 Support below: %1$s ₹%2$s–₹%3$s (%4$s below)</string>
     <string name="smc_resistance">🔴 Resistance above: %1$s ₹%2$s–₹%3$s (%4$s above)</string>
     <string name="smc_no_support">🟢 No open zone below</string>

@@ -72,6 +72,7 @@
     <string name="moat_promoter">ਪ੍ਰਮੋਟਰਾਂ ਕੋਲ %1$s%% (50%% ਜਾਂ ਵੱਧ)</string>
     <string name="moat_promoter_change">ਪ੍ਰਮੋਟਰ ਹਿੱਸੇਦਾਰੀ ਵਿੱਚ ਬਦਲਾਅ %1$s%% (ਵੇਚ ਨਹੀਂ ਰਹੇ)</string>
     <string name="moat_pledge">ਗਿਰਵੀ %1$s%% (ਕੋਈ ਨਹੀਂ)</string>
+    <string name="moat_unknown">ਜਾਣਕਾਰੀ ਨਹੀਂ ਮਿਲੀ</string>
     <string name="moat_auditor_ok">ਆਡੀਟਰ ਨੇ ਅਸਤੀਫ਼ਾ ਨਹੀਂ ਦਿੱਤਾ</string>
     <string name="moat_auditor_bad">ਆਡੀਟਰ ਨੇ ਅਸਤੀਫ਼ਾ ਦਿੱਤਾ</string>
     <string name="notify_square_off">⏰ 15:15 ਤੱਕ ਸਕੁਏਅਰ-ਆਫ਼ ਕਰੋ (%1$d ਇੰਟਰਾਡੇ ਟ੍ਰੇਡ)</string>

@@ -1141,7 +1141,7 @@ class StockDetailSheet(
                 Moat.Check.PROMOTER_HOLDING -> activity.getString(R.string.moat_promoter_change, shown)
                 Moat.Check.PLEDGE -> activity.getString(R.string.moat_pledge, shown)
                 Moat.Check.AUDITOR -> activity.getString(if (line.pass == true) R.string.moat_auditor_ok else R.string.moat_auditor_bad)
-            }
+            }.let { if (value == null && line.check != Moat.Check.AUDITOR) "${it.replace("—%", "—")} · ${activity.getString(R.string.moat_unknown)}" else it }
             val (mark, tone) = when (line.pass) {
                 true -> "✓" to R.color.bull
                 false -> "✗" to R.color.bear

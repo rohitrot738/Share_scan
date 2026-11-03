@@ -72,6 +72,7 @@
     <string name="moat_promoter">ಪ್ರವರ್ತಕರ ಬಳಿ %1$s%% (50%% ಅಥವಾ ಹೆಚ್ಚು)</string>
     <string name="moat_promoter_change">ಪ್ರವರ್ತಕರ ಪಾಲಿನಲ್ಲಿ ಬದಲಾವಣೆ %1$s%% (ಮಾರುತ್ತಿಲ್ಲ)</string>
     <string name="moat_pledge">ಅಡವು %1$s%% (ಇಲ್ಲ)</string>
+    <string name="moat_unknown">ಮಾಹಿತಿ ಸಿಗಲಿಲ್ಲ</string>
     <string name="moat_auditor_ok">ಆಡಿಟರ್ ರಾಜೀನಾಮೆ ನೀಡಿಲ್ಲ</string>
     <string name="moat_auditor_bad">ಆಡಿಟರ್ ರಾಜೀನಾಮೆ ನೀಡಿದ್ದಾರೆ</string>
     <string name="notify_square_off">⏰ 15:15 ರೊಳಗೆ ಸ್ಕ್ವೇರ್-ಆಫ್ ಮಾಡಿ (%1$d ಇಂಟ್ರಾಡೇ ಟ್ರೇಡ್‌ಗಳು)</string>
