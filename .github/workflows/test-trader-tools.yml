@@ -1,0 +1,29 @@
+name: Test trader tools
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tools/trader.py'
+      - 'tests/test_trader_tools.py'
+      - '.claude/skills/trader-*/**'
+      - '.github/workflows/test-trader-tools.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install pytest
+      - run: python -m pytest -q tests/test_trader_tools.py
+      - name: Live data (Yahoo candles and the R/S files)
+        run: |
+          python tools/trader.py smc RELIANCE --interval 1d
+          python tools/trader.py smc TATASTEEL --interval 15m
+          python tools/trader.py entry SBIN
+          python tools/trader.py insider TATASTEEL | head -30
+          python tools/trader.py analyst INFY | head -30
+          price=$(python -c "import sys; sys.path.insert(0, 'tools'); import trader; print(trader.bars_from_yahoo('RELIANCE', '5m', '5d')[-1]['close'])")
+          python tools/trader.py timemachine RELIANCE --entry $price \
+            --stop $(python -c "print(round($price * 0.99, 2))") --target $(python -c "print(round($price * 1.02, 2))")
