@@ -5,7 +5,7 @@ description: Upcoming and recent catalysts of an Indian stock from its BSE filin
 
 # /short-catalysts (Catalyst Tracker)
 
-Reads the company's filings on BSE for the last 90 days (BSE's own announcements, as the app's News reads them), sorts the ones about results, board meetings, dividends, record dates, general meetings, bonus or split, buyback and rights issues, and lists those whose headline names a date still to come as upcoming. An NSE symbol is looked up on BSE's search; --bse-code skips that.
+Reads the company's filings on BSE for the last 90 days (BSE's own announcements, as the app's News reads them), sorts the ones about results, board meetings, dividends, record dates, general meetings, bonus or split, buyback and rights issues, and lists those whose headline names a date still to come as upcoming. An NSE symbol is looked up on BSE's search; --bse-code skips that. BSE answers ordinary connections in India (as for the app's News) but refuses data-centre servers such as GitHub's with 403: then say BSE did not answer from this machine.
 
 ## Run
 
