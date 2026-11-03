@@ -3,9 +3,10 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - 'tools/trader.py'
+      - 'tools/*.py'
       - 'tests/test_trader_tools.py'
-      - '.claude/skills/trader-*/**'
+      - 'tests/test_invest_tools.py'
+      - '.claude/skills/**'
       - '.github/workflows/test-trader-tools.yml'
 jobs:
   test:
@@ -16,7 +17,7 @@ jobs:
         with:
           python-version: '3.11'
       - run: pip install pytest
-      - run: python -m pytest -q tests/test_trader_tools.py
+      - run: python -m pytest -q tests/test_trader_tools.py tests/test_invest_tools.py
       - name: Live data (Yahoo candles and the R/S files)
         run: |
           python tools/trader.py smc RELIANCE --interval 1d
@@ -27,3 +28,16 @@ jobs:
           price=$(python -c "import sys; sys.path.insert(0, 'tools'); import trader; print(trader.bars_from_yahoo('RELIANCE', '5m', '5d')[-1]['close'])")
           python tools/trader.py timemachine RELIANCE --entry $price \
             --stop $(python -c "print(round($price * 0.99, 2))") --target $(python -c "print(round($price * 1.02, 2))")
+      - name: Live data for the swing and long-term tools
+        run: |
+          python tools/invest.py short-scanner TITAN POLYCAB DIXON SBIN
+          python tools/invest.py short-setup TRENT
+          python tools/invest.py short-risk --entry 3500 --symbol TITAN --since 2026-10-01
+          python tools/invest.py short-catalysts RELIANCE
+          python tools/invest.py short-broker TITAN --qty 10 --entry 3500 --stop 3400 --target 3750 | head -20
+          python tools/invest.py long-screener --top 10
+          python tools/invest.py long-valuation HDFCBANK
+          python tools/invest.py long-moat TCS
+          python tools/invest.py long-portfolio --capital 500000 --core TCS,HDFCBANK,ASIANPAINT --growth POLYCAB,DIXON
+          printf 'symbol,qty,avg_price,buy_date\nTCS,10,3500,2024-05-02\nTITAN,5,3700,2026-04-10\n' > holdings.csv
+          python tools/invest.py long-rebalance --holdings holdings.csv
