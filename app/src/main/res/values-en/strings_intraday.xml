@@ -12,6 +12,7 @@
     <string name="horizon_buy">BUY ₹%1$s (above the range and VWAP at %2$s) • Stop ₹%3$s • Target ₹%4$s (1:1.5), ₹%5$s (1:2) • sell out by 15:15</string>
     <string name="horizon_sell">SELL ₹%1$s (below the range and VWAP at %2$s) • Stop ₹%3$s • Target ₹%4$s (1:1.5), ₹%5$s (1:2) • buy back by 15:15</string>
     <string name="horizon_late">Came after 14:45: no new entry today</string>
+    <string name="horizon_chased">Ran well past the entry: don\'t chase it now</string>
     <string name="horizon_target1">So far: Target 1 reached</string>
     <string name="horizon_target2">So far: Target 2 reached too</string>
     <string name="horizon_stopped">So far: stopped out</string>
@@ -31,7 +32,7 @@
     <string name="intraday_checking">%1$d of %2$d stocks checked…</string>
     <string name="intraday_buys">BUY (%1$d)</string>
     <string name="intraday_sells">SELL (%1$d)</string>
-    <string name="intraday_done">Today\'s other calls (%1$d): came late, or the stop or a target was reached</string>
+    <string name="intraday_done">Today\'s other calls (%1$d): came late, ran past the entry, or the stop or a target was reached</string>
     <string name="intraday_none">None yet</string>
     <string name="intraday_waiting">%1$d stocks still inside their range, no call</string>
     <string name="intraday_before">The market opens at 9:15; picks come after 9:30</string>
@@ -44,5 +45,5 @@
     <string name="intraday_row_sell">%1$s • SELL ₹%2$s (%3$s)</string>
     <string name="intraday_row">Stop ₹%1$s • Target ₹%2$s, ₹%3$s • now ₹%4$s</string>
     <string name="help_intraday_title">Targets and today\'s intraday</string>
-    <string name="help_intraday_body">At the top of every stock\'s detail are its \"Targets\" for three horizons. Intraday (today only, MIS): from today\'s 5-minute candles; a close above the 9:15–9:30 range and above VWAP is a BUY, a close below it and below VWAP a SELL; the stop sits at the range\'s middle, targets at 1:1.5 and 1:2; no new entry after 14:45, square off by 15:15. Short-term (2 days to 4 weeks, delivery): the trade plan\'s entry, stop and first two targets, with how many days they take. Long-term (1 to 5 years): the R/S framework\'s buy price and fair value, and the price at the company\'s own usual P/E. Menu → \"Today\'s intraday\" has the app pick, from the scan\'s most traded stocks, which to BUY and which to SELL today, strongest first; tap one for its detail. These are estimates from prices alone, not investment advice.</string>
+    <string name="help_intraday_body">At the top of every stock\'s detail are its \"Targets\" for three horizons. Intraday (today only, MIS): from today\'s 5-minute candles; a close above the 9:15–9:30 range and above VWAP is a BUY, a close below it and below VWAP a SELL; the stop sits at the range\'s middle, targets at 1:1.5 and 1:2; no new entry after 14:45, square off by 15:15. Short-term (2 days to 4 weeks, delivery): the trade plan\'s entry, stop and first two targets, with how many days they take. Long-term (1 to 5 years): the R/S framework\'s buy price and fair value, and the price at the company\'s own usual P/E. Menu → \"Today\'s intraday\" has the app pick, from the scan\'s most traded stocks, which to BUY and which to SELL today, only calls still worth taking, the nearest to their entry first; tap one for its detail. These are estimates from prices alone, not investment advice.</string>
 </resources>

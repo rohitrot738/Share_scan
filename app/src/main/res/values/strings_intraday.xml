@@ -12,6 +12,7 @@
     <string name="horizon_buy">BUY ₹%1$s (%2$s पर range के ऊपर, VWAP के ऊपर) • Stop ₹%3$s • Target ₹%4$s (1:1.5), ₹%5$s (1:2) • 15:15 तक बेचकर निकलें</string>
     <string name="horizon_sell">SELL ₹%1$s (%2$s पर range के नीचे, VWAP के नीचे) • Stop ₹%3$s • Target ₹%4$s (1:1.5), ₹%5$s (1:2) • 15:15 तक वापस खरीदकर निकलें</string>
     <string name="horizon_late">14:45 के बाद आया: आज नई entry नहीं</string>
+    <string name="horizon_chased">Entry से काफ़ी आगे निकल चुका: अब पीछा न करें</string>
     <string name="horizon_target1">अब तक: Target 1 लग चुका</string>
     <string name="horizon_target2">अब तक: Target 2 भी लग चुका</string>
     <string name="horizon_stopped">अब तक: Stop लग चुका</string>
@@ -31,7 +32,7 @@
     <string name="intraday_checking">%2$d में से %1$d stocks जाँचे…</string>
     <string name="intraday_buys">BUY (%1$d)</string>
     <string name="intraday_sells">SELL (%1$d)</string>
-    <string name="intraday_done">आज के बाकी calls (%1$d): देर से आए, या stop या target लग चुका</string>
+    <string name="intraday_done">आज के बाकी calls (%1$d): देर से आए, entry से आगे निकल चुके, या stop या target लग चुका</string>
     <string name="intraday_none">अभी कोई नहीं</string>
     <string name="intraday_waiting">%1$d stocks अभी range के अंदर, कोई call नहीं</string>
     <string name="intraday_before">बाज़ार 9:15 पर खुलता है; picks 9:30 के बाद बनेंगे</string>
@@ -44,5 +45,5 @@
     <string name="intraday_row_sell">%1$s • SELL ₹%2$s (%3$s)</string>
     <string name="intraday_row">Stop ₹%1$s • Target ₹%2$s, ₹%3$s • अभी ₹%4$s</string>
     <string name="help_intraday_title">लक्ष्य और आज के Intraday</string>
-    <string name="help_intraday_body">हर stock के detail में सबसे ऊपर \"लक्ष्य\" तीन तरह के होते हैं। Intraday (आज ही, MIS): आज के 5-minute candles से; 9:15–9:30 के range के ऊपर VWAP के ऊपर close हो तो BUY, नीचे VWAP के नीचे close हो तो SELL; stop range के बीच, target 1:1.5 और 1:2; 14:45 के बाद नई entry नहीं, 15:15 तक square-off। Short-term (2 दिन से 4 हफ्ते, delivery): trade plan का entry, stop और पहले दो target, कितने दिन में। Long-term (1 से 5 साल): R/S framework की buy price और fair value, और company के अपने usual P/E का भाव। Menu → \"आज के Intraday\" में app scan के सबसे ज़्यादा trade हुए stocks में से खुद चुनता है कि आज कौन BUY और कौन SELL, सबसे मज़बूत पहले; किसी पर दबाएँ तो उसका detail खुलता है। ये सिर्फ़ भाव से बने अनुमान हैं, निवेश की सलाह नहीं।</string>
+    <string name="help_intraday_body">हर stock के detail में सबसे ऊपर \"लक्ष्य\" तीन तरह के होते हैं। Intraday (आज ही, MIS): आज के 5-minute candles से; 9:15–9:30 के range के ऊपर VWAP के ऊपर close हो तो BUY, नीचे VWAP के नीचे close हो तो SELL; stop range के बीच, target 1:1.5 और 1:2; 14:45 के बाद नई entry नहीं, 15:15 तक square-off। Short-term (2 दिन से 4 हफ्ते, delivery): trade plan का entry, stop और पहले दो target, कितने दिन में। Long-term (1 से 5 साल): R/S framework की buy price और fair value, और company के अपने usual P/E का भाव। Menu → \"आज के Intraday\" में app scan के सबसे ज़्यादा trade हुए stocks में से खुद चुनता है कि आज कौन BUY और कौन SELL, जो अभी भी लिए जा सकते हैं, entry के सबसे पास वाले पहले; किसी पर दबाएँ तो उसका detail खुलता है। ये सिर्फ़ भाव से बने अनुमान हैं, निवेश की सलाह नहीं।</string>
 </resources>

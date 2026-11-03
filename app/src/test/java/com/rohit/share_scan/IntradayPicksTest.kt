@@ -11,7 +11,8 @@ class IntradayPicksTest {
     private fun plan(side: IntradayPlan.Side, price: Double, late: Boolean = false, outcome: IntradayPlan.Outcome = IntradayPlan.Outcome.OPEN) =
         IntradayPlan(
             day = LocalDate.of(2026, 11, 3), rangeHigh = 103.0, rangeLow = 99.0, vwap = 101.0, price = price, asOf = 0L,
-            side = side, entry = if (side == IntradayPlan.Side.BUY) 103.5 else 98.5, stop = 101.0, targets = listOf(1.0, 2.0),
+            side = side, entry = if (side == IntradayPlan.Side.BUY) 103.5 else 98.5, stop = 101.0,
+            targets = listOf(1.0, 2.0),
             triggeredAt = 1L, late = late, outcome = outcome,
         )
 
@@ -29,21 +30,24 @@ class IntradayPicksTest {
     }
 
     @Test
-    fun buysAndSellsAreSortedByStrengthAndFinishedCallsSetApart() {
+    fun picksAreTheCallsStillToTakeNearestToTheirEntryFirst() {
         val s = stock("X", 100.0, 1.0)
+        // A buy enters at 103.5 and a sell at 98.5, both with a risk of 2.5 to the stop at 101.
         val picks = IntradayPicks.of(
             listOf(
-                IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 104.0)),
-                IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 106.0)),
-                IntradayPicks.Pick(s, plan(IntradayPlan.Side.SELL, 97.0)),
-                IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 105.0, late = true)),
+                IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 104.5)), // 0.4 R past the entry
+                IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 103.0)), // back under the entry
+                IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 106.0)), // 1 R past: too far to chase
+                IntradayPicks.Pick(s, plan(IntradayPlan.Side.SELL, 98.0)),
+                IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 104.0, late = true)),
+                IntradayPicks.Pick(s, plan(IntradayPlan.Side.BUY, 107.0, outcome = IntradayPlan.Outcome.TARGET_1)),
                 IntradayPicks.Pick(s, plan(IntradayPlan.Side.SELL, 102.0, outcome = IntradayPlan.Outcome.STOPPED)),
                 IntradayPicks.Pick(s, plan(IntradayPlan.Side.WAIT, 101.0)),
             ),
         )
-        assertEquals(listOf(106.0, 104.0), picks.buys.map { it.plan.price })
-        assertEquals(listOf(97.0), picks.sells.map { it.plan.price })
-        assertEquals(2, picks.done.size)
+        assertEquals(listOf(103.0, 104.5), picks.buys.map { it.plan.price })
+        assertEquals(listOf(98.0), picks.sells.map { it.plan.price })
+        assertEquals(4, picks.done.size)
         assertEquals(1, picks.waiting)
     }
 }

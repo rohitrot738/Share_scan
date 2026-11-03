@@ -65,7 +65,7 @@ class IntradayPlanTest {
     fun theOutcomeIsTheFirstLevelReached() {
         val target1 = IntradayPlan.of(candles(*range, c(101.0, 104.5, 101.0, 104.0), c(104.0, 109.0, 103.5, 108.8)))!!
         assertEquals(IntradayPlan.Outcome.TARGET_1, target1.outcome)
-        assertTrue(target1.actionable)
+        assertFalse(target1.actionable)
         val target2 = IntradayPlan.of(candles(*range, c(101.0, 104.5, 101.0, 104.0), c(104.0, 110.5, 103.5, 110.0)))!!
         assertEquals(IntradayPlan.Outcome.TARGET_2, target2.outcome)
         assertFalse(target2.actionable)
@@ -84,9 +84,34 @@ class IntradayPlanTest {
     }
 
     @Test
-    fun strengthRanksCallsByHowFarPriceRan() {
-        val near = IntradayPlan.of(candles(*range, c(101.0, 103.5, 101.0, 103.2)))!!
-        val far = IntradayPlan.of(candles(*range, c(101.0, 106.0, 101.0, 105.8)))!!
-        assertTrue(far.strength > near.strength)
+    fun anEarlierCallIsNoLongerTakenFromQuarterToThree() {
+        // A 9:30 breakout still between its stop and first target when the 14:45 candle comes in.
+        val holding = Array(63) { c(104.0, 104.5, 103.5, 104.2) } // 9:35 to 14:45
+        val plan = IntradayPlan.of(candles(*range, c(101.0, 104.5, 101.0, 104.0), *holding))!!
+        assertEquals(IntradayPlan.Side.BUY, plan.side)
+        assertFalse(plan.late)
+        assertEquals(IntradayPlan.Outcome.OPEN, plan.outcome)
+        assertTrue(plan.entriesClosed)
+        assertFalse(plan.actionable)
+        val before = IntradayPlan.of(candles(*range, c(101.0, 104.5, 101.0, 104.0), *holding.copyOfRange(0, 62)))!!
+        assertFalse(before.entriesClosed)
+        assertTrue(before.actionable)
+    }
+
+    @Test
+    fun aCallThatRanFarPastItsEntryIsNotChased() {
+        // Entry 104 on the close over the range, stop 101 at its middle: risk 3, first target 108.5.
+        val near = IntradayPlan.of(candles(*range, c(101.0, 104.5, 101.0, 104.0), c(104.0, 105.0, 103.8, 104.9)))!!
+        assertEquals(0.3, near.run, 1e-9)
+        assertFalse(near.chased)
+        assertTrue(near.actionable)
+        val far = IntradayPlan.of(candles(*range, c(101.0, 104.5, 101.0, 104.0), c(104.0, 106.5, 103.8, 106.3)))!!
+        assertEquals(IntradayPlan.Outcome.OPEN, far.outcome)
+        assertTrue(far.run > IntradayPlan.MAX_CHASE_R)
+        assertTrue(far.chased)
+        assertFalse(far.actionable)
+        val back = IntradayPlan.of(candles(*range, c(101.0, 104.5, 101.0, 104.0), c(104.0, 104.2, 102.5, 102.8)))!!
+        assertTrue(back.run < 0.0)
+        assertTrue(back.actionable)
     }
 }

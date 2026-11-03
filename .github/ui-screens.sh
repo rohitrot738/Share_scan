@@ -162,19 +162,8 @@ echo "scan done after ~$((i * 5 + 10))s" | tee -a "$LOG"
 adb shell am start -n "$PKG/.MainActivity" > /dev/null
 shot 01-list 6
 
-# The targets for each horizon at the top of the detail: the intraday call comes in as today's candles are read.
 SEARCH=compactSearch
-n=2
-for sym in RELIANCE HDFCBANK TATASTEEL INFY ASIANPAINT; do
-  open_stock "$sym"
-  shot "$(printf %02d $n)-targets-$sym" 8
-  all_texts | grep -A1 -E 'Intraday|Short term|Long term' | head -12 >> "$LOG"
-  n=$((n + 1))
-  adb shell input keyevent KEYCODE_BACK
-  sleep 2
-done
-
-# Menu -> today's intraday: the app's own BUY and SELL picks among the most traded stocks.
+# Menu -> today's intraday first (before 14:45 IST): the app's own BUY and SELL picks among the most traded stocks.
 front
 tap compactMenu
 sleep 3
@@ -185,19 +174,26 @@ for i in $(seq 1 60); do
   unstall
   center text "फिर से जाँचें" > /dev/null && break
 done
-echo "picks done after ~$((i * 3))s" | tee -a "$LOG"
+echo "picks done after ~$((i * 3))s at IST $(TZ=Asia/Kolkata date +%H:%M)" | tee -a "$LOG"
 shot 11-intraday-top 1
 all_texts >> "$LOG"
 adb shell input swipe 540 1900 540 700 500
 shot 12-intraday-scrolled 2
 adb shell input swipe 540 1900 540 700 500
 shot 13-intraday-more 2
-# A pick opens its stock.
-adb shell input swipe 540 700 540 2000 400
-adb shell input swipe 540 700 540 2000 400
-sleep 2
+adb shell input swipe 540 1900 540 700 500
+shot 14-intraday-end 2
+all_texts >> "$LOG"
+# A pick opens its stock: back to the menu, the list again (each stock's answer is kept a minute), tap the first call.
+adb shell input keyevent KEYCODE_BACK
+sleep 3
+tap_text "आज के Intraday"
+for i in $(seq 1 60); do
+  sleep 2
+  center text "फिर से जाँचें" > /dev/null && break
+done
 dump
-python3 - > /tmp/xy <<'PY'
+python3 - > /tmp/xy <<'PY2'
 import re
 xml = open('/tmp/ui.xml', encoding='utf-8').read()
 for n in re.finditer(r'<node [^>]*>', xml):
@@ -206,14 +202,20 @@ for n in re.finditer(r'<node [^>]*>', xml):
         x1, y1, x2, y2 = map(int, re.search(r'bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"', s).groups())
         print((x1 + x2) // 2, (y1 + y2) // 2)
         break
-PY
-if [ -s /tmp/xy ]; then adb shell input tap $(cat /tmp/xy); shot 14-pick-opens-detail 8; else echo "no pick to open" | tee -a "$LOG"; fi
+PY2
+if [ -s /tmp/xy ]; then adb shell input tap $(cat /tmp/xy); shot 15-pick-opens-detail 8; else echo "no pick to open" | tee -a "$LOG"; fi
 adb shell input keyevent KEYCODE_BACK
 sleep 2
 
-# The help entry.
-adb shell input keyevent KEYCODE_BACK
-sleep 2
+# The targets for each horizon at the top of the detail: the intraday call comes in as today's candles are read.
+n=2
+for sym in RELIANCE HDFCBANK TATASTEEL INFY ASIANPAINT; do
+  open_stock "$sym"
+  shot "$(printf %02d $n)-targets-$sym" 8
+  n=$((n + 1))
+  adb shell input keyevent KEYCODE_BACK
+  sleep 2
+done
 
 # In English.
 adb shell cmd locale set-app-locales "$PKG" --locales en

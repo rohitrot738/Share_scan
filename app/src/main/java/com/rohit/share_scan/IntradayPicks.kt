@@ -2,7 +2,8 @@ package com.rohit.share_scan
 
 /**
  * The app's own intraday picks: of the most traded stocks of the latest scan ([universe]), those whose opening-range
- * breakout ([IntradayPlan]) calls a buy and those that call a sell, the strongest first. Free of Android types so it
+ * breakout ([IntradayPlan]) calls a buy and those that call a sell and can still be taken, the nearest to their
+ * entry first. Free of Android types so it
  * can be unit tested.
  */
 object IntradayPicks {
@@ -18,7 +19,7 @@ object IntradayPicks {
     data class Picks(
         val buys: List<Pick>,
         val sells: List<Pick>,
-        /** Called today but no longer to be taken: late, stopped out or already at the last target. */
+        /** Called today but no longer to be taken: late, run too far past the entry, stopped out or at a target. */
         val done: List<Pick>,
         /** Inside the range, or not yet past 9:30. */
         val waiting: Int,
@@ -36,8 +37,8 @@ object IntradayPicks {
         val (open, closed) = checked.filter { it.plan.side == IntradayPlan.Side.BUY || it.plan.side == IntradayPlan.Side.SELL }
             .partition { it.plan.actionable }
         return Picks(
-            buys = open.filter { it.plan.side == IntradayPlan.Side.BUY }.sortedByDescending { it.plan.strength },
-            sells = open.filter { it.plan.side == IntradayPlan.Side.SELL }.sortedByDescending { it.plan.strength },
+            buys = open.filter { it.plan.side == IntradayPlan.Side.BUY }.sortedBy { it.plan.run },
+            sells = open.filter { it.plan.side == IntradayPlan.Side.SELL }.sortedBy { it.plan.run },
             done = closed.sortedByDescending { it.plan.triggeredAt ?: 0L },
             waiting = checked.count { it.plan.side == IntradayPlan.Side.WAIT || it.plan.side == IntradayPlan.Side.FORMING },
         )

@@ -52,20 +52,30 @@ data class IntradayPlan(
     /** Rupees at risk a share: the entry to the stop. */
     val risk: Double? get() = if (entry != null && stop != null) kotlin.math.abs(entry - stop) else null
 
-    /** How far price has run past the range's broken edge, as a share of the range's width; for ranking calls. */
-    val strength: Double
+    /**
+     * How far price now stands past the entry, in units of [risk]: 0 at the entry, below 0 when it has come back
+     * towards the stop, 1.5 at the first target. The picks rank by it, the nearest to the entry first.
+     */
+    val run: Double
         get() {
-            val width = (rangeHigh - rangeLow).takeIf { it > 0.0 } ?: return 0.0
+            val risk = risk?.takeIf { it > 0.0 } ?: return 0.0
+            val entry = entry ?: return 0.0
             return when (side) {
-                Side.BUY -> (price - rangeHigh) / width
-                Side.SELL -> (rangeLow - price) / width
+                Side.BUY -> (price - entry) / risk
+                Side.SELL -> (entry - price) / risk
                 else -> 0.0
             }
         }
 
-    /** Still worth taking: called, not late, and neither stopped nor already at its last target. */
+    /** Price has run more than [MAX_CHASE_R] past the entry: buying (or selling) it now risks too much for the reward left. */
+    val chased: Boolean get() = (side == Side.BUY || side == Side.SELL) && outcome == Outcome.OPEN && run > MAX_CHASE_R
+
+    /** The latest candle started at or after [LAST_ENTRY]: no new entry today, whatever was called earlier. */
+    val entriesClosed: Boolean get() = MarketClock.timeOf(asOf) >= LAST_ENTRY
+
+    /** Still worth taking now: called, not late, entries still open, nothing reached yet, price still near the entry. */
     val actionable: Boolean
-        get() = (side == Side.BUY || side == Side.SELL) && !late && outcome != Outcome.STOPPED && outcome != Outcome.TARGET_2
+        get() = (side == Side.BUY || side == Side.SELL) && !late && !entriesClosed && outcome == Outcome.OPEN && !chased
 
     /** One 5-minute candle; [at] is its start in epoch seconds. */
     data class Candle(val at: Long, val open: Double, val high: Double, val low: Double, val close: Double, val volume: Double)
@@ -73,6 +83,9 @@ data class IntradayPlan(
     companion object {
         const val ORB_MINUTES = 15L
         const val CANDLE_MINUTES = 5L
+
+        /** How far past the entry, in units of risk, a call may still be taken. */
+        const val MAX_CHASE_R = 0.5
         val TARGET_R = listOf(1.5, 2.0)
         val LAST_ENTRY: LocalTime = LocalTime.of(14, 45)
         val SQUARE_OFF: LocalTime = LocalTime.of(15, 15)

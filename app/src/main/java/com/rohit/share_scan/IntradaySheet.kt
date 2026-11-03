@@ -45,15 +45,17 @@ object IntradayText {
                     p(plan.targets[0]),
                     p(plan.targets[1]),
                 )
-                (listOf(call) + notes(context, plan)).joinToString("\n")
+                val closed = context.getString(R.string.intraday_after_cutoff).takeIf { plan.entriesClosed && plan.day == today && !plan.late }
+                (listOf(call) + notes(context, plan) + listOfNotNull(closed)).joinToString("\n")
             }
         }
         return past + body
     }
 
-    /** Too late to enter, and the first level reached since. */
+    /** Too late to enter, too far past the entry to chase, and the first level reached since. */
     fun notes(context: Context, plan: IntradayPlan): List<String> = listOfNotNull(
         context.getString(R.string.horizon_late).takeIf { plan.late },
+        context.getString(R.string.horizon_chased).takeIf { plan.chased && !plan.late },
         when (plan.outcome) {
             IntradayPlan.Outcome.TARGET_1 -> R.string.horizon_target1
             IntradayPlan.Outcome.TARGET_2 -> R.string.horizon_target2
@@ -65,8 +67,8 @@ object IntradayText {
 
 /**
  * The app's own intraday picks ([IntradayPicks]): among the latest scan's most traded stocks, those whose
- * opening-range breakout today calls a buy and those that call a sell, strongest first, each with its entry, stop
- * and targets; a tap opens the stock. "फिर से जाँचें" reads the candles again (each kept a minute).
+ * opening-range breakout today calls a buy and those that call a sell and can still be taken, the nearest to their
+ * entry first, each with its entry, stop and targets; a tap opens the stock. "फिर से जाँचें" reads the candles again (each kept a minute).
  */
 class IntradaySheet(
     private val activity: AppCompatActivity,
