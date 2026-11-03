@@ -1,0 +1,54 @@
+IST now: 2026-11-03 14:13
+could not find id statusPill
+could not find id startButton
+scan done after ~760s
+shot 01-list
+shot 10-menu
+picks done after ~180s at IST 14:45
+shot 11-intraday-top
+आज के Intraday picks
+Scan के सबसे ज़्यादा trade हुए 120 stocks में से: 9:15–9:30 के range से ऊपर (VWAP के ऊपर) निकले तो BUY, नीचे (VWAP के नीचे) गिरे तो SELL। Stop range के बीच, target 1:1.5 और 1:2, 15:15 तक square-off। ये अनुमान हैं, निवेश की सलाह नहीं।
+BUY (21)
+M&M • BUY ₹2,910.00 (10:20)
+Stop ₹2,876.80 • Target ₹2,959.80, ₹2,976.40 • अभी ₹2,882.80
+BHEL • BUY ₹403.15 (09:50)
+Stop ₹396.12 • Target ₹413.69, ₹417.20 • अभी ₹398.65
+CHENNPETRO • BUY ₹1,556.00 (09:35)
+Stop ₹1,535.25 • Target ₹1,587.12, ₹1,597.50 • अभी ₹1,544.10
+CIPLA • BUY ₹1,387.40 (12:10)
+Stop ₹1,379.35 • Target ₹1,399.48, ₹1,403.50 • अभी ₹1,383.70
+KITEX • BUY ₹135.33 (11:50)
+Stop ₹131.18 • Target ₹141.56, ₹143.64 • अभी ₹133.48
+GAIL • BUY ₹181.45 (09:35)
+Stop ₹178.85 • Target ₹185.34, ₹186.64 • अभी ₹180.37
+shot 12-intraday-scrolled
+shot 13-intraday-more
+shot 14-intraday-end
+आज के Intraday picks
+Scan के सबसे ज़्यादा trade हुए 120 stocks में से: 9:15–9:30 के range से ऊपर (VWAP के ऊपर) निकले तो BUY, नीचे (VWAP के नीचे) गिरे तो SELL। Stop range के बीच, target 1:1.5 और 1:2, 15:15 तक square-off। ये अनुमान हैं, निवेश की सलाह नहीं।
+DRREDDY • BUY ₹1,356.40 (10:25)
+Stop ₹1,346.75 • Target ₹1,370.88, ₹1,375.70 • अभी ₹1,355.00
+APOLLOHOSP • BUY ₹8,428.00 (12:50)
+Stop ₹8,370.75 • Target ₹8,513.88, ₹8,542.50 • अभी ₹8,420.00
+ZENTEC • BUY ₹1,711.10 (09:35)
+Stop ₹1,665.60 • Target ₹1,779.35, ₹1,802.10 • अभी ₹1,705.70
+WOCKPHARMA • BUY ₹1,875.50 (09:40)
+Stop ₹1,838.95 • Target ₹1,930.32, ₹1,948.60 • अभी ₹1,871.30
+ASIANPAINT • BUY ₹2,424.20 (10:35)
+Stop ₹2,386.50 • Target ₹2,480.75, ₹2,499.60 • अभी ₹2,420.70
+HDFCAMC • BUY ₹2,420.00 (09:35)
+Stop ₹2,395.45 • Target ₹2,456.83, ₹2,469.10 • अभी ₹2,419.00
+BAJAJ-AUTO • BUY ₹10,435.00 (10:15)
+Stop ₹10,370.00 • Target ₹10,532.50, ₹10,565.00 • अभी ₹10,438.00
+shot 15-pick-opens-detail
+could not find id compactSearch
+could not find the line RELIANCE
+shot 02-targets-RELIANCE
+could not find id compactSearch
+could not find the line HDFCBANK
+shot 03-targets-HDFCBANK
+shot 04-targets-TATASTEEL
+shot 05-targets-INFY
+shot 06-targets-ASIANPAINT
+shot 20-targets-english
+shot 21-intraday-english
