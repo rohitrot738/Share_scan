@@ -3,7 +3,6 @@
     <string name="watch_title">★ વૉચલિસ્ટ (%1$d)</string>
     <string name="watch_subtitle">ઉમેર્યા પછીનો નફો કે ખોટ અને દરેક શેરનો અલર્ટ · ડાબે સ્વાઇપ કરીને કાઢો, દબાવી રાખો તો ઉમેરવાનો ભાવ બદલો</string>
     <string name="watch_refresh">વૉચલિસ્ટના ભાવ તાજા કરો</string>
-    <string name="watch_show_in_list">વૉચલિસ્ટના શેર હોમની યાદીમાં બતાવો</string>
     <string name="watch_export">વૉચલિસ્ટ શેર કરો</string>
     <string name="watch_summary_label">ઉમેર્યા પછીનું સરેરાશ વળતર</string>
     <string name="watch_summary_note">%1$d શેર · દરેક શેર સરખો ગણ્યો · ભાવ %2$s ના</string>
@@ -13,7 +12,7 @@
     <string name="watch_summary_alerts">🔔 %1$d અલર્ટ ચાલુ</string>
     <string name="watch_summary_alerts_off">🔕 અલર્ટ બંધ</string>
     <string name="watch_summary_description">ઉમેર્યા પછીનું સરેરાશ વળતર %1$s, %2$d નફામાં, %3$d ખોટમાં</string>
-    <string name="watch_sort_return">વળતર ↓</string>
+    <string name="watch_sort_return">વળતર</string>
     <string name="watch_sort_recent">નવા પહેલાં</string>
     <string name="watch_sort_nearest">લક્ષ્યની નજીક</string>
     <string name="watch_added">₹%1$s પર ઉમેર્યો · %2$s</string>

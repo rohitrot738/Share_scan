@@ -91,6 +91,44 @@ class WatchBookTest {
     }
 
     @Test
+    fun aSecondTapTurnsTheOrderRoundButKeepsStocksWithoutDataLast() {
+        val stocks = listOf(
+            stock("UP", 120.0), stock("DOWN", 90.0), stock("FLAT", 100.0), stock("NEW", 100.0),
+            ScanResult("NONE", 0.0, 0.0, 0.0, 0.0),
+        )
+        val entries = mapOf(
+            "UP" to WatchEntry(100.0, at = 1L),
+            "DOWN" to WatchEntry(100.0, at = 3L),
+            "FLAT" to WatchEntry(100.0, at = 2L),
+        )
+        fun order(sort: WatchSort, reversed: Boolean) =
+            WatchBook.rows(stocks, entries, emptyMap(), sort, reversed = reversed).map { it.stock.symbol }
+        assertEquals(listOf("UP", "FLAT", "DOWN", "NEW", "NONE"), order(WatchSort.RETURN, reversed = false))
+        assertEquals(listOf("DOWN", "FLAT", "UP", "NEW", "NONE"), order(WatchSort.RETURN, reversed = true))
+        assertEquals(listOf("DOWN", "FLAT", "UP", "NEW", "NONE"), order(WatchSort.RECENT, reversed = false))
+        assertEquals(listOf("UP", "FLAT", "DOWN", "NEW", "NONE"), order(WatchSort.RECENT, reversed = true))
+        val near = order(WatchSort.NEAREST, reversed = false)
+        val far = order(WatchSort.NEAREST, reversed = true)
+        assertEquals("NONE", far.last())
+        assertEquals(near.dropLast(1).reversed(), far.dropLast(1))
+    }
+
+    @Test
+    fun theSummaryPillsFilterTheRows() {
+        val rows = listOf(
+            WatchRow(stock("A", 110.0), WatchEntry(100.0, 0L), WatchAlerts.State(entry = 112.0, stop = 95.0), null),
+            WatchRow(stock("B", 95.0), WatchEntry(100.0, 0L), WatchAlerts.State(), null),
+            WatchRow(stock("C", 100.0), WatchEntry(100.0, 0L), null, null),
+            WatchRow(stock("D", 50.0), null, null, null),
+        )
+        fun kept(filter: WatchFilter) = WatchBook.filter(rows, filter).map { it.stock.symbol }
+        assertEquals(listOf("A", "B", "C", "D"), kept(WatchFilter.ALL))
+        assertEquals(listOf("A"), kept(WatchFilter.GAINING))
+        assertEquals(listOf("B"), kept(WatchFilter.LOSING))
+        assertEquals(listOf("A"), kept(WatchFilter.ALERTS))
+    }
+
+    @Test
     fun summaryAveragesTheBasketAndCountsAlerts() {
         val rows = listOf(
             WatchRow(stock("A", 110.0), WatchEntry(100.0, 0L), WatchAlerts.State(entry = 112.0, stop = 95.0), null),

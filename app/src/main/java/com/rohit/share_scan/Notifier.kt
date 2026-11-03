@@ -33,6 +33,7 @@ object Notifier {
     private const val ID_SCAN_DONE = 3
     private const val ID_UPDATE = 4
     private const val ID_NEWS_DIGEST = 5
+    private const val ID_SQUARE_OFF = 6
     /** Each stock's news alert replaces its previous one; its "पूरी ख़बर" button counts on from [NEWS_READ_BASE]. */
     private const val ID_NEWS_BASE = 70_000
     private const val NEWS_READ_BASE = 140_000
@@ -229,6 +230,32 @@ object Notifier {
                 .setStyle(NotificationCompat.BigTextStyle().bigText(body))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(open(context, event.symbol, id))
+                .setAutoCancel(true),
+        )
+    }
+
+    /** 15:10: the intraday trades written down today and still open, to square off by 15:15 ([SquareOffWorker]). */
+    fun squareOff(base: Context, trades: List<LoggedTrade>) {
+        val context = Languages.localized(base)
+        val title = context.getString(R.string.notify_square_off, trades.size)
+        val body = trades.joinToString("\n") { trade ->
+            context.getString(
+                if (trade.side == OrderTicket.Side.BUY) R.string.notify_square_off_buy else R.string.notify_square_off_sell,
+                trade.symbol,
+                trade.qty,
+                StockFormat.price(trade.entry),
+            )
+        }
+        post(
+            context,
+            ID_SQUARE_OFF,
+            NotificationCompat.Builder(context, CHANNEL_WATCH)
+                .setSmallIcon(R.drawable.ic_notifications_small)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setStyle(NotificationCompat.BigTextStyle().bigText(body))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(open(context, trades.singleOrNull()?.symbol, ID_SQUARE_OFF))
                 .setAutoCancel(true),
         )
     }

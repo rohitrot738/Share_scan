@@ -3,7 +3,6 @@
     <string name="watch_title">★ ওয়াচলিস্ট (%1$d)</string>
     <string name="watch_subtitle">যোগ করার পর থেকে লাভ বা ক্ষতি আর প্রতিটি শেয়ারের অ্যালার্ট · বাঁয়ে সোয়াইপ করে সরান, চেপে ধরে যোগ করার দাম বদলান</string>
     <string name="watch_refresh">ওয়াচলিস্টের দাম টাটকা করুন</string>
-    <string name="watch_show_in_list">ওয়াচলিস্টের শেয়ার হোমের তালিকায় দেখান</string>
     <string name="watch_export">ওয়াচলিস্ট শেয়ার করুন</string>
     <string name="watch_summary_label">যোগ করার পর থেকে গড় রিটার্ন</string>
     <string name="watch_summary_note">%1$dটি শেয়ার · প্রতিটি সমান ধরা · দাম %2$s-এর</string>
@@ -13,7 +12,7 @@
     <string name="watch_summary_alerts">🔔 %1$dটি অ্যালার্ট চালু</string>
     <string name="watch_summary_alerts_off">🔕 অ্যালার্ট বন্ধ</string>
     <string name="watch_summary_description">যোগ করার পর থেকে গড় রিটার্ন %1$s, %2$dটি লাভে, %3$dটি ক্ষতিতে</string>
-    <string name="watch_sort_return">রিটার্ন ↓</string>
+    <string name="watch_sort_return">রিটার্ন</string>
     <string name="watch_sort_recent">নতুন আগে</string>
     <string name="watch_sort_nearest">লক্ষ্যের কাছে</string>
     <string name="watch_added">₹%1$s-এ যোগ · %2$s</string>

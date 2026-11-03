@@ -1201,6 +1201,9 @@ class MainActivity : AppCompatActivity() {
             MenuSheet.Entry.INTRADAY -> showMenuSheet {
                 IntradaySheet(this, scan.uiState.value.results, { openChart(it) }, ::openMenu).show()
             }
+            MenuSheet.Entry.TRADE_LOG -> showMenuSheet {
+                TradeLogSheet(this, { scan.uiState.value.priceOf(it) }, { openFromNotification(it, false) }, ::openMenu).show()
+            }
             MenuSheet.Entry.TRACK_RECORD -> showMenuSheet { TrackRecordSheet(this, ScanEngine.journal(this), ::openMenu).show() }
             MenuSheet.Entry.SECTORS -> openSectors(fromMenu = true)
             MenuSheet.Entry.SETTINGS -> showMenuSheet {

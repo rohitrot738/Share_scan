@@ -106,7 +106,7 @@ data class ScanUiState(
 
     /** Every stock inside the filters, ranked by score, before the limit. */
     private val matching: List<RankedStock> by lazy {
-        results.filter(filters::accepts).mapIndexed { index, stock ->
+        results.filter { filters.accepts(it, cr360) }.mapIndexed { index, stock ->
             RankedStock(index + 1, stock, rankBadges[stock.symbol], stock.symbol in watchlist)
         }
     }

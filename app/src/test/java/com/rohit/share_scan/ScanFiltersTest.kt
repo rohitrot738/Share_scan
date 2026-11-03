@@ -208,4 +208,12 @@ class ScanFiltersTest {
     fun csvSplitHonoursQuotes() {
         assertEquals(listOf("a", "b, c", "d\"e", ""), NseScanner.splitCsv("a,\"b, c\",\"d\"\"e\","))
     }
+
+    @Test
+    fun theQualityScreenIsKeptAndCountsAsAFilter() {
+        val on = ScanFilters(quality = true)
+        assertEquals(1, on.activeCount)
+        assertEquals(on, ScanFilters.decode(on.encode()))
+        assertEquals(false, ScanFilters.decode(ScanFilters().encode()).quality)
+    }
 }

@@ -15,6 +15,9 @@ data class WatchEntry(val price: Double, val at: Long, val estimated: Boolean = 
 /** The Watchlist page's order: best return since added first, newest first, or nearest its next level first. */
 enum class WatchSort { RETURN, RECENT, NEAREST }
 
+/** Which of the watchlist's stocks the page shows: all, those up or down since added, or those with an alert set. */
+enum class WatchFilter { ALL, GAINING, LOSING, ALERTS }
+
 /**
  * The two levels a watchlisted stock moves between, for the page's bar. Waiting under its breakout trigger ([target]
  * 0), it sits between the base's [floor] (the 10-session low) and the trigger; in a trade it sits between its stop
@@ -71,20 +74,33 @@ object WatchBook {
         alerts: Map<String, WatchAlerts.State>,
         sort: WatchSort,
         shape: (ScanResult) -> PlanShape = { PlanShape.OWN },
+        /** The other way round: lowest return, oldest or farthest from the next level first. */
+        reversed: Boolean = false,
     ): List<WatchRow> {
         val rows = stocks.map { stock ->
             val alert = alerts[stock.symbol]
             WatchRow(stock, entries[stock.symbol], alert, levels(stock, alert, shape(stock)))
         }
         val (charted, waiting) = rows.partition { it.stock.charted }
-        val ordered = when (sort) {
-            WatchSort.RETURN -> charted.sortedWith(compareByDescending<WatchRow> { it.returnPct ?: -Double.MAX_VALUE }.thenBy { it.stock.symbol })
-            WatchSort.RECENT -> charted.sortedWith(compareByDescending<WatchRow> { it.entry?.at ?: 0L }.thenBy { it.stock.symbol })
-            WatchSort.NEAREST -> charted.sortedWith(
-                compareBy<WatchRow> { it.levels?.distancePct(it.stock.price) ?: Double.MAX_VALUE }.thenBy { it.stock.symbol },
-            )
+        // Each order's key, in its usual direction (best return, newest, nearest first); a row without one comes after
+        // those with one either way, and stocks with no chart yet come last.
+        val key: (WatchRow) -> Double? = when (sort) {
+            WatchSort.RETURN -> { row -> row.returnPct?.let { -it } }
+            WatchSort.RECENT -> { row -> row.entry?.at?.let { -it.toDouble() } }
+            WatchSort.NEAREST -> { row -> row.levels?.distancePct(row.stock.price) }
         }
-        return ordered + waiting.sortedBy { it.stock.symbol }
+        val (keyed, unkeyed) = charted.partition { key(it) != null }
+        val byKey = compareBy<WatchRow> { key(it)!! }.thenBy { it.stock.symbol }
+        val ordered = keyed.sortedWith(if (reversed) byKey.reversed() else byKey)
+        return ordered + unkeyed.sortedBy { it.stock.symbol } + waiting.sortedBy { it.stock.symbol }
+    }
+
+    /** The rows [filter] keeps, in their order. */
+    fun filter(rows: List<WatchRow>, filter: WatchFilter): List<WatchRow> = when (filter) {
+        WatchFilter.ALL -> rows
+        WatchFilter.GAINING -> rows.filter { (it.returnPct ?: 0.0) > 0.0 }
+        WatchFilter.LOSING -> rows.filter { (it.returnPct ?: 0.0) < 0.0 }
+        WatchFilter.ALERTS -> rows.filter { alertActive(it.alert) }
     }
 
     /**

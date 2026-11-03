@@ -3,7 +3,6 @@
     <string name="watch_title">★ Watchlist (%1$d)</string>
     <string name="watch_subtitle">Gain or loss since added and each stock\'s alert · swipe left to remove, long-press to change the price it was added at</string>
     <string name="watch_refresh">Refresh the watchlist\'s prices</string>
-    <string name="watch_show_in_list">Show the watchlist\'s stocks in the home list</string>
     <string name="watch_export">Share the watchlist</string>
     <string name="watch_summary_label">Average return since added</string>
     <string name="watch_summary_note">%1$d stocks · each counted equally · prices of %2$s</string>
@@ -13,7 +12,7 @@
     <string name="watch_summary_alerts">🔔 %1$d alerts on</string>
     <string name="watch_summary_alerts_off">🔕 Alerts off</string>
     <string name="watch_summary_description">Average return since added %1$s, %2$d gaining, %3$d losing</string>
-    <string name="watch_sort_return">Return ↓</string>
+    <string name="watch_sort_return">Return</string>
     <string name="watch_sort_recent">Newest first</string>
     <string name="watch_sort_nearest">Near target</string>
     <string name="watch_added">Added at ₹%1$s · %2$s</string>

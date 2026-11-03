@@ -18,6 +18,8 @@ object IntradayRepository {
     private const val HTTP_TOO_MANY_REQUESTS = 429
     private val yahoo = RateGate(burst = 20, perSecond = 6.0)
     private val kept = ConcurrentHashMap<String, Pair<Long, Answer>>()
+    private val keptDaily = ConcurrentHashMap<String, Pair<Long, List<IntradayPlan.Candle>>>()
+    private const val DAILY_FRESH_MS = 30 * 60_000L
 
     /** What Yahoo gave: the call, or null when its candles hold no opening range (no trading yet, or ever). */
     class Answer(val plan: IntradayPlan?)
@@ -45,6 +47,31 @@ object IntradayRepository {
             val answer = runCatching { Answer(IntradayPlan.of(candles(body))) }.getOrNull() ?: return null
             kept[ticker] = now to answer
             return answer
+        }
+        return null
+    }
+
+    /**
+     * [stock]'s daily candles of the last six months, for the trade window's smart-money zones ([SmartMoney]) and its
+     * odds ([TimeMachine]); kept [DAILY_FRESH_MS]. Null when Yahoo did not answer.
+     */
+    fun daily(stock: ScanResult, isStopped: () -> Boolean = { false }, now: Long = System.currentTimeMillis()): List<IntradayPlan.Candle>? {
+        val ticker = ticker(stock)
+        keptDaily[ticker]?.let { (at, candles) -> if (now - at < DAILY_FRESH_MS) return candles }
+        repeat(2) {
+            if (!yahoo.acquire(isStopped)) return null
+            val body = try {
+                get("https://query1.finance.yahoo.com/v8/finance/chart/$ticker?range=6mo&interval=1d")
+            } catch (limited: HttpStatus) {
+                if (limited.status != HTTP_TOO_MANY_REQUESTS) return null
+                yahoo.pause(RATE_LIMIT_PAUSE_MS)
+                null
+            } catch (_: IOException) {
+                return null
+            } ?: return@repeat
+            val candles = runCatching { candles(body) }.getOrNull() ?: return null
+            keptDaily[ticker] = now to candles
+            return candles
         }
         return null
     }

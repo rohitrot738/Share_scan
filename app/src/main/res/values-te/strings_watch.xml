@@ -3,7 +3,6 @@
     <string name="watch_title">★ వాచ్‌లిస్ట్ (%1$d)</string>
     <string name="watch_subtitle">జోడించినప్పటి నుంచి లాభం లేదా నష్టం, ప్రతి స్టాక్ అలర్ట్ · ఎడమకు స్వైప్ చేసి తీసివేయండి, నొక్కి పట్టుకుని జోడించిన ధర మార్చండి</string>
     <string name="watch_refresh">వాచ్‌లిస్ట్ ధరలు తాజా చేయండి</string>
-    <string name="watch_show_in_list">వాచ్‌లిస్ట్ స్టాక్‌లను హోమ్ జాబితాలో చూపించండి</string>
     <string name="watch_export">వాచ్‌లిస్ట్ షేర్ చేయండి</string>
     <string name="watch_summary_label">జోడించినప్పటి నుంచి సగటు రిటర్న్</string>
     <string name="watch_summary_note">%1$d స్టాక్‌లు · ప్రతిదీ సమానంగా లెక్క · ధరలు %2$s నాటివి</string>
@@ -13,7 +12,7 @@
     <string name="watch_summary_alerts">🔔 %1$d అలర్ట్‌లు ఆన్</string>
     <string name="watch_summary_alerts_off">🔕 అలర్ట్‌లు ఆఫ్</string>
     <string name="watch_summary_description">జోడించినప్పటి నుంచి సగటు రిటర్న్ %1$s, %2$d లాభంలో, %3$d నష్టంలో</string>
-    <string name="watch_sort_return">రిటర్న్ ↓</string>
+    <string name="watch_sort_return">రిటర్న్</string>
     <string name="watch_sort_recent">కొత్తవి ముందు</string>
     <string name="watch_sort_nearest">లక్ష్యానికి దగ్గర</string>
     <string name="watch_added">₹%1$s వద్ద జోడించారు · %2$s</string>

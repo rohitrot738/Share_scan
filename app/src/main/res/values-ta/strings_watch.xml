@@ -3,7 +3,6 @@
     <string name="watch_title">★ வாட்ச்லிஸ்ட் (%1$d)</string>
     <string name="watch_subtitle">சேர்த்ததிலிருந்து லாபம் அல்லது நஷ்டம், ஒவ்வொரு பங்கின் அலர்ட் · இடப்பக்கம் ஸ்வைப் செய்து நீக்கவும், நீண்ட நேரம் அழுத்திச் சேர்த்த விலையை மாற்றவும்</string>
     <string name="watch_refresh">வாட்ச்லிஸ்ட் விலைகளைப் புதுப்பி</string>
-    <string name="watch_show_in_list">வாட்ச்லிஸ்ட் பங்குகளை முகப்புப் பட்டியலில் காட்டு</string>
     <string name="watch_export">வாட்ச்லிஸ்டைப் பகிர்</string>
     <string name="watch_summary_label">சேர்த்ததிலிருந்து சராசரி வருமானம்</string>
     <string name="watch_summary_note">%1$d பங்குகள் · ஒவ்வொன்றும் சமமாக · விலைகள் %2$s நிலவரம்</string>
@@ -13,7 +12,7 @@
     <string name="watch_summary_alerts">🔔 %1$d அலர்ட்கள் இயக்கத்தில்</string>
     <string name="watch_summary_alerts_off">🔕 அலர்ட்கள் அணைப்பில்</string>
     <string name="watch_summary_description">சேர்த்ததிலிருந்து சராசரி வருமானம் %1$s, %2$d லாபத்தில், %3$d நஷ்டத்தில்</string>
-    <string name="watch_sort_return">வருமானம் ↓</string>
+    <string name="watch_sort_return">வருமானம்</string>
     <string name="watch_sort_recent">புதியவை முதலில்</string>
     <string name="watch_sort_nearest">இலக்குக்கு அருகில்</string>
     <string name="watch_added">₹%1$s இல் சேர்த்தது · %2$s</string>

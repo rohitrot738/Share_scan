@@ -95,8 +95,10 @@ data class ScanFilters(
     val sectors: Set<String> = emptySet(),
     /** Weeks [Metric.BASE_RANGE] spans, one of [RANGE_WEEKS]. */
     val rangeWeeks: Int = BreakoutSignals.BASE_WEEKS,
+    /** Only companies passing the long-term quality screen of their R/S figures ([Moat.quality]). */
+    val quality: Boolean = false,
 ) {
-    val activeCount: Int get() = bounds.values.count { it.isActive } + if (sectors.isEmpty()) 0 else 1
+    val activeCount: Int get() = bounds.values.count { it.isActive } + (if (sectors.isEmpty()) 0 else 1) + (if (quality) 1 else 0)
 
     fun bound(metric: Metric): Bound = bounds[metric] ?: Bound()
 
@@ -107,9 +109,14 @@ data class ScanFilters(
         (sectors.isEmpty() || stock.sector in sectors) &&
             bounds.all { (metric, bound) -> bound.accepts(metric.read(stock, rangeWeeks)) }
 
+    /** [accepts], and the quality screen on [cr360]'s figures when it is on; a company not in the file fails it. */
+    fun accepts(stock: ScanResult, cr360: Cr360Book): Boolean =
+        accepts(stock) && (!quality || cr360.of(stock.symbol)?.facts?.let(Moat::quality) == true)
+
     fun encode(): String = buildString {
         append("limit=").append(limit)
         if (rangeWeeks != BreakoutSignals.BASE_WEEKS) append(";weeks=").append(rangeWeeks)
+        if (quality) append(";quality=1")
         for ((metric, bound) in bounds) {
             bound.min?.let { append(';').append(metric.key).append(".min=").append(it) }
             bound.max?.let { append(';').append(metric.key).append(".max=").append(it) }
@@ -134,6 +141,10 @@ data class ScanFilters(
                 }
                 if (key == "weeks") {
                     raw.toIntOrNull()?.takeIf { it in RANGE_WEEKS }?.let { filters = filters.copy(rangeWeeks = it) }
+                    continue
+                }
+                if (key == "quality") {
+                    filters = filters.copy(quality = raw == "1")
                     continue
                 }
                 if (key == "sectors") {

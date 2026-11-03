@@ -172,80 +172,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <!-- Targets by horizon: intraday (today's 5-minute candles, IntradayPlan), short-term (the trade plan)
-                     and long-term (the R/S fair value and buy price), each with its entry, stop and target. -->
-                <LinearLayout
-                    android:id="@+id/detailHorizonsSection"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingHorizontal="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:text="@string/horizon_title"
-                        android:textColor="@color/text_primary"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/horizon_intraday"
-                        android:textColor="@color/brand_primary"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/detailHorizonIntraday"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:lineSpacingExtra="2dp"
-                        android:text="@string/horizon_loading"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13.5sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/horizon_short"
-                        android:textColor="@color/brand_primary"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/detailHorizonShort"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:lineSpacingExtra="2dp"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13.5sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="@string/horizon_long"
-                        android:textColor="@color/brand_primary"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/detailHorizonLong"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:lineSpacingExtra="2dp"
-                        android:textColor="@color/text_primary"
-                        android:textSize="13.5sp" />
-                </LinearLayout>
-
                 <!-- What the company makes (ProductBook): a tile per product with its picture and name, filled in code; a tap
                      filters the list. -->
                 <LinearLayout
@@ -383,11 +309,15 @@
                     </LinearLayout>
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/detailChartCard"
                         style="@style/ShareScanCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="10dp">
+                        android:layout_marginTop="10dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?attr/selectableItemBackground">
 
                         <com.rohit.share_scan.PriceChartView
                             android:id="@+id/detailChart"
@@ -401,192 +331,28 @@
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
 
-                <!-- Trade plan -->
-                <LinearLayout
-                    android:id="@+id/detailPlanSection"
+                <!-- Opens the trade window (TradeWindow): the chart large, the targets by horizon and the trade plan; the
+                     chart card opens it too. Shown even without a chart, for the intraday and long-term targets. -->
+                <TextView
+                    android:id="@+id/detailOpenTrade"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp"
-                        android:paddingHorizontal="20dp"
-                        android:text="@string/detail_section_plan"
-                        android:textColor="@color/text_primary"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/detailPlanRule"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:paddingHorizontal="20dp"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
-
-                    <!-- The stop and Target 1 the daily learner found did best (PlanTuner), and how they did. -->
-                    <TextView
-                        android:id="@+id/detailPlanLearned"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:paddingHorizontal="20dp"
-                        android:textColor="@color/brand_primary"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
-
-                    <!-- How this breakout's setup did in the past (BreakoutSetup): volume, and STRONG the day before. -->
-                    <TextView
-                        android:id="@+id/detailPlanSetup"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:paddingHorizontal="20dp"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
-
-                    <!-- A learned rally setup that holds today, or what came before rallies most often. -->
-                    <TextView
-                        android:id="@+id/detailPlanRally"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:paddingHorizontal="20dp"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
-
-                    <!-- A learned mistake that holds today: how often trades like it failed, and how. -->
-                    <TextView
-                        android:id="@+id/detailPlanMistake"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:paddingHorizontal="20dp"
-                        android:textColor="@color/bear"
-                        android:textSize="13sp"
-                        android:visibility="gone" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        style="@style/ShareScanCard"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="10dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:paddingBottom="12dp">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:importantForAccessibility="noHideDescendants"
-                                android:orientation="horizontal"
-                                android:paddingHorizontal="16dp"
-                                android:paddingTop="12dp"
-                                android:paddingBottom="8dp">
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:letterSpacing="0.08"
-                                    android:text="@string/detail_plan_head_level"
-                                    android:textColor="@color/text_secondary"
-                                    android:textSize="11sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/detail_plan_head_price"
-                                    android:textColor="@color/text_secondary"
-                                    android:textSize="11sp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="12dp"
-                                    android:gravity="center"
-                                    android:minWidth="58dp"
-                                    android:text="@string/detail_plan_head_r"
-                                    android:textColor="@color/text_secondary"
-                                    android:textSize="11sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginHorizontal="16dp"
-                                android:background="?attr/colorOutline" />
-
-                            <LinearLayout
-                                android:id="@+id/detailLevels"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical"
-                                android:paddingVertical="4dp" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"
-                                android:layout_marginHorizontal="16dp"
-                                android:background="?attr/colorOutline" />
-
-                            <TextView
-                                android:id="@+id/detailPlanRisk"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="12dp"
-                                android:fontFeatureSettings="tnum"
-                                android:paddingHorizontal="16dp"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="12sp" />
-
-                            <!-- How the targets' times are estimated. -->
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp"
-                                android:paddingHorizontal="16dp"
-                                android:text="@string/detail_plan_time_note"
-                                android:textColor="@color/text_secondary"
-                                android:textSize="11sp" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <TextView
-                        android:id="@+id/detailPlanExtended"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:paddingHorizontal="20dp"
-                        android:textColor="@color/warn"
-                        android:textSize="12sp"
-                        android:visibility="gone" />
-
-                    <!-- The watchlist alert this plan drives: waiting for the breakout, or the trade under way. -->
-                    <TextView
-                        android:id="@+id/detailAlert"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:drawablePadding="6dp"
-                        android:gravity="center_vertical"
-                        android:lineSpacingExtra="2dp"
-                        android:paddingHorizontal="20dp"
-                        android:textColor="@color/text_secondary"
-                        android:textSize="12sp"
-                        android:visibility="gone" />
-                </LinearLayout>
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_icon_tile"
+                    android:backgroundTint="@color/primary_container"
+                    android:drawablePadding="10dp"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:minHeight="48dp"
+                    android:paddingHorizontal="14dp"
+                    android:paddingVertical="10dp"
+                    android:text="@string/detail_open_trade"
+                    android:textColor="@color/on_primary_container"
+                    android:textSize="13.5sp"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_trending_up"
+                    app:drawableTint="@color/on_primary_container" />
 
                 <!-- Score breakdown -->
                 <LinearLayout
@@ -762,6 +528,35 @@
                         android:textColor="@color/text_secondary"
                         android:textSize="11sp" />
 
+                    <!-- The long-term checklist (Moat) from the R/S figures; its lines open and close on the title. -->
+                    <TextView
+                        android:id="@+id/detailMoatTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/moat_title"
+                        android:textColor="@color/text_primary"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/detailMoatSummary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="13sp" />
+
+                    <LinearLayout
+                        android:id="@+id/detailMoat"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="20dp" />
+
                     <!-- R/S history (Cr360History): fetched when the sheet opens, its tables filled in code. -->
                     <LinearLayout
                         android:id="@+id/detailCr360HistorySection"
@@ -770,6 +565,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/detailCr360HistoryTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="24dp"
@@ -805,6 +601,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/detailStatsTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
