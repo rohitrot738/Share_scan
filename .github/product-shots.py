@@ -47,7 +47,8 @@ NOT_A_PHOTO = re.compile(r"\b(?:logos?|icons?|favicons?|sprites?|flags?|avatars?
                          r"certificat\w*|iso|team|directors?|chairman|chairperson|ceo|founders?|people|staff|careers?|"
                          r"employees?|mr|mrs|shri|smt|portrait|signature|maps?|qr|badges?|stamps?|blank|pixel|spacer|1x1|"
                          r"dummy|default|no image|opens|opened|inaugurat\w*|partner\w*|signs|signed|mou|ceremony|"
-                         r"conference|summit|meeting|visit\w*|felicitat\w*|celebrat\w*|agm|webinar)\b")
+                         r"conference|summit|meeting|visit\w*|felicitat\w*|celebrat\w*|agm|webinar|participat\w*|"
+                         r"exhibitions?|expo|stall|booth|banners?)\b")
 _A = re.compile(r"<a\s([^>]*)>(.*?)</a>", re.I | re.S)
 _IMG = re.compile(r"<img\s[^>]*>", re.I)
 _SOURCE = re.compile(r"<source\s[^>]*>", re.I)
