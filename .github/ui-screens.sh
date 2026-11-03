@@ -163,9 +163,35 @@ adb shell am start -n "$PKG/.MainActivity" > /dev/null
 shot 01-list 6
 
 SEARCH=compactSearch
-swipe_up() { adb shell input swipe 540 1850 540 650 450; sleep 1; }
-swipe_down() { adb shell input swipe 540 650 540 1850 300; sleep 1; }
+# Inside a sheet only upward drags: a downward one at the top would close the sheet.
+swipe_up() { adb shell input swipe 540 1700 540 800 450; sleep 1; }
 hide_keyboard() { adb shell input keyevent 111; sleep 1; }
+# Scrolls up until the view with id $1 is on screen, then taps it.
+tap_scroll() {
+  for k in 1 2 3 4 5 6 7 8 9 10 11 12; do
+    if center id "$1" > /dev/null; then tap "$1"; return 0; fi
+    swipe_up
+  done
+  echo "never reached id $1" | tee -a "$LOG"
+}
+show_scroll() {
+  for k in 1 2 3 4 5 6 7 8 9 10 11 12; do
+    center id "$1" > /dev/null && return 0
+    swipe_up
+  done
+  echo "never reached id $1" | tee -a "$LOG"
+}
+# Back to the home list: closes sheets and the search, the app relaunched if Back left it.
+home() {
+  for k in 1 2 3 4; do
+    center id statusPill > /dev/null && center id compactMenu > /dev/null && ! center id sheetClose > /dev/null && break
+    adb shell input keyevent KEYCODE_BACK
+    sleep 2
+    front
+  done
+  center id searchClose > /dev/null && tap searchClose && sleep 2
+  hide_keyboard
+}
 
 # A few stocks on the watchlist, for its page below.
 front
@@ -175,71 +201,68 @@ sleep 2
 # A stock's detail: the chart, and under it the line that opens the trade window.
 open_stock RELIANCE
 shot 02-detail-top 8
-for k in 1 2 3 4 5 6 7; do swipe_up; done
-shot 03-detail-folded 2
-# The R/S history, the key figures and the moat checklist open on their headings.
-tap detailMoatTitle
-sleep 1
-tap detailCr360HistoryTitle
-sleep 2
-tap detailStatsTitle
-sleep 2
-shot 04-detail-opened 2
-swipe_up
-shot 05-detail-opened-more 1
-for k in 1 2 3 4 5 6 7 8 9 10; do swipe_down; done
 
-# The trade window from the chart.
+# The trade window, from a tap on the chart.
 tap detailChartCard
 shot 06-trade-top 8
 swipe_up
 shot 07-trade-plan 2
-swipe_up
-shot 08-size-empty 2
-tap sizeCapital
+tap_scroll sizeCapital
 sleep 1
 adb shell input text 500000
 hide_keyboard
-shot 09-size-filled 2
-swipe_up
-shot 10-ticket 2
+shot 08-size-filled 2
+show_scroll sizeLog
+shot 09-ticket 2
 tap sizeLog
-shot 11-logged 2
+shot 10-logged 2
 all_texts | grep -iE 'guard|trade log|जुड़ा' >> "$LOG"
-swipe_up
+show_scroll oddsLines
 sleep 6
-shot 12-smc-odds 2
+shot 11-smc-odds 2
+swipe_up
+shot 12-smc-odds-more 1
 all_texts | grep -E 'FVG|order block|Target|Stop|रास्ते' >> "$LOG"
+# Back to the detail under it.
 adb shell input keyevent KEYCODE_BACK
 sleep 2
-adb shell input keyevent KEYCODE_BACK
+shot 13-back-to-detail 1
+
+# The moat checklist, the R/S history and the key figures open on their headings.
+tap_scroll detailMoatTitle
+shot 14-moat 2
+show_scroll detailCr360HistoryTitle
+shot 15-history-closed 1
+tap detailCr360HistoryTitle
 sleep 2
+shot 16-history-open 2
+tap_scroll detailStatsTitle
+sleep 2
+shot 17-stats-open 2
+home
 
 # Menu -> Trade log.
-front
 tap compactMenu
 sleep 3
 tap_text "Trade log"
-shot 13-trade-log 4
-adb shell input keyevent KEYCODE_BACK
-sleep 2
+shot 18-trade-log 4
+home
 
 # The Watchlist: its menu, a pill that filters, an order turned round, and the portfolio split.
-front
-tap watchlistChip
-shot 14-watchlist 5
+tap watchlistChip || tap_text "Watchlist"
+shot 19-watchlist 5
 tap watchShowInList
-shot 15-watch-menu 2
+shot 20-watch-menu 2
 adb shell input keyevent KEYCODE_BACK
 sleep 1
 tap summaryGaining
-shot 16-watch-gaining 2
+shot 21-watch-gaining 2
 tap summaryGaining
 sleep 1
 tap_text "Return"
 sleep 1
 tap_text "Return"
-shot 17-watch-reversed 2
+shot 22-watch-reversed 2
 tap watchShowInList
 sleep 2
 tap_text "पोर्टफोलियो बाँटें"
@@ -247,17 +270,16 @@ sleep 2
 adb shell input text 300000
 hide_keyboard
 tap_exact "बाँटें"
-shot 18-watch-split 3
-adb shell input keyevent KEYCODE_BACK
-sleep 1
-adb shell input keyevent KEYCODE_BACK
-sleep 2
+shot 23-watch-split 3
+home
 
 # Filters: the long-term quality switch.
-front
 tap filterChip
 sleep 3
-for k in 1 2 3 4 5 6 7 8; do swipe_up; done
+for k in 1 2 3 4 5 6 7 8 9 10; do
+  center text "quality companies" > /dev/null && break
+  swipe_up
+done
 tap_text "quality companies"
-shot 19-filter-quality 2
+shot 24-filter-quality 2
 exit 0
