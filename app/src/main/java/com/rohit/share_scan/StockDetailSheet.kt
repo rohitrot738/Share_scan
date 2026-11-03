@@ -97,6 +97,7 @@ class StockDetailSheet(
     fun show(): BottomSheetDialog {
         bindHeader()
         bindTabs()
+        bindHorizons()
         bindProducts()
         bindChart()
         bindPlan()
@@ -168,6 +169,69 @@ class StockDetailSheet(
         ui.detailScoreBar.setProgressCompat((stock.score.coerceIn(0.0, 100.0) * 10).roundToInt(), false)
         ui.detailScore.text = activity.getString(R.string.detail_score, StockFormat.score(stock.score))
         ui.detailScore.setTextColor(color(tierColor))
+    }
+
+    /**
+     * Entry, stop and target for each horizon: today's intraday call from the 5-minute candles ([IntradayPlan], fetched
+     * as the sheet opens), the short-term trade plan, and the long-term buy price and fair value of the R/S framework.
+     */
+    private fun bindHorizons() {
+        val plan = plan
+        ui.detailHorizonShort.text = if (plan == null) {
+            activity.getString(R.string.horizon_short_none)
+        } else {
+            val first = plan.targetSessions[0]
+            val second = plan.targetSessions[1]
+            activity.getString(
+                R.string.horizon_short_plan,
+                StockFormat.price(plan.entry),
+                activity.getString(
+                    if (plan.entryKind == TradePlan.EntryKind.BREAKOUT) R.string.horizon_short_on_breakout else R.string.horizon_short_now,
+                ),
+                StockFormat.price(plan.stop),
+                StockFormat.price(plan.targets[0]),
+                first.first,
+                first.last,
+                StockFormat.price(plan.targets[1]),
+                second.first,
+                second.last,
+            )
+        }
+        val facts = cr360?.facts.orEmpty()
+        val fair = facts[Cr360Book.Fact.FAIR_VALUE]?.takeIf { it > 0.0 }
+        val buy = facts[Cr360Book.Fact.BUY_PRICE]?.takeIf { it > 0.0 }
+        ui.detailHorizonLong.text = if (fair == null || buy == null || stock.price <= 0.0) {
+            activity.getString(R.string.horizon_long_none)
+        } else {
+            val lines = mutableListOf(
+                activity.getString(
+                    R.string.horizon_long_plan,
+                    StockFormat.price(buy),
+                    StockFormat.price(fair),
+                    StockFormat.signedChange((fair / stock.price - 1.0) * 100.0),
+                ),
+            )
+            facts[Cr360Book.Fact.HISTORY_FAIR_VALUE]?.takeIf { it > 0.0 }?.let {
+                lines += activity.getString(R.string.horizon_long_history, StockFormat.price(it))
+            }
+            if (cr360?.state == Cr360Book.State.CAUTION || cr360?.state == Cr360Book.State.AVOID) {
+                lines += activity.getString(R.string.horizon_long_weak)
+            }
+            lines.joinToString("\n")
+        }
+        if (!stock.charted) {
+            ui.detailHorizonIntraday.setText(R.string.horizon_failed)
+            return
+        }
+        activity.lifecycleScope.launch {
+            val answer = withContext(Dispatchers.IO) { runCatching { IntradayRepository.plan(stock) }.getOrNull() }
+            val plan = answer?.plan
+            ui.detailHorizonIntraday.text = when {
+                answer == null -> activity.getString(R.string.horizon_failed)
+                plan == null -> activity.getString(R.string.horizon_none)
+                else -> IntradayText.describe(activity, plan)
+            }
+        }
     }
 
     /**

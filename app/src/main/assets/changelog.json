@@ -1,6 +1,14 @@
 [
   {
     "version": "",
+    "date": "2026-11-03",
+    "items": [
+      "नया: हर stock के detail में सबसे ऊपर \"लक्ष्य\" — तीनों अवधि के लिए अलग-अलग: ⚡ Intraday (आज ही, MIS) — आज की 5-मिनट candles से 9:15–9:30 की range और VWAP के ऊपर close हो तो BUY, नीचे हो तो SELL, stop range के बीच में, लक्ष्य 1:1.5 और 1:2, 15:15 तक square-off; 📅 Short term (2 दिन से 4 हफ़्ते, delivery) — entry, stop और पहले दो लक्ष्य, कितने दिन में; 🌱 Long term (1 से 5 साल) — R/S का ख़रीद भाव और सही क़ीमत (कितना % ऊपर), और company के अपने सामान्य P/E पर भाव",
+      "नया Menu → \"आज के Intraday\": app ख़ुद scan के सबसे ज़्यादा कारोबार वाले stocks में से चुनती है कि आज कौन-से BUY और कौन-से SELL — हर एक का entry भाव, समय, stop, दोनों लक्ष्य और अभी का भाव, सबसे मज़बूत पहले; देर से आए या stop/लक्ष्य पूरे हो चुके signals अलग दिखते हैं, 14:45 के बाद नई entry नहीं; किसी पर दबाएँ तो उसका detail खुलेगा"
+    ]
+  },
+  {
+    "version": "1.2.141",
     "date": "2026-10-31",
     "items": [
       "नया: हर stock के detail में \"क्या बनाती है\" — company का logo और उसके products तस्वीर व नाम के साथ (जैसे टायर, कार, दवाइयाँ), जहाँ मिली वहाँ company की website की तस्वीर और product की असली photo भी; सभी companies के products app में ही शामिल हैं। किसी product पर दबाएँ तो list में उसे बनाने वाली सारी companies दिखेंगी, ऊपर ✕ या Back से सब वापस। Cards पर नाम के आगे मुख्य products की छोटी तस्वीरें भी (Menu → Settings से बंद कर सकते हैं)"

@@ -60,6 +60,9 @@ object MarketClock {
 
     /** The IST calendar day of an epoch second, as Yahoo stamps each daily bar at its session's start. */
     fun dayOf(epochSecond: Long): LocalDate = Instant.ofEpochSecond(epochSecond).atZone(INDIA).toLocalDate()
+
+    /** The time of day in India at [epochSecond]. */
+    fun timeOf(epochSecond: Long): LocalTime = Instant.ofEpochSecond(epochSecond).atZone(INDIA).toLocalTime()
 }
 
 /**

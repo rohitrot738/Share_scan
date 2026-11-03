@@ -1198,6 +1198,9 @@ class MainActivity : AppCompatActivity() {
             MenuSheet.Entry.SCAN -> showMenuSheet {
                 ScanSheet(this, settings, SectorRepository.book(this), scanActions, ::openMenu).show()
             }
+            MenuSheet.Entry.INTRADAY -> showMenuSheet {
+                IntradaySheet(this, scan.uiState.value.results, { openChart(it) }, ::openMenu).show()
+            }
             MenuSheet.Entry.TRACK_RECORD -> showMenuSheet { TrackRecordSheet(this, ScanEngine.journal(this), ::openMenu).show() }
             MenuSheet.Entry.SECTORS -> openSectors(fromMenu = true)
             MenuSheet.Entry.SETTINGS -> showMenuSheet {
