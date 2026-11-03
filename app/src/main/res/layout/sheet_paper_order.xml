@@ -45,7 +45,9 @@
                     android:completionThreshold="1"
                     android:imeOptions="actionDone"
                     android:inputType="textCapCharacters|textNoSuggestions"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="16dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView

@@ -3,6 +3,18 @@ package com.rohit.share_scan
 import android.content.Context
 import com.rohit.share_scan.OrderTicket.Side
 import com.rohit.share_scan.PositionSize.Product
+import java.time.Instant
+import java.time.format.DateTimeFormatter
+
+/**
+ * When a candle (epoch seconds) started: "10:35" today, "3 Nov, 15:25" on an earlier day, so a price from the last
+ * session is not taken for today's.
+ */
+internal fun candleTime(context: Context, at: Long): String {
+    val time = Instant.ofEpochSecond(at).atZone(MarketClock.INDIA)
+    val pattern = if (time.toLocalDate() == MarketClock.now().toLocalDate()) "HH:mm" else "d MMM, HH:mm"
+    return DateTimeFormatter.ofPattern(pattern, context.dateLocale()).format(time)
+}
 
 /** The paper account's words: money, sides, order types, reasons and what happened, for the screen and notifications. */
 object PaperText {

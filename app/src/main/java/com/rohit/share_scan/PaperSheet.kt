@@ -145,7 +145,7 @@ class PaperSheet(
             refreshing?.isActive == true -> activity.getString(R.string.paper_updating)
             failed -> activity.getString(R.string.paper_update_failed)
             watched.isEmpty() -> activity.getString(R.string.paper_updated_idle)
-            newest != null -> activity.getString(R.string.paper_updated, TIME.format(Instant.ofEpochSecond(newest).atZone(MarketClock.INDIA)))
+            newest != null -> activity.getString(R.string.paper_updated, candleTime(activity, newest))
             else -> activity.getString(R.string.paper_updated_never)
         }
     }
@@ -497,7 +497,6 @@ class PaperSheet(
         const val AUTO_REFRESH_MS = 30_000L
         const val RECENT = 25
         const val RECENT_ORDERS = 40
-        val TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
         val DAY: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
         val WHEN: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM, HH:mm")
 

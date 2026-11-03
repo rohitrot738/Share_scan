@@ -17,7 +17,6 @@ import com.rohit.share_scan.databinding.SheetPaperOrderBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.Instant
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
@@ -131,7 +130,7 @@ class PaperOrderSheet(
             val quote = PaperStore.load(activity).quotes[stock.symbol]
             ltp = quote?.price ?: stock.price.takeIf { it > 0.0 }
             ui.orderLtp.text = when {
-                quote != null -> activity.getString(R.string.paper_order_ltp, StockFormat.price(quote.price), TIME.format(Instant.ofEpochSecond(quote.at).atZone(MarketClock.INDIA)))
+                quote != null -> activity.getString(R.string.paper_order_ltp, StockFormat.price(quote.price), candleTime(activity, quote.at))
                 ltp != null -> activity.getString(R.string.paper_order_ltp_scan, StockFormat.price(ltp!!))
                 else -> activity.getString(R.string.paper_order_ltp_failed)
             }
@@ -204,10 +203,11 @@ class PaperOrderSheet(
             val stop = draft.stop
             if (stop != null) {
                 val risk = kotlin.math.abs(reference - stop) * qty
-                lines += activity.getString(R.string.paper_order_risk, StockFormat.price(risk), number1(risk / PaperEngine.worth(book).coerceAtLeast(1.0) * 100.0))
+                lines += activity.getString(R.string.paper_order_risk, StockFormat.price(risk), number2(risk / PaperEngine.worth(book).coerceAtLeast(1.0) * 100.0))
             }
         }
-        if (!PaperEngine.inSession(now)) {
+        // After hours an order waits for the next open; a new intraday position cannot, and says so below.
+        if (!PaperEngine.inSession(now) && draft.product == Product.CNC) {
             lines += activity.getString(R.string.paper_order_amo, DAY.withLocale(activity.dateLocale()).format(PaperEngine.sessionFor(now)))
         }
         if (source != PaperSource.MANUAL) lines += activity.getString(R.string.paper_from_plan)
@@ -243,11 +243,11 @@ class PaperOrderSheet(
         if (stock.name.isBlank()) stock.symbol else stock.symbol + " · " + StockSearch.shortName(stock.name)
 
     private companion object {
-        val TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm")
         val DAY: DateTimeFormatter = DateTimeFormatter.ofPattern("EEE, d MMM")
 
         fun plain(value: Double): String = String.format(Locale.US, "%.2f", value)
 
-        fun number1(value: Double): String = (Math.round(value * 10) / 10.0).toBigDecimal().stripTrailingZeros().toPlainString()
+        /** "1", "0.05", "1.25": up to two decimals, so a small share does not read as 0. */
+        fun number2(value: Double): String = (Math.round(value * 100) / 100.0).toBigDecimal().stripTrailingZeros().toPlainString()
     }
 }
