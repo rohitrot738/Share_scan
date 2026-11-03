@@ -91,6 +91,10 @@
                 <TextView
                     android:id="@+id/summaryGaining"
                     style="@style/Pill"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:minHeight="32dp"
+                    android:paddingHorizontal="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/bull_container"
@@ -99,6 +103,10 @@
                 <TextView
                     android:id="@+id/summaryLosing"
                     style="@style/Pill"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:minHeight="32dp"
+                    android:paddingHorizontal="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
@@ -108,12 +116,26 @@
                 <TextView
                     android:id="@+id/summaryAlerts"
                     style="@style/Pill"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:minHeight="32dp"
+                    android:paddingHorizontal="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:backgroundTint="@color/warn_container"
                     android:textColor="@color/warn" />
             </LinearLayout>
+
+            <!-- While a pill filters the list: how many of the watchlist's stocks show, and how to see all again. -->
+            <TextView
+                android:id="@+id/summaryFilterNote"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:visibility="gone" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 

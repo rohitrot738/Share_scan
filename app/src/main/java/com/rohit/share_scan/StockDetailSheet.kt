@@ -41,6 +41,7 @@ import com.rohit.share_scan.databinding.ItemDetailStatBinding
 import com.rohit.share_scan.databinding.ItemNewsBinding
 import com.rohit.share_scan.databinding.ItemProductTileBinding
 import com.rohit.share_scan.databinding.SheetStockDetailBinding
+import com.rohit.share_scan.databinding.SheetTradeWindowBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -52,8 +53,9 @@ import kotlin.math.roundToInt
 
 /**
  * Bottom sheet with everything one scan knows about a stock: header, then two tabs, जानकारी (price chart with the
- * trade-plan levels, the [TradePlan], how the score was built and the key numbers) and खबरें (its filings and articles,
- * [NewsRepository]), plus a chart button and buttons that open the stock in a trading app ([BrokerOpener]).
+ * trade-plan levels, how the score was built and the key numbers) and खबरें (its filings and articles,
+ * [NewsRepository]), plus a chart button and buttons that open the stock in a trading app ([BrokerOpener]). A tap on the
+ * chart opens the trade window ([openTrade]) with the targets by horizon and the [TradePlan].
  * Sections whose data the scan did not provide (no [PriceStructure], no score parts) stay hidden.
  */
 class StockDetailSheet(
@@ -81,6 +83,16 @@ class StockDetailSheet(
 ) {
     private val dialog = BottomSheetDialog(activity)
     private val ui = SheetStockDetailBinding.inflate(activity.layoutInflater)
+    /** The trade window ([openTrade]): the chart large, the targets by horizon and the trade plan, opened from the chart. */
+    private val trade = SheetTradeWindowBinding.inflate(activity.layoutInflater)
+    private var tradeDialog: BottomSheetDialog? = null
+    private var intradayAsked = false
+    /** The window's sizing, ticket, log, smart-money and odds ([TradeTools]), built when it first opens. */
+    private var tools: TradeTools? = null
+    /** The trade chart's closes, levels and colour, so the smart-money zones can be drawn on it once they come. */
+    private var tradeCloses: List<Double> = emptyList()
+    private var tradeLevels: List<PriceChartView.Level> = emptyList()
+    private var tradeTrend = 0
     private val structure: PriceStructure? = stock.structure
     /** The learned stop and Target 1 for this stock ([SetupBook.planFor]); null keeps the app's own. */
     private val learnedPlan: PlanTuner.Choice? = setups.planFor(stock.setupMask)
@@ -106,6 +118,10 @@ class StockDetailSheet(
         bindCr360()
         bindCr360History()
         bindStats()
+        // The R/S history and the key figures open and close on a tap on their headings, like the score's parts.
+        fold(ui.detailCr360HistoryTitle, ui.detailCr360HistoryStatus, ui.detailCr360History)
+        fold(ui.detailStatsTitle, ui.detailStats)
+        bindMoat()
         ui.detailNoStructure.isVisible = structure == null
         val site = chartSite.forMarket(stock.market)
         val siteBroker = site.broker
@@ -177,7 +193,7 @@ class StockDetailSheet(
      */
     private fun bindHorizons() {
         val plan = plan
-        ui.detailHorizonShort.text = if (plan == null) {
+        trade.detailHorizonShort.text = if (plan == null) {
             activity.getString(R.string.horizon_short_none)
         } else {
             val first = plan.targetSessions[0]
@@ -200,7 +216,7 @@ class StockDetailSheet(
         val facts = cr360?.facts.orEmpty()
         val fair = facts[Cr360Book.Fact.FAIR_VALUE]?.takeIf { it > 0.0 }
         val buy = facts[Cr360Book.Fact.BUY_PRICE]?.takeIf { it > 0.0 }
-        ui.detailHorizonLong.text = if (fair == null || buy == null || stock.price <= 0.0) {
+        trade.detailHorizonLong.text = if (fair == null || buy == null || stock.price <= 0.0) {
             activity.getString(R.string.horizon_long_none)
         } else {
             val lines = mutableListOf(
@@ -219,14 +235,21 @@ class StockDetailSheet(
             }
             lines.joinToString("\n")
         }
+    }
+
+    /** Today's intraday call, read from the 5-minute candles the first time the trade window opens. */
+    private fun loadIntraday() {
+        if (intradayAsked) return
+        intradayAsked = true
         if (!stock.charted) {
-            ui.detailHorizonIntraday.setText(R.string.horizon_failed)
+            trade.detailHorizonIntraday.setText(R.string.horizon_failed)
             return
         }
         activity.lifecycleScope.launch {
             val answer = withContext(Dispatchers.IO) { runCatching { IntradayRepository.plan(stock) }.getOrNull() }
             val plan = answer?.plan
-            ui.detailHorizonIntraday.text = when {
+            tools?.intraday = plan
+            trade.detailHorizonIntraday.text = when {
                 answer == null -> activity.getString(R.string.horizon_failed)
                 plan == null -> activity.getString(R.string.horizon_none)
                 else -> IntradayText.describe(activity, plan)
@@ -288,15 +311,20 @@ class StockDetailSheet(
     private fun bindChart() {
         val structure = structure
         val closes = structure?.closes.orEmpty().filter { it.isFinite() && it > 0.0 }
+        ui.detailOpenTrade.setOnClickListener { openTrade() }
         if (structure == null || closes.size < 2) {
             ui.detailChartSection.isVisible = false
+            trade.tradeChartSection.isVisible = false
             return
         }
+        ui.detailChartCard.setOnClickListener { openTrade() }
         val last = closes.last()
         val periodChange = (last / closes.first() - 1.0) * 100.0
         val trend = if (periodChange >= 0) R.color.bull else R.color.bear
         ui.detailChartPeriod.text = activity.getString(R.string.detail_chart_period, closes.size, StockFormat.change(periodChange))
         ui.detailChartPeriod.setTextColor(color(trend))
+        trade.tradeChartPeriod.text = ui.detailChartPeriod.text
+        trade.tradeChartPeriod.setTextColor(color(trend))
 
         // Most important first: the chart drops a later level that would sit on top of an earlier one, which
         // happens to the 20D high when the entry is the breakout trigger just above it. Target 3 stays in the
@@ -322,7 +350,11 @@ class StockDetailSheet(
             stock.support?.let { add(level(it.level, R.string.detail_chart_support, R.color.neutral)) }
         }
         ui.detailChart.setData(closes, levels, color(trend))
-        ui.detailChart.contentDescription = activity.getString(
+        trade.tradeChart.setData(closes, levels, color(trend))
+        tradeCloses = closes
+        tradeLevels = levels
+        tradeTrend = color(trend)
+        val description = activity.getString(
             R.string.detail_chart_description,
             stock.symbol,
             closes.size,
@@ -330,6 +362,31 @@ class StockDetailSheet(
             StockFormat.price(closes.max()),
             StockFormat.price(last),
         )
+        ui.detailChart.contentDescription = description
+        trade.tradeChart.contentDescription = description
+        ui.detailChartCard.contentDescription = activity.getString(R.string.detail_open_trade_description, description)
+    }
+
+    /**
+     * The trade window, over the detail: the chart large, the targets by horizon and the trade plan. Its ← and the
+     * back button return to the detail; it is built once and shown again on the next tap.
+     */
+    private fun openTrade() {
+        val shown = tradeDialog
+        if (shown != null) {
+            shown.show()
+            shown.behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            return
+        }
+        trade.tradeTitle.text = activity.getString(R.string.trade_window_title, stock.symbol)
+        tools = TradeTools(activity, stock, plan, trade.tradeBody) { zones ->
+            if (tradeCloses.size >= 2) trade.tradeChart.setData(tradeCloses, tradeLevels + zones, tradeTrend)
+        }.also {
+            it.bind()
+            it.load()
+        }
+        loadIntraday()
+        tradeDialog = activity.showSheet(trade.root, trade.sheetTopBar, onBack = {}, fullHeight = true)
     }
 
     private fun level(value: Double, @StringRes label: Int, @ColorRes colorId: Int) =
@@ -338,11 +395,11 @@ class StockDetailSheet(
     private fun bindPlan() {
         val plan = plan
         if (plan == null) {
-            ui.detailPlanSection.isVisible = false
+            trade.detailPlanSection.isVisible = false
             return
         }
         val breakout = plan.entryKind == TradePlan.EntryKind.BREAKOUT
-        ui.detailPlanRule.setText(if (breakout) R.string.detail_plan_rule_breakout else R.string.detail_plan_rule_market)
+        trade.detailPlanRule.setText(if (breakout) R.string.detail_plan_rule_breakout else R.string.detail_plan_rule_market)
         val setup = BreakoutSetup.of(stock, plan)
         bindLearnedPlan(plan)
         if (setups.rules.isNotEmpty()) bindLearnedSetup() else bindSetup(setup)
@@ -423,10 +480,10 @@ class StockDetailSheet(
             )
         }
 
-        ui.detailPlanRisk.text = activity.getString(R.string.detail_plan_risk, StockFormat.price(plan.risk), percent(plan.riskPercent))
-        ui.detailPlanExtended.isVisible = plan.isExtended
+        trade.detailPlanRisk.text = activity.getString(R.string.detail_plan_risk, StockFormat.price(plan.risk), percent(plan.riskPercent))
+        trade.detailPlanExtended.isVisible = plan.isExtended
         if (plan.isExtended) {
-            ui.detailPlanExtended.text = activity.getString(
+            trade.detailPlanExtended.text = activity.getString(
                 R.string.detail_plan_extended,
                 String.format(Locale.US, "%.1f", plan.extensionAtr),
             )
@@ -451,9 +508,9 @@ class StockDetailSheet(
             ) to R.color.text_secondary
             BreakoutSetup.Kind.EXTENDED -> null to R.color.text_secondary
         }
-        ui.detailPlanSetup.isVisible = text != null
-        ui.detailPlanSetup.text = text.orEmpty()
-        ui.detailPlanSetup.setTextColor(color(tone))
+        trade.detailPlanSetup.isVisible = text != null
+        trade.detailPlanSetup.text = text.orEmpty()
+        trade.detailPlanSetup.setTextColor(color(tone))
     }
 
     /**
@@ -481,9 +538,9 @@ class StockDetailSheet(
                 },
             )
         }
-        ui.detailPlanSetup.isVisible = true
-        ui.detailPlanSetup.text = text
-        ui.detailPlanSetup.setTextColor(color(if (learned != null) R.color.bull else R.color.text_secondary))
+        trade.detailPlanSetup.isVisible = true
+        trade.detailPlanSetup.text = text
+        trade.detailPlanSetup.setTextColor(color(if (learned != null) R.color.bull else R.color.text_secondary))
     }
 
     /**
@@ -493,10 +550,10 @@ class StockDetailSheet(
     private fun bindLearnedPlan(plan: TradePlan) {
         val learned = learnedPlan
         val own = setups.ownPlan
-        ui.detailPlanLearned.isVisible = learned != null
+        trade.detailPlanLearned.isVisible = learned != null
         if (learned == null) return
         val record = learned.all
-        ui.detailPlanLearned.text = if (learned.shape.own || own == null) {
+        trade.detailPlanLearned.text = if (learned.shape.own || own == null) {
             activity.getString(R.string.detail_plan_learned_own, SetupBook.percent(record.stats), rs(record.averageR))
         } else {
             val stop = if (learned.shape.stopAtr > 0.0) {
@@ -536,9 +593,9 @@ class StockDetailSheet(
             ).takeIf { setups.whyUp.any { it.lift > 1.0 } }
             else -> null
         }
-        ui.detailPlanRally.isVisible = text != null
-        ui.detailPlanRally.text = text.orEmpty()
-        ui.detailPlanRally.setTextColor(color(if (rally != null) R.color.bull else R.color.text_secondary))
+        trade.detailPlanRally.isVisible = text != null
+        trade.detailPlanRally.text = text.orEmpty()
+        trade.detailPlanRally.setTextColor(color(if (rally != null) R.color.bull else R.color.text_secondary))
     }
 
     /** "1.5", "2": ATRs to two places where they have them. */
@@ -550,10 +607,10 @@ class StockDetailSheet(
     /** A mistake learned from trades that went the wrong way, when one holds today: how often such trades failed, and how. */
     private fun bindMistake() {
         val mistake = setups.mistake(stock.setupMask)
-        ui.detailPlanMistake.isVisible = mistake != null
+        trade.detailPlanMistake.isVisible = mistake != null
         if (mistake == null) return
         val all = mistake.all
-        ui.detailPlanMistake.text = activity.getString(
+        trade.detailPlanMistake.text = activity.getString(
             R.string.detail_setup_mistake,
             SetupLabels.describe(activity, mistake.conditions),
             all.n,
@@ -586,10 +643,10 @@ class StockDetailSheet(
             entry != null -> activity.getString(R.string.detail_alert_waiting, StockFormat.price(entry))
             else -> activity.getString(R.string.detail_alert_soon)
         }
-        ui.detailAlert.isVisible = text != null
-        ui.detailAlert.text = text.orEmpty()
+        trade.detailAlert.isVisible = text != null
+        trade.detailAlert.text = text.orEmpty()
         if (text != null) {
-            ui.detailAlert.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_notifications_small, 0, 0, 0)
+            trade.detailAlert.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_notifications_small, 0, 0, 0)
         }
     }
 
@@ -604,7 +661,7 @@ class StockDetailSheet(
         time: String? = null,
         multiple: String = TradePlan.formatR(plan.rMultiple(value)),
     ) {
-        val row = ItemDetailLevelBinding.inflate(activity.layoutInflater, ui.detailLevels, true)
+        val row = ItemDetailLevelBinding.inflate(activity.layoutInflater, trade.detailLevels, true)
         val fromPrice = TradePlan.formatPercent(plan.fromPrice(value))
         row.levelDot.backgroundTintList = ColorStateList.valueOf(color(accent))
         row.levelName.text = name
@@ -1041,6 +1098,81 @@ class StockDetailSheet(
         setTextColor(color(R.color.text_secondary))
     }
 
+    /**
+     * The long-term checklist ([Moat]) from the R/S figures: each check passed (✓), failed (✗) or without data (–), and
+     * how many passed; the lines open on a tap on the title.
+     */
+    private fun bindMoat() {
+        val facts = cr360?.facts
+        val views = listOf(ui.detailMoatTitle, ui.detailMoatSummary, ui.detailMoat)
+        if (facts.isNullOrEmpty()) {
+            views.forEach { it.isVisible = false }
+            return
+        }
+        val lines = Moat.lines(facts)
+        val (passed, known) = Moat.score(lines)
+        ui.detailMoatSummary.text = activity.getString(
+            when {
+                known == 0 -> R.string.moat_none
+                passed * 10 >= known * 8 -> R.string.moat_strong
+                passed * 10 >= known * 5 -> R.string.moat_fair
+                else -> R.string.moat_weak
+            },
+            passed,
+            known,
+        )
+        for (line in lines) {
+            val value = line.value
+            val shown = when (line.check) {
+                Moat.Check.ROCE, Moat.Check.MARGIN, Moat.Check.PROMOTER, Moat.Check.PLEDGE -> value?.let { Cr360Format.number(it, 1) }
+                Moat.Check.PROMOTER_HOLDING -> value?.let { Cr360Format.signed(it, 1) }
+                Moat.Check.STEADY_PROFIT -> value?.let { Cr360Format.number(it * 100.0, 0) }
+                Moat.Check.DEBT, Moat.Check.INTEREST_COVER, Moat.Check.CASH -> value?.let { Cr360Format.number(it, 2) }
+                Moat.Check.AUDITOR -> null
+            } ?: "—"
+            val label = when (line.check) {
+                Moat.Check.ROCE -> activity.getString(R.string.moat_roce, shown)
+                Moat.Check.DEBT -> activity.getString(R.string.moat_debt, shown)
+                Moat.Check.INTEREST_COVER -> activity.getString(R.string.moat_icr, shown)
+                Moat.Check.CASH -> activity.getString(R.string.moat_cash, shown)
+                Moat.Check.STEADY_PROFIT -> activity.getString(R.string.moat_steady, shown)
+                Moat.Check.MARGIN -> activity.getString(R.string.moat_margin, shown)
+                Moat.Check.PROMOTER -> activity.getString(R.string.moat_promoter, shown)
+                Moat.Check.PROMOTER_HOLDING -> activity.getString(R.string.moat_promoter_change, shown)
+                Moat.Check.PLEDGE -> activity.getString(R.string.moat_pledge, shown)
+                Moat.Check.AUDITOR -> activity.getString(if (line.pass == true) R.string.moat_auditor_ok else R.string.moat_auditor_bad)
+            }
+            val (mark, tone) = when (line.pass) {
+                true -> "✓" to R.color.bull
+                false -> "✗" to R.color.bear
+                null -> "–" to R.color.text_secondary
+            }
+            ui.detailMoat.addView(factView("$mark $label").apply { setTextColor(color(tone)) })
+        }
+        fold(ui.detailMoatTitle, ui.detailMoat)
+    }
+
+    /**
+     * A section that opens and closes on a tap on its [title]: [body] shows only while it is open, ▾ or ▴ follows the
+     * title. It starts closed.
+     */
+    private fun fold(title: TextView, vararg body: View) {
+        val text = title.text.toString()
+        fun open(open: Boolean) {
+            body.forEach { it.isVisible = open }
+            title.text = SpannableStringBuilder(text).apply {
+                val start = length
+                append(if (open) " ▴" else " ▾")
+                setSpan(ForegroundColorSpan(MaterialColors.getColor(title, androidx.appcompat.R.attr.colorPrimary)), start, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            }
+            androidx.core.view.ViewCompat.setStateDescription(title, activity.getString(if (open) R.string.detail_fold_open else R.string.detail_fold_closed))
+        }
+        val ripple = TypedValue().also { activity.theme.resolveAttribute(android.R.attr.selectableItemBackground, it, true) }
+        title.setBackgroundResource(ripple.resourceId)
+        title.setOnClickListener { open(!body.first().isVisible) }
+        open(false)
+    }
+
     /** Where a part or line opens, right after it in [parent]; [inset] lines it up with the parts' own padding. */
     private fun detailBody(parent: ViewGroup, inset: Boolean): LinearLayout = LinearLayout(activity).apply {
         orientation = LinearLayout.VERTICAL
@@ -1227,6 +1359,7 @@ class StockDetailSheet(
         }
         ui.detailNewsStatus.setText(if (news.wide) R.string.news_subtitle_wide else R.string.news_subtitle)
         val now = System.currentTimeMillis()
+        addEvents(list, Catalysts.upcoming(news.items, MarketClock.now(now).toLocalDate()))
         val (shown, routine) = StockNews.forTab(news.items)
         shown.take(NEWS_SHOWN).forEach { addNews(list, it, now) }
         foldedNews(list, shown.drop(NEWS_SHOWN), now) { activity.getString(R.string.news_more, it) }
@@ -1237,6 +1370,53 @@ class StockDetailSheet(
                 tab.orCreateBadge.backgroundColor = color(R.color.brand_primary)
             }
         }
+    }
+
+    /** The company's coming events from its filings ([Catalysts]), above the news; nothing when it named none. */
+    private fun addEvents(parent: LinearLayout, events: List<Catalysts.Event>) {
+        if (events.isEmpty()) return
+        val day = java.time.format.DateTimeFormatter.ofPattern("d MMM, EEE").withLocale(activity.dateLocale())
+        val lines = SpannableStringBuilder()
+        val title = activity.getString(R.string.events_title)
+        lines.append(title)
+        lines.setSpan(android.text.style.StyleSpan(Typeface.BOLD), 0, title.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        for (event in events) {
+            lines.append("\n")
+            lines.append(
+                activity.getString(
+                    R.string.events_line,
+                    day.format(event.day),
+                    activity.getString(
+                        when (event.kind) {
+                            Catalysts.Kind.RESULTS -> R.string.events_results
+                            Catalysts.Kind.DIVIDEND -> R.string.events_dividend
+                            Catalysts.Kind.MEETING -> R.string.events_meeting
+                            Catalysts.Kind.BONUS -> R.string.events_bonus
+                            Catalysts.Kind.SPLIT -> R.string.events_split
+                            Catalysts.Kind.BUYBACK -> R.string.events_buyback
+                            Catalysts.Kind.RIGHTS -> R.string.events_rights
+                            Catalysts.Kind.BOARD -> R.string.events_board
+                        },
+                    ),
+                ),
+            )
+        }
+        parent.addView(
+            TextView(activity).apply {
+                text = lines
+                setTextColor(color(R.color.text_primary))
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 13.5f)
+                setLineSpacing(0f, 1.2f)
+                val pad = (12 * resources.displayMetrics.density).roundToInt()
+                setPadding(pad, pad, pad, pad)
+                setBackgroundResource(R.drawable.bg_icon_tile)
+                backgroundTintList = ColorStateList.valueOf(color(R.color.warn_container))
+            },
+            LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+                val m = (8 * activity.resources.displayMetrics.density).roundToInt()
+                setMargins(m, m, m, m)
+            },
+        )
     }
 
     /** [items] behind a line that opens them in place; nothing when there are none. */

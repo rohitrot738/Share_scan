@@ -1,6 +1,19 @@
 [
   {
     "version": "",
+    "date": "2026-11-04",
+    "items": [
+      "\"लक्ष्य\" और पूरा Trade plan अब stock के detail के चार्ट पर दबाने से खुलने वाली नई window में: बड़ा चार्ट, तीनों अवधि के लक्ष्य और Trade plan एक जगह (detail में चार्ट के नीचे की पट्टी से भी खुलती है)",
+      "नई window में \"कितने शेयर लें\": अपनी पूँजी, हर trade का जोखिम (0.5–2%) और Delivery या Intraday चुनें; app बताता है कितने शेयर, कितना लगेगा, stop पर कितना नुकसान और हर target पर कितना फ़ायदा। साथ में Order ticket: entry, stop और target के orders (Kite, Angel One, Groww के लिए) copy या share करें; app कभी order नहीं भेजता",
+      "Smart money: पिछले 6 महीने की candles से खुले FVG और order blocks, नीचे का सहारा और ऊपर की रुकावट (चार्ट पर भी); और जीतने के आसार: इसी stock की रोज़ की चाल से 10,000 बनावटी रास्तों में target stop से पहले कितनी बार आया",
+      "नया Menu → Trade log: window में \"यह trade लिया\" दबाकर trade जोड़ें, उसका नफ़ा-नुकसान देखें और exit भाव डालें; risk guard रोज़ के trades की सीमा, रोज़ के नुकसान की सीमा और 14:45 के बाद की intraday entry पर रोकता है, और intraday trade खुला हो तो 15:10 पर square-off की याद आती है",
+      "लंबी अवधि के लिए: हर stock में \"लंबी अवधि की checklist\" (ROCE, कर्ज़, ब्याज cover, cash, लगातार मुनाफ़ा, promoters, pledge, auditor); Filters में \"सिर्फ़ लंबी अवधि की quality companies\"; और ख़बरें tab में सबसे ऊपर आने वाले events (नतीजों की board meeting, dividend की record date, AGM, bonus, split, buyback)",
+      "R/S इतिहास और मुख्य आंकड़े अब दबाकर खुलते और बंद होते हैं, जैसे R/S और Score के हिस्से",
+      "Watchlist: ≡ अब page बंद नहीं करता, विकल्प दिखाता है; फ़ायदे, नुकसान और alert वाली pills दबाने पर सिर्फ़ वही stocks (फिर दबाएँ तो सब); Return, नए पहले और Target के पास दोबारा दबाने पर उल्टे क्रम में (↓/↑); और ≡ → \"पोर्टफोलियो बाँटें\": रकम डालें तो watchlist में बँटवारा, कम उतार-चढ़ाव वाले को ज़्यादा, शेयर और tax के साथ"
+    ]
+  },
+  {
+    "version": "1.2.142",
     "date": "2026-11-03",
     "items": [
       "नया: हर stock के detail में सबसे ऊपर \"लक्ष्य\" — तीनों अवधि के लिए अलग-अलग: ⚡ Intraday (आज ही, MIS) — आज की 5-मिनट candles से 9:15–9:30 की range और VWAP के ऊपर close हो तो BUY, नीचे हो तो SELL, stop range के बीच में, लक्ष्य 1:1.5 और 1:2, 15:15 तक square-off; 📅 Short term (2 दिन से 4 हफ़्ते, delivery) — entry, stop और पहले दो लक्ष्य, कितने दिन में; 🌱 Long term (1 से 5 साल) — R/S का ख़रीद भाव और सही क़ीमत (कितना % ऊपर), और company के अपने सामान्य P/E पर भाव",

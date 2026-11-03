@@ -3,7 +3,6 @@
     <string name="watch_title">★ ୱାଚଲିଷ୍ଟ (%1$d)</string>
     <string name="watch_subtitle">ଯୋଡ଼ିବା ପରଠାରୁ ଲାଭ ବା କ୍ଷତି ଓ ପ୍ରତ୍ୟେକ ସେୟାରର ଆଲର୍ଟ · ବାମକୁ ସ୍ୱାଇପ କରି ହଟାନ୍ତୁ, ଦବାଇ ଧରି ଯୋଡ଼ିବା ଦର ବଦଳାନ୍ତୁ</string>
     <string name="watch_refresh">ୱାଚଲିଷ୍ଟ ଦର ତାଜା କରନ୍ତୁ</string>
-    <string name="watch_show_in_list">ୱାଚଲିଷ୍ଟ ସେୟାର ହୋମ ତାଲିକାରେ ଦେଖାନ୍ତୁ</string>
     <string name="watch_export">ୱାଚଲିଷ୍ଟ ସେୟାର କରନ୍ତୁ</string>
     <string name="watch_summary_label">ଯୋଡ଼ିବା ପରଠାରୁ ହାରାହାରି ରିଟର୍ନ</string>
     <string name="watch_summary_note">%1$dଟି ସେୟାର · ପ୍ରତ୍ୟେକ ସମାନ ଗଣା · ଦର %2$sର</string>
@@ -13,7 +12,7 @@
     <string name="watch_summary_alerts">🔔 %1$d ଆଲର୍ଟ ଚାଲୁ</string>
     <string name="watch_summary_alerts_off">🔕 ଆଲର୍ଟ ବନ୍ଦ</string>
     <string name="watch_summary_description">ଯୋଡ଼ିବା ପରଠାରୁ ହାରାହାରି ରିଟର୍ନ %1$s, %2$d ଲାଭରେ, %3$d କ୍ଷତିରେ</string>
-    <string name="watch_sort_return">ରିଟର୍ନ ↓</string>
+    <string name="watch_sort_return">ରିଟର୍ନ</string>
     <string name="watch_sort_recent">ନୂଆ ପ୍ରଥମେ</string>
     <string name="watch_sort_nearest">ଲକ୍ଷ୍ୟ ପାଖରେ</string>
     <string name="watch_added">₹%1$sରେ ଯୋଡ଼ାଗଲା · %2$s</string>

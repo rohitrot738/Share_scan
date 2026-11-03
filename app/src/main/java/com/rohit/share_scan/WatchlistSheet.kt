@@ -68,6 +68,10 @@ class WatchlistSheet(
     private val header = HeaderAdapter()
     private val rows = RowAdapter()
     private var sort = WatchSort.RETURN
+    /** The order turned round: a second tap on the chosen order's chip. */
+    private var reversed = false
+    /** Which stocks show; a tap on a summary pill picks it, a second tap shows all again. */
+    private var filter = WatchFilter.ALL
     private var watching: Job? = null
     private var refreshing: Job? = null
     private var editDialog: AlertDialog? = null
@@ -75,16 +79,15 @@ class WatchlistSheet(
     private var summary: WatchBook.Summary? = null
     private var pricedAt = 0L
     private var count = 0
+    /** How many stocks the filter leaves. */
+    private var shownCount = 0
 
     fun show(): BottomSheetDialog {
         ui.watchList.layoutManager = LinearLayoutManager(activity)
         ui.watchList.adapter = ConcatAdapter(header, rows)
         ItemTouchHelper(Swipe()).attachToRecyclerView(ui.watchList)
         ui.watchRefresh.setOnClickListener { refresh() }
-        ui.watchShowInList.setOnClickListener {
-            dialog.dismiss()
-            onShowInList()
-        }
+        ui.watchShowInList.setOnClickListener { menu(it) }
         ui.watchExport.setOnClickListener { share() }
         dialog = activity.showSheet(ui.root, ui.sheetTopBar, fullHeight = true)
         // Only what the page shows: a running scan's progress ticks leave it alone.
@@ -107,18 +110,77 @@ class WatchlistSheet(
     private fun render(state: ScanUiState) {
         val stocks = state.starredStocks.map { it.stock }
         val alerts = ScanEngine.watchStates(activity)
-        val list = WatchBook.rows(stocks, state.watchAdded, alerts, sort) { state.setups.shape(it.setupMask) }
-        count = list.size
-        summary = WatchBook.summary(list)
+        val all = WatchBook.rows(stocks, state.watchAdded, alerts, sort, shape = { state.setups.shape(it.setupMask) }, reversed = reversed)
+        // The alerts pill means nothing while alerts are off.
+        if (filter == WatchFilter.ALERTS && !settings.watchAlerts) filter = WatchFilter.ALL
+        val list = WatchBook.filter(all, filter)
+        count = all.size
+        shownCount = list.size
+        summary = WatchBook.summary(all)
         pricedAt = state.savedAt
         ui.watchTitle.text = activity.getString(R.string.watch_title, count)
-        ui.watchEmpty.isVisible = list.isEmpty()
+        ui.watchEmpty.isVisible = all.isEmpty()
         ui.watchExport.isEnabled = list.any { it.stock.charted }
         ui.watchExport.alpha = if (ui.watchExport.isEnabled) 1f else 0.38f
         val wasShown = header.shown
-        header.shown = list.isNotEmpty()
+        header.shown = all.isNotEmpty()
         if (wasShown && header.shown) header.notifyItemChanged(0)
         rows.submitList(list)
+    }
+
+    /** Picks the order, or turns the chosen one round on a second tap. */
+    private fun sortBy(choice: WatchSort) {
+        if (sort == choice) reversed = !reversed else {
+            sort = choice
+            reversed = false
+        }
+        render(scan.uiState.value)
+        ui.watchList.scrollToPosition(0)
+    }
+
+    /** Shows only [choice]'s stocks, or all of them again when it is already the one shown. */
+    private fun filterBy(choice: WatchFilter) {
+        filter = if (filter == choice) WatchFilter.ALL else choice
+        render(scan.uiState.value)
+        ui.watchList.scrollToPosition(0)
+    }
+
+    /**
+     * The ≡ menu: which stocks to show, and the watchlist on the home page's list (which closes this page, so it says
+     * so).
+     */
+    private fun menu(anchor: View) {
+        val popup = android.widget.PopupMenu(activity, anchor)
+        val items = listOf(
+            WatchFilter.ALL to R.string.watch_filter_all,
+            WatchFilter.GAINING to R.string.watch_filter_gaining,
+            WatchFilter.LOSING to R.string.watch_filter_losing,
+            WatchFilter.ALERTS to R.string.watch_filter_alerts,
+        )
+        items.forEachIndexed { index, (choice, label) ->
+            popup.menu.add(1, index, index, label).apply {
+                isCheckable = true
+                isChecked = filter == choice
+                isEnabled = choice != WatchFilter.ALERTS || settings.watchAlerts
+            }
+        }
+        popup.menu.setGroupCheckable(1, true, true)
+        popup.menu.add(2, MENU_SPLIT, items.size, R.string.split_menu)
+        popup.menu.add(2, MENU_SHOW_IN_LIST, items.size + 1, R.string.watch_show_in_list_menu)
+        popup.setOnMenuItemClickListener { item ->
+            if (item.itemId == MENU_SHOW_IN_LIST) {
+                dialog.dismiss()
+                onShowInList()
+            } else if (item.itemId == MENU_SPLIT) {
+                askSplit()
+            } else {
+                filter = items[item.itemId].first
+                render(scan.uiState.value)
+                ui.watchList.scrollToPosition(0)
+            }
+            true
+        }
+        popup.show()
     }
 
     /** Fetches the watchlist's prices now, between scans; a running scan brings them anyway. */
@@ -147,6 +209,91 @@ class WatchlistSheet(
                 }
             }
         }
+    }
+
+    /** Asks how much to put in, then spreads it over the watchlist ([Allocation]). */
+    private fun askSplit() {
+        val dp = activity.resources.displayMetrics.density
+        val field = EditText(activity).apply {
+            inputType = InputType.TYPE_CLASS_NUMBER
+            hint = activity.getString(R.string.size_capital_hint)
+            TradeStore.capital(activity).takeIf { it > 0.0 }?.let { setText(String.format(Locale.US, "%.0f", it)) }
+            setSelection(text.length)
+            setTextColor(color(R.color.text_primary))
+        }
+        val box = FrameLayout(activity).apply {
+            setPadding((20 * dp).roundToInt(), (4 * dp).roundToInt(), (20 * dp).roundToInt(), 0)
+            addView(field, FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+        }
+        editDialog?.dismiss()
+        editDialog = MaterialAlertDialogBuilder(activity)
+            .setTitle(R.string.split_title)
+            .setMessage(R.string.split_ask)
+            .setView(box)
+            .setNegativeButton(R.string.settings_confirm_no, null)
+            .setPositiveButton(R.string.split_go) { _, _ ->
+                val total = field.text.toString().trim().replace(",", "").toDoubleOrNull()
+                if (total == null || !(total > 0.0)) toast(R.string.watch_edit_invalid) else showSplit(total)
+            }
+            .show()
+    }
+
+    /**
+     * The watchlist's share of [total] each, calmer stocks getting more ([Allocation.inverseVolatility]), with how long
+     * each has been on the list and so which tax a sale would pay today.
+     */
+    private fun showSplit(total: Double) {
+        val state = scan.uiState.value
+        val stocks = state.starredStocks.map { it.stock }.filter { it.charted }
+        val parts = Allocation.inverseVolatility(stocks, total)
+        if (parts.isEmpty()) {
+            toast(R.string.split_none)
+            return
+        }
+        val today = LocalDate.now(MarketClock.INDIA)
+        val lines = mutableListOf(activity.getString(R.string.split_head, StockFormat.price(total), parts.size))
+        for (part in parts) {
+            lines += ""
+            lines += activity.getString(
+                R.string.split_line,
+                part.stock.symbol,
+                String.format(Locale.US, "%.1f", part.weight * 100.0),
+                StockFormat.price(part.amount),
+                part.qty,
+                StockFormat.price(part.stock.price),
+                String.format(Locale.US, "%.1f", part.volatilityPct),
+            )
+            state.watchAdded[part.stock.symbol]?.takeIf { !it.estimated }?.let { entry ->
+                val since = Instant.ofEpochMilli(entry.at).atZone(MarketClock.INDIA).toLocalDate()
+                val days = Allocation.daysHeld(since, today)
+                lines += activity.getString(
+                    if (Allocation.longTerm(since, today)) R.string.split_long_term else R.string.split_short_term,
+                    days,
+                    String.format(Locale.US, "%.1f", if (Allocation.longTerm(since, today)) Allocation.LONG_TERM_TAX_PCT else Allocation.SHORT_TERM_TAX_PCT),
+                )
+            }
+        }
+        lines += ""
+        lines += activity.getString(R.string.split_note)
+        val text = lines.joinToString("\n")
+        val body = android.widget.TextView(activity).apply {
+            this.text = text
+            setTextColor(color(R.color.text_primary))
+            textSize = 13.5f
+            setTextIsSelectable(true)
+            val pad = (20 * activity.resources.displayMetrics.density).roundToInt()
+            setPadding(pad, pad / 2, pad, 0)
+        }
+        editDialog?.dismiss()
+        editDialog = MaterialAlertDialogBuilder(activity)
+            .setTitle(R.string.split_title)
+            .setView(android.widget.ScrollView(activity).apply { addView(body) })
+            .setNegativeButton(R.string.split_close, null)
+            .setPositiveButton(R.string.ticket_share) { _, _ ->
+                val send = Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text)
+                runCatching { activity.startActivity(Intent.createChooser(send, activity.getString(R.string.ticket_share))) }
+            }
+            .show()
     }
 
     /** Takes [row]'s stock off the watchlist, with a way to put it back as it was. */
@@ -261,27 +408,18 @@ class WatchlistSheet(
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
             val holder = Holder(ItemWatchSummaryBinding.inflate(LayoutInflater.from(parent.context), parent, false))
             holder.ui.summaryCard.dress()
+            holder.ui.summaryGaining.setOnClickListener { filterBy(WatchFilter.GAINING) }
+            holder.ui.summaryLosing.setOnClickListener { filterBy(WatchFilter.LOSING) }
+            holder.ui.summaryAlerts.setOnClickListener { if (settings.watchAlerts) filterBy(WatchFilter.ALERTS) }
             for (choice in WatchSort.entries) {
                 val chip = LayoutInflater.from(parent.context).inflate(R.layout.chip_choice, holder.ui.watchSortChips, false) as Chip
                 chip.id = View.generateViewId()
                 chip.tag = choice
-                chip.setText(
-                    when (choice) {
-                        WatchSort.RETURN -> R.string.watch_sort_return
-                        WatchSort.RECENT -> R.string.watch_sort_recent
-                        WatchSort.NEAREST -> R.string.watch_sort_nearest
-                    },
-                )
+                chip.setText(sortLabel(choice))
                 chip.isCheckable = true
                 chip.isChecked = choice == sort
                 if (flat) chip.wearFlat(accented = false)
-                chip.setOnClickListener {
-                    if (sort != choice) {
-                        sort = choice
-                        render(scan.uiState.value)
-                        ui.watchList.scrollToPosition(0)
-                    }
-                }
+                chip.setOnClickListener { sortBy(choice) }
                 holder.ui.watchSortChips.addView(chip)
             }
             return holder
@@ -321,6 +459,41 @@ class WatchlistSheet(
             )
             val checked = (0 until ui.watchSortChips.childCount).map(ui.watchSortChips::getChildAt).firstOrNull { it.tag == sort }
             if (checked != null && ui.watchSortChips.checkedChipId != checked.id) ui.watchSortChips.check(checked.id)
+            // The chosen order's chip shows which way it runs (↓ its usual way, ↑ turned round); a tap turns it.
+            for (i in 0 until ui.watchSortChips.childCount) {
+                val chip = ui.watchSortChips.getChildAt(i) as Chip
+                val choice = chip.tag as WatchSort
+                val label = activity.getString(sortLabel(choice))
+                chip.text = if (choice == sort) "$label ${if (reversed) "↑" else "↓"}" else label
+                chip.contentDescription = if (choice == sort) {
+                    activity.getString(if (reversed) R.string.watch_sort_reversed_description else R.string.watch_sort_usual_description, label)
+                } else {
+                    label
+                }
+            }
+            // The summary pills filter the list: the chosen one stands out, the others dim while it is on.
+            listOf(
+                ui.summaryGaining to WatchFilter.GAINING,
+                ui.summaryLosing to WatchFilter.LOSING,
+                ui.summaryAlerts to WatchFilter.ALERTS,
+            ).forEach { (pill, choice) ->
+                val on = filter == choice
+                pill.alpha = if (filter == WatchFilter.ALL || on) 1f else 0.45f
+                if (on) pill.text = "✓ ${pill.text}"
+                pill.isSelected = on
+                androidx.core.view.ViewCompat.setStateDescription(
+                    pill,
+                    activity.getString(if (on) R.string.watch_filter_on else R.string.watch_filter_off),
+                )
+            }
+            ui.summaryFilterNote.isVisible = filter != WatchFilter.ALL
+            ui.summaryFilterNote.text = activity.getString(R.string.watch_filter_note, shownCount, count)
+        }
+
+        private fun sortLabel(choice: WatchSort): Int = when (choice) {
+            WatchSort.RETURN -> R.string.watch_sort_return
+            WatchSort.RECENT -> R.string.watch_sort_recent
+            WatchSort.NEAREST -> R.string.watch_sort_nearest
         }
     }
 
@@ -490,6 +663,8 @@ class WatchlistSheet(
     }
 
     private companion object {
+        const val MENU_SHOW_IN_LIST = 100
+        const val MENU_SPLIT = 101
         val CLOCK: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.US)
         // In the app's language ([dateLocale]) where they are used.
         val DAY_TIME: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM HH:mm")

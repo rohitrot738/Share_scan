@@ -40,9 +40,11 @@ class FilterSheet(
     private val weekChips = mutableMapOf<Int, Chip>()
     private val limitChips = mutableMapOf<Int, Int>()
     private var draft = filters
+    private var qualitySwitch: com.google.android.material.materialswitch.MaterialSwitch? = null
 
     fun show(): BottomSheetDialog {
         Metric.entries.forEach(::addRow)
+        addQuality()
         addLimitChips()
         ui.filterReset.setOnClickListener {
             draft = resetDraft()
@@ -139,6 +141,38 @@ class FilterSheet(
     /** [defaults] for what this sheet shows; the industries are picked with the main screen's sector chip and stay. */
     private fun resetDraft(): ScanFilters = defaults.copy(sectors = draft.sectors)
 
+    /**
+     * The long-term quality screen ([Moat.quality]) as a switch under the sliders: ROCE, debt, promoters, pledge and EPS
+     * growth from the R/S file.
+     */
+    private fun addQuality() {
+        val box = android.widget.LinearLayout(activity).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+            val dp = resources.displayMetrics.density
+            setPadding((20 * dp).toInt(), (16 * dp).toInt(), (20 * dp).toInt(), 0)
+        }
+        val toggle = com.google.android.material.materialswitch.MaterialSwitch(activity).apply {
+            setText(R.string.filters_quality)
+            setTextColor(ContextCompat.getColor(activity, R.color.text_primary))
+            textSize = 15f
+            isChecked = draft.quality
+            setOnCheckedChangeListener { _, checked ->
+                draft = draft.copy(quality = checked)
+                syncLabels()
+            }
+        }
+        qualitySwitch = toggle
+        box.addView(toggle)
+        box.addView(
+            android.widget.TextView(activity).apply {
+                setText(R.string.filters_quality_body)
+                setTextColor(ContextCompat.getColor(activity, R.color.text_secondary))
+                textSize = 12f
+            },
+        )
+        ui.filterMetrics.addView(box)
+    }
+
     private fun addLimitChips() {
         for (limit in ScanFilters.LIMITS) {
             val chip = ChipChoiceBinding.inflate(activity.layoutInflater, ui.limitChips, true).root
@@ -191,13 +225,14 @@ class FilterSheet(
         val capBound = draft.bound(Metric.MARKET_CAP)
         for ((chip, bound) in presetChips) chip.isChecked = bound == capBound
         for ((weeks, chip) in weekChips) chip.isChecked = weeks == draft.rangeWeeks
+        qualitySwitch?.let { if (it.isChecked != draft.quality) it.isChecked = draft.quality }
 
         val scanned = pool
         if (state.results.isEmpty()) {
             ui.filterSummary.setText(R.string.filters_summary_idle)
             ui.filterApply.setText(R.string.filters_apply)
         } else {
-            val matching = scanned.count(draft::accepts)
+            val matching = scanned.count { draft.accepts(it, state.cr360) }
             val shown = if (draft.limit > 0) minOf(matching, draft.limit) else matching
             ui.filterSummary.text = activity.getString(
                 R.string.filters_summary,

@@ -4,7 +4,6 @@
     <string name="watch_title">★ Watchlist (%1$d)</string>
     <string name="watch_subtitle">जोड़ने के बाद से फ़ायदा या नुकसान और हर stock का alert · बाएँ swipe करके हटाएँ, दबाकर रखें तो जोड़ने का भाव बदलें</string>
     <string name="watch_refresh">Watchlist के दाम ताज़ा करें</string>
-    <string name="watch_show_in_list">Watchlist के stocks home की list में दिखाएँ</string>
     <string name="watch_export">Watchlist शेयर करें</string>
 
     <!-- The top card: the watchlist as one basket -->
@@ -18,7 +17,7 @@
     <string name="watch_summary_description">जोड़ने के बाद से औसत return %1$s, %2$d फ़ायदे में, %3$d नुकसान में</string>
 
     <!-- Order -->
-    <string name="watch_sort_return">Return ↓</string>
+    <string name="watch_sort_return">Return</string>
     <string name="watch_sort_recent">नए पहले</string>
     <string name="watch_sort_nearest">Target के पास</string>
 

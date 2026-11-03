@@ -3,7 +3,6 @@
     <string name="watch_title">★ വാച്ച്‌ലിസ്റ്റ് (%1$d)</string>
     <string name="watch_subtitle">ചേർത്തതു മുതലുള്ള ലാഭമോ നഷ്ടമോ, ഓരോ ഓഹരിയുടെയും അലേർട്ട് · ഇടത്തേക്ക് സ്വൈപ്പ് ചെയ്ത് നീക്കുക, ദീർഘനേരം അമർത്തി ചേർത്ത വില മാറ്റുക</string>
     <string name="watch_refresh">വാച്ച്‌ലിസ്റ്റ് വിലകൾ പുതുക്കുക</string>
-    <string name="watch_show_in_list">വാച്ച്‌ലിസ്റ്റ് ഓഹരികൾ ഹോം ലിസ്റ്റിൽ കാണിക്കുക</string>
     <string name="watch_export">വാച്ച്‌ലിസ്റ്റ് പങ്കിടുക</string>
     <string name="watch_summary_label">ചേർത്തതു മുതലുള്ള ശരാശരി റിട്ടേൺ</string>
     <string name="watch_summary_note">%1$d ഓഹരികൾ · ഓരോന്നും തുല്യമായി · വിലകൾ %2$s-ലേത്</string>
@@ -13,7 +12,7 @@
     <string name="watch_summary_alerts">🔔 %1$d അലേർട്ടുകൾ ഓൺ</string>
     <string name="watch_summary_alerts_off">🔕 അലേർട്ടുകൾ ഓഫ്</string>
     <string name="watch_summary_description">ചേർത്തതു മുതലുള്ള ശരാശരി റിട്ടേൺ %1$s, %2$d ലാഭത്തിൽ, %3$d നഷ്ടത്തിൽ</string>
-    <string name="watch_sort_return">റിട്ടേൺ ↓</string>
+    <string name="watch_sort_return">റിട്ടേൺ</string>
     <string name="watch_sort_recent">പുതിയത് ആദ്യം</string>
     <string name="watch_sort_nearest">ലക്ഷ്യത്തിനടുത്ത്</string>
     <string name="watch_added">₹%1$s-ൽ ചേർത്തു · %2$s</string>
