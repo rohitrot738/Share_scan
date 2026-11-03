@@ -165,7 +165,10 @@ shot 01-list 6
 SEARCH=compactSearch
 # Inside a sheet only upward drags: a downward one at the top would close the sheet.
 swipe_up() { adb shell input swipe 540 1700 540 800 450; sleep 1; }
-hide_keyboard() { adb shell input keyevent 111; sleep 1; }
+# Back closes the keyboard only while it shows; otherwise it would close the sheet under it.
+hide_keyboard() {
+  if adb shell dumpsys input_method | grep -q 'mInputShown=true'; then adb shell input keyevent KEYCODE_BACK; sleep 1; fi
+}
 # Scrolls up until the view with id $1 is on screen, then taps it.
 tap_scroll() {
   for k in 1 2 3 4 5 6 7 8 9 10 11 12; do
@@ -260,17 +263,15 @@ shot 21-watch-gaining 2
 tap summaryGaining
 sleep 1
 tap_text "Return"
-sleep 1
-tap_text "Return"
 shot 22-watch-reversed 2
 tap watchShowInList
 sleep 2
 tap_text "पोर्टफोलियो बाँटें"
 sleep 2
-adb shell input text 300000
+shot 23-watch-split-ask 1
 hide_keyboard
 tap_exact "बाँटें"
-shot 23-watch-split 3
+shot 24-watch-split 3
 home
 
 # Filters: the long-term quality switch.
@@ -281,5 +282,5 @@ for k in 1 2 3 4 5 6 7 8 9 10; do
   swipe_up
 done
 tap_text "quality companies"
-shot 24-filter-quality 2
+shot 25-filter-quality 2
 exit 0
