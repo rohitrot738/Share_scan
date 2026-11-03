@@ -1,1945 +1,529 @@
 [
  {
-  "sym": "ASIANPAINT",
-  "site": "http://www.asianpaints.com",
+  "sym": "HUBTOWN",
+  "site": "http://www.hubtown.co.in",
   "keys": [
-   "paint",
-   "furniture",
-   "tiles"
+   "realty"
   ],
   "photos": {
-   "paint": {
-    "url": "https://www.asianpaints.com/paint-products/media_1dfb2ed4c0d5881823777f46711830420c53d597b.webp?width=750&format=webp&optimize=medium",
-    "alt": "Banner image to explore the range of exterior wall paint products",
-    "after": "/paint-products/exterior-wall-paints/plain-finishes Explore Now false center Exp",
-    "page": "https://www.asianpaints.com/paint-products/exterior-wall-paints.html",
-    "score": 7,
-    "kind": "img"
-   },
-   "furniture": {
-    "url": "https://static.asianpaints.com/content/dam/apcolourcatalogue/splash-popup/mobile-home-decor-image.webp",
-    "alt": "",
-    "after": "<source media=\"(max-width:991px)\" srcset=\"//static.asianpaints.com/conte",
-    "page": "https://www.asianpaints.com/paint-products/interior-wall-paints/plain-finishes/apcolite-all-protek-shyne.html",
-    "score": 3,
-    "kind": "source"
-   },
-   "tiles": {
-    "url": "https://www.asianpaints.com/paint-products/exterior-wall-paints/media_1386b93b2e294712e07d774e8ca120a7ad3013ee6.avif?width=750&format=avif&optimize=medium",
-    "alt": "Apex Tile Guard by Asian Paints",
-    "after": "Apex Tile Guard Apex Tile Guard A tile guard that incorporates the latest state ",
-    "page": "https://www.asianpaints.com/paint-products/exterior-wall-paints/apex-ultima-protek.html",
-    "score": 6,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.asianpaints.com/",
-   "https://www.asianpaints.com/paint-products/interior-wall-paints.html",
-   "https://www.asianpaints.com/paint-products/exterior-wall-paints.html",
-   "https://www.asianpaints.com/paint-products/interior-wall-paints/royale-play.html",
-   "https://www.asianpaints.com/paint-products/exterior-wall-paints/apex-ultima-protek.html",
-   "https://www.asianpaints.com/paint-products/interior-wall-paints/plain-finishes/royale-glitz.html",
-   "https://www.asianpaints.com/paint-products/interior-wall-paints/plain-finishes/apcolite-all-protek-shyne.html",
-   "https://www.asianpaints.com/resources/tools/paint-finish-tool.html"
-  ],
-  "error": "",
-  "links": 59,
-  "imgs": 125,
-  "candidates": 1255
- },
- {
-  "sym": "BERGEPAINT",
-  "site": "http://www.bergerpaints.com",
-  "keys": [
-   "paint",
-   "chemicals"
-  ],
-  "photos": {
-   "paint": {
-    "url": "https://images.bergerpaints.com/s3fs-public/2024-06/Interior%20Wall%20Coatings%20-%20mob.png?VersionId=8gADjEc.eQ7_M_eFizhTUu2EZkrCfnhJ&format=webp&width=828&quality=75",
-    "alt": "banner mobile",
-    "after": "<img id=\"bannerImage\" alt=\"Interior Wall Paints\" fetchPriority=\"high\" width=\"192",
-    "page": "https://www.bergerpaints.com/products/interior-wall-coatings",
-    "score": 6,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.bergerpaints.com/",
-   "https://www.bergerpaints.com/products/interior-wall-coatings",
-   "https://www.bergerpaints.com/products/exterior-wall-coatings",
-   "https://www.bergerpaints.com/tools/paint-calculator",
-   "https://business.bergerpaints.com",
-   "https://www.bergerpaints.com/product-finder",
-   "https://www.bergerpaints.com/products/enamels",
-   "https://www.bergerpaints.com/products/wood-finishes"
-  ],
-  "error": "",
-  "links": 59,
-  "imgs": 53,
-  "candidates": 9
- },
- {
-  "sym": "INDIGOPNTS",
-  "site": "http://www.indigopaints.com",
-  "keys": [
-   "paint",
-   "tiles"
-  ],
-  "photos": {
-   "paint": {
-    "url": "https://indigopaints.com/wp-content/uploads/2019/04/AluminiumPaint-1.webp",
-    "alt": "Indigo Aluminium Paint",
-    "after": "Aluminium Paint <div class=\"elementor-element elementor-element-6477d65 elemento",
-    "page": "https://indigopaints.com/products/other-products/",
-    "score": 9,
-    "kind": "img"
-   },
-   "tiles": {
-    "url": "https://indigopaints.com/wp-content/uploads/2023/11/Private-Labels-4.webp",
-    "alt": "Climex Plus Roof Coat",
-    "after": "Climex Plus Roof Tile Coat <div class=\"elementor-element elementor-element-6477d",
-    "page": "https://indigopaints.com/products/private-label/",
-    "score": 3,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://indigopaints.com/",
-   "https://indigopaints.com/products/sleek-wood-coating/",
-   "https://indigopaints.com/products/",
-   "https://indigopaints.com/brand-story/",
-   "https://indigopaints.com/products/enamels/",
-   "https://indigopaints.com/products/private-label/",
-   "https://indigopaints.com/products/other-products/",
-   "https://indigopaints.com/product/leakproof-emulsion/"
-  ],
-  "error": "",
-  "links": 168,
-  "imgs": 165,
-  "candidates": 50
- },
- {
-  "sym": "MRF",
-  "site": "http://www.mrftyres.com",
-  "keys": [
-   "tyre",
-   "toys",
-   "paint"
-  ],
-  "photos": {
-   "tyre": {
-    "url": "http://www.mrftyres.com/images/browse-by-category/heavy-duty-truck-bus-tyres.jpg",
-    "alt": "Heavy Duty truck/Bus tyres",
-    "after": "Heavy Duty truck/Bus tyres <a href=\"/downloads/l",
-    "page": "http://www.mrftyres.com/export",
-    "score": 9,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "http://www.mrftyres.com",
-   "http://www.mrftyres.com/products/passenger-cars",
-   "http://www.mrftyres.com/",
-   "http://www.mrftyres.com/services/tiretok",
-   "https://www.mrftyres.com/ev-passenger-car-tyres",
-   "http://www.mrftyres.com/export",
-   "https://www.mrftyres.com/products/otr",
-   "https://www.mrftyres.com/products/scv"
-  ],
-  "error": "",
-  "links": 138,
-  "imgs": 54,
-  "candidates": 60
- },
- {
-  "sym": "APOLLOTYRE",
-  "site": "http://www.apollotyres.com",
-  "keys": [
-   "tyre"
-  ],
-  "photos": {
-   "tyre": {
-    "url": "https://corporate.apollotyres.com/content/dam/orbit/apollo-corporate/who-we-are/banner-images/our-brands_image-Option1-desktop.jpg",
-    "alt": "Our Brands | Apollo Tyres Corporate",
-    "after": "Our Brands | Apollo Tyres Corporate",
-    "page": "https://corporate.apollotyres.com/who-we-are/our-brands/",
-    "score": 6,
+   "realty": {
+    "url": "https://hubtown.co.in/images/share_asset.jpg",
+    "alt": "Hubtown Limited | Leading Real Estate Developer in India",
+    "after": ".center-wrapper[data-v-f17dfb82]{align-items:center;display:flex;height:100vh;ju",
+    "page": "https://hubtown.co.in/projects/",
+    "score": 4,
     "kind": "og"
    }
   },
   "pages": [
-   "https://corporate.apollotyres.com/",
-   "https://corporate.apollotyres.com/",
-   "https://corporate.apollotyres.com/who-we-are/our-brands/"
+   "https://hubtown.co.in/",
+   "https://hubtown.co.in/projects/"
   ],
   "error": "",
-  "links": 84,
-  "imgs": 14,
-  "candidates": 1
+  "links": 11,
+  "imgs": 0,
+  "candidates": 3
  },
  {
-  "sym": "CEATLTD",
-  "site": "http://www.ceat.com",
+  "sym": "CHEVIOT",
+  "site": "http://www.groupcheviot.net",
   "keys": [
-   "tyre"
-  ],
-  "photos": {
-   "tyre": {
-    "url": "https://ceat.scene7.com/is/image/ceat/ceat-tyres-built-for-grip?ts=1793652061530",
-    "alt": "CEAT Tyres- Built for Grip",
-    "after": "CEAT Tyres- Built for Grip",
-    "page": "https://www.ceat.com/car-tyres/tesla/model-y-tyres.html",
-    "score": 9,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.ceat.com/",
-   "https://www.ceat.com/tyre-shop.html",
-   "https://www.ceat.com/car-tyres/tesla/model-y-tyres.html",
-   "https://www.ceat.com",
-   "https://www.ceat.com/car-tyres.html",
-   "https://www.ceat.com/suv-tyres.html",
-   "https://www.ceat.com/bike-tyres.html",
-   "https://www.ceat.com/commercial.html"
-  ],
-  "error": "",
-  "links": 1004,
-  "imgs": 220,
-  "candidates": 195
- },
- {
-  "sym": "BALKRISIND",
-  "site": "http://www.bkt-tires.com",
-  "keys": [
-   "tyre"
-  ],
-  "photos": {
-   "tyre": {
-    "url": "https://commercial.bkt-tires.com/wp-content/uploads/2026/03/Agriculture_TIRES-FOR-TRACTORS_1600x1600_02-768x768.png",
-    "alt": "",
-    "after": "",
-    "page": "https://commercial.bkt-tires.com/agriculture/",
-    "score": 5,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.bkt-tires.com/",
-   "https://commercial.bkt-tires.com/otr/",
-   "https://commercial.bkt-tires.com/agriculture/",
-   "https://commercial.bkt-tires.com/industrial-construction/",
-   "https://www.bkt-tires.com",
-   "https://commercial.bkt-tires.com",
-   "https://www.bkt-tires.com/en-ca/"
-  ],
-  "error": "",
-  "links": 150,
-  "imgs": 23,
-  "candidates": 81
- },
- {
-  "sym": "JKTYRE",
-  "site": "http://www.jktyre.com",
-  "keys": [
-   "tyre"
-  ],
-  "photos": {},
-  "pages": [],
-  "error": "URLError: <urlopen error timed out>",
-  "candidates": 0
- },
- {
-  "sym": "MARUTI",
-  "site": "http://www.marutisuzuki.com",
-  "keys": [
-   "car",
-   "suv",
-   "truck"
+   "textile",
+   "tea"
   ],
   "photos": {},
   "pages": [
-   "https://www.marutisuzuki.com/"
+   "http://www.groupcheviot.net"
   ],
   "error": "",
-  "links": 80,
+  "links": 1,
   "imgs": 0,
   "candidates": 0
  },
  {
-  "sym": "M&M",
-  "site": "http://www.mahindra.com",
+  "sym": "KERALAYUR",
+  "site": "https://www.keralaayurveda.biz",
   "keys": [
-   "bike",
-   "auto3w",
-   "tractor",
-   "suv"
+   "ayurveda",
+   "hotel"
   ],
   "photos": {
-   "bike": {
-    "url": "https://www.mahindra.com/themes/custom/mahindra/img/our-business-automotive-thumb-7.jpg",
-    "alt": "",
-    "after": "Auto, North America 2-Wheeler, International <img src=\"https://www.mahindra.com/",
-    "page": "https://www.mahindra.com/our-business/farm-equipment",
-    "score": 3,
-    "kind": "img"
-   },
-   "tractor": {
-    "url": "https://www.mahindra.com/sites/default/files/img/our-business-farm-equipment-thumb-1.webp",
-    "alt": "Mahindra Arjun Novo tractor showcasing advanced agricultural engineering on farm",
-    "after": "Mahindra Tractors -->",
-    "page": "https://www.mahindra.com/our-business/farm-equipment",
+   "ayurveda": {
+    "url": "https://keralaayurveda.com/cdn/shop/files/Kerala_Ayurveda_Hospital_in_Vita_Maharashtra.png?v=1771838649&width=768",
+    "alt": "Kerala Ayurveda Hospital in Maharashtra for personalised treatments",
+    "after": "Healing Rooted in Tradition! Located in Maharashtra, Kerala Ayurveda offers a ga",
+    "page": "https://keralaayurveda.com/pages/kerala-ayurveda-hospital-in-vita-maharashtra",
     "score": 9,
     "kind": "img"
-   },
-   "suv": {
-    "url": "https://www.mahindra.com/sites/default/files/styles/convert_webp/public/brands/XEV%209E-%20467X350.jpg.webp?itok=bThg9Vgo",
-    "alt": "Mahindra XEV 9e electric SUV in orange and black dual-tone finish with futuristi",
-    "after": "XEV 9E Learn More",
-    "page": "https://www.mahindra.com/our-brands",
-    "score": 5,
-    "kind": "img"
    }
   },
   "pages": [
-   "https://www.mahindra.com/",
-   "https://www.mahindra.com/our-business/farm-equipment",
-   "https://www.mahindra.com/our-business/farm-equipment",
-   "https://auto.mahindra.com/",
-   "https://www.mahindra.com/performance-driven",
-   "https://www.mahindra.com/our-brands",
-   "https://www.mahindra.com/our-businesses",
-   "https://www.mahindra.com/our-businesses"
+   "https://keralaayurveda.com/",
+   "https://keralaayurveda.com/products/murivenna-thailam",
+   "https://keralaayurveda.com/pages/kerala-ayurveda-hospital-kasaragod",
+   "https://keralaayurveda.com/pages/kerala-ayurveda-hospital-in-vita-maharashtra",
+   "https://keralaayurveda.com/products/km-lepam",
+   "https://keralaayurveda.com/products/kesini-oil",
+   "https://keralaayurveda.com/products/myaxyl-oil",
+   "https://keralaayurveda.com/products/balarishta"
   ],
   "error": "",
-  "links": 210,
-  "imgs": 81,
-  "candidates": 145
+  "links": 522,
+  "imgs": 307,
+  "candidates": 109
  },
  {
-  "sym": "BAJAJ-AUTO",
-  "site": "http://www.bajajauto.com",
+  "sym": "SAMAY",
+  "site": "http://www.samayprojects.com",
   "keys": [
-   "bike",
-   "auto3w"
+   "construction",
+   "oil"
   ],
   "photos": {
-   "bike": {
-    "url": "https://cdn.bajajauto.com/-/media/images/bajajauto/press-release/news-media/23_10_press_release/factory/factory_mobile_262px_167px.webp",
-    "alt": "KTM opens Manaus plant with capacity for 20,000 motorcycles a year",
-    "after": "6 Min read. 17 Oct 2026 KTM opens Manaus plant with capacity for 20,000 motorcyc",
-    "page": "https://www.bajajauto.com/",
+   "construction": {
+    "url": "https://samayprojects.com/wp-content/uploads/2020/10/2-construction.jpg",
+    "alt": "servicebox",
+    "after": "Lorem Lpsum Lorem Ipsum is simply dummy text of the printing Ipsum has been the ",
+    "page": "https://samayprojects.com",
     "score": 5,
     "kind": "img"
    },
-   "auto3w": {
-    "url": "https://cdn.bajajauto.com/-/media/assets/bajajauto/three-wheelers/wego/wego-p90/category-image.webp",
+   "oil": {
+    "url": "https://samayprojects.com/wp-content/uploads/2022/02/oil-gas.jpg",
     "alt": "",
-    "after": "<div class=\"data-next-img-text image-caption\" data-bs-toggle=\"tooltip\" data-bs-p",
-    "page": "https://www.bajajauto.com/three-wheelers",
-    "score": 2,
-    "kind": "source"
-   }
-  },
-  "pages": [
-   "https://www.bajajauto.com/",
-   "https://www.bajajauto.com/bikes",
-   "https://www.bajajauto.com/bikes/ct",
-   "https://www.bajajauto.com/bikes/pulsar",
-   "https://www.bajajauto.com/bikes/dominar",
-   "https://www.bajajauto.com/bikes/avenger",
-   "https://www.bajajauto.com/bikes/platina",
-   "https://www.bajajauto.com/three-wheelers"
-  ],
-  "error": "",
-  "links": 266,
-  "imgs": 219,
-  "candidates": 91
- },
- {
-  "sym": "HEROMOTOCO",
-  "site": "http://www.heromotocorp.com",
-  "keys": [
-   "bike"
-  ],
-  "photos": {
-   "bike": {
-    "url": "https://www.heromotocorp.com/en-in/scooters/media_1678ffb25ef6e8ae423396e9875c12e52a85d68e1.png?width=750&format=png&optimize=medium",
-    "alt": "Urban Scooter Tyre",
-    "after": "<source type=\"image/png\" srcset=\"./media_1abc9fc5a7c76b3a6cc68fef104f2e21a16998a",
-    "page": "https://www.heromotocorp.com/en-in/scooters/xoom.html",
-    "score": 6,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.heromotocorp.com/en-in.html",
-   "https://shop.heromotocorp.com/en/collection/bike-care",
-   "https://www.heromotocorp.com/en-in/scooters.html",
-   "https://www.heromotocorp.com/en-in/motorcycles.html",
-   "https://www.heromotocorp.com/en-in/scooters/xoom.html",
-   "https://www.heromotocorp.com/en-in/scooters/xoom-160.html",
-   "https://www.heromotocorp.com/en-in/scooters/xoom-125.html",
-   "https://www.heromotocorp.com/en-in/motorcycles/hf-100.html"
-  ],
-  "error": "",
-  "links": 1447,
-  "imgs": 920,
-  "candidates": 579
- },
- {
-  "sym": "TVSMOTOR",
-  "site": "https://www.tvsmotor.com/",
-  "keys": [
-   "bike",
-   "auto3w"
-  ],
-  "photos": {
-   "bike": {
-    "url": "https://www.tvsmotor.com/electric-scooters/tvs-iqube/-/media/Vehicles/Feature/Iqube/Features/Design/thumbnail-1.webp?la=en&h=220&w=385&hash=396505F53487347DEC101564830D6A1D",
-    "alt": "TVS iQube LED Head Light with DRL TVS iQube Electric Scooter Smart LED Light",
-    "after": "<img src=\"/electric-scooters/tvs-iqube/-/media/Vehicles/Feature/Iqube/Features/D",
-    "page": "https://www.tvsmotor.com/electric-scooters/tvs-iqube",
-    "score": 7,
-    "kind": "img"
-   },
-   "auto3w": {
-    "url": "https://www.tvsmotor.com/three-wheelers/-/media/Feature/tvs-three-wheeler/3Wheeler-two.webp?la=en&h=520&w=800&hash=E2606B0925F3F9CDDAB52C55122BDB66",
-    "alt": "TVS King Duramax Green",
-    "after": "TVS Vehicles TVS King Deluxe - The Best Auto Rickshaw Out There <a href=\"h",
-    "page": "https://www.tvsmotor.com/three-wheelers/king-kargo",
-    "score": 6,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.tvsmotor.com/",
-   "https://www.tvsmotor.com/electric-scooters/tvs-x",
-   "https://www.tvsmotor.com/three-wheelers/king-kargo",
-   "https://www.tvsmotor.com/three-wheelers/king-deluxe",
-   "https://www.tvsmotor.com/three-wheelers/king-ev-max",
-   "https://www.tvsmotor.com/electric-scooters/tvs-iqube",
-   "https://www.tvsmotor.com/electric-scooters/tvs-orbiter",
-   "https://www.tvsmotor.com/three-wheelers/king-kargo-ev-hd"
-  ],
-  "error": "",
-  "links": 599,
-  "imgs": 453,
-  "candidates": 750
- },
- {
-  "sym": "EICHERMOT",
-  "site": "http://www.eicher.in",
-  "keys": [
-   "bike",
-   "truck",
-   "bus",
-   "autoparts"
-  ],
-  "photos": {
-   "truck": {
-    "url": "https://www.eicher.in/content/dam/eicher-motors/our-business-truck.png",
-    "alt": "eicher-truck",
-    "after": "VE Commercial Vehicles Limited (VECV) is a joint venture between the Volvo Group",
-    "page": "https://www.eicher.in/our-business",
-    "score": 8,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.eicher.in/",
-   "https://www.eicher.in/our-business"
-  ],
-  "error": "",
-  "links": 67,
-  "imgs": 27,
-  "candidates": 5
- },
- {
-  "sym": "ASHOKLEY",
-  "site": "http://www.ashokleyland.com",
-  "keys": [
-   "truck",
-   "bus"
-  ],
-  "photos": {
-   "truck": {
-    "url": "https://www.ashokleyland.com/backend/wp-content/uploads/2024/09/backend_wp-content_uploads_2024_09_Mobile_Truck-Range-with-Partner_May-2023_1_Banner-Desktop-1440x620px-1.jpg",
-    "alt": "image",
-    "after": "ICV Trucks Partner Super ₹ 19.50 L* onwards </",
-    "page": "https://www.ashokleyland.com/in/trucks",
-    "score": 6,
-    "kind": "img"
-   },
-   "bus": {
-    "url": "https://www.ashokleyland.com/backend/wp-content/uploads/2024/09/backend_wp-content_uploads_2024_09_Mobile_Bus_Range_Banner-Desktop-1440x620px-1.jpg",
-    "alt": "image",
-    "after": "Brands Sunshine ₹ 13.5 L* onwards <a href=\"https://www.as",
-    "page": "https://www.ashokleyland.com/in/buses",
+    "after": "Hindustan Petroleum Corpn Ltd LPG Plant, Gandhinagar,Gujarat <div class=\"gal",
+    "page": "https://samayprojects.com/projects/",
     "score": 5,
     "kind": "img"
    }
   },
   "pages": [
-   "https://www.ashokleyland.com:443/",
-   "https://www.ashokleyland.com:443/in/buses/brands/viking",
-   "https://www.ashokleyland.com:443/in/buses/brands/oysterd",
-   "https://www.ashokleyland.com:443/in/buses/brands/sunshine",
-   "https://www.ashokleyland.com:443/in/buses/brands/sunshine-li",
-   "https://www.ashokleyland.com/in/buses",
-   "https://www.ashokleyland.com/in/trucks",
-   "https://www.ashokleyland.com:443/in/buses"
+   "https://samayprojects.com/",
+   "https://samayprojects.com/cross-country-water/",
+   "https://samayprojects.com/introduction-to-biomethane/",
+   "https://samayprojects.com",
+   "https://samayprojects.com/projects/",
+   "https://samayprojects.com/3-columns-masonry/",
+   "https://samayprojects.com/stp-etp-desal-projects/"
   ],
   "error": "",
-  "links": 86,
-  "imgs": 91,
-  "candidates": 6
+  "links": 95,
+  "imgs": 36,
+  "candidates": 40
  },
  {
-  "sym": "EXIDEIND",
-  "site": "http://www.exideindustries.com",
+  "sym": "AMTL",
+  "site": "http://www.pkrgroup.in",
   "keys": [
-   "battery"
-  ],
-  "photos": {},
-  "pages": [],
-  "error": "HTTPError: HTTP Error 403: Forbidden",
-  "candidates": 0
- },
- {
-  "sym": "HAVELLS",
-  "site": "http://www.havells.com",
-  "keys": [
-   "cable",
-   "appliance",
-   "light",
-   "electronics"
-  ],
-  "photos": {
-   "cable": {
-    "url": "https://havells.com/media/catalog/product/cache/bebb556ccaa04236261d8ba5676ddf4d/h/t/ht_power_cable_aluminium_conductor.jpg",
-    "alt": "HT Power Cable Aluminium Conductor",
-    "after": ".product-image-container-7581 { width: 600px; height: auto; aspect-ratio: 600 / ",
-    "page": "https://havells.com/business/for-industrial/cables.html",
-    "score": 8,
-    "kind": "img"
-   },
-   "appliance": {
-    "url": "https://havells.com/media/catalog/product/cache/bebb556ccaa04236261d8ba5676ddf4d/f/a/fabia_slim_horizontal_left_side_storage_water_heater_geyser_1__1_1_1.jpg",
-    "alt": "Fabia Slim Horizontal Left Side Storage Water Heater (Geyser)",
-    "after": ".product-image-container-283076 { width: 600px; height: auto; aspect-ratio: 600 ",
-    "page": "https://havells.com/greta-pro-storage-water-heater-geyser.html",
-    "score": 8,
-    "kind": "img"
-   },
-   "light": {
-    "url": "https://havells.com/media/catalog/product/cache/bebb556ccaa04236261d8ba5676ddf4d/g/l/gl65u4x2wa-base.jpg",
-    "alt": "Mini LED TV 1.64 m (65MX950F)",
-    "after": ".product-image-container-250403 { width: 600px; height: auto; aspect-ratio: 600 ",
-    "page": "https://havells.com/mini-led-tv-189-m-75mx950f-gl75u4y2wa.html",
-    "score": 6,
-    "kind": "img"
-   },
-   "electronics": {
-    "url": "https://havells.com/media/catalog/product/cache/bebb556ccaa04236261d8ba5676ddf4d/g/l/gl55u4p3cp_base.jpg",
-    "alt": "QLED Vision Pro+ Television 1.39 m(55PS850G)",
-    "after": ".product-image-container-256924 { width: 600px; height: auto; aspect-ratio: 600 ",
-    "page": "https://havells.com/mini-led-tv-189-m-75mx950f-gl75u4y2wa.html",
-    "score": 5,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://havells.com/",
-   "https://havells.com/epic-pro-bldc-ceiling-fan.html",
-   "https://havells.com/stealth-neo-bldc-ceiling-fan.html",
-   "https://havells.com/epic-storm-hs-bldc-ceiling-fan.html",
-   "https://havells.com/business/for-industrial/cables.html",
-   "https://havells.com/greta-pro-storage-water-heater-geyser.html",
-   "https://havells.com/monza-pro-storage-water-heater-geyser.html",
-   "https://havells.com/mini-led-tv-189-m-75mx950f-gl75u4y2wa.html"
-  ],
-  "error": "",
-  "links": 737,
-  "imgs": 152,
-  "candidates": 124
- },
- {
-  "sym": "POLYCAB",
-  "site": "http://www.polycab.com",
-  "keys": [
-   "cable",
-   "appliance",
    "electrical",
-   "light"
-  ],
-  "photos": {
-   "cable": {
-    "url": "https://cms.polycab.com/media/4nqlmasv/ldis09cyuayl001c75sb023s_img_01.png?format=webp",
-    "alt": "LDIS09CYUAYL001C.75SB023S - product image not available. POLYCABMAXIMA+ Green Wi",
-    "after": "POLYCABMAXIMA+ Green Wire 0.75 Sq. MM 90 Meters YELLOW Rs. 2700</d",
-    "page": "https://polycab.com/wires/c",
-    "score": 7,
-    "kind": "img"
-   },
-   "appliance": {
-    "url": "https://cms.polycab.com/media/bvgpnail/home-banner-fans.webp",
-    "alt": "",
-    "after": "Envelop yourself in the comfort of our premium fans. Got a query? <p class=\"lh-b",
-    "page": "https://polycab.com/fans/c",
-    "score": 6,
-    "kind": "img"
-   },
-   "electrical": {
-    "url": "https://cms.polycab.com/media/2txhwl32/wcs-1.webp",
-    "alt": "Manufacturing Excellence",
-    "after": "Durable Switchgears for the safety of your family",
-    "page": "https://polycab.com/switchgear/c",
-    "score": 4,
-    "kind": "img"
-   },
-   "light": {
-    "url": "https://cms.polycab.com/media/3gqfr0yr/llp0101501_img_01.png?format=webp",
-    "alt": "LLP0101501 - product image not available. Aelius Nxt-G LED Bulb",
-    "after": "Aelius Nxt-G LED Bulb 5 Wattage 6500K, Cool White Rs. 150",
-    "page": "https://polycab.com/lighting/c",
-    "score": 7,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://polycab.com/",
-   "https://polycab.com/fans/c",
-   "https://polycab.com/wires/c",
-   "https://polycab.com/lighting/c",
-   "https://polycab.com/switchgear/c",
-   "https://polycab.com/water-heaters/c",
-   "https://polycab.com/cables",
-   "https://polycab.com/cables"
-  ],
-  "error": "",
-  "links": 278,
-  "imgs": 35,
-  "candidates": 160
- },
- {
-  "sym": "VOLTAS",
-  "site": "http://www.voltas.com",
-  "keys": [
-   "appliance",
-   "construction"
-  ],
-  "photos": {
-   "appliance": {
-    "url": "https://www.voltas.com/cdn/shop/files/imgi_25_air-coolers.webp?v=1762414900&width=600",
-    "alt": "AIR COOLER",
-    "after": "AIR COOLER FAN",
-    "page": "https://www.voltas.com/",
-    "score": 7,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.voltas.com/",
-   "https://www.voltas.com/collections/ac",
-   "https://www.voltas.com/collections/fan",
-   "https://www.voltas.com/collections/bldc",
-   "https://www.voltas.com/collections/cooler",
-   "https://www.voltas.com/collections/water-heater",
-   "https://www.voltas.com/collections/mixer-grinder",
-   "https://www.voltas.com/collections/instant-geyser"
-  ],
-  "error": "",
-  "links": 204,
-  "imgs": 34,
-  "candidates": 115
- },
- {
-  "sym": "CROMPTON",
-  "site": "http://www.crompton.co.in",
-  "keys": [
-   "light"
-  ],
-  "photos": {
-   "light": {
-    "url": "https://cdn.accentuate.io/449120633136/-1683012087402/Bulb-Download-Brochure-Banner-v1780490328956.jpg?1120x1600",
-    "alt": "Bulbs Bulbs",
-    "after": "Download Brochure Bulbs FAQ What is the difference between warm white and cool w",
-    "page": "https://www.crompton.co.in/collections/bulbs",
-    "score": 9,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.crompton.co.in/",
-   "https://www.crompton.co.in/collections/bulbs",
-   "https://www.crompton.co.in/collections/table-lamp",
-   "https://www.crompton.co.in/pages/professional-lighting",
-   "https://www.crompton.co.in/collections/professional-lighting-solar",
-   "https://www.crompton.co.in/collections/professional-lighting-outdoor",
-   "https://www.crompton.co.in/collections/professional-lighting-industry",
-   "https://www.crompton.co.in/collections/professional-lighting-high-mast-poles"
-  ],
-  "error": "",
-  "links": 304,
-  "imgs": 174,
-  "candidates": 232
- },
- {
-  "sym": "VGUARD",
-  "site": "http://www.vguard.in",
-  "keys": [
-   "electronics"
-  ],
-  "photos": {},
-  "pages": [],
-  "error": "HTTPError: HTTP Error 403: Forbidden",
-  "candidates": 0
- },
- {
-  "sym": "BLUESTARCO",
-  "site": "http://www.bluestarindia.com",
-  "keys": [
-   "appliance",
-   "water"
-  ],
-  "photos": {},
-  "pages": [],
-  "error": "URLError: <urlopen error _ssl.c:999: The handshake operation timed out",
-  "candidates": 0
- },
- {
-  "sym": "WHIRLPOOL",
-  "site": "http://www.whirlpoolindia.com",
-  "keys": [
-   "appliance"
-  ],
-  "photos": {},
-  "pages": [
-   "https://india.whirlpool.in/"
-  ],
-  "error": "",
-  "links": 8,
-  "imgs": 5,
-  "candidates": 0
- },
- {
-  "sym": "TITAN",
-  "site": "https://www.titancompany.in",
-  "keys": [
-   "watch",
-   "jewellery"
-  ],
-  "photos": {
-   "watch": {
-    "url": "https://www.titancompany.in/sites/default/files/SF%20Watches_0.png",
-    "alt": "",
-    "after": "",
-    "page": "https://www.titancompany.in/our-brands/SF",
-    "score": 4,
-    "kind": "img"
-   },
-   "jewellery": {
-    "url": "https://www.titancompany.in/sites/default/files/Mia-firefly-Sept24-feature.jpg",
-    "alt": "",
-    "after": "Mia by Tanishq Unveils Firefly Collection – Glow-in-the-Dark Jewelry Discover Mi",
-    "page": "https://www.titancompany.in/our-brands/mia",
-    "score": 3,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.titancompany.in",
-   "https://www.titancompany.in/our-brands",
-   "https://www.titancompany.in/our-brands/SF",
-   "https://www.titancompany.in/our-brands/mia",
-   "https://www.titancompany.in/our-brands/IBD",
-   "https://www.titancompany.in/our-brands/zoya",
-   "https://www.titancompany.in/our-brands/irth",
-   "https://www.titancompany.in/our-brands/damas"
-  ],
-  "error": "",
-  "links": 180,
-  "imgs": 97,
-  "candidates": 14
- },
- {
-  "sym": "KALYANKJIL",
-  "site": "http://www.kalyanjewellers.net",
-  "keys": [
-   "jewellery",
-   "retail"
-  ],
-  "photos": {
-   "jewellery": {
-    "url": "https://www.kalyanjewellers.net/images/Jewellery/Gifts/images/jwgi-1.jpg",
-    "alt": "jewellery gifts jewellery gifts",
-    "after": "jewellery gifts Take a look Buy Online --> <div class=\"col-lg-4 co",
-    "page": "https://www.kalyanjewellers.net/Jewellery/Gifts/",
-    "score": 7,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.kalyanjewellers.net/",
-   "https://www.kalyanjewellers.net/Jewellery/Gifts/",
-   "https://www.kalyanjewellers.net/brands/heritage-jewellery-nimah.php",
-   "https://www.kalyanjewellers.net/Jewellery/Nosestuds/Collections.php",
-   "https://www.kalyanjewellers.net/brands/top-diamond-jewellery-rang.php",
-   "https://www.kalyanjewellers.net/brands/uncut-diamond-jewelry-anokhi.php",
-   "https://www.kalyanjewellers.net/brands/buy-online-jewellery-candere.php",
-   "https://www.kalyanjewellers.net/brands/special-diamond-jewellery-laya.php"
-  ],
-  "error": "",
-  "links": 244,
-  "imgs": 49,
-  "candidates": 223
- },
- {
-  "sym": "BATAINDIA",
-  "site": "http://www.bata.in",
-  "keys": [
-   "footwear"
-  ],
-  "photos": {},
-  "pages": [],
-  "error": "TimeoutError: The read operation timed out",
-  "candidates": 0
- },
- {
-  "sym": "RELAXO",
-  "site": "http://www.relaxofootwear.com",
-  "keys": [
-   "footwear"
-  ],
-  "photos": {
-   "footwear": {
-    "url": "https://relaxofootwear.com/cdn/shop/files/SX1165G-RCRD-2.jpg?v=1790138989&width=940",
-    "alt": "Relaxo SX1165G-RCRD footwear product image",
-    "after": "Athleisure Shoes for",
-    "page": "https://relaxofootwear.com/collections/top-picks",
-    "score": 7,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://relaxofootwear.com/",
-   "https://relaxofootwear.com/collections/top-picks",
-   "https://relaxofootwear.com/collections/all-shoes",
-   "https://relaxofootwear.com/collections/all-sandals",
-   "https://relaxofootwear.com/collections/all-slippers",
-   "https://relaxofootwear.com/collections/shoes-for-kids",
-   "https://relaxofootwear.com/collections/sandals-for-men",
-   "https://relaxofootwear.com/collections/sneakers-for-men"
-  ],
-  "error": "",
-  "links": 218,
-  "imgs": 121,
-  "candidates": 204
- },
- {
-  "sym": "VIPIND",
-  "site": "https://www.vipindustries.co.in",
-  "keys": [
-   "bags",
-   "retail"
-  ],
-  "photos": {},
-  "pages": [
-   "https://www.vipindustries.co.in",
-   "https://www.vipindustries.co.in/our-brands"
-  ],
-  "error": "",
-  "links": 72,
-  "imgs": 98,
-  "candidates": 38
- },
- {
-  "sym": "SAFARI",
-  "site": "https://safaribags.com",
-  "keys": [
-   "bags",
-   "textile"
-  ],
-  "photos": {
-   "bags": {
-    "url": "http://safaribags.com/cdn/shop/collections/luggage.jpg?v=1657177860",
-    "alt": "Buy Luggage, Trolley Bags & Suitcases Online in All Sizes",
-    "after": "(()=>{var s=Function.prototype.bind.bind(Function.prototype.call),yt=(c,r)=>{for",
-    "page": "https://safaribags.com/collections/trolley-bags",
-    "score": 7,
-    "kind": "og"
-   }
-  },
-  "pages": [
-   "https://safaribags.com",
-   "https://safaribags.com/collections/trolley-bags",
-   "https://safaribags.com/products/zolo-hard-luggage-cherry-red",
-   "https://safaribags.com/products/hue-hard-luggage-with-dual-wheels-printed",
-   "https://safaribags.com/products/hue-hard-luggage-with-tsa-lock-and-dual-wheels-combo-set-small-medium-and-large-printed",
-   "https://safaribags.com/collections/all",
-   "https://safaribags.com/collections/combos",
-   "https://safaribags.com/collections/slings"
-  ],
-  "error": "",
-  "links": 347,
-  "imgs": 232,
-  "candidates": 269
- },
- {
-  "sym": "NESTLEIND",
-  "site": "http://www.nestle.in",
-  "keys": [
-   "food"
-  ],
-  "photos": {},
-  "pages": [],
-  "error": "HTTPError: HTTP Error 403: Forbidden",
-  "candidates": 0
- },
- {
-  "sym": "BRITANNIA",
-  "site": "http://www.britannia.co.in",
-  "keys": [
-   "food",
-   "dairy",
-   "beverage"
-  ],
-  "photos": {
-   "dairy": {
-    "url": "https://www.britannia.co.in:443/_next/image?url=%2Fimages%2F50_50_MC.png&w=828&q=100",
-    "alt": "Cheese",
-    "after": "BRITANNIA IN THE NEWS <div data-index=\"-4\" tabindex=\"-1\" class=\"slick",
-    "page": "https://www.britannia.co.in:443/",
-    "score": 4,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.britannia.co.in:443/",
-   "https://www.britannia.co.in:443/campaign/cheese-it-up"
-  ],
-  "error": "",
-  "links": 23,
-  "imgs": 113,
-  "candidates": 5
- },
- {
-  "sym": "ITC",
-  "site": "https://www.itcportal.com",
-  "keys": [
-   "tobacco",
-   "household",
-   "paper",
-   "packaging"
-  ],
-  "photos": {},
-  "pages": [],
-  "error": "URLError: <urlopen error _ssl.c:999: The handshake operation timed out",
-  "candidates": 0
- },
- {
-  "sym": "HINDUNILVR",
-  "site": "http://www.hul.co.in",
-  "keys": [
-   "household",
-   "personalcare"
-  ],
-  "photos": {},
-  "pages": [],
-  "error": "HTTPError: HTTP Error 403: Forbidden",
-  "candidates": 0
- },
- {
-  "sym": "DABUR",
-  "site": "http://www.dabur.com",
-  "keys": [
-   "household",
-   "ayurveda"
-  ],
-  "photos": {
-   "household": {
-    "url": "https://www.dabur.com/Brands/Home%20Care/Odonil/Odonil%20.jpg",
-    "alt": "",
-    "after": "Odonil Here's some freshness that will make a lot of scents to you. Explore Prod",
-    "page": "https://www.dabur.com/home-care",
-    "score": 3,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.dabur.com/",
-   "https://www.dabur.com/our-brand",
-   "https://www.dabur.com/ayurveda",
-   "https://www.dabur.com/home-care",
-   "https://www.dabur.com/our-herbal-kingdom",
-   "https://www.dabur.com/ayurveda-and-science",
-   "https://www.dabur.com/ayurveda/ayurvedic-body-types",
-   "https://www.dabur.com/ayurveda/ayurvedic-home-remedies"
-  ],
-  "error": "",
-  "links": 258,
-  "imgs": 58,
-  "candidates": 87
- },
- {
-  "sym": "MARICO",
-  "site": "http://www.marico.com",
-  "keys": [
-   "household",
-   "personalcare",
-   "edibleoil"
-  ],
-  "photos": {},
-  "pages": [],
-  "error": "URLError: <urlopen error _ssl.c:999: The handshake operation timed out",
-  "candidates": 0
- },
- {
-  "sym": "COLPAL",
-  "site": "http://www.colgate.co.in",
-  "keys": [
-   "personalcare"
-  ],
-  "photos": {},
-  "pages": [],
-  "error": "HTTPError: HTTP Error 403: Forbidden",
-  "candidates": 0
- },
- {
-  "sym": "TATACONSUM",
-  "site": "https://www.tataconsumer.com/",
-  "keys": [
-   "beverage",
-   "grains",
-   "spices",
-   "food"
-  ],
-  "photos": {
-   "beverage": {
-    "url": "https://www.tataconsumer.com/sites/g/files/gfwrlq316/files/tcpl-say-never-energy-drink.png",
-    "alt": "Tcpl Say Never Energy Drink banner - mobile",
-    "after": "Tata Consumer Products strengthens its RTD portfolio with ‘Say Never ‘Energy Dri",
-    "page": "https://www.tataconsumer.com/",
-    "score": 7,
-    "kind": "img"
-   },
-   "spices": {
-    "url": "https://www.tataconsumer.com/sites/g/files/gfwrlq316/files/tetley-india-5.png",
-    "alt": "Tetley India Masala",
-    "after": "<source data-srcset=\"https://www.tataconsumer.com/sites/g/files/gfwrlq316/files/",
-    "page": "https://www.tataconsumer.com/brands/tea/tetley",
-    "score": 5,
-    "kind": "img"
-   },
-   "food": {
-    "url": "https://www.tataconsumer.com/sites/g/files/gfwrlq316/files/packaged-food-banner-768-X-768.jpg",
-    "alt": "Packaged foods",
-    "after": "",
-    "page": "https://www.tataconsumer.com/brands/foods/organic-india-food",
-    "score": 7,
-    "kind": "source"
-   }
-  },
-  "pages": [
-   "https://www.tataconsumer.com/",
-   "https://www.tataconsumer.com/brands/foods/organic-india-food",
-   "https://www.tataconsumer.com/brands/liquid-beverages/tata-fruski",
-   "https://www.tataconsumer.com/our-offerings",
-   "https://www.tataconsumer.com/our-offerings",
-   "https://www.tataconsumer.com/brands/tea/vitax",
-   "https://www.tataconsumer.com/brands/tea/tetley"
-  ],
-  "error": "",
-  "links": 310,
-  "imgs": 122,
-  "candidates": 30
- },
- {
-  "sym": "VBL",
-  "site": "https://varunbeverages.com",
-  "keys": [
-   "beverage"
-  ],
-  "photos": {
-   "beverage": {
-    "url": "https://www.varunbeverages.com/wp-content/uploads/2023/02/about-img.png",
-    "alt": "Varun Beverages",
-    "after": "--> --> Varun Beverages --> <link rel=\"preload\" as=\"style\" href=\"//cdnjs.cloudfl",
-    "page": "https://www.varunbeverages.com/our-business/",
-    "score": 6,
-    "kind": "og"
-   }
-  },
-  "pages": [
-   "https://www.varunbeverages.com:443/",
-   "https://www.varunbeverages.com/our-products/",
-   "https://www.varunbeverages.com/our-business/"
-  ],
-  "error": "",
-  "links": 75,
-  "imgs": 24,
-  "candidates": 28
- },
- {
-  "sym": "BIKAJI",
-  "site": "https://www.bikaji.com",
-  "keys": [
-   "household",
-   "food"
-  ],
-  "photos": {
-   "food": {
-    "url": "https://www.bikaji.com/pub/media/catalog/category/snacks-category.jpg",
-    "alt": "Snacks Snacks",
-    "after": "SAVOURY DELIGHTS Shop By <div class=\"block-content fil",
-    "page": "https://www.bikaji.com/snacks.html",
-    "score": 8,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.bikaji.com",
-   "https://www.bikaji.com/snacks.html",
-   "https://www.bikaji.com/namkeen.html",
-   "https://www.bikaji.com/snacks/cafe.html",
-   "https://www.bikaji.com/snacks/chips.html",
-   "https://www.bikaji.com/snacks/funkeen.html",
-   "https://www.bikaji.com/snacks/cafe/snacks.html",
-   "https://www.bikaji.com/snacks/extruded-snack.html"
-  ],
-  "error": "",
-  "links": 266,
-  "imgs": 61,
-  "candidates": 81
- },
- {
-  "sym": "ULTRACEMCO",
-  "site": "https://www.ultratechcement.com",
-  "keys": [
-   "cement"
-  ],
-  "photos": {
-   "cement": {
-    "url": "https://www.ultratechcement.com/content/ultratechcement/in/en/home/for-homebuilders/home-building-explained-single/descriptive-articles/types-of-cement/_jcr_content/root/container/container_2072089177/teaser_copy.coreimg.jpeg/1776079028353/rapid-hardening-cement.jpeg",
-    "alt": "Rapid Hardening Cement",
-    "after": "<b>4. Extra Rapid Hardening Cement</b></h3>\\r\\n<p>Extra rapid hardening cement d",
-    "page": "https://www.ultratechcement.com/for-homebuilders/home-building-explained-single/descriptive-articles/types-of-cement",
-    "score": 9,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.ultratechcement.com",
-   "https://www.ultratechcement.com/for-homebuilders/products/overview",
-   "https://www.ultratechcement.com/for-infrastructure/infrastructure-solution/ready-mixed-concrete",
-   "https://www.ultratechcement.com/for-homebuilders/home-building-explained-single/descriptive-articles/paint-bubbling-on-wall",
-   "https://www.ultratechcement.com/for-homebuilders/home-building-explained-single/descriptive-articles/paint-bubbling-on-wall",
-   "https://www.ultratechcement.com/for-homebuilders/homebuilding-explained/how-to-videos/moving-in?videoId=M50kTXb2jEw",
-   "https://www.ultratechcement.com/for-homebuilders/home-building-explained-single/descriptive-articles/types-of-cement",
-   "https://www.ultratechcement.com/for-homebuilders/homebuilding-explained/how-to-videos/selecting-team?videoId=dmw3Trpkpu4"
-  ],
-  "error": "",
-  "links": 431,
-  "imgs": 360,
-  "candidates": 74
- },
- {
-  "sym": "AMBUJACEM",
-  "site": "http://www.ambujacement.com",
-  "keys": [
-   "cement"
-  ],
-  "photos": {
-   "cement": {
-    "url": "https://www.ambujacement.com/-/media/Project/AmbujaLimited/Home/News-Updates/Updates/Page---22---Building-a-stronger-India.ashx",
-    "alt": "Ambuja Cement building a stronger India initiative",
-    "after": "Ambuja Cement building a stronger India initiative Ambuja Cement Rauri plant inf",
-    "page": "https://www.ambujacement.com/",
-    "score": 5,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.ambujacement.com/"
-  ],
-  "error": "",
-  "links": 114,
-  "imgs": 39,
-  "candidates": 10
- },
- {
-  "sym": "SHREECEM",
-  "site": "https://www.shreecement.com/",
-  "keys": [
-   "cement"
-  ],
-  "photos": {
-   "cement": {
-    "url": "https://www.shreecement.com/public/front_assets/images/bangur-power-cement.png",
-    "alt": "",
-    "after": "--> --> --> --> Apno ke liye humesha ke liye --> Bangur power cement is a high-q",
-    "page": "https://www.shreecement.com/our-business",
-    "score": 6,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.shreecement.com/",
-   "https://www.shreecement.com/innovation",
-   "https://www.shreecement.com/our-business"
-  ],
-  "error": "",
-  "links": 130,
-  "imgs": 40,
-  "candidates": 30
- },
- {
-  "sym": "TATASTEEL",
-  "site": "http://www.tatasteel.com",
-  "keys": [
-   "steel",
-   "mining",
-   "machinery",
-   "cable"
-  ],
-  "photos": {
-   "steel": {
-    "url": "https://www.tatasteel.com/media/4939/tata-steel-alloys.jpg",
-    "alt": "Tata Steel Alloys Limited (TS Alloys)",
-    "after": "ENSURING MANUFACTURING EFFICIENCY Key product: Ferro alloys *Annual Production: ",
-    "page": "https://www.tatasteel.com/corporate/our-organisation/tata-steel-group-companies/",
-    "score": 9,
-    "kind": "img"
-   },
-   "mining": {
-    "url": "https://www.tatasteel.com/media/4933/st-mining.jpg",
-    "alt": "S & T Mining Company Private Limited",
-    "after": "EXPLORING OPPORTUNITIES IN MINING Key product: Optimising and exploring opportun",
-    "page": "https://www.tatasteel.com/corporate/our-organisation/tata-steel-group-companies/",
-    "score": 8,
-    "kind": "img"
-   },
-   "machinery": {
-    "url": "https://www.tatasteel.com/media/10929/bearings-new.jpg",
-    "alt": "",
-    "after": "Tata Bearings is one of India's most valued brands and is recognised for top gra",
-    "page": "https://www.tatasteel.com/products-solutions/india/products/tata-bearings/",
-    "score": 6,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.tatasteel.com/",
-   "https://www.tatasteel.com/products-solutions/india/products/tata-bearings/",
-   "https://www.tatasteel.com/products-solutions/india/tata-steel-industrial-consulting/",
-   "https://www.tatasteel.com/products-solutions/india/products/raw-materials-and-responsible-mining/",
-   "https://www.tatasteel.com/products-solutions/india/products/tata-ferro-alloys-and-minerals-division/",
-   "https://www.tatasteel.com/products-solutions/india/products/tata-steel-industrial-by-products-management-division-ibmd/",
-   "https://www.tatasteel.com/corporate/our-value-chain/the-making-of-steel/",
-   "https://www.tatasteel.com/corporate/our-organisation/tata-steel-group-companies/"
-  ],
-  "error": "",
-  "links": 341,
-  "imgs": 41,
-  "candidates": 39
- },
- {
-  "sym": "JSWSTEEL",
-  "site": "http://www.jsw.in",
-  "keys": [
-   "steel"
-  ],
-  "photos": {
-   "steel": {
-    "url": "https://www.jsw.in/wp-content/uploads/2025/03/path-4.webp",
-    "alt": "JSW Steel Integrated",
-    "after": "Forging Excellence in Steelmaking Ranked 8th globally, we’ve been a Steel Sustai",
-    "page": "https://www.jsw.in/jsw-steel/",
-    "score": 7,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.jsw.in/",
-   "https://www.jsw.in/jsw-steel/",
-   "https://www.jsw.in/jsw-projects-limited/",
-   "https://www.jsw.in/jsw-techno-projects-management-limited/"
-  ],
-  "error": "",
-  "links": 130,
-  "imgs": 55,
-  "candidates": 34
- },
- {
-  "sym": "SUPREMEIND",
-  "site": "http://www.supreme.co.in",
-  "keys": [
-   "plastics",
-   "packaging",
-   "furniture",
-   "pipes"
-  ],
-  "photos": {
-   "plastics": {
-    "url": "https://www.supreme.co.in/uploads/images/RRqlKxJF1mkw2A6JiAnjcCWpDeItiSyZk86HkihP.png",
-    "alt": "PVC Drain Pipe - Hi-Tech Structured Wall Plastic Pipes",
-    "after": "PVC Drain Pipe - Hi-Tech Structured Wall Plastic Pipes",
-    "page": "https://www.supreme.co.in/pipe",
-    "score": 7,
-    "kind": "img"
-   },
-   "packaging": {
-    "url": "https://www.supreme.co.in/uploads/images/0rOWFl7ni2SjmkMRRQppRfs5sRcQgjs1Oy6yJbpL.jpg",
-    "alt": "",
-    "after": "Automobile Cushioning foam solutions for protective packaging and cushioning in ",
-    "page": "https://www.supreme.co.in/ppd",
-    "score": 4,
-    "kind": "img"
-   },
-   "furniture": {
-    "url": "https://www.supreme.co.in/uploads/images/SPwQwcEvLNHVOcG1yo7Hg5LalPRf3Zmc13BC1yer.png",
-    "alt": "",
-    "after": "05 School Furniture Safe and maintenance-free school furniture. 37 Products",
-    "page": "https://www.supreme.co.in/furniture",
-    "score": 4,
-    "kind": "img"
-   },
-   "pipes": {
-    "url": "https://www.supreme.co.in/uploads/images/5a5IfXa5sYfwdT2VOAxLiDbp1U1El8kswHyvF7Nu.png",
-    "alt": "Aqua Gold UPVC Pipes And Fittings",
-    "after": "Aqua Gold UPVC Pipes And Fittings",
-    "page": "https://www.supreme.co.in/pipe",
-    "score": 7,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.supreme.co.in/",
-   "https://www.supreme.co.in/ppd",
-   "https://www.supreme.co.in/ipd",
-   "https://www.supreme.co.in/pipe",
-   "https://www.supreme.co.in/furniture",
-   "https://www.supreme.co.in/mhd"
-  ],
-  "error": "",
-  "links": 347,
-  "imgs": 197,
-  "candidates": 356
- },
- {
-  "sym": "ASTRAL",
-  "site": "https://www.astralpipes.com",
-  "keys": [
-   "pipes",
-   "tiles",
-   "machinery",
-   "paint"
-  ],
-  "photos": {
-   "pipes": {
-    "url": "https://www.astralpipes.com/wp-content/uploads/2026/08/hdpe-2-1.png",
-    "alt": "HDPE Pro - Astral Pipes",
-    "after": "if(navigator.userAgent.match(/MSIE|Internet Explorer/i)||navigator.userAgent.mat",
-    "page": "https://www.astralpipes.com/urban-infrastructure/hdpe-pro/",
-    "score": 7,
-    "kind": "og"
-   },
-   "machinery": {
-    "url": "https://www.astralpipes.com/wp-content/uploads/2023/10/Thermoplastic-Ball-Valve.jpg.webp",
-    "alt": "",
-    "after": "Thermoplastic Compact Union Ball Valve Compact True Union Ball Valve <a href=\"ht",
-    "page": "https://www.astralpipes.com",
-    "score": 4,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.astralpipes.com",
-   "https://www.astralpipes.com/urban-infrastructure/hdpe-pro/",
-   "https://www.astralpipes.com/ancillary-products/clamps-hangers/",
-   "https://www.astralpipes.com/solvent-cement/pipefix-cpvc-solvent-cement/",
-   "https://www.astralpipes.com/solvent-cement/",
-   "https://www.astralpipes.com/cable-protection/",
-   "https://www.astralpipes.com/urban-infrastructure/",
-   "https://www.astralpipes.com/plumbing-pipes-fittings/"
-  ],
-  "error": "",
-  "links": 245,
-  "imgs": 168,
-  "candidates": 54
- },
- {
-  "sym": "KAJARIACER",
-  "site": "http://www.kajariaceramics.com",
-  "keys": [
-   "tiles",
-   "furniture"
-  ],
-  "photos": {
-   "tiles": {
-    "url": "https://www.kajariaceramics.com/storage/blog/choose-kitchen-tiles-2.avif?v=1793611543",
-    "alt": "How to Choose Kitchen Tiles for Style, Functionality and Everyday Use",
-    "after": "Blog How to Choose Kitchen Tiles for Style, Functionality and Everyday Use <img ",
-    "page": "http://www.kajariaceramics.com",
-    "score": 7,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "http://www.kajariaceramics.com",
-   "https://www.kajariaceramics.com/products?range_ids%5B%5D=5",
-   "https://www.kajariaceramics.com/gres-tiles?trending_category_ids[]=17",
-   "https://www.kajariaceramics.com/ceramic-wall-tiles?trending_category_ids[]=18",
-   "https://www.kajariaceramics.com/glazed-vitrified-tiles?trending_category_ids[]=15",
-   "https://www.kajariaceramics.com/polished-vitrified-tiles?trending_category_ids[]=16",
-   "https://www.kajariaceramics.com/blue-tiles?color_ids[]=8&filtertype=color&filterid=8",
-   "https://www.kajariaceramics.com/gold-tiles?color_ids[]=6&filtertype=color&filterid=6"
-  ],
-  "error": "",
-  "links": 281,
-  "imgs": 102,
-  "candidates": 105
- },
- {
-  "sym": "CERA",
-  "site": "http://www.cera-india.com",
-  "keys": [
-   "tiles",
-   "solar"
-  ],
-  "photos": {
-   "tiles": {
-    "url": "https://www.cera-india.com/sites/default/files/2021-06/Ceramic%20Wall%20-%20300%20x600%20Bizzaro%20Mosaic.jpg",
-    "alt": "",
-    "after": "Wall Tiles EXPLORE Every space is a canvas <img",
-    "page": "https://www.cera-india.com/cera/tiles",
-    "score": 6,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.cera-india.com/",
-   "https://www.cera-india.com/cera-luxe/faucets-showers/single-lever-range",
-   "https://www.cera-india.com/cera/tiles",
-   "https://www.cera-india.com/cera/tiles",
-   "https://www.cera-india.com/cera/sanitaryware",
-   "https://www.cera-india.com/cera/tiles/stylefix",
-   "https://www.cera-india.com/cera/faucets-showers",
-   "https://www.cera-india.com/cera/tiles/wall-tiles"
-  ],
-  "error": "",
-  "links": 405,
-  "imgs": 52,
-  "candidates": 77
- },
- {
-  "sym": "PIDILITIND",
-  "site": "http://www.pidilite.com",
-  "keys": [
-   "chemicals",
    "plastics"
   ],
   "photos": {
-   "chemicals": {
-    "url": "https://assets.pidilite.com/is/image/pidilite/About%20Pidilite%20Pigments?ts=1738159561480&dpr=off",
-    "alt": "About Pigments",
-    "after": "<img src=\"https://assets.pidilite",
-    "page": "https://pigments.pidilite.com/",
-    "score": 8,
-    "kind": "img"
-   },
    "plastics": {
-    "url": "https://assets.pidilite.com/is/image/pidilite/applicable-Industries-plastic-v2?ts=1744112517953&dpr=off",
-    "alt": "Coatings",
-    "after": "--> -->",
-    "page": "https://pigments.pidilite.com/",
-    "score": 4,
+    "url": "https://pkrgroup.in/wp-content/uploads/2026/05/Encloser-Box.png",
+    "alt": "SMC 3 Phase Encl Box",
+    "after": "SMC 3 Phase Encl Box <figur",
+    "page": "https://pkrgroup.in/index.php/injestion-moulding-plastic/",
+    "score": 3,
     "kind": "img"
    }
   },
   "pages": [
-   "https://www.pidilite.com/",
-   "https://pigments.pidilite.com/",
-   "https://www.pidilite.com/categories/waterproofing",
-   "https://www.pidilite.com/consumer-brands",
-   "https://industrial-adhesives.pidilite.com/",
-   "https://www.pidilite.com/consumer-brands/roff",
-   "https://www.pidilite.com/consumer-brands/wd40",
-   "https://www.pidilite.com/consumer-brands/mseal"
+   "https://pkrgroup.in/",
+   "https://pkrgroup.in/index.php/injestion-moulding-plastic/"
   ],
   "error": "",
-  "links": 146,
-  "imgs": 101,
-  "candidates": 74
+  "links": 54,
+  "imgs": 7,
+  "candidates": 3
  },
  {
-  "sym": "SUNPHARMA",
-  "site": "http://www.sunpharma.com",
+  "sym": "ASGARD",
+  "site": "https://bangangapapers.com/",
   "keys": [
-   "medicine",
-   "api",
-   "chemicals",
-   "vaccine"
+   "paper",
+   "packaging",
+   "recycling",
+   "chemicals"
+  ],
+  "photos": {
+   "paper": {
+    "url": "https://bangangapapers.com/wp-content/uploads/2023/08/Printing-Paper.jpg",
+    "alt": "",
+    "after": "Printing Paper <div class=\"elementor-column elementor-col-25 elementor-inner-col",
+    "page": "https://bangangapapers.com/products/",
+    "score": 6,
+    "kind": "img"
+   },
+   "packaging": {
+    "url": "https://bangangapapers.com/wp-content/uploads/2023/08/corrugate-board.jpg",
+    "alt": "",
+    "after": "Corrugated Board <div class=\"elementor-column elementor-col-25 elementor-inner-c",
+    "page": "https://bangangapapers.com/products/",
+    "score": 3,
+    "kind": "img"
+   }
+  },
+  "pages": [
+   "https://bangangapapers.com/",
+   "https://bangangapapers.com/products/"
+  ],
+  "error": "",
+  "links": 74,
+  "imgs": 15,
+  "candidates": 26
+ },
+ {
+  "sym": "UTIQUE",
+  "site": "https://utique.in",
+  "keys": [
+   "metals"
   ],
   "photos": {},
-  "pages": [],
-  "error": "HTTPError: HTTP Error 403: Forbidden",
+  "pages": [
+   "https://utique.in"
+  ],
+  "error": "",
+  "links": 169,
+  "imgs": 0,
   "candidates": 0
  },
  {
-  "sym": "CIPLA",
-  "site": "http://www.cipla.com",
+  "sym": "ORCHPHARMA",
+  "site": "http://www.orchidpharma.com",
   "keys": [
    "medicine",
    "api"
   ],
-  "photos": {},
-  "pages": [
-   "http://www.cipla.com"
-  ],
-  "error": "",
-  "links": 0,
-  "imgs": 0,
-  "candidates": 0
- },
- {
-  "sym": "HAWKINCOOK",
-  "site": "http://www.hawkinscookers.com",
-  "keys": [
-   "cookware"
-  ],
-  "photos": {},
-  "pages": [
-   "https://www.hawkinscookers.com/"
-  ],
-  "error": "",
-  "links": 24,
-  "imgs": 2,
-  "candidates": 0
- },
- {
-  "sym": "TTKPRESTIG",
-  "site": "http://www.ttkprestige.com",
-  "keys": [
-   "cookware",
-   "grains"
-  ],
   "photos": {
-   "cookware": {
-    "url": "https://www.ttkprestige.com/wp-content/uploads/2023/01/pressure-cooker.jpg",
-    "alt": "Pressure Cookers",
-    "after": "Pressure Cookers",
-    "page": "https://www.ttkprestige.com/",
-    "score": 7,
-    "kind": "img"
-   },
-   "grains": {
-    "url": "https://shop.ttkprestige.com/media/wysiwyg/Prestige_Home_Page_Icon/Rice_cooker.jpg",
-    "alt": "",
-    "after": "Rice Cooker OTG <div class=\"pagebuilder-slide-wrapper\" data-background-images=\"{",
-    "page": "https://shop.ttkprestige.com/",
-    "score": 4,
+   "api": {
+    "url": "https://cdn.prod.website-files.com/699e98052fb5d427d7dd325f/6a43570a44f79650d2111181_api-p-800.webp",
+    "alt": "Api",
+    "after": "<img src=\"https://cdn.prod.website-files.com/699e98052fb5d427d7dd325f/6a1fe6da42",
+    "page": "https://www.orchidpharma.com/api-facilities/api-1",
+    "score": 8,
     "kind": "img"
    }
   },
   "pages": [
-   "https://www.ttkprestige.com/",
-   "https://shop.ttkprestige.com/cookware.html",
-   "https://shop.ttkprestige.com/cookware/paniyarakkal.html",
-   "https://shop.ttkprestige.com/",
-   "https://judge.ttkprestige.com/",
-   "https://shop.ttkprestige.com/home-appliances.html",
-   "https://www.ttkprestige.com/corporate/our-business/"
+   "https://www.orchidpharma.com/",
+   "https://www.orchidpharma.com/formulations",
+   "https://www.orchidpharma.com/api-manufacturing",
+   "https://www.orchidpharma.com/ams",
+   "https://www.orchidpharma.com/novel-medicines",
+   "https://www.orchidpharma.com/api-facilities/api-1",
+   "https://www.orchidpharma.com/formulations-facilities/fdf-1"
   ],
   "error": "",
-  "links": 185,
-  "imgs": 157,
-  "candidates": 90
- },
- {
-  "sym": "CENTURYPLY",
-  "site": "http://www.centuryply.com",
-  "keys": [
-   "furniture"
-  ],
-  "photos": {
-   "furniture": {
-    "url": "https://www.centuryply.com/uploads/Sainik_Laminates_f6684cdfab.jpg",
-    "alt": "Beautiful & Affordable Laminates Collection from CenturyPly",
-    "after": "<li",
-    "page": "https://www.centuryply.com/sainiklaminates",
-    "score": 7,
-    "kind": "og"
-   }
-  },
-  "pages": [
-   "https://www.centuryply.com/",
-   "https://www.centuryply.com/plywood",
-   "https://www.centuryply.com/centuryveneers",
-   "https://www.centuryply.com/sainiklaminates",
-   "https://www.centuryply.com/centurylaminates",
-   "https://www.centuryply.com/plywood-requirement-calculator",
-   "https://www.centuryply.com/eshop",
-   "https://www.centuryply.com/catalogues"
-  ],
-  "error": "",
-  "links": 80,
-  "imgs": 42,
-  "candidates": 53
- },
- {
-  "sym": "GREENPANEL",
-  "site": "http://www.greenpanel.com",
-  "keys": [
-   "furniture"
-  ],
-  "photos": {
-   "furniture": {
-    "url": "https://www.greenpanel.com/images/Club-Plywood.webp",
-    "alt": "Greenpanel Club Plywood",
-    "after": "Club Plywood – Premium Strength. Zero Emission. Lifelong Peace of Mind. Greenpan",
-    "page": "https://www.greenpanel.com/Products/Plywood-&-Blockboards.aspx",
-    "score": 9,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.greenpanel.com/",
-   "https://www.greenpanel.com/Products/MDF-&-HDF.aspx",
-   "https://www.greenpanel.com/Products/MDF-&-HDF/HDWR.aspx",
-   "https://www.greenpanel.com/Products/Pre-Laminated-MDF.aspx",
-   "https://www.greenpanel.com/Products/Plywood-&-Blockboards.aspx",
-   "https://www.greenpanel.com/Products/MDF-&-HDF/BoilBLACK-BWP-HDF.aspx",
-   "https://www.greenpanel.com/Products/MDF-&-HDF/FRMDF-(REG-Grade).aspx",
-   "https://www.greenpanel.com/Products/Plywood-&-Blockboards/MR-Plywood.aspx"
-  ],
-  "error": "",
-  "links": 106,
-  "imgs": 48,
-  "candidates": 42
- },
- {
-  "sym": "JYOTHYLAB",
-  "site": "https://www.jyothylabs.com",
-  "keys": [
-   "household",
-   "textile",
-   "fertiliser",
-   "personalcare"
-  ],
-  "photos": {
-   "personalcare": {
-    "url": "https://www.jyothylabs.com/wp-content/uploads/2023/06/ujala-liquid-detergent.png",
-    "alt": "",
-    "after": "Ujala Liquid Detergent Ujala Young & Fresh ( Bliss ) Ujala",
-    "page": "https://www.jyothylabs.com/products/ujala/",
-    "score": 5,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.jyothylabs.com",
-   "https://www.jyothylabs.com/products/",
-   "https://www.jyothylabs.com/products/fa/",
-   "https://www.jyothylabs.com/products/maxo/",
-   "https://www.jyothylabs.com/products/maya/",
-   "https://www.jyothylabs.com/products/pril/",
-   "https://www.jyothylabs.com/products/ujala/",
-   "https://www.jyothylabs.com/products/henko/"
-  ],
-  "error": "",
-  "links": 140,
+  "links": 56,
   "imgs": 75,
+  "candidates": 117
+ },
+ {
+  "sym": "BAHETI",
+  "site": "http://www.bahetiindustries.com",
+  "keys": [
+   "recycling",
+   "metals"
+  ],
+  "photos": {},
+  "pages": [
+   "https://www.bahetiindustries.com/"
+  ],
+  "error": "",
+  "links": 55,
+  "imgs": 45,
+  "candidates": 0
+ },
+ {
+  "sym": "JINDHOT",
+  "site": "http://www.suryapalace.com",
+  "keys": [
+   "hotel",
+   "restaurant"
+  ],
+  "photos": {
+   "hotel": {
+    "url": "https://suryapalace.com/assets/img/all-about-company.jpeg",
+    "alt": "Most Popular Hotel in Vadodara - Grand Mercure Surya Palace",
+    "after": "Most Popular Hotel in Vadodara - Grand Mercure Surya Palace <meta name=\"descript",
+    "page": "https://www.suryapalace.com/",
+    "score": 3,
+    "kind": "og"
+   },
+   "restaurant": {
+    "url": "https://www.suryapalace.com/assets/img/azure/surya-palace-premium-takeaway-boxes.jpg",
+    "alt": "Azure Restaurant premium takeaway - Grand Mercure Vadodara Surya Palace",
+    "after": "Luxury Dining, Delivered to Your Door Azure Restaurant brings its refined dining",
+    "page": "https://www.suryapalace.com/azure-restaurant-vadodara.html",
+    "score": 7,
+    "kind": "img"
+   }
+  },
+  "pages": [
+   "https://www.suryapalace.com/",
+   "https://www.suryapalace.com/azure-restaurant-vadodara.html"
+  ],
+  "error": "",
+  "links": 86,
+  "imgs": 62,
   "candidates": 26
  },
  {
-  "sym": "EMAMILTD",
-  "site": "http://www.emamiltd.in",
+  "sym": "PRIMAPLA",
+  "site": "http://www.primaplastics.com",
   "keys": [
-   "personalcare",
-   "household"
+   "plastics",
+   "recycling"
   ],
   "photos": {
-   "personalcare": {
-    "url": "https://www.emamiltd.in/wp-content/themes/emami/images/he-style-lock-shampoo.png",
-    "alt": "image",
-    "after": "HE De-Tan & Deep Cleansing Face Wash Removes Tan*; Fights Pollution *With regula",
-    "page": "https://www.emamiltd.in/brands/he-advanced-grooming-for-men/",
+   "plastics": {
+    "url": "https://primaplastics.com/cdn/shop/files/Mobile_Banner-2.jpg?v=1760345219&width=1000",
+    "alt": "prima plastics Banner",
+    "after": "<img src=\"//primaplastics.com/cdn/shop/files/2.jpg?v=1761818034&width=2000\" alt=",
+    "page": "https://primaplastics.com/",
     "score": 5,
     "kind": "img"
    },
-   "household": {
-    "url": "https://www.emamiltd.in/wp-content/uploads/2026/09/17181102/news-170926.jpg",
+   "recycling": {
+    "url": "https://primaplastics.com/cdn/shop/files/img_3982-1545730559-1_original.jpg?v=1752563907",
+    "alt": "Dustbin SWM- 240L",
+    "after": "",
+    "page": "https://primaplastics.com/collections/swm",
+    "score": 3,
+    "kind": "img"
+   }
+  },
+  "pages": [
+   "https://primaplastics.com/",
+   "https://primaplastics.com/collections/swm",
+   "https://primaplastics.com/collections/chairs",
+   "https://primaplastics.com/collections/furniture",
+   "https://primaplastics.com/collections/all",
+   "https://primaplastics.com/products/sunny-1",
+   "https://primaplastics.com/collections/chair",
+   "https://primaplastics.com/collections/crate"
+  ],
+  "error": "",
+  "links": 135,
+  "imgs": 46,
+  "candidates": 705
+ },
+ {
+  "sym": "APL",
+  "site": "http://www.asstonpharmaceuticals.com",
+  "keys": [
+   "medicine"
+  ],
+  "photos": {
+   "medicine": {
+    "url": "https://asstonpharmaceuticals.com/wp-content/uploads/2022/04/capsule.jpg",
+    "alt": "capsule",
+    "after": ".fusion-body .fusion-builder-column-7{width:33.333333333333% !important;margin-t",
+    "page": "https://asstonpharmaceuticals.com/products/",
+    "score": 8,
+    "kind": "img"
+   }
+  },
+  "pages": [
+   "https://asstonpharmaceuticals.com/",
+   "https://asstonpharmaceuticals.com/products/"
+  ],
+  "error": "",
+  "links": 44,
+  "imgs": 3,
+  "candidates": 8
+ },
+ {
+  "sym": "NEAGI",
+  "site": "http://www.neelamalaiagro.com",
+  "keys": [
+   "tea"
+  ],
+  "photos": {},
+  "pages": [
+   "https://www.neelamalaiagro.com/"
+  ],
+  "error": "",
+  "links": 53,
+  "imgs": 8,
+  "candidates": 0
+ },
+ {
+  "sym": "EIFFL",
+  "site": "http://www.euroindiafoods.com",
+  "keys": [
+   "food",
+   "beverage",
+   "household"
+  ],
+  "photos": {},
+  "pages": [
+   "https://www.euroindiafoods.com/"
+  ],
+  "error": "",
+  "links": 0,
+  "imgs": 1,
+  "candidates": 0
+ },
+ {
+  "sym": "ALICON",
+  "site": "http://www.alicongroup.co.in",
+  "keys": [
+   "metals",
+   "machinery"
+  ],
+  "photos": {
+   "machinery": {
+    "url": "https://www.alicongroup.co.in/wp-content/uploads/elementor/thumbs/Emobility-Commercial-vehicle-Final-o16nr2nxbnasgjj3i3ds5onajncbqkd3zxcoyuci08.jpg",
+    "alt": "Emobility-Commercial-vehicle-Final Emobility-Commercial-vehicle-Final",
+    "after": "/wp-content/uploads/2018/09/alicongroup.png\" > /wp-content/uploads/2018/09/casti",
+    "page": "https://www.alicongroup.co.in/what-we-do/e-mobility/",
+    "score": 3,
+    "kind": "img"
+   }
+  },
+  "pages": [
+   "https://www.alicongroup.co.in/",
+   "https://www.alicongroup.co.in/what-we-do/",
+   "https://www.alicongroup.co.in/business-enquiry/",
+   "https://www.alicongroup.co.in/what-we-do/automotive/",
+   "https://www.alicongroup.co.in/what-we-do/e-mobility/",
+   "https://www.alicongroup.co.in/what-we-do/non-automotive/"
+  ],
+  "error": "",
+  "links": 75,
+  "imgs": 23,
+  "candidates": 1
+ },
+ {
+  "sym": "AUTOIND",
+  "site": "http://www.autolineind.com",
+  "keys": [
+   "autoparts"
+  ],
+  "photos": {},
+  "pages": [
+   "https://www.autolineind.com/",
+   "https://www.autolineind.com/parking-brakes/",
+   "https://www.autolineind.com/products/",
+   "https://www.autolineind.com/products-overview/",
+   "https://www.autolineind.com/product-engineering/",
+   "https://www.autolineind.com/product-re-engineering-vave/",
+   "https://www.autolineind.com/large-stamp-assemblies-products/",
+   "https://www.autolineind.com/non-automotive-assemblies-product/"
+  ],
+  "error": "",
+  "links": 81,
+  "imgs": 13,
+  "candidates": 52
+ },
+ {
+  "sym": "LMW",
+  "site": "http://www.lakshmimach.com",
+  "keys": [
+   "machinery",
+   "textile"
+  ],
+  "photos": {
+   "machinery": {
+    "url": "https://www.lmwglobal.com/images/news/industech-expo-2025.jpg",
     "alt": "",
-    "after": "Emami's Kesh King launches scalp-care range as FMCG major targets personalised..",
-    "page": "https://www.emamiltd.in/",
+    "after": "LMW participated in the Indus-Tech Machine Tools & Automation Expo, held from 19",
+    "page": "https://www.lmwglobal.com/",
+    "score": 2,
+    "kind": "img"
+   },
+   "textile": {
+    "url": "https://www.lmwglobal.com/images/news/itma-asia-2024.jpg",
+    "alt": "",
+    "after": "We presented our cutting-edge solutions for textile automation at the National E",
+    "page": "https://www.lmwglobal.com/",
     "score": 2,
     "kind": "img"
    }
   },
   "pages": [
-   "https://www.emamiltd.in/",
-   "https://www.emamiltd.in/brands/creme-21/",
-   "https://www.emamiltd.in/brands/7-oils-in-one/",
-   "https://www.emamiltd.in/brands/he-advanced-grooming-for-men/",
-   "https://www.emamiltd.in/brands/other-emami-brands/",
-   "https://www.emamiltd.in/brands/zandu/",
-   "https://www.emamiltd.in/brands/overview/",
-   "https://www.emamiltd.in/brands/boroplus/"
+   "https://www.lmwglobal.com/"
   ],
   "error": "",
-  "links": 342,
-  "imgs": 156,
-  "candidates": 71
+  "links": 58,
+  "imgs": 22,
+  "candidates": 5
  },
  {
-  "sym": "BAJAJCON",
-  "site": "https://bajajconsumercare.com/",
+  "sym": "KSHITIJPOL",
+  "site": "http://www.kshitijpolyline.com",
   "keys": [
-   "personalcare",
-   "oil",
-   "ayurveda",
-   "chemicals"
+   "plastics",
+   "toys",
+   "pipes"
   ],
   "photos": {
-   "personalcare": {
-    "url": "https://bajajconsumercare.com/assets/Webp/almonds-drops_almond-hair-oil/BAD_soap_300X300.webp",
-    "alt": " Moisturising Soap",
-    "after": "Bajaj Almond Drops Moisturising Soap * Basis instrumental study vs unoiled hair,",
-    "page": "https://bajajconsumercare.com/argan-oil",
-    "score": 9,
-    "kind": "img"
-   },
-   "oil": {
-    "url": "https://bajajconsumercare.com/assets/images/Shampoo-with-Marula-Oil-from-Africa-Augbanner.png",
-    "alt": "Natyv Soul Enriched Hair Oil with Marula Oil from Africa",
-    "after": "MOISTURISING & PROTECTING INGREDIENTS FROM TROPICAL RAINFORESTS Natyv Soul Enric",
-    "page": "https://bajajconsumercare.com/marula-oil",
-    "score": 9,
-    "kind": "img"
-   },
-   "ayurveda": {
-    "url": "https://bajajconsumercare.com/assets/images/Bajaj-Nomarks-Ayurvedic-Antimarks-Cream-300x300.jpg",
-    "alt": "Bajaj Nomarks Ayurvedic Antimarks Cream",
-    "after": "Bajaj Nomarks Ayurvedic Antimarks Cream Bajaj Nomarks Hand Sanitizer <img",
-    "page": "https://bajajconsumercare.com/facewash",
-    "score": 9,
+   "plastics": {
+    "url": "https://5.imimg.com/data5/SELLER/Default/2023/6/316985759/OH/QV/PM/4176133/classik-plastic-portfolio-file-500x500.png",
+    "alt": "Classik Plastic Portfolio File 10 pockets",
+    "after": "Classik Plastic Portfolio File 10 pockets Rs 78 / Piece Get Best Price",
+    "page": "https://www.kshitijpolyline.com/",
+    "score": 7,
     "kind": "img"
    }
   },
   "pages": [
-   "https://bajajconsumercare.com/",
-   "https://bajajconsumercare.com/facewash",
-   "https://bajajconsumercare.com/serum-oil",
-   "https://bajajconsumercare.com/argan-oil",
-   "https://bajajconsumercare.com/marula-oil",
-   "https://bajajconsumercare.com/rosehip-oil",
-   "https://bajajconsumercare.com/jasmine-oil",
-   "https://bajajconsumercare.com/blogs/hair-care"
+   "https://www.kshitijpolyline.com/",
+   "https://www.kshitijpolyline.com/plastic-files-folders.html",
+   "https://www.kshitijpolyline.com/plastic-sheets.html",
+   "https://www.kshitijpolyline.com/badge-clip-fitting.html",
+   "https://www.kshitijpolyline.com/plastic-card-holders.html",
+   "https://www.kshitijpolyline.com/industrial-plastic-sheets.html",
+   "https://www.kshitijpolyline.com/plastic-clip-fitting-other-accessories.html",
+   "https://www.kshitijpolyline.com/personalised-products.html"
   ],
   "error": "",
-  "links": 140,
-  "imgs": 98,
-  "candidates": 94
+  "links": 182,
+  "imgs": 26,
+  "candidates": 8
  },
  {
-  "sym": "GODREJCP",
-  "site": "http://www.godrejcp.com",
+  "sym": "ARVEE",
+  "site": "http://www.arveelabs.com",
   "keys": [
-   "household",
-   "personalcare",
-   "fertiliser",
+   "chemicals",
+   "plastics",
+   "textile",
+   "paint"
+  ],
+  "photos": {
+   "chemicals": {
+    "url": "http://arveelabs.com/img/pic1.jpg",
+    "alt": "",
+    "after": "POLYMER MODIFIERS Contrast Media Intermediates DRUG INTERMEDIATES <s",
+    "page": "http://arveelabs.com/",
+    "score": 2,
+    "kind": "img"
+   }
+  },
+  "pages": [
+   "http://arveelabs.com/"
+  ],
+  "error": "",
+  "links": 71,
+  "imgs": 14,
+  "candidates": 3
+ },
+ {
+  "sym": "FILATFASH",
+  "site": "https://www.filatexfashions.co.in/",
+  "keys": [
    "textile"
   ],
   "photos": {},
   "pages": [
-   "https://www.godrejcp.com/",
-   "https://www.godrejcp.com/brands"
+   "https://www.filatexfashions.co.in/"
   ],
   "error": "",
-  "links": 63,
-  "imgs": 16,
-  "candidates": 0
- },
- {
-  "sym": "RADICO",
-  "site": "http://www.radicokhaitan.com",
-  "keys": [
-   "alcohol",
-   "sugar",
-   "beverage"
-  ],
-  "photos": {
-   "alcohol": {
-    "url": "https://radicokhaitan.com/wp-content/uploads/2019/03/White-wine.png",
-    "alt": "",
-    "after": "Wine <img src=\"https://radicokhaitan.com/wp-cont",
-    "page": "https://radicokhaitan.com/brands/defence/",
-    "score": 6,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://radicokhaitan.com/",
-   "https://radicokhaitan.com/brands/defence/",
-   "https://radicokhaitan.com/brands/domestic/",
-   "https://radicokhaitan.com/brands/international/",
-   "https://radicokhaitan.com/products/8pm-bermuda-rum-2/",
-   "https://radicokhaitan.com/products/contessa-xxx-rum-2/",
-   "https://radicokhaitan.com/products/morpheus-xo-brandy-2/",
-   "https://radicokhaitan.com/products/old-admiral-brandy-2/"
-  ],
-  "error": "",
-  "links": 54,
-  "imgs": 27,
-  "candidates": 112
- },
- {
-  "sym": "LAOPALA",
-  "site": "http://www.laopala.in",
-  "keys": [
-   "tiles",
-   "beverage",
-   "tea",
-   "alcohol"
-  ],
-  "photos": {
-   "tiles": {
-    "url": "http://www.laopala.in/uploads/images/6333046817dfd.jpg",
-    "alt": "Classique",
-    "after": "Diva La Opala was the first to introduce opal glass technology in India. Ever si",
-    "page": "http://www.laopala.in/brands",
-    "score": 3,
-    "kind": "img"
-   },
-   "tea": {
-    "url": "https://www.laopala.in/img/og-image.jpg",
-    "alt": "La Opala | Tea & Coffee",
-    "after": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-sc",
-    "page": "https://www.laopala.in/diva-tea-coffee-cup-saucer-set",
-    "score": 5,
-    "kind": "og"
-   }
-  },
-  "pages": [
-   "http://www.laopala.in",
-   "https://www.laopala.in/diva-tea-coffee-cup-saucer-set",
-   "http://www.laopala.in/collection/diva-tea-coffee-cup-saucer-set",
-   "http://www.laopala.in/brands",
-   "http://www.laopala.in/brand/la-opala",
-   "https://www.laopala.in/diva-ivory"
-  ],
-  "error": "",
-  "links": 97,
-  "imgs": 51,
-  "candidates": 41
- },
- {
-  "sym": "SYMPHONY",
-  "site": "http://www.symphonylimited.com",
-  "keys": [
-   "appliance"
-  ],
-  "photos": {
-   "appliance": {
-    "url": "https://symphonylimited.com/wp-content/uploads/2026/08/selesta-geyser-300x300.png",
-    "alt": "selesta-geyser",
-    "after": "Storage Geysers <div class=\"vc_btn3-container ho",
-    "page": "https://symphonylimited.com/air-cooler/",
-    "score": 9,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://symphonylimited.com/",
-   "https://symphonylimited.com/air-cooler/",
-   "https://symphonylimited.com/air-cooler/tower-fans/",
-   "https://symphonylimited.com/air-cooler/household-cooler/",
-   "https://symphonylimited.com/air-cooler/commercial-cooler/",
-   "https://symphonylimited.com/air-cooler/largespace-venti-cooling/",
-   "https://symphonylimited.com/product/diet-3d-40i-tower-room-air-cooler/",
-   "https://symphonylimited.com/product/sumo-75-xl-dd-desert-air-cooler/"
-  ],
-  "error": "",
-  "links": 189,
-  "imgs": 36,
-  "candidates": 157
- },
- {
-  "sym": "AMBER",
-  "site": "http://www.ambergroupindia.com",
-  "keys": [
-   "appliance",
-   "plastics",
-   "metals"
-  ],
-  "photos": {
-   "appliance": {
-    "url": "https://www.ambergroupindia.com/wp-content/uploads/2025/02/Amber-Group-CD.jpg",
-    "alt": "",
-    "after": ";\" role=\"img\" aria-label=\"Air Conditioners & Components\"> Air Conditioners & Com",
-    "page": "https://www.ambergroupindia.com/",
-    "score": 1,
-    "kind": "background"
-   }
-  },
-  "pages": [
-   "https://www.ambergroupindia.com/"
-  ],
-  "error": "",
-  "links": 102,
-  "imgs": 3,
-  "candidates": 1
- },
- {
-  "sym": "DIXON",
-  "site": "http://www.dixoninfo.com",
-  "keys": [
-   "electronics",
-   "light",
-   "appliance"
-  ],
-  "photos": {
-   "electronics": {
-    "url": "https://dixon-website.s3.ap-south-1.amazonaws.com/uploads/8f663600-ecf8-41ef-b142-11de5527c36d-HP-Dixon.jpg",
-    "alt": "Dixon and HP partner to build next-gen PCs in India",
-    "after": "Dixon and HP partner to build next-gen PCs in India Padget Electronics Private L",
-    "page": "https://www.dixoninfo.com/",
-    "score": 2,
-    "kind": "img"
-   },
-   "appliance": {
-    "url": "https://dixon-website.s3.ap-south-1.amazonaws.com/uploads/bf287be2-e3cc-4552-93aa-94d464ab7ff8-WashingMachines.jpeg",
-    "alt": "Washing Machines",
-    "after": "Washing Machines Explore",
-    "page": "https://www.dixoninfo.com/",
-    "score": 7,
-    "kind": "img"
-   }
-  },
-  "pages": [
-   "https://www.dixoninfo.com/"
-  ],
-  "error": "",
-  "links": 13,
-  "imgs": 17,
-  "candidates": 4
- },
- {
-  "sym": "ESCORTS",
-  "site": "http://www.escortsgroup.com",
-  "keys": [
-   "machinery",
-   "construction",
-   "rail",
-   "tractor"
-  ],
-  "photos": {},
-  "pages": [],
-  "error": "URLError: <urlopen error timed out>",
+  "links": 3,
+  "imgs": 12,
   "candidates": 0
  }
 ]
