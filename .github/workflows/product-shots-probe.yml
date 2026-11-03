@@ -17,12 +17,8 @@ jobs:
     env:
       PYTHONPATH: ${{ github.workspace }}
       SYMBOLS: >-
-        ASIANPAINT BERGEPAINT INDIGOPNTS MRF APOLLOTYRE CEATLTD BALKRISIND JKTYRE MARUTI M&M BAJAJ-AUTO HEROMOTOCO
-        TVSMOTOR EICHERMOT ASHOKLEY EXIDEIND HAVELLS POLYCAB VOLTAS CROMPTON VGUARD BLUESTARCO WHIRLPOOL TITAN
-        KALYANKJIL BATAINDIA RELAXO PAGEIND VIPIND SAFARI NESTLEIND BRITANNIA ITC HINDUNILVR DABUR MARICO COLPAL
-        TATACONSUM VBL BIKAJI ULTRACEMCO AMBUJACEM SHREECEM TATASTEEL JSWSTEEL SUPREMEIND ASTRAL KAJARIACER CERA
-        PIDILITIND SUNPHARMA CIPLA HAWKINCOOK TTKPRESTIG CENTURYPLY GREENPANEL JYOTHYLAB EMAMILTD BAJAJCON GODREJCP
-        RADICO LAOPALA SYMPHONY AMBER DIXON ESCORTS
+        HUBTOWN CHEVIOT KERALAYUR SAMAY AMTL ASGARD UTIQUE ORCHPHARMA BAHETI JINDHOT PRIMAPLA APL NEAGI EIFFL ALICON
+        AUTOIND LMW KSHITIJPOL ARVEE FILATFASH
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -37,6 +33,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -q -r --cached product-shots-probe 2>/dev/null || true
           git add product-shots-probe/*.png product-shots-probe/found.json product-shots-probe/log.txt
           git commit -m "Product shots probe: contact sheets" || exit 0
           git pull --rebase -X theirs origin "${GITHUB_REF_NAME}"

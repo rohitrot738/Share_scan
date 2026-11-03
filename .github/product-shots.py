@@ -19,6 +19,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+import urllib.robotparser
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 from datetime import date
@@ -45,7 +46,8 @@ NOT_A_PHOTO = re.compile(r"\b(?:logos?|icons?|favicons?|sprites?|flags?|avatars?
                          r"arrows?|btn|buttons?|social|whatsapp|facebook|twitter|linkedin|youtube|instagram|awards?|"
                          r"certificat\w*|iso|team|directors?|chairman|chairperson|ceo|founders?|people|staff|careers?|"
                          r"employees?|mr|mrs|shri|smt|portrait|signature|maps?|qr|badges?|stamps?|blank|pixel|spacer|1x1|"
-                         r"dummy|default|no image)\b")
+                         r"dummy|default|no image|opens|opened|inaugurat\w*|partner\w*|signs|signed|mou|ceremony|"
+                         r"conference|summit|meeting|visit\w*|felicitat\w*|celebrat\w*|agm|webinar)\b")
 _A = re.compile(r"<a\s([^>]*)>(.*?)</a>", re.I | re.S)
 _IMG = re.compile(r"<img\s[^>]*>", re.I)
 _SOURCE = re.compile(r"<source\s[^>]*>", re.I)
@@ -171,6 +173,24 @@ def page_links(url: str, page: str, keys: list[str]) -> list[tuple[int, str, lis
     return sorted(found.values(), key=lambda x: (-x[0], len(x[1])))
 
 
+def static_html(url: str) -> tuple[str, str]:
+    final, body, kind = get(url, "text/html")
+    if "html" not in kind:
+        raise ValueError(kind)
+    return final, body.decode("utf-8", "replace")
+
+
+def robots(home_url: str):
+    """The site's robots.txt rules; a site without one, or whose file does not come, allows everything."""
+    rules = urllib.robotparser.RobotFileParser()
+    try:
+        _, body, _ = get(urllib.parse.urljoin(home_url, "/robots.txt"), "text/plain", limit=200_000, timeout=10)
+        rules.parse(body.decode("utf-8", "replace").splitlines())
+    except Exception:  # noqa: BLE001
+        rules.parse([])
+    return rules
+
+
 def crawl(site: str, keys: list[str]) -> tuple[list[dict], dict]:
     """The pictures on a company's home page and product pages, each with the products its words name."""
     info = {"site": site, "pages": [], "error": ""}
@@ -178,25 +198,22 @@ def crawl(site: str, keys: list[str]) -> tuple[list[dict], dict]:
         return [], info
     url = site if site.startswith("http") else "https://" + site
     try:
-        home_url, body, kind = get(url, "text/html")
-    except Exception as e:  # noqa: BLE001 - a site that does not answer has no photos
+        home_url, home = static_html(url)
+    except Exception as e:  # noqa: BLE001 - a site that does not answer, or keeps automated requests out, is left alone
         info["error"] = f"{type(e).__name__}: {str(e)[:60]}"
         return [], info
-    home = body.decode("utf-8", "replace")
+    rules = robots(home_url)
     pages = [(home_url, home, [])]
     queue = page_links(home_url, home, keys)[:MAX_PAGES - 1]
     seen = {home_url}
     for score, link, named in queue:
-        if len(pages) >= MAX_PAGES or link in seen:
+        if len(pages) >= MAX_PAGES or link in seen or not rules.can_fetch(UA, link):
             continue
         seen.add(link)
         try:
-            final, body, kind = get(link, "text/html")
+            final, page = static_html(link)
         except Exception:  # noqa: BLE001
             continue
-        if "html" not in kind:
-            continue
-        page = body.decode("utf-8", "replace")
         pages.append((final, page, named))
         # A products page's own links to each product's page hold the product's pictures.
         if PRODUCT_PAGE.search(urllib.parse.urlparse(final).path) and len(queue) < 3 * MAX_PAGES:
@@ -231,7 +248,7 @@ def crawl(site: str, keys: list[str]) -> tuple[list[dict], dict]:
             if not s and im["product_page"] and len(keys) == 1 and im["kind"] != "og":
                 s = 1  # a one-product company's product pages show that product
             if s:
-                scores[k] = s + (im["kind"] == "img") + im["product_page"]
+                scores[k] = s + (im["kind"] == "img") + im["product_page"] - (im["kind"] == "og")
         if scores:
             im["scores"] = scores
             out.append(im)
