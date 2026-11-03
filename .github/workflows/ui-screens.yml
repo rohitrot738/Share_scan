@@ -5,6 +5,7 @@ on:
   push:
     branches: [claude/fervent-turing-3b79hv]
     paths: ['.github/ui-screens.sh', '.github/workflows/ui-screens.yml']
+  workflow_dispatch:
 permissions:
   contents: write
 concurrency:
