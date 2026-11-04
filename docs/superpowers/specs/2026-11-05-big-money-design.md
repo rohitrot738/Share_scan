@@ -20,7 +20,7 @@ operator के जाल वाले शेयरों से बचना; i
 साथ उसका पिछले एक साल का ईमानदार track record, watchlist पर alert और शाम की digest; कोई आँकड़ा गढ़ा न जाए।
 
 **दायरे से बाहर:** live order-book और tick data; BSE-only शेयर (BSE की delivery file बाद में); Telegram;
-thresholds बदलने की setting।
+thresholds बदलने की setting; SAST (NSE की API GitHub के server को नहीं देती)।
 
 **नाम:** trade window में "Smart money" पहले से FVG/order blocks का नाम है, इसलिए यह section
 "💰 बड़े पैसे की चाल" (Hinglish: "Big Money") कहलाएगा।
@@ -29,16 +29,17 @@ thresholds बदलने की setting।
 
 नया workflow `.github/workflows/big-money.yml`, Python `bigmoney/` में।
 
-- **कब:** हफ़्ते के दिनों में 19:15 IST, और 21:40 IST पर दूसरी कोशिश (पहली में file न मिली हो तो)।
-  `workflow_dispatch` भी।
+- **कब:** हफ़्ते के दिनों में 19:15, 21:15 और 00:15 IST पर कोशिश; जो सत्र store में आ चुका, उस पर दोबारा कुछ
+  नहीं होता। `workflow_dispatch` भी।
 - **Delivery:** NSE archives की `sec_bhavdata_full_DDMMYYYY.csv` (हर शेयर का close, traded quantity,
-  deliverable quantity, delivery %)। NSE main और SME दोनों।
+  deliverable quantity, delivery %)। Series EQ (NSE main) और SM (SME); BE, BZ, ST (trade-to-trade) और गैर-शेयर
+  series नहीं।
 - **पहली बार:** पिछले लगभग 1 साल (≈250 सत्र) की files; उसके बाद हर शाम सिर्फ़ उस दिन की। जो सत्र store में नहीं
   है (छुट्टी के बाद, job छूटा हो) वह अगली बार अपने-आप भर जाता है।
 - **Deals:** NSE की रोज़ की `bulk.csv` और `block.csv` (R/S job जैसे ही), client के नाम के साथ; पिछला साल
   R/S store (`cr360-store.json.gz`) के deals से।
-- **Promoter/insider:** R/S store के insider trades (category और mode के साथ, हफ़्ते में अपडेट); probe में
-  NSE की पूरे market की रोज़ की PIT सूची मिली तो वह रोज़ जोड़ी जाएगी (नीचे "Probe के नतीजे")।
+- **Promoter/insider:** R/S store के insider trades (category और mode के साथ, जब-जब NSE उन्हें देता है, हफ़्ते
+  में)। NSE की पूरे market वाली PIT/SAST API GitHub के server को 403 देती है, इसलिए SAST इस काम से बाहर।
 - **Store:** `big-money-store.json.gz` (release `cr360-data` में): हर शेयर के हर सत्र का close, volume,
   deliverable quantity, series; 1 साल से पुराना हटता है।
 - **App की file:** `big-money.json.gz` (उसी release में): data की तारीख, हर signal का track record, और हर शेयर
@@ -53,8 +54,8 @@ thresholds बदलने की setting।
 हर शाम, हर शेयर पर (`bigmoney/rules.py`, शुद्ध functions):
 
 1. **🟢 चुपचाप खरीद:** आज delivery % > पिछले 20 सत्रों के औसत delivery % × 1.8, आज भाव का बदलाव ±2% के
-   अंदर, आज volume > 1,00,000 शेयर। पिछले 20 में से कम से कम 15 सत्रों का data ज़रूरी। BE/BZ जैसे
-   trade-to-trade शेयर (delivery हमेशा 100%) नहीं गिने जाते।
+   अंदर, आज volume > 1,00,000 शेयर। पिछले 20 में से कम से कम 15 सत्रों का data ज़रूरी। Trade-to-trade शेयर
+   (BE, BZ, ST; delivery ज़बरदस्ती 100% या "-") नहीं गिने जाते।
 2. **🔴 Operator churn / जाल:** आज volume > पिछले 20 सत्रों का औसत volume × 4, और delivery % < 20।
 3. **🤝 Deals का net:** पिछले 30 सत्रों की bulk+block deals: सब clients की कुल खरीद − कुल बिक्री (शेयर और ₹)।
    "लगातार net खरीद" जब deal वाले आख़िरी 2+ दिनों में हर दिन net खरीद रही; "लगातार net बिक्री" उल्टा।
@@ -77,7 +78,7 @@ thresholds बदलने की setting।
 
 **Track record** (`bigmoney/record.py`): store के पिछले साल के हर सत्र पर वही नियम चलाकर, हर signal के हर
 मौके पर 10 सत्र बाद का भाव का बदलाव (close से close), उन्हीं दिनों के सभी शेयरों के औसत से तुलना, और कितने % बार
-ऊपर। Score के लिए भी: 60+ score वाले दिनों का। App में: "पिछले साल 1,240 बार; 10 दिन बाद औसत +1.9% (सब शेयर
+ऊपर। Score के लिए भी: 60+ score वाले दिनों का। किसी signal के 30 से कम मौके हों तो "data जमा हो रहा है"। App में: "पिछले साल 1,240 बार; 10 दिन बाद औसत +1.9% (सब शेयर
 +0.7%), 56% बार ऊपर"। औसत से बेहतर न निकले तो साफ़ लिखा जाएगा।
 
 ## हिस्सा 3: app
@@ -90,9 +91,10 @@ thresholds बदलने की setting।
   net (90 दिन), track record की लाइन। Data न हो तो "data नहीं मिला"।
 - **Scan list:** card/row पर छोटा badge (🟢 जमा / 🔴 जाल); Filters में "बड़े पैसे" का विकल्प: सिर्फ़ चुपचाप
   खरीद वाले, churn वाले छिपाएँ।
-- **Alerts:** शाम (19:30–23:00 IST, हफ़्ते के दिन) background check नई file देखता है; watchlist के शेयर पर नया
-  signal आए तो उसका अलग notification; पूरे market की एक digest ("आज 23 शेयरों में चुपचाप खरीद: A, B, C")।
-  दिन में एक ही बार। Settings में on/off (पहले से on)। Notification दबाएँ तो section/शेयर खुले।
+- **Alerts:** background check (हर घंटे) नई file देखता है; नए सत्र का data 22:30 IST तक आए तो उसी शाम, बाद में
+  आए तो अगली सुबह 8:00–9:00 IST: watchlist के शेयर पर नया signal आए तो उसका अलग notification, और पूरे market
+  की एक digest ("आज 23 शेयरों में चुपचाप खरीद: A, B, C")। हर सत्र के लिए एक ही बार। Settings में on/off (पहले
+  से on)। Notification दबाएँ तो section/शेयर खुले।
 - **File:** `BigMoneyRepository` दिन में एक बार (शाम के बाद नई) `big-money.json.gz` लाता है, एक ही copy रखता
   है; टूटी file पर पुरानी रहती है।
 - **साथ में:** 12 भाषाओं में strings, help entry, changelog line, शुरुआती गाइड में नया हिस्सा (screenshot,
@@ -121,6 +123,25 @@ thresholds बदलने की setting।
 - `GuideAssetTest`: नया Menu entry guide में।
 - CI APK build, workflow की एक असली run, emulator screenshots।
 
-## Probe के नतीजे
+## Probe के नतीजे (GitHub के server से, 5 Nov 00:30 IST)
 
-(probe चलने के बाद भरा जाएगा)
+- **Delivery file मिलती है:** `nsearchives.nseindia.com/products/content/sec_bhavdata_full_DDMMYYYY.csv`,
+  लगभग 400 KB, 3,553 पंक्तियाँ। Columns: SYMBOL, SERIES, DATE1, PREV_CLOSE, OPEN/HIGH/LOW/LAST/CLOSE_PRICE,
+  AVG_PRICE, TTL_TRD_QNTY, TURNOVER_LACS, NO_OF_TRADES, DELIV_QTY, DELIV_PER।
+- **Series:** EQ 2,739 · SM 394 · ST 78 · BE 197 · BZ 32 · बाकी GS, GB, IV, RR, E1, MF (सरकारी बॉन्ड, gold
+  bond, InvIT, REIT, fund)। BE और BZ में DELIV_PER "-" आता है। ST (SME trade-to-trade) में आधे से ज़्यादा 100%।
+  **फ़ैसला:** EQ और SM ही गिने जाएँगे; BE, BZ, ST (trade-to-trade) और बाकी गैर-शेयर series छोड़े जाएँगे।
+- **इतिहास:** 3 साल पुरानी files भी मिलती हैं; 20 files 14 सेकंड में, यानी एक साल ≈ 3 मिनट।
+- **कब आती है:** file का Last-Modified 23:55 IST दिखा (हर दिन एक जैसा)। यह देर से दोबारा लिखी गई copy भी हो
+  सकती है, इसलिए job 19:15, 21:15 और 00:15 IST पर कोशिश करेगा; जो सत्र store में आ चुका, उस पर कुछ नहीं।
+  **Alert का समय:** data 22:30 IST तक आ जाए तो उसी शाम; बाद में आए तो अगली सुबह 8:00–9:00 IST (market खुलने
+  से पहले)।
+- **Bulk/block files:** मिलती हैं (18:07 IST तक)। block.csv में "Remarks" column नहीं होता।
+- **NSE की API (PIT insider, SAST, historical bulk deals):** GitHub के server को 403 देती हैं। Bot जाँच बायपास
+  नहीं करेंगे, इसलिए: **SAST इस काम से बाहर**; promoter का data R/S store से (जब-जब NSE उसे देता है, हफ़्ते में);
+  deals का इतिहास अब से हर शाम की files से जमा होगा।
+- **R/S store में:** एक साल में 5,938 insider पंक्तियाँ (Promoters 1,501, Promoter Group 1,527; modes में
+  Market Purchase 2,789, Market Sale 1,485, ESOP 903, Off Market 259...)। Deals सिर्फ़ 1,095 (181 शेयर), यानी
+  deals का पिछला इतिहास पतला है। **फ़ैसला:** deals का track record तभी दिखेगा जब कम से कम 30 मौके हों, तब तक
+  "data जमा हो रहा है"।
+- **एक insider पंक्ति की तारीख 3034-03-05 थी** (NSE की filing में गलती)। आज से आगे की तारीखें छोड़ी जाएँगी।
