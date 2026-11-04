@@ -325,6 +325,13 @@ for k in 1 2 3; do swipe_up; done
 shot 49-guide-scrolled 2
 for k in 1 2 3 4 5 6 7 8; do swipe_up; done
 shot 50-guide-paper 2
+for k in 1 2 3; do swipe_up; done
+shot 50b-guide-picture 2
+# The contents list's links jump within the page.
+tap_text "विषय-सूची"
+sleep 2
+tap_text "📝 Paper Trading"
+shot 50c-guide-jump 3
 adb shell input keyevent KEYCODE_BACK
 sleep 2
 shot 51-guide-back-to-menu 2
