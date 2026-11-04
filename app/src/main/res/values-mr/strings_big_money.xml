@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu and section (BigMoneySheet) -->
+    <string name="menu_big_money">मोठ्या पैशाची चाल</string>
+    <string name="menu_big_money_body">डिलिव्हरी, बल्क/ब्लॉक डील आणि प्रमोटर: शांतपणे खरेदी आणि ऑपरेटरचा सापळा</string>
+    <string name="big_money_title">💰 मोठ्या पैशाची चाल</string>
+    <string name="big_money_subtitle">%1$s संध्याकाळचा NSE डेटा · %2$s शेअर</string>
+    <string name="big_money_loading">ताजा डेटा पाहिला जात आहे…</string>
+    <string name="big_money_no_file">डेटा अजून आला नाही. NSE ची फाइल दर संध्याकाळी येते; इंटरनेट चालू ठेवून थोड्या वेळाने उघडा.</string>
+    <string name="big_money_tab_acc">🟢 शांतपणे खरेदी</string>
+    <string name="big_money_tab_churn">🔴 चर्न / सापळा</string>
+    <string name="big_money_tab_deals">🤝 डील</string>
+    <string name="big_money_tab_promoter">👔 प्रमोटर</string>
+    <string name="big_money_tab_acc_body" formatted="false">आज डिलिव्हरी तिच्या 20 सत्रांच्या सरासरीच्या 1.8 पटीपेक्षा जास्त, भाव ±2% च्या आत आणि 1 लाखापेक्षा जास्त शेअर: कोणी भाव न वाढवता शेअर उचलत असू शकते.</string>
+    <string name="big_money_tab_churn_body" formatted="false">व्हॉल्यूम 20 सत्रांच्या सरासरीच्या 4 पटीपेक्षा जास्त, पण डिलिव्हरी 20% पेक्षा कमी: बहुतेक सौदे त्याच दिवशी कापले गेले. खोटी हालचाल असू शकते, सावध राहा.</string>
+    <string name="big_money_tab_deals_body">मागील 30 सत्रांतील बल्क आणि ब्लॉक डील, सर्व क्लायंटची बेरीज: खरेदी केलेले शेअर वजा विकलेले शेअर. आधी निव्वळ खरेदीवाले, मग निव्वळ विक्रीवाले.</string>
+    <string name="big_money_tab_promoter_body">मागील 90 दिवसांत प्रमोटरनी बाजारातून किती रुपयांचे शेअर खरेदी केले आणि विकले (ESOP, भेट, ऑफ-मार्केट मोजले नाहीत). आधी खरेदीवाले.</string>
+    <string name="big_money_none">आज यात कोणताही शेअर नाही</string>
+    <string name="big_money_row_acc">%1$s · डिलिव्हरी %2$s (सरासरी %3$s, %4$s पट)</string>
+    <string name="big_money_row_acc_body">भाव %1$s · %2$s शेअरचा सौदा · स्कोर %3$d</string>
+    <string name="big_money_row_churn">%1$s · व्हॉल्यूम %2$s पट · डिलिव्हरी %3$s</string>
+    <string name="big_money_row_churn_body">भाव %1$s · %2$s शेअर (सरासरी %3$s) · स्कोर %4$d</string>
+    <string name="big_money_row_deal_buy">%1$s · निव्वळ खरेदी %2$s</string>
+    <string name="big_money_row_deal_sell">%1$s · निव्वळ विक्री %2$s</string>
+    <string name="big_money_row_deal_body">%1$s शेअर · %2$d दिवस डील · %3$s</string>
+    <string name="big_money_row_promoter_buy">%1$s · प्रमोटरनी खरेदी केले %2$s</string>
+    <string name="big_money_row_promoter_sell">%1$s · प्रमोटरनी विकले %2$s</string>
+    <string name="big_money_row_promoter_body">%1$d वेळा खरेदी, %2$d वेळा विक्री (90 दिवस)</string>
+    <string name="big_money_caution">हा खरेदी-विक्रीचा सल्ला नाही. ट्रॅक रेकॉर्ड मागील वर्षाचा आहे; पुढेही तसेच होईल असे नाही. तुमचा स्टॉप-लॉस नक्की ठेवा.</string>
+
+    <!-- Track record -->
+    <string name="big_money_record">मागील वर्षी %1$s वेळा; 10 सत्रांनंतर सरासरी %2$s (सर्व शेअर %3$s), %4$s वेळा वर</string>
+    <string name="big_money_record_worse">⚠️ मागील वर्षी हा संकेत सर्व शेअरच्या सरासरीपेक्षा चांगला ठरला नाही</string>
+    <string name="big_money_record_waiting">ट्रॅक रेकॉर्ड: डेटा जमा होत आहे (%1$d वेळा, किमान 30 हवेत)</string>
+    <string name="big_money_score_strong">स्कोर 60 किंवा जास्त</string>
+
+    <!-- Signals and the list's mark -->
+    <string name="big_money_signal_acc">🟢 शांतपणे खरेदी (डिलिव्हरीत उसळी)</string>
+    <string name="big_money_signal_churn">🔴 ऑपरेटर चर्न / सापळा</string>
+    <string name="big_money_signal_deal_buy">🤝 डील: सलग निव्वळ खरेदी</string>
+    <string name="big_money_signal_deal_sell">🤝 डील: सलग निव्वळ विक्री</string>
+    <string name="big_money_signal_promoter_buy">👔 प्रमोटरनी बाजारातून खरेदी केले</string>
+    <string name="big_money_signal_promoter_sell">👔 प्रमोटरनी बाजारात विकले</string>
+    <string name="big_money_signals_none">आज कोणताही संकेत नाही</string>
+    <string name="big_money_mark_acc">🟢 जमा</string>
+    <string name="big_money_mark_churn">🔴 सापळा</string>
+    <string name="big_money_mark_acc_description">मोठ्या पैशाची चाल: शांतपणे खरेदी</string>
+    <string name="big_money_mark_churn_description">मोठ्या पैशाची चाल: ऑपरेटर चर्न, व्हॉल्यूम जास्त पण डिलिव्हरी कमी</string>
+    <string name="big_money_streak_buy">सलग %1$d दिवस निव्वळ खरेदी</string>
+    <string name="big_money_streak_sell">सलग %1$d दिवस निव्वळ विक्री</string>
+    <string name="big_money_streak_none">सलग नाही</string>
+
+    <!-- The stock's card (BigMoneyCard) -->
+    <string name="big_money_card_title">💰 मोठ्या पैशाची चाल</string>
+    <string name="big_money_card_missing">%1$s संध्याकाळच्या NSE डेटामध्ये हा शेअर नाही (फक्त BSE, ट्रेड-टू-ट्रेड, किंवा त्या दिवशी सौदा झाला नाही)</string>
+    <string name="big_money_card_score">स्कोर %1$d/100</string>
+    <string name="big_money_card_date">%1$s संध्याकाळच्या NSE डेटावरून</string>
+    <string name="big_money_chart">मागील %1$d सत्रे: डिलिव्हरी %% (पट्ट्या) आणि व्हॉल्यूम (रेषा)</string>
+    <string name="big_money_deal_line_buy">डील (30 सत्रे): निव्वळ खरेदी %1$s शेअर, %2$s · %3$s</string>
+    <string name="big_money_deal_line_sell">डील (30 सत्रे): निव्वळ विक्री %1$s शेअर, %2$s · %3$s</string>
+    <string name="big_money_deal_none">डील (30 सत्रे): कोणतीही बल्क/ब्लॉक डील नाही</string>
+    <string name="big_money_circular">⚠️ गोल-गोल सौदा (5 सत्रांत खरेदीही, विक्रीही): %1$s</string>
+    <string name="big_money_promoter_line_buy">प्रमोटर (90 दिवस): बाजारातून निव्वळ खरेदी %1$s · %2$d खरेदी, %3$d विक्री</string>
+    <string name="big_money_promoter_line_sell">प्रमोटर (90 दिवस): बाजारात निव्वळ विक्री %1$s · %2$d खरेदी, %3$d विक्री</string>
+    <string name="big_money_promoter_none">प्रमोटर (90 दिवस): बाजारात कोणतीही खरेदी-विक्री नाही</string>
+    <string name="big_money_part_max">/ %1$d</string>
+    <string name="big_money_part_description">%1$s: %2$s गुण, %3$d पैकी</string>
+    <string name="big_money_part_spike">डिलिव्हरीत उसळी</string>
+    <string name="big_money_part_build">डिलिव्हरी जमा होणे</string>
+    <string name="big_money_part_deals">डीलची निव्वळ खरेदी</string>
+    <string name="big_money_part_promoter">प्रमोटरची निव्वळ खरेदी</string>
+    <string name="big_money_part_churn">चर्न</string>
+    <string name="big_money_part_selling">निव्वळ विक्री</string>
+    <string name="big_money_part_body_spike">आज डिलिव्हरी %1$s, मागील 20 सत्रांची सरासरी %2$s: %3$s पट. 1 पटीला 0 गुण, 3 पटीला पूर्ण 30.</string>
+    <string name="big_money_part_body_build">मागील 5 सत्रांची सरासरी डिलिव्हरी %1$s, 20 सत्रांची %2$s: %3$s पट. 1 पटीला 0 गुण, 1.5 पटीला पूर्ण 20.</string>
+    <string name="big_money_part_body_deals">30 सत्रांत निव्वळ %1$s शेअर (%2$s); रोजचे सरासरी व्हॉल्यूम %3$s शेअर; %4$s. निव्वळ खरेदी एका दिवसाच्या सरासरी व्हॉल्यूमइतकी असेल, किंवा सलग 2 दिवस निव्वळ खरेदी असेल, तर पूर्ण 25.</string>
+    <string name="big_money_part_body_promoter_buy">90 दिवसांत प्रमोटरची बाजारातून निव्वळ खरेदी %1$s (%2$d खरेदी, %3$d विक्री). ₹5 कोटी निव्वळ खरेदीवर पूर्ण 25.</string>
+    <string name="big_money_part_body_promoter_sell">90 दिवसांत प्रमोटरची बाजारात निव्वळ विक्री %1$s (%2$d खरेदी, %3$d विक्री): गुण \"निव्वळ विक्री\" मध्ये कापले.</string>
+    <string name="big_money_part_body_churn">आज व्हॉल्यूम सरासरीच्या %1$s पट आणि डिलिव्हरी %2$s: चर्न, 30 गुण कापले.</string>
+    <string name="big_money_part_body_no_churn">आज चर्न नाही: व्हॉल्यूम सरासरीच्या %1$s पट, डिलिव्हरी %2$s (चर्न = 4 पटीपेक्षा जास्त व्हॉल्यूम आणि 20%% पेक्षा कमी डिलिव्हरी).</string>
+    <string name="big_money_part_body_selling">डील किंवा प्रमोटरची निव्वळ विक्री वरच्याच मापाने गुण कमी करते.</string>
+    <string name="big_money_part_body_no_selling">कोणतीही निव्वळ विक्री नाही.</string>
+
+    <!-- Filters -->
+    <string name="filters_big_money">मोठ्या पैशाची चाल</string>
+    <string name="filters_big_money_all">सर्व</string>
+    <string name="filters_big_money_acc">फक्त शांतपणे खरेदी</string>
+    <string name="filters_big_money_no_churn">चर्नवाले लपवा</string>
+    <string name="filters_big_money_body">संध्याकाळच्या NSE डिलिव्हरी डेटावरून (मेनू → मोठ्या पैशाची चाल)</string>
+
+    <!-- Alerts and settings (BigMoneyAlerts) -->
+    <string name="notify_channel_big_money">मोठ्या पैशाची चाल</string>
+    <string name="settings_big_money_alerts">मोठ्या पैशाच्या चालीचे अलर्ट</string>
+    <string name="settings_big_money_alerts_body">वॉचलिस्टमधील शेअरमध्ये शांतपणे खरेदी, चर्न, डील किंवा प्रमोटरची खरेदी-विक्री दिसली तर अलर्ट; सोबत संध्याकाळी (किंवा दुसऱ्या दिवशी सकाळी) संपूर्ण बाजाराचा सारांश</string>
+    <string name="big_money_notify_watch_title">💰 %1$s: मोठ्या पैशाची चाल</string>
+    <string name="big_money_notify_digest_title">💰 %1$s संध्याकाळ: %2$d शेअरमध्ये शांतपणे खरेदी</string>
+    <string name="big_money_notify_digest_body">सर्वात जास्त: %1$s · मेनू → मोठ्या पैशाची चाल</string>
+
+    <!-- Help -->
+    <string name="help_big_money_title">💰 मोठ्या पैशाची चाल: डिलिव्हरी, डील आणि प्रमोटर</string>
+    <string name="help_big_money_body" formatted="false">मेनू → मोठ्या पैशाची चाल. दर संध्याकाळी NSE ची डिलिव्हरी फाइल, बल्क/ब्लॉक डील आणि प्रमोटरच्या सौद्यांवरून प्रत्येक NSE शेअरचे (मुख्य बोर्ड आणि SME) चार संकेत तयार होतात. 🟢 शांतपणे खरेदी: आज डिलिव्हरी 20 सत्रांच्या सरासरीच्या 1.8 पटीपेक्षा जास्त, भाव ±2% च्या आत आणि 1 लाखापेक्षा जास्त शेअर. 🔴 चर्न / सापळा: व्हॉल्यूम सरासरीच्या 4 पटीपेक्षा जास्त पण डिलिव्हरी 20% पेक्षा कमी. 🤝 डील: मागील 30 सत्रांतील सर्व डीलची बेरीज (खरेदी − विक्री); सलग 2 किंवा जास्त डीलच्या दिवशी निव्वळ खरेदी असेल तर संकेत, आणि ज्या क्लायंटने 5 सत्रांत खरेदीही केली आणि विक्रीही त्याचे नाव \"गोल-गोल सौदा\" मध्ये. 👔 प्रमोटर: 90 दिवसांत बाजारातून खरेदी − विक्री (ESOP, भेट, ऑफ-मार्केट नाही). स्कोर 0–100: डिलिव्हरीत उसळी 30, जमा होणे 20, डील 25, प्रमोटर 25 गुणांपर्यंत; चर्नवर 30 कापले जातात आणि निव्वळ विक्रीवर त्याच मापाने. प्रत्येक संकेतासोबत मागील एका वर्षाचा ट्रॅक रेकॉर्ड: तो किती वेळा आला आणि 10 सत्रांनंतर भाव सरासरी किती हलला, सर्व शेअरच्या सरासरीच्या तुलनेत. यादीत 🟢 जमा किंवा 🔴 सापळ्याची खूण, फिल्टरमध्ये \"फक्त शांतपणे खरेदी\" किंवा \"चर्नवाले लपवा\", आणि शेअरच्या तपशीलात पूर्ण कार्ड. वॉचलिस्टच्या शेअरवर संकेत आला तर अलर्ट, आणि संध्याकाळी (डेटा उशिरा आला तर दुसऱ्या दिवशी सकाळी) संपूर्ण बाजाराचा सारांश; मेनू → स्कॅन मध्ये बंद करता येतो. फक्त BSE आणि ट्रेड-टू-ट्रेड (BE, BZ) शेअरचा डिलिव्हरी डेटा नसतो. हा सल्ला नाही, फक्त डेटा आहे.</string>
+</resources>

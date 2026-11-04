@@ -97,8 +97,18 @@ data class ScanFilters(
     val rangeWeeks: Int = BreakoutSignals.BASE_WEEKS,
     /** Only companies passing the long-term quality screen of their R/S figures ([Moat.quality]). */
     val quality: Boolean = false,
+    /** The evening's बड़े पैसे की चाल signals ([BigMoneyBook]): only shares accumulating, or no churning ones. */
+    val bigMoney: BigMoney = BigMoney.ALL,
 ) {
-    val activeCount: Int get() = bounds.values.count { it.isActive } + (if (sectors.isEmpty()) 0 else 1) + (if (quality) 1 else 0)
+    enum class BigMoney(val key: String) {
+        ALL("all"),
+        ACCUMULATION("acc"),
+        NO_CHURN("nochurn"),
+    }
+
+    val activeCount: Int
+        get() = bounds.values.count { it.isActive } + (if (sectors.isEmpty()) 0 else 1) + (if (quality) 1 else 0) +
+            (if (bigMoney == BigMoney.ALL) 0 else 1)
 
     fun bound(metric: Metric): Bound = bounds[metric] ?: Bound()
 
@@ -109,14 +119,27 @@ data class ScanFilters(
         (sectors.isEmpty() || stock.sector in sectors) &&
             bounds.all { (metric, bound) -> bound.accepts(metric.read(stock, rangeWeeks)) }
 
-    /** [accepts], and the quality screen on [cr360]'s figures when it is on; a company not in the file fails it. */
-    fun accepts(stock: ScanResult, cr360: Cr360Book): Boolean =
-        accepts(stock) && (!quality || cr360.of(stock.symbol)?.facts?.let(Moat::quality) == true)
+    /**
+     * [accepts], and the quality screen on [cr360]'s figures when it is on (a company not in the file fails it), and
+     * the [bigMoney] choice on [bigMoney]'s signals: "accumulating" needs the signal, "no churn" drops shares churning
+     * that evening. Without the evening file nothing is hidden.
+     */
+    fun accepts(stock: ScanResult, cr360: Cr360Book, bigMoney: BigMoneyBook = BigMoneyBook.EMPTY): Boolean {
+        if (!accepts(stock) || (quality && cr360.of(stock.symbol)?.facts?.let(Moat::quality) != true)) return false
+        if (bigMoney.date == null) return true
+        val signals = bigMoney.of(stock.symbol)?.signals.orEmpty()
+        return when (this.bigMoney) {
+            BigMoney.ALL -> true
+            BigMoney.ACCUMULATION -> BigMoneyBook.Signal.ACCUMULATION in signals
+            BigMoney.NO_CHURN -> BigMoneyBook.Signal.CHURN !in signals
+        }
+    }
 
     fun encode(): String = buildString {
         append("limit=").append(limit)
         if (rangeWeeks != BreakoutSignals.BASE_WEEKS) append(";weeks=").append(rangeWeeks)
         if (quality) append(";quality=1")
+        if (bigMoney != BigMoney.ALL) append(";bigmoney=").append(bigMoney.key)
         for ((metric, bound) in bounds) {
             bound.min?.let { append(';').append(metric.key).append(".min=").append(it) }
             bound.max?.let { append(';').append(metric.key).append(".max=").append(it) }
@@ -145,6 +168,10 @@ data class ScanFilters(
                 }
                 if (key == "quality") {
                     filters = filters.copy(quality = raw == "1")
+                    continue
+                }
+                if (key == "bigmoney") {
+                    BigMoney.entries.firstOrNull { it.key == raw }?.let { filters = filters.copy(bigMoney = it) }
                     continue
                 }
                 if (key == "sectors") {

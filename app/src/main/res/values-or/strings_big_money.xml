@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu and section (BigMoneySheet) -->
+    <string name="menu_big_money">ବଡ଼ ଟଙ୍କାର ଚାଲ</string>
+    <string name="menu_big_money_body">ଡେଲିଭରି, ବଲ୍କ/ବ୍ଲକ ଡିଲ୍ ଓ ପ୍ରମୋଟର: ଚୁପଚାପ କିଣା ଓ ଅପରେଟରର ଫାନ୍ଦ</string>
+    <string name="big_money_title">💰 ବଡ଼ ଟଙ୍କାର ଚାଲ</string>
+    <string name="big_money_subtitle">%1$s ସନ୍ଧ୍ୟାର NSE ଡାଟା · %2$s ସେୟାର</string>
+    <string name="big_money_loading">ନୂଆ ଡାଟା ଦେଖାଯାଉଛି…</string>
+    <string name="big_money_no_file">ଡାଟା ଏଯାଏଁ ଆସିନି। NSE ର ଫାଇଲ ପ୍ରତି ସନ୍ଧ୍ୟାରେ ଆସେ; ଇଣ୍ଟରନେଟ ଚାଲୁ ରଖି କିଛି ସମୟ ପରେ ଖୋଲନ୍ତୁ।</string>
+    <string name="big_money_tab_acc">🟢 ଚୁପଚାପ କିଣା</string>
+    <string name="big_money_tab_churn">🔴 ଚର୍ନ / ଫାନ୍ଦ</string>
+    <string name="big_money_tab_deals">🤝 ଡିଲ୍</string>
+    <string name="big_money_tab_promoter">👔 ପ୍ରମୋଟର</string>
+    <string name="big_money_tab_acc_body" formatted="false">ଆଜି ଡେଲିଭରି ତାର 20 ସେସନ ହାରାହାରିର 1.8 ଗୁଣରୁ ଅଧିକ, ଦର ±2% ଭିତରେ ଓ 1 ଲକ୍ଷରୁ ଅଧିକ ସେୟାର: କେହି ଦର ନ ବଢ଼ାଇ ସେୟାର ଉଠାଉଥିବା ସମ୍ଭବ।</string>
+    <string name="big_money_tab_churn_body" formatted="false">ଭଲ୍ୟୁମ 20 ସେସନ ହାରାହାରିର 4 ଗୁଣରୁ ଅଧିକ, କିନ୍ତୁ ଡେଲିଭରି 20% ରୁ କମ: ଅଧିକାଂଶ କାରବାର ସେହି ଦିନ କଟିଗଲା। ନକଲି ହଲଚଲ ହୋଇପାରେ, ସାବଧାନ।</string>
+    <string name="big_money_tab_deals_body">ଗତ 30 ସେସନର ବଲ୍କ ଓ ବ୍ଲକ ଡିଲ୍, ସବୁ କ୍ଲାଏଣ୍ଟଙ୍କ ମିଶାଣ: କିଣା ସେୟାର ବାଦ ବିକ୍ରି ସେୟାର। ପ୍ରଥମେ ନେଟ୍ କିଣା, ପରେ ନେଟ୍ ବିକ୍ରି।</string>
+    <string name="big_money_tab_promoter_body">ଗତ 90 ଦିନରେ ପ୍ରମୋଟରମାନେ ବଜାରରୁ କେତେ ଟଙ୍କାର ସେୟାର କିଣିଲେ ଓ ବିକିଲେ (ESOP, ଉପହାର, ଅଫ୍-ମାର୍କେଟ ଗଣାଯାଇନି)। ପ୍ରଥମେ କିଣିବା ବାଲା।</string>
+    <string name="big_money_none">ଆଜି ଏଥିରେ କୌଣସି ସେୟାର ନାହିଁ</string>
+    <string name="big_money_row_acc">%1$s · ଡେଲିଭରି %2$s (ହାରାହାରି %3$s, %4$s ଗୁଣ)</string>
+    <string name="big_money_row_acc_body">ଦର %1$s · %2$s ସେୟାରର କାରବାର · ସ୍କୋର %3$d</string>
+    <string name="big_money_row_churn">%1$s · ଭଲ୍ୟୁମ %2$s ଗୁଣ · ଡେଲିଭରି %3$s</string>
+    <string name="big_money_row_churn_body">ଦର %1$s · %2$s ସେୟାର (ହାରାହାରି %3$s) · ସ୍କୋର %4$d</string>
+    <string name="big_money_row_deal_buy">%1$s · ନେଟ୍ କିଣା %2$s</string>
+    <string name="big_money_row_deal_sell">%1$s · ନେଟ୍ ବିକ୍ରି %2$s</string>
+    <string name="big_money_row_deal_body">%1$s ସେୟାର · %2$d ଦିନ ଡିଲ୍ · %3$s</string>
+    <string name="big_money_row_promoter_buy">%1$s · ପ୍ରମୋଟରମାନେ କିଣିଲେ %2$s</string>
+    <string name="big_money_row_promoter_sell">%1$s · ପ୍ରମୋଟରମାନେ ବିକିଲେ %2$s</string>
+    <string name="big_money_row_promoter_body">%1$d ଥର କିଣା, %2$d ଥର ବିକ୍ରି (90 ଦିନ)</string>
+    <string name="big_money_caution">ଏହା କିଣିବା-ବିକିବାର ପରାମର୍ଶ ନୁହେଁ। ଟ୍ରାକ ରେକର୍ଡ ଗତ ବର୍ଷର; ଆଗକୁ ସେମିତି ହେବ ବୋଲି ନିଶ୍ଚିତ ନୁହେଁ। ନିଜର ଷ୍ଟପ୍-ଲସ୍ ନିଶ୍ଚୟ ରଖନ୍ତୁ।</string>
+
+    <!-- Track record -->
+    <string name="big_money_record">ଗତ ବର୍ଷ %1$s ଥର; 10 ସେସନ ପରେ ହାରାହାରି %2$s (ସବୁ ସେୟାର %3$s), %4$s ଥର ଉପରକୁ</string>
+    <string name="big_money_record_worse">⚠️ ଗତ ବର୍ଷ ଏହି ସଙ୍କେତ ସବୁ ସେୟାରର ହାରାହାରିଠାରୁ ଭଲ ହୋଇନି</string>
+    <string name="big_money_record_waiting">ଟ୍ରାକ ରେକର୍ଡ: ଡାଟା ଜମା ହେଉଛି (%1$d ଥର, ଅତି କମରେ 30 ଦରକାର)</string>
+    <string name="big_money_score_strong">ସ୍କୋର 60 ବା ଅଧିକ</string>
+
+    <!-- Signals and the list's mark -->
+    <string name="big_money_signal_acc">🟢 ଚୁପଚାପ କିଣା (ଡେଲିଭରିରେ ଉଚ୍ଛ୍ୱାସ)</string>
+    <string name="big_money_signal_churn">🔴 ଅପରେଟର ଚର୍ନ / ଫାନ୍ଦ</string>
+    <string name="big_money_signal_deal_buy">🤝 ଡିଲ୍: ଲଗାତାର ନେଟ୍ କିଣା</string>
+    <string name="big_money_signal_deal_sell">🤝 ଡିଲ୍: ଲଗାତାର ନେଟ୍ ବିକ୍ରି</string>
+    <string name="big_money_signal_promoter_buy">👔 ପ୍ରମୋଟରମାନେ ବଜାରରୁ କିଣିଲେ</string>
+    <string name="big_money_signal_promoter_sell">👔 ପ୍ରମୋଟରମାନେ ବଜାରରେ ବିକିଲେ</string>
+    <string name="big_money_signals_none">ଆଜି କୌଣସି ସଙ୍କେତ ନାହିଁ</string>
+    <string name="big_money_mark_acc">🟢 ଜମା</string>
+    <string name="big_money_mark_churn">🔴 ଫାନ୍ଦ</string>
+    <string name="big_money_mark_acc_description">ବଡ଼ ଟଙ୍କାର ଚାଲ: ଚୁପଚାପ କିଣା</string>
+    <string name="big_money_mark_churn_description">ବଡ଼ ଟଙ୍କାର ଚାଲ: ଅପରେଟର ଚର୍ନ, ଭଲ୍ୟୁମ ଅଧିକ କିନ୍ତୁ ଡେଲିଭରି କମ</string>
+    <string name="big_money_streak_buy">ଲଗାତାର %1$d ଦିନ ନେଟ୍ କିଣା</string>
+    <string name="big_money_streak_sell">ଲଗାତାର %1$d ଦିନ ନେଟ୍ ବିକ୍ରି</string>
+    <string name="big_money_streak_none">ଲଗାତାର ନୁହେଁ</string>
+
+    <!-- The stock's card (BigMoneyCard) -->
+    <string name="big_money_card_title">💰 ବଡ଼ ଟଙ୍କାର ଚାଲ</string>
+    <string name="big_money_card_missing">%1$s ସନ୍ଧ୍ୟାର NSE ଡାଟାରେ ଏହି ସେୟାର ନାହିଁ (କେବଳ BSE, ଟ୍ରେଡ୍-ଟୁ-ଟ୍ରେଡ୍, ବା ସେଦିନ କାରବାର ହୋଇନି)</string>
+    <string name="big_money_card_score">ସ୍କୋର %1$d/100</string>
+    <string name="big_money_card_date">%1$s ସନ୍ଧ୍ୟାର NSE ଡାଟାରୁ</string>
+    <string name="big_money_chart">ଗତ %1$d ସେସନ: ଡେଲିଭରି %% (ବାର୍) ଓ ଭଲ୍ୟୁମ (ରେଖା)</string>
+    <string name="big_money_deal_line_buy">ଡିଲ୍ (30 ସେସନ): ନେଟ୍ କିଣା %1$s ସେୟାର, %2$s · %3$s</string>
+    <string name="big_money_deal_line_sell">ଡିଲ୍ (30 ସେସନ): ନେଟ୍ ବିକ୍ରି %1$s ସେୟାର, %2$s · %3$s</string>
+    <string name="big_money_deal_none">ଡିଲ୍ (30 ସେସନ): କୌଣସି ବଲ୍କ/ବ୍ଲକ ଡିଲ୍ ନାହିଁ</string>
+    <string name="big_money_circular">⚠️ ଗୋଲ-ଗୋଲ କାରବାର (5 ସେସନରେ କିଣିଲେ ବି, ବିକିଲେ ବି): %1$s</string>
+    <string name="big_money_promoter_line_buy">ପ୍ରମୋଟର (90 ଦିନ): ବଜାରରୁ ନେଟ୍ କିଣା %1$s · %2$d କିଣା, %3$d ବିକ୍ରି</string>
+    <string name="big_money_promoter_line_sell">ପ୍ରମୋଟର (90 ଦିନ): ବଜାରରେ ନେଟ୍ ବିକ୍ରି %1$s · %2$d କିଣା, %3$d ବିକ୍ରି</string>
+    <string name="big_money_promoter_none">ପ୍ରମୋଟର (90 ଦିନ): ବଜାରରେ କୌଣସି କିଣାବିକା ନାହିଁ</string>
+    <string name="big_money_part_max">/ %1$d</string>
+    <string name="big_money_part_description">%1$s: %2$s ଅଙ୍କ, %3$d ମଧ୍ୟରୁ</string>
+    <string name="big_money_part_spike">ଡେଲିଭରିରେ ଉଚ୍ଛ୍ୱାସ</string>
+    <string name="big_money_part_build">ଡେଲିଭରି ଜମା ହେବା</string>
+    <string name="big_money_part_deals">ଡିଲ୍‌ର ନେଟ୍ କିଣା</string>
+    <string name="big_money_part_promoter">ପ୍ରମୋଟରଙ୍କ ନେଟ୍ କିଣା</string>
+    <string name="big_money_part_churn">ଚର୍ନ</string>
+    <string name="big_money_part_selling">ନେଟ୍ ବିକ୍ରି</string>
+    <string name="big_money_part_body_spike">ଆଜି ଡେଲିଭରି %1$s, ଗତ 20 ସେସନ ହାରାହାରି %2$s: %3$s ଗୁଣ। 1 ଗୁଣରେ 0 ଅଙ୍କ, 3 ଗୁଣରେ ପୂରା 30।</string>
+    <string name="big_money_part_body_build">ଗତ 5 ସେସନର ହାରାହାରି ଡେଲିଭରି %1$s, 20 ସେସନର %2$s: %3$s ଗୁଣ। 1 ଗୁଣରେ 0 ଅଙ୍କ, 1.5 ଗୁଣରେ ପୂରା 20।</string>
+    <string name="big_money_part_body_deals">30 ସେସନରେ ନେଟ୍ %1$s ସେୟାର (%2$s); ଦୈନିକ ହାରାହାରି ଭଲ୍ୟୁମ %3$s ସେୟାର; %4$s। ନେଟ୍ କିଣା ଗୋଟିଏ ଦିନର ହାରାହାରି ଭଲ୍ୟୁମ ସମାନ ହେଲେ, ବା ଲଗାତାର 2 ଦିନ ନେଟ୍ କିଣା ହେଲେ ପୂରା 25।</string>
+    <string name="big_money_part_body_promoter_buy">90 ଦିନରେ ପ୍ରମୋଟରଙ୍କ ବଜାରରୁ ନେଟ୍ କିଣା %1$s (%2$d କିଣା, %3$d ବିକ୍ରି)। ₹5 କୋଟି ନେଟ୍ କିଣାରେ ପୂରା 25।</string>
+    <string name="big_money_part_body_promoter_sell">90 ଦିନରେ ପ୍ରମୋଟରଙ୍କ ବଜାରରେ ନେଟ୍ ବିକ୍ରି %1$s (%2$d କିଣା, %3$d ବିକ୍ରି): ଅଙ୍କ \"ନେଟ୍ ବିକ୍ରି\" ରେ କଟିଲା।</string>
+    <string name="big_money_part_body_churn">ଆଜି ଭଲ୍ୟୁମ ହାରାହାରିର %1$s ଗୁଣ ଓ ଡେଲିଭରି %2$s: ଚର୍ନ, 30 ଅଙ୍କ କଟିଲା।</string>
+    <string name="big_money_part_body_no_churn">ଆଜି ଚର୍ନ ନାହିଁ: ଭଲ୍ୟୁମ ହାରାହାରିର %1$s ଗୁଣ, ଡେଲିଭରି %2$s (ଚର୍ନ = 4 ଗୁଣରୁ ଅଧିକ ଭଲ୍ୟୁମ ଓ 20%% ରୁ କମ ଡେଲିଭରି)।</string>
+    <string name="big_money_part_body_selling">ଡିଲ୍ ବା ପ୍ରମୋଟରଙ୍କ ନେଟ୍ ବିକ୍ରି ଉପର ମାପରେ ହିଁ ଅଙ୍କ କମାଏ।</string>
+    <string name="big_money_part_body_no_selling">କୌଣସି ନେଟ୍ ବିକ୍ରି ନାହିଁ।</string>
+
+    <!-- Filters -->
+    <string name="filters_big_money">ବଡ଼ ଟଙ୍କାର ଚାଲ</string>
+    <string name="filters_big_money_all">ସବୁ</string>
+    <string name="filters_big_money_acc">କେବଳ ଚୁପଚାପ କିଣା</string>
+    <string name="filters_big_money_no_churn">ଚର୍ନ ଲୁଚାନ୍ତୁ</string>
+    <string name="filters_big_money_body">ସନ୍ଧ୍ୟାର NSE ଡେଲିଭରି ଡାଟାରୁ (ମେନୁ → ବଡ଼ ଟଙ୍କାର ଚାଲ)</string>
+
+    <!-- Alerts and settings (BigMoneyAlerts) -->
+    <string name="notify_channel_big_money">ବଡ଼ ଟଙ୍କାର ଚାଲ</string>
+    <string name="settings_big_money_alerts">ବଡ଼ ଟଙ୍କାର ଚାଲର ଆଲର୍ଟ</string>
+    <string name="settings_big_money_alerts_body">ୱାଚଲିଷ୍ଟର ସେୟାରରେ ଚୁପଚାପ କିଣା, ଚର୍ନ, ଡିଲ୍ ବା ପ୍ରମୋଟରଙ୍କ କିଣାବିକା ଦେଖାଗଲେ ଆଲର୍ଟ; ସହିତ ସନ୍ଧ୍ୟାରେ (ବା ପରଦିନ ସକାଳେ) ପୂରା ବଜାରର ସାରାଂଶ</string>
+    <string name="big_money_notify_watch_title">💰 %1$s: ବଡ଼ ଟଙ୍କାର ଚାଲ</string>
+    <string name="big_money_notify_digest_title">💰 %1$s ସନ୍ଧ୍ୟା: %2$d ସେୟାରରେ ଚୁପଚାପ କିଣା</string>
+    <string name="big_money_notify_digest_body">ସବୁଠାରୁ ଅଧିକ: %1$s · ମେନୁ → ବଡ଼ ଟଙ୍କାର ଚାଲ</string>
+
+    <!-- Help -->
+    <string name="help_big_money_title">💰 ବଡ଼ ଟଙ୍କାର ଚାଲ: ଡେଲିଭରି, ଡିଲ୍ ଓ ପ୍ରମୋଟର</string>
+    <string name="help_big_money_body" formatted="false">ମେନୁ → ବଡ଼ ଟଙ୍କାର ଚାଲ। ପ୍ରତି ସନ୍ଧ୍ୟାରେ NSE ର ଡେଲିଭରି ଫାଇଲ, ବଲ୍କ/ବ୍ଲକ ଡିଲ୍ ଓ ପ୍ରମୋଟରଙ୍କ କାରବାରରୁ ପ୍ରତ୍ୟେକ NSE ସେୟାର (ମୁଖ୍ୟ ବୋର୍ଡ ଓ SME) ର ଚାରୋଟି ସଙ୍କେତ ତିଆରି ହୁଏ। 🟢 ଚୁପଚାପ କିଣା: ଆଜି ଡେଲିଭରି 20 ସେସନ ହାରାହାରିର 1.8 ଗୁଣରୁ ଅଧିକ, ଦର ±2% ଭିତରେ ଓ 1 ଲକ୍ଷରୁ ଅଧିକ ସେୟାର। 🔴 ଚର୍ନ / ଫାନ୍ଦ: ଭଲ୍ୟୁମ ହାରାହାରିର 4 ଗୁଣରୁ ଅଧିକ କିନ୍ତୁ ଡେଲିଭରି 20% ରୁ କମ। 🤝 ଡିଲ୍: ଗତ 30 ସେସନର ସବୁ ଡିଲ୍‌ର ମିଶାଣ (କିଣା − ବିକ୍ରି); ଲଗାତାର 2 ବା ଅଧିକ ଡିଲ୍ ଦିନରେ ନେଟ୍ କିଣା ହେଲେ ସଙ୍କେତ, ଓ ଯେଉଁ କ୍ଲାଏଣ୍ଟ 5 ସେସନରେ କିଣିଲେ ବି ବିକିଲେ ବି ତାଙ୍କ ନାମ \"ଗୋଲ-ଗୋଲ କାରବାର\" ରେ। 👔 ପ୍ରମୋଟର: 90 ଦିନରେ ବଜାରରୁ କିଣା − ବିକ୍ରି (ESOP, ଉପହାର, ଅଫ୍-ମାର୍କେଟ ନୁହେଁ)। ସ୍କୋର 0–100: ଡେଲିଭରିରେ ଉଚ୍ଛ୍ୱାସ 30, ଜମା ହେବା 20, ଡିଲ୍ 25, ପ୍ରମୋଟର 25 ଅଙ୍କ ପର୍ଯ୍ୟନ୍ତ; ଚର୍ନରେ 30 କଟେ ଓ ନେଟ୍ ବିକ୍ରିରେ ସେହି ମାପରେ। ପ୍ରତ୍ୟେକ ସଙ୍କେତ ସହ ଗତ ଏକ ବର୍ଷର ଟ୍ରାକ ରେକର୍ଡ: ଏହା କେତେ ଥର ଆସିଲା ଓ 10 ସେସନ ପରେ ଦର ହାରାହାରି କେତେ ଚାଲିଲା, ସବୁ ସେୟାରର ହାରାହାରି ତୁଳନାରେ। ତାଲିକାରେ 🟢 ଜମା ବା 🔴 ଫାନ୍ଦ ଚିହ୍ନ, ଫିଲ୍ଟରରେ \"କେବଳ ଚୁପଚାପ କିଣା\" ବା \"ଚର୍ନ ଲୁଚାନ୍ତୁ\", ଓ ସେୟାରର ବିବରଣୀରେ ପୂରା କାର୍ଡ। ୱାଚଲିଷ୍ଟ ସେୟାରରେ ସଙ୍କେତ ଆସିଲେ ଆଲର୍ଟ, ଓ ସନ୍ଧ୍ୟାରେ (ଡାଟା ଡେରିରେ ଆସିଲେ ପରଦିନ ସକାଳେ) ପୂରା ବଜାରର ସାରାଂଶ; ମେନୁ → ସ୍କାନରେ ବନ୍ଦ କରିପାରିବେ। କେବଳ BSE ଓ ଟ୍ରେଡ୍-ଟୁ-ଟ୍ରେଡ୍ (BE, BZ) ସେୟାରର ଡେଲିଭରି ଡାଟା ନଥାଏ। ଏହା ପରାମର୍ଶ ନୁହେଁ, କେବଳ ଡାଟା।</string>
+</resources>

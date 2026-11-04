@@ -26,6 +26,7 @@ object Notifier {
     private const val CHANNEL_SCAN_DONE = "scan_done"
     private const val CHANNEL_UPDATE = "update_ready"
     private const val CHANNEL_NEWS = "stock_news"
+    private const val CHANNEL_BIG_MONEY = "big_money"
     private const val ID_LIVE = 1
 
     /** The running scan's notification, which [ScanService] runs in the foreground under. */
@@ -35,6 +36,8 @@ object Notifier {
     private const val ID_NEWS_DIGEST = 5
     private const val ID_SQUARE_OFF = 6
     private const val ID_PAPER = 7
+    private const val ID_BIG_MONEY = 8
+    private const val ID_BIG_MONEY_BASE = 80_000
     /** Each stock's news alert replaces its previous one; its "पूरी ख़बर" button counts on from [NEWS_READ_BASE]. */
     private const val ID_NEWS_BASE = 70_000
     private const val NEWS_READ_BASE = 140_000
@@ -56,6 +59,9 @@ object Notifier {
 
     /** Set by the paper account's notification: the Paper Trading section opens. */
     const val EXTRA_PAPER = "paper"
+
+    /** Opens बड़े पैसे की चाल (the evening's round-up). */
+    const val EXTRA_BIG_MONEY = "big_money"
 
     fun canPost(context: Context): Boolean =
         Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
@@ -90,6 +96,10 @@ object Notifier {
         manager.createNotificationChannel(
             NotificationChannel(CHANNEL_NEWS, context.getString(R.string.notify_channel_news), NotificationManager.IMPORTANCE_HIGH)
                 .apply { description = context.getString(R.string.notify_channel_news_body) },
+        )
+        manager.createNotificationChannel(
+            NotificationChannel(CHANNEL_BIG_MONEY, context.getString(R.string.notify_channel_big_money), NotificationManager.IMPORTANCE_DEFAULT)
+                .apply { description = context.getString(R.string.settings_big_money_alerts_body) },
         )
     }
 
@@ -391,6 +401,44 @@ object Notifier {
                 .setContentText(lines.first())
                 .setStyle(NotificationCompat.BigTextStyle().bigText(body))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(tap)
+                .setAutoCancel(true),
+        )
+    }
+
+    /** A watchlisted share's new बड़े पैसे की चाल signals ([BigMoneyNotices]); a tap opens the share. */
+    fun bigMoneyWatch(base: Context, symbol: String, signals: List<String>) {
+        if (signals.isEmpty()) return
+        val context = Languages.localized(base)
+        val id = ID_BIG_MONEY_BASE + (symbol.hashCode() and 0xFFFF)
+        post(
+            context,
+            id,
+            NotificationCompat.Builder(context, CHANNEL_BIG_MONEY)
+                .setSmallIcon(R.drawable.ic_notifications_small)
+                .setContentTitle(context.getString(R.string.big_money_notify_watch_title, symbol))
+                .setContentText(signals.first())
+                .setStyle(NotificationCompat.BigTextStyle().bigText(signals.joinToString("\n")))
+                .setContentIntent(open(context, symbol, id))
+                .setAutoCancel(true),
+        )
+    }
+
+    /** The evening's round-up: how many shares are accumulating, the strongest named; a tap opens the section. */
+    fun bigMoneyDigest(base: Context, session: String, count: Int, top: List<String>) {
+        if (count <= 0) return
+        val context = Languages.localized(base)
+        val intent = Intent(context, MainActivity::class.java)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            .putExtra(EXTRA_BIG_MONEY, true)
+        val tap = PendingIntent.getActivity(context, ID_BIG_MONEY, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        post(
+            context,
+            ID_BIG_MONEY,
+            NotificationCompat.Builder(context, CHANNEL_BIG_MONEY)
+                .setSmallIcon(R.drawable.ic_notifications_small)
+                .setContentTitle(context.getString(R.string.big_money_notify_digest_title, session, count))
+                .setContentText(context.getString(R.string.big_money_notify_digest_body, top.joinToString(", ")))
                 .setContentIntent(tap)
                 .setAutoCancel(true),
         )

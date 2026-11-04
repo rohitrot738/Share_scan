@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu and section (BigMoneySheet) -->
+    <string name="menu_big_money">बड़े पैसे की चाल</string>
+    <string name="menu_big_money_body">डिलीवरी, बल्क/ब्लॉक सौदे और प्रमोटर: चुपचाप खरीद और ऑपरेटर का जाल</string>
+    <string name="big_money_title">💰 बड़े पैसे की चाल</string>
+    <string name="big_money_subtitle">%1$s शाम का NSE आँकड़ा · %2$s शेयर</string>
+    <string name="big_money_loading">ताज़ा आँकड़े देखे जा रहे हैं…</string>
+    <string name="big_money_no_file">आँकड़े अभी नहीं आए। NSE की फ़ाइल हर शाम आती है; इंटरनेट चालू रखकर थोड़ी देर बाद खोलें।</string>
+    <string name="big_money_tab_acc">🟢 चुपचाप खरीद</string>
+    <string name="big_money_tab_churn">🔴 चर्न / जाल</string>
+    <string name="big_money_tab_deals">🤝 सौदे</string>
+    <string name="big_money_tab_promoter">👔 प्रमोटर</string>
+    <string name="big_money_tab_acc_body" formatted="false">आज डिलीवरी अपने 20 सत्र के औसत के 1.8 गुना से ज़्यादा, भाव ±2% के अंदर और 1 लाख से ज़्यादा शेयर: कोई भाव बढ़ाए बिना शेयर उठा रहा हो सकता है।</string>
+    <string name="big_money_tab_churn_body" formatted="false">वॉल्यूम 20 सत्र के औसत के 4 गुना से ज़्यादा, पर डिलीवरी 20% से कम: ज़्यादातर सौदे उसी दिन कट गए। नकली हलचल हो सकती है, सावधान रहें।</string>
+    <string name="big_money_tab_deals_body">पिछले 30 सत्रों के बल्क और ब्लॉक सौदे, सब ग्राहकों का जोड़: खरीदे शेयर घटा बेचे शेयर। पहले शुद्ध खरीद वाले, फिर शुद्ध बिक्री वाले।</string>
+    <string name="big_money_tab_promoter_body">पिछले 90 दिन में प्रमोटरों ने बाज़ार से कितने के शेयर खरीदे और बेचे (ESOP, उपहार और ऑफ़-मार्केट नहीं गिने)। पहले खरीद वाले।</string>
+    <string name="big_money_none">आज इसमें कोई शेयर नहीं</string>
+    <string name="big_money_row_acc">%1$s · डिलीवरी %2$s (औसत %3$s, %4$s गुना)</string>
+    <string name="big_money_row_acc_body">भाव %1$s · %2$s शेयर का सौदा · स्कोर %3$d</string>
+    <string name="big_money_row_churn">%1$s · वॉल्यूम %2$s गुना · डिलीवरी %3$s</string>
+    <string name="big_money_row_churn_body">भाव %1$s · %2$s शेयर (औसत %3$s) · स्कोर %4$d</string>
+    <string name="big_money_row_deal_buy">%1$s · शुद्ध खरीद %2$s</string>
+    <string name="big_money_row_deal_sell">%1$s · शुद्ध बिक्री %2$s</string>
+    <string name="big_money_row_deal_body">%1$s शेयर · %2$d दिन सौदे · %3$s</string>
+    <string name="big_money_row_promoter_buy">%1$s · प्रमोटरों ने खरीदे %2$s</string>
+    <string name="big_money_row_promoter_sell">%1$s · प्रमोटरों ने बेचे %2$s</string>
+    <string name="big_money_row_promoter_body">%1$d बार खरीद, %2$d बार बिक्री (90 दिन)</string>
+    <string name="big_money_caution">यह खरीदने-बेचने की सलाह नहीं है। ट्रैक रिकॉर्ड बीते साल का है; आगे भी वैसा ही हो, ज़रूरी नहीं। अपना स्टॉप-लॉस ज़रूर रखें।</string>
+
+    <!-- Track record -->
+    <string name="big_money_record">पिछले साल %1$s बार; 10 सत्र बाद औसत %2$s (सब शेयर %3$s), %4$s बार ऊपर</string>
+    <string name="big_money_record_worse">⚠️ पिछले साल यह संकेत सब शेयरों के औसत से बेहतर नहीं रहा</string>
+    <string name="big_money_record_waiting">ट्रैक रिकॉर्ड: आँकड़े जमा हो रहे हैं (%1$d बार, कम से कम 30 चाहिए)</string>
+    <string name="big_money_score_strong">स्कोर 60 या ज़्यादा</string>
+
+    <!-- Signals and the list's mark -->
+    <string name="big_money_signal_acc">🟢 चुपचाप खरीद (डिलीवरी में उछाल)</string>
+    <string name="big_money_signal_churn">🔴 ऑपरेटर चर्न / जाल</string>
+    <string name="big_money_signal_deal_buy">🤝 सौदे: लगातार शुद्ध खरीद</string>
+    <string name="big_money_signal_deal_sell">🤝 सौदे: लगातार शुद्ध बिक्री</string>
+    <string name="big_money_signal_promoter_buy">👔 प्रमोटरों ने बाज़ार से खरीदे</string>
+    <string name="big_money_signal_promoter_sell">👔 प्रमोटरों ने बाज़ार में बेचे</string>
+    <string name="big_money_signals_none">आज कोई संकेत नहीं</string>
+    <string name="big_money_mark_acc">🟢 जमा</string>
+    <string name="big_money_mark_churn">🔴 जाल</string>
+    <string name="big_money_mark_acc_description">बड़े पैसे की चाल: चुपचाप खरीद</string>
+    <string name="big_money_mark_churn_description">बड़े पैसे की चाल: ऑपरेटर चर्न, वॉल्यूम बहुत पर डिलीवरी कम</string>
+    <string name="big_money_streak_buy">लगातार %1$d दिन शुद्ध खरीद</string>
+    <string name="big_money_streak_sell">लगातार %1$d दिन शुद्ध बिक्री</string>
+    <string name="big_money_streak_none">लगातार नहीं</string>
+
+    <!-- The stock's card (BigMoneyCard) -->
+    <string name="big_money_card_title">💰 बड़े पैसे की चाल</string>
+    <string name="big_money_card_missing">%1$s शाम के NSE आँकड़ों में यह शेयर नहीं (केवल BSE, ट्रेड-टू-ट्रेड, या उस दिन सौदा नहीं हुआ)</string>
+    <string name="big_money_card_score">स्कोर %1$d/100</string>
+    <string name="big_money_card_date">%1$s शाम के NSE आँकड़ों से</string>
+    <string name="big_money_chart">पिछले %1$d सत्र: डिलीवरी %% (पट्टियाँ) और वॉल्यूम (रेखा)</string>
+    <string name="big_money_deal_line_buy">सौदे (30 सत्र): शुद्ध खरीद %1$s शेयर, %2$s · %3$s</string>
+    <string name="big_money_deal_line_sell">सौदे (30 सत्र): शुद्ध बिक्री %1$s शेयर, %2$s · %3$s</string>
+    <string name="big_money_deal_none">सौदे (30 सत्र): कोई बल्क/ब्लॉक सौदा नहीं</string>
+    <string name="big_money_circular">⚠️ गोल-गोल सौदा (5 सत्र में खरीदा भी, बेचा भी): %1$s</string>
+    <string name="big_money_promoter_line_buy">प्रमोटर (90 दिन): बाज़ार से शुद्ध खरीद %1$s · %2$d खरीद, %3$d बिक्री</string>
+    <string name="big_money_promoter_line_sell">प्रमोटर (90 दिन): बाज़ार में शुद्ध बिक्री %1$s · %2$d खरीद, %3$d बिक्री</string>
+    <string name="big_money_promoter_none">प्रमोटर (90 दिन): बाज़ार में कोई खरीद-बिक्री नहीं</string>
+    <string name="big_money_part_max">/ %1$d</string>
+    <string name="big_money_part_description">%1$s: %2$s अंक, %3$d में से</string>
+    <string name="big_money_part_spike">डिलीवरी में उछाल</string>
+    <string name="big_money_part_build">डिलीवरी का जमा होना</string>
+    <string name="big_money_part_deals">सौदों की शुद्ध खरीद</string>
+    <string name="big_money_part_promoter">प्रमोटरों की शुद्ध खरीद</string>
+    <string name="big_money_part_churn">चर्न</string>
+    <string name="big_money_part_selling">शुद्ध बिक्री</string>
+    <string name="big_money_part_body_spike">आज डिलीवरी %1$s, पिछले 20 सत्र का औसत %2$s: %3$s गुना। 1 गुना पर 0 अंक, 3 गुना पर पूरे 30।</string>
+    <string name="big_money_part_body_build">पिछले 5 सत्र की औसत डिलीवरी %1$s, 20 सत्र की %2$s: %3$s गुना। 1 गुना पर 0 अंक, 1.5 गुना पर पूरे 20।</string>
+    <string name="big_money_part_body_deals">30 सत्र में शुद्ध %1$s शेयर (%2$s); रोज़ का औसत वॉल्यूम %3$s शेयर; %4$s। शुद्ध खरीद एक दिन के औसत वॉल्यूम जितनी हो, या लगातार 2 दिन शुद्ध खरीद हो, तो पूरे 25।</string>
+    <string name="big_money_part_body_promoter_buy">90 दिन में प्रमोटरों की बाज़ार से शुद्ध खरीद %1$s (%2$d खरीद, %3$d बिक्री)। ₹5 करोड़ शुद्ध खरीद पर पूरे 25।</string>
+    <string name="big_money_part_body_promoter_sell">90 दिन में प्रमोटरों की बाज़ार में शुद्ध बिक्री %1$s (%2$d खरीद, %3$d बिक्री): अंक \"शुद्ध बिक्री\" में कटे।</string>
+    <string name="big_money_part_body_churn">आज वॉल्यूम औसत का %1$s गुना और डिलीवरी %2$s: चर्न, 30 अंक कटे।</string>
+    <string name="big_money_part_body_no_churn">आज चर्न नहीं: वॉल्यूम औसत का %1$s गुना, डिलीवरी %2$s (चर्न = 4 गुना से ज़्यादा वॉल्यूम और 20%% से कम डिलीवरी)।</string>
+    <string name="big_money_part_body_selling">सौदों या प्रमोटरों की शुद्ध बिक्री, ऊपर वाले पैमाने पर ही अंक घटाती है।</string>
+    <string name="big_money_part_body_no_selling">कोई शुद्ध बिक्री नहीं।</string>
+
+    <!-- Filters -->
+    <string name="filters_big_money">बड़े पैसे की चाल</string>
+    <string name="filters_big_money_all">सब</string>
+    <string name="filters_big_money_acc">सिर्फ़ चुपचाप खरीद</string>
+    <string name="filters_big_money_no_churn">चर्न वाले छिपाएँ</string>
+    <string name="filters_big_money_body">शाम के NSE डिलीवरी आँकड़ों से (मेनू → बड़े पैसे की चाल)</string>
+
+    <!-- Alerts and settings (BigMoneyAlerts) -->
+    <string name="notify_channel_big_money">बड़े पैसे की चाल</string>
+    <string name="settings_big_money_alerts">बड़े पैसे की चाल की सूचनाएँ</string>
+    <string name="settings_big_money_alerts_body">वॉचलिस्ट के शेयर में चुपचाप खरीद, चर्न, सौदे या प्रमोटरों की खरीद-बिक्री दिखे तो सूचना; साथ में शाम (या अगली सुबह) पूरे बाज़ार का सार</string>
+    <string name="big_money_notify_watch_title">💰 %1$s: बड़े पैसे की चाल</string>
+    <string name="big_money_notify_digest_title">💰 %1$s शाम: %2$d शेयरों में चुपचाप खरीद</string>
+    <string name="big_money_notify_digest_body">सबसे ज़्यादा: %1$s · मेनू → बड़े पैसे की चाल</string>
+
+    <!-- Help -->
+    <string name="help_big_money_title">💰 बड़े पैसे की चाल: डिलीवरी, सौदे और प्रमोटर</string>
+    <string name="help_big_money_body" formatted="false">मेनू → बड़े पैसे की चाल। हर शाम NSE की डिलीवरी फ़ाइल, बल्क/ब्लॉक सौदों और प्रमोटरों के सौदों से हर NSE शेयर (मुख्य बोर्ड और SME) के चार संकेत बनते हैं। 🟢 चुपचाप खरीद: आज डिलीवरी अपने 20 सत्र के औसत के 1.8 गुना से ज़्यादा, भाव ±2% के अंदर और 1 लाख से ज़्यादा शेयर। 🔴 चर्न / जाल: वॉल्यूम औसत के 4 गुना से ज़्यादा पर डिलीवरी 20% से कम। 🤝 सौदे: पिछले 30 सत्र के सब सौदों का जोड़ (खरीद − बिक्री); लगातार 2 या ज़्यादा सौदे वाले दिनों में शुद्ध खरीद हो तो संकेत, और जिस ग्राहक ने 5 सत्र में खरीदा भी और बेचा भी उसका नाम \"गोल-गोल सौदा\" में। 👔 प्रमोटर: 90 दिन में बाज़ार से खरीद − बिक्री (ESOP, उपहार, ऑफ़-मार्केट नहीं)। स्कोर 0–100: डिलीवरी में उछाल 30, जमा होना 20, सौदे 25, प्रमोटर 25 अंक तक; चर्न पर 30 कटते हैं और शुद्ध बिक्री पर उसी पैमाने पर। हर संकेत के साथ पिछले एक साल का ट्रैक रिकॉर्ड: वह कितनी बार आया और 10 सत्र बाद भाव औसतन कितना चला, सब शेयरों के औसत के मुक़ाबले। सूची में 🟢 जमा या 🔴 जाल का निशान, फ़िल्टर में \"सिर्फ़ चुपचाप खरीद\" या \"चर्न वाले छिपाएँ\", और शेयर के विवरण में पूरा कार्ड। वॉचलिस्ट के शेयर पर संकेत आए तो सूचना, और शाम को (आँकड़े देर से आएँ तो अगली सुबह) पूरे बाज़ार का सार; मेनू → स्कैन में बंद कर सकते हैं। केवल BSE वाले और ट्रेड-टू-ट्रेड (BE, BZ) शेयरों के डिलीवरी आँकड़े नहीं होते। यह सलाह नहीं, सिर्फ़ आँकड़े हैं।</string>
+</resources>

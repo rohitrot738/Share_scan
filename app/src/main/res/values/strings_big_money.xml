@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu and section (BigMoneySheet) -->
+    <string name="menu_big_money">बड़े पैसे की चाल</string>
+    <string name="menu_big_money_body">Delivery, bulk/block deals और promoter: चुपचाप खरीद और operator का जाल</string>
+    <string name="big_money_title">💰 बड़े पैसे की चाल</string>
+    <string name="big_money_subtitle">%1$s शाम का NSE data · %2$s शेयर</string>
+    <string name="big_money_loading">ताज़ा data देखा जा रहा है…</string>
+    <string name="big_money_no_file">Data अभी नहीं आया। NSE की file हर शाम आती है; internet चालू रखकर थोड़ी देर बाद खोलें।</string>
+    <string name="big_money_tab_acc">🟢 चुपचाप खरीद</string>
+    <string name="big_money_tab_churn">🔴 Churn / जाल</string>
+    <string name="big_money_tab_deals">🤝 Deals</string>
+    <string name="big_money_tab_promoter">👔 Promoter</string>
+    <string name="big_money_tab_acc_body" formatted="false">आज delivery अपने 20 सत्र के औसत के 1.8 गुना से ज़्यादा, भाव ±2% के अंदर और 1 लाख से ज़्यादा शेयर: कोई भाव बढ़ाए बिना शेयर उठा रहा हो सकता है।</string>
+    <string name="big_money_tab_churn_body" formatted="false">Volume 20 सत्र के औसत के 4 गुना से ज़्यादा, पर delivery 20% से कम: ज़्यादातर सौदे उसी दिन कट गए। नकली हलचल हो सकती है, सावधान रहें।</string>
+    <string name="big_money_tab_deals_body">पिछले 30 सत्रों की bulk और block deals, सब clients का जोड़: खरीदे शेयर घटा बेचे शेयर। पहले net खरीद वाले, फिर net बिक्री वाले।</string>
+    <string name="big_money_tab_promoter_body">पिछले 90 दिन में promoters ने market से कितने के शेयर खरीदे और बेचे (ESOP, gift और off-market नहीं गिने)। पहले खरीद वाले।</string>
+    <string name="big_money_none">आज इसमें कोई शेयर नहीं</string>
+    <string name="big_money_row_acc">%1$s · delivery %2$s (औसत %3$s, %4$s गुना)</string>
+    <string name="big_money_row_acc_body">भाव %1$s · %2$s शेयर का सौदा · score %3$d</string>
+    <string name="big_money_row_churn">%1$s · volume %2$s गुना · delivery %3$s</string>
+    <string name="big_money_row_churn_body">भाव %1$s · %2$s शेयर (औसत %3$s) · score %4$d</string>
+    <string name="big_money_row_deal_buy">%1$s · net खरीद %2$s</string>
+    <string name="big_money_row_deal_sell">%1$s · net बिक्री %2$s</string>
+    <string name="big_money_row_deal_body">%1$s शेयर · %2$d दिन deals · %3$s</string>
+    <string name="big_money_row_promoter_buy">%1$s · promoters ने खरीदे %2$s</string>
+    <string name="big_money_row_promoter_sell">%1$s · promoters ने बेचे %2$s</string>
+    <string name="big_money_row_promoter_body">%1$d बार खरीद, %2$d बार बिक्री (90 दिन)</string>
+    <string name="big_money_caution">यह खरीदने-बेचने की सलाह नहीं है। Track record बीते साल का है; आगे भी वैसा ही हो, ज़रूरी नहीं। अपना stop-loss ज़रूर रखें।</string>
+
+    <!-- Track record -->
+    <string name="big_money_record">पिछले साल %1$s बार; 10 सत्र बाद औसत %2$s (सब शेयर %3$s), %4$s बार ऊपर</string>
+    <string name="big_money_record_worse">⚠️ पिछले साल यह signal सब शेयरों के औसत से बेहतर नहीं रहा</string>
+    <string name="big_money_record_waiting">Track record: data जमा हो रहा है (%1$d बार, कम से कम 30 चाहिए)</string>
+    <string name="big_money_score_strong">Score 60 या ज़्यादा</string>
+
+    <!-- Signals and the list's mark -->
+    <string name="big_money_signal_acc">🟢 चुपचाप खरीद (delivery spike)</string>
+    <string name="big_money_signal_churn">🔴 Operator churn / जाल</string>
+    <string name="big_money_signal_deal_buy">🤝 Deals: लगातार net खरीद</string>
+    <string name="big_money_signal_deal_sell">🤝 Deals: लगातार net बिक्री</string>
+    <string name="big_money_signal_promoter_buy">👔 Promoters ने market से खरीदे</string>
+    <string name="big_money_signal_promoter_sell">👔 Promoters ने market में बेचे</string>
+    <string name="big_money_signals_none">आज कोई signal नहीं</string>
+    <string name="big_money_mark_acc">🟢 जमा</string>
+    <string name="big_money_mark_churn">🔴 जाल</string>
+    <string name="big_money_mark_acc_description">बड़े पैसे की चाल: चुपचाप खरीद</string>
+    <string name="big_money_mark_churn_description">बड़े पैसे की चाल: operator churn, volume बहुत पर delivery कम</string>
+    <string name="big_money_streak_buy">लगातार %1$d दिन net खरीद</string>
+    <string name="big_money_streak_sell">लगातार %1$d दिन net बिक्री</string>
+    <string name="big_money_streak_none">लगातार नहीं</string>
+
+    <!-- The stock's card (BigMoneyCard) -->
+    <string name="big_money_card_title">💰 बड़े पैसे की चाल</string>
+    <string name="big_money_card_missing">%1$s शाम के NSE data में यह शेयर नहीं (BSE-only, trade-to-trade, या उस दिन सौदा नहीं हुआ)</string>
+    <string name="big_money_card_score">Score %1$d/100</string>
+    <string name="big_money_card_date">%1$s शाम के NSE data से</string>
+    <string name="big_money_chart">पिछले %1$d सत्र: delivery %% (bars) और volume (रेखा)</string>
+    <string name="big_money_deal_line_buy">Deals (30 सत्र): net खरीद %1$s शेयर, %2$s · %3$s</string>
+    <string name="big_money_deal_line_sell">Deals (30 सत्र): net बिक्री %1$s शेयर, %2$s · %3$s</string>
+    <string name="big_money_deal_none">Deals (30 सत्र): कोई bulk/block deal नहीं</string>
+    <string name="big_money_circular">⚠️ गोल-गोल सौदा (5 सत्र में खरीदा भी, बेचा भी): %1$s</string>
+    <string name="big_money_promoter_line_buy">Promoters (90 दिन): market से net खरीद %1$s · %2$d खरीद, %3$d बिक्री</string>
+    <string name="big_money_promoter_line_sell">Promoters (90 दिन): market में net बिक्री %1$s · %2$d खरीद, %3$d बिक्री</string>
+    <string name="big_money_promoter_none">Promoters (90 दिन): market में कोई खरीद-बिक्री नहीं</string>
+    <string name="big_money_part_max">/ %1$d</string>
+    <string name="big_money_part_description">%1$s: %2$s अंक, %3$d में से</string>
+    <string name="big_money_part_spike">Delivery spike</string>
+    <string name="big_money_part_build">Delivery का जमा होना</string>
+    <string name="big_money_part_deals">Deals की net खरीद</string>
+    <string name="big_money_part_promoter">Promoters की net खरीद</string>
+    <string name="big_money_part_churn">Churn</string>
+    <string name="big_money_part_selling">Net बिक्री</string>
+    <string name="big_money_part_body_spike">आज delivery %1$s, पिछले 20 सत्र का औसत %2$s: %3$s गुना। 1 गुना पर 0 अंक, 3 गुना पर पूरे 30।</string>
+    <string name="big_money_part_body_build">पिछले 5 सत्र का औसत delivery %1$s, 20 सत्र का %2$s: %3$s गुना। 1 गुना पर 0 अंक, 1.5 गुना पर पूरे 20।</string>
+    <string name="big_money_part_body_deals">30 सत्र में net %1$s शेयर (%2$s); रोज़ का औसत volume %3$s शेयर; %4$s। Net खरीद एक दिन के औसत volume जितनी हो, या लगातार 2 दिन net खरीद हो, तो पूरे 25।</string>
+    <string name="big_money_part_body_promoter_buy">90 दिन में promoters की market से net खरीद %1$s (%2$d खरीद, %3$d बिक्री)। ₹5 करोड़ net खरीद पर पूरे 25।</string>
+    <string name="big_money_part_body_promoter_sell">90 दिन में promoters की market में net बिक्री %1$s (%2$d खरीद, %3$d बिक्री): अंक \"Net बिक्री\" में कटे।</string>
+    <string name="big_money_part_body_churn">आज volume औसत का %1$s गुना और delivery %2$s: churn, 30 अंक कटे।</string>
+    <string name="big_money_part_body_no_churn">आज churn नहीं: volume औसत का %1$s गुना, delivery %2$s (churn = 4 गुना से ज़्यादा volume और 20%% से कम delivery)।</string>
+    <string name="big_money_part_body_selling">Deals या promoters की net बिक्री, ऊपर वाले पैमाने पर ही अंक घटाती है।</string>
+    <string name="big_money_part_body_no_selling">कोई net बिक्री नहीं।</string>
+
+    <!-- Filters -->
+    <string name="filters_big_money">बड़े पैसे की चाल</string>
+    <string name="filters_big_money_all">सब</string>
+    <string name="filters_big_money_acc">सिर्फ़ चुपचाप खरीद</string>
+    <string name="filters_big_money_no_churn">Churn वाले छिपाएँ</string>
+    <string name="filters_big_money_body">शाम के NSE delivery data से (Menu → बड़े पैसे की चाल)</string>
+
+    <!-- Alerts and settings (BigMoneyAlerts) -->
+    <string name="notify_channel_big_money">बड़े पैसे की चाल</string>
+    <string name="settings_big_money_alerts">बड़े पैसे की चाल के alerts</string>
+    <string name="settings_big_money_alerts_body">Watchlist के शेयर में चुपचाप खरीद, churn, deals या promoters की खरीद-बिक्री दिखे तो alert; साथ में शाम (या अगली सुबह) पूरे market का सार</string>
+    <string name="big_money_notify_watch_title">💰 %1$s: बड़े पैसे की चाल</string>
+    <string name="big_money_notify_digest_title">💰 %1$s शाम: %2$d शेयरों में चुपचाप खरीद</string>
+    <string name="big_money_notify_digest_body">सबसे ज़्यादा: %1$s · Menu → बड़े पैसे की चाल</string>
+
+    <!-- Help -->
+    <string name="help_big_money_title">💰 बड़े पैसे की चाल: delivery, deals और promoter</string>
+    <string name="help_big_money_body" formatted="false">Menu → बड़े पैसे की चाल। हर शाम NSE की delivery file, bulk/block deals और promoters के trades से हर NSE शेयर (main और SME) के चार signal बनते हैं। 🟢 चुपचाप खरीद: आज delivery अपने 20 सत्र के औसत के 1.8 गुना से ज़्यादा, भाव ±2% के अंदर और 1 लाख से ज़्यादा शेयर। 🔴 Churn / जाल: volume औसत के 4 गुना से ज़्यादा पर delivery 20% से कम। 🤝 Deals: पिछले 30 सत्र की सब deals का जोड़ (खरीद − बिक्री); लगातार 2 या ज़्यादा deal वाले दिनों में net खरीद हो तो signal, और जिस client ने 5 सत्र में खरीदा भी और बेचा भी उसका नाम \"गोल-गोल सौदा\" में। 👔 Promoter: 90 दिन में market से खरीद − बिक्री (ESOP, gift, off-market नहीं)। Score 0–100: delivery spike 30, जमा होना 20, deals 25, promoter 25 अंक तक; churn पर 30 कटते हैं और net बिक्री पर उसी पैमाने पर। हर signal के साथ पिछले एक साल का track record: वह कितनी बार आया और 10 सत्र बाद भाव औसतन कितना चला, सब शेयरों के औसत के मुक़ाबले। List में 🟢 जमा या 🔴 जाल का निशान, Filters में \"सिर्फ़ चुपचाप खरीद\" या \"Churn वाले छिपाएँ\", और stock detail में पूरा card। Watchlist के शेयर पर signal आए तो alert, और शाम को (data देर से आए तो अगली सुबह) पूरे market का सार; Menu → स्कैन में बंद कर सकते हैं। BSE-only और trade-to-trade (BE, BZ) शेयरों का delivery data नहीं होता। यह सलाह नहीं, सिर्फ़ data है।</string>
+</resources>

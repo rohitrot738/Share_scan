@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu and section (BigMoneySheet) -->
+    <string name="menu_big_money">വലിയ പണത്തിന്റെ നീക്കം</string>
+    <string name="menu_big_money_body">ഡെലിവറി, ബൾക്ക്/ബ്ലോക്ക് ഡീലുകൾ, പ്രൊമോട്ടർമാർ: നിശ്ശബ്ദ വാങ്ങലും ഓപ്പറേറ്ററുടെ കെണിയും</string>
+    <string name="big_money_title">💰 വലിയ പണത്തിന്റെ നീക്കം</string>
+    <string name="big_money_subtitle">%1$s വൈകുന്നേരത്തെ NSE ഡാറ്റ · %2$s ഓഹരികൾ</string>
+    <string name="big_money_loading">പുതിയ ഡാറ്റ നോക്കുന്നു…</string>
+    <string name="big_money_no_file">ഡാറ്റ ഇതുവരെ വന്നിട്ടില്ല. NSE ഫയൽ എല്ലാ വൈകുന്നേരവും വരും; ഇന്റർനെറ്റ് ഓണാക്കി കുറച്ച് കഴിഞ്ഞ് തുറക്കുക.</string>
+    <string name="big_money_tab_acc">🟢 നിശ്ശബ്ദ വാങ്ങൽ</string>
+    <string name="big_money_tab_churn">🔴 ചർൺ / കെണി</string>
+    <string name="big_money_tab_deals">🤝 ഡീലുകൾ</string>
+    <string name="big_money_tab_promoter">👔 പ്രൊമോട്ടർ</string>
+    <string name="big_money_tab_acc_body" formatted="false">ഇന്ന് ഡെലിവറി അതിന്റെ 20 സെഷൻ ശരാശരിയുടെ 1.8 മടങ്ങിൽ കൂടുതൽ, വില ±2% ഉള്ളിൽ, 1 ലക്ഷത്തിൽ കൂടുതൽ ഓഹരികൾ: ആരോ വില കൂട്ടാതെ ഓഹരികൾ വാങ്ങിക്കൂട്ടുന്നുണ്ടാകാം.</string>
+    <string name="big_money_tab_churn_body" formatted="false">വോള്യം 20 സെഷൻ ശരാശരിയുടെ 4 മടങ്ങിൽ കൂടുതൽ, പക്ഷേ ഡെലിവറി 20% ൽ താഴെ: മിക്ക ഇടപാടുകളും അന്നുതന്നെ അവസാനിപ്പിച്ചു. വ്യാജ ചലനമാകാം, ശ്രദ്ധിക്കുക.</string>
+    <string name="big_money_tab_deals_body">കഴിഞ്ഞ 30 സെഷനുകളിലെ ബൾക്ക്, ബ്ലോക്ക് ഡീലുകൾ, എല്ലാ ക്ലയന്റുകളുടെയും ആകെ: വാങ്ങിയ ഓഹരികൾ കുറവ് വിറ്റ ഓഹരികൾ. ആദ്യം അറ്റ വാങ്ങലുകാർ, പിന്നെ അറ്റ വിൽപ്പനക്കാർ.</string>
+    <string name="big_money_tab_promoter_body">കഴിഞ്ഞ 90 ദിവസത്തിൽ പ്രൊമോട്ടർമാർ വിപണിയിൽ എത്ര മൂല്യമുള്ള ഓഹരികൾ വാങ്ങി, വിറ്റു (ESOP, സമ്മാനം, ഓഫ്-മാർക്കറ്റ് കണക്കിലില്ല). ആദ്യം വാങ്ങിയവർ.</string>
+    <string name="big_money_none">ഇന്ന് ഇതിൽ ഓഹരികളില്ല</string>
+    <string name="big_money_row_acc">%1$s · ഡെലിവറി %2$s (ശരാശരി %3$s, %4$s മടങ്ങ്)</string>
+    <string name="big_money_row_acc_body">വില %1$s · %2$s ഓഹരി ഇടപാട് · സ്കോർ %3$d</string>
+    <string name="big_money_row_churn">%1$s · വോള്യം %2$s മടങ്ങ് · ഡെലിവറി %3$s</string>
+    <string name="big_money_row_churn_body">വില %1$s · %2$s ഓഹരികൾ (ശരാശരി %3$s) · സ്കോർ %4$d</string>
+    <string name="big_money_row_deal_buy">%1$s · അറ്റ വാങ്ങൽ %2$s</string>
+    <string name="big_money_row_deal_sell">%1$s · അറ്റ വിൽപ്പന %2$s</string>
+    <string name="big_money_row_deal_body">%1$s ഓഹരികൾ · %2$d ദിവസം ഡീലുകൾ · %3$s</string>
+    <string name="big_money_row_promoter_buy">%1$s · പ്രൊമോട്ടർമാർ വാങ്ങി %2$s</string>
+    <string name="big_money_row_promoter_sell">%1$s · പ്രൊമോട്ടർമാർ വിറ്റു %2$s</string>
+    <string name="big_money_row_promoter_body">%1$d തവണ വാങ്ങൽ, %2$d തവണ വിൽപ്പന (90 ദിവസം)</string>
+    <string name="big_money_caution">ഇത് വാങ്ങാനോ വിൽക്കാനോ ഉള്ള ഉപദേശമല്ല. ട്രാക്ക് റെക്കോർഡ് കഴിഞ്ഞ വർഷത്തേതാണ്; ഇനിയും അങ്ങനെ ആകണമെന്നില്ല. നിങ്ങളുടെ സ്റ്റോപ്പ്-ലോസ് നിർബന്ധമായും വയ്ക്കുക.</string>
+
+    <!-- Track record -->
+    <string name="big_money_record">കഴിഞ്ഞ വർഷം %1$s തവണ; 10 സെഷൻ കഴിഞ്ഞ് ശരാശരി %2$s (എല്ലാ ഓഹരികളും %3$s), %4$s തവണ മുകളിൽ</string>
+    <string name="big_money_record_worse">⚠️ കഴിഞ്ഞ വർഷം ഈ സിഗ്നൽ എല്ലാ ഓഹരികളുടെയും ശരാശരിയെക്കാൾ മെച്ചമായില്ല</string>
+    <string name="big_money_record_waiting">ട്രാക്ക് റെക്കോർഡ്: ഡാറ്റ ശേഖരിക്കുന്നു (%1$d തവണ, കുറഞ്ഞത് 30 വേണം)</string>
+    <string name="big_money_score_strong">സ്കോർ 60 അല്ലെങ്കിൽ കൂടുതൽ</string>
+
+    <!-- Signals and the list's mark -->
+    <string name="big_money_signal_acc">🟢 നിശ്ശബ്ദ വാങ്ങൽ (ഡെലിവറി കുതിപ്പ്)</string>
+    <string name="big_money_signal_churn">🔴 ഓപ്പറേറ്റർ ചർൺ / കെണി</string>
+    <string name="big_money_signal_deal_buy">🤝 ഡീലുകൾ: തുടർച്ചയായ അറ്റ വാങ്ങൽ</string>
+    <string name="big_money_signal_deal_sell">🤝 ഡീലുകൾ: തുടർച്ചയായ അറ്റ വിൽപ്പന</string>
+    <string name="big_money_signal_promoter_buy">👔 പ്രൊമോട്ടർമാർ വിപണിയിൽ വാങ്ങി</string>
+    <string name="big_money_signal_promoter_sell">👔 പ്രൊമോട്ടർമാർ വിപണിയിൽ വിറ്റു</string>
+    <string name="big_money_signals_none">ഇന്ന് സിഗ്നലില്ല</string>
+    <string name="big_money_mark_acc">🟢 ശേഖരണം</string>
+    <string name="big_money_mark_churn">🔴 കെണി</string>
+    <string name="big_money_mark_acc_description">വലിയ പണത്തിന്റെ നീക്കം: നിശ്ശബ്ദ വാങ്ങൽ</string>
+    <string name="big_money_mark_churn_description">വലിയ പണത്തിന്റെ നീക്കം: ഓപ്പറേറ്റർ ചർൺ, വോള്യം കൂടുതൽ പക്ഷേ ഡെലിവറി കുറവ്</string>
+    <string name="big_money_streak_buy">തുടർച്ചയായി %1$d ദിവസം അറ്റ വാങ്ങൽ</string>
+    <string name="big_money_streak_sell">തുടർച്ചയായി %1$d ദിവസം അറ്റ വിൽപ്പന</string>
+    <string name="big_money_streak_none">തുടർച്ചയല്ല</string>
+
+    <!-- The stock's card (BigMoneyCard) -->
+    <string name="big_money_card_title">💰 വലിയ പണത്തിന്റെ നീക്കം</string>
+    <string name="big_money_card_missing">%1$s വൈകുന്നേരത്തെ NSE ഡാറ്റയിൽ ഈ ഓഹരിയില്ല (BSE മാത്രം, ട്രേഡ്-ടു-ട്രേഡ്, അല്ലെങ്കിൽ അന്ന് ഇടപാട് നടന്നില്ല)</string>
+    <string name="big_money_card_score">സ്കോർ %1$d/100</string>
+    <string name="big_money_card_date">%1$s വൈകുന്നേരത്തെ NSE ഡാറ്റയിൽ നിന്ന്</string>
+    <string name="big_money_chart">കഴിഞ്ഞ %1$d സെഷനുകൾ: ഡെലിവറി %% (ബാറുകൾ), വോള്യം (രേഖ)</string>
+    <string name="big_money_deal_line_buy">ഡീലുകൾ (30 സെഷൻ): അറ്റ വാങ്ങൽ %1$s ഓഹരികൾ, %2$s · %3$s</string>
+    <string name="big_money_deal_line_sell">ഡീലുകൾ (30 സെഷൻ): അറ്റ വിൽപ്പന %1$s ഓഹരികൾ, %2$s · %3$s</string>
+    <string name="big_money_deal_none">ഡീലുകൾ (30 സെഷൻ): ബൾക്ക്/ബ്ലോക്ക് ഡീൽ ഇല്ല</string>
+    <string name="big_money_circular">⚠️ ചുറ്റിക്കറങ്ങിയ ഇടപാട് (5 സെഷനിൽ വാങ്ങുകയും വിൽക്കുകയും): %1$s</string>
+    <string name="big_money_promoter_line_buy">പ്രൊമോട്ടർ (90 ദിവസം): വിപണിയിൽ അറ്റ വാങ്ങൽ %1$s · %2$d വാങ്ങൽ, %3$d വിൽപ്പന</string>
+    <string name="big_money_promoter_line_sell">പ്രൊമോട്ടർ (90 ദിവസം): വിപണിയിൽ അറ്റ വിൽപ്പന %1$s · %2$d വാങ്ങൽ, %3$d വിൽപ്പന</string>
+    <string name="big_money_promoter_none">പ്രൊമോട്ടർ (90 ദിവസം): വിപണിയിൽ വാങ്ങൽ-വിൽപ്പന ഇല്ല</string>
+    <string name="big_money_part_max">/ %1$d</string>
+    <string name="big_money_part_description">%1$s: %2$s പോയിന്റ്, %3$d ൽ</string>
+    <string name="big_money_part_spike">ഡെലിവറി കുതിപ്പ്</string>
+    <string name="big_money_part_build">ഡെലിവറി കൂടിവരുന്നത്</string>
+    <string name="big_money_part_deals">ഡീലുകളുടെ അറ്റ വാങ്ങൽ</string>
+    <string name="big_money_part_promoter">പ്രൊമോട്ടർമാരുടെ അറ്റ വാങ്ങൽ</string>
+    <string name="big_money_part_churn">ചർൺ</string>
+    <string name="big_money_part_selling">അറ്റ വിൽപ്പന</string>
+    <string name="big_money_part_body_spike">ഇന്ന് ഡെലിവറി %1$s, കഴിഞ്ഞ 20 സെഷൻ ശരാശരി %2$s: %3$s മടങ്ങ്. 1 മടങ്ങിൽ 0 പോയിന്റ്, 3 മടങ്ങിൽ മുഴുവൻ 30.</string>
+    <string name="big_money_part_body_build">കഴിഞ്ഞ 5 സെഷൻ ശരാശരി ഡെലിവറി %1$s, 20 സെഷന്റേത് %2$s: %3$s മടങ്ങ്. 1 മടങ്ങിൽ 0 പോയിന്റ്, 1.5 മടങ്ങിൽ മുഴുവൻ 20.</string>
+    <string name="big_money_part_body_deals">30 സെഷനിൽ അറ്റ %1$s ഓഹരികൾ (%2$s); ദിവസ ശരാശരി വോള്യം %3$s ഓഹരികൾ; %4$s. അറ്റ വാങ്ങൽ ഒരു ദിവസത്തെ ശരാശരി വോള്യത്തോളം ആയാൽ, അല്ലെങ്കിൽ തുടർച്ചയായി 2 ദിവസം അറ്റ വാങ്ങൽ ആയാൽ മുഴുവൻ 25.</string>
+    <string name="big_money_part_body_promoter_buy">90 ദിവസത്തിൽ പ്രൊമോട്ടർമാരുടെ വിപണി അറ്റ വാങ്ങൽ %1$s (%2$d വാങ്ങൽ, %3$d വിൽപ്പന). ₹5 കോടി അറ്റ വാങ്ങലിന് മുഴുവൻ 25.</string>
+    <string name="big_money_part_body_promoter_sell">90 ദിവസത്തിൽ പ്രൊമോട്ടർമാരുടെ വിപണി അറ്റ വിൽപ്പന %1$s (%2$d വാങ്ങൽ, %3$d വിൽപ്പന): പോയിന്റുകൾ \"അറ്റ വിൽപ്പന\" യിൽ കുറച്ചു.</string>
+    <string name="big_money_part_body_churn">ഇന്ന് വോള്യം ശരാശരിയുടെ %1$s മടങ്ങ്, ഡെലിവറി %2$s: ചർൺ, 30 പോയിന്റ് കുറച്ചു.</string>
+    <string name="big_money_part_body_no_churn">ഇന്ന് ചർൺ ഇല്ല: വോള്യം ശരാശരിയുടെ %1$s മടങ്ങ്, ഡെലിവറി %2$s (ചർൺ = 4 മടങ്ങിൽ കൂടുതൽ വോള്യം, 20%% ൽ താഴെ ഡെലിവറി).</string>
+    <string name="big_money_part_body_selling">ഡീലുകളുടെയോ പ്രൊമോട്ടർമാരുടെയോ അറ്റ വിൽപ്പന മുകളിലെ അതേ അളവിൽ പോയിന്റ് കുറയ്ക്കും.</string>
+    <string name="big_money_part_body_no_selling">അറ്റ വിൽപ്പന ഇല്ല.</string>
+
+    <!-- Filters -->
+    <string name="filters_big_money">വലിയ പണത്തിന്റെ നീക്കം</string>
+    <string name="filters_big_money_all">എല്ലാം</string>
+    <string name="filters_big_money_acc">നിശ്ശബ്ദ വാങ്ങൽ മാത്രം</string>
+    <string name="filters_big_money_no_churn">ചർൺ ഉള്ളവ മറയ്ക്കുക</string>
+    <string name="filters_big_money_body">വൈകുന്നേരത്തെ NSE ഡെലിവറി ഡാറ്റയിൽ നിന്ന് (മെനു → വലിയ പണത്തിന്റെ നീക്കം)</string>
+
+    <!-- Alerts and settings (BigMoneyAlerts) -->
+    <string name="notify_channel_big_money">വലിയ പണത്തിന്റെ നീക്കം</string>
+    <string name="settings_big_money_alerts">വലിയ പണത്തിന്റെ നീക്കം അലേർട്ടുകൾ</string>
+    <string name="settings_big_money_alerts_body">വാച്ച്‌ലിസ്റ്റ് ഓഹരിയിൽ നിശ്ശബ്ദ വാങ്ങൽ, ചർൺ, ഡീലുകൾ അല്ലെങ്കിൽ പ്രൊമോട്ടർ വാങ്ങൽ-വിൽപ്പന കണ്ടാൽ അലേർട്ട്; ഒപ്പം വൈകുന്നേരം (അല്ലെങ്കിൽ അടുത്ത രാവിലെ) മുഴുവൻ വിപണിയുടെ സംഗ്രഹം</string>
+    <string name="big_money_notify_watch_title">💰 %1$s: വലിയ പണത്തിന്റെ നീക്കം</string>
+    <string name="big_money_notify_digest_title">💰 %1$s വൈകുന്നേരം: %2$d ഓഹരികളിൽ നിശ്ശബ്ദ വാങ്ങൽ</string>
+    <string name="big_money_notify_digest_body">ഏറ്റവും കൂടുതൽ: %1$s · മെനു → വലിയ പണത്തിന്റെ നീക്കം</string>
+
+    <!-- Help -->
+    <string name="help_big_money_title">💰 വലിയ പണത്തിന്റെ നീക്കം: ഡെലിവറി, ഡീലുകൾ, പ്രൊമോട്ടർമാർ</string>
+    <string name="help_big_money_body" formatted="false">മെനു → വലിയ പണത്തിന്റെ നീക്കം. എല്ലാ വൈകുന്നേരവും NSE ഡെലിവറി ഫയൽ, ബൾക്ക്/ബ്ലോക്ക് ഡീലുകൾ, പ്രൊമോട്ടർമാരുടെ ഇടപാടുകൾ എന്നിവയിൽ നിന്ന് ഓരോ NSE ഓഹരിക്കും (പ്രധാന ബോർഡ്, SME) നാല് സിഗ്നലുകൾ ഉണ്ടാകുന്നു. 🟢 നിശ്ശബ്ദ വാങ്ങൽ: ഇന്ന് ഡെലിവറി 20 സെഷൻ ശരാശരിയുടെ 1.8 മടങ്ങിൽ കൂടുതൽ, വില ±2% ഉള്ളിൽ, 1 ലക്ഷത്തിൽ കൂടുതൽ ഓഹരികൾ. 🔴 ചർൺ / കെണി: വോള്യം ശരാശരിയുടെ 4 മടങ്ങിൽ കൂടുതൽ പക്ഷേ ഡെലിവറി 20% ൽ താഴെ. 🤝 ഡീലുകൾ: കഴിഞ്ഞ 30 സെഷനുകളിലെ എല്ലാ ഡീലുകളുടെയും ആകെ (വാങ്ങൽ − വിൽപ്പന); തുടർച്ചയായി 2 അല്ലെങ്കിൽ കൂടുതൽ ഡീൽ ദിവസങ്ങളിൽ അറ്റ വാങ്ങൽ ഉണ്ടെങ്കിൽ സിഗ്നൽ, 5 സെഷനിൽ വാങ്ങുകയും വിൽക്കുകയും ചെയ്ത ക്ലയന്റിന്റെ പേര് \"ചുറ്റിക്കറങ്ങിയ ഇടപാട്\" ൽ. 👔 പ്രൊമോട്ടർ: 90 ദിവസത്തിൽ വിപണിയിൽ വാങ്ങൽ − വിൽപ്പന (ESOP, സമ്മാനം, ഓഫ്-മാർക്കറ്റ് അല്ല). സ്കോർ 0–100: ഡെലിവറി കുതിപ്പ് 30, കൂടിവരുന്നത് 20, ഡീലുകൾ 25, പ്രൊമോട്ടർ 25 പോയിന്റ് വരെ; ചർണിന് 30 കുറയും, അറ്റ വിൽപ്പനയ്ക്ക് അതേ അളവിൽ. ഓരോ സിഗ്നലിനൊപ്പവും കഴിഞ്ഞ ഒരു വർഷത്തെ ട്രാക്ക് റെക്കോർഡ്: അത് എത്ര തവണ വന്നു, 10 സെഷൻ കഴിഞ്ഞ് വില ശരാശരി എത്ര നീങ്ങി, എല്ലാ ഓഹരികളുടെയും ശരാശരിയുമായി താരതമ്യം ചെയ്ത്. പട്ടികയിൽ 🟢 ശേഖരണം അല്ലെങ്കിൽ 🔴 കെണി അടയാളം, ഫിൽറ്ററിൽ \"നിശ്ശബ്ദ വാങ്ങൽ മാത്രം\" അല്ലെങ്കിൽ \"ചർൺ ഉള്ളവ മറയ്ക്കുക\", ഓഹരി വിവരത്തിൽ മുഴുവൻ കാർഡ്. വാച്ച്‌ലിസ്റ്റ് ഓഹരിയിൽ സിഗ്നൽ വന്നാൽ അലേർട്ട്, വൈകുന്നേരം (ഡാറ്റ വൈകിയാൽ അടുത്ത രാവിലെ) മുഴുവൻ വിപണിയുടെ സംഗ്രഹം; മെനു → സ്കാൻ ൽ നിർത്താം. BSE മാത്രവും ട്രേഡ്-ടു-ട്രേഡ് (BE, BZ) ഓഹരികൾക്കും ഡെലിവറി ഡാറ്റ ഇല്ല. ഇത് ഉപദേശമല്ല, ഡാറ്റ മാത്രം.</string>
+</resources>

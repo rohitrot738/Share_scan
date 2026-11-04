@@ -528,6 +528,15 @@
                         android:textColor="@color/text_secondary"
                         android:textSize="11sp" />
 
+                    <!-- बड़े पैसे की चाल (BigMoneyCard): the evening's delivery, deal and promoter signals, filled in code. -->
+                    <LinearLayout
+                        android:id="@+id/detailBigMoney"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="20dp" />
+
                     <!-- The long-term checklist (Moat) from the R/S figures; its lines open and close on the title. -->
                     <TextView
                         android:id="@+id/detailMoatTitle"

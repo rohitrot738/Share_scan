@@ -204,10 +204,13 @@ class MainActivity : AppCompatActivity() {
             intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let { openFromNotification(it, intent.getBooleanExtra(Notifier.EXTRA_NEWS, false)) }
             if (intent.getBooleanExtra(Notifier.EXTRA_INSTALL, false)) updates.installWhenReady()
             if (intent.getBooleanExtra(Notifier.EXTRA_PAPER, false)) openPaper(fromMenu = false)
+            if (intent.getBooleanExtra(Notifier.EXTRA_BIG_MONEY, false)) openBigMoney(fromMenu = false)
         }
         // The paper account's background checks go on while it has orders waiting or shares open.
         if (PaperEngine.watched(PaperStore.load(this)).isNotEmpty()) PaperWorker.schedule(this)
-        if ((settings.liveScan && settings.liveAlerts) || settings.watchAlerts || settings.newsAlerts) askToNotify(again = false)
+        if ((settings.liveScan && settings.liveAlerts) || settings.watchAlerts || settings.newsAlerts || settings.bigMoneyAlerts) {
+            askToNotify(again = false)
+        }
 
         ui.startButton.setOnClickListener {
             // While a scan runs the same button stops it.
@@ -271,6 +274,7 @@ class MainActivity : AppCompatActivity() {
         intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let { openFromNotification(it, intent.getBooleanExtra(Notifier.EXTRA_NEWS, false)) }
         if (intent.getBooleanExtra(Notifier.EXTRA_INSTALL, false)) updates.installWhenReady()
         if (intent.getBooleanExtra(Notifier.EXTRA_PAPER, false)) openPaper(fromMenu = false)
+        if (intent.getBooleanExtra(Notifier.EXTRA_BIG_MONEY, false)) openBigMoney(fromMenu = false)
     }
 
     /**
@@ -725,9 +729,11 @@ class MainActivity : AppCompatActivity() {
         // A star toggle only rebinds its card; anything that changes which stocks show, or their order, jumps to the top.
         // A fresh 360CR file redraws the cards' scores, and reorders a list sorted by them.
         val freshCr360 = state.cr360 !== shownCr360
-        if (freshCr360 || state.setups !== adapter.setups || state.news !== adapter.news || state.products !== adapter.products) {
+        val freshMoney = state.bigMoney !== adapter.bigMoney
+        if (freshCr360 || freshMoney || state.setups !== adapter.setups || state.news !== adapter.news || state.products !== adapter.products) {
             shownCr360 = state.cr360
             adapter.cr360 = state.cr360
+            adapter.bigMoney = state.bigMoney
             adapter.products = state.products
             adapter.setups = state.setups
             adapter.news = state.news
@@ -736,7 +742,8 @@ class MainActivity : AppCompatActivity() {
         val reorder = state.results !== shownResults || state.activeFilters != shownFilters || state.sort != shownSort ||
             state.ascending != shownAscending || state.watchlistOnly != shownWatchlistOnly ||
             state.scanMode != shownScanMode || state.supportReach != shownSupportReach || state.query != shownQuery ||
-            state.product != shownProduct || (freshCr360 && (state.sort == SortMode.CR360 || state.product != null))
+            state.product != shownProduct || (freshCr360 && (state.sort == SortMode.CR360 || state.product != null)) ||
+            (freshMoney && state.activeFilters.bigMoney != ScanFilters.BigMoney.ALL)
         if (reorder || state.watchlist != shownWatchlist) {
             val freshResults = state.results !== shownResults
             // Live mode's fresh prices arrive while the user may be reading: the list keeps its place for them.
@@ -1126,6 +1133,7 @@ class MainActivity : AppCompatActivity() {
             alerts = settings.watchAlerts,
             alert = alert,
             cr360 = state.cr360.of(stock.symbol),
+            bigMoney = state.bigMoney,
             products = state.products.of(stock.symbol, state.cr360),
             photos = state.photos.of(stock.symbol),
             setups = state.setups,
@@ -1209,6 +1217,7 @@ class MainActivity : AppCompatActivity() {
                 IntradaySheet(this, scan.uiState.value.results, { openChart(it) }, ::openMenu).show()
             }
             MenuSheet.Entry.PAPER -> openPaper(fromMenu = true)
+            MenuSheet.Entry.BIG_MONEY -> openBigMoney(fromMenu = true)
             MenuSheet.Entry.TRADE_LOG -> showMenuSheet {
                 TradeLogSheet(this, { scan.uiState.value.priceOf(it) }, { openFromNotification(it, false) }, ::openMenu).show()
             }
@@ -1246,6 +1255,13 @@ class MainActivity : AppCompatActivity() {
                 { openFromNotification(it, false) },
                 if (fromMenu) ::openMenu else null,
             ).show()
+        }
+    }
+
+    /** बड़े पैसे की चाल, from the menu (whose ← comes back to it) or the evening digest's notification. */
+    private fun openBigMoney(fromMenu: Boolean) {
+        showMenuSheet {
+            BigMoneySheet(this, scan.uiState.value.bigMoney, { openFromNotification(it, false) }, if (fromMenu) ::openMenu else null).show()
         }
     }
 

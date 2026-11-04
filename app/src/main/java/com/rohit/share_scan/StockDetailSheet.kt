@@ -70,6 +70,8 @@ class StockDetailSheet(
     private val alert: WatchAlerts.State? = null,
     /** The stock's 360CR from the daily file; null when the file does not have it (yet). */
     private val cr360: Cr360Book.Entry? = null,
+    /** The evening's बड़े पैसे की चाल file ([BigMoneyBook]); its card says when the file or the stock is missing. */
+    private val bigMoney: BigMoneyBook = BigMoneyBook.EMPTY,
     /** The learned setups; once there are some, they take the place of the app's own setups and figures. */
     private val setups: SetupBook = SetupBook.EMPTY,
     /** Opens on the खबरें tab (from a 📰 mark or a news notification) rather than on जानकारी. */
@@ -122,6 +124,7 @@ class StockDetailSheet(
         fold(ui.detailCr360HistoryTitle, ui.detailCr360HistoryStatus, ui.detailCr360History)
         fold(ui.detailStatsTitle, ui.detailStats)
         bindMoat()
+        BigMoneyCard(activity, bigMoney, stock.symbol).bind(ui.detailBigMoney)
         ui.detailNoStructure.isVisible = structure == null
         val site = chartSite.forMarket(stock.market)
         val siteBroker = site.broker

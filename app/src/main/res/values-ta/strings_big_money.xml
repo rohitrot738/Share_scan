@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu and section (BigMoneySheet) -->
+    <string name="menu_big_money">பெரும் பணத்தின் நகர்வு</string>
+    <string name="menu_big_money_body">டெலிவரி, பல்க்/பிளாக் டீல் மற்றும் புரமோட்டர்: அமைதியான வாங்குதல், ஆபரேட்டரின் வலை</string>
+    <string name="big_money_title">💰 பெரும் பணத்தின் நகர்வு</string>
+    <string name="big_money_subtitle">%1$s மாலை NSE தரவு · %2$s பங்குகள்</string>
+    <string name="big_money_loading">புதிய தரவு பார்க்கப்படுகிறது…</string>
+    <string name="big_money_no_file">தரவு இன்னும் வரவில்லை. NSE கோப்பு ஒவ்வொரு மாலையும் வரும்; இணையத்தை இயக்கி சிறிது நேரம் கழித்து திறக்கவும்.</string>
+    <string name="big_money_tab_acc">🟢 அமைதியான வாங்குதல்</string>
+    <string name="big_money_tab_churn">🔴 சர்ன் / வலை</string>
+    <string name="big_money_tab_deals">🤝 டீல்கள்</string>
+    <string name="big_money_tab_promoter">👔 புரமோட்டர்</string>
+    <string name="big_money_tab_acc_body" formatted="false">இன்று டெலிவரி அதன் 20 அமர்வு சராசரியின் 1.8 மடங்குக்கு மேல், விலை ±2% க்குள், 1 லட்சத்துக்கு மேல் பங்குகள்: யாரோ விலையை உயர்த்தாமல் பங்குகளை வாங்கிக் கொண்டிருக்கலாம்.</string>
+    <string name="big_money_tab_churn_body" formatted="false">வால்யூம் 20 அமர்வு சராசரியின் 4 மடங்குக்கு மேல், ஆனால் டெலிவரி 20% க்குக் குறைவு: பெரும்பாலான வர்த்தகங்கள் அதே நாளில் முடிக்கப்பட்டன. போலியான அசைவாக இருக்கலாம், கவனம்.</string>
+    <string name="big_money_tab_deals_body">கடந்த 30 அமர்வுகளின் பல்க் மற்றும் பிளாக் டீல்கள், எல்லா வாடிக்கையாளர்களின் கூட்டு: வாங்கிய பங்குகள் கழித்தல் விற்ற பங்குகள். முதலில் நிகர வாங்குபவர், பிறகு நிகர விற்பவர்.</string>
+    <string name="big_money_tab_promoter_body">கடந்த 90 நாட்களில் புரமோட்டர்கள் சந்தையில் எவ்வளவு பங்குகள் வாங்கி விற்றனர் (ESOP, பரிசு, ஆஃப்-மார்க்கெட் கணக்கில் இல்லை). முதலில் வாங்கியவர்.</string>
+    <string name="big_money_none">இன்று இதில் பங்கு இல்லை</string>
+    <string name="big_money_row_acc">%1$s · டெலிவரி %2$s (சராசரி %3$s, %4$s மடங்கு)</string>
+    <string name="big_money_row_acc_body">விலை %1$s · %2$s பங்குகள் வர்த்தகம் · மதிப்பெண் %3$d</string>
+    <string name="big_money_row_churn">%1$s · வால்யூம் %2$s மடங்கு · டெலிவரி %3$s</string>
+    <string name="big_money_row_churn_body">விலை %1$s · %2$s பங்குகள் (சராசரி %3$s) · மதிப்பெண் %4$d</string>
+    <string name="big_money_row_deal_buy">%1$s · நிகர வாங்குதல் %2$s</string>
+    <string name="big_money_row_deal_sell">%1$s · நிகர விற்பனை %2$s</string>
+    <string name="big_money_row_deal_body">%1$s பங்குகள் · %2$d நாள் டீல் · %3$s</string>
+    <string name="big_money_row_promoter_buy">%1$s · புரமோட்டர்கள் வாங்கியது %2$s</string>
+    <string name="big_money_row_promoter_sell">%1$s · புரமோட்டர்கள் விற்றது %2$s</string>
+    <string name="big_money_row_promoter_body">%1$d முறை வாங்குதல், %2$d முறை விற்பனை (90 நாள்)</string>
+    <string name="big_money_caution">இது வாங்க-விற்க ஆலோசனை அல்ல. டிராக் ரெக்கார்டு கடந்த ஆண்டுடையது; இனியும் அப்படியே இருக்கும் என்பதில்லை. உங்கள் ஸ்டாப்-லாஸை கட்டாயம் வைத்திருங்கள்.</string>
+
+    <!-- Track record -->
+    <string name="big_money_record">கடந்த ஆண்டு %1$s முறை; 10 அமர்வுகளுக்குப் பின் சராசரி %2$s (எல்லா பங்குகள் %3$s), %4$s முறை மேலே</string>
+    <string name="big_money_record_worse">⚠️ கடந்த ஆண்டு இந்த சமிக்ஞை எல்லா பங்குகளின் சராசரியை விட சிறப்பாக இல்லை</string>
+    <string name="big_money_record_waiting">டிராக் ரெக்கார்டு: தரவு சேர்கிறது (%1$d முறை, குறைந்தது 30 தேவை)</string>
+    <string name="big_money_score_strong">மதிப்பெண் 60 அல்லது அதிகம்</string>
+
+    <!-- Signals and the list's mark -->
+    <string name="big_money_signal_acc">🟢 அமைதியான வாங்குதல் (டெலிவரி உயர்வு)</string>
+    <string name="big_money_signal_churn">🔴 ஆபரேட்டர் சர்ன் / வலை</string>
+    <string name="big_money_signal_deal_buy">🤝 டீல்: தொடர் நிகர வாங்குதல்</string>
+    <string name="big_money_signal_deal_sell">🤝 டீல்: தொடர் நிகர விற்பனை</string>
+    <string name="big_money_signal_promoter_buy">👔 புரமோட்டர்கள் சந்தையில் வாங்கினர்</string>
+    <string name="big_money_signal_promoter_sell">👔 புரமோட்டர்கள் சந்தையில் விற்றனர்</string>
+    <string name="big_money_signals_none">இன்று சமிக்ஞை இல்லை</string>
+    <string name="big_money_mark_acc">🟢 சேர்ப்பு</string>
+    <string name="big_money_mark_churn">🔴 வலை</string>
+    <string name="big_money_mark_acc_description">பெரும் பணத்தின் நகர்வு: அமைதியான வாங்குதல்</string>
+    <string name="big_money_mark_churn_description">பெரும் பணத்தின் நகர்வு: ஆபரேட்டர் சர்ன், வால்யூம் அதிகம் ஆனால் டெலிவரி குறைவு</string>
+    <string name="big_money_streak_buy">தொடர்ந்து %1$d நாள் நிகர வாங்குதல்</string>
+    <string name="big_money_streak_sell">தொடர்ந்து %1$d நாள் நிகர விற்பனை</string>
+    <string name="big_money_streak_none">தொடர்ச்சி இல்லை</string>
+
+    <!-- The stock's card (BigMoneyCard) -->
+    <string name="big_money_card_title">💰 பெரும் பணத்தின் நகர்வு</string>
+    <string name="big_money_card_missing">%1$s மாலை NSE தரவில் இந்தப் பங்கு இல்லை (BSE மட்டும், டிரேட்-டு-டிரேட், அல்லது அன்று வர்த்தகம் இல்லை)</string>
+    <string name="big_money_card_score">மதிப்பெண் %1$d/100</string>
+    <string name="big_money_card_date">%1$s மாலை NSE தரவிலிருந்து</string>
+    <string name="big_money_chart">கடந்த %1$d அமர்வுகள்: டெலிவரி %% (பட்டைகள்) மற்றும் வால்யூம் (கோடு)</string>
+    <string name="big_money_deal_line_buy">டீல் (30 அமர்வு): நிகர வாங்குதல் %1$s பங்குகள், %2$s · %3$s</string>
+    <string name="big_money_deal_line_sell">டீல் (30 அமர்வு): நிகர விற்பனை %1$s பங்குகள், %2$s · %3$s</string>
+    <string name="big_money_deal_none">டீல் (30 அமர்வு): பல்க்/பிளாக் டீல் இல்லை</string>
+    <string name="big_money_circular">⚠️ சுற்று டீல் (5 அமர்வுக்குள் வாங்கியும் விற்றும்): %1$s</string>
+    <string name="big_money_promoter_line_buy">புரமோட்டர் (90 நாள்): சந்தையில் நிகர வாங்குதல் %1$s · %2$d வாங்குதல், %3$d விற்பனை</string>
+    <string name="big_money_promoter_line_sell">புரமோட்டர் (90 நாள்): சந்தையில் நிகர விற்பனை %1$s · %2$d வாங்குதல், %3$d விற்பனை</string>
+    <string name="big_money_promoter_none">புரமோட்டர் (90 நாள்): சந்தையில் வாங்குதல்-விற்பனை இல்லை</string>
+    <string name="big_money_part_max">/ %1$d</string>
+    <string name="big_money_part_description">%1$s: %2$s புள்ளிகள், %3$d இல்</string>
+    <string name="big_money_part_spike">டெலிவரி உயர்வு</string>
+    <string name="big_money_part_build">டெலிவரி சேர்தல்</string>
+    <string name="big_money_part_deals">டீல் நிகர வாங்குதல்</string>
+    <string name="big_money_part_promoter">புரமோட்டர் நிகர வாங்குதல்</string>
+    <string name="big_money_part_churn">சர்ன்</string>
+    <string name="big_money_part_selling">நிகர விற்பனை</string>
+    <string name="big_money_part_body_spike">இன்று டெலிவரி %1$s, கடந்த 20 அமர்வு சராசரி %2$s: %3$s மடங்கு. 1 மடங்கில் 0 புள்ளி, 3 மடங்கில் முழு 30.</string>
+    <string name="big_money_part_body_build">கடந்த 5 அமர்வு சராசரி டெலிவரி %1$s, 20 அமர்வு %2$s: %3$s மடங்கு. 1 மடங்கில் 0 புள்ளி, 1.5 மடங்கில் முழு 20.</string>
+    <string name="big_money_part_body_deals">30 அமர்வுகளில் நிகர %1$s பங்குகள் (%2$s); தினசரி சராசரி வால்யூம் %3$s பங்குகள்; %4$s. நிகர வாங்குதல் ஒரு நாள் சராசரி வால்யூம் அளவு இருந்தால், அல்லது தொடர்ந்து 2 நாள் நிகர வாங்குதல் இருந்தால் முழு 25.</string>
+    <string name="big_money_part_body_promoter_buy">90 நாளில் புரமோட்டர்களின் சந்தை நிகர வாங்குதல் %1$s (%2$d வாங்குதல், %3$d விற்பனை). ₹5 கோடி நிகர வாங்குதலுக்கு முழு 25.</string>
+    <string name="big_money_part_body_promoter_sell">90 நாளில் புரமோட்டர்களின் சந்தை நிகர விற்பனை %1$s (%2$d வாங்குதல், %3$d விற்பனை): புள்ளிகள் \"நிகர விற்பனை\" யில் கழிக்கப்பட்டன.</string>
+    <string name="big_money_part_body_churn">இன்று வால்யூம் சராசரியின் %1$s மடங்கு, டெலிவரி %2$s: சர்ன், 30 புள்ளிகள் கழிப்பு.</string>
+    <string name="big_money_part_body_no_churn">இன்று சர்ன் இல்லை: வால்யூம் சராசரியின் %1$s மடங்கு, டெலிவரி %2$s (சர்ன் = 4 மடங்குக்கு மேல் வால்யூம், 20%% க்குக் குறைவான டெலிவரி).</string>
+    <string name="big_money_part_body_selling">டீல் அல்லது புரமோட்டர்களின் நிகர விற்பனை மேலே உள்ள அதே அளவில் புள்ளிகளைக் குறைக்கும்.</string>
+    <string name="big_money_part_body_no_selling">நிகர விற்பனை இல்லை.</string>
+
+    <!-- Filters -->
+    <string name="filters_big_money">பெரும் பணத்தின் நகர்வு</string>
+    <string name="filters_big_money_all">எல்லாம்</string>
+    <string name="filters_big_money_acc">அமைதியான வாங்குதல் மட்டும்</string>
+    <string name="filters_big_money_no_churn">சர்ன் உள்ளவற்றை மறை</string>
+    <string name="filters_big_money_body">மாலை NSE டெலிவரி தரவிலிருந்து (மெனு → பெரும் பணத்தின் நகர்வு)</string>
+
+    <!-- Alerts and settings (BigMoneyAlerts) -->
+    <string name="notify_channel_big_money">பெரும் பணத்தின் நகர்வு</string>
+    <string name="settings_big_money_alerts">பெரும் பணத்தின் நகர்வு அலர்ட்கள்</string>
+    <string name="settings_big_money_alerts_body">வாட்ச்லிஸ்ட் பங்கில் அமைதியான வாங்குதல், சர்ன், டீல் அல்லது புரமோட்டர் வாங்குதல்-விற்பனை தெரிந்தால் அலர்ட்; கூடவே மாலை (அல்லது மறுநாள் காலை) முழு சந்தையின் சுருக்கம்</string>
+    <string name="big_money_notify_watch_title">💰 %1$s: பெரும் பணத்தின் நகர்வு</string>
+    <string name="big_money_notify_digest_title">💰 %1$s மாலை: %2$d பங்குகளில் அமைதியான வாங்குதல்</string>
+    <string name="big_money_notify_digest_body">அதிகம்: %1$s · மெனு → பெரும் பணத்தின் நகர்வு</string>
+
+    <!-- Help -->
+    <string name="help_big_money_title">💰 பெரும் பணத்தின் நகர்வு: டெலிவரி, டீல் மற்றும் புரமோட்டர்</string>
+    <string name="help_big_money_body" formatted="false">மெனு → பெரும் பணத்தின் நகர்வு. ஒவ்வொரு மாலையும் NSE டெலிவரி கோப்பு, பல்க்/பிளாக் டீல்கள் மற்றும் புரமோட்டர்களின் வர்த்தகங்களிலிருந்து ஒவ்வொரு NSE பங்குக்கும் (முதன்மை வாரியம் மற்றும் SME) நான்கு சமிக்ஞைகள் உருவாகின்றன. 🟢 அமைதியான வாங்குதல்: இன்று டெலிவரி 20 அமர்வு சராசரியின் 1.8 மடங்குக்கு மேல், விலை ±2% க்குள், 1 லட்சத்துக்கு மேல் பங்குகள். 🔴 சர்ன் / வலை: வால்யூம் சராசரியின் 4 மடங்குக்கு மேல் ஆனால் டெலிவரி 20% க்குக் குறைவு. 🤝 டீல்: கடந்த 30 அமர்வுகளின் எல்லா டீல்களின் கூட்டு (வாங்குதல் − விற்பனை); தொடர்ந்து 2 அல்லது அதிக டீல் நாட்களில் நிகர வாங்குதல் இருந்தால் சமிக்ஞை, 5 அமர்வுக்குள் வாங்கியும் விற்றும் உள்ள வாடிக்கையாளர் பெயர் \"சுற்று டீல்\" இல். 👔 புரமோட்டர்: 90 நாளில் சந்தையில் வாங்குதல் − விற்பனை (ESOP, பரிசு, ஆஃப்-மார்க்கெட் இல்லை). மதிப்பெண் 0–100: டெலிவரி உயர்வு 30, சேர்தல் 20, டீல் 25, புரமோட்டர் 25 புள்ளிகள் வரை; சர்னுக்கு 30 கழிப்பு, நிகர விற்பனைக்கு அதே அளவில். ஒவ்வொரு சமிக்ஞையுடனும் கடந்த ஓராண்டு டிராக் ரெக்கார்டு: அது எத்தனை முறை வந்தது, 10 அமர்வுக்குப் பின் விலை சராசரியாக எவ்வளவு நகர்ந்தது, எல்லா பங்குகளின் சராசரியுடன் ஒப்பிட்டு. பட்டியலில் 🟢 சேர்ப்பு அல்லது 🔴 வலை குறி, வடிகட்டியில் \"அமைதியான வாங்குதல் மட்டும்\" அல்லது \"சர்ன் உள்ளவற்றை மறை\", பங்கு விவரத்தில் முழு அட்டை. வாட்ச்லிஸ்ட் பங்கில் சமிக்ஞை வந்தால் அலர்ட், மாலையில் (தரவு தாமதமானால் மறுநாள் காலை) முழு சந்தையின் சுருக்கம்; மெனு → ஸ்கேன் இல் நிறுத்தலாம். BSE மட்டும் மற்றும் டிரேட்-டு-டிரேட் (BE, BZ) பங்குகளுக்கு டெலிவரி தரவு இல்லை. இது ஆலோசனை அல்ல, தரவு மட்டுமே.</string>
+</resources>
