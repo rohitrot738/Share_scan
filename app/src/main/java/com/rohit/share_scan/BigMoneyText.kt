@@ -9,6 +9,7 @@ import kotlin.math.abs
 /** How बड़े पैसे की चाल ([BigMoneyBook]) reads: in the stock's card, the Menu section, the list's mark and the alerts. */
 object BigMoneyText {
     private val DAY: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM")
+    private val FULL_DAY: DateTimeFormatter = DateTimeFormatter.ofPattern("d MMM yyyy")
 
     /** A score of this much or more reads strong, as the track record's "score60" counts it. */
     const val STRONG = 60
@@ -23,6 +24,13 @@ object BigMoneyText {
     fun shares(value: Long?): String = value?.let { StockFormat.shares(abs(it).toDouble()) } ?: "—"
 
     fun day(date: LocalDate?): String = date?.format(DAY) ?: "—"
+
+    /** "30 Apr 2026", for a date that may lie in another year. */
+    fun fullDay(date: LocalDate?): String = date?.format(FULL_DAY) ?: "—"
+
+    /** The note on promoter data a month or more behind the session; null while it is recent. */
+    fun promotersStale(context: Context, book: BigMoneyBook): String? =
+        book.promoterUntil?.takeIf { book.promotersStale }?.let { context.getString(R.string.big_money_promoters_stale, fullDay(it)) }
 
     /** The list's mark: "🟢 जमा" for accumulation, "🔴 जाल" for churn, with its colour; null for neither. */
     fun mark(context: Context, entry: BigMoneyBook.Entry?): Pair<String, Int>? = when {
@@ -58,9 +66,10 @@ object BigMoneyText {
 
     /**
      * A signal's past year: "पिछले साल 1,240 बार; 10 सत्र बाद औसत +1.9% (सब शेयर +0.7%), 56% बार ऊपर", with a warning
-     * when it did no better than all shares; under 30 times, that the data is still building up.
+     * when it did not hold (an inviting signal no better than all shares, a [bearish] one no worse); under 30 times,
+     * that the data is still building up.
      */
-    fun record(context: Context, record: BigMoneyBook.Record?): String {
+    fun record(context: Context, record: BigMoneyBook.Record?, bearish: Boolean): String {
         if (record == null || !record.ready) return context.getString(R.string.big_money_record_waiting, record?.n ?: 0)
         val avg = record.avg ?: 0.0
         val base = record.base ?: 0.0
@@ -71,7 +80,10 @@ object BigMoneyText {
             Cr360Format.signed(base, 1) + "%",
             Cr360Format.number(record.up ?: 0.0, 0) + "%",
         )
-        return if (avg <= base) line + "\n" + context.getString(R.string.big_money_record_worse) else line
+        return when (record.worked(bearish)) {
+            false -> line + "\n" + context.getString(if (bearish) R.string.big_money_record_warning_weak else R.string.big_money_record_worse)
+            else -> line
+        }
     }
 
     fun streak(context: Context, deal: BigMoneyBook.Deal): String = when {

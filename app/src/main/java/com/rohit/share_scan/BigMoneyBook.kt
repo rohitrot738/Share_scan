@@ -23,20 +23,35 @@ class BigMoneyBook(
     /** Each signal's track record by its key ([Signal.key], and "score60" for a score of 60 or more). */
     val records: Map<String, Record>,
     private val entries: Map<String, Entry>,
+    /** The newest promoter/insider filing the file knew of; NSE's filings come only when NSE answers the job. */
+    val promoterUntil: LocalDate? = null,
 ) {
-    enum class Signal(val key: String) {
-        ACCUMULATION("acc"),
-        CHURN("churn"),
-        DEAL_BUY("deal_buy"),
-        DEAL_SELL("deal_sell"),
-        PROMOTER_BUY("promoter_buy"),
-        PROMOTER_SELL("promoter_sell"),
+    /** A signal and whether it warns (the price is expected to do worse than the market) rather than invites. */
+    enum class Signal(val key: String, val bearish: Boolean) {
+        ACCUMULATION("acc", false),
+        CHURN("churn", true),
+        DEAL_BUY("deal_buy", false),
+        DEAL_SELL("deal_sell", true),
+        PROMOTER_BUY("promoter_buy", false),
+        PROMOTER_SELL("promoter_sell", true),
     }
+
+    /** The promoters' trades are a month or more behind the session (or of unknown age), so their tab may be empty. */
+    val promotersStale: Boolean
+        get() = date != null && (promoterUntil == null || promoterUntil < date.minusDays(STALE_DAYS))
 
     /** How often a signal showed in the past year ([n]) and, from 30 times on, its average move 10 sessions later,
      *  all shares' average move over the same sessions and the % of times the price was higher, all in %. */
     data class Record(val n: Int, val avg: Double?, val base: Double?, val up: Double?) {
         val ready: Boolean get() = avg != null && base != null && up != null
+
+        /** Whether the signal held: an inviting one beat all shares' move, a warning ([bearish]) fell short of it; null before 30 cases. */
+        fun worked(bearish: Boolean): Boolean? {
+            if (!ready) return null
+            val avg = avg ?: return null
+            val base = base ?: return null
+            return if (bearish) avg < base else avg > base
+        }
     }
 
     /** The share's bulk and block deals over 30 sessions, netted: shares and rupees (negative when sold), the
@@ -99,6 +114,9 @@ class BigMoneyBook(
     companion object {
         val EMPTY = BigMoneyBook(null, emptyList(), emptyMap(), emptyMap())
 
+        /** Days past which the promoters' trades count as behind. */
+        const val STALE_DAYS = 30L
+
         /** The book in [text]; null for a broken or unknown file, so the copy in use stays. */
         fun parse(text: String): BigMoneyBook? = runCatching {
             val root = JSONObject(text)
@@ -112,7 +130,8 @@ class BigMoneyBook(
             }
             val stocks = root.getJSONObject("stocks")
             val entries = stocks.keys().asSequence().associateWith { symbol -> entry(symbol, stocks.getJSONObject(symbol)) }
-            BigMoneyBook(date, dates, records, entries)
+            val until = root.optString("pu").takeIf { it.isNotEmpty() && it != "null" }?.let(LocalDate::parse)
+            BigMoneyBook(date, dates, records, entries, until)
         }.getOrNull()
 
         private fun entry(symbol: String, o: JSONObject): Entry {

@@ -31,7 +31,9 @@
     <!-- Track record -->
     <string name="big_money_record">గత సంవత్సరం %1$s సార్లు; 10 సెషన్ల తర్వాత సగటు %2$s (అన్ని షేర్లు %3$s), %4$s సార్లు పైకి</string>
     <string name="big_money_record_worse">⚠️ గత సంవత్సరం ఈ సంకేతం అన్ని షేర్ల సగటు కంటే మెరుగ్గా లేదు</string>
-    <string name="big_money_record_waiting">ట్రాక్ రికార్డ్: డేటా సేకరిస్తోంది (%1$d సార్లు, కనీసం 30 కావాలి)</string>
+    <string name="big_money_record_warning_weak">⚠️ గత సంవత్సరం ఈ హెచ్చరిక తర్వాత ధర అన్ని షేర్ల కంటే అధ్వాన్నంగా కదలలేదు</string>
+    <string name="big_money_promoters_stale">⚠️ ప్రమోటర్ల డేటా %1$s వరకు మాత్రమే: NSE ప్రస్తుతం కొత్త డేటా ఇవ్వడం లేదు, కాబట్టి ఈ ట్యాబ్, ప్రమోటర్ పాయింట్లు అసంపూర్ణం.</string>
+    <string name="big_money_record_waiting">డేటా సేకరిస్తోంది (%1$d సార్లు, కనీసం 30 కావాలి)</string>
     <string name="big_money_score_strong">స్కోర్ 60 లేదా ఎక్కువ</string>
 
     <!-- Signals and the list's mark -->

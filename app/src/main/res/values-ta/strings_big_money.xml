@@ -31,7 +31,9 @@
     <!-- Track record -->
     <string name="big_money_record">கடந்த ஆண்டு %1$s முறை; 10 அமர்வுகளுக்குப் பின் சராசரி %2$s (எல்லா பங்குகள் %3$s), %4$s முறை மேலே</string>
     <string name="big_money_record_worse">⚠️ கடந்த ஆண்டு இந்த சமிக்ஞை எல்லா பங்குகளின் சராசரியை விட சிறப்பாக இல்லை</string>
-    <string name="big_money_record_waiting">டிராக் ரெக்கார்டு: தரவு சேர்கிறது (%1$d முறை, குறைந்தது 30 தேவை)</string>
+    <string name="big_money_record_warning_weak">⚠️ கடந்த ஆண்டு இந்த எச்சரிக்கைக்குப் பின் விலை எல்லா பங்குகளை விட மோசமாகப் போகவில்லை</string>
+    <string name="big_money_promoters_stale">⚠️ புரமோட்டர் தரவு %1$s வரை மட்டுமே: NSE இப்போது புதிய தரவு தரவில்லை, எனவே இந்த டேப் மற்றும் புரமோட்டர் புள்ளிகள் முழுமையற்றவை.</string>
+    <string name="big_money_record_waiting">தரவு சேர்கிறது (%1$d முறை, குறைந்தது 30 தேவை)</string>
     <string name="big_money_score_strong">மதிப்பெண் 60 அல்லது அதிகம்</string>
 
     <!-- Signals and the list's mark -->

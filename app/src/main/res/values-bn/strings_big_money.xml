@@ -31,7 +31,9 @@
     <!-- Track record -->
     <string name="big_money_record">গত বছর %1$s বার; 10 সেশন পরে গড় %2$s (সব শেয়ার %3$s), %4$s বার উপরে</string>
     <string name="big_money_record_worse">⚠️ গত বছর এই সংকেত সব শেয়ারের গড়ের চেয়ে ভালো করেনি</string>
-    <string name="big_money_record_waiting">ট্র্যাক রেকর্ড: ডেটা জমছে (%1$d বার, অন্তত 30 লাগবে)</string>
+    <string name="big_money_record_warning_weak">⚠️ গত বছর এই সতর্কতার পরে দাম সব শেয়ারের চেয়ে খারাপ চলেনি</string>
+    <string name="big_money_promoters_stale">⚠️ প্রোমোটারদের ডেটা কেবল %1$s পর্যন্ত: NSE এখন নতুন ডেটা দিচ্ছে না, তাই এই ট্যাব আর প্রোমোটারের পয়েন্ট অসম্পূর্ণ।</string>
+    <string name="big_money_record_waiting">ডেটা জমছে (%1$d বার, অন্তত 30 লাগবে)</string>
     <string name="big_money_score_strong">স্কোর 60 বা বেশি</string>
 
     <!-- Signals and the list's mark -->

@@ -70,9 +70,10 @@ class BigMoneySheet(
         addTabs()
         text(activity.getString(tab.body), R.color.text_secondary, 13f, top = 12)
         for (key in tab.records) {
-            val name = BigMoneyBook.Signal.entries.first { it.key == key }.let { BigMoneyText.signal(activity, it) }
-            text(name + ": " + BigMoneyText.record(activity, book.records[key]), R.color.text_secondary, 12.5f, top = 6)
+            val signal = BigMoneyBook.Signal.entries.first { it.key == key }
+            text(BigMoneyText.signal(activity, signal) + ": " + BigMoneyText.record(activity, book.records[key], signal.bearish), R.color.text_secondary, 12.5f, top = 6)
         }
+        if (tab == Tab.PROMOTER) BigMoneyText.promotersStale(activity, book)?.let { text(it, R.color.warn, 12.5f, top = 8) }
         val rows = when (tab) {
             Tab.ACCUMULATION -> book.accumulation()
             Tab.CHURN -> book.churn()

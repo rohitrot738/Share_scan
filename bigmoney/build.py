@@ -75,8 +75,12 @@ def app_file(store: dict, insider: dict[str, list], record: dict | None = None) 
             "cc": deal.circular if deal else [],
             "pn": [round(promoter.rupees, 2), promoter.buys, promoter.sells] if promoter else None,
         }
-    return {"v": 1, "date": store["dates"][i], "dates": store["dates"][start:i + 1],
-            "record": record if record is not None else track_record(store, insider), "stocks": stocks}
+    session = store["dates"][i]
+    # The newest promoter/insider filing up to the session: NSE's filings reach the R/S store only when NSE answers.
+    filed = [r[0] for rows in insider.values() for r in rows if r and r[0] and r[0] <= session]
+    return {"v": 1, "date": session, "dates": store["dates"][start:i + 1],
+            "record": record if record is not None else track_record(store, insider), "pu": max(filed, default=None),
+            "stocks": stocks}
 
 
 def _weekdays(start: date, end: date):

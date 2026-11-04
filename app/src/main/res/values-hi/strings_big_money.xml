@@ -31,7 +31,9 @@
     <!-- Track record -->
     <string name="big_money_record">पिछले साल %1$s बार; 10 सत्र बाद औसत %2$s (सब शेयर %3$s), %4$s बार ऊपर</string>
     <string name="big_money_record_worse">⚠️ पिछले साल यह संकेत सब शेयरों के औसत से बेहतर नहीं रहा</string>
-    <string name="big_money_record_waiting">ट्रैक रिकॉर्ड: आँकड़े जमा हो रहे हैं (%1$d बार, कम से कम 30 चाहिए)</string>
+    <string name="big_money_record_warning_weak">⚠️ पिछले साल इस चेतावनी के बाद भाव सब शेयरों से बुरा नहीं चला</string>
+    <string name="big_money_promoters_stale">⚠️ प्रमोटरों के आँकड़े %1$s तक के ही हैं: NSE से नए आँकड़े अभी नहीं मिल रहे, इसलिए यह टैब और प्रमोटर वाले अंक अधूरे हैं।</string>
+    <string name="big_money_record_waiting">आँकड़े जमा हो रहे हैं (%1$d बार, कम से कम 30 चाहिए)</string>
     <string name="big_money_score_strong">स्कोर 60 या ज़्यादा</string>
 
     <!-- Signals and the list's mark -->

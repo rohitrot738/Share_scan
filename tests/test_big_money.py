@@ -327,3 +327,8 @@ def test_app_file_shape():
     assert a["dn"] == [20_000, 2e6, 2, 2] and a["cc"] == [] and a["pn"] == [2e7, 1, 0]
     assert len(a["p"]) == 6 and a["s"] == round(sum(a["p"]))
     assert app["stocks"]["B"]["f"] == [] and app["stocks"]["B"]["dn"] is None
+    # How fresh the promoters' trades are: the latest filing up to the session (a mistyped future date left out).
+    assert app["pu"] == "2026-10-20"
+    insider["B"] = [["3034-03-05", "buy", 1e7, 1, "P", "Promoters", "Market Purchase"]]
+    assert app_file(store, insider)["pu"] == "2026-10-20"
+    assert app_file(store, {})["pu"] is None

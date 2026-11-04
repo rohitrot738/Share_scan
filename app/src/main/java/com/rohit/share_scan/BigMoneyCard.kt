@@ -125,11 +125,14 @@ class BigMoneyCard(
             ),
         )
 
-        val records = signals.map { it.key } + listOfNotNull("score60".takeIf { entry.score >= BigMoneyText.STRONG })
-        for (key in records) {
-            val name = BigMoneyBook.Signal.entries.firstOrNull { it.key == key }?.let { BigMoneyText.signal(activity, it) }
-                ?: activity.getString(R.string.big_money_score_strong)
-            container.addView(text(name + ": " + BigMoneyText.record(activity, book.records[key]), R.color.text_secondary, 12.5f, top = 8))
+        BigMoneyText.promotersStale(activity, book)?.let { container.addView(text(it, R.color.warn, 12.5f, top = 4)) }
+        for (signal in signals) {
+            val line = BigMoneyText.signal(activity, signal) + ": " + BigMoneyText.record(activity, book.records[signal.key], signal.bearish)
+            container.addView(text(line, R.color.text_secondary, 12.5f, top = 8))
+        }
+        if (entry.score >= BigMoneyText.STRONG) {
+            val line = activity.getString(R.string.big_money_score_strong) + ": " + BigMoneyText.record(activity, book.records["score60"], false)
+            container.addView(text(line, R.color.text_secondary, 12.5f, top = 8))
         }
         container.addView(text(activity.getString(R.string.big_money_caution), R.color.text_secondary, 11f, top = 10))
     }

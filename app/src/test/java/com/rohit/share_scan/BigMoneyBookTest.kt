@@ -71,6 +71,30 @@ class BigMoneyBookTest {
     }
 
     @Test
+    fun aWarningWorksWhenThePriceDidWorse() {
+        // A buying signal works when the price beat all shares; a warning (churn, selling) when it did worse.
+        assertEquals(true, BigMoneyBook.Record(1240, 1.9, 0.7, 56.0).worked(Signal.ACCUMULATION.bearish))
+        assertEquals(false, BigMoneyBook.Record(733, -0.3, -0.2, 44.0).worked(Signal.ACCUMULATION.bearish))
+        assertEquals(true, BigMoneyBook.Record(4131, -1.51, -0.27, 36.0).worked(Signal.CHURN.bearish))
+        assertEquals(false, BigMoneyBook.Record(132, 0.4, -0.3, 50.0).worked(Signal.PROMOTER_SELL.bearish))
+        assertNull(BigMoneyBook.Record(12, null, null, null).worked(false))
+        assertEquals(setOf(Signal.CHURN, Signal.DEAL_SELL, Signal.PROMOTER_SELL), Signal.entries.filter { it.bearish }.toSet())
+    }
+
+    @Test
+    fun promoterDataAgeIsKnown() {
+        val stale = BigMoneyBook.parse(sample.replaceFirst("\"record\"", "\"pu\":\"2026-04-30\",\"record\""))!!
+        assertEquals(LocalDate.of(2026, 4, 30), stale.promoterUntil)
+        assertTrue(stale.promotersStale)
+        val fresh = BigMoneyBook.parse(sample.replaceFirst("\"record\"", "\"pu\":\"2026-10-20\",\"record\""))!!
+        assertFalse(fresh.promotersStale)
+        // A file without the date (older builds) reads as stale: nothing says the trades are recent.
+        assertNull(BigMoneyBook.parse(sample)!!.promoterUntil)
+        assertTrue(BigMoneyBook.parse(sample)!!.promotersStale)
+        assertFalse(BigMoneyBook.EMPTY.promotersStale)
+    }
+
+    @Test
     fun truncatedFileReadsAsNull() {
         assertNull(BigMoneyBook.parse(sample.dropLast(40)))
         assertNull(BigMoneyBook.parse("""{"v":2,"date":"2026-11-04","dates":[],"record":{},"stocks":{}}"""))

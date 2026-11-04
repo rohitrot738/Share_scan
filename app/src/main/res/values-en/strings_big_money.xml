@@ -31,7 +31,9 @@
     <!-- Track record -->
     <string name="big_money_record">Past year %1$s times; average move 10 sessions later %2$s (all shares %3$s), higher %4$s of the time</string>
     <string name="big_money_record_worse">⚠️ Over the past year this signal did no better than all shares on average</string>
-    <string name="big_money_record_waiting">Track record: data is building up (%1$d times, at least 30 needed)</string>
+    <string name="big_money_record_warning_weak">⚠️ Over the past year the price did no worse than all shares after this warning</string>
+    <string name="big_money_promoters_stale">⚠️ The promoters\' data only runs to %1$s: NSE is not giving newer data for now, so this tab and the promoter points are incomplete.</string>
+    <string name="big_money_record_waiting">data is building up (%1$d times, at least 30 needed)</string>
     <string name="big_money_score_strong">Score 60 or more</string>
 
     <!-- Signals and the list's mark -->

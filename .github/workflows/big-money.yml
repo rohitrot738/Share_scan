@@ -16,7 +16,7 @@ on:
   # Temporary, removed before merging: a run from this branch, which workflow_dispatch cannot start until the file
   # is on main.
   push:
-    paths: ['.github/workflows/big-money.yml']
+    paths: ['.github/workflows/big-money.yml', 'bigmoney/**']
 permissions:
   contents: write
 concurrency:

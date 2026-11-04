@@ -31,7 +31,9 @@
     <!-- Track record -->
     <string name="big_money_record">കഴിഞ്ഞ വർഷം %1$s തവണ; 10 സെഷൻ കഴിഞ്ഞ് ശരാശരി %2$s (എല്ലാ ഓഹരികളും %3$s), %4$s തവണ മുകളിൽ</string>
     <string name="big_money_record_worse">⚠️ കഴിഞ്ഞ വർഷം ഈ സിഗ്നൽ എല്ലാ ഓഹരികളുടെയും ശരാശരിയെക്കാൾ മെച്ചമായില്ല</string>
-    <string name="big_money_record_waiting">ട്രാക്ക് റെക്കോർഡ്: ഡാറ്റ ശേഖരിക്കുന്നു (%1$d തവണ, കുറഞ്ഞത് 30 വേണം)</string>
+    <string name="big_money_record_warning_weak">⚠️ കഴിഞ്ഞ വർഷം ഈ മുന്നറിയിപ്പിന് ശേഷം വില എല്ലാ ഓഹരികളെക്കാളും മോശമായില്ല</string>
+    <string name="big_money_promoters_stale">⚠️ പ്രൊമോട്ടർ ഡാറ്റ %1$s വരെ മാത്രം: NSE ഇപ്പോൾ പുതിയ ഡാറ്റ തരുന്നില്ല, അതിനാൽ ഈ ടാബും പ്രൊമോട്ടർ പോയിന്റുകളും അപൂർണ്ണമാണ്.</string>
+    <string name="big_money_record_waiting">ഡാറ്റ ശേഖരിക്കുന്നു (%1$d തവണ, കുറഞ്ഞത് 30 വേണം)</string>
     <string name="big_money_score_strong">സ്കോർ 60 അല്ലെങ്കിൽ കൂടുതൽ</string>
 
     <!-- Signals and the list's mark -->

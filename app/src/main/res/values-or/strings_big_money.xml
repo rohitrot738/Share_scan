@@ -31,7 +31,9 @@
     <!-- Track record -->
     <string name="big_money_record">ଗତ ବର୍ଷ %1$s ଥର; 10 ସେସନ ପରେ ହାରାହାରି %2$s (ସବୁ ସେୟାର %3$s), %4$s ଥର ଉପରକୁ</string>
     <string name="big_money_record_worse">⚠️ ଗତ ବର୍ଷ ଏହି ସଙ୍କେତ ସବୁ ସେୟାରର ହାରାହାରିଠାରୁ ଭଲ ହୋଇନି</string>
-    <string name="big_money_record_waiting">ଟ୍ରାକ ରେକର୍ଡ: ଡାଟା ଜମା ହେଉଛି (%1$d ଥର, ଅତି କମରେ 30 ଦରକାର)</string>
+    <string name="big_money_record_warning_weak">⚠️ ଗତ ବର୍ଷ ଏହି ଚେତାବନୀ ପରେ ଦର ସବୁ ସେୟାରଠାରୁ ଖରାପ ଚାଲିନି</string>
+    <string name="big_money_promoters_stale">⚠️ ପ୍ରମୋଟରଙ୍କ ଡାଟା କେବଳ %1$s ପର୍ଯ୍ୟନ୍ତ: NSE ଏବେ ନୂଆ ଡାଟା ଦେଉନି, ତେଣୁ ଏହି ଟ୍ୟାବ ଓ ପ୍ରମୋଟର ଅଙ୍କ ଅସମ୍ପୂର୍ଣ୍ଣ।</string>
+    <string name="big_money_record_waiting">ଡାଟା ଜମା ହେଉଛି (%1$d ଥର, ଅତି କମରେ 30 ଦରକାର)</string>
     <string name="big_money_score_strong">ସ୍କୋର 60 ବା ଅଧିକ</string>
 
     <!-- Signals and the list's mark -->

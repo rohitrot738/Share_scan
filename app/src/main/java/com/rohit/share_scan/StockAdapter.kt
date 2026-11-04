@@ -247,12 +247,11 @@ class StockAdapter(
             meta.setSpan(ForegroundColorSpan(color(entry.state.tone)), start, meta.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             context.getString(R.string.item_cr360_description, score, context.getString(entry.state.label))
         }
+        // बड़े पैसे की चाल's mark leads the line, where the line's end could cut it off.
         val money = bigMoney.of(stock.symbol)
         BigMoneyText.mark(context, money)?.let { (text, tone) ->
-            meta.append(" · ")
-            val start = meta.length
-            meta.append(text)
-            meta.setSpan(ForegroundColorSpan(color(tone)), start, meta.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            meta.insert(0, "$text · ")
+            meta.setSpan(ForegroundColorSpan(color(tone)), 0, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         }
         val moneyDescription = BigMoneyText.markDescription(context, money)
         ui.meta.text = meta
