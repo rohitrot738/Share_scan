@@ -61,6 +61,6 @@ jobs:
         # again, so the daily data keeps coming without anyone touching the repository.
         if: always()
         run: |
-          for workflow in setups-learn.yml cr360-cache.yml sector-data.yml; do
+          for workflow in setups-learn.yml cr360-cache.yml sector-data.yml big-money.yml; do
             gh workflow enable "$workflow" --repo "$GITHUB_REPOSITORY" || echo "Could not enable $workflow"
           done

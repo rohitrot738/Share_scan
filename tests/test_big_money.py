@@ -220,3 +220,84 @@ def test_track_record_hand_worked():
 def test_track_record_needs_30_cases():
     rec = track_record(record_store(), {}, horizon=10)
     assert rec["acc"] == {"n": 1, "avg": None, "base": None, "up": None}
+
+
+# --- the evening build --------------------------------------------------------------------------------------------
+
+import gzip  # noqa: E402
+import json  # noqa: E402
+
+from bigmoney.build import app_file, main  # noqa: E402
+
+
+def big_file(day="04-Nov-2026", n=1600, deliv=30.0):
+    lines = [HEADER]
+    for i in range(n):
+        lines.append(f"S{i}, EQ, {day}, 100.00, 100, 101, 99, 100, 100.50, 100, 200000, 200, 100, 60000, {deliv}")
+    return "\n".join(lines)
+
+
+def write_store(path, store):
+    with gzip.open(path, "wt") as f:
+        json.dump(store, f)
+
+
+def run(tmp_path, store, fetch, today="2026-11-04"):
+    paths = {k: str(tmp_path / f"{k}.json.gz") for k in ("store", "out", "cr360")}
+    if store is not None:
+        write_store(paths["store"], store)
+    code = main(["--store", paths["store"], "--out", paths["out"], "--cr360-store", paths["cr360"], "--today", today],
+                fetch=fetch, deals=lambda: {}, pause=0)
+    return code, paths
+
+
+def test_build_skips_when_no_new_session(tmp_path, capsys):
+    store = empty_store()
+    add_session(store, "2026-11-04", {"A": row()})
+    code, paths = run(tmp_path, store, fetch=lambda day: None)
+    assert code == 0 and "NOTHING NEW" in capsys.readouterr().out
+    assert not (tmp_path / "out.json.gz").exists()
+
+
+def test_build_refuses_thin_file(tmp_path):
+    store = empty_store()
+    add_session(store, "2026-11-03", {"A": row()})
+    write_store(tmp_path / "store.json.gz", store)
+    before = (tmp_path / "store.json.gz").read_bytes()
+    code, paths = run(tmp_path, None, fetch=lambda day: SAMPLE if day.isoformat() == "2026-11-04" else None)
+    assert code == 1
+    assert (tmp_path / "store.json.gz").read_bytes() == before
+    assert not (tmp_path / "out.json.gz").exists()
+
+
+def test_build_adds_the_new_session(tmp_path, capsys):
+    store = empty_store()
+    add_session(store, "2026-11-03", {f"S{i}": row() for i in range(1600)})
+    code, paths = run(tmp_path, store, fetch=lambda day: big_file() if day.isoformat() == "2026-11-04" else None)
+    assert code == 0 and "PUBLISH" in capsys.readouterr().out
+    app = json.load(gzip.open(paths["out"], "rt"))
+    assert app["date"] == "2026-11-04" and len(app["stocks"]) == 1600
+    kept = json.load(gzip.open(paths["store"], "rt"))
+    assert kept["dates"] == ["2026-11-03", "2026-11-04"]
+
+
+def test_app_file_shape():
+    store = empty_store()
+    for i in range(25):
+        last = i == 24
+        add_session(store, f"2026-10-{i + 1:02d}", {
+            "A": row(100.0, 100.0, 300_000 if last else 100_000, 50.0 if last else 20.0),
+            "B": row(),
+        })
+    add_deals(store, {"A": [["2026-10-24", "buy", 1e6, 10_000, "X", "bulk"], ["2026-10-25", "buy", 1e6, 10_000, "Y", "bulk"]]})
+    insider = {"A": [["2026-10-20", "buy", 2e7, 1, "P", "Promoters", "Market Purchase"]]}
+    app = app_file(store, insider)
+    assert app["v"] == 1 and app["date"] == "2026-10-25" and len(app["dates"]) == 20
+    assert set(app["record"]) == {"acc", "churn", "deal_buy", "deal_sell", "promoter_buy", "promoter_sell", "score60"}
+    a = app["stocks"]["A"]
+    assert a["f"] == ["acc", "deal_buy", "promoter_buy"]
+    assert a["d"] == 50.0 and a["da"] == 20.0 and a["v"] == 300_000 and a["va"] == 100_000.0 and a["c"] == 0.0
+    assert len(a["dq"]) == 20 and a["dq"][-1] == 50.0 and len(a["vq"]) == 20
+    assert a["dn"] == [20_000, 2e6, 2, 2] and a["cc"] == [] and a["pn"] == [2e7, 1, 0]
+    assert len(a["p"]) == 6 and a["s"] == round(sum(a["p"]))
+    assert app["stocks"]["B"]["f"] == [] and app["stocks"]["B"]["dn"] is None

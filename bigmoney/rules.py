@@ -54,15 +54,21 @@ def change(day: Day) -> float | None:
     return (day.close - day.prev_close) / day.prev_close * 100
 
 
+def averages(days: list[Day]) -> tuple[float | None, float | None, float | None]:
+    """The 20 sessions before today: their average delivery % and volume (None with under 15 sessions to go on),
+    and the average delivery % of the last 5 sessions, today's included."""
+    deliveries, volumes = _usable(days, "deliv_pct"), _usable(days, "volume")
+    avg_d = _mean(deliveries) if len(deliveries) >= MIN_SESSIONS else None
+    avg_v = _mean(volumes) if len(volumes) >= MIN_SESSIONS else None
+    return avg_d, avg_v, _mean(d.deliv_pct for d in days[-RECENT_SESSIONS:])
+
+
 def ratios(days: list[Day]) -> Ratios:
     """Today's delivery and volume against their 20-session averages, the last 5 sessions' delivery against the
     same average, and today's price change in %; each None without the figures."""
     today = days[-1]
-    deliveries, volumes = _usable(days, "deliv_pct"), _usable(days, "volume")
-    avg_d = _mean(deliveries) if len(deliveries) >= MIN_SESSIONS else None
-    avg_v = _mean(volumes) if len(volumes) >= MIN_SESSIONS else None
+    avg_d, avg_v, recent = averages(days)
     spike = today.deliv_pct / avg_d if avg_d and today.deliv_pct is not None else None
-    recent = _mean(d.deliv_pct for d in days[-RECENT_SESSIONS:])
     build = recent / avg_d if avg_d and recent is not None else None
     volume = today.volume / avg_v if avg_v and today.volume is not None else None
     return Ratios(spike, build, volume, change(today))
