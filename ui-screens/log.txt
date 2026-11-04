@@ -1,0 +1,41 @@
+IST now: 2026-11-05 01:24
+scan done after ~50s
+shot 01-list
+shot 60-menu
+shot 61-bigmoney-acc
+💰 बड़े पैसे की चाल
+4 Nov शाम का NSE data · 3,133 शेयर
+🟢 चुपचाप खरीद
+🔴 Churn / जाल
+🤝 Deals
+👔 Promoter
+आज delivery अपने 20 सत्र के औसत के 1.8 गुना से ज़्यादा, भाव ±2% के अंदर और 1 लाख से ज़्यादा शेयर: कोई भाव बढ़ाए बिना शेयर उठा रहा हो सकता है।
+🟢 चुपचाप खरीद (delivery spike): पिछले साल 733 बार; 10 सत्र बाद औसत −0.2% (सब शेयर −0.3%), 44% बार ऊपर
+GRMOVER · delivery 56.5% (औसत 23.8%, 2.37 गुना)
+भाव −0.49% · 11.5 L शेयर का सौदा · score 31
+PAISALO · delivery 68.7% (औसत 32.7%, 2.1 गुना)
+भाव +0.08% · 43.2 L शेयर का सौदा · score 31
+SSRETAIL · delivery 26.1% (औसत 12.5%, 2.09 गुना)
+भाव +1.63% · 4.1 L शेयर का सौदा · score 29
+BLUECLOUDS · delivery 87.6% (औसत 42.2%, 2.08 गुना)
+भाव −1.42% · 63.4 L शेयर का सौदा · score 27
+TATACHEM · delivery 53.7% (औसत 27%, 1.99 गुना)
+भाव −1.07% · 10.3 L शेयर का सौदा · score 23
+shot 62-bigmoney-churn
+shot 63-bigmoney-deals
+shot 64-bigmoney-promoter
+shot 65-bigmoney-acc-more
+shot 66-card
+shot 67-card-part
+shot 68-card-more
+shot 69-card-end
+shot 70-filters
+shot 71-list-accumulating
+pref background=galaxy
+shot 72-cards-accumulating
+shot 73-scan-alerts
+app was not in front
+app was not in front
+shot 74-guide-bigmoney
+shot 75-guide-bigmoney-more
+done
