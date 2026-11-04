@@ -8,6 +8,10 @@ on:
     - cron: '45 15 * * 1-5'  # 21:15 IST
     - cron: '45 18 * * 1-5'  # 00:15 IST, for a file NSE put out late
   workflow_dispatch:
+  # Temporary, removed before merging: a run from this branch, which workflow_dispatch cannot start until the file
+  # is on main.
+  push:
+    paths: ['.github/workflows/big-money.yml']
 permissions:
   contents: write
 concurrency:
