@@ -11,6 +11,9 @@ HORIZON = 10
 MIN_CASES = 30
 SCORE_MARK = 60
 KEYS = ("acc", "churn", "deal_buy", "deal_sell", "promoter_buy", "promoter_sell", "score60")
+# Signals that stay on for weeks (the deals' 30 sessions, the promoters' 90 days, a score that holds) count once, on
+# the session they first show; accumulation and churn are one session's signals and count every time.
+LASTING = ("deal_buy", "deal_sell", "promoter_buy", "promoter_sell", "score60")
 
 
 def signals_at(store: dict, insider: dict[str, list], symbol: str, i: int) -> tuple[list[str], int, list[float]]:
@@ -34,6 +37,7 @@ def track_record(store: dict, insider: dict[str, list], horizon: int = HORIZON,
     None under `min_cases` cases."""
     cases: dict[str, list[tuple[float, float]]] = {k: [] for k in KEYS}
     stocks = store["stocks"]
+    on_before: dict[str, set[str]] = {}  # each share's lasting signals the session before
     for i in range(rules.AVG_SESSIONS, len(store["dates"]) - horizon):
         moves = {}
         for symbol, v in stocks.items():
@@ -47,7 +51,11 @@ def track_record(store: dict, insider: dict[str, list], horizon: int = HORIZON,
             found, total, _ = signals_at(store, insider, symbol, i)
             if total >= SCORE_MARK:
                 found = found + ["score60"]
+            before = on_before.get(symbol, set())
+            on_before[symbol] = {k for k in found if k in LASTING}
             for key in found:
+                if key in LASTING and key in before:
+                    continue
                 cases[key].append((move, base))
     out = {}
     for key, got in cases.items():

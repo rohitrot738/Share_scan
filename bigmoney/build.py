@@ -1,8 +1,9 @@
 """The evening job of बड़े पैसे की चाल: tops up the store with every NSE session it lacks (a year of them the first
 time), adds the day's bulk and block deals, works out each signal's track record and writes the app's file.
 
-Prints PUBLISH when a new session went in and both files were written, NOTHING NEW when there was nothing to add
-(a holiday, or NSE's file not out yet); exits 1, writing nothing, when NSE's file is too thin to be whole.
+Prints PUBLISH when a new session went in (or --rebuild asked for the files again) and both files were written,
+NOTHING NEW when there was nothing to add (a holiday, or NSE's file not out yet); exits 1, writing nothing, when NSE's
+file is too thin to be whole.
 
     python -m bigmoney.build --store big-money-store.json.gz --cr360-store cr360-store.json.gz --out big-money.json.gz
 """
@@ -92,6 +93,8 @@ def main(argv=None, fetch=fetch_delivery, deals=None, pause: float = PAUSE) -> i
     ap.add_argument("--cr360-store", default="cr360-store.json.gz")
     ap.add_argument("--out", default="big-money.json.gz")
     ap.add_argument("--today", default=None)
+    ap.add_argument("--rebuild", action="store_true",
+                    help="write the app's file from the store even with no new session (after a change to the rules)")
     args = ap.parse_args(argv)
     today = date.fromisoformat(args.today) if args.today else datetime.now(ZoneInfo("Asia/Kolkata")).date()
 
@@ -117,7 +120,7 @@ def main(argv=None, fetch=fetch_delivery, deals=None, pause: float = PAUSE) -> i
         if add_session(store, session, rows):
             added.append(session)
     log(f"sessions added: {len(added)} ({added[0] if added else '-'} .. {added[-1] if added else '-'})")
-    if not added:
+    if not added and not (args.rebuild and store["dates"]):
         if thin:
             log("NSE's newest file is not whole; nothing written")
             return 1

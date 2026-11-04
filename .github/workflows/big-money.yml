@@ -8,6 +8,11 @@ on:
     - cron: '45 15 * * 1-5'  # 21:15 IST
     - cron: '45 18 * * 1-5'  # 00:15 IST, for a file NSE put out late
   workflow_dispatch:
+    inputs:
+      rebuild:
+        description: 'Write the app file again from the store (after a change to the rules)'
+        type: boolean
+        default: false
   # Temporary, removed before merging: a run from this branch, which workflow_dispatch cannot start until the file
   # is on main.
   push:
@@ -37,7 +42,7 @@ jobs:
       - name: Build
         run: |
           set -o pipefail
-          python -m bigmoney.build | tee build.log
+          python -m bigmoney.build ${{ (inputs.rebuild || github.event_name == 'push') && '--rebuild' || '' }} | tee build.log
       - name: Publish
         run: |
           if grep -q '^PUBLISH' build.log; then

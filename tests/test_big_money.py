@@ -223,6 +223,14 @@ def test_track_record_hand_worked():
     assert set(rec) == {"acc", "churn", "deal_buy", "deal_sell", "promoter_buy", "promoter_sell", "score60"}
 
 
+def test_lasting_signals_count_on_the_day_they_start():
+    # One promoter purchase keeps the promoter flag on for 90 days; the record counts the session it first showed.
+    store = record_store()
+    insider = {"B": [[store["dates"][22], "buy", 2e7, 1, "P", "Promoters", "Market Purchase"]]}
+    rec = track_record(store, insider, horizon=10, min_cases=1)
+    assert rec["promoter_buy"]["n"] == 1
+
+
 def test_track_record_needs_30_cases():
     rec = track_record(record_store(), {}, horizon=10)
     assert rec["acc"] == {"n": 1, "avg": None, "base": None, "up": None}
@@ -263,6 +271,18 @@ def test_build_skips_when_no_new_session(tmp_path, capsys):
     code, paths = run(tmp_path, store, fetch=lambda day: None)
     assert code == 0 and "NOTHING NEW" in capsys.readouterr().out
     assert not (tmp_path / "out.json.gz").exists()
+
+
+def test_build_rebuilds_on_request(tmp_path, capsys):
+    # A change to the rules or the record is put into the app's file without waiting for the next session.
+    store = empty_store()
+    add_session(store, "2026-11-04", {"A": row()})
+    write_store(tmp_path / "store.json.gz", store)
+    paths = {k: str(tmp_path / f"{k}.json.gz") for k in ("store", "out", "cr360")}
+    code = main(["--store", paths["store"], "--out", paths["out"], "--cr360-store", paths["cr360"], "--today", "2026-11-04",
+                 "--rebuild"], fetch=lambda day: None, deals=lambda: {}, pause=0)
+    assert code == 0 and "PUBLISH" in capsys.readouterr().out
+    assert json.load(gzip.open(paths["out"], "rt"))["date"] == "2026-11-04"
 
 
 def test_build_refuses_thin_file(tmp_path):
