@@ -222,6 +222,7 @@ tap_text "🤝 Deals"
 shot 63-bigmoney-deals 2
 tap_text "👔 Promoter"
 shot 64-bigmoney-promoter 2
+all_texts | head -30 >> "$LOG"
 tap_text "चुपचाप खरीद"
 sleep 2
 swipe_up
