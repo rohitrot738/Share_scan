@@ -42,3 +42,104 @@ def test_fetch_delivery_asks_for_the_day():
 
     assert fetch_delivery(date(2026, 11, 4), get=get) == SAMPLE
     assert asked == ["https://nsearchives.nseindia.com/products/content/sec_bhavdata_full_04112026.csv"]
+
+
+# --- signals, deal and promoter net, score ------------------------------------------------------------------------
+
+from bigmoney.rules import (Day, DealNet, PromoterNet, Ratios, accumulation, churn, deal_net, flags,  # noqa: E402
+                            promoter_net, ratios, score)
+
+
+def make_days(deliv, today_deliv, change=1.0, volume=200_000, n=20, avg_volume=100_000):
+    """`n` quiet sessions at `deliv`% delivery and `avg_volume` shares, then today."""
+    out = [Day(f"2026-10-{i + 1:02d}", 100.0, 100.0, avg_volume, deliv) for i in range(n)]
+    out.append(Day("2026-11-04", 100.0 + change, 100.0, volume, today_deliv))
+    return out
+
+
+def test_accumulation_threshold():
+    assert accumulation(make_days(20.0, 37.0))  # 1.85x the 20-session average
+    assert not accumulation(make_days(20.0, 35.0))  # 1.75x
+    assert not accumulation(make_days(20.0, 37.0, change=2.5))  # price not calm
+    assert not accumulation(make_days(20.0, 37.0, change=-2.5))
+    assert not accumulation(make_days(20.0, 37.0, volume=90_000))  # too thin
+
+
+def test_accumulation_needs_15_sessions():
+    assert accumulation(make_days(20.0, 37.0, n=15))
+    assert not accumulation(make_days(20.0, 37.0, n=14))
+
+
+def test_gaps_are_none():
+    days = make_days(20.0, 37.0)
+    for i in range(6):
+        days[i] = days[i]._replace(deliv_pct=None, volume=None, close=None)
+    assert not accumulation(days)  # 14 sessions with a delivery figure
+    assert not churn(days)
+    days[-1] = days[-1]._replace(deliv_pct=None)
+    assert not accumulation(days) and ratios(days).spike is None
+
+
+def test_churn():
+    assert churn(make_days(15.0, 15.0, volume=450_000))  # 4.5x volume, 15% delivery
+    assert not churn(make_days(15.0, 15.0, volume=350_000))
+    assert not churn(make_days(25.0, 25.0, volume=450_000))
+
+
+def test_ratios():
+    r = ratios(make_days(20.0, 40.0, change=1.5, volume=300_000))
+    assert r.spike == 2.0 and r.volume == 3.0 and r.change == 1.5
+    assert r.build == 1.2  # (20+20+20+20+40)/5 = 24, over 20
+
+
+SESSIONS = [f"2026-10-{d:02d}" for d in range(1, 31)]
+DEALS = [
+    ["2026-09-15", "buy", 5e6, 50_000, "OLD", "bulk"],  # before the 30 sessions
+    ["2026-10-10", "buy", 1e6, 10_000, "X", "bulk"],
+    ["2026-10-12", "sell", 3e6, 30_000, "X", "bulk"],  # X bought and sold two sessions apart
+    ["2026-10-20", "buy", 4e6, 40_000, "A", "bulk"],
+    ["2026-10-25", "buy", 2e6, 20_000, "B", "block"],
+    ["2026-10-25", "sell", 1e6, 10_000, "C", "block"],
+]
+
+
+def test_deal_net_streak_and_circular():
+    net = deal_net(DEALS, SESSIONS)
+    assert net == DealNet(30_000, 3e6, 4, 2, ["X"])
+    assert deal_net(DEALS[:1], SESSIONS) is None
+    selling = deal_net([["2026-10-28", "sell", 1e6, 9_000, "Z", "bulk"], ["2026-10-29", "sell", 1e6, 9_000, "Z", "bulk"]],
+                       SESSIONS)
+    assert selling.streak == -2 and selling.circular == []
+
+
+def test_promoter_net_rules():
+    rows = [
+        ["2026-10-20", "buy", 2e7, 1, "P1", "Promoters", "Market Purchase"],
+        ["2026-10-21", "sell", 5e6, 1, "P2", "Promoter Group", "Market Sale"],
+        ["2026-10-22", "buy", 1e7, 1, "P3", "Promoters", "ESOP"],
+        ["2026-10-23", "buy", 1e7, 1, "D", "Director", "Market Purchase"],
+        ["3034-03-05", "buy", 9e9, 1, "P1", "Promoters", "Market Purchase"],  # a mistyped filing date
+        ["2026-07-27", "buy", 3e7, 1, "P1", "Promoters", "Market Purchase"],  # 100 days back
+        ["2026-10-24", "buy", 1e7, 1, "P1", "Promoters"],  # a short row from an older cache
+    ]
+    assert promoter_net(rows, date(2026, 11, 4)) == PromoterNet(1.5e7, 1, 1)
+    assert promoter_net(rows[2:4], date(2026, 11, 4)) is None
+
+
+def test_score_edges():
+    assert score(Ratios(3.0, 1.5, None, 0.0), None, None, False, None) == (50, [30, 20, 0, 0, 0, 0])
+    assert score(Ratios(2.0, 1.0, None, 0.0), None, None, False, None)[0] == 15
+    full_deal = DealNet(100_000, 1e7, 2, 2, [])
+    assert score(Ratios(1.0, 1.0, None, 0.0), full_deal, PromoterNet(5e7, 1, 0), False, 100_000)[0] == 50
+    assert score(Ratios(1.0, 1.0, None, 0.0), DealNet(50_000, 5e6, 1, 1, []), None, False, 100_000)[0] == 12
+    assert score(Ratios(3.0, 1.0, None, 0.0), None, None, True, None) == (0, [30, 0, 0, 0, -30, 0])
+    selling = score(Ratios(3.0, 1.5, None, 0.0), DealNet(-100_000, -1e7, 2, -2, []), PromoterNet(-2.5e7, 0, 1), False,
+                    100_000)
+    assert selling == (12, [30, 20, 0, 0, 0, -37.5])
+    assert score(Ratios(None, None, None, None), None, None, False, None) == (0, [0, 0, 0, 0, 0, 0])
+
+
+def test_flags():
+    assert flags(True, False, DealNet(1, 1.0, 2, 2, []), PromoterNet(1.0, 1, 0)) == ["acc", "deal_buy", "promoter_buy"]
+    assert flags(False, True, DealNet(-1, -1.0, 3, -2, []), PromoterNet(-1.0, 0, 1)) == ["churn", "deal_sell", "promoter_sell"]
+    assert flags(False, False, DealNet(1, 1.0, 1, 1, []), None) == []
