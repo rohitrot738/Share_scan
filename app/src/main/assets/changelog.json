@@ -8,7 +8,8 @@
       "हर trade पर असली जैसे charges: brokerage, STT, exchange charges, SEBI fee, GST, stamp duty और DP charge",
       "Paper Trading के tabs: खुले intraday trades, delivery शेयर, रुके और पिछले orders, और हिसाब (जीत-हार, profit factor, charges, सबसे बड़ी गिरावट, app के plan से लिए trades बनाम अपने चुने); account की value रोज़ के graph के साथ, और account फिर से शुरू करने का बटन",
       "App बंद हो तब भी market के समय हर 15 मिनट paper trades की जाँच: order भरने, stop-loss, target या square-off पर notification",
-      "Trade window में \"📝 Paper trade करें\": plan के entry, stop-loss और target से भरा order, paper account के हिसाब से शेयर गिनकर"
+      "Trade window में \"📝 Paper trade करें\": plan के entry, stop-loss और target से भरा order, paper account के हिसाब से शेयर गिनकर",
+      "नया Menu → शुरुआती गाइड: app की हर चीज़ आसान हिंदी में, कदम-दर-कदम, screenshots, शब्दकोश और आम सवालों के साथ; internet के बिना भी खुलती है"
     ]
   },
   {

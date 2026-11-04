@@ -1,0 +1,707 @@
+<!doctype html>
+<!-- The beginner's guide shown in the app (Menu → शुरुआती गाइड, GuideSheet), the same as the published guide page.
+     The app is always dark, so the page is too. -->
+<html lang="hi" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Share Scan की पूरी गाइड</title>
+<style>
+/* The app's own Devanagari fonts (res/font), so the guide reads the same without internet. */
+@font-face { font-family: "GuideDisplay"; src: url("file:///android_res/font/mukta_bold.ttf"); font-weight: 600 800; }
+@font-face { font-family: "GuideBody"; src: url("file:///android_res/font/hind_regular.ttf"); font-weight: 400 500; }
+@font-face { font-family: "GuideBody"; src: url("file:///android_res/font/hind_bold.ttf"); font-weight: 600 800; }
+/* Layout: a reading column of numbered lessons, each with the app's own screen beside it (stacked on phones). */
+:root {
+  --bg: #f5f4fa;
+  --surface: #ffffff;
+  --ink: #1d1838;
+  --muted: #5b5677;
+  --line: #e1def0;
+  --accent: #5b3fd6;
+  --accent-soft: #ece7ff;
+  --bull: #087a54;
+  --bull-soft: #e2f5ec;
+  --bear: #b73a33;
+  --warn: #8a5300;
+  --warn-soft: #fff3dc;
+  --display: "GuideDisplay", "Noto Sans Devanagari", sans-serif;
+  --body: "GuideBody", "Noto Sans Devanagari", sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e0b21; --surface: #17132e; --ink: #ece9fb; --muted: #a7a2c8; --line: #2c2752;
+    --accent: #a98bff; --accent-soft: #262050; --bull: #4ade80; --bull-soft: #10291f;
+    --bear: #f8857d; --warn: #f7c35a; --warn-soft: #2a2211; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e0b21; --surface: #17132e; --ink: #ece9fb; --muted: #a7a2c8; --line: #2c2752;
+  --accent: #a98bff; --accent-soft: #262050; --bull: #4ade80; --bull-soft: #10291f;
+  --bear: #f8857d; --warn: #f7c35a; --warn-soft: #2a2211; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body);
+  font-size: 16.5px; line-height: 1.75;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap {
+  max-width: 1040px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: var(--surface); border-bottom: 1px solid var(--line);
+}
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-block: 10px; }
+.brand { font-family: var(--display); font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
+.brand b { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; background: var(--accent); color: var(--surface); font-size: 1rem; }
+.bar nav a { font-size: .92rem; font-weight: 500; text-decoration: none; padding: 6px 12px; border-radius: 999px; background: var(--accent-soft); }
+
+h1, h2, h3 { font-family: var(--display); line-height: 1.25; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2rem, 5.2vw, 3.1rem); font-weight: 700; letter-spacing: -.01em; }
+h2 { font-size: clamp(1.45rem, 3.2vw, 1.9rem); font-weight: 700; }
+h3 { font-size: 1.18rem; font-weight: 600; margin-top: 1.4em; }
+p { margin: .7em 0; max-width: 68ch; }
+ul, ol { padding-left: 1.3em; margin: .6em 0; max-width: 68ch; }
+li { margin: .3em 0; }
+.ui { display: inline-block; font-size: .88em; font-weight: 600; line-height: 1.5; padding: 0 .55em; border-radius: 6px; background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+.num { font-variant-numeric: tabular-nums; }
+.bull { color: var(--bull); font-weight: 600; }
+.bear { color: var(--bear); font-weight: 600; }
+
+/* Hero */
+.hero { padding-block: 40px 28px; display: grid; gap: 22px; }
+.hero .lede { font-size: 1.12rem; color: var(--muted); max-width: 62ch; margin: 0; }
+.note-strip { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { font-size: .85rem; padding: 4px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--muted); }
+.pill strong { color: var(--ink); }
+
+/* Quick start: a real sequence, so it is numbered. */
+.quick { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); counter-reset: q; margin-top: 6px; }
+.quick li { list-style: none; margin: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px 16px; counter-increment: q; min-width: 0; }
+.quick li::before { content: counter(q); display: block; font-family: var(--display); font-weight: 700; font-size: 1.6rem; line-height: 1; color: var(--accent); margin-bottom: 6px; }
+.quick { padding: 0; max-width: none; }
+.quick b { display: block; font-size: 1rem; }
+.quick span { font-size: .92rem; color: var(--muted); }
+
+/* Contents */
+.toc { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; margin-bottom: 8px; }
+.toc h2 { font-size: 1.25rem; }
+.toc ol { columns: 3 230px; column-gap: 28px; margin: 10px 0 0; padding-left: 1.4em; max-width: none; }
+.toc li { break-inside: avoid; margin: .15em 0; }
+.toc a { text-decoration: none; color: var(--ink); }
+.toc a:hover { color: var(--accent); text-decoration: underline; }
+
+/* Lessons */
+section.lesson { padding-block: 34px; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
+.lesson-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+.lesson-head .n { font-family: var(--display); font-weight: 700; color: var(--accent); font-size: 1.1rem; min-width: 2ch; }
+.lesson-head p { margin: 2px 0 0; color: var(--muted); }
+.cols { display: grid; gap: 28px; grid-template-columns: minmax(0, 1fr); align-items: start; }
+@media (min-width: 820px) { .cols.has-shot { grid-template-columns: minmax(0, 1fr) 250px; } }
+.shots { display: grid; gap: 14px; justify-items: center; }
+figure { margin: 0; max-width: 250px; width: 100%; }
+figure img { display: block; width: 100%; height: auto; border-radius: 22px; border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(20, 12, 60, .12); }
+figcaption { font-size: .82rem; color: var(--muted); text-align: center; margin-top: 6px; line-height: 1.5; }
+
+.callout { border-radius: 12px; padding: 12px 16px; margin: 14px 0; max-width: 68ch; font-size: .97rem; }
+.callout.tip { background: var(--bull-soft); }
+.callout.warn { background: var(--warn-soft); }
+.callout b:first-child { display: block; font-family: var(--display); font-size: 1.02rem; }
+.callout.tip b:first-child { color: var(--bull); }
+.callout.warn b:first-child { color: var(--warn); }
+
+.table-box { overflow-x: auto; margin: 12px 0; max-width: 100%; }
+table { border-collapse: collapse; min-width: 480px; width: 100%; font-size: .95rem; background: var(--surface); border-radius: 12px; overflow: hidden; }
+th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; background: var(--accent-soft); color: var(--ink); }
+td.num, th.num { text-align: right; white-space: nowrap; }
+
+/* Glossary */
+.terms { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); margin-top: 14px; }
+.terms div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; min-width: 0; }
+.terms dt { font-weight: 600; }
+.terms dd { margin: 2px 0 0; color: var(--muted); font-size: .94rem; line-height: 1.6; }
+
+/* FAQ */
+.faq { display: grid; gap: 10px; margin-top: 12px; }
+.faq div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; }
+.faq h3 { margin: 0; font-size: 1.05rem; }
+.faq p { margin: .3em 0 0; color: var(--muted); }
+
+.routine { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 12px; }
+.routine div { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; min-width: 0; }
+.routine .t { font-family: var(--display); font-weight: 700; color: var(--accent); font-size: 1.05rem; }
+.routine p { margin: .2em 0 0; font-size: .95rem; }
+
+footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var(--muted); font-size: .92rem; }
+.top-link { display: inline-block; margin-top: 10px; }
+</style>
+
+</head>
+<body>
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top"><b>R</b> Share Scan गाइड</a>
+    <nav><a href="#contents">विषय-सूची</a></nav>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <h1>Share Scan: शुरुआत से हर चीज़</h1>
+    <p class="lede">यह गाइड उन लोगों के लिए है जिन्होंने share बाज़ार में अभी कदम रखा है। App install करने से लेकर scan, stock की जानकारी, trade plan, Paper Trading, watchlist, alerts और हर setting तक, सब कुछ आसान भाषा में, एक-एक कदम।</p>
+    <div class="note-strip">
+      <span class="pill">Android app · <strong>NSE, NSE SME, BSE</strong></span>
+      <span class="pill">App की भाषा: <strong>Hinglish</strong> (11 और भाषाएँ)</span>
+      <span class="pill">App कोई असली order नहीं भेजता</span>
+    </div>
+    <div class="callout warn">
+      <b>पहले यह पढ़ लें</b>
+      Share Scan के score, plan, target और "आसार" पिछले भाव और आँकड़ों से बने अनुमान हैं। यह निवेश की सलाह नहीं है, और कोई भी अनुमान गारंटी नहीं। असली पैसा लगाने से पहले खुद समझें, छोटा जोखिम लें, और पहले Paper Trading में अभ्यास करें।
+    </div>
+    <h2>5 कदम में शुरुआत</h2>
+    <ol class="quick">
+      <li><b>App install करें</b><span>GitHub से ShareScan.apk download करके install करें।</span></li>
+      <li><b>पहला scan चलाएँ</b><span>ऊपर के scan बोर्ड या हरी pill से SCAN दबाएँ, 2 से 5 मिनट रुकें।</span></li>
+      <li><b>List पढ़ें</b><span>सबसे ऊपर सबसे अच्छे score वाले stocks। STRONG वाले पहले देखें।</span></li>
+      <li><b>Stock खोलें</b><span>Line दबाएँ: score क्यों, R/S, ख़बरें और trade plan।</span></li>
+      <li><b>पहले अभ्यास</b><span>📝 Paper Trading में नकली पैसे से trade करके सीखें।</span></li>
+    </ol>
+  </div>
+
+  <div class="wrap">
+    <nav class="toc" id="contents" aria-label="विषय-सूची">
+      <h2>विषय-सूची</h2>
+      <ol>
+        <li><a href="#install">App install और update</a></li>
+        <li><a href="#scan">पहला scan</a></li>
+        <li><a href="#list">Stocks की list पढ़ना</a></li>
+        <li><a href="#score">Score कैसे बनता है</a></li>
+        <li><a href="#filters">Filters, sort, sector और खोज</a></li>
+        <li><a href="#detail">Stock का detail</a></li>
+        <li><a href="#trade">Trade window: लक्ष्य, plan, कितने शेयर</a></li>
+        <li><a href="#rs">R/S: company कितनी मज़बूत</a></li>
+        <li><a href="#intraday">आज के Intraday</a></li>
+        <li><a href="#paper">📝 Paper Trading</a></li>
+        <li><a href="#log">Trade log और risk guard</a></li>
+        <li><a href="#watchlist">Watchlist</a></li>
+        <li><a href="#alerts">Alerts और notifications</a></li>
+        <li><a href="#menu">Menu की हर चीज़</a></li>
+        <li><a href="#routine">रोज़ का आसान तरीका</a></li>
+        <li><a href="#glossary">शब्दकोश</a></li>
+        <li><a href="#faq">आम सवाल</a></li>
+      </ol>
+    </nav>
+
+    <!-- 1 -->
+    <section class="lesson" id="install">
+      <div class="lesson-head"><span class="n">1</span><div><h2>App install और update</h2><p>पहली बार phone में लगाना, और नया version आने पर update।</p></div></div>
+      <div class="cols">
+        <div>
+          <h3>Install करना</h3>
+          <ol>
+            <li>Phone के browser में यह link खोलें: <a href="https://github.com/rohitrot738/Share_scan/releases/latest/download/ShareScan.apk">github.com/rohitrot738/Share_scan → ShareScan.apk</a>। यह हमेशा सबसे नया version देता है।</li>
+            <li>Download पूरा होने पर file खोलें। Android पहली बार पूछेगा "इस source से install करने दें?"। Browser या Files app के लिए <span class="ui">Allow</span> चालू करें, फिर back दबाएँ।</li>
+            <li><span class="ui">Install</span> दबाएँ। App का नाम <b>Share Scan</b> है, हरे R वाला icon।</li>
+            <li>पहली बार खोलने पर notification की अनुमति माँगी जाए तो <span class="ui">Allow</span> दें, ताकि alerts आ सकें।</li>
+          </ol>
+          <h3>Update करना</h3>
+          <p>नया version आने पर app में सबसे ऊपर एक banner दिखता है: <span class="ui">Update करें</span> दबाएँ, download होने के बाद <span class="ui">Install करें</span>। नया version पुराने के ऊपर install होता है, आपकी watchlist, filters और settings वैसे ही रहते हैं। हर release एक ही पक्की key से sign है, इसलिए uninstall करने की ज़रूरत नहीं।</p>
+          <p>खुद देखना हो तो <span class="ui">Menu</span> → <span class="ui">Update देखें</span>। क्या नया आया, यह <span class="ui">Menu</span> → <span class="ui">App के बारे में</span> → "क्या नया है" में मिलता है।</p>
+          <div class="callout tip">
+            <b>Background में चलने दें</b>
+            बाज़ार के समय का auto-scan और alerts app बंद होने पर भी चलें, इसके लिए <span class="ui">Menu</span> → <span class="ui">स्कैन</span> में "Background में चलने दें" दबाकर अनुमति दें। Xiaomi, Redmi, Vivo, Oppo, Realme जैसे phones में App info में "Autostart" भी चालू करें, वरना Android battery बचाने के लिए इन्हें रोक सकता है।
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="lesson" id="scan">
+      <div class="lesson-head"><span class="n">2</span><div><h2>पहला scan</h2><p>Scan ही app का दिल है: बाज़ार के हज़ारों stocks को जाँचकर सबसे अच्छे ऊपर लाना।</p></div></div>
+      <div class="cols has-shot">
+        <div>
+          <p>App के दो रूप (background) हैं, और दोनों में scan शुरू करने की जगह अलग है:</p>
+          <ul>
+            <li><b>Galaxy</b> (पहले से चालू): ऊपर बड़ा "scan बोर्ड" है। उसमें <span class="ui">SCAN</span> दबाएँ।</li>
+            <li><b>Space Glass</b> (compact table): ऊपर की पतली header में हरी pill है, जैसे "SCAN 100% • 2,623 STOCKS"। उसे दबाएँ, एक panel खुलेगा, उसमें <span class="ui">SCAN</span> दबाएँ।</li>
+          </ul>
+          <p>Panel में दो तरह के scan हैं:</p>
+          <ul>
+            <li><span class="ui">Breakout स्कैन</span>: वे stocks जो अपने हाल के ऊँचे भाव के पास हैं और ऊपर निकलने की तैयारी में दिखते हैं। ज़्यादातर यही इस्तेमाल होता है।</li>
+            <li><span class="ui">Support स्कैन</span>: वे stocks जो 6 महीने से एक भाव के नीचे बंद नहीं हुए, जबकि बार-बार उस तक आए। मज़बूत "फ़र्श" वाले stocks ढूँढने के लिए।</li>
+          </ul>
+          <p>Scan में आम तौर पर 2 से 5 मिनट लगते हैं (BSE भी चालू हो तो ज़्यादा)। App से बाहर जाएँ या screen बंद करें, तब भी scan चलता रहता है: notification में progress और <span class="ui">रोकें</span> बटन दिखता है, और पूरा होने पर नतीजे की notification आती है। बीच में रोकना हो तो panel में <span class="ui">रोकें</span>।</p>
+          <p>आख़िरी scan phone में सहेजा रहता है, इसलिए app दोबारा खोलने पर list तुरंत दिखती है। <span class="ui">Clear scan</span> से उसे मिटा सकते हैं।</p>
+          <div class="callout tip">
+            <b>बाज़ार के समय अपने-आप scan</b>
+            <span class="ui">Menu</span> → <span class="ui">स्कैन</span> में "बाज़ार खुला रहते auto-scan" चालू करें: सोमवार से शुक्रवार 9:15 से 3:30 तक हर 15, 30 या 60 मिनट पर पूरा scan, app बंद हो तब भी। दिन के बीच आज का volume अधूरा होता है, इसलिए app उसे पूरे दिन के अनुमान में बदलकर गिनता है (card पर ≈ का निशान)। इसमें mobile data ज़्यादा लग सकता है।
+          </div>
+        </div>
+        <div class="shots">
+          <figure><img src="img/scan-panel.jpg" alt="हरी pill दबाने पर खुला scan panel: Breakout स्कैन, Support स्कैन और SCAN बटन" loading="lazy" width="360" height="800"><figcaption>Space Glass में pill दबाने पर scan panel</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="lesson" id="list">
+      <div class="lesson-head"><span class="n">3</span><div><h2>Stocks की list पढ़ना</h2><p>Scan के बाद stocks score के हिसाब से ऊपर से नीचे लगते हैं।</p></div></div>
+      <div class="cols has-shot">
+        <div>
+          <h3>हर line में क्या है</h3>
+          <div class="table-box"><table>
+            <tr><th>हिस्सा</th><th>मतलब</th></tr>
+            <tr><td>#1, #2…</td><td>Rank: score में stock का नंबर।</td></tr>
+            <tr><td>RELIANCE</td><td>Stock का symbol (NSE/BSE पर उसका छोटा नाम), नीचे company का नाम।</td></tr>
+            <tr><td>NSE / BSE / SME</td><td>किस exchange पर है। SME = छोटी companies का NSE Emerge।</td></tr>
+            <tr><td>₹ भाव</td><td>आख़िरी भाव (live scan में चलता भाव)।</td></tr>
+            <tr><td>5D बदलाव</td><td>पिछले 5 कारोबारी दिनों में भाव कितना % बदला। <span class="bull">हरा</span> = ऊपर, <span class="bear">लाल</span> = नीचे।</td></tr>
+            <tr><td>RVOL</td><td>आज का volume, पिछले 20 दिनों के औसत का कितना गुना। 2× या ज़्यादा = volume में उछाल।</td></tr>
+            <tr><td>Score</td><td>0 से 100। जितना ज़्यादा, breakout का setup उतना अच्छा।</td></tr>
+          </table></div>
+          <h3>Score के दर्जे</h3>
+          <ul>
+            <li><b>STRONG</b>: 75 या ज़्यादा। बाज़ार के लगभग top 7–8% stocks।</li>
+            <li><b>WATCH</b>: 62 से 75। नज़र रखने लायक।</li>
+            <li><b>WEAK</b>: 62 से कम।</li>
+          </ul>
+          <h3>छोटे निशान (badges)</h3>
+          <ul>
+            <li><b>NEW</b>: पिछले scan के बाद top list में नया आया।</li>
+            <li><b>▲3 / ▼2</b>: पिछले scan से rank कितना ऊपर या नीचे गया।</li>
+            <li><b>★</b>: आपकी watchlist में है (compact table में ऐसे stock का score सुनहरा दिखता है)।</li>
+            <li><b>📰</b>: पिछले 24 घंटे में exchange पर company की कोई घोषणा आई। दबाने पर सीधे ख़बरें खुलती हैं।</li>
+            <li><b>🛞 🚗 💊</b>: company के मुख्य products के icon (Settings से चालू/बंद)।</li>
+          </ul>
+          <h3>List पर क्या-क्या कर सकते हैं</h3>
+          <ul>
+            <li><b>Line या card दबाएँ</b>: stock का पूरा detail खुलता है।</li>
+            <li><b>Watchlist में जोड़ें</b>: compact table में line को दबाकर रखें; Galaxy cards में ☆ दबाएँ।</li>
+            <li><b>नीचे की तैरती bar</b> (Space Glass) या cards के ऊपर chips (Galaxy): <span class="ui">Filters</span>, <span class="ui">★ Watchlist</span>, sort (<span class="ui">Score</span>, <span class="ui">RVOL</span>, 5D, Price, R/S), <span class="ui">सेक्टर</span> और top 10 शेयर करना। Bar को दाएँ-बाएँ खिसकाएँ।</li>
+            <li><b>🔍 खोज</b>: symbol या company का नाम लिखें, जैसे TCS या Reliance।</li>
+          </ul>
+        </div>
+        <div class="shots">
+          <figure><img src="img/list-compact.jpg" alt="Space Glass की compact table: rank, symbol, भाव, 5 दिन का बदलाव, RVOL और score" loading="lazy" width="360" height="800"><figcaption>Space Glass: हर stock एक line में</figcaption></figure>
+          <figure><img src="img/galaxy.jpg" alt="Galaxy layout: ऊपर scan बोर्ड, नीचे बड़े cards" loading="lazy" width="360" height="800"><figcaption>Galaxy: scan बोर्ड और बड़े cards</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="lesson" id="score">
+      <div class="lesson-head"><span class="n">4</span><div><h2>Score कैसे बनता है</h2><p>हर stock के 6 महीने के रोज़ के भाव और volume से, पाँच हिस्सों में।</p></div></div>
+      <div class="cols">
+        <div>
+          <div class="table-box"><table>
+            <tr><th>हिस्सा</th><th class="num">वज़न</th><th>क्या देखता है</th></tr>
+            <tr><td>Breakout के क़रीब</td><td class="num">35%</td><td>भाव 20 दिन के high के कितना पास है, और उससे पहले भाव कितना शांत (कम दायरे में) रहा।</td></tr>
+            <tr><td>Trend (रुझान)</td><td class="num">20%</td><td>भाव 20 और 50 दिन के औसत के ऊपर है या नहीं, और औसत ऊपर की ओर चढ़ रहे हैं या नहीं।</td></tr>
+            <tr><td>Volume उछाल</td><td class="num">20%</td><td>आज का volume (RVOL) और शांत हफ़्ते के बाद volume का बढ़ना।</td></tr>
+            <tr><td>Liquidity (तरलता)</td><td class="num">15%</td><td>रोज़ कितने रुपये का कारोबार होता है। कम कारोबार वाले stock में ख़रीदना-बेचना मुश्किल।</td></tr>
+            <tr><td>Momentum (तेज़ी)</td><td class="num">10%</td><td>हाल की चाल कितनी मज़बूत है।</td></tr>
+            <tr><td>Support bonus</td><td class="num">+5 तक</td><td>Stock किसी पक्के support (फ़र्श) के ऊपर टिका हो तो थोड़ा अतिरिक्त।</td></tr>
+          </table></div>
+          <p>Stock के detail में "Score कैसे बना" के हर हिस्से को दबाएँ, उसका पूरा हिसाब नीचे खुल जाता है।</p>
+          <h3>App पिछले data से सीखता भी है</h3>
+          <ul>
+            <li><b>सीखे हुए setups</b>: हर शाम app पूरे बाज़ार के पिछले 2 साल के हर दिन पर वही plan बनाकर देखता है कि आगे क्या हुआ। जिन शर्तों के मेल (जैसे "Breakout आज + volume 2×") पर trades औसत से साफ़ ज़्यादा सफल रहे, वे card पर अपने असली success % के साथ दिखते हैं।</li>
+            <li><b>⚠ सीखी गलती</b>: जिन मेलों पर trades बार-बार उल्टे गए, उन पर चेतावनी।</li>
+            <li><b>📈 तेज़ी setup</b>: जिन शर्तों के बाद 20 दिन में तेज़ चढ़ाई औसत से ज़्यादा आई।</li>
+          </ul>
+          <div class="callout warn"><b>याद रखें</b>ये पिछले data के आँकड़े हैं। ऊँचा score मतलब "setup अच्छा दिखता है", यह नहीं कि भाव ज़रूर चढ़ेगा।</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="lesson" id="filters">
+      <div class="lesson-head"><span class="n">5</span><div><h2>Filters, sort, sector और खोज</h2><p>List को अपनी पसंद के stocks तक छोटा करना।</p></div></div>
+      <div class="cols has-shot">
+        <div>
+          <h3>Filters</h3>
+          <p><span class="ui">Filters</span> दबाएँ। हर slider की कम-से-कम और ज़्यादा-से-ज़्यादा सीमा खिसकाएँ, ऊपर लिखा रहता है कि कितने stocks match हुए। फिर <span class="ui">लागू करें</span>। <span class="ui">Reset</span> से सब पहले जैसा।</p>
+          <ul>
+            <li>Market cap, भाव, Volume, Turnover (रोज़ का कारोबार ₹ में), RVOL, 5D बदलाव, Score</li>
+            <li>20 दिन के high से दूरी, शांत दायरा, 50 DMA से दूरी</li>
+            <li>RSI (14), MACD की signal से दूरी, MACD crossover कितने दिन पहले</li>
+            <li>Support से दूरी और support कितना पुराना</li>
+            <li>"कितने stocks दिखाएँ": score के हिसाब से top 25, 50, 100, 200 या सभी</li>
+            <li><b>📈 सिर्फ़ लंबी अवधि की quality companies</b>: ROCE 15% या ज़्यादा, Debt/Equity 0.5 या कम, promoters 50% या ज़्यादा, कोई pledge नहीं, और EPS की बढ़त 12% या ज़्यादा (जहाँ आँकड़ा है)।</li>
+          </ul>
+          <div class="callout tip"><b>शुरुआत के लिए एक आसान filter</b>Turnover कम से कम ₹5 Cr, RVOL 1.5× या ज़्यादा, और Score 70+। इससे बहुत कम कारोबार वाले और कमज़ोर setups हट जाते हैं।</div>
+          <h3>Sort</h3>
+          <p>Score, RVOL, 5D बदलाव, Price, R/S या Support पर list लगाएँ। उसी chip को दोबारा दबाने पर क्रम उल्टा (↓ / ↑)।</p>
+          <h3>Sector</h3>
+          <p><span class="ui">सेक्टर</span> chip से हर sector की ताकत दिखती है (आज कौन सा sector सबसे मज़बूत)। किसी sector को दबाएँ तो list सिर्फ़ उसी के stocks तक। Scan में कौन से sectors शामिल हों, यह <span class="ui">Menu</span> → <span class="ui">स्कैन</span> में हर exchange के लिए अलग चुन सकते हैं।</p>
+          <h3>खोज</h3>
+          <p>🔍 दबाकर symbol या नाम लिखें। तीन या ज़्यादा अक्षर लिखें तो नाम के बीच के spaces भी अनदेखे होते हैं, जैसे "bajajauto" से Bajaj Auto मिल जाता है।</p>
+        </div>
+        <div class="shots">
+          <figure><img src="img/filters.jpg" alt="Filters sheet: 50 DMA से दूरी, RSI, MACD और support के sliders" loading="lazy" width="360" height="800"><figcaption>Filters: sliders से सीमा तय करें</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="lesson" id="detail">
+      <div class="lesson-head"><span class="n">6</span><div><h2>Stock का detail</h2><p>List में किसी stock को दबाने पर उसकी पूरी जानकारी एक sheet में।</p></div></div>
+      <div class="cols has-shot">
+        <div>
+          <p>सबसे ऊपर exchange, symbol, company और sector, आज का भाव और 5 दिन का बदलाव, और score की पट्टी (STRONG/WATCH/WEAK)। उसके नीचे दो tabs हैं:</p>
+          <h3>जानकारी tab</h3>
+          <ul>
+            <li><b>चार्ट</b>: पिछले 60 sessions का भाव, entry, stop-loss (SL), targets (T1, T2) और support की रेखाओं के साथ। <b>चार्ट या उसके नीचे की पट्टी "🎯 लक्ष्य, Trade plan…" दबाएँ</b> तो Trade window खुलती है (अगला भाग)।</li>
+            <li><b>Score कैसे बना</b>: पाँचों हिस्से, हर एक दबाने पर उसका पूरा हिसाब।</li>
+            <li><b>R/S · रोहित सिलेक्शन</b>: company के नतीजों, कर्ज़, shareholding, valuation वगैरह की जाँच (भाग 8)।</li>
+            <li><b>लंबी अवधि की checklist (moat)</b>: ROCE, कर्ज़, ब्याज cover, मुनाफ़े के पीछे cash, लगातार मुनाफ़ा, margin, promoters, उनकी बिक्री, pledge और auditor। हर एक ✓, ✗ या – (आँकड़ा नहीं)।</li>
+            <li><b>R/S इतिहास</b> और <b>मुख्य आँकड़े</b>: शीर्षक दबाकर खोलें/बंद करें (▾/▴)। इतिहास में हर quarter के नतीजे, FII/DII/promoter की हिस्सेदारी (▲ ख़रीदा, ▼ बेचा), सालाना cash flow और 3 साल का भाव।</li>
+            <li><b>क्या बनाती है</b>: company के products, तस्वीरों के साथ। किसी product को दबाएँ तो उसे बनाने वाली सारी companies list में।</li>
+            <li>नीचे <span class="ui">Groww</span>, <span class="ui">Angel One</span>, <span class="ui">Zerodha</span>: symbol copy होता है और वह app खुलता है, वहाँ search में paste करें। <span class="ui">TradingView पर चार्ट</span> बड़ा chart खोलता है (Settings में दूसरी site चुन सकते हैं)।</li>
+          </ul>
+          <h3>खबरें tab</h3>
+          <ul>
+            <li>सबसे ऊपर <b>आने वाले events</b>: नतीजों की board meeting, dividend की record date, AGM, bonus, split, buyback की तारीख़ें, company की अपनी filings से।</li>
+            <li>फिर exchange की घोषणाएँ और ख़बरें, हर एक पर प्रकार (नतीजे, order, dividend…) और "प्री-मार्केट" या "लाइव"। दबाने पर पूरी ख़बर या PDF।</li>
+          </ul>
+          <div class="callout warn"><b>ख़बर अच्छी या बुरी?</b>App यह तय नहीं करता। ख़बर पढ़कर खुद समझें।</div>
+        </div>
+        <div class="shots">
+          <figure><img src="img/detail.jpg" alt="RELIANCE का detail: भाव, score की पट्टी, चार्ट पर entry, SL, targets और support, नीचे trade window खोलने की पट्टी" loading="lazy" width="360" height="800"><figcaption>Detail: चार्ट और Trade window की पट्टी</figcaption></figure>
+          <figure><img src="img/moat.jpg" alt="लंबी अवधि की checklist और R/S इतिहास खुले हुए" loading="lazy" width="360" height="800"><figcaption>Moat checklist और R/S इतिहास</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 -->
+    <section class="lesson" id="trade">
+      <div class="lesson-head"><span class="n">7</span><div><h2>Trade window: लक्ष्य, plan, कितने शेयर</h2><p>Detail में चार्ट दबाने पर खुलने वाली बड़ी window। Trade की पूरी तैयारी यहीं।</p></div></div>
+      <div class="cols has-shot">
+        <div>
+          <h3>लक्ष्य: कब के लिए कितना</h3>
+          <ul>
+            <li><b>⚡ Intraday</b> (आज ही, MIS): आज की 5-minute candles से। 9:15–9:30 के दायरे के ऊपर और VWAP के ऊपर बंद हो तो BUY, नीचे और VWAP के नीचे बंद हो तो SELL। Stop दायरे के बीच, target 1:1.5 और 1:2। 14:45 के बाद नई entry नहीं, 15:15 तक बंद।</li>
+            <li><b>📅 Short-term</b> (2 दिन से 4 हफ़्ते, delivery): trade plan का entry, stop और पहले दो target, कितने दिन में।</li>
+            <li><b>🌱 Long-term</b> (1 से 5 साल): R/S की खरीद कीमत और असली कीमत (fair value)।</li>
+          </ul>
+          <h3>Trade plan</h3>
+          <ul>
+            <li><b>Entry</b>: 20 दिन का high + थोड़ा सा (0.1 ATR), ताकि breakout पक्का हो।</li>
+            <li><b>Stop-loss</b>: 10 दिन का low, entry से 1 से 2 ATR के बीच रखा जाता है।</li>
+            <li><b>Targets</b>: जोखिम (R) का 1.5, 2.5 और 4 गुना, साथ में लगभग कितने कारोबारी दिनों में लगते हैं।</li>
+            <li>App पिछले data से सीखकर stop और target बदल सकता है; ऐसा हो तो वहीं लिखा होता है।</li>
+          </ul>
+          <h3>कितने शेयर लें</h3>
+          <ol>
+            <li>अपनी कुल पूँजी डालें (जैसे ₹5,00,000)।</li>
+            <li>हर trade में कितना जोखिम: 0.5%, 1%, 1.5% या 2%। शुरुआत में <b>1%</b> रखें।</li>
+            <li>Delivery (CNC) या Intraday (MIS) चुनें।</li>
+          </ol>
+          <p>App बताता है कितने शेयर, कितना पैसा लगेगा, stop लगा तो कितना नुकसान और हर target पर कितना फ़ायदा। Delivery में एक stock में पूँजी का 25% से ज़्यादा नहीं, intraday में margin लगभग 5 गुना।</p>
+          <div class="callout tip"><b>1% जोखिम का मतलब</b>₹5 लाख पूँजी पर 1% = ₹5,000। अगर entry ₹1,300 और stop ₹1,226.61 है (₹73.39 का फ़र्क), तो लगभग 68 शेयर। Stop लगा तो सिर्फ़ ₹5,000 जाएँगे, पूरी पूँजी नहीं।</div>
+          <h3>Order ticket</h3>
+          <p>Broker में डालने वाले orders: entry (breakout के लिए SL-LIMIT, वरना LIMIT), फिर stop और target (delivery में GTT OCO, intraday में SL-M और LIMIT)। <span class="ui">Copy</span> या <span class="ui">Share</span> करके Kite, Angel One या Groww में ख़ुद डालें। App कभी असली order नहीं भेजता।</p>
+          <h3>Smart money और जीतने के आसार</h3>
+          <ul>
+            <li><b>Smart money</b>: पिछले 6 महीने की candles से खुले FVG और order blocks। नीचे का "सहारा" और ऊपर की "रुकावट", चार्ट पर भी।</li>
+            <li><b>आसार</b>: इसी stock की रोज़ की चाल से 10,000 बनावटी रास्ते बनाकर देखा जाता है कि कितनों में target stop से पहले आया। यह अनुमान है, गारंटी नहीं।</li>
+          </ul>
+          <h3>दो बटन</h3>
+          <ul>
+            <li><span class="ui">✓ यह trade लिया</span>: असली trade लिया हो तो उसे Trade log में लिखें (भाग 11)।</li>
+            <li><span class="ui">📝 Paper trade करें</span>: यही trade नकली पैसे से, Paper Trading में (भाग 10)।</li>
+          </ul>
+        </div>
+        <div class="shots">
+          <figure><img src="img/trade-window.jpg" alt="Trade window: बड़ा चार्ट, SMC सहारा और रुकावट, और intraday, short-term, long-term लक्ष्य" loading="lazy" width="360" height="800"><figcaption>Trade window: चार्ट और लक्ष्य</figcaption></figure>
+          <figure><img src="img/size-ticket.jpg" alt="कितने शेयर: 68 शेयर, stop पर नुकसान, targets पर फ़ायदा, और order ticket" loading="lazy" width="360" height="800"><figcaption>कितने शेयर और order ticket</figcaption></figure>
+          <figure><img src="img/smc-odds.jpg" alt="Smart money zones और 10,000 रास्तों से जीतने के आसार" loading="lazy" width="360" height="800"><figcaption>Smart money और आसार</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="lesson" id="rs">
+      <div class="lesson-head"><span class="n">8</span><div><h2>R/S: company कितनी मज़बूत</h2><p>R/S (रोहित सिलेक्शन) chart नहीं, company के कारोबार को जाँचता है।</p></div></div>
+      <div class="cols">
+        <div>
+          <p>R/S company को 10 हिस्सों में 0–100 अंक देता है: नतीजों की गुणवत्ता (18), बढ़त (12), cash flow (10), कर्ज़ (10), shareholding (12), insider और bulk/block deals (8), valuation (12), 3 साल का भाव (8), स्थिरता (5) और जोखिम (5)।</p>
+          <div class="table-box"><table>
+            <tr><th class="num">R/S score</th><th>दर्जा</th></tr>
+            <tr><td class="num">75+</td><td>बहुत मज़बूत</td></tr>
+            <tr><td class="num">62+</td><td>मज़बूत</td></tr>
+            <tr><td class="num">48+</td><td>ठीक-ठाक</td></tr>
+            <tr><td class="num">35+</td><td>सावधानी</td></tr>
+            <tr><td class="num">35 से कम</td><td>दूर रहें</td></tr>
+          </table></div>
+          <ul>
+            <li><b>असली कीमत और खरीद भाव</b>: sector के हिसाब से अलग तरीक़े से असली कीमत निकलती है (bank में book value, factory वाली companies में EV/EBITDA, IT/FMCG/pharma में PEG)। खरीद भाव = असली कीमत में से सुरक्षा का हिस्सा: बड़ी companies पर 20%, मझोली पर 27.5%, छोटी पर 35%।</li>
+            <li><b>Flags</b>: promoters ने 15% से ज़्यादा शेयर गिरवी रखे हों तो "दूर रहें"; ब्याज का cover कम या मुनाफ़े के पीछे cash कम हो तो "सावधानी"। बिना किसी ख़बर के volume 3 गुना हो तो 🚩 Red Flag।</li>
+            <li><b>⭐ सबसे अच्छा मौका</b>: भाव खरीद भाव से नीचे, weekly sweep, और कोई रोक नहीं।</li>
+            <li>R/S card के हर हिस्से को दबाएँ: उसका पूरा data (हर quarter के नतीजे, insider सौदे, valuation का हिसाब) नीचे खुलता है।</li>
+            <li>Data कम हो (40% से कम) तो "Data कम" लिखा आता है। जिस हिस्से का data नहीं, उसे बीच के 50 अंक मिलते हैं।</li>
+          </ul>
+          <p>R/S का data रोज़ शाम एक बार नया होता है (Screener, NSE और Yahoo से)। List को <span class="ui">R/S</span> से sort भी कर सकते हैं।</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="lesson" id="intraday">
+      <div class="lesson-head"><span class="n">9</span><div><h2>आज के Intraday</h2><p><span class="ui">Menu</span> → <span class="ui">आज के Intraday</span>: app खुद चुनता है कि आज कौन BUY, कौन SELL।</p></div></div>
+      <div class="cols has-shot">
+        <div>
+          <p>App scan के सबसे ज़्यादा trade हुए लगभग 120 NSE stocks की आज की 5-minute candles देखता है और opening range breakout (ORB) का नियम लगाता है:</p>
+          <ul>
+            <li>9:15 से 9:30 के बीच का high और low = "opening range"। इसलिए picks <b>9:30 के बाद</b> आते हैं।</li>
+            <li>Range के ऊपर और VWAP के ऊपर बंद = <span class="bull">BUY</span>; range के नीचे और VWAP के नीचे बंद = <span class="bear">SELL</span>।</li>
+            <li>Stop range के बीच में; target 1:1.5 और 1:2।</li>
+            <li>सिर्फ़ वही calls ऊपर दिखते हैं जो अभी भी लिए जा सकते हैं, entry के सबसे पास वाले पहले। Target लग चुका हो, भाव entry से बहुत आगे निकल गया हो ("पीछा न करें"), breakout वापस range में आ गया हो, या 14:45 निकल गया हो, तो वह नीचे "बाकी calls" में, वजह के साथ।</li>
+          </ul>
+          <p>किसी pick को दबाएँ तो उसका detail खुलता है।</p>
+          <div class="callout warn"><b>Intraday सबसे जोखिम वाला</b>15:15 तक हर intraday trade बंद करना होता है। नए हों तो पहले कुछ हफ़्ते सिर्फ़ Paper Trading में intraday करें।</div>
+        </div>
+        <div class="shots">
+          <figure><img src="img/intraday.jpg" alt="आज के Intraday picks: BUY, SELL और बाकी calls वजह के साथ" loading="lazy" width="360" height="800"><figcaption>आज के Intraday picks</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="lesson" id="paper">
+      <div class="lesson-head"><span class="n">10</span><div><h2>📝 Paper Trading</h2><p>नकली पैसे, असली भाव। असली पैसा लगाने से पहले यहाँ सीखें।</p></div></div>
+      <div class="cols has-shot">
+        <div>
+          <p>App में ऊपर 📝 बटन, या <span class="ui">Menu</span> → <span class="ui">Paper Trading</span>। Account ₹10,00,000 के नकली पैसों से शुरू होता है। कोई असली order कहीं नहीं जाता।</p>
+          <h3>पहला paper order, कदम-दर-कदम</h3>
+          <ol>
+            <li><span class="ui">+ नया order</span> दबाएँ।</li>
+            <li>Stock का symbol लिखें (जैसे RELIANCE)। नीचे "अभी का भाव" आ जाता है।</li>
+            <li><span class="ui">BUY</span> या <span class="ui">SELL</span> चुनें।</li>
+            <li><span class="ui">Intraday (MIS)</span> या <span class="ui">Delivery (CNC)</span> चुनें।</li>
+            <li>Order का प्रकार चुनें (नीचे table)।</li>
+            <li>कितने शेयर लिखें। चाहें तो stop-loss और target भी।</li>
+            <li>नीचे देखें: कितना पैसा लगेगा, charges लगभग कितने, stop लगा तो कितना नुकसान। फिर हरे <span class="ui">BUY 10 RELIANCE</span> (या लाल SELL) बटन दबाएँ।</li>
+          </ol>
+          <div class="table-box"><table>
+            <tr><th>Order का प्रकार</th><th>कब भरता है</th><th>कब इस्तेमाल करें</th></tr>
+            <tr><td>Market</td><td>तुरंत, अभी के भाव पर</td><td>जल्दी अंदर या बाहर जाना हो</td></tr>
+            <tr><td>Limit</td><td>आपके भाव पर या उससे बेहतर</td><td>किसी तय भाव पर ही ख़रीदना/बेचना</td></tr>
+            <tr><td>SL</td><td>Trigger छूने पर, limit तक</td><td>Breakout पर entry (trigger = entry)</td></tr>
+            <tr><td>SL-M</td><td>Trigger छूने पर, market भाव पर</td><td>पक्का निकलना हो, भाव जो भी हो</td></tr>
+          </table></div>
+          <h3>नियम, बिल्कुल असली जैसे</h3>
+          <ul>
+            <li><b>Delivery (CNC)</b>: पूरा पैसा लगता है, शेयर बेचने तक रहते हैं।</li>
+            <li><b>Intraday (MIS)</b>: मूल्य का पाँचवाँ हिस्सा margin लगता है, short sell (पहले बेचना) भी कर सकते हैं, और <b>15:15 पर अपने-आप square-off</b>। नई intraday entry सिर्फ़ 9:15 से 15:15 तक।</li>
+            <li><b>Stop-loss और target</b>: जो पहले लगे, trade अपने-आप बंद।</li>
+            <li><b>बाज़ार बंद हो तो</b>: order अगली सुबह 9:15 पर भरता है (AMO)। दिन में न भरा order शाम को रद्द।</li>
+            <li><b>Charges</b>: brokerage (intraday 0.03% या ₹20, delivery मुफ़्त), STT, exchange charges, SEBI fee, GST, stamp duty, और delivery बेचने पर DP charge, सब कटते हैं।</li>
+            <li>Orders 5-minute candles से भरते हैं। अगर भाव gap में खुले, तो खुलने वाले भाव पर।</li>
+          </ul>
+          <h3>चार tabs</h3>
+          <ul>
+            <li><b>Intraday</b>: खुले intraday trades (औसत भाव, अभी का भाव, नफ़ा-नुकसान), फिर हाल के बंद trades।</li>
+            <li><b>Delivery</b>: आपके delivery शेयर (holdings), कितने दिन से, कितनी value।</li>
+            <li><b>Orders</b>: रुके orders (दबाकर रद्द), और पिछले orders: भरे, रद्द या समय ख़त्म, वजह के साथ।</li>
+            <li><b>हिसाब</b>: कितने trades, जीते-हारे, जीत %, कुल नफ़ा-नुकसान (charges के बाद), profit factor, सबसे बड़ी गिरावट, और app के plan से लिए trades बनाम अपने चुने। यहीं <span class="ui">Account फिर से शुरू करें</span> (₹1 लाख से ₹1 करोड़)।</li>
+          </ul>
+          <p>किसी खुले trade को दबाएँ: <span class="ui">अभी बंद करें</span>, stop-loss/target बदलें, या नया order। Section खुला हो तो भाव हर 30 सेकंड ताज़ा होते हैं; app बंद हो तब भी बाज़ार के समय हर 15 मिनट जाँच होती है और भरने, stop, target या square-off पर notification आता है।</p>
+          <div class="callout tip"><b>अच्छी आदत</b>कम से कम 3–4 हफ़्ते paper trade करें। "हिसाब" tab में profit factor 1 से ऊपर और सबसे बड़ी गिरावट छोटी रहे, तभी असली पैसे के बारे में सोचें।</div>
+        </div>
+        <div class="shots">
+          <figure><img src="img/paper-home.jpg" alt="Paper Trading: ₹10,00,000 का account, नया order और ताज़ा करें बटन, चार tabs" loading="lazy" width="360" height="800"><figcaption>Paper Trading का account</figcaption></figure>
+          <figure><img src="img/paper-order.jpg" alt="नया paper order: RELIANCE, BUY, Delivery, Market, 10 शेयर, stop-loss और target" loading="lazy" width="360" height="800"><figcaption>नया order भरना</figcaption></figure>
+          <figure><img src="img/paper-orders.jpg" alt="Orders tab: अगली सुबह के लिए रुके दो orders" loading="lazy" width="360" height="800"><figcaption>Orders tab: रुके orders</figcaption></figure>
+          <figure><img src="img/paper-refused.jpg" alt="बाज़ार बंद होने पर intraday order मना: नई intraday entry सिर्फ़ 9:15 से 15:15 तक" loading="lazy" width="360" height="800"><figcaption>गलत समय पर app साफ़ बताता है</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="lesson" id="log">
+      <div class="lesson-head"><span class="n">11</span><div><h2>Trade log और risk guard</h2><p><span class="ui">Menu</span> → <span class="ui">Trade log</span>: आपके असली trades की डायरी।</p></div></div>
+      <div class="cols has-shot">
+        <div>
+          <p>Broker में असली trade लेने के बाद Trade window में <span class="ui">✓ यह trade लिया</span> दबाएँ। Trade यहाँ जुड़ जाता है: entry, stop, target, और खुला रहने तक scan के भाव पर नफ़ा-नुकसान। निकलने पर trade दबाकर exit भाव डालें, नफ़ा-नुकसान अपने-आप जुड़ता है।</p>
+          <h3>Risk guard (आपका पहरेदार)</h3>
+          <ul>
+            <li>एक दिन में ज़्यादा से ज़्यादा 3 trades (बदल सकते हैं: 1, 2, 3, 5, 10)।</li>
+            <li>दिन का नुकसान पूँजी के 2% तक पहुँचे तो उस दिन और trade नहीं (1%, 2%, 3%, 5%)।</li>
+            <li>14:45 के बाद नई intraday entry नहीं।</li>
+            <li>Intraday trade खुला हो तो 15:10 पर square-off की याद।</li>
+          </ul>
+          <p>नियम टूटे तो app पहले चेतावनी देता है: <span class="ui">रहने दें</span> या <span class="ui">फिर भी जोड़ें</span>। <span class="ui">पूँजी और नियम बदलें</span> से अपनी सीमाएँ रखें।</p>
+        </div>
+        <div class="shots">
+          <figure><img src="img/trade-log.jpg" alt="Trade log: आज के नियम और लिया गया RELIANCE trade" loading="lazy" width="360" height="800"><figcaption>Trade log</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="lesson" id="watchlist">
+      <div class="lesson-head"><span class="n">12</span><div><h2>Watchlist</h2><p>जिन stocks पर नज़र रखनी है, उन्हें ★ लगाकर एक जगह।</p></div></div>
+      <div class="cols has-shot">
+        <div>
+          <p>Stock को watchlist में जोड़ें: compact table में line दबाकर रखें, cards में ☆ दबाएँ। फिर <span class="ui">★ Watchlist</span> दबाने पर Watchlist page खुलता है।</p>
+          <ul>
+            <li><b>ऊपर का हिसाब</b>: जोड़ने के बाद से औसत return, पिछले 20 दिन की line, और pills: <span class="ui">▲ फ़ायदे में</span>, <span class="ui">▼ नुकसान में</span>, <span class="ui">🔔 alerts चालू</span>। Pill दबाएँ तो सिर्फ़ वही stocks, दोबारा दबाएँ तो सब।</li>
+            <li><b>हर stock</b>: किस भाव पर जोड़ा, तब से कितना %, और एक पट्टी: breakout से पहले support से breakout भाव तक, breakout के बाद SL से अगले target तक। गोला बताता है भाव अभी कहाँ है।</li>
+            <li><b>Sort</b>: <span class="ui">Return</span>, <span class="ui">नए पहले</span>, <span class="ui">Target के पास</span>। दोबारा दबाने पर उल्टा क्रम।</li>
+            <li><b>≡ menu</b>: सभी / सिर्फ़ फ़ायदे वाले / सिर्फ़ नुकसान वाले / सिर्फ़ alert वाले, <b>💼 पोर्टफोलियो बाँटें</b>, और Home की list में दिखाएँ।</li>
+            <li><b>पोर्टफोलियो बाँटें</b>: रकम डालें, app उसे watchlist के stocks में बाँटता है। कम उतार-चढ़ाव वाले stock को ज़्यादा हिस्सा, साथ में शेयर और tax (1 साल से कम = short-term 20%, ज़्यादा = long-term 12.5%)।</li>
+            <li>बाएँ swipe करके हटाएँ, दबाकर रखें तो अपना खरीद भाव डालें, ↻ से भाव ताज़ा।</li>
+          </ul>
+          <div class="callout tip"><b>Login करें, watchlist न खोएँ</b><span class="ui">Menu</span> → <span class="ui">अकाउंट</span> से Google, GitHub या email से login करें। Watchlist cloud पर रहती है: नए phone में उसी account से login करें, वही stocks मिलेंगे।</div>
+        </div>
+        <div class="shots">
+          <figure><img src="img/watchlist.jpg" alt="Watchlist page: औसत return, pills, sort और stocks की पट्टियाँ" loading="lazy" width="360" height="800"><figcaption>Watchlist page</figcaption></figure>
+          <figure><img src="img/watch-menu.jpg" alt="Watchlist का ≡ menu: filters, पोर्टफोलियो बाँटें, home list" loading="lazy" width="360" height="800"><figcaption>≡ menu</figcaption></figure>
+          <figure><img src="img/watch-split.jpg" alt="पोर्टफोलियो बाँटें का नतीजा: हर stock का हिस्सा, शेयर और tax" loading="lazy" width="360" height="800"><figcaption>पोर्टफोलियो बाँटें</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="lesson" id="alerts">
+      <div class="lesson-head"><span class="n">13</span><div><h2>Alerts और notifications</h2><p>App बंद हो तब भी ज़रूरी बातें phone पर।</p></div></div>
+      <div class="cols">
+        <div>
+          <div class="table-box"><table>
+            <tr><th>Notification</th><th>कब आता है</th><th>कहाँ चालू करें</th></tr>
+            <tr><td>Watchlist alerts</td><td>★ वाला stock breakout trigger पार करे, फिर हर target पर और stop-loss टूटने पर</td><td>Menu → स्कैन</td></tr>
+            <tr><td>नए STRONG और breakout</td><td>Auto-scan में कोई stock नया STRONG बने या breakout करे (आपके filters के अंदर)</td><td>Menu → स्कैन</td></tr>
+            <tr><td>Watchlist की ख़बरें</td><td>सुबह 8 से 9:15 के बीच रात भर की ख़बरें, और दिन में बड़ी घोषणा आते ही</td><td>Menu → स्कैन</td></tr>
+            <tr><td>Paper Trading</td><td>Order भरा, stop, target या 15:15 square-off</td><td>अपने-आप</td></tr>
+            <tr><td>Square-off याद</td><td>15:10 पर, Trade log में intraday trade खुला हो तो</td><td>अपने-आप</td></tr>
+            <tr><td>Scan और update</td><td>Scan की progress और पूरा होना, नया version download</td><td>अपने-आप</td></tr>
+          </table></div>
+          <div class="callout warn"><b>Notification नहीं आ रहे?</b>Phone की Settings → Apps → Share Scan → Notifications चालू करें। फिर <span class="ui">Menu</span> → <span class="ui">स्कैन</span> में "Background में चलने दें", और Xiaomi/Vivo/Oppo/Realme में Autostart।</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="lesson" id="menu">
+      <div class="lesson-head"><span class="n">14</span><div><h2>Menu की हर चीज़</h2><p>ऊपर दाएँ ≡ बटन।</p></div></div>
+      <div class="cols has-shot">
+        <div>
+          <ul>
+            <li><b>शुरुआती गाइड</b>: यही गाइड, app के अंदर (internet के बिना भी खुलती है)।</li>
+            <li><b>अकाउंट</b>: Google, GitHub या email से login; नाम, password, verification; logout या account delete।</li>
+            <li><b>स्कैन</b>: कौन से exchanges (NSE, NSE SME, BSE) और हर एक के कौन से sectors; auto-scan और उसका समय; alerts; Background में चलने दें।</li>
+            <li><b>Paper Trading</b>: भाग 10।</li>
+            <li><b>आज के Intraday</b>: भाग 9।</li>
+            <li><b>Trade log</b>: भाग 11।</li>
+            <li><b>Track record</b>: हर दिन के top 10 STRONG picks 1, 5 और 10 दिन बाद कितने चले, Nifty 50 के मुकाबले। इससे पता चलता है score कितना काम कर रहा है।</li>
+            <li><b>सेक्टर की ताकत</b>: आज कौन सा sector सबसे मज़बूत; दबाकर उसी के stocks।</li>
+            <li><b>सेटिंग्स</b>: update check, scan के दौरान screen ऑन, आसमान का animation, ग्लास मोड और उसके styles, products के icon, chart कहाँ खुले (TradingView, Chartink, Google Finance, Screener, Groww, Angel One, Zerodha), और डेटा: watchlist साफ़ करना, filters reset, NEW/▲▼ history साफ़।</li>
+            <li><b>भाषा और Font</b>: 12 भाषाएँ (Hinglish, हिन्दी, English, বাংলা, ગુજરાતી, मराठी, తెలుగు, தமிழ், ಕನ್ನಡ, മലയാളം, ਪੰਜਾਬੀ, ଓଡ଼ିଆ) और 7 fonts।</li>
+            <li><b>थीम</b>: 10 से ज़्यादा रंग (Galaxy, Nebula, Aurora, Midnight, Sunset, Ocean, Emerald, Mars, Royal Gold, Frost…)।</li>
+            <li><b>Background</b>: Galaxy (बड़े cards, आकाशगंगा) या Space Glass (compact table, नीचे तैरती bar)।</li>
+            <li><b>Layout</b>: Background वाला, Accordion (पतली line, दबाने पर खुलती), Bento grid (दो कतारों में tiles), Swipe cards (बाएँ खींचें तो ★ और Chart)।</li>
+            <li><b>Update देखें</b>, <b>Score कैसे बनता है</b> (पूरी Help), <b>App शेयर करें</b>, <b>App के बारे में</b> (version, data कहाँ से, disclaimer, क्या नया है)।</li>
+          </ul>
+        </div>
+        <div class="shots">
+          <figure><img src="img/menu.jpg" alt="Menu: अकाउंट, स्कैन, Paper Trading, आज के Intraday, Trade log, Track record, सेक्टर की ताकत, सेटिंग्स, भाषा और Font, थीम" loading="lazy" width="360" height="800"><figcaption>Menu</figcaption></figure>
+          <figure><img src="img/settings.jpg" alt="सेटिंग्स: update check, screen ऑन, आसमान का animation, ग्लास मोड, NSE, SME, BSE" loading="lazy" width="360" height="800"><figcaption>सेटिंग्स</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- 15 -->
+    <section class="lesson" id="routine">
+      <div class="lesson-head"><span class="n">15</span><div><h2>रोज़ का आसान तरीका</h2><p>शुरुआत करने वाले के लिए एक सीधा रोज़ का क्रम।</p></div></div>
+      <div class="routine">
+        <div><span class="t">8:00–9:15</span><p>Watchlist की ख़बरें देखें। Events (नतीजे, dividend) की तारीख़ें नोट करें।</p></div>
+        <div><span class="t">9:15–9:30</span><p>कुछ न करें। Opening range बनने दें; पहले 15 मिनट सबसे ज़्यादा उछाल वाले होते हैं।</p></div>
+        <div><span class="t">9:30 के बाद</span><p>आज के Intraday picks देखें। जो पसंद आए, पहले Paper Trading में लें।</p></div>
+        <div><span class="t">दिन में</span><p>Auto-scan और watchlist alerts पर नज़र। Breakout आए तो Trade window में plan और कितने शेयर देखें।</p></div>
+        <div><span class="t">14:45–15:15</span><p>नई intraday entry नहीं। खुले intraday trades बंद करें (Paper में 15:15 पर अपने-आप)।</p></div>
+        <div><span class="t">शाम</span><p>Scan चलाएँ, STRONG stocks के detail और R/S पढ़ें, अच्छे वाले ★ करें। Paper Trading का हिसाब देखें।</p></div>
+        <div><span class="t">हफ़्ते के अंत</span><p>Quality filter और R/S से लंबी अवधि के लिए companies छाँटें; Track record देखें।</p></div>
+      </div>
+    </section>
+
+    <!-- 16 -->
+    <section class="lesson" id="glossary">
+      <div class="lesson-head"><span class="n">16</span><div><h2>शब्दकोश</h2><p>App में आने वाले शब्द, आसान भाषा में।</p></div></div>
+      <dl class="terms">
+        <div><dt>Breakout</dt><dd>भाव का किसी पुराने ऊँचे स्तर (जैसे 20 दिन का high) के ऊपर निकलना।</dd></div>
+        <div><dt>Support (सहारा)</dt><dd>वह भाव जहाँ बार-बार गिरकर भी stock रुक जाता है, जैसे फ़र्श।</dd></div>
+        <div><dt>Resistance (रुकावट)</dt><dd>वह भाव जहाँ चढ़ाई बार-बार रुकती है, जैसे छत।</dd></div>
+        <div><dt>Entry</dt><dd>जिस भाव पर trade में घुसना है।</dd></div>
+        <div><dt>Stop-loss (SL)</dt><dd>वह भाव जहाँ ग़लत साबित होने पर नुकसान छोटा रखकर निकल जाते हैं।</dd></div>
+        <div><dt>Target (T1, T2)</dt><dd>जिस भाव पर फ़ायदा लेकर निकलना है।</dd></div>
+        <div><dt>R (risk)</dt><dd>Entry से stop तक का फ़र्क, प्रति शेयर। 2R target = जोखिम का दुगना फ़ायदा।</dd></div>
+        <div><dt>RVOL</dt><dd>आज का volume ÷ पिछले 20 दिनों का औसत volume।</dd></div>
+        <div><dt>ATR</dt><dd>Stock रोज़ औसतन कितना ऊपर-नीचे चलता है।</dd></div>
+        <div><dt>VWAP</dt><dd>दिन का volume से तौला गया औसत भाव। इसके ऊपर = ख़रीदार मज़बूत।</dd></div>
+        <div><dt>Opening range (ORB)</dt><dd>9:15–9:30 का high-low; उसके बाहर निकलना intraday breakout।</dd></div>
+        <div><dt>MIS (Intraday)</dt><dd>उसी दिन ख़रीदना-बेचना; margin पर, 15:15 तक बंद।</dd></div>
+        <div><dt>CNC (Delivery)</dt><dd>पूरा पैसा देकर शेयर demat में रखना, जितने दिन चाहें।</dd></div>
+        <div><dt>Margin</dt><dd>Intraday में broker का दिया उधार; आप मूल्य का एक हिस्सा (लगभग पाँचवाँ) लगाते हैं।</dd></div>
+        <div><dt>Square-off</dt><dd>Intraday trade को दिन ख़त्म होने से पहले बंद करना।</dd></div>
+        <div><dt>Short sell</dt><dd>पहले बेचना, बाद में सस्ते में ख़रीदकर बंद करना। सिर्फ़ intraday में।</dd></div>
+        <div><dt>Market / Limit order</dt><dd>Market = अभी के भाव पर; Limit = आपके तय भाव या उससे बेहतर पर।</dd></div>
+        <div><dt>SL / SL-M order</dt><dd>Trigger भाव छूने पर चालू होने वाला order; SL limit तक, SL-M market पर।</dd></div>
+        <div><dt>AMO</dt><dd>बाज़ार बंद होने पर दिया order, जो अगले session की शुरुआत में भरता है।</dd></div>
+        <div><dt>GTT / OCO</dt><dd>Broker में लंबे समय तक रहने वाला trigger; OCO में stop और target, जो एक लगे दूसरा रद्द।</dd></div>
+        <div><dt>FVG</dt><dd>Fair value gap: तेज़ चाल में तीन candles के बीच छूटा खाली दायरा।</dd></div>
+        <div><dt>Order block</dt><dd>तेज़ चाल से ठीक पहले की उल्टी candle; भाव वहाँ अक्सर रुकता है।</dd></div>
+        <div><dt>RSI</dt><dd>0–100: 70 से ऊपर बहुत चढ़ चुका, 30 से नीचे बहुत गिर चुका।</dd></div>
+        <div><dt>MACD</dt><dd>दो औसतों का फ़र्क; signal line को नीचे से ऊपर काटे तो तेज़ी का इशारा।</dd></div>
+        <div><dt>DMA / EMA</dt><dd>Moving average: पिछले कुछ दिनों का औसत भाव (जैसे 50 DMA)।</dd></div>
+        <div><dt>P/E, P/B</dt><dd>भाव ÷ प्रति शेयर कमाई; भाव ÷ प्रति शेयर book value।</dd></div>
+        <div><dt>ROCE</dt><dd>लगाई गई पूँजी पर company कितना कमाती है, %।</dd></div>
+        <div><dt>Debt/Equity</dt><dd>कर्ज़ ÷ अपनी पूँजी। कम = सुरक्षित।</dd></div>
+        <div><dt>Promoter, Pledge</dt><dd>Company के मालिक; pledge = उन्होंने अपने शेयर गिरवी रखे।</dd></div>
+        <div><dt>FII / DII</dt><dd>विदेशी और देसी बड़े संस्थागत निवेशक।</dd></div>
+        <div><dt>Bulk / Block deal</dt><dd>एक बार में बहुत बड़ा सौदा, exchange पर दर्ज।</dd></div>
+        <div><dt>Market cap</dt><dd>Company की कुल बाज़ार value = भाव × कुल शेयर।</dd></div>
+        <div><dt>Win rate, Profit factor</dt><dd>जीते trades का %; कुल जीत ÷ कुल हार (1 से ऊपर = फ़ायदे में)।</dd></div>
+        <div><dt>Drawdown</dt><dd>सबसे ऊँचे स्तर से account की सबसे बड़ी गिरावट।</dd></div>
+        <div><dt>STT</dt><dd>Securities Transaction Tax, सरकार का हर सौदे पर tax।</dd></div>
+      </dl>
+    </section>
+
+    <!-- 17 -->
+    <section class="lesson" id="faq">
+      <div class="lesson-head"><span class="n">17</span><div><h2>आम सवाल</h2><p>जो बातें अक्सर पूछी जाती हैं।</p></div></div>
+      <div class="faq">
+        <div><h3>Scan बहुत धीमा है या रुक जाता है।</h3><p>Internet देखें। BSE और SME भी चालू हों तो scan लंबा होता है; <span class="ui">Menu</span> → <span class="ui">स्कैन</span> में सिर्फ़ NSE रखें। Screen बंद होने पर भी scan notification के साथ चलता है।</p></div>
+        <div><h3>"कोई stock match नहीं हुआ" लिखा आता है।</h3><p>Filters बहुत कड़े हैं। <span class="ui">Filters</span> → <span class="ui">Reset</span> करें, या sector filter हटाएँ।</p></div>
+        <div><h3>भाव पुराना लग रहा है।</h3><p>भाव Yahoo Finance से आते हैं और कुछ मिनट पीछे हो सकते हैं। नया scan चलाएँ या live auto-scan चालू करें। Paper Trading में ↻ दबाएँ; पिछले दिन का भाव तारीख़ के साथ दिखता है।</p></div>
+        <div><h3>आज के Intraday में कुछ नहीं दिख रहा।</h3><p>Picks 9:30 के बाद आते हैं, जब opening range बन जाती है। बाज़ार बंद हो या छुट्टी हो तो आज का कोई call नहीं होता।</p></div>
+        <div><h3>Paper order भरा नहीं।</h3><p>Limit, SL और SL-M orders तभी भरते हैं जब भाव वहाँ पहुँचे; दिन ख़त्म होने पर रद्द। बाज़ार बंद में दिया order अगली सुबह भरता है। Intraday order सिर्फ़ 9:15 से 15:15 तक।</p></div>
+        <div><h3>Update install नहीं हो रहा।</h3><p>पहली बार Android "इस source से install" की अनुमति माँगता है; उसे चालू करके back दबाएँ। Phone में जगह कम हो तो थोड़ी खाली करें।</p></div>
+        <div><h3>क्या app मेरे broker में order डालता है?</h3><p>नहीं। App कभी असली order नहीं भेजता। Order ticket copy करके आप ख़ुद broker app में डालते हैं।</p></div>
+        <div><h3>Phone बदला तो watchlist?</h3><p>Login किया हो तो नए phone में उसी account से login करें, watchlist वापस। Login के बिना watchlist सिर्फ़ उसी phone में रहती है।</p></div>
+        <div><h3>STRONG stock ख़रीदें तो फ़ायदा पक्का?</h3><p>नहीं। Score सिर्फ़ बताता है कि setup अच्छा दिखता है। हर trade में stop-loss रखें, 1% से ज़्यादा जोखिम न लें, और पहले Paper Trading से परखें।</p></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p><b>Share Scan</b> एक pre-breakout scanner है (NSE • BSE)। Data: NSE और BSE की lists, Yahoo Finance के भाव, Screener.in और NSE की company जानकारी; data कुछ देर पुराना हो सकता है। App में दिखने वाली हर चीज़ अनुमान है, निवेश की सलाह नहीं।</p>
+    <p>यह गाइड app में <span class="ui">Menu</span> → <span class="ui">शुरुआती गाइड</span> में भी है। हर हिस्से का पूरा हिसाब app की Help में: <span class="ui">Menu</span> → <span class="ui">Score कैसे बनता है</span>।</p>
+    <a class="top-link" href="#top">ऊपर जाएँ ↑</a>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -215,7 +215,7 @@ class MenuSheet(
     private val settings: AppSettings,
     private val onPick: (Entry) -> Unit,
 ) {
-    enum class Entry { ACCOUNT, USAGE, SCAN, PAPER, INTRADAY, TRADE_LOG, TRACK_RECORD, SECTORS, SETTINGS, TEXT, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
+    enum class Entry { GUIDE, ACCOUNT, USAGE, SCAN, PAPER, INTRADAY, TRADE_LOG, TRACK_RECORD, SECTORS, SETTINGS, TEXT, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
 
     fun show(): BottomSheetDialog {
         val ui = SheetMenuBinding.inflate(activity.layoutInflater)
@@ -231,6 +231,7 @@ class MenuSheet(
                 onPick(entry)
             }
         }
+        add(Entry.GUIDE, R.drawable.ic_guide, R.string.menu_guide, activity.getString(R.string.menu_guide_body))
         val account = AccountManager.summary(activity) ?: activity.getString(R.string.menu_account_signed_out)
         add(Entry.ACCOUNT, R.drawable.ic_account, R.string.menu_account, account)
         // Only the app's maker, signed in with their GitHub account, sees how many phones use it.

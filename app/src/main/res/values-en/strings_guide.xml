@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_guide">Beginner\'s guide</string>
+    <string name="menu_guide_body">Everything in the app, step by step, with screenshots (in Hindi)</string>
+</resources>

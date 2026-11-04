@@ -1199,6 +1199,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onMenuPick(entry: MenuSheet.Entry) {
         when (entry) {
+            MenuSheet.Entry.GUIDE -> showMenuSheet { GuideSheet(this, ::openMenu).show() }
             MenuSheet.Entry.ACCOUNT -> showMenuSheet { AccountSheet(this, ::openMenu).show() }
             MenuSheet.Entry.USAGE -> showMenuSheet { UsageSheet(this, ::openMenu).show() }
             MenuSheet.Entry.SCAN -> showMenuSheet {
