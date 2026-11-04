@@ -532,7 +532,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
     <!-- 11 -->
     <section class="lesson" id="bigmoney">
       <div class="lesson-head"><span class="n">11</span><div><h2>💰 बड़े पैसे की चाल</h2><p><span class="ui">Menu</span> → <span class="ui">बड़े पैसे की चाल</span>: बड़े खिलाड़ी (institutions, operators) कहाँ चुपचाप ख़रीद रहे हैं, और कहाँ नकली हलचल है।</p></div></div>
-      <div class="cols">
+      <div class="cols has-shot">
         <div>
           <p>बड़े निवेशक एक दिन में भाव उछाले बिना शेयर जमा करते हैं, और operators कभी-कभी उसी दिन ख़रीद-बेचकर नकली volume बनाते हैं। चार्ट में यह साफ़ नहीं दिखता, पर NSE हर शाम हर शेयर का <b>delivery data</b> देता है: आज कितने शेयर का सौदा हुआ, और उनमें से कितने सच में किसी के demat में गए। App इसी से हर शाम चार signal बनाता है।</p>
           <h3>Data कब आता है</h3>
@@ -543,7 +543,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
             <tr><td><span class="bull">🟢 चुपचाप खरीद</span></td><td>कोई भाव बढ़ाए बिना शेयर उठा रहा है</td><td>आज delivery % अपने 20 सत्र के औसत का 1.8 गुना से ज़्यादा, भाव ±2% के अंदर, 1 लाख से ज़्यादा शेयर</td></tr>
             <tr><td><span class="bear">🔴 Churn / जाल</span></td><td>बहुत volume, पर लगभग सब उसी दिन कट गया</td><td>Volume 20 सत्र के औसत का 4 गुना से ज़्यादा, delivery 20% से कम</td></tr>
             <tr><td>🤝 Deals</td><td>Bulk/block deals में कुल मिलाकर ख़रीद ज़्यादा या बिक्री</td><td>30 सत्र में सब clients की ख़रीद − बिक्री; लगातार 2+ deal वाले दिन net ख़रीद हो तो signal</td></tr>
-            <tr><td>👔 Promoter</td><td>Company के मालिक बाज़ार से ख़रीद रहे या बेच रहे</td><td>90 दिन में market से ख़रीद − बिक्री (ESOP, gift, off-market नहीं गिने)</td></tr>
+            <tr><td>👔 Promoter</td><td>Company के मालिक बाज़ार से ख़रीद रहे या बेच रहे</td><td>90 दिन में market से ख़रीद − बिक्री (ESOP, gift, off-market नहीं गिने)। यह data NSE से तभी आता है जब NSE दे; पुराना हो तो tab में तारीख़ के साथ चेतावनी दिखती है</td></tr>
           </table></div>
           <p>हर tab में ऊपर <b>track record</b> की लाइन होती है: पिछले एक साल में यह signal कितनी बार आया, और 10 सत्र बाद भाव औसतन कितना चला, उन्हीं दिनों में सब शेयरों के औसत के मुक़ाबले। 30 बार से कम आया हो तो "data जमा हो रहा है"।</p>
           <h3>कदम-दर-कदम</h3>
@@ -571,6 +571,10 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
             <li>Watchlist के शेयर में नया signal आए तो notification; शाम को (data देर से आए तो अगली सुबह 8 से 9:15 के बीच) पूरे market का सार। <span class="ui">Menu</span> → <span class="ui">स्कैन</span> में "बड़े पैसे की चाल के alerts" से बंद करें।</li>
           </ul>
           <div class="callout warn"><b>सावधानी</b>यह खरीदने की सलाह नहीं, सिर्फ़ data है। ऊँची delivery का मतलब कभी-कभी कोई बड़ा बेचने वाला भी होता है, क्योंकि हर ख़रीदार के सामने एक बेचने वाला होता है। Signal को chart, R/S और अपने stop-loss के साथ ही इस्तेमाल करें, और पहले Paper Trading में परखें।</div>
+        </div>
+        <div class="shots">
+          <figure><img src="img/big-money.jpg" alt="बड़े पैसे की चाल: चुपचाप खरीद tab, track record और 4 Nov के शेयर" loading="lazy" width="360" height="800"><figcaption>चुपचाप खरीद tab</figcaption></figure>
+          <figure><img src="img/big-money-card.jpg" alt="Stock detail में बड़े पैसे की चाल का card: score 31, delivery spike का हिसाब खुला हुआ" loading="lazy" width="360" height="800"><figcaption>Stock detail का card</figcaption></figure>
         </div>
       </div>
     </section>
@@ -743,6 +747,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
         <div><h3>Paper order भरा नहीं।</h3><p>Limit, SL और SL-M orders तभी भरते हैं जब भाव वहाँ पहुँचे; दिन ख़त्म होने पर रद्द। बाज़ार बंद में दिया order अगली सुबह भरता है। Intraday order सिर्फ़ 9:15 से 15:15 तक।</p></div>
         <div><h3>बड़े पैसे की चाल में आज का data नहीं दिख रहा।</h3><p>NSE की delivery file शाम को आती है; app की file शाम 7:15 के बाद (कभी रात 12:15 के बाद) ताज़ा होती है। छुट्टी के दिन नया data नहीं होता। ऊपर लिखी तारीख़ देखें।</p></div>
         <div><h3>किसी शेयर के card में "data नहीं" लिखा है।</h3><p>BSE-only और trade-to-trade (BE, BZ) शेयरों का delivery data NSE नहीं देता, और जिस दिन शेयर में सौदा ही न हुआ हो उस दिन भी नहीं।</p></div>
+        <div><h3>Promoter tab खाली क्यों है?</h3><p>Promoters के trades NSE की insider filings से आते हैं, और NSE यह data कभी-कभी महीनों तक नहीं देता। तब tab में लिखा आता है कि data किस तारीख़ तक का है। Delivery और deals वाले signal इससे नहीं रुकते।</p></div>
         <div><h3>बड़े पैसे की चाल का score 70 है, ख़रीद लूँ?</h3><p>नहीं, सिर्फ़ इसी से नहीं। Score बताता है कि delivery, deals और promoter एक ही तरफ़ इशारा कर रहे हैं। Track record देखें, chart और R/S देखें, stop-loss तय करें, और पहले Paper Trading में परखें।</p></div>
         <div><h3>Update install नहीं हो रहा।</h3><p>पहली बार Android "इस source से install" की अनुमति माँगता है; उसे चालू करके back दबाएँ। Phone में जगह कम हो तो थोड़ी खाली करें।</p></div>
         <div><h3>क्या app मेरे broker में order डालता है?</h3><p>नहीं। App कभी असली order नहीं भेजता। Order ticket copy करके आप ख़ुद broker app में डालते हैं।</p></div>
