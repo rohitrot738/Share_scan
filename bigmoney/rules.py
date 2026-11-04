@@ -88,11 +88,12 @@ def churn(days: list[Day]) -> bool:
 
 def deal_net(rows: list[list], sessions: list[str]) -> DealNet | None:
     """The bulk and block deals ([date, side, rupees, shares, client, kind]) dated within `sessions` (the last 30
-    session dates, oldest first) netted: buys add, sells take away. None when there were none."""
+    session dates, oldest first) netted: buys add, sells take away. None when there were none. Rows without the
+    share count and client (the R/S store kept some from before it wrote them) are left out."""
     if not sessions:
         return None
     index = {d: i for i, d in enumerate(sessions)}
-    rows = [r for r in rows if r and r[0] in index and r[1] in ("buy", "sell") and r[3]]
+    rows = [r for r in rows if len(r) >= 5 and r[0] in index and r[1] in ("buy", "sell") and r[3]]
     if not rows:
         return None
     by_day: dict[str, int] = {}

@@ -112,6 +112,12 @@ def test_deal_net_streak_and_circular():
     assert selling.streak == -2 and selling.circular == []
 
 
+def test_deal_net_skips_short_rows():
+    # The R/S store keeps some deals from before it wrote the share count and client.
+    rows = [["2026-10-20", "buy", 4e6], ["2026-10-21", "sell"], [], ["2026-10-22", "buy", 1e6, 10_000, "A", "bulk"]]
+    assert deal_net(rows, SESSIONS) == DealNet(10_000, 1e6, 1, 1, [])
+
+
 def test_promoter_net_rules():
     rows = [
         ["2026-10-20", "buy", 2e7, 1, "P1", "Promoters", "Market Purchase"],

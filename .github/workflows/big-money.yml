@@ -35,7 +35,9 @@ jobs:
           gh release download "$TAG" -p big-money-store.json.gz || echo "No store yet, so this run reads a year."
           gh release download "$TAG" -p cr360-store.json.gz || echo "No R/S store: no promoter trades this run."
       - name: Build
-        run: python -m bigmoney.build | tee build.log
+        run: |
+          set -o pipefail
+          python -m bigmoney.build | tee build.log
       - name: Publish
         run: |
           if grep -q '^PUBLISH' build.log; then
