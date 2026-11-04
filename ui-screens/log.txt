@@ -1,5 +1,5 @@
-IST now: 2026-11-05 01:24
-scan done after ~50s
+IST now: 2026-11-05 01:50
+scan done after ~45s
 shot 01-list
 shot 60-menu
 shot 61-bigmoney-acc
@@ -24,6 +24,18 @@ TATACHEM · delivery 53.7% (औसत 27%, 1.99 गुना)
 shot 62-bigmoney-churn
 shot 63-bigmoney-deals
 shot 64-bigmoney-promoter
+💰 बड़े पैसे की चाल
+4 Nov शाम का NSE data · 3,133 शेयर
+🟢 चुपचाप खरीद
+🔴 Churn / जाल
+🤝 Deals
+👔 Promoter
+पिछले 90 दिन में promoters ने market से कितने के शेयर खरीदे और बेचे (ESOP, gift और off-market नहीं गिने)। पहले खरीद वाले।
+👔 Promoters ने market से खरीदे: पिछले साल 350 बार; 10 सत्र बाद औसत +1% (सब शेयर −0.5%), 42% बार ऊपर
+👔 Promoters ने market में बेचे: पिछले साल 132 बार; 10 सत्र बाद औसत −3% (सब शेयर −1.5%), 30% बार ऊपर
+⚠️ Promoters का data 30 Apr 2026 तक का ही है: NSE से नया data अभी नहीं मिल रहा, इसलिए यह tab और promoter वाले अंक अधूरे हैं।
+आज इसमें कोई शेयर नहीं
+यह खरीदने-बेचने की सलाह नहीं है। Track record बीते साल का है; आगे भी वैसा ही हो, ज़रूरी नहीं। अपना stop-loss ज़रूर रखें।
 shot 65-bigmoney-acc-more
 shot 66-card
 shot 67-card-part
