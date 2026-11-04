@@ -198,11 +198,15 @@ class MainActivity : AppCompatActivity() {
         ui.updateAction.setOnClickListener { updates.proceed() }
         ui.updateLater.setOnClickListener { updates.dismiss() }
         ui.menuButton.setOnClickListener { openMenu() }
+        ui.paperButton.setOnClickListener { openPaper(fromMenu = false) }
         ui.sectorChip.setOnClickListener { openSectors(fromMenu = false) }
         if (savedInstanceState == null) {
             intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let { openFromNotification(it, intent.getBooleanExtra(Notifier.EXTRA_NEWS, false)) }
             if (intent.getBooleanExtra(Notifier.EXTRA_INSTALL, false)) updates.installWhenReady()
+            if (intent.getBooleanExtra(Notifier.EXTRA_PAPER, false)) openPaper(fromMenu = false)
         }
+        // The paper account's background checks go on while it has orders waiting or shares open.
+        if (PaperEngine.watched(PaperStore.load(this)).isNotEmpty()) PaperWorker.schedule(this)
         if ((settings.liveScan && settings.liveAlerts) || settings.watchAlerts || settings.newsAlerts) askToNotify(again = false)
 
         ui.startButton.setOnClickListener {
@@ -266,6 +270,7 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         intent.getStringExtra(Notifier.EXTRA_SYMBOL)?.let { openFromNotification(it, intent.getBooleanExtra(Notifier.EXTRA_NEWS, false)) }
         if (intent.getBooleanExtra(Notifier.EXTRA_INSTALL, false)) updates.installWhenReady()
+        if (intent.getBooleanExtra(Notifier.EXTRA_PAPER, false)) openPaper(fromMenu = false)
     }
 
     /**
@@ -552,6 +557,7 @@ class MainActivity : AppCompatActivity() {
         ui.statusPill.setOnClickListener { openScanPanel() }
         ui.compactSearch.setOnClickListener { openSearch() }
         ui.compactMenu.setOnClickListener { openMenu() }
+        ui.compactPaper.setOnClickListener { openPaper(fromMenu = false) }
 
         // The tools into the floating bar in the redesign's order (Filters, Watchlist, the sorts), then the sector
         // and sharing; the list keeps room under its last line.
@@ -1193,6 +1199,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun onMenuPick(entry: MenuSheet.Entry) {
         when (entry) {
+            MenuSheet.Entry.GUIDE -> showMenuSheet { GuideSheet(this, ::openMenu).show() }
             MenuSheet.Entry.ACCOUNT -> showMenuSheet { AccountSheet(this, ::openMenu).show() }
             MenuSheet.Entry.USAGE -> showMenuSheet { UsageSheet(this, ::openMenu).show() }
             MenuSheet.Entry.SCAN -> showMenuSheet {
@@ -1201,6 +1208,7 @@ class MainActivity : AppCompatActivity() {
             MenuSheet.Entry.INTRADAY -> showMenuSheet {
                 IntradaySheet(this, scan.uiState.value.results, { openChart(it) }, ::openMenu).show()
             }
+            MenuSheet.Entry.PAPER -> openPaper(fromMenu = true)
             MenuSheet.Entry.TRADE_LOG -> showMenuSheet {
                 TradeLogSheet(this, { scan.uiState.value.priceOf(it) }, { openFromNotification(it, false) }, ::openMenu).show()
             }
@@ -1226,6 +1234,18 @@ class MainActivity : AppCompatActivity() {
             MenuSheet.Entry.ABOUT -> showMenuSheet {
                 AboutSheet(this, updates.installedName, updates.installedCode, ::shareApp, ::openReleases, ::openMenu).show()
             }
+        }
+    }
+
+    /** Paper Trading, from the header's button, a notification, or the menu (whose ← comes back to it). */
+    private fun openPaper(fromMenu: Boolean) {
+        showMenuSheet {
+            PaperSheet(
+                this,
+                { scan.uiState.value.let { state -> (state.results + state.watchExtras).distinctBy { it.symbol } } },
+                { openFromNotification(it, false) },
+                if (fromMenu) ::openMenu else null,
+            ).show()
         }
     }
 

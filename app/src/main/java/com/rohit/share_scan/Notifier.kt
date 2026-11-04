@@ -34,6 +34,7 @@ object Notifier {
     private const val ID_UPDATE = 4
     private const val ID_NEWS_DIGEST = 5
     private const val ID_SQUARE_OFF = 6
+    private const val ID_PAPER = 7
     /** Each stock's news alert replaces its previous one; its "पूरी ख़बर" button counts on from [NEWS_READ_BASE]. */
     private const val ID_NEWS_BASE = 70_000
     private const val NEWS_READ_BASE = 140_000
@@ -52,6 +53,9 @@ object Notifier {
 
     /** The intent extra of the "update ready" notification: hand the downloaded APK to the installer. */
     const val EXTRA_INSTALL = "install_update"
+
+    /** Set by the paper account's notification: the Paper Trading section opens. */
+    const val EXTRA_PAPER = "paper"
 
     fun canPost(context: Context): Boolean =
         Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU ||
@@ -367,6 +371,30 @@ object Notifier {
 
     /** The update is being installed, or was put off. */
     fun cancelUpdateReady(context: Context) = NotificationManagerCompat.from(context).cancel(ID_UPDATE)
+
+    /** What the paper account did while the app was closed ([PaperWorker]): fills, stops, targets, square-offs. */
+    fun paper(base: Context, events: List<PaperEvent>) {
+        if (events.isEmpty()) return
+        val context = Languages.localized(base)
+        val lines = events.map { PaperText.event(context, it) }
+        val body = lines.take(MAX_LINES).joinToString("\n")
+        val intent = Intent(context, MainActivity::class.java)
+            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            .putExtra(EXTRA_PAPER, true)
+        val tap = PendingIntent.getActivity(context, ID_PAPER, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        post(
+            context,
+            ID_PAPER,
+            NotificationCompat.Builder(context, CHANNEL_WATCH)
+                .setSmallIcon(R.drawable.ic_notifications_small)
+                .setContentTitle(if (lines.size == 1) context.getString(R.string.paper_title) else context.getString(R.string.notify_paper_title, lines.size))
+                .setContentText(lines.first())
+                .setStyle(NotificationCompat.BigTextStyle().bigText(body))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(tap)
+                .setAutoCancel(true),
+        )
+    }
 
     /** "breakout • volume 2.4× ✓", or the volume marked as too low when it is under [BreakoutSetup.VOLUME_RVOL]. */
     private fun breakoutTag(context: Context, rvol: Double): String = context.getString(

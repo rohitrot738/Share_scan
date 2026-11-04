@@ -95,6 +95,7 @@ class TradeTools(
         ui.sizeCopy.setOnClickListener { copy() }
         ui.sizeShare.setOnClickListener { share() }
         ui.sizeLog.setOnClickListener { log() }
+        ui.sizePaper.setOnClickListener { paper() }
         refresh()
     }
 
@@ -348,6 +349,39 @@ class TradeTools(
                 .setPositiveButton(R.string.guard_anyway) { _, _ -> write() }
                 .show()
         }
+    }
+
+    /**
+     * The trade on the paper account: an order filled in from the plan (or today's intraday call for MIS), sized at
+     * the chosen risk of the paper account's worth, to check and place in [PaperOrderSheet].
+     */
+    private fun paper() {
+        val product = TradeStore.product(activity)
+        val basis = basis(product)
+        val worth = PaperEngine.worth(PaperStore.load(activity))
+        val size = basis?.let { PositionSize.of(worth, TradeStore.risk(activity), it.entry, it.stop, it.targets, product) }
+        val breakout = basis?.waitsForBreakout == true
+        val preset = PaperOrderSheet.Preset(
+            stock = stock,
+            side = basis?.side ?: OrderTicket.Side.BUY,
+            product = product,
+            type = when {
+                basis == null -> PaperOrder.Type.MARKET
+                breakout -> PaperOrder.Type.SL
+                else -> PaperOrder.Type.LIMIT
+            },
+            qty = size?.qty?.takeIf { it > 0 },
+            price = basis?.let { OrderTicket.tick(if (breakout) it.entry * (1.0 + OrderTicket.ENTRY_SLIPPAGE) else it.entry) },
+            trigger = basis?.takeIf { breakout }?.let { OrderTicket.tick(it.entry) },
+            stop = basis?.stop,
+            target = basis?.targets?.firstOrNull(),
+            source = when {
+                basis == null -> PaperSource.MANUAL
+                basis.fromIntraday -> PaperSource.INTRADAY
+                else -> PaperSource.PLAN
+            },
+        )
+        PaperOrderSheet(activity, listOf(stock), preset) {}.show()
     }
 
     private fun copy() {
