@@ -143,3 +143,80 @@ def test_flags():
     assert flags(True, False, DealNet(1, 1.0, 2, 2, []), PromoterNet(1.0, 1, 0)) == ["acc", "deal_buy", "promoter_buy"]
     assert flags(False, True, DealNet(-1, -1.0, 3, -2, []), PromoterNet(-1.0, 0, 1)) == ["churn", "deal_sell", "promoter_sell"]
     assert flags(False, False, DealNet(1, 1.0, 1, 1, []), None) == []
+
+
+# --- the store and the track record -------------------------------------------------------------------------------
+
+from bigmoney.record import track_record  # noqa: E402
+from bigmoney.store import add_deals, add_session, empty_store, history, prune  # noqa: E402
+
+
+def row(close=100.0, prev=100.0, volume=100_000, deliv=20.0, series="EQ"):
+    return Row(series, close, prev, volume, deliv)
+
+
+def test_add_session_aligns_and_fills():
+    store = empty_store()
+    assert add_session(store, "2026-11-02", {"A": row(), "B": row()})
+    assert add_session(store, "2026-11-03", {"A": row(101.0), "C": row(50.0)})
+    assert not add_session(store, "2026-11-03", {"A": row()})
+    assert store["dates"] == ["2026-11-02", "2026-11-03"]
+    assert store["stocks"]["A"]["c"] == [100.0, 101.0]
+    assert store["stocks"]["B"]["c"] == [100.0, None]
+    assert store["stocks"]["C"]["c"] == [None, 50.0]
+    # A session found late (the job missed a day) goes in its place.
+    assert add_session(store, "2026-10-30", {"A": row(99.0)})
+    assert store["dates"] == ["2026-10-30", "2026-11-02", "2026-11-03"]
+    assert store["stocks"]["A"]["c"] == [99.0, 100.0, 101.0]
+    assert store["stocks"]["C"]["d"] == [None, None, 20.0]
+
+
+def test_prune_keeps_latest():
+    store = empty_store()
+    for d in range(1, 6):
+        add_session(store, f"2026-10-0{d}", {"A": row(float(d))} | ({"B": row()} if d == 1 else {}))
+    add_deals(store, {"A": [["2026-10-01", "buy", 1.0, 1, "X", "bulk"], ["2026-10-04", "buy", 1.0, 1, "X", "bulk"]]})
+    prune(store, keep=3)
+    assert store["dates"] == ["2026-10-03", "2026-10-04", "2026-10-05"]
+    assert store["stocks"]["A"]["c"] == [3.0, 4.0, 5.0]
+    assert "B" not in store["stocks"]  # nothing left of it
+    assert store["deals"]["A"] == [["2026-10-04", "buy", 1.0, 1, "X", "bulk"]]
+
+
+def test_add_deals_once_each():
+    store = empty_store()
+    deal = ["2026-11-03", "buy", 1e6, 10_000, "X", "bulk"]
+    assert add_deals(store, {"A": [deal]}) == 1
+    assert add_deals(store, {"A": [list(deal)]}) == 0
+    assert store["deals"]["A"] == [deal]
+
+
+def test_history_is_the_21_days_to_a_session():
+    store = empty_store()
+    for i in range(25):
+        add_session(store, f"2026-09-{i + 1:02d}", {"A": row(100.0 + i)})
+    days = history(store, "A", 24)
+    assert len(days) == 21 and days[-1].close == 124.0 and days[0].close == 104.0
+    assert len(history(store, "A", 5)) == 6
+
+
+def record_store():
+    """Three flat stocks over 40 sessions; A's delivery doubles on session 25 and its price is 10% up 10 sessions on."""
+    store = empty_store()
+    for i in range(40):
+        a = row(110.0 if i >= 35 else 100.0, 110.0 if i > 35 else 100.0, 200_000 if i == 25 else 100_000,
+                40.0 if i == 25 else 20.0)
+        add_session(store, f"2026-{8 + i // 28:02d}-{i % 28 + 1:02d}", {"A": a, "B": row(), "C": row()})
+    return store
+
+
+def test_track_record_hand_worked():
+    rec = track_record(record_store(), {}, horizon=10, min_cases=1)
+    assert rec["acc"] == {"n": 1, "avg": 10.0, "base": 3.33, "up": 100.0}
+    assert rec["churn"]["n"] == 0 and rec["churn"]["avg"] is None
+    assert set(rec) == {"acc", "churn", "deal_buy", "deal_sell", "promoter_buy", "promoter_sell", "score60"}
+
+
+def test_track_record_needs_30_cases():
+    rec = track_record(record_store(), {}, horizon=10)
+    assert rec["acc"] == {"n": 1, "avg": None, "base": None, "up": None}
