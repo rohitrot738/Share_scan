@@ -315,4 +315,18 @@ shot 46-menu 3
 tap_text "Paper Trading"
 shot 47-paper-from-menu 6
 home
+
+# Menu → शुरुआती गाइड: the bundled guide in the app.
+tap compactMenu
+sleep 3
+tap_text "शुरुआती गाइड"
+shot 48-guide-top 6
+for k in 1 2 3; do swipe_up; done
+shot 49-guide-scrolled 2
+for k in 1 2 3 4 5 6 7 8; do swipe_up; done
+shot 50-guide-paper 2
+adb shell input keyevent KEYCODE_BACK
+sleep 2
+shot 51-guide-back-to-menu 2
+home
 exit 0
