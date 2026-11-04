@@ -18,6 +18,28 @@ class GuideAssetTest {
         assertEquals(emptyList<String>(), missing)
     }
 
+    /**
+     * Every Menu entry a user sees is in the guide by its own name (as the Hinglish strings write it), so a new
+     * section of the app cannot ship without the guide explaining it. The usage count, shown only to the app's maker,
+     * is left out.
+     */
+    @Test
+    fun everyMenuEntryIsInTheGuide() {
+        val main = dir.parentFile!!.parentFile!!
+        val menu = main.resolve("java/com/rohit/share_scan/MenuSheets.kt").readText()
+        val keys = Regex("""add\(\s*Entry\.(\w+),\s*R\.drawable\.\w+,\s*R\.string\.(\w+)""").findAll(menu)
+            .filter { it.groupValues[1] != "USAGE" }
+            .map { it.groupValues[2] }
+            .toList()
+        assertTrue(keys.size >= 15)
+        val strings = main.resolve("res/values").listFiles { f -> f.name.endsWith(".xml") }!!.joinToString("\n") { it.readText() }
+        val missing = keys.filter { key ->
+            val title = Regex("""<string name="$key"[^>]*>([^<]*)</string>""").find(strings)?.groupValues?.get(1)?.replace("\\'", "'")
+            title == null || !page.contains(title)
+        }
+        assertEquals(emptyList<String>(), missing)
+    }
+
     @Test
     fun itLoadsNothingFromTheInternetAndItsFontsAreTheApps() {
         assertTrue(page.startsWith("<!doctype html>"))
