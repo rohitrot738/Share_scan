@@ -1,5 +1,7 @@
-IST now: 2026-11-04 06:28
-scan done after ~40s
+IST now: 2026-11-04 09:46
+could not find id statusPill
+could not find id startButton
+scan done after ~760s
 shot 01-list
 shot 30-paper-new
 📝 Paper Trading
@@ -8,7 +10,7 @@ Account की कुल value
 ₹10,00,000.00
 ₹0 (+0.00%) · शुरुआत ₹10,00,000.00
 Free नकद: ₹10,00,000.00
-भाव ला रहे हैं…
+Order या शेयर होने पर भाव अपने-आप ताज़ा होते हैं
 + नया order
 ↻ ताज़ा करें
 Intraday
@@ -17,18 +19,16 @@ Orders
 हिसाब
 खुले intraday trades
 अभी कुछ खुला नहीं
-RELIANCE price 1307.90
+RELIANCE price 1310.20
 shot 31-order-cnc-market
-अभी का भाव ₹1,307.90 (3 नव॰, 15:25 की candle)
-लगेगा ₹13,079.00 · charges लगभग ₹15.51 · free नकद ₹10,00,000.00
-Stop-loss लगा तो नुकसान ₹653.90 (account का 0.07%)
-Market अभी बंद है: order बुध, 4 नव॰ की शुरुआत में भरेगा (AMO)
+अभी का भाव ₹1,310.20 (10:11 की candle)
+लगेगा ₹13,102.00 · charges लगभग ₹15.54 · free नकद ₹10,00,000.00
+Stop-loss लगा तो नुकसान ₹655.10 (account का 0.07%)
 shot 32-placed-cnc
-TCS price 2499.10
+TCS price 2475.00
 shot 33-order-mis-sell
-shot 34-mis-refused
-नई intraday entry सिर्फ़ market के दिन 9:15 से 15:15 तक
-INFY price 1148.10
+shot 34-placed-mis
+INFY price 1142.80
 shot 35-order-limit
 shot 36-placed-limit
 shot 37-paper-intraday
@@ -37,12 +37,7 @@ shot 39-paper-orders
 shot 40-paper-orders-more
 📝 Paper Trading
 नकली पैसे, असली भाव: intraday और delivery की practice। कोई असली order नहीं जाता।
-Account की कुल value
-₹10,00,000.00
-₹0 (+0.00%) · शुरुआत ₹10,00,000.00
-Free नकद: ₹9,70,525.58
-रुके orders के लिए रखा: ₹29,474.42
-भाव 3 नव॰, 15:25 की candle तक · ↻ से ताज़ा करें
+भाव 10:15 की candle तक · ↻ से ताज़ा करें
 + नया order
 ↻ ताज़ा करें
 Intraday
@@ -50,28 +45,40 @@ Delivery
 Orders
 हिसाब
 रुके हुए orders
-BUY 15 INFY · Limit ₹1,090.70 · Delivery (CNC)
+BUY 15 INFY · Limit ₹1,085.65 · Delivery (CNC)
 ⏳ रुका है · 4 नव॰ 2026 के session के लिए
-4 नव॰, 06:36 को दिया
+4 नव॰, 10:14 को दिया
 दबाएँ तो रद्द
+पिछले orders
+SELL 20 TCS · Market · Intraday (MIS)
+✓ भरा ₹2,475.00 पर · 4 नव॰, 10:13 · charges ₹31.69
+Stop-loss ₹2,499.75 · Target ₹2,425.50
+4 नव॰, 10:13 को दिया
 BUY 10 RELIANCE · Market · Delivery (CNC)
-⏳ रुका है · 4 नव॰ 2026 के session के लिए
-Stop-loss ₹1,242.50 · Target ₹1,412.55
-4 नव॰, 06:33 को दिया
-दबाएँ तो रद्द
+✓ भरा ₹1,310.20 पर · 4 नव॰, 10:12 · charges ₹15.54
+Stop-loss ₹1,244.70 · Target ₹1,415.00
+4 नव॰, 10:12 को दिया
 shot 41-paper-reckoning
 shot 42-paper-reckoning-more
 shot 43-cancel-ask
+shot 44-position-actions
 shot 45-trade-window-paper
-अभी का भाव ₹1,307.90 (3 नव॰, 15:25 की candle)
-लगेगा ₹1,76,800.00 · charges लगभग ₹209.72 · free नकद ₹9,70,525.58
-Stop-loss लगा तो नुकसान ₹9,982.40 (account का 1%)
+अभी का भाव ₹1,306.20 (10:17 की candle)
+लगेगा ₹1,77,066.00 · charges लगभग ₹210.04 · free नकद ₹9,60,646.70
+Stop-loss लगा तो नुकसान ₹9,956.25 (account का 1%)
 Trade plan से भरा; चाहें तो बदलें
 shot 46-menu
 shot 47-paper-from-menu
+app was not in front
+app was not in front
+could not find id compactMenu
+could not find text शुरुआती गाइड
 shot 48-guide-top
 shot 49-guide-scrolled
 shot 50-guide-paper
 shot 50b-guide-picture
+could not find text विषय-सूची
+could not find text 📝 Paper Trading
 shot 50c-guide-jump
 shot 51-guide-back-to-menu
+app was not in front
