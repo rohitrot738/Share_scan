@@ -371,7 +371,16 @@ class StockAdapter(
         val ranked = item.rank != RankedStock.UNRANKED
         ui.rowRank.text = if (ranked) context.getString(R.string.compact_rank, item.rank) else context.getString(R.string.item_rank_none)
         ui.rowSymbol.text = stock.symbol
-        ui.rowCompany.text = withProducts(ui.rowCompany, stock.symbol, StockSearch.shortName(stock.name).ifEmpty { stock.sector })
+        val company = withProducts(ui.rowCompany, stock.symbol, StockSearch.shortName(stock.name).ifEmpty { stock.sector })
+        // बड़े पैसे की चाल's mark leads the company line, where the line's end could cut it off.
+        val money = bigMoney.of(stock.symbol)
+        ui.rowCompany.text = BigMoneyText.mark(context, money)?.let { (mark, tone) ->
+            SpannableStringBuilder(mark).apply {
+                setSpan(ForegroundColorSpan(color(tone)), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                append(" · ")
+                append(company)
+            }
+        } ?: company
         val exchange = MarketStyle.of(stock.market)
         ui.rowExchange.setText(exchange.label)
         ui.rowExchange.setTextColor(color(exchange.text))
@@ -420,6 +429,7 @@ class StockAdapter(
                 else -> context.getString(R.string.item_description_unranked, stock.symbol, score)
             },
             context.getString(exchange.description),
+            BigMoneyText.markDescription(context, money),
             newsDescription,
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,
