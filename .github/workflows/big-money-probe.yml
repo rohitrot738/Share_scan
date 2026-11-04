@@ -1,0 +1,25 @@
+# Temporary: what NSE's delivery files, deal files and filings look like from GitHub's servers, for the
+# "बड़े पैसे की चाल" design. Only reads and prints. Removed before merging.
+name: Big money probe
+on:
+  workflow_dispatch:
+  push:
+    paths: ['tools/probe_big_money.py', '.github/workflows/big-money-probe.yml']
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: The R/S store
+        run: gh release download cr360-data -p cr360-store.json.gz || echo "no store"
+      - name: Probe
+        run: python tools/probe_big_money.py
