@@ -17,6 +17,7 @@ class ScanStoreTest {
         score = 81.25,
         rvol = 2.4,
         change5d = -1.5,
+        change1d = 0.75,
         volume = 1_234_567.0,
         marketCapCr = 399_000.0,
         structure = PriceStructure(

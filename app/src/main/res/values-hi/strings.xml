@@ -32,6 +32,7 @@
     <string name="sort_score">स्कोर</string>
     <string name="sort_rvol">RVOL</string>
     <string name="sort_change">5D बदलाव</string>
+    <string name="sort_today">आज बदलाव</string>
     <string name="sort_price">भाव</string>
     <string name="sort_down">%1$s ↓</string>
     <string name="sort_up">%1$s ↑</string>
@@ -46,7 +47,6 @@
     <string name="empty_failed_title">नतीजे नहीं मिले</string>
     <string name="empty_failed_body">ऊपर दिए बटन से स्कैन दोबारा चलाएँ।</string>
     <string name="item_price">₹%1$s</string>
-    <string name="item_change">%1$s · 5D</string>
     <string name="item_rvol">RVOL %1$s×</string>
     <string name="item_setup_high">🎯 ऊँची संभावना वाला ब्रेकआउट • वॉल्यूम %1$s×</string>
     <string name="item_description">क्रम %1$d, %2$s, स्कोर %3$s</string>
@@ -80,6 +80,7 @@
     <string name="metric_turnover">कारोबार (₹ में)</string>
     <string name="metric_rvol">RVOL</string>
     <string name="metric_change">5D बदलाव</string>
+    <string name="metric_today">आज का बदलाव</string>
     <string name="metric_score">स्कोर</string>
     <string name="hint_market_cap">भाव × NSE पर जारी शेयर</string>
     <string name="hint_market_cap_date">भाव × NSE पर जारी शेयर (NSE डेटा: %1$s)</string>
@@ -92,4 +93,6 @@
     <string name="cap_mid">मिड ₹5K–20K Cr</string>
     <string name="cap_large">लार्ज ≥₹20K Cr</string>
     <string name="open_chart_failed">चार्ट खोलने के लिए कोई ब्राउज़र नहीं मिला</string>
+    <string name="move_today">%1$s आज</string>
+    <string name="move_5d">%1$s 5D</string>
 </resources>

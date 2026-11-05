@@ -266,6 +266,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
             <tr><td>RELIANCE</td><td>Stock का symbol (NSE/BSE पर उसका छोटा नाम), नीचे company का नाम।</td></tr>
             <tr><td>NSE / BSE / SME</td><td>किस exchange पर है। SME = छोटी companies का NSE Emerge।</td></tr>
             <tr><td>₹ भाव</td><td>आख़िरी भाव (live scan में चलता भाव)।</td></tr>
+            <tr><td>आज बदलाव</td><td>पिछले कारोबारी दिन के बंद भाव से आज भाव कितना % बदला: compact table में भाव के नीचे छोटे अक्षरों में, cards में "▲1.20% आज · ▲5.20% 5D" की तरह। बाज़ार खुला हो और live scan चालू हो तो यह चलता रहता है। <span class="bull">हरा</span> = ऊपर, <span class="bear">लाल</span> = नीचे।</td></tr>
             <tr><td>5D बदलाव</td><td>पिछले 5 कारोबारी दिनों में भाव कितना % बदला। <span class="bull">हरा</span> = ऊपर, <span class="bear">लाल</span> = नीचे।</td></tr>
             <tr><td>RVOL</td><td>आज का volume, पिछले 20 दिनों के औसत का कितना गुना। 2× या ज़्यादा = volume में उछाल।</td></tr>
             <tr><td>Score</td><td>0 से 100। जितना ज़्यादा, breakout का setup उतना अच्छा।</td></tr>
@@ -288,7 +289,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
           <ul>
             <li><b>Line या card दबाएँ</b>: stock का पूरा detail खुलता है।</li>
             <li><b>Watchlist में जोड़ें</b>: compact table में line को दबाकर रखें; Galaxy cards में ☆ दबाएँ।</li>
-            <li><b>नीचे की तैरती bar</b> (Space Glass) या cards के ऊपर chips (Galaxy): <span class="ui">Filters</span>, <span class="ui">★ Watchlist</span>, sort (<span class="ui">Score</span>, <span class="ui">RVOL</span>, 5D, Price, R/S), <span class="ui">सेक्टर</span> और top 10 शेयर करना। Bar को दाएँ-बाएँ खिसकाएँ।</li>
+            <li><b>नीचे की तैरती bar</b> (Space Glass) या cards के ऊपर chips (Galaxy): <span class="ui">Filters</span>, <span class="ui">★ Watchlist</span>, sort (<span class="ui">Score</span>, <span class="ui">आज बदलाव</span>, <span class="ui">RVOL</span>, 5D, Price, R/S), <span class="ui">सेक्टर</span> और top 10 शेयर करना। Bar को दाएँ-बाएँ खिसकाएँ।</li>
             <li><b>🔍 खोज</b>: symbol या company का नाम लिखें, जैसे TCS या Reliance।</li>
           </ul>
         </div>
@@ -333,16 +334,18 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
           <h3>Filters</h3>
           <p><span class="ui">Filters</span> दबाएँ। हर slider की कम-से-कम और ज़्यादा-से-ज़्यादा सीमा खिसकाएँ, ऊपर लिखा रहता है कि कितने stocks match हुए। फिर <span class="ui">लागू करें</span>। <span class="ui">Reset</span> से सब पहले जैसा।</p>
           <ul>
-            <li>Market cap, भाव, Volume, Turnover (रोज़ का कारोबार ₹ में), RVOL, 5D बदलाव, Score</li>
+            <li>Market cap, भाव, Volume, Turnover (रोज़ का कारोबार ₹ में), RVOL, 5D बदलाव, आज का बदलाव, Score</li>
             <li>20 दिन के high से दूरी, शांत दायरा, 50 DMA से दूरी</li>
             <li>RSI (14), MACD की signal से दूरी, MACD crossover कितने दिन पहले</li>
             <li>Support से दूरी और support कितना पुराना</li>
-            <li>"कितने stocks दिखाएँ": score के हिसाब से top 25, 50, 100, 200 या सभी</li>
+            <li>"कितने stocks दिखाएँ": अपने-आप <b>सभी</b> (scan में आया हर शेयर list में)। चाहें तो score के हिसाब से सिर्फ़ top 25, 50, 100 या 200।</li>
             <li><b>📈 सिर्फ़ लंबी अवधि की quality companies</b>: ROCE 15% या ज़्यादा, Debt/Equity 0.5 या कम, promoters 50% या ज़्यादा, कोई pledge नहीं, और EPS की बढ़त 12% या ज़्यादा (जहाँ आँकड़ा है)।</li>
           </ul>
           <div class="callout tip"><b>शुरुआत के लिए एक आसान filter</b>Turnover कम से कम ₹5 Cr, RVOL 1.5× या ज़्यादा, और Score 70+। इससे बहुत कम कारोबार वाले और कमज़ोर setups हट जाते हैं।</div>
           <h3>Sort</h3>
-          <p>Score, RVOL, 5D बदलाव, Price, R/S या Support पर list लगाएँ। उसी chip को दोबारा दबाने पर क्रम उल्टा (↓ / ↑)।</p>
+          <p>Score, आज बदलाव, RVOL, 5D बदलाव, Price, R/S या Support पर list लगाएँ। उसी chip को दोबारा दबाने पर क्रम उल्टा (↓ / ↑)।</p>
+          <div class="callout tip"><b>आज के top gainers और losers</b><span class="ui">आज बदलाव</span> chip दबाएँ: सबसे ऊपर आज सबसे ज़्यादा चढ़े शेयर (जैसे +8.4%, +6.1%…)। वही chip दोबारा दबाएँ: सबसे ऊपर आज सबसे ज़्यादा गिरे शेयर। Filters में "आज का बदलाव" कम से कम +3% रखें तो सिर्फ़ आज 3% या ज़्यादा चढ़े शेयर बचते हैं।</div>
+          <div class="callout warn"><b>ध्यान दें</b>आज बहुत चढ़ा शेयर हमेशा अच्छा मौका नहीं: अक्सर अगले दिन मुनाफ़ा-वसूली में गिरता है। RVOL (volume) और score भी देखें, और पीछा न करें। पुराने scan में आज का बदलाव नहीं होता; नया scan चलाएँ।</div>
           <h3>Sector</h3>
           <p><span class="ui">सेक्टर</span> chip से हर sector की ताकत दिखती है (आज कौन सा sector सबसे मज़बूत)। किसी sector को दबाएँ तो list सिर्फ़ उसी के stocks तक। Scan में कौन से sectors शामिल हों, यह <span class="ui">Menu</span> → <span class="ui">स्कैन</span> में हर exchange के लिए अलग चुन सकते हैं।</p>
           <h3>खोज</h3>
@@ -359,7 +362,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
       <div class="lesson-head"><span class="n">6</span><div><h2>Stock का detail</h2><p>List में किसी stock को दबाने पर उसकी पूरी जानकारी एक sheet में।</p></div></div>
       <div class="cols has-shot">
         <div>
-          <p>सबसे ऊपर exchange, symbol, company और sector, आज का भाव और 5 दिन का बदलाव, और score की पट्टी (STRONG/WATCH/WEAK)। उसके नीचे दो tabs हैं:</p>
+          <p>सबसे ऊपर exchange, symbol, company और sector, आज का भाव, आज का और 5 दिन का बदलाव, और score की पट्टी (STRONG/WATCH/WEAK)। उसके नीचे दो tabs हैं:</p>
           <h3>जानकारी tab</h3>
           <ul>
             <li><b>चार्ट</b>: पिछले 60 sessions का भाव, entry, stop-loss (SL), targets (T1, T2) और support की रेखाओं के साथ। <b>चार्ट या उसके नीचे की पट्टी "🎯 लक्ष्य, Trade plan…" दबाएँ</b> तो Trade window खुलती है (अगला भाग)।</li>
@@ -566,7 +569,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
             <li><span class="ui">Menu</span> → <span class="ui">बड़े पैसे की चाल</span> खोलें।</li>
             <li><span class="ui">🟢 चुपचाप खरीद</span> tab में शेयर ताक़त के क्रम में हैं: सबसे ऊपर वह जिसकी आज की delivery अपने औसत से सबसे ज़्यादा गुना है।</li>
             <li>किसी शेयर को दबाएँ: उसका detail खुलता है, जिसमें नीचे "💰 बड़े पैसे की चाल" card है। शेयर आपकी scan की list में न हो, तो app उसी समय उसका chart ले आता है (कुछ सेकंड)।</li>
-            <li>किसी row में <b>"🆕 सिर्फ़ N सत्र का data"</b> लिखा हो तो वह कुछ ही दिन पहले listed शेयर है। App का chart, score और trade plan कम से कम 21 सत्र के data से बनते हैं, इसलिए वह scan की list में नहीं आता; दबाने पर सिर्फ़ उसका बड़े पैसे की चाल वाला card खुलता है, ऊपर वजह के साथ। जैसे 4 Nov को Deals tab में EDELALTS (3 सत्र) और BONFIG (9 सत्र): नए IPO में bulk/block deals सबसे ज़्यादा होती हैं।</li>
+            <li>किसी row में <b>"🆕 सिर्फ़ N सत्र का data"</b> लिखा हो तो वह कुछ ही दिन पहले listed शेयर है। App का chart, score और trade plan कम से कम 21 सत्र के data से बनते हैं, इसलिए वह scan की list में नहीं आता; दबाने पर ऊपर वजह, फिर उसका अब तक का भाव एक छोटे chart में (पहले दिन का, अब का, सबसे ऊँचा और सबसे नीचा भाव), और उसका बड़े पैसे की चाल वाला card खुलता है। जैसे 4 Nov को Deals tab में EDELALTS (3 सत्र) और BONFIG (9 सत्र): नए IPO में bulk/block deals सबसे ज़्यादा होती हैं।</li>
             <li>Card में score (0–100) और उसके हिस्से देखें; हर हिस्सा दबाने पर पूरा हिसाब खुलता है। नीचे पिछले 20 सत्र का delivery % (bars) और volume (रेखा)।</li>
             <li><span class="ui">🔴 Churn / जाल</span> tab भी देखें: इनमें से कोई आपकी watchlist में हो तो सावधान।</li>
           </ol>
@@ -715,6 +718,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
         <div><dt>Stop-loss (SL)</dt><dd>वह भाव जहाँ ग़लत साबित होने पर नुकसान छोटा रखकर निकल जाते हैं।</dd></div>
         <div><dt>Target (T1, T2)</dt><dd>जिस भाव पर फ़ायदा लेकर निकलना है।</dd></div>
         <div><dt>R (risk)</dt><dd>Entry से stop तक का फ़र्क, प्रति शेयर। 2R target = जोखिम का दुगना फ़ायदा।</dd></div>
+        <div><dt>आज का बदलाव (1D)</dt><dd>पिछले कारोबारी दिन के बंद भाव से आज के भाव तक का % बदलाव।</dd></div>
         <div><dt>RVOL</dt><dd>आज का volume ÷ पिछले 20 दिनों का औसत volume।</dd></div>
         <div><dt>ATR</dt><dd>Stock रोज़ औसतन कितना ऊपर-नीचे चलता है।</dd></div>
         <div><dt>VWAP</dt><dd>दिन का volume से तौला गया औसत भाव। इसके ऊपर = ख़रीदार मज़बूत।</dd></div>

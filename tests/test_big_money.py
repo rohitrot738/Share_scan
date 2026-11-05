@@ -334,6 +334,11 @@ def test_app_file_counts_a_new_listings_sessions():
     app = app_file(store, {})
     assert app["stocks"]["NEW"]["ns"] == 5
     assert "ns" not in app["stocks"]["OLD"]
+    # Too new for the scan's chart, it carries its closes so far (the last 20 sessions, none before its first) for a
+    # chart of its own; a share charted by the scan does not.
+    closes = app["stocks"]["NEW"]["pq"]
+    assert len(closes) == 20 and closes[:15] == [None] * 15 and closes[15:] == [100.0] * 5
+    assert "pq" not in app["stocks"]["OLD"]
 
 
 def test_app_file_shape():

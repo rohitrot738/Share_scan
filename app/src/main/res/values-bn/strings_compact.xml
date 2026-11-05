@@ -4,7 +4,7 @@
     <string name="compact_no_data">দাম নেই</string>
     <string name="compact_col_rank">#</string>
     <string name="compact_col_stock">শেয়ার / কোম্পানি</string>
-    <string name="compact_col_price">দাম</string>
+    <string name="compact_col_price">দাম / আজ</string>
     <string name="compact_col_change">5D পরিবর্তন / RVOL</string>
     <string name="compact_col_score">স্কোর</string>
     <string name="compact_share">শেয়ার করুন</string>

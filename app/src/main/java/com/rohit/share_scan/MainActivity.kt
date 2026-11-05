@@ -866,6 +866,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun sortChip(mode: SortMode): Chip = when (mode) {
         SortMode.SCORE -> ui.sortScore
+        SortMode.TODAY -> ui.sortToday
         SortMode.RVOL -> ui.sortRvol
         SortMode.CHANGE -> ui.sortChange
         SortMode.PRICE -> ui.sortPrice
@@ -875,6 +876,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun sortLabel(mode: SortMode): Int = when (mode) {
         SortMode.SCORE -> R.string.sort_score
+        SortMode.TODAY -> R.string.sort_today
         SortMode.RVOL -> R.string.sort_rvol
         SortMode.CHANGE -> R.string.sort_change
         SortMode.PRICE -> R.string.sort_price

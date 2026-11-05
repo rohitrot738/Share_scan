@@ -312,6 +312,7 @@ class FilterSheet(
         Metric.TURNOVER -> R.string.metric_turnover
         Metric.RVOL -> R.string.metric_rvol
         Metric.CHANGE -> R.string.metric_change
+        Metric.TODAY -> R.string.metric_today
         Metric.FROM_HIGH -> R.string.metric_from_high
         Metric.BASE_RANGE -> R.string.metric_base_range
         Metric.VS_SMA50 -> R.string.metric_vs_sma50

@@ -32,6 +32,7 @@
     <string name="sort_score">স্কোর</string>
     <string name="sort_rvol">RVOL</string>
     <string name="sort_change">5D পরিবর্তন</string>
+    <string name="sort_today">আজ পরিবর্তন</string>
     <string name="sort_price">দাম</string>
     <string name="sort_down">%1$s ↓</string>
     <string name="sort_up">%1$s ↑</string>
@@ -46,7 +47,6 @@
     <string name="empty_failed_title">ফল পাওয়া যায়নি</string>
     <string name="empty_failed_body">উপরের বোতাম দিয়ে আবার স্ক্যান চালান।</string>
     <string name="item_price">₹%1$s</string>
-    <string name="item_change">%1$s · 5D</string>
     <string name="item_rvol">RVOL %1$s×</string>
     <string name="item_setup_high">🎯 উচ্চ সম্ভাবনার ব্রেকআউট • ভলিউম %1$s×</string>
     <string name="item_description">র‍্যাঙ্ক %1$d, %2$s, স্কোর %3$s</string>
@@ -80,6 +80,7 @@
     <string name="metric_turnover">লেনদেন (₹-এ)</string>
     <string name="metric_rvol">RVOL</string>
     <string name="metric_change">5D পরিবর্তন</string>
+    <string name="metric_today">আজকের পরিবর্তন</string>
     <string name="metric_score">স্কোর</string>
     <string name="hint_market_cap">দাম × NSE-তে ইস্যু করা শেয়ার</string>
     <string name="hint_market_cap_date">দাম × NSE-তে ইস্যু করা শেয়ার (NSE ডেটা: %1$s)</string>
@@ -92,4 +93,6 @@
     <string name="cap_mid">মিড ₹5K–20K Cr</string>
     <string name="cap_large">লার্জ ≥₹20K Cr</string>
     <string name="open_chart_failed">চার্ট খোলার জন্য কোনো ব্রাউজার পাওয়া যায়নি</string>
+    <string name="move_today">%1$s আজ</string>
+    <string name="move_5d">%1$s 5D</string>
 </resources>

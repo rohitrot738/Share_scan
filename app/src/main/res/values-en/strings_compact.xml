@@ -4,7 +4,7 @@
     <string name="compact_no_data">No price</string>
     <string name="compact_col_rank">#</string>
     <string name="compact_col_stock">Stock / Company</string>
-    <string name="compact_col_price">Price</string>
+    <string name="compact_col_price">Price / today</string>
     <string name="compact_col_change">5D CHG / RVOL</string>
     <string name="compact_col_score">Score</string>
     <string name="compact_share">Share</string>

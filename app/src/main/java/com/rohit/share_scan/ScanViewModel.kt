@@ -24,7 +24,17 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
     private val prefs = application.getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE)
     private val state = MutableStateFlow(
         ScanUiState(
-            filters = ScanFilters.decode(prefs.getString(Prefs.FILTERS, null)),
+            filters = ScanFilters.decode(prefs.getString(Prefs.FILTERS, null)).let { saved ->
+                // Every stock is shown now unless a limit is chosen: filters saved with the old top-100 default move
+                // to all, once.
+                if (prefs.getBoolean(Prefs.SHOW_ALL_DONE, false)) {
+                    saved
+                } else {
+                    ScanFilters.showAllOnce(saved).also {
+                        prefs.edit { putString(Prefs.FILTERS, it.encode()).putBoolean(Prefs.SHOW_ALL_DONE, true) }
+                    }
+                }
+            },
             supportFilters = prefs.getString(Prefs.SUPPORT_FILTERS, null)?.let(ScanFilters::decode)
                 ?: ScanFilters(limit = 0),
             watchlist = prefs.getStringSet(Prefs.WATCHLIST, null).orEmpty().toSet(),

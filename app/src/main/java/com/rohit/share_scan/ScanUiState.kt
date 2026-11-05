@@ -8,7 +8,7 @@ enum class ScanPhase { IDLE, LOADING, SCANNING, DONE, FAILED }
  * [SUPPORT] orders by the support floor's strength, then by how close the price sits to it; [CR360] by the 360CR score
  * ([Cr360Book]), stocks without one last.
  */
-enum class SortMode { SCORE, RVOL, CHANGE, PRICE, SUPPORT, CR360 }
+enum class SortMode { SCORE, TODAY, RVOL, CHANGE, PRICE, SUPPORT, CR360 }
 
 /**
  * Which scan the home screen shows. [BREAKOUT] is the main scan: pre-breakout stocks ranked by score, with the user's
@@ -202,6 +202,12 @@ data class ScanUiState(
     /** [shown] in the chosen order; this is what the list displays. */
     val sortedResults: List<RankedStock>
         get() {
+            if (sort == SortMode.TODAY) {
+                // Today's gainers first (losers first when reversed); a row saved without today's move goes last.
+                val (known, unknown) = shown.partition { it.stock.change1d != null }
+                val highFirst = known.sortedByDescending { it.stock.change1d }
+                return (if (ascending) highFirst.reversed() else highFirst) + unknown
+            }
             if (sort == SortMode.CR360) {
                 val (scored, unscored) = shown.partition { cr360.of(it.stock.symbol)?.score != null }
                 val highFirst = scored.sortedByDescending { cr360.of(it.stock.symbol)?.score }
@@ -216,7 +222,7 @@ data class ScanUiState(
                     compareByDescending<RankedStock> { it.stock.support?.strength ?: -1.0 }
                         .thenBy { it.stock.support?.distancePct(it.stock.price) ?: Double.MAX_VALUE },
                 )
-                SortMode.CR360 -> shown
+                SortMode.CR360, SortMode.TODAY -> shown
             }
             return if (ascending) highFirst.reversed() else highFirst
         }

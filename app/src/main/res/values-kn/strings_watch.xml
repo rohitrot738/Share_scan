@@ -20,7 +20,6 @@
     <string name="watch_today">ಇಂದು</string>
     <string name="watch_added_waiting">ಸೇರಿಸಿದ ಬೆಲೆಯನ್ನು ಮುಂದಿನ ಸ್ಕ್ಯಾನ್‌ನಿಂದ ಎಣಿಸಲಾಗುತ್ತದೆ</string>
     <string name="watch_no_data">ಬೆಲೆಗಳು ಮುಂದಿನ ಸ್ಕ್ಯಾನ್‌ನೊಂದಿಗೆ ಬರುತ್ತವೆ</string>
-    <string name="watch_change_5d">5D %1$s</string>
     <string name="watch_score">ಸ್ಕೋರ್ %1$s</string>
     <string name="watch_level_support">ಸಪೋರ್ಟ್ ₹%1$s</string>
     <string name="watch_level_stop">SL ₹%1$s</string>

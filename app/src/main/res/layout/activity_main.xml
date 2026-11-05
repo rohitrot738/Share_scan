@@ -911,6 +911,14 @@
                             android:checked="true"
                             android:text="@string/sort_score" />
 
+                        <!-- Today's move: gainers first, a second tap the losers. -->
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/sortToday"
+                            style="@style/ShareScanChip"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sort_today" />
+
                         <com.google.android.material.chip.Chip
                             android:id="@+id/sortRvol"
                             style="@style/ShareScanChip"

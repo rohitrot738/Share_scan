@@ -141,6 +141,7 @@ class ScanStore(private val file: File) {
         put("sc", num(row.score))
         put("rv", num(row.rvol))
         put("c5", num(row.change5d))
+        row.change1d?.let { put("c1", num(it)) }
         put("vol", num(row.volume))
         row.marketCapCr?.let { put("mc", num(it)) }
         if (row.live) put("live", true)
@@ -198,6 +199,7 @@ class ScanStore(private val file: File) {
         score = json.double("sc"),
         rvol = json.double("rv"),
         change5d = json.double("c5"),
+        change1d = if (json.has("c1") && !json.isNull("c1")) json.double("c1") else null,
         volume = json.double("vol"),
         marketCapCr = if (json.isNull("mc")) null else json.double("mc"),
         structure = json.optJSONObject("st")?.let(::structure),

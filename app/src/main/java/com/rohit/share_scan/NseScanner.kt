@@ -79,6 +79,9 @@ data class ScanResult(
     val score: Double,
     val rvol: Double,
     val change5d: Double,
+    /** Percent change from the session before (today's move, live while the market trades); null in a scan saved
+     *  before it was kept. */
+    val change1d: Double? = null,
     /** Shares traded in the latest session. */
     val volume: Double = 0.0,
     /** Null when NSE's share-count file was unavailable or did not list the symbol. */
@@ -496,6 +499,7 @@ object NseScanner {
             score = signals.score,
             rvol = signals.rvol,
             change5d = signals.change5d,
+            change1d = signals.change1d,
             volume = signals.volume,
             structure = signals.structure,
             parts = signals.parts,

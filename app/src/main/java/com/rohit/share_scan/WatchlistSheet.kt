@@ -540,8 +540,7 @@ class WatchlistSheet(
                 return
             }
             ui.watchPrice.text = activity.getString(R.string.item_price, StockFormat.price(stock.price))
-            ui.watchChange.text = activity.getString(R.string.watch_change_5d, StockFormat.signedChange(stock.change5d))
-            ui.watchChange.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
+            ui.watchChange.text = MoveText.bothSigned(activity, stock)
             val ret = row.returnPct
             ui.watchReturn.isVisible = true
             ui.watchReturn.text = ret?.let(TradePlan::formatPercent) ?: activity.getString(R.string.stat_empty)

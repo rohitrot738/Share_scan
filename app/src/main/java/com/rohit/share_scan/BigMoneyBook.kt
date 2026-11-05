@@ -84,6 +84,8 @@ class BigMoneyBook(
         val promoter: Promoter?,
         /** A new listing's sessions so far (it first traded inside the store's window); null for one there all along. */
         val sessions: Int? = null,
+        /** A listing too new for the scan's chart: its closes over [deliverySeries]' sessions, null before its first. */
+        val closes: List<Double?> = emptyList(),
     ) {
         /** Too few sessions for the scan's chart ([BreakoutSignals.MIN_SESSIONS]), so the share is not in its list. */
         val tooNewToChart: Boolean get() = sessions != null && sessions < BreakoutSignals.MIN_SESSIONS
@@ -158,6 +160,7 @@ class BigMoneyBook(
                 circular = o.optJSONArray("cc")?.strings().orEmpty(),
                 promoter = o.optJSONArray("pn")?.let { Promoter(it.getDouble(0), it.getInt(1), it.getInt(2)) },
                 sessions = o.long("ns")?.toInt(),
+                closes = o.optJSONArray("pq")?.let { a -> (0 until a.length()).map { if (a.isNull(it)) null else a.getDouble(it) } }.orEmpty(),
             )
         }
 

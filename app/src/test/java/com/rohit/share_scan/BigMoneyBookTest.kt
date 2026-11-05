@@ -19,7 +19,7 @@ class BigMoneyBookTest {
             "d5":30.5,"v":3400000,"va":410000.0,"c":1.2,"dq":[20.0,62.1],"vq":[400000,3400000],
             "dn":[1440000,200960000.0,2,2],"cc":["GOPANI JIGNESH GUNVANT"],"pn":[20000000.0,1,0]},
           "SUZLON":{"s":0,"p":[0.0,0.0,0.0,0.0,-30.0,0.0],"f":["churn"],"d":12.0,"da":31.0,"d5":20.0,"v":500000000,
-            "va":100000000.0,"c":4.6,"dq":[null,12.0],"vq":[null,500000000],"dn":null,"cc":[],"pn":null,"ns":1},
+            "va":100000000.0,"c":4.6,"dq":[null,12.0],"vq":[null,500000000],"dn":null,"cc":[],"pn":null,"ns":1,"pq":[null,41.25]},
           "TCS":{"s":10,"p":[5.0,5.0,0.0,0.0,0.0,0.0],"f":["deal_sell"],"d":51.7,"da":50.0,"d5":50.0,"v":3142051,
             "va":3000000.0,"c":-2.5,"dq":[50.0,51.7],"vq":[3000000,3142051],"dn":[-500000,-1250000000.0,2,-2],"cc":[],"pn":null},
           "INFY":{"s":40,"p":[20.0,0.0,0.0,0.0,0.0,0.0],"f":["acc"],"d":45.0,"da":20.0,"d5":25.0,"v":200000,
@@ -58,6 +58,9 @@ class BigMoneyBookTest {
         assertTrue(book.of("SUZLON")!!.tooNewToChart)
         assertNull(book.of("AJMERA")!!.sessions)
         assertFalse(book.of("AJMERA")!!.tooNewToChart)
+        // Its closes so far, for a chart of its own; a share the scan charts has none.
+        assertEquals(listOf(null, 41.25), book.of("SUZLON")!!.closes)
+        assertTrue(book.of("AJMERA")!!.closes.isEmpty())
     }
 
     @Test

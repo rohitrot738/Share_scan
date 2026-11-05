@@ -105,4 +105,5 @@
     <string name="big_money_share_loading">%1$s નો ચાર્ટ લાવી રહ્યા છીએ…</string>
     <string name="big_money_share_new">નવો શેર: NSE પર હજી માત્ર %1$d સત્રનો ડેટા છે. એપનો ચાર્ટ, સ્કોર અને ટ્રેડ પ્લાન ઓછામાં ઓછા %2$d સત્રના ડેટાથી બને છે, તેથી તે હજી સ્કેનની યાદીમાં નથી. નીચે તેની મોટા પૈસાની ચાલનો હિસાબ છે.</string>
     <string name="big_money_share_no_chart">Yahoo Finance પર તેનો ચાર્ટ મળ્યો નથી, તેથી તે સ્કેનની યાદીમાં નથી. નીચે તેની મોટા પૈસાની ચાલનો હિસાબ છે.</string>
+    <string name="big_money_share_prices">%1$d સત્રનો ભાવ: પહેલા દિવસે ₹%2$s, હવે ₹%3$s (%4$s) · સૌથી ઊંચો ₹%5$s, સૌથી નીચો ₹%6$s</string>
 </resources>

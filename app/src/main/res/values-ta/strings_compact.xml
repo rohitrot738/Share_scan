@@ -4,7 +4,7 @@
     <string name="compact_no_data">விலை இல்லை</string>
     <string name="compact_col_rank">#</string>
     <string name="compact_col_stock">பங்கு / நிறுவனம்</string>
-    <string name="compact_col_price">விலை</string>
+    <string name="compact_col_price">விலை / இன்று</string>
     <string name="compact_col_change">5D மாற்றம் / RVOL</string>
     <string name="compact_col_score">ஸ்கோர்</string>
     <string name="compact_share">பகிர்</string>

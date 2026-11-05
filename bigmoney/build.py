@@ -47,6 +47,10 @@ def write_json_gz(path: str, data) -> None:
     os.replace(temp, path)
 
 
+# The sessions the app's scan needs for a chart (BreakoutSignals.MIN_SESSIONS); a newer listing gets its closes.
+CHART_SESSIONS = 21
+
+
 def _r(v, digits=2):
     return None if v is None else round(v, digits)
 
@@ -79,8 +83,11 @@ def app_file(store: dict, insider: dict[str, list], record: dict | None = None) 
         first = next(k for k, c in enumerate(v["c"]) if c is not None)
         if first > 0:
             # A new listing: it first traded inside the store's window. The app says how many sessions it has had,
-            # since its scan charts a share only from 21 on.
-            stocks[symbol]["ns"] = i - first + 1
+            # since its scan charts a share only from 21 on; under that it draws the share's closes so far itself.
+            sessions = i - first + 1
+            stocks[symbol]["ns"] = sessions
+            if sessions < CHART_SESSIONS:
+                stocks[symbol]["pq"] = [_r(x) for x in v["c"][start:i + 1]]
     session = store["dates"][i]
     # The newest promoter/insider filing up to the session: NSE's filings reach the R/S store only when NSE answers.
     filed = [r[0] for rows in insider.values() for r in rows if r and r[0] and r[0] <= session]

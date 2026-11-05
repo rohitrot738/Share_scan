@@ -32,6 +32,7 @@
     <string name="sort_score">સ્કોર</string>
     <string name="sort_rvol">RVOL</string>
     <string name="sort_change">5D ફેરફાર</string>
+    <string name="sort_today">આજ ફેરફાર</string>
     <string name="sort_price">ભાવ</string>
     <string name="sort_down">%1$s ↓</string>
     <string name="sort_up">%1$s ↑</string>
@@ -46,7 +47,6 @@
     <string name="empty_failed_title">પરિણામ મળ્યાં નહીં</string>
     <string name="empty_failed_body">ઉપરના બટનથી સ્કેન ફરી ચલાવો.</string>
     <string name="item_price">₹%1$s</string>
-    <string name="item_change">%1$s · 5D</string>
     <string name="item_rvol">RVOL %1$s×</string>
     <string name="item_setup_high">🎯 ઊંચી સંભાવનાનો બ્રેકઆઉટ • વોલ્યુમ %1$s×</string>
     <string name="item_description">ક્રમ %1$d, %2$s, સ્કોર %3$s</string>
@@ -80,6 +80,7 @@
     <string name="metric_turnover">ટર્નઓવર (₹ માં)</string>
     <string name="metric_rvol">RVOL</string>
     <string name="metric_change">5D ફેરફાર</string>
+    <string name="metric_today">આજનો ફેરફાર</string>
     <string name="metric_score">સ્કોર</string>
     <string name="hint_market_cap">ભાવ × NSE પર જારી શેર</string>
     <string name="hint_market_cap_date">ભાવ × NSE પર જારી શેર (NSE ડેટા: %1$s)</string>
@@ -92,4 +93,6 @@
     <string name="cap_mid">મિડ ₹5K–20K Cr</string>
     <string name="cap_large">લાર્જ ≥₹20K Cr</string>
     <string name="open_chart_failed">ચાર્ટ ખોલવા માટે કોઈ બ્રાઉઝર મળ્યું નહીં</string>
+    <string name="move_today">%1$s આજ</string>
+    <string name="move_5d">%1$s 5D</string>
 </resources>

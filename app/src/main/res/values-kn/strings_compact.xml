@@ -4,7 +4,7 @@
     <string name="compact_no_data">ಬೆಲೆ ಇಲ್ಲ</string>
     <string name="compact_col_rank">#</string>
     <string name="compact_col_stock">ಷೇರು / ಕಂಪನಿ</string>
-    <string name="compact_col_price">ಬೆಲೆ</string>
+    <string name="compact_col_price">ಬೆಲೆ / ಇಂದು</string>
     <string name="compact_col_change">5D ಬದಲಾವಣೆ / RVOL</string>
     <string name="compact_col_score">ಸ್ಕೋರ್</string>
     <string name="compact_share">ಹಂಚಿಕೊಳ್ಳಿ</string>

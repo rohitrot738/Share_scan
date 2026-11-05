@@ -4,7 +4,7 @@
     <string name="compact_no_data">ਭਾਅ ਨਹੀਂ</string>
     <string name="compact_col_rank">#</string>
     <string name="compact_col_stock">ਸ਼ੇਅਰ / ਕੰਪਨੀ</string>
-    <string name="compact_col_price">ਭਾਅ</string>
+    <string name="compact_col_price">ਭਾਅ / ਅੱਜ</string>
     <string name="compact_col_change">5D ਬਦਲਾਅ / RVOL</string>
     <string name="compact_col_score">ਸਕੋਰ</string>
     <string name="compact_share">ਸਾਂਝਾ ਕਰੋ</string>

@@ -107,13 +107,14 @@
                 android:textSize="11.5sp" />
         </LinearLayout>
 
+        <!-- The price, and today's move under it in its colour (MoveText.priceAndToday). -->
         <TextView
             android:id="@+id/rowPrice"
             android:layout_width="@dimen/compact_price_width"
             android:layout_height="wrap_content"
             android:fontFeatureSettings="tnum"
             android:gravity="end"
-            android:maxLines="1"
+            android:maxLines="2"
             android:textColor="@color/text_primary"
             android:textSize="14sp" />
 

@@ -152,6 +152,29 @@ class ScanFiltersTest {
     }
 
     @Test
+    fun theListShowsEveryStockUnlessALimitIsChosen() {
+        assertEquals(0, ScanFilters().limit)
+        // The old default of the best 100 gives way to all of them once; a limit chosen otherwise stays.
+        assertEquals(0, ScanFilters.showAllOnce(ScanFilters(limit = 100)).limit)
+        assertEquals(50, ScanFilters.showAllOnce(ScanFilters(limit = 50)).limit)
+    }
+
+    @Test
+    fun todaysChangeFiltersAndSortsWithTheUnknownLast() {
+        val up = big.copy(symbol = "UP", change1d = 3.0)
+        val down = small.copy(symbol = "DOWN", change1d = -2.0)
+        val old = unknown.copy(symbol = "OLD", change1d = null) // a row saved before today's change was kept
+        val gainers = ScanFilters(limit = 0).with(Metric.TODAY, Bound(min = 2.0))
+        assertTrue(gainers.accepts(up))
+        assertFalse(gainers.accepts(down))
+        assertFalse(gainers.accepts(old))
+        val state = ScanUiState(results = listOf(old, down, up), filters = ScanFilters(limit = 0), sort = SortMode.TODAY)
+        assertEquals(listOf("UP", "DOWN", "OLD"), state.sortedResults.map { it.stock.symbol })
+        // Losers first, and still the unknown last.
+        assertEquals(listOf("DOWN", "UP", "OLD"), state.copy(ascending = true).sortedResults.map { it.stock.symbol })
+    }
+
+    @Test
     fun filtersSurviveEncodeAndDecode() {
         val filters = ScanFilters(limit = 50)
             .with(Metric.MARKET_CAP, Bound(min = 500.0, max = 20_000.0))

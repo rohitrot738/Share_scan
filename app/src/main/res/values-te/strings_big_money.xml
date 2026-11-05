@@ -105,4 +105,5 @@
     <string name="big_money_share_loading">%1$s చార్ట్ తెస్తున్నాం…</string>
     <string name="big_money_share_new">కొత్త షేరు: NSEలో ఇప్పటికి కేవలం %1$d సెషన్ల డేటా ఉంది. యాప్ చార్ట్, స్కోర్, ట్రేడ్ ప్లాన్‌కు కనీసం %2$d సెషన్ల డేటా కావాలి, అందుకే ఇది ఇంకా స్కాన్ జాబితాలో లేదు. కింద దీని పెద్ద డబ్బు కదలిక లెక్క ఉంది.</string>
     <string name="big_money_share_no_chart">Yahoo Financeలో దీని చార్ట్ దొరకలేదు, అందుకే ఇది స్కాన్ జాబితాలో లేదు. కింద దీని పెద్ద డబ్బు కదలిక లెక్క ఉంది.</string>
+    <string name="big_money_share_prices">%1$d సెషన్ల ధర: మొదటి రోజు ₹%2$s, ఇప్పుడు ₹%3$s (%4$s) · గరిష్ఠం ₹%5$s, కనిష్ఠం ₹%6$s</string>
 </resources>

@@ -6,7 +6,7 @@
     <string name="compact_no_data">भाव नहीं</string>
     <string name="compact_col_rank">#</string>
     <string name="compact_col_stock">Stock / Company</string>
-    <string name="compact_col_price">Price</string>
+    <string name="compact_col_price">Price / आज</string>
     <string name="compact_col_change">5D CHG / RVOL</string>
     <string name="compact_col_score">Score</string>
     <string name="compact_share">शेयर</string>

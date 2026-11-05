@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-# Temporary review helper: बड़े पैसे की चाल's shares that the scan lacks. With no scan run, a tap on a share with a
-# chart on Yahoo fetches it and opens its detail; a new listing (under 21 sessions) opens its card alone. The app's
-# Big Money file is this branch's (with each new listing's sessions). Removed before merging.
+# Temporary review helper. Before any scan: बड़े पैसे की चाल's shares the list lacks (a tap on a share Yahoo charts
+# fetches it; a new listing opens its own chart and card). Then a scan: every stock listed, today's move in each
+# layout, the "आज बदलाव" sort both ways and its filter. The app's Big Money file is this branch's. Removed before
+# merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -214,7 +215,7 @@ sleep 10
 tap_text "🤝 Deals"
 shot 10-deals 3
 all_texts | head -40 >> "$LOG"
-# A new listing: its card alone, saying why.
+# A new listing: its chart so far and its card, saying why.
 tap_text "EDELALTS"
 shot 11-new-listing 4
 all_texts | head -30 >> "$LOG"
@@ -222,18 +223,54 @@ swipe_up
 shot 12-new-listing-more 1
 adb shell input keyevent KEYCODE_BACK
 sleep 2
-# A share Yahoo charts, which no scan has read here: fetched on the tap, then its detail.
+# A share Yahoo charts, which no scan has read yet: fetched on the tap, then its detail.
 tap_text "LOTUSDEV"
-sleep 2
+sleep 1
 shot 13-fetching 0
 sleep 12
 shot 14-fetched-detail 2
 all_texts | head -20 >> "$LOG"
+home
+
+# A scan, from the pill's panel.
+tap statusPill
+sleep 3
+tap startButton
+sleep 10
 adb shell input keyevent KEYCODE_BACK
+for i in $(seq 1 200); do
+  sleep 5
+  unstall
+  center text "100%" > /dev/null && break
+done
+echo "scan done after ~$((i * 5 + 10))s" | tee -a "$LOG"
+adb shell am start -n "$PKG/.MainActivity" > /dev/null
+shot 20-list 6
+all_texts | head -40 >> "$LOG"
+# Today's gainers, then a second tap: today's losers.
+center id sortToday > /dev/null || adb shell input swipe 900 2150 200 2150 400
+tap sortToday
+shot 21-gainers 3
+tap sortToday
+shot 22-losers 3
+tap sortScore
 sleep 2
+# The filter's new slider.
+tap filterChip
+sleep 2
+find_text "आज का बदलाव"
+shot 23-filter-today 1
+home
+# The cards on Galaxy: "▲ आज · ▲ 5D".
+setpref background string galaxy
+relaunch 12
+shot 24-cards 2
+tap sortToday
+shot 25-cards-gainers 3
+
 # The guide's new FAQ.
 home
-tap compactMenu
+tap menuButton
 sleep 2
 tap_text "शुरुआती गाइड"
 sleep 6
@@ -242,5 +279,5 @@ sleep 1
 tap_text "आम सवाल"
 sleep 2
 find_text "scan list में क्यों नहीं"
-shot 20-guide-faq 2
+shot 30-guide-faq 2
 echo "done" | tee -a "$LOG"

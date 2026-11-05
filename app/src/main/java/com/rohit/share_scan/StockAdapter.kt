@@ -229,8 +229,8 @@ class StockAdapter(
         ui.exchange.backgroundTintList = ColorStateList.valueOf(color(exchange.container))
         bindRankBadge(ui.rankBadge, item.badge)
         val newsDescription = bindNewsBadge(ui.newsBadge, news[stock.symbol])
-        ui.change.text = context.getString(R.string.item_change, StockFormat.change(stock.change5d))
-        ui.change.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
+        // Today's move and the 5 sessions', each in its own colour.
+        ui.change.text = MoveText.both(context, stock)
         val meta = SpannableStringBuilder(
             context.getString(
                 R.string.item_meta,
@@ -394,7 +394,7 @@ class StockAdapter(
         val charted = stock.charted
         ui.rowExchange.isVisible = charted
         if (charted) {
-            ui.rowPrice.text = context.getString(R.string.item_price, StockFormat.price(stock.price))
+            ui.rowPrice.text = MoveText.priceAndToday(context, stock, below = true)
             ui.rowChange.text = StockFormat.signedChange(stock.change5d)
             ui.rowChange.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
             ui.rowRvol.text = context.getString(if (stock.live) R.string.item_rvol_live else R.string.item_rvol, StockFormat.rvol(stock.rvol))
@@ -452,7 +452,7 @@ class StockAdapter(
         bindExchange(ui.accExchange, stock.market, charted)
         ui.accStar.isVisible = item.starred
         val score = StockFormat.score(stock.score)
-        ui.accPrice.text = if (charted) context.getString(R.string.item_price, StockFormat.price(stock.price)) else context.getString(R.string.stat_empty)
+        ui.accPrice.text = if (charted) MoveText.priceAndToday(context, stock, below = false) else context.getString(R.string.stat_empty)
         ui.accScore.text = if (charted) score else context.getString(R.string.stat_empty)
         ui.accScore.setTextColor(color(if (charted) tierColor else R.color.neutral))
         ui.accScore.backgroundTintList = ColorStateList.valueOf(color(if (charted) tierContainer else R.color.neutral_container))
@@ -464,8 +464,8 @@ class StockAdapter(
         ui.accTier.backgroundTintList = ColorStateList.valueOf(color(tierContainer))
         ui.accScoreBar.color = color(tierColor)
         ui.accScoreBar.fraction = (stock.score / 100).toFloat()
-        ui.accChange.text = if (charted) StockFormat.signedChange(stock.change5d) else context.getString(R.string.stat_empty)
-        ui.accChange.setTextColor(color(if (!charted) R.color.neutral else if (stock.change5d >= 0) R.color.bull else R.color.bear))
+        ui.accChange.text = if (charted) MoveText.both(context, stock, arrows = false) else context.getString(R.string.stat_empty)
+        ui.accChange.setTextColor(color(R.color.neutral))
         bindMetrics(ui.accMetrics, stock)
         val setup = setupText(context, stock)
         ui.accSetup.isVisible = setup != null
@@ -563,7 +563,7 @@ class StockAdapter(
         ui.bentoLine.values = closes
         ui.bentoLine.color = color(if ((closes.lastOrNull() ?: 0.0) >= (closes.firstOrNull() ?: 0.0)) R.color.bull else R.color.bear)
         ui.bentoLine.isInvisible = closes.size < 2
-        ui.bentoPrice.text = if (charted) context.getString(R.string.item_price, StockFormat.price(stock.price)) else context.getString(R.string.stat_empty)
+        ui.bentoPrice.text = if (charted) MoveText.priceAndToday(context, stock, below = true) else context.getString(R.string.stat_empty)
         ui.bentoChange.isVisible = charted
         ui.bentoChange.text = StockFormat.change(stock.change5d)
         ui.bentoChange.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
@@ -598,8 +598,8 @@ class StockAdapter(
         ui.swipeStarMark.isVisible = item.starred
         ui.swipeCompany.text = withProducts(ui.swipeCompany, stock.symbol, nameAndSector(stock))
         ui.swipePrice.text = if (charted) context.getString(R.string.item_price, StockFormat.price(stock.price)) else context.getString(R.string.stat_empty)
-        ui.swipeChange.text = if (charted) StockFormat.change(stock.change5d) else context.getString(R.string.item_no_data)
-        ui.swipeChange.setTextColor(color(if (!charted) R.color.neutral else if (stock.change5d >= 0) R.color.bull else R.color.bear))
+        ui.swipeChange.text = if (charted) MoveText.both(context, stock) else context.getString(R.string.item_no_data)
+        ui.swipeChange.setTextColor(color(R.color.neutral))
         bindMetrics(ui.swipeMetrics, stock)
         ui.swipeTier.setText(tierLabel)
         ui.swipeTier.setTextColor(color(tierColor))
