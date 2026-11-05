@@ -181,8 +181,9 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <!-- The heading, after the company's logo once it comes in (ProductPhotos). -->
+                    <!-- The heading, after the company's logo once it comes in (ProductPhotos); with brands it opens them. -->
                     <LinearLayout
+                        android:id="@+id/detailProductsHeader"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -251,6 +252,30 @@
                         android:textColor="@color/text_secondary"
                         android:textSize="11sp"
                         android:visibility="gone" />
+
+                    <!-- Opens the company's brands in a window of their own (BrandSheet); the section's heading opens it
+                         too. Shown only for a company whose brands the app carries. -->
+                    <TextView
+                        android:id="@+id/detailOpenBrands"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_icon_tile"
+                        android:backgroundTint="@color/primary_container"
+                        android:drawablePadding="10dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:minHeight="48dp"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="10dp"
+                        android:textColor="@color/on_primary_container"
+                        android:textSize="13.5sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:drawableEndCompat="@drawable/ic_chevron_right"
+                        app:drawableStartCompat="@drawable/ic_brand"
+                        app:drawableTint="@color/on_primary_container" />
                 </LinearLayout>
 
                 <!-- Shown instead of the chart, plan and technical stats when the scan had no price structure. -->
