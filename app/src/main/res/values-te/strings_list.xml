@@ -34,5 +34,4 @@
     <string name="item_no_chart_new">🆕 కొత్త లిస్టింగ్ · ఇప్పటివరకు %1$d సెషన్లు</string>
     <string name="compact_no_chart">చార్ట్ లేదు</string>
     <string name="item_description_no_chart">%1$s, చార్ట్ దొరకలేదు</string>
-    <string name="item_no_chart_toast">Yahooలో %1$s చార్ట్ దొరకలేదు — బహుశా కొత్త లిస్టింగ్, లేదా ట్రేడింగ్ ఆగిపోయింది</string>
 </resources>

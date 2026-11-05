@@ -104,6 +104,7 @@
     <string name="big_money_row_young">🆕 फक्त %1$d सत्रांचा डेटा, म्हणून यादीत अजून स्कोअर नाही</string>
     <string name="big_money_share_loading">%1$s चा चार्ट आणत आहोत…</string>
     <string name="big_money_share_new">नवा शेअर: NSE वर अजून फक्त %1$d सत्रांचा डेटा आहे. ॲपचा चार्ट, स्कोअर आणि ट्रेड प्लॅन किमान %2$d सत्रांच्या डेटावरून बनतात, म्हणून यादीत तो सर्वात खाली, स्कोअरशिवाय आहे. खाली त्याचा मोठ्या पैशाच्या चालीचा हिशेब आहे.</string>
-    <string name="big_money_share_no_chart">Yahoo Finance वर त्याचा चार्ट मिळाला नाही, म्हणून तो स्कॅनच्या यादीत नाही. खाली त्याचा मोठ्या पैशाच्या चालीचा हिशेब आहे.</string>
+    <string name="big_money_share_no_chart">Yahoo Finance वर त्याचा चार्ट मिळाला नाही, म्हणून यादीत तो सर्वात खाली, स्कोअरशिवाय आहे. खाली त्याचा मोठ्या पैशाच्या चालीचा हिशेब आहे.</string>
+    <string name="uncharted_share_reason">Yahoo Finance वर त्याचा चार्ट मिळाला नाही, म्हणून ॲप त्याचा स्कोअर बनवू शकत नाही (कदाचित नवीन लिस्टिंग आहे किंवा ट्रेडिंग थांबले आहे). खालच्या बटणांनी तो Groww, Angel One, Zerodha किंवा चार्ट साइटवर पहा.</string>
     <string name="big_money_share_prices">%1$d सत्रांचा भाव: पहिल्या दिवशी ₹%2$s, आता ₹%3$s (%4$s) · सर्वात जास्त ₹%5$s, सर्वात कमी ₹%6$s</string>
 </resources>

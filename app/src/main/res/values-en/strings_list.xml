@@ -34,5 +34,4 @@
     <string name="item_no_chart_new">🆕 New listing · %1$d sessions so far</string>
     <string name="compact_no_chart">No chart</string>
     <string name="item_description_no_chart">%1$s, no chart found</string>
-    <string name="item_no_chart_toast">No chart for %1$s on Yahoo — perhaps a new listing, or trading is halted</string>
 </resources>

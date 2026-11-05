@@ -104,6 +104,7 @@
     <string name="big_money_row_young">🆕 ਸਿਰਫ਼ %1$d ਸੈਸ਼ਨਾਂ ਦਾ ਡਾਟਾ, ਇਸ ਲਈ ਸੂਚੀ ਵਿੱਚ ਅਜੇ ਸਕੋਰ ਨਹੀਂ</string>
     <string name="big_money_share_loading">%1$s ਦਾ ਚਾਰਟ ਲਿਆ ਰਹੇ ਹਾਂ…</string>
     <string name="big_money_share_new">ਨਵਾਂ ਸ਼ੇਅਰ: NSE ਤੇ ਅਜੇ ਸਿਰਫ਼ %1$d ਸੈਸ਼ਨਾਂ ਦਾ ਡਾਟਾ ਹੈ। ਐਪ ਦਾ ਚਾਰਟ, ਸਕੋਰ ਅਤੇ ਟ੍ਰੇਡ ਪਲਾਨ ਘੱਟੋ-ਘੱਟ %2$d ਸੈਸ਼ਨਾਂ ਦੇ ਡਾਟੇ ਤੋਂ ਬਣਦੇ ਹਨ, ਇਸ ਲਈ ਸੂਚੀ ਵਿੱਚ ਇਹ ਸਭ ਤੋਂ ਹੇਠਾਂ, ਸਕੋਰ ਤੋਂ ਬਿਨਾਂ ਹੈ। ਹੇਠਾਂ ਇਸ ਦੀ ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ ਦਾ ਹਿਸਾਬ ਹੈ।</string>
-    <string name="big_money_share_no_chart">Yahoo Finance ਤੇ ਇਸ ਦਾ ਚਾਰਟ ਨਹੀਂ ਮਿਲਿਆ, ਇਸ ਲਈ ਇਹ ਸਕੈਨ ਦੀ ਸੂਚੀ ਵਿੱਚ ਨਹੀਂ। ਹੇਠਾਂ ਇਸ ਦੀ ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ ਦਾ ਹਿਸਾਬ ਹੈ।</string>
+    <string name="big_money_share_no_chart">Yahoo Finance ਤੇ ਇਸ ਦਾ ਚਾਰਟ ਨਹੀਂ ਮਿਲਿਆ, ਇਸ ਲਈ ਸੂਚੀ ਵਿੱਚ ਇਹ ਸਭ ਤੋਂ ਹੇਠਾਂ, ਸਕੋਰ ਤੋਂ ਬਿਨਾਂ ਹੈ। ਹੇਠਾਂ ਇਸ ਦੀ ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ ਦਾ ਹਿਸਾਬ ਹੈ।</string>
+    <string name="uncharted_share_reason">Yahoo Finance ਤੇ ਇਸ ਦਾ ਚਾਰਟ ਨਹੀਂ ਮਿਲਿਆ, ਇਸ ਲਈ ਐਪ ਇਸ ਦਾ ਸਕੋਰ ਨਹੀਂ ਬਣਾ ਸਕਦੀ (ਸ਼ਾਇਦ ਨਵੀਂ ਲਿਸਟਿੰਗ ਹੈ ਜਾਂ ਟ੍ਰੇਡਿੰਗ ਰੁਕੀ ਹੈ)। ਹੇਠਲੇ ਬਟਨਾਂ ਨਾਲ ਇਸ ਨੂੰ Groww, Angel One, Zerodha ਜਾਂ ਚਾਰਟ ਸਾਈਟ ਤੇ ਵੇਖੋ।</string>
     <string name="big_money_share_prices">%1$d ਸੈਸ਼ਨਾਂ ਦਾ ਭਾਅ: ਪਹਿਲੇ ਦਿਨ ₹%2$s, ਹੁਣ ₹%3$s (%4$s) · ਸਭ ਤੋਂ ਉੱਚਾ ₹%5$s, ਸਭ ਤੋਂ ਨੀਵਾਂ ₹%6$s</string>
 </resources>

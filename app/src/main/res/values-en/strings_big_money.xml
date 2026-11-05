@@ -104,6 +104,7 @@
     <string name="big_money_row_young">🆕 Only %1$d sessions of data, so no score in the list yet</string>
     <string name="big_money_share_loading">Fetching %1$s\'s chart…</string>
     <string name="big_money_share_new">A new share: NSE has only %1$d sessions of its data. The app\'s chart, score and trade plan need at least %2$d sessions, so it sits at the end of the list, without a score. Its Big Money figures are below.</string>
-    <string name="big_money_share_no_chart">Yahoo Finance has no chart for it, so it is not in the scan\'s list. Its Big Money figures are below.</string>
+    <string name="big_money_share_no_chart">Yahoo Finance has no chart for it, so it sits at the end of the list, without a score. Its Big Money figures are below.</string>
+    <string name="uncharted_share_reason">Yahoo Finance has no chart for it, so the app cannot score it (perhaps a new listing, or trading is halted). Use the buttons below to see it on Groww, Angel One, Zerodha or a chart site.</string>
     <string name="big_money_share_prices">%1$d sessions: first day ₹%2$s, now ₹%3$s (%4$s) · highest ₹%5$s, lowest ₹%6$s</string>
 </resources>

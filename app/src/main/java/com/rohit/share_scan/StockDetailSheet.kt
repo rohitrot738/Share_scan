@@ -99,7 +99,6 @@ class StockDetailSheet(
     /** The learned stop and Target 1 for this stock ([SetupBook.planFor]); null keeps the app's own. */
     private val learnedPlan: PlanTuner.Choice? = setups.planFor(stock.setupMask)
     private val plan: TradePlan? = structure?.let { TradePlan.of(stock.price, it, learnedPlan?.shape ?: PlanShape.OWN) }
-    private val brokers = BrokerOpener(activity)
     /** The R/S history once its file came (null before, or when there is none). */
     private var history: Cr360History? = null
     private var historyCame = false
@@ -126,30 +125,7 @@ class StockDetailSheet(
         bindMoat()
         BigMoneyCard(activity, bigMoney, stock.symbol).bind(ui.detailBigMoney)
         ui.detailNoStructure.isVisible = structure == null
-        val site = chartSite.forMarket(stock.market)
-        val siteBroker = site.broker
-        ui.detailOpenChart.text = when {
-            site == ChartSite.SCREENER -> activity.getString(R.string.detail_open_screener)
-            siteBroker != null -> activity.getString(R.string.broker_open_description, activity.getString(siteBroker.label))
-            else -> activity.getString(R.string.detail_open_chart_on, activity.getString(site.label))
-        }
-        if (siteBroker != null) {
-            ui.detailOpenChart.icon = siteBroker.icon(activity)
-            ui.detailOpenChart.iconTint = null
-            ui.detailOpenChart.iconSize = activity.resources.getDimensionPixelSize(R.dimen.broker_icon)
-        }
-        ui.detailOpenChart.setOnClickListener { openChart() }
-        // The other trading apps, one tap away; the one the chart button already opens is left out.
-        listOf(
-            ui.detailOpenGroww to Broker.GROWW,
-            ui.detailOpenAngelOne to Broker.ANGEL_ONE,
-            ui.detailOpenZerodha to Broker.ZERODHA,
-        ).forEach { (button, broker) ->
-            button.isVisible = broker != siteBroker
-            button.icon = broker.icon(activity)
-            button.contentDescription = activity.getString(R.string.broker_open_description, activity.getString(broker.label))
-            button.setOnClickListener { brokers.open(broker, stock) }
-        }
+        OpenApps.bind(activity, stock, chartSite, ui.detailOpenChart, ui.detailOpenGroww, ui.detailOpenAngelOne, ui.detailOpenZerodha)
 
         val height = (activity.resources.displayMetrics.heightPixels * 0.9f).toInt()
         dialog.setContentView(ui.root, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height))
@@ -1885,8 +1861,6 @@ class StockDetailSheet(
         tile.statNote.setTextColor(color(stat.noteColor))
         tile.root.contentDescription = listOfNotNull(stat.label, stat.value, stat.note).joinToString(", ")
     }
-
-    private fun openChart() = activity.openStockChart(stock, chartSite)
 
     @ColorInt
     private fun color(@ColorRes id: Int): Int = ContextCompat.getColor(activity, id)

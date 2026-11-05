@@ -34,5 +34,4 @@
     <string name="item_no_chart_new">🆕 ਨਵੀਂ ਲਿਸਟਿੰਗ · ਹੁਣ ਤੱਕ %1$d ਸੈਸ਼ਨ</string>
     <string name="compact_no_chart">ਚਾਰਟ ਨਹੀਂ</string>
     <string name="item_description_no_chart">%1$s, ਚਾਰਟ ਨਹੀਂ ਮਿਲਿਆ</string>
-    <string name="item_no_chart_toast">%1$s ਦਾ ਚਾਰਟ Yahoo ਉੱਤੇ ਨਹੀਂ ਮਿਲਿਆ — ਸ਼ਾਇਦ ਨਵੀਂ ਲਿਸਟਿੰਗ ਹੈ ਜਾਂ ਟ੍ਰੇਡਿੰਗ ਰੁਕੀ ਹੈ</string>
 </resources>

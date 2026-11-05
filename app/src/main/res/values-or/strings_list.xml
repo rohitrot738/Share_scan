@@ -34,5 +34,4 @@
     <string name="item_no_chart_new">🆕 ନୂଆ ଲିଷ୍ଟିଂ · ଏପର୍ଯ୍ୟନ୍ତ %1$d ସେସନ</string>
     <string name="compact_no_chart">ଚାର୍ଟ ନାହିଁ</string>
     <string name="item_description_no_chart">%1$s, ଚାର୍ଟ ମିଳିଲା ନାହିଁ</string>
-    <string name="item_no_chart_toast">Yahoo ରେ %1$s ର ଚାର୍ଟ ମିଳିଲା ନାହିଁ — ହୁଏତ ନୂଆ ଲିଷ୍ଟିଂ, କିମ୍ବା ଟ୍ରେଡିଂ ବନ୍ଦ ଅଛି</string>
 </resources>
