@@ -1,31 +1,6 @@
-IST now: 2026-11-05 06:10
-scan done after ~35s
+IST now: 2026-11-05 06:31
 shot 01-list
 shot 10-paper
-shot 11-paper-delivery
-📝 Paper Trading
-नकली पैसे, असली भाव: intraday और delivery की practice। कोई असली order नहीं जाता।
-Account की कुल value
-₹10,00,094.58
-+₹94.58 (+0.01%) · शुरुआत ₹10,00,000.00
-Free नकद: ₹9,86,984.58
-Delivery शेयरों की value: ₹13,110.00
-खुले trades: +₹110.00
-अब तक charges: ₹15.42
-भाव 4 नव॰, 15:25 की candle तक · ↻ से ताज़ा करें
-+ नया order
-↻ ताज़ा करें
-Intraday
-Delivery
-Orders
-हिसाब
-Delivery शेयर (holdings)
-RELIANCE · BUY 10 शेयर
-औसत ₹1,300.00 · अभी ₹1,311.00
-नफ़ा-नुकसान +₹110.00 (+0.85%)
-Stop-loss ₹1,180.00 · Target ₹1,450.00
-1 दिन से · value ₹13,110.00
-दबाएँ: पूरा हिसाब, बंद करें, stop-loss/target बदलें
 shot 12-holding
 RELIANCE · BUY 10 शेयर
 Delivery (CNC) · 4 नव॰, 10:02 से
@@ -53,44 +28,11 @@ BUY 10
 अपने चुने
 Stop-loss और target
 Stop-loss
-₹1,180.00 (−10% दूर) · लगा तो −₹1,242.99
+₹1,180.00 (−10% दूर) · लगा तो −⁠₹1,242.99
 Target
-₹1,450.00 (+10.6% दूर) · लगा तो +₹1,454.21
+₹1,450.00 (+10.6% दूर) · लगा तो +⁠₹1,454.21
 Breakeven (न फ़ायदा, न नुकसान)
 ₹1,304.43
 इससे ऊपर बेचें, तभी charges के बाद फ़ायदा
 shot 13-holding-more
-shot 14-holding-end
-shot 15-order-flat
-shot 16-reset-chips
-shot 20-settings
-shot 21-settings-more
-shot 22-scan
-could not find text भाषा और Font
-shot 23-text
-shot 24-bigmoney
-shot 30-detail
-shot 31-trade
-shot 32-trade-long
-🌱 Long-term (1 से 5 साल)
-₹744.24 या उससे नीचे खरीदें (buy price) • Target ₹930.31 (fair value, −28.87%)
-भाव ₹1,307.90, खरीद भाव से 75.7% ऊपर
-Company के अपने usual P/E पर ₹1,362.76
-shot 33-trade-size
-shot 34-rs-calc
-shot 35-rs-calc-more
-• Margin of safety 20% (large cap) → खरीद भाव ₹930.31 × 0.8 = ₹744.24
-• भाव ₹1,307.90, खरीद भाव से 75.7% ऊपर
-• सबसे अच्छा मौका = भाव खरीद भाव से नीचे + weekly sweep + कोई रोक नहीं
-pref background=galaxy
-shot 40-galaxy-list
-shot 41-galaxy-holding
-shot 42-galaxy-order
-app was not in front
-shot 43-galaxy-settings
-app was not in front
-app was not in front
-shot 50-guide-paper
-shot 51-guide-paper-more
-shot 52-guide-rs
 done
