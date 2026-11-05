@@ -101,10 +101,4 @@
     <string name="product_recycling">Recycling</string>
     <string name="product_education">Education</string>
     <string name="product_staffing">Staffing / manpower</string>
-
-    <!-- The company's brands from its own website (StockDetailSheet.bindBrands). -->
-    <string name="detail_brands_title">Brands</string>
-    <string name="detail_brands_hint">%1$d brands, from the company\'s own website</string>
-    <string name="detail_brands_credit">Brand pictures: %1$s</string>
-    <string name="detail_open_brands">See %1$d brands</string>
 </resources>

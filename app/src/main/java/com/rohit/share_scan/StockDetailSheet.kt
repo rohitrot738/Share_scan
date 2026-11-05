@@ -282,8 +282,7 @@ class StockDetailSheet(
      * were found ([ProductPhotos]), come in as they are read; a long press on a photo says whose it is.
      */
     private fun bindProducts() {
-        ui.detailProductsSection.isVisible = products.isNotEmpty() || photos?.brands.orEmpty().isNotEmpty()
-        bindBrands()
+        ui.detailProductsSection.isVisible = products.isNotEmpty()
         val onProduct = onProduct
         ui.detailProductsHint.isVisible = onProduct != null
         val px = activity.resources.displayMetrics.density
@@ -326,22 +325,6 @@ class StockDetailSheet(
             }
             ui.detailProducts.addView(tile.root)
         }
-    }
-
-    /**
-     * A company whose brands the app carries ([ProductPhotos.Company.brands]): a bar under its products, and the
-     * section's heading, open them in a window of their own ([BrandSheet]), as the chart opens the trade window.
-     */
-    private fun bindBrands() {
-        val company = photos?.takeIf { it.brands.isNotEmpty() }
-        ui.detailOpenBrands.isVisible = company != null
-        if (company == null) return
-        ui.detailOpenBrands.text = activity.getString(R.string.detail_open_brands, company.brands.sumOf { it.brands.size })
-        val open = View.OnClickListener { BrandSheet(activity, stock.symbol, company).show() }
-        ui.detailOpenBrands.setOnClickListener(open)
-        ui.detailProductsHeader.setOnClickListener(open)
-        val ripple = TypedValue().also { activity.theme.resolveAttribute(android.R.attr.selectableItemBackground, it, true) }
-        ui.detailProductsHeader.setBackgroundResource(ripple.resourceId)
     }
 
     private fun bindChart() {
@@ -1901,7 +1884,6 @@ class StockDetailSheet(
     private fun percent(value: Double): String = String.format(Locale.US, "%.1f%%", abs(value))
 
     private companion object {
-
         /** Targets drawn on the chart; all of them are listed in the plan card. */
         const val CHART_TARGETS = 2
 

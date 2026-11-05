@@ -101,10 +101,4 @@
     <string name="product_recycling">പുനരുപയോഗം</string>
     <string name="product_education">വിദ്യാഭ്യാസം</string>
     <string name="product_staffing">സ്റ്റാഫിംഗ് / മാനവശേഷി</string>
-
-    <!-- The company's brands from its own website (StockDetailSheet.bindBrands). -->
-    <string name="detail_brands_title">ബ്രാൻഡുകൾ</string>
-    <string name="detail_brands_hint">%1$d ബ്രാൻഡുകൾ, കമ്പനിയുടെ സ്വന്തം വെബ്സൈറ്റിൽ നിന്ന്</string>
-    <string name="detail_brands_credit">ബ്രാൻഡ് ചിത്രങ്ങൾ: %1$s</string>
-    <string name="detail_open_brands">%1$d ബ്രാൻഡുകൾ കാണുക</string>
 </resources>
