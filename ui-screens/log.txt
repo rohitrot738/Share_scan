@@ -1,5 +1,5 @@
-IST now: 2026-11-05 16:20
-scan done after ~40s
+IST now: 2026-11-05 16:56
+scan done after ~45s
 saved: 2603 charted, 27 without a chart
 without a chart by exchange: {'NSE': 27}
   AGOL NSE Ashapuri Gold Ornament Limited
@@ -35,66 +35,121 @@ v1.2
 SCAN 100% • 2,630 STOCKS
 #
 STOCK / COMPANY
-PRICE / TODAY
+PRICE / आज
 5D CHG / RVOL
 SCORE
 #1
 ANANDRATHI
 NSE
 📈 Anand Rathi Wealth
-a fling opened a sheet
-never reached Chart नहीं
-shot 21-no-chart
-shot 22-list-end
-never reached Chart नहीं
-could not find text Chart नहीं
-shot 23-no-chart-tap
-shot 24-no-chart-result
+shot 21-search-jewel
 Share Scan
 v1.2
 SCAN 100% • 2,630 STOCKS
+Jewel
 #
 STOCK / COMPANY
-PRICE / TODAY
+PRICE / आज
 5D CHG / RVOL
 SCORE
-#817
-DRAGARWQ
+#198
+KALYANKJIL
 NSE
-🏥 Dr Agarwals Eye Hospital
-₹5,395.50
-−0.51%
-+1.81%
-RVOL 0.34×
-58.6
-#818
-KAMANWALA
+💍🛒 Kalyan Jewellers India
+₹560.00
++5.85%
++8.74%
+RVOL 1.15×
+72.6
+#226
+PNGJL
 NSE
-🏗️🏘️ Kamanwala Housing Construction
-₹17.27
-+4.04%
-+7.27%
-RVOL 1.56×
-shot 25-search-no-chart
+📰
+🛒💍🔥 P N Gadgil Jewellers
+₹600.90
++3.32%
++2.95%
+RVOL 1.46×
+71.5
+#372
+LALITHAA
+NSE
+💍🛒 Lalithaa Jewellery Mart
+₹371.65
++1.53%
++4.73%
+RVOL 0.54×
+67.3
+#721
+SHANKESH
+NSE
+📰
+💍🛒 Shankesh Jewellers
+₹90.84
+−2.93%
++0.52%
+RVOL 0.90×
+60.3
+#919
+PCJEWELLER
+NSE
+💍 PC Jeweller
+₹15.56
+−1.64%
+−2.57%
+RVOL 0.92×
+56.9
+#957
+BLUESTONE
+NSE
+💍🛒 BlueStone Jewellery and Lifestyle
+₹726.05
++5.13%
++5.17%
+RVOL 1.14×
+56.2
+#1025
+DEEPA
+NSE
+💍🛒 Deepa Jewellers
+₹219.18
++2.37%
++4.93%
+RVOL 0.33×
+55.0
+#1342
+MOTISONS
+NSE
+💍🍳 Motisons Jewellers
+₹15.12
++1.14%
+shot 22-search-jewel-end
+tapping KHAZANCHI
+shot 23-no-chart-tap
+shot 24-no-chart-result
+KHAZANCHI
+नया शेयर: NSE पर अभी सिर्फ़ 7 सत्र का data है। App का chart, score और trade plan कम से कम 21 सत्र के data से बनते हैं, इसलिए यह अभी scan की list में नहीं है। नीचे इसका बड़े पैसे की चाल का हिसाब है।
+7 सत्र का भाव: पहले दिन ₹728.50, अब ₹710.25 (−2.51%) · सबसे ऊँचा ₹729.60, सबसे नीचा ₹705.05
+💰 बड़े पैसे की चाल
+Score 0/100
+4 Nov शाम के NSE data से
+आज कोई signal नहीं
+Delivery spike ▾
+/ 30
+0
+Delivery का जमा होना ▾
+/ 20
+0
+Deals की net खरीद ▾
+/ 25
+0
+Promoters की net खरीद ▾
+/ 25
+0
+Churn ▾
+shot 25-search-edelalts
+shot 26-edelalts-sheet
 pref background=galaxy
-a fling opened a sheet
-a fling opened a sheet
-a fling opened a sheet
-a fling opened a sheet
-a fling opened a sheet
-a fling opened a sheet
-never reached Chart नहीं मिला
-shot 26-cards-no-chart
-pref background=space_glass
-could not find text शुरुआती गाइड
-could not find text विषय-सूची
-could not find text Stocks की list पढ़ना
-never reached text बिना chart वाले शेयर
-shot 30-guide-no-chart
-shot 31-guide-no-chart-more
-could not find text शुरुआती गाइड
-could not find text विषय-सूची
-could not find text आम सवाल
-never reached text list में कम शेयर
-shot 32-guide-faq
+shot 27-cards-jewel
+shot 28-cards-jewel-end
 done
