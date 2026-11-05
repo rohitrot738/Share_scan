@@ -194,6 +194,7 @@ internal fun AppCompatActivity.showSheet(
     }
     dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     dialog.behavior.skipCollapsed = true
+    if (wearsFlat) root.keepFlat()
     bar.sheetClose.setOnClickListener { dialog.dismiss() }
     if (onBack != null) {
         val back = {
@@ -215,7 +216,7 @@ class MenuSheet(
     private val settings: AppSettings,
     private val onPick: (Entry) -> Unit,
 ) {
-    enum class Entry { GUIDE, ACCOUNT, USAGE, SCAN, PAPER, INTRADAY, TRADE_LOG, TRACK_RECORD, SECTORS, SETTINGS, TEXT, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
+    enum class Entry { GUIDE, ACCOUNT, USAGE, SCAN, PAPER, INTRADAY, BIG_MONEY, TRADE_LOG, TRACK_RECORD, SECTORS, SETTINGS, TEXT, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
 
     fun show(): BottomSheetDialog {
         val ui = SheetMenuBinding.inflate(activity.layoutInflater)
@@ -241,6 +242,7 @@ class MenuSheet(
         add(Entry.SCAN, R.drawable.ic_radar, R.string.menu_scan, activity.getString(R.string.menu_scan_body))
         add(Entry.PAPER, R.drawable.ic_paper_trade, R.string.menu_paper, activity.getString(R.string.menu_paper_body))
         add(Entry.INTRADAY, R.drawable.ic_trending_up, R.string.menu_intraday, activity.getString(R.string.menu_intraday_body))
+        add(Entry.BIG_MONEY, R.drawable.ic_big_money, R.string.menu_big_money, activity.getString(R.string.menu_big_money_body))
         add(Entry.TRADE_LOG, R.drawable.ic_edit, R.string.menu_trade_log, activity.getString(R.string.menu_trade_log_body))
         add(Entry.TRACK_RECORD, R.drawable.ic_history, R.string.menu_track_record, activity.getString(R.string.menu_track_record_body))
         add(Entry.SECTORS, R.drawable.ic_sector, R.string.menu_sectors, activity.getString(R.string.menu_sectors_body))
@@ -661,6 +663,7 @@ class HelpSheet(private val activity: AppCompatActivity, private val onBack: () 
         add(activity.getString(R.string.help_sector_title), activity.getString(R.string.help_sector_body))
         add(activity.getString(R.string.help_products_title), activity.getString(R.string.help_products_body))
         add(activity.getString(R.string.help_intraday_title), activity.getString(R.string.help_intraday_body))
+        add(activity.getString(R.string.help_big_money_title), activity.getString(R.string.help_big_money_body))
         add(activity.getString(R.string.help_trade_title), activity.getString(R.string.help_trade_body))
         add(activity.getString(R.string.help_paper_title), activity.getString(R.string.help_paper_body))
         add(activity.getString(R.string.help_long_title), activity.getString(R.string.help_long_body))

@@ -182,6 +182,23 @@ def test_assess_applies_penalties_then_the_margin_of_safety():
     assert v.assess(maker(), flat(50.0), 50.0, "", 6.0, 70.0, .35, TODAY)["model"] == v.GENERAL
 
 
+def test_a_sector_models_value_is_met_halfway_by_the_companys_own_usual_pe():
+    # The maker's EV model gives ₹50 a share; at its own usual P/E of 10 its ₹6 EPS is worth ₹60. Its value is the
+    # middle, ₹55, and the margin of safety comes off that.
+    out = v.assess(maker(), flat(50.0), 50.0, "Capital Goods", 6.0, None, v.MOS["large"], TODAY, own_pe=10.0)
+    assert out["raw_iv"] == 50.0 and out["own_iv"] == 60.0 and out["iv"] == 55.0 and out["buy"] == 44.0
+    # The penalties cut the middle.
+    cut = v.assess(maker(auditor_resigned=["2026-05-01"]), flat(50.0), 50.0, "Capital Goods", 6.0, None, v.MOS["large"],
+                   TODAY, own_pe=10.0)
+    assert round(cut["iv"], 6) == 33.0 and round(cut["buy"], 6) == 26.4
+    # Without a usual P/E, or without earnings to believe, the model's value stands alone.
+    alone = v.assess(maker(), flat(50.0), 50.0, "Capital Goods", None, None, v.MOS["large"], TODAY, own_pe=10.0)
+    assert alone["iv"] == 50.0 and alone["own_iv"] is None
+    # The blend that stands in for a sector without a model has the company's own P/E in it already.
+    general = v.assess(maker(), flat(50.0), 50.0, "", 6.0, 70.0, v.MOS["large"], TODAY, own_pe=10.0)
+    assert general["iv"] == 70.0 and general["own_iv"] is None
+
+
 def test_best_is_under_the_buy_price_while_sweeping_and_nothing_blocks():
     start = date(2025, 10, 6)
     rows = []
@@ -230,7 +247,8 @@ def test_the_app_row_carries_the_frameworks_verdict():
     f = app_store.app_record(stock, research)["f"]
     assert f["mdl"] == f["smd"] == v.MODEL_CODE[v.CYCLICAL] and f["mos"] == 20.0
     assert f["flg"] & v.CYCLICAL_WARNING and f["pf"] & v.P_ROCE and f["roce"] < v.ROCE_MIN
-    assert f["fv"] == round(f["ivr"], 2) and f["bp"] == round(f["ivr"] * .8, 2)
+    # The model's value met halfway by its own usual P/E on its earnings (the history's fair value), less 20%.
+    assert f["ivo"] == f["fh"] and abs(f["fv"] - (f["ivr"] + f["ivo"]) / 2) < .01 and abs(f["bp"] - f["fv"] * .8) < .01
     assert f["evo"] > 0 and f["eb"] > 0 and f["dt"] > 0 and f["sh"] > 1000 and f["icr"] > v.ICR_RISK
     # The value the model gives, less debt, per share, less 20% for the low ROCE (the facts' rounding aside).
     assert abs((f["evo"] * f["eb"] - f["dt"]) / f["sh"] * .8 - f["ivr"]) < 2

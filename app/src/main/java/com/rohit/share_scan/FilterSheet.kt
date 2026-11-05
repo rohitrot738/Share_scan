@@ -41,18 +41,22 @@ class FilterSheet(
     private val limitChips = mutableMapOf<Int, Int>()
     private var draft = filters
     private var qualitySwitch: com.google.android.material.materialswitch.MaterialSwitch? = null
+    private val bigMoneyChips = mutableMapOf<ScanFilters.BigMoney, Chip>()
+    private var bigMoneyGroup: com.google.android.material.chip.ChipGroup? = null
 
     fun show(): BottomSheetDialog {
         Metric.entries.forEach(::addRow)
         addQuality()
+        addBigMoney()
         addLimitChips()
         ui.filterReset.setOnClickListener {
             draft = resetDraft()
             sync()
         }
         if (flat) {
+            ui.root.keepFlat()
             ui.filterApply.wearFlatAction()
-            listOf(ui.limitChips).plus(rows.values.map { it.metricPresets })
+            listOfNotNull(ui.limitChips, bigMoneyGroup).plus(rows.values.map { it.metricPresets })
                 .flatMap { group -> (0 until group.childCount).map(group::getChildAt) }
                 .filterIsInstance<Chip>()
                 .forEach { it.wearFlat(accented = false) }
@@ -173,6 +177,55 @@ class FilterSheet(
         ui.filterMetrics.addView(box)
     }
 
+    /** The evening's बड़े पैसे की चाल signals ([BigMoneyBook]): all shares, only those accumulating, or no churning ones. */
+    private fun addBigMoney() {
+        val dp = activity.resources.displayMetrics.density
+        val box = android.widget.LinearLayout(activity).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+            setPadding((20 * dp).toInt(), (16 * dp).toInt(), (20 * dp).toInt(), 0)
+        }
+        box.addView(
+            android.widget.TextView(activity).apply {
+                setText(R.string.filters_big_money)
+                setTextColor(ContextCompat.getColor(activity, R.color.text_primary))
+                textSize = 15f
+            },
+        )
+        val group = com.google.android.material.chip.ChipGroup(activity).apply {
+            isSingleSelection = true
+            isSelectionRequired = true
+        }
+        for (choice in ScanFilters.BigMoney.entries) {
+            val chip = ChipChoiceBinding.inflate(activity.layoutInflater, group, true).root
+            chip.id = View.generateViewId()
+            chip.setText(
+                when (choice) {
+                    ScanFilters.BigMoney.ALL -> R.string.filters_big_money_all
+                    ScanFilters.BigMoney.ACCUMULATION -> R.string.filters_big_money_acc
+                    ScanFilters.BigMoney.NO_CHURN -> R.string.filters_big_money_no_churn
+                },
+            )
+            chip.isChecked = choice == draft.bigMoney
+            chip.setOnClickListener {
+                if (draft.bigMoney != choice) {
+                    draft = draft.copy(bigMoney = choice)
+                    syncLabels()
+                }
+            }
+            bigMoneyChips[choice] = chip
+        }
+        bigMoneyGroup = group
+        box.addView(group)
+        box.addView(
+            android.widget.TextView(activity).apply {
+                setText(R.string.filters_big_money_body)
+                setTextColor(ContextCompat.getColor(activity, R.color.text_secondary))
+                textSize = 12f
+            },
+        )
+        ui.filterMetrics.addView(box)
+    }
+
     private fun addLimitChips() {
         for (limit in ScanFilters.LIMITS) {
             val chip = ChipChoiceBinding.inflate(activity.layoutInflater, ui.limitChips, true).root
@@ -226,13 +279,14 @@ class FilterSheet(
         for ((chip, bound) in presetChips) chip.isChecked = bound == capBound
         for ((weeks, chip) in weekChips) chip.isChecked = weeks == draft.rangeWeeks
         qualitySwitch?.let { if (it.isChecked != draft.quality) it.isChecked = draft.quality }
+        for ((choice, chip) in bigMoneyChips) chip.isChecked = choice == draft.bigMoney
 
         val scanned = pool
         if (state.results.isEmpty()) {
             ui.filterSummary.setText(R.string.filters_summary_idle)
             ui.filterApply.setText(R.string.filters_apply)
         } else {
-            val matching = scanned.count { draft.accepts(it, state.cr360) }
+            val matching = scanned.count { draft.accepts(it, state.cr360, state.bigMoney) }
             val shown = if (draft.limit > 0) minOf(matching, draft.limit) else matching
             ui.filterSummary.text = activity.getString(
                 R.string.filters_summary,

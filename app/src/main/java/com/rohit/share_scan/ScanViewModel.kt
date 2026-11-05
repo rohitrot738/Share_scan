@@ -59,6 +59,14 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
                 state.update { it.copy(cr360 = Cr360Repository.current()) }
             }
         }
+        // बड़े पैसे की चाल: the kept evening file first, then a fresh one once the evening's session is out.
+        viewModelScope.launch(Dispatchers.IO) {
+            val book = BigMoneyRepository.book(application)
+            state.update { it.copy(bigMoney = book) }
+            if (runCatching { BigMoneyRepository.refreshIfStale(application) }.getOrDefault(false)) {
+                state.update { it.copy(bigMoney = BigMoneyRepository.current()) }
+            }
+        }
         // The list's 📰 marks: NSE's filings of the last day, read again every 15 minutes while the screen lives.
         viewModelScope.launch(Dispatchers.IO) {
             while (true) {

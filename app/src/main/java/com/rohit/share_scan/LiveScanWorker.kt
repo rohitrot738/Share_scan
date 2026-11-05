@@ -23,6 +23,8 @@ class LiveScanWorker(context: Context, params: WorkerParameters) : Worker(contex
         val settings = AppSettings(app)
         // The watchlist's news first: it keeps hours of its own, morning and evening included.
         if (settings.newsAlerts) runCatching { NewsAlerts.check(app) }
+        // The evening's बड़े पैसे की चाल file, and what it tells the watchlist: evenings and before the open.
+        if (settings.bigMoneyAlerts) runCatching { BigMoneyNotices.check(app) }
         if (!settings.liveScan && !settings.watchAlerts) return Result.success()
         val now = MarketClock.now()
         if (!LiveSchedule.inHours(now)) return Result.success()
@@ -79,11 +81,14 @@ object LiveSchedule {
     fun looksClosed(at: java.time.ZonedDateTime, output: ScanOutput): Boolean =
         MarketClock.isOpen(at) && MarketClock.minutesSinceOpen(at) > 20.0 && output.results.isNotEmpty() && !output.live
 
-    /** Schedules the work when live scans, watchlist alerts or news alerts are on, and cancels it when all are off. */
+    /**
+     * Schedules the work when live scans, watchlist alerts, news alerts or बड़े पैसे की चाल alerts are on, and cancels
+     * it when all are off.
+     */
     fun sync(context: Context) {
         val settings = AppSettings(context)
         val work = WorkManager.getInstance(context)
-        if (!settings.liveScan && !settings.watchAlerts && !settings.newsAlerts) {
+        if (!settings.liveScan && !settings.watchAlerts && !settings.newsAlerts && !settings.bigMoneyAlerts) {
             work.cancelUniqueWork(WORK)
             return
         }

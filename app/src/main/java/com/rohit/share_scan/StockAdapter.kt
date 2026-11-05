@@ -57,6 +57,9 @@ class StockAdapter(
     /** The learned setups ([SetupBook]); once there are some, the card names the stock's in place of the app's own. */
     var setups: SetupBook = SetupBook.EMPTY
 
+    /** The evening's बड़े पैसे की चाल ([BigMoneyBook]); the card's meta line marks accumulation and churn. */
+    var bigMoney: BigMoneyBook = BigMoneyBook.EMPTY
+
     /** Each stock's 📰 mark: its exchange filings of the last day ([NewsRepository.badges]). */
     var news: Map<String, NewsBadge> = emptyMap()
 
@@ -244,6 +247,13 @@ class StockAdapter(
             meta.setSpan(ForegroundColorSpan(color(entry.state.tone)), start, meta.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
             context.getString(R.string.item_cr360_description, score, context.getString(entry.state.label))
         }
+        // बड़े पैसे की चाल's mark leads the line, where the line's end could cut it off.
+        val money = bigMoney.of(stock.symbol)
+        BigMoneyText.mark(context, money)?.let { (text, tone) ->
+            meta.insert(0, "$text · ")
+            meta.setSpan(ForegroundColorSpan(color(tone)), 0, text.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        }
+        val moneyDescription = BigMoneyText.markDescription(context, money)
         ui.meta.text = meta
         ui.price.text = context.getString(R.string.item_price, StockFormat.price(stock.price))
 
@@ -340,6 +350,7 @@ class StockAdapter(
             setupDescription,
             mistakeDescription,
             researchDescription,
+            moneyDescription,
             newsDescription,
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,
@@ -359,7 +370,16 @@ class StockAdapter(
         val ranked = item.rank != RankedStock.UNRANKED
         ui.rowRank.text = if (ranked) context.getString(R.string.compact_rank, item.rank) else context.getString(R.string.item_rank_none)
         ui.rowSymbol.text = stock.symbol
-        ui.rowCompany.text = withProducts(ui.rowCompany, stock.symbol, StockSearch.shortName(stock.name).ifEmpty { stock.sector })
+        val company = withProducts(ui.rowCompany, stock.symbol, StockSearch.shortName(stock.name).ifEmpty { stock.sector })
+        // बड़े पैसे की चाल's mark leads the company line, where the line's end could cut it off.
+        val money = bigMoney.of(stock.symbol)
+        ui.rowCompany.text = BigMoneyText.mark(context, money)?.let { (mark, tone) ->
+            SpannableStringBuilder(mark).apply {
+                setSpan(ForegroundColorSpan(color(tone)), 0, length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                append(" · ")
+                append(company)
+            }
+        } ?: company
         val exchange = MarketStyle.of(stock.market)
         ui.rowExchange.setText(exchange.label)
         ui.rowExchange.setTextColor(color(exchange.text))
@@ -408,6 +428,7 @@ class StockAdapter(
                 else -> context.getString(R.string.item_description_unranked, stock.symbol, score)
             },
             context.getString(exchange.description),
+            BigMoneyText.markDescription(context, money),
             newsDescription,
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,

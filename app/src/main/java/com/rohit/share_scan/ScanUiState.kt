@@ -82,6 +82,8 @@ data class ScanUiState(
     val narrowed: Boolean = false,
     /** Every stock's 360CR, from the daily file ([Cr360Repository]); empty until it is read. */
     val cr360: Cr360Book = Cr360Book.EMPTY,
+    /** The evening's बड़े पैसे की चाल signals ([BigMoneyRepository]); empty until read. */
+    val bigMoney: BigMoneyBook = BigMoneyBook.EMPTY,
     /** What every company makes, from the file the app carries ([ProductRepository]); empty until it is read. */
     val products: ProductBook = ProductBook.EMPTY,
     /** Pictures for the products section, carried in the app ([ProductRepository.photos]); empty until read. */
@@ -106,7 +108,7 @@ data class ScanUiState(
 
     /** Every stock inside the filters, ranked by score, before the limit. */
     private val matching: List<RankedStock> by lazy {
-        results.filter { filters.accepts(it, cr360) }.mapIndexed { index, stock ->
+        results.filter { filters.accepts(it, cr360, bigMoney) }.mapIndexed { index, stock ->
             RankedStock(index + 1, stock, rankBadges[stock.symbol], stock.symbol in watchlist)
         }
     }

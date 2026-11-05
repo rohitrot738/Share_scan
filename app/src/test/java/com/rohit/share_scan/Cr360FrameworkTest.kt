@@ -16,7 +16,7 @@ class Cr360FrameworkTest {
     private val json = """
         {"v":1,"updated":"2026-10-27T20:30+05:30","count":3,"stocks":{
           "TATASTEEL":{"s":41.0,"st":"CAUTION","c":100.0,"q":"2026-06-30","d":"2026-10-27","sec":{"va":30},
-            "f":{"fv":118.2,"up":-21.4,"mdl":3,"smd":3,"ivr":184.69,"bp":94.56,"mos":20.0,"flg":17,"pf":3,"adr":20260501,
+            "f":{"fv":118.2,"up":-21.4,"mdl":3,"smd":3,"ivr":184.69,"ivo":307.81,"hpe":12.5,"bp":94.56,"mos":20.0,"flg":17,"pf":3,"adr":20260501,
                  "pl":0.0,"icr":3.1,"cfp":1.4,"evo":7.5,"evn":8.2,"eb":30000.0,"dt":90000.0,"sh":1248.0,"roce":9.0,"e200":150.4}},
           "HDFCBANK":{"s":70.0,"st":"POSITIVE","c":100.0,"q":"2026-09-30","d":"2026-10-27","sec":{},
             "f":{"fv":930.02,"mdl":1,"smd":1,"ivr":930.02,"bp":604.51,"mos":35.0,"bv":391.0,"abv":388.0,"nnpa":0.5,"pbo":2.38,"roa":1.62,
@@ -60,6 +60,19 @@ class Cr360FrameworkTest {
         assertFalse(bank.best(redFlag = true))
         // A file built before the framework has none.
         assertNull(of("OLD"))
+    }
+
+    @Test
+    fun theModelsValueIsMetHalfwayByTheCompanysOwnPe() {
+        val steel = of("TATASTEEL")!!
+        assertEquals(307.81, steel.ownValue!!, 1e-9)
+        // (184.69 + 307.81) / 2, which the penalties cut to the value.
+        assertEquals(246.25, steel.baseValue!!, 1e-9)
+        assertEquals(steel.value!!, steel.baseValue!! * steel.penaltyFactor, 1e-9)
+        // Without the company's own P/E (or in a file from before the blend) the model's value stands alone.
+        val bank = of("HDFCBANK")!!
+        assertNull(bank.ownValue)
+        assertEquals(bank.rawValue!!, bank.baseValue!!, 0.0)
     }
 
     @Test

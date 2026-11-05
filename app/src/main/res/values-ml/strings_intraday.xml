@@ -24,6 +24,7 @@
     <string name="horizon_short_none">ചാർട്ട് ഡാറ്റ ഇല്ല, ഹ്രസ്വകാല പദ്ധതി ഇല്ല</string>
     <string name="horizon_long_plan">₹%1$s-നോ അതിൽ താഴെയോ വാങ്ങുക (വാങ്ങൽ വില) • ലക്ഷ്യം ₹%2$s (ന്യായവില, %3$s)</string>
     <string name="horizon_long_history">കമ്പനിയുടെ സ്വന്തം സാധാരണ P/E-യിൽ ₹%1$s</string>
+    <string name="horizon_long_blend">ന്യായ മൂല്യം = മേഖലാ മോഡൽ (₹%1$s), കമ്പനിയുടെ സാധാരണ P/E (₹%2$s) എന്നിവയുടെ നടുവിൽ, പിഴയുണ്ടെങ്കിൽ അതിന് ശേഷം</string>
     <string name="horizon_long_weak">R/S ദുർബലം (Caution/Avoid): ദീർഘകാലത്തേക്ക് ആലോചിച്ച്</string>
     <string name="horizon_long_none">R/S ഡാറ്റ ഇല്ല, ദീർഘകാല ലക്ഷ്യം ഇല്ല</string>
     <string name="menu_intraday">ഇന്നത്തെ ഇൻട്രാഡേ</string>

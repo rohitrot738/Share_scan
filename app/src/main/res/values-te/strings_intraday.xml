@@ -24,6 +24,7 @@
     <string name="horizon_short_none">చార్ట్ డేటా లేదు, స్వల్పకాల ప్రణాళిక కుదరదు</string>
     <string name="horizon_long_plan">₹%1$s లేదా అంతకంటే తక్కువకు కొనండి (కొనుగోలు ధర) • లక్ష్యం ₹%2$s (న్యాయమైన విలువ, %3$s)</string>
     <string name="horizon_long_history">కంపెనీ సొంత సాధారణ P/E వద్ద ₹%1$s</string>
+    <string name="horizon_long_blend">న్యాయమైన విలువ = సెక్టార్ మోడల్ (₹%1$s), కంపెనీ సాధారణ P/E (₹%2$s) మధ్యలో, పెనాల్టీ ఉంటే దాని తర్వాత</string>
     <string name="horizon_long_weak">R/S బలహీనం (Caution/Avoid): దీర్ఘకాలానికి ఆలోచించి</string>
     <string name="horizon_long_none">R/S డేటా లేదు, దీర్ఘకాల లక్ష్యం కుదరదు</string>
     <string name="menu_intraday">ఈ రోజు ఇంట్రాడే</string>

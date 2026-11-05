@@ -24,6 +24,7 @@
     <string name="horizon_short_none">চার্টের ডেটা নেই, স্বল্পমেয়াদি পরিকল্পনা হয় না</string>
     <string name="horizon_long_plan">₹%1$s বা তার নিচে কিনুন (ক্রয়মূল্য) • লক্ষ্য ₹%2$s (ন্যায্য মূল্য, %3$s)</string>
     <string name="horizon_long_history">কোম্পানির নিজের স্বাভাবিক P/E-তে ₹%1$s</string>
+    <string name="horizon_long_blend">ন্যায্য মূল্য = সেক্টর মডেল (₹%1$s) আর কোম্পানির স্বাভাবিক P/E (₹%2$s)-এর মাঝামাঝি, জরিমানা থাকলে তার পরে</string>
     <string name="horizon_long_weak">R/S দুর্বল (Caution/Avoid): দীর্ঘমেয়াদে ভেবেচিন্তে</string>
     <string name="horizon_long_none">R/S ডেটা নেই, দীর্ঘমেয়াদি লক্ষ্য হয় না</string>
     <string name="menu_intraday">আজকের ইন্ট্রাডে</string>

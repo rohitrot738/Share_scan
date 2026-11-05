@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu and section (BigMoneySheet) -->
+    <string name="menu_big_money">મોટા પૈસાની ચાલ</string>
+    <string name="menu_big_money_body">ડિલિવરી, બલ્ક/બ્લોક ડીલ અને પ્રમોટર: ચૂપચાપ ખરીદી અને ઓપરેટરની જાળ</string>
+    <string name="big_money_title">💰 મોટા પૈસાની ચાલ</string>
+    <string name="big_money_subtitle">%1$s સાંજનો NSE ડેટા · %2$s શેર</string>
+    <string name="big_money_loading">તાજો ડેટા જોવાઈ રહ્યો છે…</string>
+    <string name="big_money_no_file">ડેટા હજુ આવ્યો નથી. NSE ની ફાઇલ દર સાંજે આવે છે; ઇન્ટરનેટ ચાલુ રાખી થોડી વાર પછી ખોલો.</string>
+    <string name="big_money_tab_acc">🟢 ચૂપચાપ ખરીદી</string>
+    <string name="big_money_tab_churn">🔴 ચર્ન / જાળ</string>
+    <string name="big_money_tab_deals">🤝 ડીલ</string>
+    <string name="big_money_tab_promoter">👔 પ્રમોટર</string>
+    <string name="big_money_tab_acc_body" formatted="false">આજે ડિલિવરી તેના 20 સત્રની સરેરાશના 1.8 ગણાથી વધુ, ભાવ ±2% ની અંદર અને 1 લાખથી વધુ શેર: કોઈ ભાવ વધાર્યા વગર શેર ઉપાડી રહ્યું હોઈ શકે.</string>
+    <string name="big_money_tab_churn_body" formatted="false">વોલ્યુમ 20 સત્રની સરેરાશના 4 ગણાથી વધુ, પણ ડિલિવરી 20% થી ઓછી: મોટા ભાગના સોદા એ જ દિવસે કપાઈ ગયા. નકલી હલચલ હોઈ શકે, સાવધાન.</string>
+    <string name="big_money_tab_deals_body">છેલ્લા 30 સત્રની બલ્ક અને બ્લોક ડીલ, બધા ક્લાયન્ટનો સરવાળો: ખરીદેલા શેર બાદ વેચેલા શેર. પહેલા નેટ ખરીદીવાળા, પછી નેટ વેચાણવાળા.</string>
+    <string name="big_money_tab_promoter_body">છેલ્લા 90 દિવસમાં પ્રમોટરોએ બજારમાંથી કેટલાના શેર ખરીદ્યા અને વેચ્યા (ESOP, ભેટ, ઓફ-માર્કેટ ગણ્યા નથી). પહેલા ખરીદીવાળા.</string>
+    <string name="big_money_none">આજે આમાં કોઈ શેર નથી</string>
+    <string name="big_money_row_acc">%1$s · ડિલિવરી %2$s (સરેરાશ %3$s, %4$s ગણું)</string>
+    <string name="big_money_row_acc_body">ભાવ %1$s · %2$s શેરનો સોદો · સ્કોર %3$d</string>
+    <string name="big_money_row_churn">%1$s · વોલ્યુમ %2$s ગણું · ડિલિવરી %3$s</string>
+    <string name="big_money_row_churn_body">ભાવ %1$s · %2$s શેર (સરેરાશ %3$s) · સ્કોર %4$d</string>
+    <string name="big_money_row_deal_buy">%1$s · નેટ ખરીદી %2$s</string>
+    <string name="big_money_row_deal_sell">%1$s · નેટ વેચાણ %2$s</string>
+    <string name="big_money_row_deal_body">%1$s શેર · %2$d દિવસ ડીલ · %3$s</string>
+    <string name="big_money_row_promoter_buy">%1$s · પ્રમોટરોએ ખરીદ્યા %2$s</string>
+    <string name="big_money_row_promoter_sell">%1$s · પ્રમોટરોએ વેચ્યા %2$s</string>
+    <string name="big_money_row_promoter_body">%1$d વાર ખરીદી, %2$d વાર વેચાણ (90 દિવસ)</string>
+    <string name="big_money_caution">આ ખરીદ-વેચાણની સલાહ નથી. ટ્રેક રેકોર્ડ ગયા વર્ષનો છે; આગળ પણ એવું જ થાય, જરૂરી નથી. તમારો સ્ટોપ-લોસ જરૂર રાખો.</string>
+
+    <!-- Track record -->
+    <string name="big_money_record">ગયા વર્ષે %1$s વાર; 10 સત્ર પછી સરેરાશ %2$s (બધા શેર %3$s), %4$s વાર ઉપર</string>
+    <string name="big_money_record_worse">⚠️ ગયા વર્ષે આ સંકેત બધા શેરની સરેરાશ કરતાં સારો રહ્યો નથી</string>
+    <string name="big_money_record_warning_weak">⚠️ ગયા વર્ષે આ ચેતવણી પછી ભાવ બધા શેર કરતાં ખરાબ નથી ચાલ્યો</string>
+    <string name="big_money_promoters_stale">⚠️ પ્રમોટરોનો ડેટા ફક્ત %1$s સુધીનો છે: NSE હાલ નવો ડેટા નથી આપતું, તેથી આ ટેબ અને પ્રમોટરના અંક અધૂરા છે.</string>
+    <string name="big_money_record_waiting">ડેટા જમા થઈ રહ્યો છે (%1$d વાર, ઓછામાં ઓછા 30 જોઈએ)</string>
+    <string name="big_money_score_strong">સ્કોર 60 કે વધુ</string>
+
+    <!-- Signals and the list's mark -->
+    <string name="big_money_signal_acc">🟢 ચૂપચાપ ખરીદી (ડિલિવરીમાં ઉછાળો)</string>
+    <string name="big_money_signal_churn">🔴 ઓપરેટર ચર્ન / જાળ</string>
+    <string name="big_money_signal_deal_buy">🤝 ડીલ: સતત નેટ ખરીદી</string>
+    <string name="big_money_signal_deal_sell">🤝 ડીલ: સતત નેટ વેચાણ</string>
+    <string name="big_money_signal_promoter_buy">👔 પ્રમોટરોએ બજારમાંથી ખરીદ્યા</string>
+    <string name="big_money_signal_promoter_sell">👔 પ્રમોટરોએ બજારમાં વેચ્યા</string>
+    <string name="big_money_signals_none">આજે કોઈ સંકેત નથી</string>
+    <string name="big_money_mark_acc">🟢 જમા</string>
+    <string name="big_money_mark_churn">🔴 જાળ</string>
+    <string name="big_money_mark_acc_description">મોટા પૈસાની ચાલ: ચૂપચાપ ખરીદી</string>
+    <string name="big_money_mark_churn_description">મોટા પૈસાની ચાલ: ઓપરેટર ચર્ન, વોલ્યુમ વધુ પણ ડિલિવરી ઓછી</string>
+    <string name="big_money_streak_buy">સતત %1$d દિવસ નેટ ખરીદી</string>
+    <string name="big_money_streak_sell">સતત %1$d દિવસ નેટ વેચાણ</string>
+    <string name="big_money_streak_none">સતત નહીં</string>
+
+    <!-- The stock's card (BigMoneyCard) -->
+    <string name="big_money_card_title">💰 મોટા પૈસાની ચાલ</string>
+    <string name="big_money_card_missing">%1$s સાંજના NSE ડેટામાં આ શેર નથી (ફક્ત BSE, ટ્રેડ-ટુ-ટ્રેડ, અથવા એ દિવસે સોદો નથી થયો)</string>
+    <string name="big_money_card_score">સ્કોર %1$d/100</string>
+    <string name="big_money_card_date">%1$s સાંજના NSE ડેટા પરથી</string>
+    <string name="big_money_chart">છેલ્લા %1$d સત્ર: ડિલિવરી %% (પટ્ટીઓ) અને વોલ્યુમ (રેખા)</string>
+    <string name="big_money_deal_line_buy">ડીલ (30 સત્ર): નેટ ખરીદી %1$s શેર, %2$s · %3$s</string>
+    <string name="big_money_deal_line_sell">ડીલ (30 સત્ર): નેટ વેચાણ %1$s શેર, %2$s · %3$s</string>
+    <string name="big_money_deal_none">ડીલ (30 સત્ર): કોઈ બલ્ક/બ્લોક ડીલ નથી</string>
+    <string name="big_money_circular">⚠️ ગોળ-ગોળ સોદો (5 સત્રમાં ખરીદ્યું પણ, વેચ્યું પણ): %1$s</string>
+    <string name="big_money_promoter_line_buy">પ્રમોટર (90 દિવસ): બજારમાંથી નેટ ખરીદી %1$s · %2$d ખરીદી, %3$d વેચાણ</string>
+    <string name="big_money_promoter_line_sell">પ્રમોટર (90 દિવસ): બજારમાં નેટ વેચાણ %1$s · %2$d ખરીદી, %3$d વેચાણ</string>
+    <string name="big_money_promoter_none">પ્રમોટર (90 દિવસ): બજારમાં કોઈ ખરીદ-વેચાણ નથી</string>
+    <string name="big_money_part_max">/ %1$d</string>
+    <string name="big_money_part_description">%1$s: %2$s અંક, %3$d માંથી</string>
+    <string name="big_money_part_spike">ડિલિવરીમાં ઉછાળો</string>
+    <string name="big_money_part_build">ડિલિવરીનું જમા થવું</string>
+    <string name="big_money_part_deals">ડીલની નેટ ખરીદી</string>
+    <string name="big_money_part_promoter">પ્રમોટરોની નેટ ખરીદી</string>
+    <string name="big_money_part_churn">ચર્ન</string>
+    <string name="big_money_part_selling">નેટ વેચાણ</string>
+    <string name="big_money_part_body_spike">આજે ડિલિવરી %1$s, છેલ્લા 20 સત્રની સરેરાશ %2$s: %3$s ગણું. 1 ગણે 0 અંક, 3 ગણે પૂરા 30.</string>
+    <string name="big_money_part_body_build">છેલ્લા 5 સત્રની સરેરાશ ડિલિવરી %1$s, 20 સત્રની %2$s: %3$s ગણું. 1 ગણે 0 અંક, 1.5 ગણે પૂરા 20.</string>
+    <string name="big_money_part_body_deals">30 સત્રમાં નેટ %1$s શેર (%2$s); રોજનું સરેરાશ વોલ્યુમ %3$s શેર; %4$s. નેટ ખરીદી એક દિવસના સરેરાશ વોલ્યુમ જેટલી હોય, અથવા સતત 2 દિવસ નેટ ખરીદી હોય, તો પૂરા 25.</string>
+    <string name="big_money_part_body_promoter_buy">90 દિવસમાં પ્રમોટરોની બજારમાંથી નેટ ખરીદી %1$s (%2$d ખરીદી, %3$d વેચાણ). ₹5 કરોડ નેટ ખરીદી પર પૂરા 25.</string>
+    <string name="big_money_part_body_promoter_sell">90 દિવસમાં પ્રમોટરોનું બજારમાં નેટ વેચાણ %1$s (%2$d ખરીદી, %3$d વેચાણ): અંક \"નેટ વેચાણ\" માં કપાયા.</string>
+    <string name="big_money_part_body_churn">આજે વોલ્યુમ સરેરાશનું %1$s ગણું અને ડિલિવરી %2$s: ચર્ન, 30 અંક કપાયા.</string>
+    <string name="big_money_part_body_no_churn">આજે ચર્ન નથી: વોલ્યુમ સરેરાશનું %1$s ગણું, ડિલિવરી %2$s (ચર્ન = 4 ગણાથી વધુ વોલ્યુમ અને 20%% થી ઓછી ડિલિવરી).</string>
+    <string name="big_money_part_body_selling">ડીલ અથવા પ્રમોટરોનું નેટ વેચાણ ઉપરના જ માપે અંક ઘટાડે છે.</string>
+    <string name="big_money_part_body_no_selling">કોઈ નેટ વેચાણ નથી.</string>
+
+    <!-- Filters -->
+    <string name="filters_big_money">મોટા પૈસાની ચાલ</string>
+    <string name="filters_big_money_all">બધા</string>
+    <string name="filters_big_money_acc">ફક્ત ચૂપચાપ ખરીદી</string>
+    <string name="filters_big_money_no_churn">ચર્નવાળા છુપાવો</string>
+    <string name="filters_big_money_body">સાંજના NSE ડિલિવરી ડેટા પરથી (મેનૂ → મોટા પૈસાની ચાલ)</string>
+
+    <!-- Alerts and settings (BigMoneyAlerts) -->
+    <string name="notify_channel_big_money">મોટા પૈસાની ચાલ</string>
+    <string name="settings_big_money_alerts">મોટા પૈસાની ચાલના એલર્ટ</string>
+    <string name="settings_big_money_alerts_body">વોચલિસ્ટના શેરમાં ચૂપચાપ ખરીદી, ચર્ન, ડીલ કે પ્રમોટરોની ખરીદ-વેચાણ દેખાય તો એલર્ટ; સાથે સાંજે (અથવા બીજી સવારે) આખા બજારનો સાર</string>
+    <string name="big_money_notify_watch_title">💰 %1$s: મોટા પૈસાની ચાલ</string>
+    <string name="big_money_notify_digest_title">💰 %1$s સાંજ: %2$d શેરમાં ચૂપચાપ ખરીદી</string>
+    <string name="big_money_notify_digest_body">સૌથી વધુ: %1$s · મેનૂ → મોટા પૈસાની ચાલ</string>
+
+    <!-- Help -->
+    <string name="help_big_money_title">💰 મોટા પૈસાની ચાલ: ડિલિવરી, ડીલ અને પ્રમોટર</string>
+    <string name="help_big_money_body" formatted="false">મેનૂ → મોટા પૈસાની ચાલ. દર સાંજે NSE ની ડિલિવરી ફાઇલ, બલ્ક/બ્લોક ડીલ અને પ્રમોટરોના સોદાથી દરેક NSE શેર (મુખ્ય બોર્ડ અને SME) ના ચાર સંકેત બને છે. 🟢 ચૂપચાપ ખરીદી: આજે ડિલિવરી 20 સત્રની સરેરાશના 1.8 ગણાથી વધુ, ભાવ ±2% ની અંદર અને 1 લાખથી વધુ શેર. 🔴 ચર્ન / જાળ: વોલ્યુમ સરેરાશના 4 ગણાથી વધુ પણ ડિલિવરી 20% થી ઓછી. 🤝 ડીલ: છેલ્લા 30 સત્રની બધી ડીલનો સરવાળો (ખરીદી − વેચાણ); સતત 2 કે વધુ ડીલવાળા દિવસોમાં નેટ ખરીદી હોય તો સંકેત, અને જે ક્લાયન્ટે 5 સત્રમાં ખરીદ્યું પણ અને વેચ્યું પણ તેનું નામ \"ગોળ-ગોળ સોદો\" માં. 👔 પ્રમોટર: 90 દિવસમાં બજારમાંથી ખરીદી − વેચાણ (ESOP, ભેટ, ઓફ-માર્કેટ નહીં). સ્કોર 0–100: ડિલિવરીમાં ઉછાળો 30, જમા થવું 20, ડીલ 25, પ્રમોટર 25 અંક સુધી; ચર્ન પર 30 કપાય અને નેટ વેચાણ પર એ જ માપે. દરેક સંકેત સાથે છેલ્લા એક વર્ષનો ટ્રેક રેકોર્ડ: એ કેટલી વાર આવ્યો અને 10 સત્ર પછી ભાવ સરેરાશ કેટલો ચાલ્યો, બધા શેરની સરેરાશની સરખામણીમાં. યાદીમાં 🟢 જમા કે 🔴 જાળનું નિશાન, ફિલ્ટરમાં \"ફક્ત ચૂપચાપ ખરીદી\" કે \"ચર્નવાળા છુપાવો\", અને શેરની વિગતમાં આખું કાર્ડ. વોચલિસ્ટના શેર પર સંકેત આવે તો એલર્ટ, અને સાંજે (ડેટા મોડો આવે તો બીજી સવારે) આખા બજારનો સાર; મેનૂ → સ્કેનમાં બંધ કરી શકો. ફક્ત BSE અને ટ્રેડ-ટુ-ટ્રેડ (BE, BZ) શેરનો ડિલિવરી ડેટા હોતો નથી. આ સલાહ નથી, ફક્ત ડેટા છે.</string>
+</resources>

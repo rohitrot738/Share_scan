@@ -80,6 +80,15 @@ object Prefs {
     /** Watchlisted stocks' news alerts ([NewsAlerts]); on by default. */
     const val NEWS_ALERTS = "news_alerts"
 
+    /** बड़े पैसे की चाल alerts ([BigMoneyNotices]); on by default. */
+    const val BIG_MONEY_ALERTS = "big_money_alerts"
+
+    /** The latest session (ISO date) the बड़े पैसे की चाल alerts told. */
+    const val BIG_MONEY_SEEN = "big_money_seen"
+
+    /** [BigMoneyAlerts.encode] text: each watchlisted share's signals at that session. */
+    const val BIG_MONEY_FLAGS = "big_money_flags"
+
     /** Ids of the filings a news alert or round-up already covered, with when they came ("id@millis" lines). */
     const val NEWS_SEEN = "news_seen"
 

@@ -1,0 +1,48 @@
+name: Big money
+# बड़े पैसे की चाल: every weekday evening, NSE's delivery file and bulk/block deals go into the store, and the app's
+# file (big-money.json.gz) is written next to the R/S files in the cr360-data pre-release (bigmoney/build.py). NSE's
+# file has no fixed hour, so the job tries three times; a session already in the store makes a run end at once.
+on:
+  schedule:
+    - cron: '45 13 * * 1-5'  # 19:15 IST
+    - cron: '45 15 * * 1-5'  # 21:15 IST
+    - cron: '45 18 * * 1-5'  # 00:15 IST, for a file NSE put out late
+  workflow_dispatch:
+    inputs:
+      rebuild:
+        description: 'Write the app file again from the store (after a change to the rules)'
+        type: boolean
+        default: false
+permissions:
+  contents: write
+concurrency:
+  group: big-money
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TAG: cr360-data
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests
+      - name: Fetch the store and the R/S store
+        run: |
+          gh release download "$TAG" -p big-money-store.json.gz || echo "No store yet, so this run reads a year."
+          gh release download "$TAG" -p cr360-store.json.gz || echo "No R/S store: no promoter trades this run."
+      - name: Build
+        run: |
+          set -o pipefail
+          python -m bigmoney.build ${{ inputs.rebuild && '--rebuild' || '' }} | tee build.log
+      - name: Publish
+        run: |
+          if grep -q '^PUBLISH' build.log; then
+            gh release upload "$TAG" big-money-store.json.gz big-money.json.gz --clobber
+          else
+            echo "Nothing new to publish."
+          fi

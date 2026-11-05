@@ -226,6 +226,11 @@ class AppSettings(context: Context) {
         get() = prefs.getBoolean(Prefs.WATCH_ALERTS, true)
         set(value) = prefs.edit { putBoolean(Prefs.WATCH_ALERTS, value) }
 
+    /** बड़े पैसे की चाल: watchlisted shares' new signals and the evening's round-up ([BigMoneyNotices]). */
+    var bigMoneyAlerts: Boolean
+        get() = prefs.getBoolean(Prefs.BIG_MONEY_ALERTS, true)
+        set(value) = prefs.edit { putBoolean(Prefs.BIG_MONEY_ALERTS, value) }
+
     /** Watchlisted stocks' news: the morning's round-up and big filings as they come ([NewsAlerts]). */
     var newsAlerts: Boolean
         get() = prefs.getBoolean(Prefs.NEWS_ALERTS, true)

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu and section (BigMoneySheet) -->
+    <string name="menu_big_money">ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ</string>
+    <string name="menu_big_money_body">ਡਿਲੀਵਰੀ, ਬਲਕ/ਬਲਾਕ ਡੀਲ ਅਤੇ ਪ੍ਰਮੋਟਰ: ਚੁੱਪਚਾਪ ਖਰੀਦ ਅਤੇ ਓਪਰੇਟਰ ਦਾ ਜਾਲ</string>
+    <string name="big_money_title">💰 ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ</string>
+    <string name="big_money_subtitle">%1$s ਸ਼ਾਮ ਦਾ NSE ਡਾਟਾ · %2$s ਸ਼ੇਅਰ</string>
+    <string name="big_money_loading">ਤਾਜ਼ਾ ਡਾਟਾ ਵੇਖਿਆ ਜਾ ਰਿਹਾ ਹੈ…</string>
+    <string name="big_money_no_file">ਡਾਟਾ ਅਜੇ ਨਹੀਂ ਆਇਆ। NSE ਦੀ ਫਾਈਲ ਹਰ ਸ਼ਾਮ ਆਉਂਦੀ ਹੈ; ਇੰਟਰਨੈੱਟ ਚਾਲੂ ਰੱਖ ਕੇ ਥੋੜ੍ਹੀ ਦੇਰ ਬਾਅਦ ਖੋਲ੍ਹੋ।</string>
+    <string name="big_money_tab_acc">🟢 ਚੁੱਪਚਾਪ ਖਰੀਦ</string>
+    <string name="big_money_tab_churn">🔴 ਚਰਨ / ਜਾਲ</string>
+    <string name="big_money_tab_deals">🤝 ਡੀਲ</string>
+    <string name="big_money_tab_promoter">👔 ਪ੍ਰਮੋਟਰ</string>
+    <string name="big_money_tab_acc_body" formatted="false">ਅੱਜ ਡਿਲੀਵਰੀ ਆਪਣੀ 20 ਸੈਸ਼ਨ ਦੀ ਔਸਤ ਦੇ 1.8 ਗੁਣਾ ਤੋਂ ਵੱਧ, ਭਾਅ ±2% ਦੇ ਅੰਦਰ ਅਤੇ 1 ਲੱਖ ਤੋਂ ਵੱਧ ਸ਼ੇਅਰ: ਕੋਈ ਭਾਅ ਵਧਾਏ ਬਿਨਾਂ ਸ਼ੇਅਰ ਚੁੱਕ ਰਿਹਾ ਹੋ ਸਕਦਾ ਹੈ।</string>
+    <string name="big_money_tab_churn_body" formatted="false">ਵਾਲਿਊਮ 20 ਸੈਸ਼ਨ ਦੀ ਔਸਤ ਦੇ 4 ਗੁਣਾ ਤੋਂ ਵੱਧ, ਪਰ ਡਿਲੀਵਰੀ 20% ਤੋਂ ਘੱਟ: ਜ਼ਿਆਦਾਤਰ ਸੌਦੇ ਉਸੇ ਦਿਨ ਕੱਟੇ ਗਏ। ਨਕਲੀ ਹਲਚਲ ਹੋ ਸਕਦੀ ਹੈ, ਸਾਵਧਾਨ ਰਹੋ।</string>
+    <string name="big_money_tab_deals_body">ਪਿਛਲੇ 30 ਸੈਸ਼ਨਾਂ ਦੀਆਂ ਬਲਕ ਅਤੇ ਬਲਾਕ ਡੀਲਾਂ, ਸਾਰੇ ਕਲਾਇੰਟਾਂ ਦਾ ਜੋੜ: ਖਰੀਦੇ ਸ਼ੇਅਰ ਘਟਾ ਵੇਚੇ ਸ਼ੇਅਰ। ਪਹਿਲਾਂ ਨੈੱਟ ਖਰੀਦ ਵਾਲੇ, ਫਿਰ ਨੈੱਟ ਵਿਕਰੀ ਵਾਲੇ।</string>
+    <string name="big_money_tab_promoter_body">ਪਿਛਲੇ 90 ਦਿਨਾਂ ਵਿੱਚ ਪ੍ਰਮੋਟਰਾਂ ਨੇ ਬਾਜ਼ਾਰ ਤੋਂ ਕਿੰਨੇ ਦੇ ਸ਼ੇਅਰ ਖਰੀਦੇ ਅਤੇ ਵੇਚੇ (ESOP, ਤੋਹਫ਼ਾ ਅਤੇ ਆਫ਼-ਮਾਰਕੀਟ ਨਹੀਂ ਗਿਣੇ)। ਪਹਿਲਾਂ ਖਰੀਦ ਵਾਲੇ।</string>
+    <string name="big_money_none">ਅੱਜ ਇਸ ਵਿੱਚ ਕੋਈ ਸ਼ੇਅਰ ਨਹੀਂ</string>
+    <string name="big_money_row_acc">%1$s · ਡਿਲੀਵਰੀ %2$s (ਔਸਤ %3$s, %4$s ਗੁਣਾ)</string>
+    <string name="big_money_row_acc_body">ਭਾਅ %1$s · %2$s ਸ਼ੇਅਰ ਦਾ ਸੌਦਾ · ਸਕੋਰ %3$d</string>
+    <string name="big_money_row_churn">%1$s · ਵਾਲਿਊਮ %2$s ਗੁਣਾ · ਡਿਲੀਵਰੀ %3$s</string>
+    <string name="big_money_row_churn_body">ਭਾਅ %1$s · %2$s ਸ਼ੇਅਰ (ਔਸਤ %3$s) · ਸਕੋਰ %4$d</string>
+    <string name="big_money_row_deal_buy">%1$s · ਨੈੱਟ ਖਰੀਦ %2$s</string>
+    <string name="big_money_row_deal_sell">%1$s · ਨੈੱਟ ਵਿਕਰੀ %2$s</string>
+    <string name="big_money_row_deal_body">%1$s ਸ਼ੇਅਰ · %2$d ਦਿਨ ਡੀਲ · %3$s</string>
+    <string name="big_money_row_promoter_buy">%1$s · ਪ੍ਰਮੋਟਰਾਂ ਨੇ ਖਰੀਦੇ %2$s</string>
+    <string name="big_money_row_promoter_sell">%1$s · ਪ੍ਰਮੋਟਰਾਂ ਨੇ ਵੇਚੇ %2$s</string>
+    <string name="big_money_row_promoter_body">%1$d ਵਾਰ ਖਰੀਦ, %2$d ਵਾਰ ਵਿਕਰੀ (90 ਦਿਨ)</string>
+    <string name="big_money_caution">ਇਹ ਖਰੀਦਣ-ਵੇਚਣ ਦੀ ਸਲਾਹ ਨਹੀਂ ਹੈ। ਟ੍ਰੈਕ ਰਿਕਾਰਡ ਪਿਛਲੇ ਸਾਲ ਦਾ ਹੈ; ਅੱਗੇ ਵੀ ਉਹੀ ਹੋਵੇ, ਜ਼ਰੂਰੀ ਨਹੀਂ। ਆਪਣਾ ਸਟਾਪ-ਲਾਸ ਜ਼ਰੂਰ ਰੱਖੋ।</string>
+
+    <!-- Track record -->
+    <string name="big_money_record">ਪਿਛਲੇ ਸਾਲ %1$s ਵਾਰ; 10 ਸੈਸ਼ਨ ਬਾਅਦ ਔਸਤ %2$s (ਸਾਰੇ ਸ਼ੇਅਰ %3$s), %4$s ਵਾਰ ਉੱਪਰ</string>
+    <string name="big_money_record_worse">⚠️ ਪਿਛਲੇ ਸਾਲ ਇਹ ਸੰਕੇਤ ਸਾਰੇ ਸ਼ੇਅਰਾਂ ਦੀ ਔਸਤ ਨਾਲੋਂ ਬਿਹਤਰ ਨਹੀਂ ਰਿਹਾ</string>
+    <string name="big_money_record_warning_weak">⚠️ ਪਿਛਲੇ ਸਾਲ ਇਸ ਚੇਤਾਵਨੀ ਤੋਂ ਬਾਅਦ ਭਾਅ ਸਾਰੇ ਸ਼ੇਅਰਾਂ ਨਾਲੋਂ ਮਾੜਾ ਨਹੀਂ ਚੱਲਿਆ</string>
+    <string name="big_money_promoters_stale">⚠️ ਪ੍ਰਮੋਟਰਾਂ ਦਾ ਡਾਟਾ ਸਿਰਫ਼ %1$s ਤੱਕ ਦਾ ਹੈ: NSE ਹਾਲੇ ਨਵਾਂ ਡਾਟਾ ਨਹੀਂ ਦੇ ਰਿਹਾ, ਇਸ ਲਈ ਇਹ ਟੈਬ ਅਤੇ ਪ੍ਰਮੋਟਰ ਵਾਲੇ ਅੰਕ ਅਧੂਰੇ ਹਨ।</string>
+    <string name="big_money_record_waiting">ਡਾਟਾ ਜਮ੍ਹਾਂ ਹੋ ਰਿਹਾ ਹੈ (%1$d ਵਾਰ, ਘੱਟੋ-ਘੱਟ 30 ਚਾਹੀਦੇ)</string>
+    <string name="big_money_score_strong">ਸਕੋਰ 60 ਜਾਂ ਵੱਧ</string>
+
+    <!-- Signals and the list's mark -->
+    <string name="big_money_signal_acc">🟢 ਚੁੱਪਚਾਪ ਖਰੀਦ (ਡਿਲੀਵਰੀ ਵਿੱਚ ਉਛਾਲ)</string>
+    <string name="big_money_signal_churn">🔴 ਓਪਰੇਟਰ ਚਰਨ / ਜਾਲ</string>
+    <string name="big_money_signal_deal_buy">🤝 ਡੀਲ: ਲਗਾਤਾਰ ਨੈੱਟ ਖਰੀਦ</string>
+    <string name="big_money_signal_deal_sell">🤝 ਡੀਲ: ਲਗਾਤਾਰ ਨੈੱਟ ਵਿਕਰੀ</string>
+    <string name="big_money_signal_promoter_buy">👔 ਪ੍ਰਮੋਟਰਾਂ ਨੇ ਬਾਜ਼ਾਰ ਤੋਂ ਖਰੀਦੇ</string>
+    <string name="big_money_signal_promoter_sell">👔 ਪ੍ਰਮੋਟਰਾਂ ਨੇ ਬਾਜ਼ਾਰ ਵਿੱਚ ਵੇਚੇ</string>
+    <string name="big_money_signals_none">ਅੱਜ ਕੋਈ ਸੰਕੇਤ ਨਹੀਂ</string>
+    <string name="big_money_mark_acc">🟢 ਜਮ੍ਹਾਂ</string>
+    <string name="big_money_mark_churn">🔴 ਜਾਲ</string>
+    <string name="big_money_mark_acc_description">ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ: ਚੁੱਪਚਾਪ ਖਰੀਦ</string>
+    <string name="big_money_mark_churn_description">ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ: ਓਪਰੇਟਰ ਚਰਨ, ਵਾਲਿਊਮ ਬਹੁਤ ਪਰ ਡਿਲੀਵਰੀ ਘੱਟ</string>
+    <string name="big_money_streak_buy">ਲਗਾਤਾਰ %1$d ਦਿਨ ਨੈੱਟ ਖਰੀਦ</string>
+    <string name="big_money_streak_sell">ਲਗਾਤਾਰ %1$d ਦਿਨ ਨੈੱਟ ਵਿਕਰੀ</string>
+    <string name="big_money_streak_none">ਲਗਾਤਾਰ ਨਹੀਂ</string>
+
+    <!-- The stock's card (BigMoneyCard) -->
+    <string name="big_money_card_title">💰 ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ</string>
+    <string name="big_money_card_missing">%1$s ਸ਼ਾਮ ਦੇ NSE ਡਾਟਾ ਵਿੱਚ ਇਹ ਸ਼ੇਅਰ ਨਹੀਂ (ਸਿਰਫ਼ BSE, ਟ੍ਰੇਡ-ਟੂ-ਟ੍ਰੇਡ, ਜਾਂ ਉਸ ਦਿਨ ਸੌਦਾ ਨਹੀਂ ਹੋਇਆ)</string>
+    <string name="big_money_card_score">ਸਕੋਰ %1$d/100</string>
+    <string name="big_money_card_date">%1$s ਸ਼ਾਮ ਦੇ NSE ਡਾਟਾ ਤੋਂ</string>
+    <string name="big_money_chart">ਪਿਛਲੇ %1$d ਸੈਸ਼ਨ: ਡਿਲੀਵਰੀ %% (ਪੱਟੀਆਂ) ਅਤੇ ਵਾਲਿਊਮ (ਰੇਖਾ)</string>
+    <string name="big_money_deal_line_buy">ਡੀਲ (30 ਸੈਸ਼ਨ): ਨੈੱਟ ਖਰੀਦ %1$s ਸ਼ੇਅਰ, %2$s · %3$s</string>
+    <string name="big_money_deal_line_sell">ਡੀਲ (30 ਸੈਸ਼ਨ): ਨੈੱਟ ਵਿਕਰੀ %1$s ਸ਼ੇਅਰ, %2$s · %3$s</string>
+    <string name="big_money_deal_none">ਡੀਲ (30 ਸੈਸ਼ਨ): ਕੋਈ ਬਲਕ/ਬਲਾਕ ਡੀਲ ਨਹੀਂ</string>
+    <string name="big_money_circular">⚠️ ਗੋਲ-ਗੋਲ ਸੌਦਾ (5 ਸੈਸ਼ਨਾਂ ਵਿੱਚ ਖਰੀਦਿਆ ਵੀ, ਵੇਚਿਆ ਵੀ): %1$s</string>
+    <string name="big_money_promoter_line_buy">ਪ੍ਰਮੋਟਰ (90 ਦਿਨ): ਬਾਜ਼ਾਰ ਤੋਂ ਨੈੱਟ ਖਰੀਦ %1$s · %2$d ਖਰੀਦ, %3$d ਵਿਕਰੀ</string>
+    <string name="big_money_promoter_line_sell">ਪ੍ਰਮੋਟਰ (90 ਦਿਨ): ਬਾਜ਼ਾਰ ਵਿੱਚ ਨੈੱਟ ਵਿਕਰੀ %1$s · %2$d ਖਰੀਦ, %3$d ਵਿਕਰੀ</string>
+    <string name="big_money_promoter_none">ਪ੍ਰਮੋਟਰ (90 ਦਿਨ): ਬਾਜ਼ਾਰ ਵਿੱਚ ਕੋਈ ਖਰੀਦ-ਵਿਕਰੀ ਨਹੀਂ</string>
+    <string name="big_money_part_max">/ %1$d</string>
+    <string name="big_money_part_description">%1$s: %2$s ਅੰਕ, %3$d ਵਿੱਚੋਂ</string>
+    <string name="big_money_part_spike">ਡਿਲੀਵਰੀ ਵਿੱਚ ਉਛਾਲ</string>
+    <string name="big_money_part_build">ਡਿਲੀਵਰੀ ਦਾ ਜਮ੍ਹਾਂ ਹੋਣਾ</string>
+    <string name="big_money_part_deals">ਡੀਲਾਂ ਦੀ ਨੈੱਟ ਖਰੀਦ</string>
+    <string name="big_money_part_promoter">ਪ੍ਰਮੋਟਰਾਂ ਦੀ ਨੈੱਟ ਖਰੀਦ</string>
+    <string name="big_money_part_churn">ਚਰਨ</string>
+    <string name="big_money_part_selling">ਨੈੱਟ ਵਿਕਰੀ</string>
+    <string name="big_money_part_body_spike">ਅੱਜ ਡਿਲੀਵਰੀ %1$s, ਪਿਛਲੇ 20 ਸੈਸ਼ਨ ਦੀ ਔਸਤ %2$s: %3$s ਗੁਣਾ। 1 ਗੁਣਾ ਤੇ 0 ਅੰਕ, 3 ਗੁਣਾ ਤੇ ਪੂਰੇ 30।</string>
+    <string name="big_money_part_body_build">ਪਿਛਲੇ 5 ਸੈਸ਼ਨ ਦੀ ਔਸਤ ਡਿਲੀਵਰੀ %1$s, 20 ਸੈਸ਼ਨ ਦੀ %2$s: %3$s ਗੁਣਾ। 1 ਗੁਣਾ ਤੇ 0 ਅੰਕ, 1.5 ਗੁਣਾ ਤੇ ਪੂਰੇ 20।</string>
+    <string name="big_money_part_body_deals">30 ਸੈਸ਼ਨਾਂ ਵਿੱਚ ਨੈੱਟ %1$s ਸ਼ੇਅਰ (%2$s); ਰੋਜ਼ਾਨਾ ਔਸਤ ਵਾਲਿਊਮ %3$s ਸ਼ੇਅਰ; %4$s। ਨੈੱਟ ਖਰੀਦ ਇੱਕ ਦਿਨ ਦੇ ਔਸਤ ਵਾਲਿਊਮ ਜਿੰਨੀ ਹੋਵੇ, ਜਾਂ ਲਗਾਤਾਰ 2 ਦਿਨ ਨੈੱਟ ਖਰੀਦ ਹੋਵੇ, ਤਾਂ ਪੂਰੇ 25।</string>
+    <string name="big_money_part_body_promoter_buy">90 ਦਿਨਾਂ ਵਿੱਚ ਪ੍ਰਮੋਟਰਾਂ ਦੀ ਬਾਜ਼ਾਰ ਤੋਂ ਨੈੱਟ ਖਰੀਦ %1$s (%2$d ਖਰੀਦ, %3$d ਵਿਕਰੀ)। ₹5 ਕਰੋੜ ਨੈੱਟ ਖਰੀਦ ਤੇ ਪੂਰੇ 25।</string>
+    <string name="big_money_part_body_promoter_sell">90 ਦਿਨਾਂ ਵਿੱਚ ਪ੍ਰਮੋਟਰਾਂ ਦੀ ਬਾਜ਼ਾਰ ਵਿੱਚ ਨੈੱਟ ਵਿਕਰੀ %1$s (%2$d ਖਰੀਦ, %3$d ਵਿਕਰੀ): ਅੰਕ \"ਨੈੱਟ ਵਿਕਰੀ\" ਵਿੱਚ ਕੱਟੇ।</string>
+    <string name="big_money_part_body_churn">ਅੱਜ ਵਾਲਿਊਮ ਔਸਤ ਦਾ %1$s ਗੁਣਾ ਅਤੇ ਡਿਲੀਵਰੀ %2$s: ਚਰਨ, 30 ਅੰਕ ਕੱਟੇ।</string>
+    <string name="big_money_part_body_no_churn">ਅੱਜ ਚਰਨ ਨਹੀਂ: ਵਾਲਿਊਮ ਔਸਤ ਦਾ %1$s ਗੁਣਾ, ਡਿਲੀਵਰੀ %2$s (ਚਰਨ = 4 ਗੁਣਾ ਤੋਂ ਵੱਧ ਵਾਲਿਊਮ ਅਤੇ 20%% ਤੋਂ ਘੱਟ ਡਿਲੀਵਰੀ)।</string>
+    <string name="big_money_part_body_selling">ਡੀਲਾਂ ਜਾਂ ਪ੍ਰਮੋਟਰਾਂ ਦੀ ਨੈੱਟ ਵਿਕਰੀ ਉੱਪਰ ਵਾਲੇ ਪੈਮਾਨੇ ਨਾਲ ਹੀ ਅੰਕ ਘਟਾਉਂਦੀ ਹੈ।</string>
+    <string name="big_money_part_body_no_selling">ਕੋਈ ਨੈੱਟ ਵਿਕਰੀ ਨਹੀਂ।</string>
+
+    <!-- Filters -->
+    <string name="filters_big_money">ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ</string>
+    <string name="filters_big_money_all">ਸਾਰੇ</string>
+    <string name="filters_big_money_acc">ਸਿਰਫ਼ ਚੁੱਪਚਾਪ ਖਰੀਦ</string>
+    <string name="filters_big_money_no_churn">ਚਰਨ ਵਾਲੇ ਲੁਕਾਓ</string>
+    <string name="filters_big_money_body">ਸ਼ਾਮ ਦੇ NSE ਡਿਲੀਵਰੀ ਡਾਟਾ ਤੋਂ (ਮੀਨੂ → ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ)</string>
+
+    <!-- Alerts and settings (BigMoneyAlerts) -->
+    <string name="notify_channel_big_money">ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ</string>
+    <string name="settings_big_money_alerts">ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ ਦੇ ਅਲਰਟ</string>
+    <string name="settings_big_money_alerts_body">ਵਾਚਲਿਸਟ ਦੇ ਸ਼ੇਅਰ ਵਿੱਚ ਚੁੱਪਚਾਪ ਖਰੀਦ, ਚਰਨ, ਡੀਲ ਜਾਂ ਪ੍ਰਮੋਟਰਾਂ ਦੀ ਖਰੀਦ-ਵਿਕਰੀ ਦਿਸੇ ਤਾਂ ਅਲਰਟ; ਨਾਲ ਸ਼ਾਮ ਨੂੰ (ਜਾਂ ਅਗਲੀ ਸਵੇਰ) ਪੂਰੇ ਬਾਜ਼ਾਰ ਦਾ ਸਾਰ</string>
+    <string name="big_money_notify_watch_title">💰 %1$s: ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ</string>
+    <string name="big_money_notify_digest_title">💰 %1$s ਸ਼ਾਮ: %2$d ਸ਼ੇਅਰਾਂ ਵਿੱਚ ਚੁੱਪਚਾਪ ਖਰੀਦ</string>
+    <string name="big_money_notify_digest_body">ਸਭ ਤੋਂ ਵੱਧ: %1$s · ਮੀਨੂ → ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ</string>
+
+    <!-- Help -->
+    <string name="help_big_money_title">💰 ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ: ਡਿਲੀਵਰੀ, ਡੀਲ ਅਤੇ ਪ੍ਰਮੋਟਰ</string>
+    <string name="help_big_money_body" formatted="false">ਮੀਨੂ → ਵੱਡੇ ਪੈਸੇ ਦੀ ਚਾਲ। ਹਰ ਸ਼ਾਮ NSE ਦੀ ਡਿਲੀਵਰੀ ਫਾਈਲ, ਬਲਕ/ਬਲਾਕ ਡੀਲਾਂ ਅਤੇ ਪ੍ਰਮੋਟਰਾਂ ਦੇ ਸੌਦਿਆਂ ਤੋਂ ਹਰ NSE ਸ਼ੇਅਰ (ਮੁੱਖ ਬੋਰਡ ਅਤੇ SME) ਦੇ ਚਾਰ ਸੰਕੇਤ ਬਣਦੇ ਹਨ। 🟢 ਚੁੱਪਚਾਪ ਖਰੀਦ: ਅੱਜ ਡਿਲੀਵਰੀ 20 ਸੈਸ਼ਨ ਦੀ ਔਸਤ ਦੇ 1.8 ਗੁਣਾ ਤੋਂ ਵੱਧ, ਭਾਅ ±2% ਦੇ ਅੰਦਰ ਅਤੇ 1 ਲੱਖ ਤੋਂ ਵੱਧ ਸ਼ੇਅਰ। 🔴 ਚਰਨ / ਜਾਲ: ਵਾਲਿਊਮ ਔਸਤ ਦੇ 4 ਗੁਣਾ ਤੋਂ ਵੱਧ ਪਰ ਡਿਲੀਵਰੀ 20% ਤੋਂ ਘੱਟ। 🤝 ਡੀਲ: ਪਿਛਲੇ 30 ਸੈਸ਼ਨਾਂ ਦੀਆਂ ਸਾਰੀਆਂ ਡੀਲਾਂ ਦਾ ਜੋੜ (ਖਰੀਦ − ਵਿਕਰੀ); ਲਗਾਤਾਰ 2 ਜਾਂ ਵੱਧ ਡੀਲ ਵਾਲੇ ਦਿਨਾਂ ਵਿੱਚ ਨੈੱਟ ਖਰੀਦ ਹੋਵੇ ਤਾਂ ਸੰਕੇਤ, ਅਤੇ ਜਿਸ ਕਲਾਇੰਟ ਨੇ 5 ਸੈਸ਼ਨਾਂ ਵਿੱਚ ਖਰੀਦਿਆ ਵੀ ਅਤੇ ਵੇਚਿਆ ਵੀ ਉਸਦਾ ਨਾਮ \"ਗੋਲ-ਗੋਲ ਸੌਦਾ\" ਵਿੱਚ। 👔 ਪ੍ਰਮੋਟਰ: 90 ਦਿਨਾਂ ਵਿੱਚ ਬਾਜ਼ਾਰ ਤੋਂ ਖਰੀਦ − ਵਿਕਰੀ (ESOP, ਤੋਹਫ਼ਾ, ਆਫ਼-ਮਾਰਕੀਟ ਨਹੀਂ)। ਸਕੋਰ 0–100: ਡਿਲੀਵਰੀ ਵਿੱਚ ਉਛਾਲ 30, ਜਮ੍ਹਾਂ ਹੋਣਾ 20, ਡੀਲ 25, ਪ੍ਰਮੋਟਰ 25 ਅੰਕ ਤੱਕ; ਚਰਨ ਤੇ 30 ਕੱਟਦੇ ਹਨ ਅਤੇ ਨੈੱਟ ਵਿਕਰੀ ਤੇ ਉਸੇ ਪੈਮਾਨੇ ਨਾਲ। ਹਰ ਸੰਕੇਤ ਨਾਲ ਪਿਛਲੇ ਇੱਕ ਸਾਲ ਦਾ ਟ੍ਰੈਕ ਰਿਕਾਰਡ: ਉਹ ਕਿੰਨੀ ਵਾਰ ਆਇਆ ਅਤੇ 10 ਸੈਸ਼ਨ ਬਾਅਦ ਭਾਅ ਔਸਤਨ ਕਿੰਨਾ ਚੱਲਿਆ, ਸਾਰੇ ਸ਼ੇਅਰਾਂ ਦੀ ਔਸਤ ਦੇ ਮੁਕਾਬਲੇ। ਸੂਚੀ ਵਿੱਚ 🟢 ਜਮ੍ਹਾਂ ਜਾਂ 🔴 ਜਾਲ ਦਾ ਨਿਸ਼ਾਨ, ਫਿਲਟਰ ਵਿੱਚ \"ਸਿਰਫ਼ ਚੁੱਪਚਾਪ ਖਰੀਦ\" ਜਾਂ \"ਚਰਨ ਵਾਲੇ ਲੁਕਾਓ\", ਅਤੇ ਸ਼ੇਅਰ ਦੇ ਵੇਰਵੇ ਵਿੱਚ ਪੂਰਾ ਕਾਰਡ। ਵਾਚਲਿਸਟ ਦੇ ਸ਼ੇਅਰ ਤੇ ਸੰਕੇਤ ਆਵੇ ਤਾਂ ਅਲਰਟ, ਅਤੇ ਸ਼ਾਮ ਨੂੰ (ਡਾਟਾ ਦੇਰ ਨਾਲ ਆਵੇ ਤਾਂ ਅਗਲੀ ਸਵੇਰ) ਪੂਰੇ ਬਾਜ਼ਾਰ ਦਾ ਸਾਰ; ਮੀਨੂ → ਸਕੈਨ ਵਿੱਚ ਬੰਦ ਕਰ ਸਕਦੇ ਹੋ। ਸਿਰਫ਼ BSE ਅਤੇ ਟ੍ਰੇਡ-ਟੂ-ਟ੍ਰੇਡ (BE, BZ) ਸ਼ੇਅਰਾਂ ਦਾ ਡਿਲੀਵਰੀ ਡਾਟਾ ਨਹੀਂ ਹੁੰਦਾ। ਇਹ ਸਲਾਹ ਨਹੀਂ, ਸਿਰਫ਼ ਡਾਟਾ ਹੈ।</string>
+</resources>

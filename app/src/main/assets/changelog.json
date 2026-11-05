@@ -1,6 +1,23 @@
 [
   {
     "version": "",
+    "date": "2026-11-05",
+    "items": [
+      "नया Menu → बड़े पैसे की चाल: हर शाम NSE के delivery data, bulk/block deals और promoters के trades से हर NSE शेयर के चार signal: 🟢 चुपचाप खरीद (delivery अपने 20 दिन के औसत के 1.8 गुना से ज़्यादा, भाव ±2% के अंदर), 🔴 churn / जाल (volume 4 गुना पर delivery 20% से कम), deals की net खरीद-बिक्री और promoters की market से खरीद-बिक्री",
+      "हर signal के साथ पिछले एक साल का track record: वह कितनी बार आया और 10 सत्र बाद भाव औसतन कितना चला, सब शेयरों के मुक़ाबले",
+      "Stock detail में नया \"💰 बड़े पैसे की चाल\" card: 0–100 score और उसके हिस्से (दबाकर पूरा हिसाब), पिछले 20 सत्र का delivery और volume, deals (गोल-गोल सौदे वाले clients के नाम) और promoters",
+      "List में 🟢 जमा या 🔴 जाल का निशान, और Filters में \"सिर्फ़ चुपचाप खरीद\" या \"Churn वाले छिपाएँ\"",
+      "Watchlist के शेयर में नया signal आए तो alert, और शाम (या अगली सुबह) पूरे market का सार; Menu → स्कैन में बंद कर सकते हैं",
+      "शुरुआती गाइड में बड़े पैसे की चाल का नया हिस्सा, असली उदाहरण, शब्दकोश और आम सवालों के साथ",
+      "Long-term का खरीद भाव अब ज़्यादा सही: sector वाले model की कीमत और company के अपने आम P/E वाली कीमत का बीच असली कीमत है (पहले अकेला model कई अच्छी companies, जैसे TCS, को उनके हर पुराने भाव से बहुत नीचे आँकता था)। TCS का खरीद भाव ₹1,300 से ₹1,948 हुआ",
+      "Trade window के long-term लक्ष्य में अब यह भी लिखा है कि अभी का भाव खरीद भाव से कितने % ऊपर या नीचे है, और असली कीमत किन दो कीमतों का बीच है; R/S के \"Framework का पूरा हिसाब\" में दोनों कीमतें और उनका बीच",
+      "Paper Trading में किसी खुले शेयर को दबाएँ तो उसका पूरा हिसाब: अभी का भाव, फ़ायदा-नुकसान, अभी बेचें तो charges के बाद कितना बचेगा, औसत भाव, लगाया पैसा, कब लिया, stop-loss और target लगें तो कितना, breakeven, charges और उस शेयर के सारे orders; वहीं से बंद करें, stop/target बदलें या नया order",
+      "Space Glass background पर अब हर जगह के chips, सेटिंग्स और स्कैन के on/off switches, और BUY/SELL, MIS/CNC जैसे बटन भी home screen जैसे सादे outline वाले, थीम के रंग में (सेटिंग्स, Paper Trading, स्कैन, trade window, stock detail…)",
+      "शुरुआती गाइड में long-term खरीद भाव का नया हिसाब (TCS का उदाहरण) और Paper Trading में शेयर का पूरा हिसाब, उदाहरण, breakeven और नए सवालों के साथ"
+    ]
+  },
+  {
+    "version": "1.2.144",
     "date": "2026-11-04",
     "items": [
       "नया section: 📝 Paper Trading। नकली पैसे (शुरू में ₹10 लाख) से असली भाव पर intraday और delivery की practice; कोई असली order नहीं जाता। ऊपर 📝 बटन या Menu → Paper Trading से खुलता है",

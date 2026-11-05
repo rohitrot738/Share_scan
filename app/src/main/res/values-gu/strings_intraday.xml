@@ -24,6 +24,7 @@
     <string name="horizon_short_none">ચાર્ટનો ડેટા નથી, ટૂંકા ગાળાની યોજના બનતી નથી</string>
     <string name="horizon_long_plan">₹%1$s કે તેનાથી નીચે ખરીદો (ખરીદ કિંમત) • લક્ષ્ય ₹%2$s (વાજબી કિંમત, %3$s)</string>
     <string name="horizon_long_history">કંપનીના પોતાના સામાન્ય P/E પર ₹%1$s</string>
+    <string name="horizon_long_blend">સાચું મૂલ્ય = સેક્ટર મોડેલ (₹%1$s) અને કંપનીના સામાન્ય P/E (₹%2$s) ની વચ્ચે, દંડ હોય તો તે પછી</string>
     <string name="horizon_long_weak">R/S નબળું (Caution/Avoid): લાંબા ગાળા માટે વિચારીને</string>
     <string name="horizon_long_none">R/S ડેટા નથી, લાંબા ગાળાનું લક્ષ્ય બનતું નથી</string>
     <string name="menu_intraday">આજના ઇન્ટ્રાડે</string>

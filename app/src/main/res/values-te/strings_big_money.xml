@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu and section (BigMoneySheet) -->
+    <string name="menu_big_money">పెద్ద డబ్బు కదలిక</string>
+    <string name="menu_big_money_body">డెలివరీ, బల్క్/బ్లాక్ డీల్స్, ప్రమోటర్లు: నిశ్శబ్ద కొనుగోలు, ఆపరేటర్ వల</string>
+    <string name="big_money_title">💰 పెద్ద డబ్బు కదలిక</string>
+    <string name="big_money_subtitle">%1$s సాయంత్రం NSE డేటా · %2$s షేర్లు</string>
+    <string name="big_money_loading">తాజా డేటా చూస్తోంది…</string>
+    <string name="big_money_no_file">డేటా ఇంకా రాలేదు. NSE ఫైల్ ప్రతి సాయంత్రం వస్తుంది; ఇంటర్నెట్ ఆన్ చేసి కొద్దిసేపటి తర్వాత తెరవండి.</string>
+    <string name="big_money_tab_acc">🟢 నిశ్శబ్ద కొనుగోలు</string>
+    <string name="big_money_tab_churn">🔴 చర్న్ / వల</string>
+    <string name="big_money_tab_deals">🤝 డీల్స్</string>
+    <string name="big_money_tab_promoter">👔 ప్రమోటర్లు</string>
+    <string name="big_money_tab_acc_body" formatted="false">ఈరోజు డెలివరీ దాని 20 సెషన్ సగటుకు 1.8 రెట్లకు పైగా, ధర ±2% లోపు, 1 లక్షకు పైగా షేర్లు: ఎవరో ధర పెంచకుండా షేర్లు కొంటున్నారు కావచ్చు.</string>
+    <string name="big_money_tab_churn_body" formatted="false">వాల్యూమ్ 20 సెషన్ సగటుకు 4 రెట్లకు పైగా, కానీ డెలివరీ 20% కంటే తక్కువ: చాలా ట్రేడ్‌లు అదే రోజు ముగిశాయి. నకిలీ కదలిక కావచ్చు, జాగ్రత్త.</string>
+    <string name="big_money_tab_deals_body">గత 30 సెషన్ల బల్క్, బ్లాక్ డీల్స్, అన్ని క్లయింట్ల మొత్తం: కొన్న షేర్లు తీసివేత అమ్మిన షేర్లు. ముందు నికర కొనుగోలుదారులు, తర్వాత నికర అమ్మకందారులు.</string>
+    <string name="big_money_tab_promoter_body">గత 90 రోజుల్లో ప్రమోటర్లు మార్కెట్‌లో ఎంత విలువైన షేర్లు కొన్నారు, అమ్మారు (ESOP, బహుమతి, ఆఫ్-మార్కెట్ లెక్కలోకి లేవు). ముందు కొన్నవారు.</string>
+    <string name="big_money_none">ఈరోజు ఇందులో షేర్లు లేవు</string>
+    <string name="big_money_row_acc">%1$s · డెలివరీ %2$s (సగటు %3$s, %4$s రెట్లు)</string>
+    <string name="big_money_row_acc_body">ధర %1$s · %2$s షేర్ల ట్రేడ్ · స్కోర్ %3$d</string>
+    <string name="big_money_row_churn">%1$s · వాల్యూమ్ %2$s రెట్లు · డెలివరీ %3$s</string>
+    <string name="big_money_row_churn_body">ధర %1$s · %2$s షేర్లు (సగటు %3$s) · స్కోర్ %4$d</string>
+    <string name="big_money_row_deal_buy">%1$s · నికర కొనుగోలు %2$s</string>
+    <string name="big_money_row_deal_sell">%1$s · నికర అమ్మకం %2$s</string>
+    <string name="big_money_row_deal_body">%1$s షేర్లు · %2$d రోజులు డీల్స్ · %3$s</string>
+    <string name="big_money_row_promoter_buy">%1$s · ప్రమోటర్లు కొన్నారు %2$s</string>
+    <string name="big_money_row_promoter_sell">%1$s · ప్రమోటర్లు అమ్మారు %2$s</string>
+    <string name="big_money_row_promoter_body">%1$d సార్లు కొనుగోలు, %2$d సార్లు అమ్మకం (90 రోజులు)</string>
+    <string name="big_money_caution">ఇది కొనడానికి-అమ్మడానికి సలహా కాదు. ట్రాక్ రికార్డ్ గత సంవత్సరానిది; ముందు కూడా అలాగే ఉంటుందని లేదు. మీ స్టాప్-లాస్ తప్పక ఉంచండి.</string>
+
+    <!-- Track record -->
+    <string name="big_money_record">గత సంవత్సరం %1$s సార్లు; 10 సెషన్ల తర్వాత సగటు %2$s (అన్ని షేర్లు %3$s), %4$s సార్లు పైకి</string>
+    <string name="big_money_record_worse">⚠️ గత సంవత్సరం ఈ సంకేతం అన్ని షేర్ల సగటు కంటే మెరుగ్గా లేదు</string>
+    <string name="big_money_record_warning_weak">⚠️ గత సంవత్సరం ఈ హెచ్చరిక తర్వాత ధర అన్ని షేర్ల కంటే అధ్వాన్నంగా కదలలేదు</string>
+    <string name="big_money_promoters_stale">⚠️ ప్రమోటర్ల డేటా %1$s వరకు మాత్రమే: NSE ప్రస్తుతం కొత్త డేటా ఇవ్వడం లేదు, కాబట్టి ఈ ట్యాబ్, ప్రమోటర్ పాయింట్లు అసంపూర్ణం.</string>
+    <string name="big_money_record_waiting">డేటా సేకరిస్తోంది (%1$d సార్లు, కనీసం 30 కావాలి)</string>
+    <string name="big_money_score_strong">స్కోర్ 60 లేదా ఎక్కువ</string>
+
+    <!-- Signals and the list's mark -->
+    <string name="big_money_signal_acc">🟢 నిశ్శబ్ద కొనుగోలు (డెలివరీ జంప్)</string>
+    <string name="big_money_signal_churn">🔴 ఆపరేటర్ చర్న్ / వల</string>
+    <string name="big_money_signal_deal_buy">🤝 డీల్స్: వరుస నికర కొనుగోలు</string>
+    <string name="big_money_signal_deal_sell">🤝 డీల్స్: వరుస నికర అమ్మకం</string>
+    <string name="big_money_signal_promoter_buy">👔 ప్రమోటర్లు మార్కెట్‌లో కొన్నారు</string>
+    <string name="big_money_signal_promoter_sell">👔 ప్రమోటర్లు మార్కెట్‌లో అమ్మారు</string>
+    <string name="big_money_signals_none">ఈరోజు సంకేతం లేదు</string>
+    <string name="big_money_mark_acc">🟢 సేకరణ</string>
+    <string name="big_money_mark_churn">🔴 వల</string>
+    <string name="big_money_mark_acc_description">పెద్ద డబ్బు కదలిక: నిశ్శబ్ద కొనుగోలు</string>
+    <string name="big_money_mark_churn_description">పెద్ద డబ్బు కదలిక: ఆపరేటర్ చర్న్, వాల్యూమ్ ఎక్కువ కానీ డెలివరీ తక్కువ</string>
+    <string name="big_money_streak_buy">వరుసగా %1$d రోజులు నికర కొనుగోలు</string>
+    <string name="big_money_streak_sell">వరుసగా %1$d రోజులు నికర అమ్మకం</string>
+    <string name="big_money_streak_none">వరుసగా కాదు</string>
+
+    <!-- The stock's card (BigMoneyCard) -->
+    <string name="big_money_card_title">💰 పెద్ద డబ్బు కదలిక</string>
+    <string name="big_money_card_missing">%1$s సాయంత్రం NSE డేటాలో ఈ షేర్ లేదు (BSE మాత్రమే, ట్రేడ్-టు-ట్రేడ్, లేదా ఆ రోజు ట్రేడ్ కాలేదు)</string>
+    <string name="big_money_card_score">స్కోర్ %1$d/100</string>
+    <string name="big_money_card_date">%1$s సాయంత్రం NSE డేటా నుండి</string>
+    <string name="big_money_chart">గత %1$d సెషన్లు: డెలివరీ %% (బార్లు), వాల్యూమ్ (రేఖ)</string>
+    <string name="big_money_deal_line_buy">డీల్స్ (30 సెషన్లు): నికర కొనుగోలు %1$s షేర్లు, %2$s · %3$s</string>
+    <string name="big_money_deal_line_sell">డీల్స్ (30 సెషన్లు): నికర అమ్మకం %1$s షేర్లు, %2$s · %3$s</string>
+    <string name="big_money_deal_none">డీల్స్ (30 సెషన్లు): బల్క్/బ్లాక్ డీల్ లేదు</string>
+    <string name="big_money_circular">⚠️ చుట్టు డీల్ (5 సెషన్లలో కొని, అమ్మిన): %1$s</string>
+    <string name="big_money_promoter_line_buy">ప్రమోటర్లు (90 రోజులు): మార్కెట్‌లో నికర కొనుగోలు %1$s · %2$d కొనుగోళ్లు, %3$d అమ్మకాలు</string>
+    <string name="big_money_promoter_line_sell">ప్రమోటర్లు (90 రోజులు): మార్కెట్‌లో నికర అమ్మకం %1$s · %2$d కొనుగోళ్లు, %3$d అమ్మకాలు</string>
+    <string name="big_money_promoter_none">ప్రమోటర్లు (90 రోజులు): మార్కెట్‌లో కొనుగోలు-అమ్మకం లేదు</string>
+    <string name="big_money_part_max">/ %1$d</string>
+    <string name="big_money_part_description">%1$s: %2$s పాయింట్లు, %3$d లో</string>
+    <string name="big_money_part_spike">డెలివరీ జంప్</string>
+    <string name="big_money_part_build">డెలివరీ పెరుగుతూ ఉండటం</string>
+    <string name="big_money_part_deals">డీల్స్ నికర కొనుగోలు</string>
+    <string name="big_money_part_promoter">ప్రమోటర్ల నికర కొనుగోలు</string>
+    <string name="big_money_part_churn">చర్న్</string>
+    <string name="big_money_part_selling">నికర అమ్మకం</string>
+    <string name="big_money_part_body_spike">ఈరోజు డెలివరీ %1$s, గత 20 సెషన్ల సగటు %2$s: %3$s రెట్లు. 1 రెట్టుకు 0 పాయింట్లు, 3 రెట్లకు పూర్తి 30.</string>
+    <string name="big_money_part_body_build">గత 5 సెషన్ల సగటు డెలివరీ %1$s, 20 సెషన్లది %2$s: %3$s రెట్లు. 1 రెట్టుకు 0 పాయింట్లు, 1.5 రెట్లకు పూర్తి 20.</string>
+    <string name="big_money_part_body_deals">30 సెషన్లలో నికర %1$s షేర్లు (%2$s); రోజువారీ సగటు వాల్యూమ్ %3$s షేర్లు; %4$s. నికర కొనుగోలు ఒక రోజు సగటు వాల్యూమ్‌కు సమానమైతే, లేదా వరుసగా 2 రోజులు నికర కొనుగోలు అయితే పూర్తి 25.</string>
+    <string name="big_money_part_body_promoter_buy">90 రోజుల్లో ప్రమోటర్ల మార్కెట్ నికర కొనుగోలు %1$s (%2$d కొనుగోళ్లు, %3$d అమ్మకాలు). ₹5 కోట్ల నికర కొనుగోలుకు పూర్తి 25.</string>
+    <string name="big_money_part_body_promoter_sell">90 రోజుల్లో ప్రమోటర్ల మార్కెట్ నికర అమ్మకం %1$s (%2$d కొనుగోళ్లు, %3$d అమ్మకాలు): పాయింట్లు \"నికర అమ్మకం\" లో తగ్గాయి.</string>
+    <string name="big_money_part_body_churn">ఈరోజు వాల్యూమ్ సగటుకు %1$s రెట్లు, డెలివరీ %2$s: చర్న్, 30 పాయింట్లు తగ్గాయి.</string>
+    <string name="big_money_part_body_no_churn">ఈరోజు చర్న్ లేదు: వాల్యూమ్ సగటుకు %1$s రెట్లు, డెలివరీ %2$s (చర్న్ = 4 రెట్లకు పైగా వాల్యూమ్, 20%% కంటే తక్కువ డెలివరీ).</string>
+    <string name="big_money_part_body_selling">డీల్స్ లేదా ప్రమోటర్ల నికర అమ్మకం పై స్కేల్‌లోనే పాయింట్లు తగ్గిస్తుంది.</string>
+    <string name="big_money_part_body_no_selling">నికర అమ్మకం లేదు.</string>
+
+    <!-- Filters -->
+    <string name="filters_big_money">పెద్ద డబ్బు కదలిక</string>
+    <string name="filters_big_money_all">అన్నీ</string>
+    <string name="filters_big_money_acc">నిశ్శబ్ద కొనుగోలు మాత్రమే</string>
+    <string name="filters_big_money_no_churn">చర్న్ ఉన్నవి దాచు</string>
+    <string name="filters_big_money_body">సాయంత్రం NSE డెలివరీ డేటా నుండి (మెనూ → పెద్ద డబ్బు కదలిక)</string>
+
+    <!-- Alerts and settings (BigMoneyAlerts) -->
+    <string name="notify_channel_big_money">పెద్ద డబ్బు కదలిక</string>
+    <string name="settings_big_money_alerts">పెద్ద డబ్బు కదలిక అలర్ట్‌లు</string>
+    <string name="settings_big_money_alerts_body">వాచ్‌లిస్ట్ షేర్‌లో నిశ్శబ్ద కొనుగోలు, చర్న్, డీల్స్ లేదా ప్రమోటర్ల కొనుగోలు-అమ్మకం కనిపిస్తే అలర్ట్; దానితో పాటు సాయంత్రం (లేదా మరుసటి ఉదయం) మొత్తం మార్కెట్ సారాంశం</string>
+    <string name="big_money_notify_watch_title">💰 %1$s: పెద్ద డబ్బు కదలిక</string>
+    <string name="big_money_notify_digest_title">💰 %1$s సాయంత్రం: %2$d షేర్లలో నిశ్శబ్ద కొనుగోలు</string>
+    <string name="big_money_notify_digest_body">అత్యధికం: %1$s · మెనూ → పెద్ద డబ్బు కదలిక</string>
+
+    <!-- Help -->
+    <string name="help_big_money_title">💰 పెద్ద డబ్బు కదలిక: డెలివరీ, డీల్స్, ప్రమోటర్లు</string>
+    <string name="help_big_money_body" formatted="false">మెనూ → పెద్ద డబ్బు కదలిక. ప్రతి సాయంత్రం NSE డెలివరీ ఫైల్, బల్క్/బ్లాక్ డీల్స్, ప్రమోటర్ల ట్రేడ్‌ల నుండి ప్రతి NSE షేర్‌కు (ప్రధాన బోర్డు, SME) నాలుగు సంకేతాలు తయారవుతాయి. 🟢 నిశ్శబ్ద కొనుగోలు: ఈరోజు డెలివరీ 20 సెషన్ సగటుకు 1.8 రెట్లకు పైగా, ధర ±2% లోపు, 1 లక్షకు పైగా షేర్లు. 🔴 చర్న్ / వల: వాల్యూమ్ సగటుకు 4 రెట్లకు పైగా కానీ డెలివరీ 20% కంటే తక్కువ. 🤝 డీల్స్: గత 30 సెషన్ల అన్ని డీల్స్ మొత్తం (కొనుగోలు − అమ్మకం); వరుసగా 2 లేదా ఎక్కువ డీల్ రోజుల్లో నికర కొనుగోలు ఉంటే సంకేతం, 5 సెషన్లలో కొని అమ్మిన క్లయింట్ పేరు \"చుట్టు డీల్\" లో. 👔 ప్రమోటర్లు: 90 రోజుల్లో మార్కెట్‌లో కొనుగోలు − అమ్మకం (ESOP, బహుమతి, ఆఫ్-మార్కెట్ కాదు). స్కోర్ 0–100: డెలివరీ జంప్ 30, పెరుగుతూ ఉండటం 20, డీల్స్ 25, ప్రమోటర్లు 25 పాయింట్ల వరకు; చర్న్‌కు 30 తగ్గుతాయి, నికర అమ్మకానికి అదే స్కేల్‌లో. ప్రతి సంకేతంతో గత ఏడాది ట్రాక్ రికార్డ్: అది ఎన్నిసార్లు వచ్చింది, 10 సెషన్ల తర్వాత ధర సగటున ఎంత కదిలింది, అన్ని షేర్ల సగటుతో పోల్చి. జాబితాలో 🟢 సేకరణ లేదా 🔴 వల గుర్తు, ఫిల్టర్‌లో \"నిశ్శబ్ద కొనుగోలు మాత్రమే\" లేదా \"చర్న్ ఉన్నవి దాచు\", షేర్ వివరాల్లో పూర్తి కార్డ్. వాచ్‌లిస్ట్ షేర్‌పై సంకేతం వస్తే అలర్ట్, సాయంత్రం (డేటా ఆలస్యమైతే మరుసటి ఉదయం) మొత్తం మార్కెట్ సారాంశం; మెనూ → స్కాన్ లో ఆపవచ్చు. BSE మాత్రమే మరియు ట్రేడ్-టు-ట్రేడ్ (BE, BZ) షేర్లకు డెలివరీ డేటా ఉండదు. ఇది సలహా కాదు, డేటా మాత్రమే.</string>
+</resources>

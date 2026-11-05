@@ -70,6 +70,8 @@ class StockDetailSheet(
     private val alert: WatchAlerts.State? = null,
     /** The stock's 360CR from the daily file; null when the file does not have it (yet). */
     private val cr360: Cr360Book.Entry? = null,
+    /** The evening's बड़े पैसे की चाल file ([BigMoneyBook]); its card says when the file or the stock is missing. */
+    private val bigMoney: BigMoneyBook = BigMoneyBook.EMPTY,
     /** The learned setups; once there are some, they take the place of the app's own setups and figures. */
     private val setups: SetupBook = SetupBook.EMPTY,
     /** Opens on the खबरें tab (from a 📰 mark or a news notification) rather than on जानकारी. */
@@ -122,6 +124,7 @@ class StockDetailSheet(
         fold(ui.detailCr360HistoryTitle, ui.detailCr360HistoryStatus, ui.detailCr360History)
         fold(ui.detailStatsTitle, ui.detailStats)
         bindMoat()
+        BigMoneyCard(activity, bigMoney, stock.symbol).bind(ui.detailBigMoney)
         ui.detailNoStructure.isVisible = structure == null
         val site = chartSite.forMarket(stock.market)
         val siteBroker = site.broker
@@ -150,6 +153,7 @@ class StockDetailSheet(
 
         val height = (activity.resources.displayMetrics.heightPixels * 0.9f).toInt()
         dialog.setContentView(ui.root, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height))
+        if (activity.wearsFlat) ui.root.keepFlat()
         dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         dialog.behavior.skipCollapsed = true
         dialog.show()
@@ -227,8 +231,23 @@ class StockDetailSheet(
                     StockFormat.signedChange((fair / stock.price - 1.0) * 100.0),
                 ),
             )
-            facts[Cr360Book.Fact.HISTORY_FAIR_VALUE]?.takeIf { it > 0.0 }?.let {
-                lines += activity.getString(R.string.horizon_long_history, StockFormat.price(it))
+            val framework = Cr360Framework.of(facts)
+            // How far the price has to come to the buy price, or how far under it it already is.
+            framework?.fromBuy(stock.price)?.let { gap ->
+                lines += activity.getString(
+                    if (gap <= 0) R.string.fw_price_below else R.string.fw_price_above,
+                    StockFormat.price(stock.price),
+                    Cr360Format.number(abs(gap), 1),
+                )
+            }
+            val model = framework?.rawValue
+            val own = framework?.ownValue
+            if (model != null && own != null) {
+                lines += activity.getString(R.string.horizon_long_blend, StockFormat.price(model), StockFormat.price(own))
+            } else {
+                facts[Cr360Book.Fact.HISTORY_FAIR_VALUE]?.takeIf { it > 0.0 }?.let {
+                    lines += activity.getString(R.string.horizon_long_history, StockFormat.price(it))
+                }
             }
             if (cr360?.state == Cr360Book.State.CAUTION || cr360?.state == Cr360Book.State.AVOID) {
                 lines += activity.getString(R.string.horizon_long_weak)

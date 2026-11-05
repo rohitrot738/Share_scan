@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu and section (BigMoneySheet) -->
+    <string name="menu_big_money">Big Money</string>
+    <string name="menu_big_money_body">Delivery, bulk/block deals and promoters: quiet buying and operator traps</string>
+    <string name="big_money_title">💰 Big Money</string>
+    <string name="big_money_subtitle">NSE data of %1$s evening · %2$s shares</string>
+    <string name="big_money_loading">Looking for fresh data…</string>
+    <string name="big_money_no_file">No data yet. NSE\'s file comes every evening; keep the internet on and open this again in a while.</string>
+    <string name="big_money_tab_acc">🟢 Quiet buying</string>
+    <string name="big_money_tab_churn">🔴 Churn / trap</string>
+    <string name="big_money_tab_deals">🤝 Deals</string>
+    <string name="big_money_tab_promoter">👔 Promoters</string>
+    <string name="big_money_tab_acc_body" formatted="false">Today\'s delivery above 1.8 times its 20-session average, price within ±2% and over 1 lakh shares traded: someone may be picking up shares without pushing the price.</string>
+    <string name="big_money_tab_churn_body" formatted="false">Volume above 4 times its 20-session average but delivery under 20%: most trades were squared off the same day. The activity may be fake; be careful.</string>
+    <string name="big_money_tab_deals_body">Bulk and block deals of the last 30 sessions, all clients added up: shares bought less shares sold. Net buyers first, then net sellers.</string>
+    <string name="big_money_tab_promoter_body">How much the promoters bought and sold in the market in the last 90 days (ESOP, gifts and off-market not counted). Buyers first.</string>
+    <string name="big_money_none">No shares here today</string>
+    <string name="big_money_row_acc">%1$s · delivery %2$s (average %3$s, %4$s times)</string>
+    <string name="big_money_row_acc_body">Price %1$s · %2$s shares traded · score %3$d</string>
+    <string name="big_money_row_churn">%1$s · volume %2$s times · delivery %3$s</string>
+    <string name="big_money_row_churn_body">Price %1$s · %2$s shares (average %3$s) · score %4$d</string>
+    <string name="big_money_row_deal_buy">%1$s · net buying %2$s</string>
+    <string name="big_money_row_deal_sell">%1$s · net selling %2$s</string>
+    <string name="big_money_row_deal_body">%1$s shares · deals on %2$d days · %3$s</string>
+    <string name="big_money_row_promoter_buy">%1$s · promoters bought %2$s</string>
+    <string name="big_money_row_promoter_sell">%1$s · promoters sold %2$s</string>
+    <string name="big_money_row_promoter_body">%1$d buys, %2$d sales (90 days)</string>
+    <string name="big_money_caution">This is not advice to buy or sell. The track record is the past year\'s; the future need not be the same. Always keep your stop-loss.</string>
+
+    <!-- Track record -->
+    <string name="big_money_record">Past year %1$s times; average move 10 sessions later %2$s (all shares %3$s), higher %4$s of the time</string>
+    <string name="big_money_record_worse">⚠️ Over the past year this signal did no better than all shares on average</string>
+    <string name="big_money_record_warning_weak">⚠️ Over the past year the price did no worse than all shares after this warning</string>
+    <string name="big_money_promoters_stale">⚠️ The promoters\' data only runs to %1$s: NSE is not giving newer data for now, so this tab and the promoter points are incomplete.</string>
+    <string name="big_money_record_waiting">data is building up (%1$d times, at least 30 needed)</string>
+    <string name="big_money_score_strong">Score 60 or more</string>
+
+    <!-- Signals and the list's mark -->
+    <string name="big_money_signal_acc">🟢 Quiet buying (delivery spike)</string>
+    <string name="big_money_signal_churn">🔴 Operator churn / trap</string>
+    <string name="big_money_signal_deal_buy">🤝 Deals: net buying in a row</string>
+    <string name="big_money_signal_deal_sell">🤝 Deals: net selling in a row</string>
+    <string name="big_money_signal_promoter_buy">👔 Promoters bought in the market</string>
+    <string name="big_money_signal_promoter_sell">👔 Promoters sold in the market</string>
+    <string name="big_money_signals_none">No signal today</string>
+    <string name="big_money_mark_acc">🟢 Buying</string>
+    <string name="big_money_mark_churn">🔴 Trap</string>
+    <string name="big_money_mark_acc_description">Big Money: quiet buying</string>
+    <string name="big_money_mark_churn_description">Big Money: operator churn, heavy volume but little delivery</string>
+    <string name="big_money_streak_buy">net buying %1$d days in a row</string>
+    <string name="big_money_streak_sell">net selling %1$d days in a row</string>
+    <string name="big_money_streak_none">not in a row</string>
+
+    <!-- The stock's card (BigMoneyCard) -->
+    <string name="big_money_card_title">💰 Big Money</string>
+    <string name="big_money_card_missing">This share is not in the NSE data of %1$s evening (BSE-only, trade-to-trade, or not traded that day)</string>
+    <string name="big_money_card_score">Score %1$d/100</string>
+    <string name="big_money_card_date">From the NSE data of %1$s evening</string>
+    <string name="big_money_chart">Last %1$d sessions: delivery %% (bars) and volume (line)</string>
+    <string name="big_money_deal_line_buy">Deals (30 sessions): net bought %1$s shares, %2$s · %3$s</string>
+    <string name="big_money_deal_line_sell">Deals (30 sessions): net sold %1$s shares, %2$s · %3$s</string>
+    <string name="big_money_deal_none">Deals (30 sessions): no bulk/block deal</string>
+    <string name="big_money_circular">⚠️ Round-trip deal (bought and sold within 5 sessions): %1$s</string>
+    <string name="big_money_promoter_line_buy">Promoters (90 days): net bought %1$s in the market · %2$d buys, %3$d sales</string>
+    <string name="big_money_promoter_line_sell">Promoters (90 days): net sold %1$s in the market · %2$d buys, %3$d sales</string>
+    <string name="big_money_promoter_none">Promoters (90 days): no buying or selling in the market</string>
+    <string name="big_money_part_max">/ %1$d</string>
+    <string name="big_money_part_description">%1$s: %2$s points out of %3$d</string>
+    <string name="big_money_part_spike">Delivery spike</string>
+    <string name="big_money_part_build">Delivery building up</string>
+    <string name="big_money_part_deals">Deals net buying</string>
+    <string name="big_money_part_promoter">Promoters net buying</string>
+    <string name="big_money_part_churn">Churn</string>
+    <string name="big_money_part_selling">Net selling</string>
+    <string name="big_money_part_body_spike">Today\'s delivery %1$s, average of the last 20 sessions %2$s: %3$s times. 0 points at 1 time, the full 30 at 3 times.</string>
+    <string name="big_money_part_body_build">Average delivery of the last 5 sessions %1$s, of 20 sessions %2$s: %3$s times. 0 points at 1 time, the full 20 at 1.5 times.</string>
+    <string name="big_money_part_body_deals">Net %1$s shares over 30 sessions (%2$s); average daily volume %3$s shares; %4$s. The full 25 when net buying equals a day\'s average volume, or with net buying 2 days in a row.</string>
+    <string name="big_money_part_body_promoter_buy">Promoters\' net market buying over 90 days %1$s (%2$d buys, %3$d sales). The full 25 at ₹5 crore of net buying.</string>
+    <string name="big_money_part_body_promoter_sell">Promoters\' net market selling over 90 days %1$s (%2$d buys, %3$d sales): the points come off under \"Net selling\".</string>
+    <string name="big_money_part_body_churn">Today\'s volume %1$s times its average with delivery %2$s: churn, 30 points off.</string>
+    <string name="big_money_part_body_no_churn">No churn today: volume %1$s times its average, delivery %2$s (churn = volume over 4 times with delivery under 20%%).</string>
+    <string name="big_money_part_body_selling">Net selling by deals or promoters takes points off on the same scale as above.</string>
+    <string name="big_money_part_body_no_selling">No net selling.</string>
+
+    <!-- Filters -->
+    <string name="filters_big_money">Big Money</string>
+    <string name="filters_big_money_all">All</string>
+    <string name="filters_big_money_acc">Only quiet buying</string>
+    <string name="filters_big_money_no_churn">Hide churn</string>
+    <string name="filters_big_money_body">From the evening\'s NSE delivery data (Menu → Big Money)</string>
+
+    <!-- Alerts and settings (BigMoneyAlerts) -->
+    <string name="notify_channel_big_money">Big Money</string>
+    <string name="settings_big_money_alerts">Big Money alerts</string>
+    <string name="settings_big_money_alerts_body">An alert when a watchlist share shows quiet buying, churn, deals or promoter buying or selling; and a round-up of the whole market in the evening (or the next morning)</string>
+    <string name="big_money_notify_watch_title">💰 %1$s: Big Money</string>
+    <string name="big_money_notify_digest_title">💰 %1$s evening: quiet buying in %2$d shares</string>
+    <string name="big_money_notify_digest_body">Strongest: %1$s · Menu → Big Money</string>
+
+    <!-- Help -->
+    <string name="help_big_money_title">💰 Big Money: delivery, deals and promoters</string>
+    <string name="help_big_money_body" formatted="false">Menu → Big Money. Every evening NSE\'s delivery file, the bulk/block deals and the promoters\' trades give each NSE share (main board and SME) four signals. 🟢 Quiet buying: today\'s delivery above 1.8 times its 20-session average, price within ±2% and over 1 lakh shares. 🔴 Churn / trap: volume above 4 times its average but delivery under 20%. 🤝 Deals: all deals of the last 30 sessions added up (bought − sold); net buying on 2 or more deal days in a row gives the signal, and a client who bought and sold within 5 sessions is named under \"round-trip deal\". 👔 Promoters: market buys − sales over 90 days (not ESOP, gifts or off-market). Score 0–100: up to 30 for the delivery spike, 20 for building up, 25 for deals and 25 for promoters; churn takes 30 off and net selling takes off on the same scale. Each signal comes with its past year: how often it showed and how the price moved 10 sessions later on average, against all shares\' average. The list marks 🟢 Buying or 🔴 Trap, Filters offer \"Only quiet buying\" or \"Hide churn\", and the stock detail has the whole card. A watchlist share with a signal gets an alert, and the evening (or the next morning when the data is late) brings a round-up of the whole market; turn it off in Menu → Scan. BSE-only and trade-to-trade (BE, BZ) shares have no delivery data. This is data, not advice.</string>
+</resources>

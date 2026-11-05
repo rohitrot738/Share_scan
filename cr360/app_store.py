@@ -313,7 +313,8 @@ def app_record(stock: dict, research: ResearchInput, sector: str = "") -> dict |
 
 def framework_facts(fw: dict) -> dict:
     """The valuation framework's verdict (valuation.assess) as the app's facts: the model ("mdl", and "smd" the
-    sector's own when it fell back), the value before penalties ("ivr"; "fv" is the value after them), the buy price
+    sector's own when it fell back), the model's value ("ivr"), the company's usual P/E's ("ivo") that meets it halfway
+    ("fv" is the middle after the penalties), the buy price
     and margin of safety, the flag and penalty bits and the figures each model and check used."""
     if not fw:
         return {}
@@ -321,7 +322,7 @@ def framework_facts(fw: dict) -> dict:
     pct = lambda v: _r(v * 100, 1) if v is not None else None
     return {
         "mdl": framework.MODEL_CODE.get(fw.get("model")), "smd": framework.MODEL_CODE.get(fw.get("sector_model")),
-        "ivr": _r(fw.get("raw_iv"), 2), "bp": _r(fw.get("buy"), 2), "mos": pct(fw.get("mos")),
+        "ivr": _r(fw.get("raw_iv"), 2), "ivo": _r(fw.get("own_iv"), 2), "bp": _r(fw.get("buy"), 2), "mos": pct(fw.get("mos")),
         "flg": fw.get("flags") or None, "pf": fw.get("penalties") or None,
         # The day an auditor resigned in the penalty's year, as a number (20260501): the app's facts are numbers.
         "adr": int(fw["auditor"].replace("-", "")) if fw.get("auditor") else None,

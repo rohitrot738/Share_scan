@@ -216,4 +216,37 @@ class ScanFiltersTest {
         assertEquals(on, ScanFilters.decode(on.encode()))
         assertEquals(false, ScanFilters.decode(ScanFilters().encode()).quality)
     }
+
+    private val bigMoney = BigMoneyBook.parse(
+        """{"v":1,"date":"2026-11-04","dates":[],"record":{},"stocks":{
+            "BIG":{"s":40,"p":[20,0,0,0,0,0],"f":["acc"],"dq":[],"vq":[]},
+            "SMALL":{"s":0,"p":[0,0,0,0,-30,0],"f":["churn"],"dq":[],"vq":[]}}}""",
+    )!!
+
+    @Test
+    fun bigMoneyFilterRoundTripsAndCounts() {
+        for (choice in ScanFilters.BigMoney.entries) {
+            val filters = ScanFilters(bigMoney = choice)
+            assertEquals(filters, ScanFilters.decode(filters.encode()))
+            assertEquals(if (choice == ScanFilters.BigMoney.ALL) 0 else 1, filters.activeCount)
+        }
+    }
+
+    @Test
+    fun accumulationOnlyNeedsTheSignal() {
+        val filters = ScanFilters(bigMoney = ScanFilters.BigMoney.ACCUMULATION)
+        assertEquals(true, filters.accepts(big, Cr360Book.EMPTY, bigMoney))
+        assertEquals(false, filters.accepts(small, Cr360Book.EMPTY, bigMoney))
+        assertEquals(false, filters.accepts(unknown, Cr360Book.EMPTY, bigMoney))
+    }
+
+    @Test
+    fun noChurnHidesChurn() {
+        val filters = ScanFilters(bigMoney = ScanFilters.BigMoney.NO_CHURN)
+        assertEquals(true, filters.accepts(big, Cr360Book.EMPTY, bigMoney))
+        assertEquals(false, filters.accepts(small, Cr360Book.EMPTY, bigMoney))
+        assertEquals(true, filters.accepts(unknown, Cr360Book.EMPTY, bigMoney))
+        // Without the evening file nothing is hidden.
+        assertEquals(true, filters.accepts(small, Cr360Book.EMPTY, BigMoneyBook.EMPTY))
+    }
 }

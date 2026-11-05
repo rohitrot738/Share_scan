@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Menu and section (BigMoneySheet) -->
+    <string name="menu_big_money">ದೊಡ್ಡ ಹಣದ ನಡೆ</string>
+    <string name="menu_big_money_body">ಡೆಲಿವರಿ, ಬಲ್ಕ್/ಬ್ಲಾಕ್ ಡೀಲ್ ಮತ್ತು ಪ್ರಮೋಟರ್: ಮೌನ ಖರೀದಿ ಮತ್ತು ಆಪರೇಟರ್ ಬಲೆ</string>
+    <string name="big_money_title">💰 ದೊಡ್ಡ ಹಣದ ನಡೆ</string>
+    <string name="big_money_subtitle">%1$s ಸಂಜೆಯ NSE ಡೇಟಾ · %2$s ಷೇರುಗಳು</string>
+    <string name="big_money_loading">ಹೊಸ ಡೇಟಾ ನೋಡಲಾಗುತ್ತಿದೆ…</string>
+    <string name="big_money_no_file">ಡೇಟಾ ಇನ್ನೂ ಬಂದಿಲ್ಲ. NSE ಫೈಲ್ ಪ್ರತಿ ಸಂಜೆ ಬರುತ್ತದೆ; ಇಂಟರ್ನೆಟ್ ಆನ್ ಇಟ್ಟು ಸ್ವಲ್ಪ ಸಮಯದ ನಂತರ ತೆರೆಯಿರಿ.</string>
+    <string name="big_money_tab_acc">🟢 ಮೌನ ಖರೀದಿ</string>
+    <string name="big_money_tab_churn">🔴 ಚರ್ನ್ / ಬಲೆ</string>
+    <string name="big_money_tab_deals">🤝 ಡೀಲ್‌ಗಳು</string>
+    <string name="big_money_tab_promoter">👔 ಪ್ರಮೋಟರ್</string>
+    <string name="big_money_tab_acc_body" formatted="false">ಇಂದು ಡೆಲಿವರಿ ತನ್ನ 20 ಸೆಷನ್ ಸರಾಸರಿಯ 1.8 ಪಟ್ಟಿಗಿಂತ ಹೆಚ್ಚು, ಬೆಲೆ ±2% ಒಳಗೆ ಮತ್ತು 1 ಲಕ್ಷಕ್ಕಿಂತ ಹೆಚ್ಚು ಷೇರುಗಳು: ಯಾರೋ ಬೆಲೆ ಏರಿಸದೆ ಷೇರು ಸಂಗ್ರಹಿಸುತ್ತಿರಬಹುದು.</string>
+    <string name="big_money_tab_churn_body" formatted="false">ವಾಲ್ಯೂಮ್ 20 ಸೆಷನ್ ಸರಾಸರಿಯ 4 ಪಟ್ಟಿಗಿಂತ ಹೆಚ್ಚು, ಆದರೆ ಡೆಲಿವರಿ 20% ಕ್ಕಿಂತ ಕಡಿಮೆ: ಹೆಚ್ಚಿನ ವಹಿವಾಟುಗಳು ಅದೇ ದಿನ ಮುಗಿದವು. ನಕಲಿ ಚಲನೆ ಇರಬಹುದು, ಎಚ್ಚರ.</string>
+    <string name="big_money_tab_deals_body">ಕಳೆದ 30 ಸೆಷನ್‌ಗಳ ಬಲ್ಕ್ ಮತ್ತು ಬ್ಲಾಕ್ ಡೀಲ್‌ಗಳು, ಎಲ್ಲ ಕ್ಲೈಂಟ್‌ಗಳ ಮೊತ್ತ: ಖರೀದಿಸಿದ ಷೇರು ಕಳೆದು ಮಾರಿದ ಷೇರು. ಮೊದಲು ನಿವ್ವಳ ಖರೀದಿದಾರರು, ನಂತರ ನಿವ್ವಳ ಮಾರಾಟಗಾರರು.</string>
+    <string name="big_money_tab_promoter_body">ಕಳೆದ 90 ದಿನಗಳಲ್ಲಿ ಪ್ರಮೋಟರ್‌ಗಳು ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ಎಷ್ಟು ಮೌಲ್ಯದ ಷೇರು ಖರೀದಿಸಿದರು, ಮಾರಿದರು (ESOP, ಉಡುಗೊರೆ, ಆಫ್-ಮಾರ್ಕೆಟ್ ಎಣಿಸಿಲ್ಲ). ಮೊದಲು ಖರೀದಿದಾರರು.</string>
+    <string name="big_money_none">ಇಂದು ಇದರಲ್ಲಿ ಷೇರು ಇಲ್ಲ</string>
+    <string name="big_money_row_acc">%1$s · ಡೆಲಿವರಿ %2$s (ಸರಾಸರಿ %3$s, %4$s ಪಟ್ಟು)</string>
+    <string name="big_money_row_acc_body">ಬೆಲೆ %1$s · %2$s ಷೇರು ವಹಿವಾಟು · ಸ್ಕೋರ್ %3$d</string>
+    <string name="big_money_row_churn">%1$s · ವಾಲ್ಯೂಮ್ %2$s ಪಟ್ಟು · ಡೆಲಿವರಿ %3$s</string>
+    <string name="big_money_row_churn_body">ಬೆಲೆ %1$s · %2$s ಷೇರು (ಸರಾಸರಿ %3$s) · ಸ್ಕೋರ್ %4$d</string>
+    <string name="big_money_row_deal_buy">%1$s · ನಿವ್ವಳ ಖರೀದಿ %2$s</string>
+    <string name="big_money_row_deal_sell">%1$s · ನಿವ್ವಳ ಮಾರಾಟ %2$s</string>
+    <string name="big_money_row_deal_body">%1$s ಷೇರು · %2$d ದಿನ ಡೀಲ್ · %3$s</string>
+    <string name="big_money_row_promoter_buy">%1$s · ಪ್ರಮೋಟರ್‌ಗಳು ಖರೀದಿಸಿದರು %2$s</string>
+    <string name="big_money_row_promoter_sell">%1$s · ಪ್ರಮೋಟರ್‌ಗಳು ಮಾರಿದರು %2$s</string>
+    <string name="big_money_row_promoter_body">%1$d ಬಾರಿ ಖರೀದಿ, %2$d ಬಾರಿ ಮಾರಾಟ (90 ದಿನ)</string>
+    <string name="big_money_caution">ಇದು ಖರೀದಿ-ಮಾರಾಟದ ಸಲಹೆ ಅಲ್ಲ. ಟ್ರ್ಯಾಕ್ ರೆಕಾರ್ಡ್ ಕಳೆದ ವರ್ಷದ್ದು; ಮುಂದೆಯೂ ಹಾಗೇ ಇರುತ್ತದೆ ಎಂದಿಲ್ಲ. ನಿಮ್ಮ ಸ್ಟಾಪ್-ಲಾಸ್ ಖಂಡಿತ ಇಡಿ.</string>
+
+    <!-- Track record -->
+    <string name="big_money_record">ಕಳೆದ ವರ್ಷ %1$s ಬಾರಿ; 10 ಸೆಷನ್ ನಂತರ ಸರಾಸರಿ %2$s (ಎಲ್ಲ ಷೇರು %3$s), %4$s ಬಾರಿ ಮೇಲೆ</string>
+    <string name="big_money_record_worse">⚠️ ಕಳೆದ ವರ್ಷ ಈ ಸಂಕೇತ ಎಲ್ಲ ಷೇರುಗಳ ಸರಾಸರಿಗಿಂತ ಉತ್ತಮವಾಗಿರಲಿಲ್ಲ</string>
+    <string name="big_money_record_warning_weak">⚠️ ಕಳೆದ ವರ್ಷ ಈ ಎಚ್ಚರಿಕೆಯ ನಂತರ ಬೆಲೆ ಎಲ್ಲ ಷೇರುಗಳಿಗಿಂತ ಕೆಟ್ಟದಾಗಿ ಚಲಿಸಲಿಲ್ಲ</string>
+    <string name="big_money_promoters_stale">⚠️ ಪ್ರಮೋಟರ್ ಡೇಟಾ %1$s ವರೆಗೆ ಮಾತ್ರ: NSE ಈಗ ಹೊಸ ಡೇಟಾ ನೀಡುತ್ತಿಲ್ಲ, ಆದ್ದರಿಂದ ಈ ಟ್ಯಾಬ್ ಮತ್ತು ಪ್ರಮೋಟರ್ ಅಂಕಗಳು ಅಪೂರ್ಣ.</string>
+    <string name="big_money_record_waiting">ಡೇಟಾ ಸೇರುತ್ತಿದೆ (%1$d ಬಾರಿ, ಕನಿಷ್ಠ 30 ಬೇಕು)</string>
+    <string name="big_money_score_strong">ಸ್ಕೋರ್ 60 ಅಥವಾ ಹೆಚ್ಚು</string>
+
+    <!-- Signals and the list's mark -->
+    <string name="big_money_signal_acc">🟢 ಮೌನ ಖರೀದಿ (ಡೆಲಿವರಿ ಜಿಗಿತ)</string>
+    <string name="big_money_signal_churn">🔴 ಆಪರೇಟರ್ ಚರ್ನ್ / ಬಲೆ</string>
+    <string name="big_money_signal_deal_buy">🤝 ಡೀಲ್: ಸತತ ನಿವ್ವಳ ಖರೀದಿ</string>
+    <string name="big_money_signal_deal_sell">🤝 ಡೀಲ್: ಸತತ ನಿವ್ವಳ ಮಾರಾಟ</string>
+    <string name="big_money_signal_promoter_buy">👔 ಪ್ರಮೋಟರ್‌ಗಳು ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ಖರೀದಿಸಿದರು</string>
+    <string name="big_money_signal_promoter_sell">👔 ಪ್ರಮೋಟರ್‌ಗಳು ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ಮಾರಿದರು</string>
+    <string name="big_money_signals_none">ಇಂದು ಸಂಕೇತ ಇಲ್ಲ</string>
+    <string name="big_money_mark_acc">🟢 ಸಂಗ್ರಹ</string>
+    <string name="big_money_mark_churn">🔴 ಬಲೆ</string>
+    <string name="big_money_mark_acc_description">ದೊಡ್ಡ ಹಣದ ನಡೆ: ಮೌನ ಖರೀದಿ</string>
+    <string name="big_money_mark_churn_description">ದೊಡ್ಡ ಹಣದ ನಡೆ: ಆಪರೇಟರ್ ಚರ್ನ್, ವಾಲ್ಯೂಮ್ ಹೆಚ್ಚು ಆದರೆ ಡೆಲಿವರಿ ಕಡಿಮೆ</string>
+    <string name="big_money_streak_buy">ಸತತ %1$d ದಿನ ನಿವ್ವಳ ಖರೀದಿ</string>
+    <string name="big_money_streak_sell">ಸತತ %1$d ದಿನ ನಿವ್ವಳ ಮಾರಾಟ</string>
+    <string name="big_money_streak_none">ಸತತವಲ್ಲ</string>
+
+    <!-- The stock's card (BigMoneyCard) -->
+    <string name="big_money_card_title">💰 ದೊಡ್ಡ ಹಣದ ನಡೆ</string>
+    <string name="big_money_card_missing">%1$s ಸಂಜೆಯ NSE ಡೇಟಾದಲ್ಲಿ ಈ ಷೇರು ಇಲ್ಲ (BSE ಮಾತ್ರ, ಟ್ರೇಡ್-ಟು-ಟ್ರೇಡ್, ಅಥವಾ ಆ ದಿನ ವಹಿವಾಟು ಆಗಿಲ್ಲ)</string>
+    <string name="big_money_card_score">ಸ್ಕೋರ್ %1$d/100</string>
+    <string name="big_money_card_date">%1$s ಸಂಜೆಯ NSE ಡೇಟಾದಿಂದ</string>
+    <string name="big_money_chart">ಕಳೆದ %1$d ಸೆಷನ್: ಡೆಲಿವರಿ %% (ಬಾರ್‌ಗಳು) ಮತ್ತು ವಾಲ್ಯೂಮ್ (ರೇಖೆ)</string>
+    <string name="big_money_deal_line_buy">ಡೀಲ್ (30 ಸೆಷನ್): ನಿವ್ವಳ ಖರೀದಿ %1$s ಷೇರು, %2$s · %3$s</string>
+    <string name="big_money_deal_line_sell">ಡೀಲ್ (30 ಸೆಷನ್): ನಿವ್ವಳ ಮಾರಾಟ %1$s ಷೇರು, %2$s · %3$s</string>
+    <string name="big_money_deal_none">ಡೀಲ್ (30 ಸೆಷನ್): ಬಲ್ಕ್/ಬ್ಲಾಕ್ ಡೀಲ್ ಇಲ್ಲ</string>
+    <string name="big_money_circular">⚠️ ಸುತ್ತು ವ್ಯವಹಾರ (5 ಸೆಷನ್‌ನಲ್ಲಿ ಖರೀದಿಸಿಯೂ ಮಾರಿಯೂ): %1$s</string>
+    <string name="big_money_promoter_line_buy">ಪ್ರಮೋಟರ್ (90 ದಿನ): ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ನಿವ್ವಳ ಖರೀದಿ %1$s · %2$d ಖರೀದಿ, %3$d ಮಾರಾಟ</string>
+    <string name="big_money_promoter_line_sell">ಪ್ರಮೋಟರ್ (90 ದಿನ): ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ನಿವ್ವಳ ಮಾರಾಟ %1$s · %2$d ಖರೀದಿ, %3$d ಮಾರಾಟ</string>
+    <string name="big_money_promoter_none">ಪ್ರಮೋಟರ್ (90 ದಿನ): ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ಖರೀದಿ-ಮಾರಾಟ ಇಲ್ಲ</string>
+    <string name="big_money_part_max">/ %1$d</string>
+    <string name="big_money_part_description">%1$s: %2$s ಅಂಕ, %3$d ರಲ್ಲಿ</string>
+    <string name="big_money_part_spike">ಡೆಲಿವರಿ ಜಿಗಿತ</string>
+    <string name="big_money_part_build">ಡೆಲಿವರಿ ಸಂಗ್ರಹವಾಗುವುದು</string>
+    <string name="big_money_part_deals">ಡೀಲ್ ನಿವ್ವಳ ಖರೀದಿ</string>
+    <string name="big_money_part_promoter">ಪ್ರಮೋಟರ್ ನಿವ್ವಳ ಖರೀದಿ</string>
+    <string name="big_money_part_churn">ಚರ್ನ್</string>
+    <string name="big_money_part_selling">ನಿವ್ವಳ ಮಾರಾಟ</string>
+    <string name="big_money_part_body_spike">ಇಂದು ಡೆಲಿವರಿ %1$s, ಕಳೆದ 20 ಸೆಷನ್ ಸರಾಸರಿ %2$s: %3$s ಪಟ್ಟು. 1 ಪಟ್ಟಿಗೆ 0 ಅಂಕ, 3 ಪಟ್ಟಿಗೆ ಪೂರ್ಣ 30.</string>
+    <string name="big_money_part_body_build">ಕಳೆದ 5 ಸೆಷನ್ ಸರಾಸರಿ ಡೆಲಿವರಿ %1$s, 20 ಸೆಷನ್‌ದು %2$s: %3$s ಪಟ್ಟು. 1 ಪಟ್ಟಿಗೆ 0 ಅಂಕ, 1.5 ಪಟ್ಟಿಗೆ ಪೂರ್ಣ 20.</string>
+    <string name="big_money_part_body_deals">30 ಸೆಷನ್‌ನಲ್ಲಿ ನಿವ್ವಳ %1$s ಷೇರು (%2$s); ದೈನಂದಿನ ಸರಾಸರಿ ವಾಲ್ಯೂಮ್ %3$s ಷೇರು; %4$s. ನಿವ್ವಳ ಖರೀದಿ ಒಂದು ದಿನದ ಸರಾಸರಿ ವಾಲ್ಯೂಮ್‌ನಷ್ಟು ಇದ್ದರೆ, ಅಥವಾ ಸತತ 2 ದಿನ ನಿವ್ವಳ ಖರೀದಿ ಇದ್ದರೆ ಪೂರ್ಣ 25.</string>
+    <string name="big_money_part_body_promoter_buy">90 ದಿನದಲ್ಲಿ ಪ್ರಮೋಟರ್‌ಗಳ ಮಾರುಕಟ್ಟೆ ನಿವ್ವಳ ಖರೀದಿ %1$s (%2$d ಖರೀದಿ, %3$d ಮಾರಾಟ). ₹5 ಕೋಟಿ ನಿವ್ವಳ ಖರೀದಿಗೆ ಪೂರ್ಣ 25.</string>
+    <string name="big_money_part_body_promoter_sell">90 ದಿನದಲ್ಲಿ ಪ್ರಮೋಟರ್‌ಗಳ ಮಾರುಕಟ್ಟೆ ನಿವ್ವಳ ಮಾರಾಟ %1$s (%2$d ಖರೀದಿ, %3$d ಮಾರಾಟ): ಅಂಕಗಳು \"ನಿವ್ವಳ ಮಾರಾಟ\" ದಲ್ಲಿ ಕಡಿತ.</string>
+    <string name="big_money_part_body_churn">ಇಂದು ವಾಲ್ಯೂಮ್ ಸರಾಸರಿಯ %1$s ಪಟ್ಟು, ಡೆಲಿವರಿ %2$s: ಚರ್ನ್, 30 ಅಂಕ ಕಡಿತ.</string>
+    <string name="big_money_part_body_no_churn">ಇಂದು ಚರ್ನ್ ಇಲ್ಲ: ವಾಲ್ಯೂಮ್ ಸರಾಸರಿಯ %1$s ಪಟ್ಟು, ಡೆಲಿವರಿ %2$s (ಚರ್ನ್ = 4 ಪಟ್ಟಿಗಿಂತ ಹೆಚ್ಚು ವಾಲ್ಯೂಮ್ ಮತ್ತು 20%% ಕ್ಕಿಂತ ಕಡಿಮೆ ಡೆಲಿವರಿ).</string>
+    <string name="big_money_part_body_selling">ಡೀಲ್ ಅಥವಾ ಪ್ರಮೋಟರ್‌ಗಳ ನಿವ್ವಳ ಮಾರಾಟ ಮೇಲಿನ ಅದೇ ಅಳತೆಯಲ್ಲಿ ಅಂಕ ಕಡಿಮೆ ಮಾಡುತ್ತದೆ.</string>
+    <string name="big_money_part_body_no_selling">ನಿವ್ವಳ ಮಾರಾಟ ಇಲ್ಲ.</string>
+
+    <!-- Filters -->
+    <string name="filters_big_money">ದೊಡ್ಡ ಹಣದ ನಡೆ</string>
+    <string name="filters_big_money_all">ಎಲ್ಲಾ</string>
+    <string name="filters_big_money_acc">ಮೌನ ಖರೀದಿ ಮಾತ್ರ</string>
+    <string name="filters_big_money_no_churn">ಚರ್ನ್ ಇರುವವನ್ನು ಮರೆಮಾಡಿ</string>
+    <string name="filters_big_money_body">ಸಂಜೆಯ NSE ಡೆಲಿವರಿ ಡೇಟಾದಿಂದ (ಮೆನು → ದೊಡ್ಡ ಹಣದ ನಡೆ)</string>
+
+    <!-- Alerts and settings (BigMoneyAlerts) -->
+    <string name="notify_channel_big_money">ದೊಡ್ಡ ಹಣದ ನಡೆ</string>
+    <string name="settings_big_money_alerts">ದೊಡ್ಡ ಹಣದ ನಡೆಯ ಅಲರ್ಟ್‌ಗಳು</string>
+    <string name="settings_big_money_alerts_body">ವಾಚ್‌ಲಿಸ್ಟ್ ಷೇರಿನಲ್ಲಿ ಮೌನ ಖರೀದಿ, ಚರ್ನ್, ಡೀಲ್ ಅಥವಾ ಪ್ರಮೋಟರ್ ಖರೀದಿ-ಮಾರಾಟ ಕಂಡರೆ ಅಲರ್ಟ್; ಜೊತೆಗೆ ಸಂಜೆ (ಅಥವಾ ಮರುದಿನ ಬೆಳಿಗ್ಗೆ) ಇಡೀ ಮಾರುಕಟ್ಟೆಯ ಸಾರಾಂಶ</string>
+    <string name="big_money_notify_watch_title">💰 %1$s: ದೊಡ್ಡ ಹಣದ ನಡೆ</string>
+    <string name="big_money_notify_digest_title">💰 %1$s ಸಂಜೆ: %2$d ಷೇರುಗಳಲ್ಲಿ ಮೌನ ಖರೀದಿ</string>
+    <string name="big_money_notify_digest_body">ಅತಿ ಹೆಚ್ಚು: %1$s · ಮೆನು → ದೊಡ್ಡ ಹಣದ ನಡೆ</string>
+
+    <!-- Help -->
+    <string name="help_big_money_title">💰 ದೊಡ್ಡ ಹಣದ ನಡೆ: ಡೆಲಿವರಿ, ಡೀಲ್ ಮತ್ತು ಪ್ರಮೋಟರ್</string>
+    <string name="help_big_money_body" formatted="false">ಮೆನು → ದೊಡ್ಡ ಹಣದ ನಡೆ. ಪ್ರತಿ ಸಂಜೆ NSE ಡೆಲಿವರಿ ಫೈಲ್, ಬಲ್ಕ್/ಬ್ಲಾಕ್ ಡೀಲ್‌ಗಳು ಮತ್ತು ಪ್ರಮೋಟರ್‌ಗಳ ವಹಿವಾಟುಗಳಿಂದ ಪ್ರತಿ NSE ಷೇರಿಗೆ (ಮುಖ್ಯ ಬೋರ್ಡ್ ಮತ್ತು SME) ನಾಲ್ಕು ಸಂಕೇತಗಳು ತಯಾರಾಗುತ್ತವೆ. 🟢 ಮೌನ ಖರೀದಿ: ಇಂದು ಡೆಲಿವರಿ 20 ಸೆಷನ್ ಸರಾಸರಿಯ 1.8 ಪಟ್ಟಿಗಿಂತ ಹೆಚ್ಚು, ಬೆಲೆ ±2% ಒಳಗೆ ಮತ್ತು 1 ಲಕ್ಷಕ್ಕಿಂತ ಹೆಚ್ಚು ಷೇರುಗಳು. 🔴 ಚರ್ನ್ / ಬಲೆ: ವಾಲ್ಯೂಮ್ ಸರಾಸರಿಯ 4 ಪಟ್ಟಿಗಿಂತ ಹೆಚ್ಚು ಆದರೆ ಡೆಲಿವರಿ 20% ಕ್ಕಿಂತ ಕಡಿಮೆ. 🤝 ಡೀಲ್: ಕಳೆದ 30 ಸೆಷನ್‌ಗಳ ಎಲ್ಲ ಡೀಲ್‌ಗಳ ಮೊತ್ತ (ಖರೀದಿ − ಮಾರಾಟ); ಸತತ 2 ಅಥವಾ ಹೆಚ್ಚು ಡೀಲ್ ದಿನಗಳಲ್ಲಿ ನಿವ್ವಳ ಖರೀದಿ ಇದ್ದರೆ ಸಂಕೇತ, 5 ಸೆಷನ್‌ನಲ್ಲಿ ಖರೀದಿಸಿಯೂ ಮಾರಿಯೂ ಇರುವ ಕ್ಲೈಂಟ್ ಹೆಸರು \"ಸುತ್ತು ವ್ಯವಹಾರ\" ದಲ್ಲಿ. 👔 ಪ್ರಮೋಟರ್: 90 ದಿನದಲ್ಲಿ ಮಾರುಕಟ್ಟೆಯಲ್ಲಿ ಖರೀದಿ − ಮಾರಾಟ (ESOP, ಉಡುಗೊರೆ, ಆಫ್-ಮಾರ್ಕೆಟ್ ಅಲ್ಲ). ಸ್ಕೋರ್ 0–100: ಡೆಲಿವರಿ ಜಿಗಿತ 30, ಸಂಗ್ರಹವಾಗುವುದು 20, ಡೀಲ್ 25, ಪ್ರಮೋಟರ್ 25 ಅಂಕಗಳವರೆಗೆ; ಚರ್ನ್‌ಗೆ 30 ಕಡಿತ, ನಿವ್ವಳ ಮಾರಾಟಕ್ಕೆ ಅದೇ ಅಳತೆಯಲ್ಲಿ. ಪ್ರತಿ ಸಂಕೇತದ ಜೊತೆ ಕಳೆದ ಒಂದು ವರ್ಷದ ಟ್ರ್ಯಾಕ್ ರೆಕಾರ್ಡ್: ಅದು ಎಷ್ಟು ಬಾರಿ ಬಂತು, 10 ಸೆಷನ್ ನಂತರ ಬೆಲೆ ಸರಾಸರಿ ಎಷ್ಟು ಚಲಿಸಿತು, ಎಲ್ಲ ಷೇರುಗಳ ಸರಾಸರಿಗೆ ಹೋಲಿಸಿ. ಪಟ್ಟಿಯಲ್ಲಿ 🟢 ಸಂಗ್ರಹ ಅಥವಾ 🔴 ಬಲೆ ಗುರುತು, ಫಿಲ್ಟರ್‌ನಲ್ಲಿ \"ಮೌನ ಖರೀದಿ ಮಾತ್ರ\" ಅಥವಾ \"ಚರ್ನ್ ಇರುವವನ್ನು ಮರೆಮಾಡಿ\", ಷೇರಿನ ವಿವರದಲ್ಲಿ ಪೂರ್ಣ ಕಾರ್ಡ್. ವಾಚ್‌ಲಿಸ್ಟ್ ಷೇರಿನಲ್ಲಿ ಸಂಕೇತ ಬಂದರೆ ಅಲರ್ಟ್, ಸಂಜೆ (ಡೇಟಾ ತಡವಾದರೆ ಮರುದಿನ ಬೆಳಿಗ್ಗೆ) ಇಡೀ ಮಾರುಕಟ್ಟೆಯ ಸಾರಾಂಶ; ಮೆನು → ಸ್ಕ್ಯಾನ್ ನಲ್ಲಿ ನಿಲ್ಲಿಸಬಹುದು. BSE ಮಾತ್ರ ಮತ್ತು ಟ್ರೇಡ್-ಟು-ಟ್ರೇಡ್ (BE, BZ) ಷೇರುಗಳಿಗೆ ಡೆಲಿವರಿ ಡೇಟಾ ಇರುವುದಿಲ್ಲ. ಇದು ಸಲಹೆ ಅಲ್ಲ, ಡೇಟಾ ಮಾತ್ರ.</string>
+</resources>

@@ -24,6 +24,7 @@
     <string name="horizon_short_none">ਚਾਰਟ ਦਾ ਡਾਟਾ ਨਹੀਂ, ਥੋੜ੍ਹੀ ਮਿਆਦ ਦੀ ਯੋਜਨਾ ਨਹੀਂ ਬਣਦੀ</string>
     <string name="horizon_long_plan">₹%1$s ਜਾਂ ਇਸ ਤੋਂ ਹੇਠਾਂ ਖਰੀਦੋ (ਖਰੀਦ ਮੁੱਲ) • ਟੀਚਾ ₹%2$s (ਵਾਜਬ ਮੁੱਲ, %3$s)</string>
     <string name="horizon_long_history">ਕੰਪਨੀ ਦੇ ਆਪਣੇ ਆਮ P/E ਤੇ ₹%1$s</string>
+    <string name="horizon_long_blend">ਅਸਲ ਮੁੱਲ = ਸੈਕਟਰ ਮਾਡਲ (₹%1$s) ਅਤੇ ਕੰਪਨੀ ਦੇ ਆਮ P/E (₹%2$s) ਦੇ ਵਿਚਕਾਰ, ਜੁਰਮਾਨਾ ਹੋਵੇ ਤਾਂ ਉਸ ਤੋਂ ਬਾਅਦ</string>
     <string name="horizon_long_weak">R/S ਕਮਜ਼ੋਰ (Caution/Avoid): ਲੰਮੀ ਮਿਆਦ ਲਈ ਸੋਚ ਸਮਝ ਕੇ</string>
     <string name="horizon_long_none">R/S ਡਾਟਾ ਨਹੀਂ, ਲੰਮੀ ਮਿਆਦ ਦਾ ਟੀਚਾ ਨਹੀਂ ਬਣਦਾ</string>
     <string name="menu_intraday">ਅੱਜ ਦੇ ਇੰਟਰਾਡੇ</string>

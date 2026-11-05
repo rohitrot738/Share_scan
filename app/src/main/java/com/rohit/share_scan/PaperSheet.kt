@@ -54,6 +54,9 @@ class PaperSheet(
     private var ticker: Job? = null
     private var failed = false
 
+    /** The position opened in full ([PaperHoldingSheet]), redrawn with the rest. */
+    private var holding: PaperHoldingSheet? = null
+
     fun show(): BottomSheetDialog {
         ui.paperTabs.addOnTabSelectedListener(
             object : TabLayout.OnTabSelectedListener {
@@ -112,6 +115,7 @@ class PaperSheet(
             2 -> orders(book)
             else -> reckoning(book)
         }
+        holding?.takeIf { it.showing }?.render()
     }
 
     /** The account card: worth, change since the start, the worth day by day, cash, margin, holdings, today. */
@@ -185,33 +189,38 @@ class PaperSheet(
         }
         lines += toned(activity.getString(R.string.paper_position_tap), R.color.text_secondary)
         val title = activity.getString(R.string.paper_position_title, p.symbol, PaperText.side(activity, p.side), abs(p.qty))
-        card(title, join(lines)).root.setOnClickListener { positionActions(p) }
+        card(title, join(lines)).root.setOnClickListener { openHolding(p) }
     }
 
-    /** What a tap on a position offers: close it now, change its stop-loss and target, a new order, or the stock. */
-    private fun positionActions(p: PaperPosition) {
-        val items = listOf(R.string.paper_action_exit, R.string.paper_action_levels, R.string.paper_action_more, R.string.paper_action_open)
-        MaterialAlertDialogBuilder(activity)
-            .setTitle(p.symbol)
-            .setItems(items.map(activity::getString).toTypedArray()) { _, which ->
-                when (items[which]) {
-                    R.string.paper_action_exit -> exit(p)
-                    R.string.paper_action_levels -> levels(p)
-                    R.string.paper_action_more -> {
-                        val stock = stocks().firstOrNull { it.symbol == p.symbol }
-                        if (stock == null) {
-                            Toast.makeText(activity, R.string.paper_stock_not_in_scan, Toast.LENGTH_SHORT).show()
-                        } else {
-                            newOrder(PaperOrderSheet.Preset(stock, side = p.side, product = p.product, type = PaperOrder.Type.MARKET))
-                        }
-                    }
-                    R.string.paper_action_open -> {
-                        dialog.dismiss()
-                        onStock(p.symbol)
-                    }
-                }
-            }
-            .show()
+    /**
+     * A tap on a position: all of it ([PaperHoldingSheet]), with closing it now, changing its stop-loss and target, a
+     * new order for the stock, and the stock.
+     */
+    private fun openHolding(p: PaperPosition) {
+        holding = PaperHoldingSheet(
+            activity,
+            p.symbol,
+            p.product,
+            order = { orderTitle(it) to orderLines(it) },
+            onExit = ::exit,
+            onLevels = ::levels,
+            onMore = ::more,
+            onOpen = {
+                holding?.dismiss()
+                dialog.dismiss()
+                onStock(it.symbol)
+            },
+        ).also { it.show() }
+    }
+
+    /** A new order for [p]'s stock, set to add to it. */
+    private fun more(p: PaperPosition) {
+        val stock = stocks().firstOrNull { it.symbol == p.symbol }
+        if (stock == null) {
+            Toast.makeText(activity, R.string.paper_stock_not_in_scan, Toast.LENGTH_SHORT).show()
+        } else {
+            newOrder(PaperOrderSheet.Preset(stock, side = p.side, product = p.product, type = PaperOrder.Type.MARKET))
+        }
     }
 
     /** Closes [p] with a market order at the latest price (after hours, at the next open). */
@@ -313,6 +322,13 @@ class PaperSheet(
     )
 
     private fun orderCard(o: PaperOrder): ItemHelpBinding {
+        val lines = mutableListOf(orderLines(o))
+        if (o.open) lines += toned(activity.getString(R.string.paper_order_tap_cancel), R.color.text_secondary)
+        return card(orderTitle(o), join(lines))
+    }
+
+    /** What became of [o], its stop-loss and target, and when it was placed (or what placed it). */
+    private fun orderLines(o: PaperOrder): CharSequence {
         val lines = mutableListOf<CharSequence>()
         val placed = WHEN.withLocale(activity.dateLocale()).format(Instant.ofEpochMilli(o.placedAt).atZone(MarketClock.INDIA))
         lines += when (o.status) {
@@ -343,8 +359,7 @@ class PaperSheet(
         } else {
             activity.getString(R.string.paper_order_placed_at, placed)
         }
-        if (o.open) lines += toned(activity.getString(R.string.paper_order_tap_cancel), R.color.text_secondary)
-        return card(orderTitle(o), join(lines))
+        return join(lines)
     }
 
     /** The reckoning: how the closed trades went, by kind, the worst fall, and starting over. */
@@ -410,6 +425,7 @@ class PaperSheet(
             setPadding(side, (8 * dp).roundToInt(), side, 0)
             addView(chips)
         }
+        if (activity.wearsFlat) box.keepFlat()
         MaterialAlertDialogBuilder(activity)
             .setTitle(R.string.paper_reset_title)
             .setMessage(R.string.paper_reset_body)
