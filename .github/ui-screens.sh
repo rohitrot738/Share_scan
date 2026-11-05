@@ -142,6 +142,7 @@ open('/tmp/scan.xml', 'w', encoding='utf-8').write(
     "<?xml version='1.0' encoding='utf-8' standalone='yes' ?>\n<map>\n"
     '    <string name="theme">galaxy</string>\n'
     '    <string name="background">space_glass</string>\n'
+    '    <boolean name="live_scan" value="false" />\n'
     f'    <string name="paper_book">{escape(book, {chr(34): "&quot;"})}</string>\n'
     "</map>\n")
 PY
@@ -232,45 +233,9 @@ shot 14-fetched-detail 2
 all_texts | head -20 >> "$LOG"
 home
 
-# A scan, from the pill's panel.
-tap statusPill
-sleep 3
-tap startButton
-sleep 10
-adb shell input keyevent KEYCODE_BACK
-for i in $(seq 1 200); do
-  sleep 5
-  unstall
-  center text "100%" > /dev/null && break
-done
-echo "scan done after ~$((i * 5 + 10))s" | tee -a "$LOG"
-adb shell am start -n "$PKG/.MainActivity" > /dev/null
-shot 20-list 6
-all_texts | head -40 >> "$LOG"
-# Today's gainers, then a second tap: today's losers.
-center id sortToday > /dev/null || adb shell input swipe 900 2150 200 2150 400
-tap sortToday
-shot 21-gainers 3
-tap sortToday
-shot 22-losers 3
-tap sortScore
-sleep 2
-# The filter's new slider.
-tap filterChip
-sleep 2
-find_text "आज का बदलाव"
-shot 23-filter-today 1
-home
-# The cards on Galaxy: "▲ आज · ▲ 5D".
-setpref background string galaxy
-relaunch 12
-shot 24-cards 2
-tap sortToday
-shot 25-cards-gainers 3
-
 # The guide's new FAQ.
 home
-tap menuButton
+tap compactMenu
 sleep 2
 tap_text "शुरुआती गाइड"
 sleep 6
