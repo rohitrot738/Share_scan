@@ -258,6 +258,16 @@ for r in missing:
 PY
 }
 
+# Opens the search ($2: its button) and types $1.
+search_for() {
+  center id searchClose > /dev/null && tap searchClose && sleep 2
+  tap "$2"
+  sleep 2
+  adb shell input text "$1"
+  sleep 3
+  hide_keyboard
+}
+
 # A scan, from the pill's panel: every listed share in the list, the ones Yahoo had no chart for last.
 home
 tap statusPill
@@ -265,10 +275,11 @@ sleep 3
 tap startButton
 sleep 10
 adb shell input keyevent KEYCODE_BACK
+# Done once the pill counts STOCKS (while the scan asks Yahoo again for the misses it reads 100% • n/n).
 for i in $(seq 1 200); do
   sleep 5
   unstall
-  center text "100%" > /dev/null && break
+  center text "STOCKS" > /dev/null && break
 done
 echo "scan done after ~$((i * 5 + 10))s" | tee -a "$LOG"
 saved_unscanned > /tmp/unscanned.txt
@@ -277,66 +288,35 @@ sed -n '3,400p' /tmp/unscanned.txt | sed 's/^/  /' >> "$LOG"
 adb shell am start -n "$PKG/.MainActivity" > /dev/null
 shot 20-list 6
 all_texts | head -12 >> "$LOG"
-# Down the list to the shares without a chart.
-fling_to "Chart नहीं" 3 240
-shot 21-no-chart 3
-nochart_symbols | tee /tmp/nochart.txt | sed 's/^/no chart: /' >> "$LOG"
-# Its last screen: the end of the list.
-for k in $(seq 1 40); do adb shell input swipe 540 1500 540 450 150; done
-dump; grep -q "TradingView" /tmp/ui.xml && adb shell input keyevent KEYCODE_BACK && sleep 2
-shot 22-list-end 3
-nochart_symbols | sed 's/^/at the end: /' >> "$LOG"
-# A tap on one: the app fetches its chart now, then its detail, its बड़े पैसे की चाल card, or a note.
-fling_to "Chart नहीं" 1 4 > /dev/null
-tap_text "Chart नहीं"
-sleep 1
-shot 23-no-chart-tap 0
-sleep 12
-shot 24-no-chart-result 2
-all_texts | head -25 >> "$LOG"
-home
-# The search finds one by its symbol.
-FIRST=$(sed -n '3p' /tmp/unscanned.txt | cut -d' ' -f1)
-if [ -n "$FIRST" ]; then
-  tap "$SEARCH"
-  sleep 2
-  adb shell input text "$FIRST"
-  sleep 3
-  hide_keyboard
-  shot 25-search-no-chart 2
-  home
+# A search that matches charted jewellers and some without a chart: those come last.
+search_for Jewel compactSearch
+shot 21-search-jewel 2
+all_texts | sed -n '1,80p' >> "$LOG"
+swipe_up
+shot 22-search-jewel-end 2
+# A tap on one without a chart: the app asks Yahoo now, then opens its detail, its Big Money card, or a note.
+NOCHART=$(all_texts | grep -x -E "$(sed -n '3,400p' /tmp/unscanned.txt | cut -d' ' -f1 | paste -sd'|')" | head -1)
+echo "tapping $NOCHART" | tee -a "$LOG"
+if [ -n "$NOCHART" ]; then
+  xy=$(center row "$NOCHART") && adb shell input tap $xy
+  sleep 1
+  shot 23-no-chart-tap 0
+  sleep 12
+  shot 24-no-chart-result 2
+  all_texts | head -20 >> "$LOG"
 fi
-# The cards on Galaxy, at the end of the list.
+home
+# A new listing of बड़े पैसे की चाल found by the search: its chart so far and its card.
+search_for EDELALTS compactSearch
+shot 25-search-edelalts 2
+xy=$(center row EDELALTS) && adb shell input tap $xy
+shot 26-edelalts-sheet 5
+home
+# The cards on Galaxy, the same search.
 setpref background string galaxy
 relaunch 14
-fling_to "Chart नहीं मिला" 3 300
-shot 26-cards-no-chart 3
-setpref background string space_glass
-relaunch 12
-
-# The guide: the list's new part and the FAQ.
-home
-tap compactMenu
-sleep 2
-tap_text "शुरुआती गाइड"
-sleep 6
-tap_text "विषय-सूची"
-sleep 1
-tap_text "Stocks की list पढ़ना"
-sleep 2
-find_text "बिना chart वाले शेयर"
-shot 30-guide-no-chart 2
-swipe_up
-shot 31-guide-no-chart-more 1
-home
-tap compactMenu
-sleep 2
-tap_text "शुरुआती गाइड"
-sleep 6
-tap_text "विषय-सूची"
-sleep 1
-tap_text "आम सवाल"
-sleep 2
-find_text "list में कम शेयर"
-shot 32-guide-faq 2
+search_for Jewel searchButton
+shot 27-cards-jewel 2
+for k in 1 2 3; do adb shell input swipe 540 1500 540 600 400; sleep 1; done
+shot 28-cards-jewel-end 2
 echo "done" | tee -a "$LOG"

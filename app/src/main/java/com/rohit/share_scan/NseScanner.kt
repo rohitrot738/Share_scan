@@ -10,6 +10,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import java.util.concurrent.Callable
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -255,17 +256,17 @@ object NseScanner {
         val isinBySymbol = symbols.associate { it.symbol to it.isin }
         onProgress(0, symbols.size)
         val done = AtomicInteger(0)
-        // Shares whose chart did not come in; a stop's unfinished requests are not among them.
-        val missed = ConcurrentLinkedQueue<Listing>()
+        // Progress counts each stock once, the first time it is asked for.
+        val counted = ConcurrentHashMap.newKeySet<String>()
         val pool = Executors.newFixedThreadPool(4)
         try {
             val issuedShares = pool.submit(Callable { runCatching { daily("shares") { loadIssuedShares(isStopped) ?: error("no share counts") } }.getOrNull() })
             val benchmark = pool.submit(Callable { runCatching { benchmark(isStopped) }.getOrNull() })
-            val scored = runStoppable(pool, symbols, isStopped) { listing ->
+            val (scored, missed) = runWithRetry(pool, { Executors.newFixedThreadPool(4) }, symbols, isStopped) { listing ->
                 try {
-                    score(listing, isStopped, now).also { if (it == null && !isStopped()) missed += listing }
+                    score(listing, isStopped, now)
                 } finally {
-                    onProgress(done.incrementAndGet(), symbols.size)
+                    if (counted.add(listing.symbol)) onProgress(done.incrementAndGet(), symbols.size)
                 }
             }
             // After a stop the share counts and Nifty may not have arrived yet; rows then go without them.
@@ -381,6 +382,32 @@ object NseScanner {
             }
         }
         return tasks.mapNotNull { task -> if (task.isDone) runCatching { task.get() }.getOrNull() else null }
+    }
+
+    /**
+     * [runStoppable] on [first], then once more, on a pool from [again], for the items [work] gave nothing for: Yahoo
+     * now and then fails a chart request it answers a moment later. Returns what [work] gave and the items still
+     * without it. After a stop nothing is asked again, and items a stop left unasked are in neither list.
+     */
+    internal fun <T, R : Any> runWithRetry(
+        first: ExecutorService,
+        again: () -> ExecutorService,
+        items: List<T>,
+        isStopped: () -> Boolean,
+        work: (T) -> R?,
+    ): Pair<List<R>, List<T>> {
+        val missed = ConcurrentLinkedQueue<T>()
+        val attempt = { item: T -> work(item).also { if (it == null && !isStopped()) missed += item } }
+        val found = runStoppable(first, items, isStopped, work = attempt)
+        if (missed.isEmpty() || isStopped()) return found to missed.toList()
+        val retry = missed.toList()
+        missed.clear()
+        val pool = again()
+        try {
+            return (found + runStoppable(pool, retry, isStopped, work = attempt)) to missed.toList()
+        } finally {
+            pool.shutdownNow()
+        }
     }
 
     /**
