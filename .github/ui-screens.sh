@@ -223,15 +223,39 @@ for node in re.finditer(r'<node [^>]*>', xml):
         print(symbol)
 PY
 }
-# Flings the list down until text $1 shows, looking every $2 flings; up to $3 flings.
+# Flings the list down until text $1 shows, looking every $2 flings; up to $3 flings. A fling that lands as a tap
+# opens a stock's sheet: it is closed and the flinging goes on.
 fling_to() {
   local k
   for k in $(seq 1 "$3"); do
-    adb shell input swipe 540 1900 540 350 40
-    if (( k % $2 == 0 )); then sleep 1; center text "$1" > /dev/null && { echo "reached $1 after $k flings" | tee -a "$LOG"; return 0; }; fi
+    adb shell input swipe 540 1500 540 450 150
+    if (( k % $2 == 0 )); then
+      sleep 1
+      dump
+      if grep -q "TradingView" /tmp/ui.xml; then echo "a fling opened a sheet" >> "$LOG"; adb shell input keyevent KEYCODE_BACK; sleep 2; continue; fi
+      center text "$1" > /dev/null && { echo "reached $1 after $k flings" | tee -a "$LOG"; return 0; }
+    fi
   done
   echo "never reached $1" | tee -a "$LOG"
   return 1
+}
+# The saved scan's shares without a chart, from the app's own file: "SYMBOL MARKET name".
+saved_unscanned() {
+  adb exec-out run-as "$PKG" cat files/last_scan.gz > /tmp/last_scan.gz
+  python3 - <<'PY'
+import gzip, json
+lines = gzip.open('/tmp/last_scan.gz', 'rt', encoding='utf-8').read().splitlines()
+rows = [json.loads(l) for l in lines[1:] if l.strip()]
+scored = [r for r in rows if not r.get('u') and not r.get('w')]
+missing = [r for r in rows if r.get('u')]
+print(f"saved: {len(scored)} charted, {len(missing)} without a chart")
+by = {}
+for r in missing:
+    by[r.get('m')] = by.get(r.get('m'), 0) + 1
+print("without a chart by exchange:", by)
+for r in missing:
+    print(r['s'], r.get('m'), r.get('n', ''))
+PY
 }
 
 # A scan, from the pill's panel: every listed share in the list, the ones Yahoo had no chart for last.
@@ -247,15 +271,19 @@ for i in $(seq 1 200); do
   center text "100%" > /dev/null && break
 done
 echo "scan done after ~$((i * 5 + 10))s" | tee -a "$LOG"
+saved_unscanned > /tmp/unscanned.txt
+head -2 /tmp/unscanned.txt | tee -a "$LOG"
+sed -n '3,400p' /tmp/unscanned.txt | sed 's/^/  /' >> "$LOG"
 adb shell am start -n "$PKG/.MainActivity" > /dev/null
 shot 20-list 6
-all_texts | head -30 >> "$LOG"
+all_texts | head -12 >> "$LOG"
 # Down the list to the shares without a chart.
 fling_to "Chart नहीं" 3 240
 shot 21-no-chart 3
 nochart_symbols | tee /tmp/nochart.txt | sed 's/^/no chart: /' >> "$LOG"
 # Its last screen: the end of the list.
-for k in $(seq 1 40); do adb shell input swipe 540 1900 540 350 40; done
+for k in $(seq 1 40); do adb shell input swipe 540 1500 540 450 150; done
+dump; grep -q "TradingView" /tmp/ui.xml && adb shell input keyevent KEYCODE_BACK && sleep 2
 shot 22-list-end 3
 nochart_symbols | sed 's/^/at the end: /' >> "$LOG"
 # A tap on one: the app fetches its chart now, then its detail, its बड़े पैसे की चाल card, or a note.
@@ -268,7 +296,7 @@ shot 24-no-chart-result 2
 all_texts | head -25 >> "$LOG"
 home
 # The search finds one by its symbol.
-FIRST=$(head -1 /tmp/nochart.txt)
+FIRST=$(sed -n '3p' /tmp/unscanned.txt | cut -d' ' -f1)
 if [ -n "$FIRST" ]; then
   tap "$SEARCH"
   sleep 2
