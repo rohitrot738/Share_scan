@@ -24,6 +24,7 @@
     <string name="horizon_short_none">ಚಾರ್ಟ್ ಡೇಟಾ ಇಲ್ಲ, ಅಲ್ಪಾವಧಿ ಯೋಜನೆ ಆಗುವುದಿಲ್ಲ</string>
     <string name="horizon_long_plan">₹%1$s ಅಥವಾ ಅದಕ್ಕಿಂತ ಕಡಿಮೆಗೆ ಖರೀದಿಸಿ (ಖರೀದಿ ಬೆಲೆ) • ಗುರಿ ₹%2$s (ನ್ಯಾಯ ಮೌಲ್ಯ, %3$s)</string>
     <string name="horizon_long_history">ಕಂಪನಿಯ ಸ್ವಂತ ಸಾಮಾನ್ಯ P/E ನಲ್ಲಿ ₹%1$s</string>
+    <string name="horizon_long_blend">ನ್ಯಾಯಯುತ ಮೌಲ್ಯ = ವಲಯದ ಮಾಡೆಲ್ (₹%1$s) ಮತ್ತು ಕಂಪನಿಯ ಸಾಮಾನ್ಯ P/E (₹%2$s) ನಡುವೆ, ದಂಡ ಇದ್ದರೆ ಅದರ ನಂತರ</string>
     <string name="horizon_long_weak">R/S ದುರ್ಬಲ (Caution/Avoid): ದೀರ್ಘಾವಧಿಗೆ ಯೋಚಿಸಿ</string>
     <string name="horizon_long_none">R/S ಡೇಟಾ ಇಲ್ಲ, ದೀರ್ಘಾವಧಿ ಗುರಿ ಆಗುವುದಿಲ್ಲ</string>
     <string name="menu_intraday">ಇಂದಿನ ಇಂಟ್ರಾಡೇ</string>

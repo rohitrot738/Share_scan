@@ -100,6 +100,9 @@ class Cr360Book(
         MODEL("mdl"),
         SECTOR_MODEL("smd"),
         RAW_VALUE("ivr"),
+
+        /** The company's own usual P/E on today's earnings, which meets a sector model's [RAW_VALUE] halfway. */
+        OWN_PE_VALUE("ivo"),
         BUY_PRICE("bp"),
         MARGIN_OF_SAFETY("mos"),
         FLAGS("flg"),

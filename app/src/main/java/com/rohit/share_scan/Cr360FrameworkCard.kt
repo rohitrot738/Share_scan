@@ -180,17 +180,25 @@ class Cr360FrameworkCard(
             }
         }
 
+        // A sector model's value met halfway by the company's own usual P/E on today's earnings.
+        val own = fw.ownValue
+        val base = fw.baseValue
+        if (raw != null && own != null && base != null) {
+            fw[Fact.HISTORY_PE]?.let { line(get(R.string.fw_calc_own_pe, num(it, 1), price(own))) }
+            line(get(R.string.fw_calc_blend, price(raw), price(own), price(base)))
+        }
+
         // The penalties, then the margin of safety.
         val value = fw.value
         val after = fw.penalties - Penalty.ROCE
-        if (raw != null && value != null) {
+        if (base != null && value != null) {
             if (after.isEmpty()) {
                 line(get(R.string.fw_calc_no_penalties, price(value)))
             } else {
                 if (Penalty.AUDITOR in after) line(get(R.string.fw_calc_penalty_auditor, fw.auditorResigned?.let { day(it) } ?: "—"), R.color.bear)
                 if (Penalty.DEBT in after) line(get(R.string.fw_calc_penalty_debt), R.color.warn)
                 if (Penalty.INSTITUTIONS in after) line(get(R.string.fw_calc_penalty_institutions), R.color.warn)
-                line(get(R.string.fw_calc_after_penalties, price(raw), num(fw.penaltyFactor, 3), price(value)))
+                line(get(R.string.fw_calc_after_penalties, price(base), num(fw.penaltyFactor, 3), price(value)))
             }
         }
         val margin = fw.marginPct

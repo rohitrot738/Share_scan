@@ -393,7 +393,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
           <ul>
             <li><b>⚡ Intraday</b> (आज ही, MIS): आज की 5-minute candles से। 9:15–9:30 के दायरे के ऊपर और VWAP के ऊपर बंद हो तो BUY, नीचे और VWAP के नीचे बंद हो तो SELL। Stop दायरे के बीच, target 1:1.5 और 1:2। 14:45 के बाद नई entry नहीं, 15:15 तक बंद।</li>
             <li><b>📅 Short-term</b> (2 दिन से 4 हफ़्ते, delivery): trade plan का entry, stop और पहले दो target, कितने दिन में।</li>
-            <li><b>🌱 Long-term</b> (1 से 5 साल): R/S की खरीद कीमत और असली कीमत (fair value)।</li>
+            <li><b>🌱 Long-term</b> (1 से 5 साल): R/S का खरीद भाव और असली कीमत (fair value); उसके नीचे अभी का भाव खरीद भाव से कितने % ऊपर है (या ✓ के साथ कितना नीचे), और असली कीमत किन दो हिसाबों का बीच है। पूरा हिसाब अगले भाग (R/S) में।</li>
           </ul>
           <h3>Trade plan</h3>
           <ul>
@@ -446,12 +446,15 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
             <tr><td class="num">35 से कम</td><td>दूर रहें</td></tr>
           </table></div>
           <ul>
-            <li><b>असली कीमत और खरीद भाव</b>: sector के हिसाब से अलग तरीक़े से असली कीमत निकलती है (bank में book value, factory वाली companies में EV/EBITDA, IT/FMCG/pharma में PEG)। खरीद भाव = असली कीमत में से सुरक्षा का हिस्सा: बड़ी companies पर 20%, मझोली पर 27.5%, छोटी पर 35%।</li>
+            <li><b>असली कीमत और खरीद भाव</b>: पहले sector के हिसाब से एक model कीमत निकालता है (bank में book value, factory वाली companies में EV/EBITDA, IT/FMCG/pharma में PEG)। फिर company के अपने आम P/E (पिछले 3 साल का बीच वाला) पर आज की कमाई से दूसरी कीमत, और असली कीमत = दोनों का बीच। अकेला model कई अच्छी companies को उनके किसी भी पुराने भाव से बहुत नीचे आँकता था, इसलिए दोनों मिलाए जाते हैं। Auditor का इस्तीफ़ा, बहुत कर्ज़ या FII/DII का घटना हो तो कटौती। खरीद भाव = असली कीमत में से सुरक्षा का हिस्सा (margin of safety): बड़ी companies पर 20%, मझोली पर 27.5%, छोटी पर 35%।</li>
             <li><b>Flags</b>: promoters ने 15% से ज़्यादा शेयर गिरवी रखे हों तो "दूर रहें"; ब्याज का cover कम या मुनाफ़े के पीछे cash कम हो तो "सावधानी"। बिना किसी ख़बर के volume 3 गुना हो तो 🚩 Red Flag।</li>
             <li><b>⭐ सबसे अच्छा मौका</b>: भाव खरीद भाव से नीचे, weekly sweep, और कोई रोक नहीं।</li>
+            <li>पूरा हिसाब देखने के लिए R/S card में <span class="ui">Framework का पूरा हिसाब</span> दबाएँ: model की कीमत, company के P/E वाली कीमत, बीच की कीमत, कटौती और खरीद भाव, एक-एक line में।</li>
             <li>R/S card के हर हिस्से को दबाएँ: उसका पूरा data (हर quarter के नतीजे, insider सौदे, valuation का हिसाब) नीचे खुलता है।</li>
             <li>Data कम हो (40% से कम) तो "Data कम" लिखा आता है। जिस हिस्से का data नहीं, उसे बीच के 50 अंक मिलते हैं।</li>
           </ul>
+          <div class="callout tip"><b>उदाहरण: TCS (4 Nov 2026 का data)</b>IT company है, तो model PEG वाला: ₹1,624.50। TCS के अपने आम P/E पर आज की कमाई की कीमत: ₹3,245.69। बीच = (₹1,624.50 + ₹3,245.69) ÷ 2 = ₹2,435.10, कोई कटौती नहीं, तो यही असली कीमत। बड़ी company है, 20% सुरक्षा: खरीद भाव = ₹2,435.10 × 0.8 = ₹1,948.08। उस दिन भाव ₹2,436 था, यानी खरीद भाव से लगभग 25% ऊपर। (सिर्फ़ model से खरीद भाव ₹1,299.60 आता, भाव से लगभग आधा।)</div>
+          <div class="callout warn"><b>सावधानी</b>असली कीमत एक अंदाज़ा है, गारंटी नहीं। कमाई गिरी तो दोनों कीमतें गिरेंगी, और company का पुराना P/E फिर से मिले, यह ज़रूरी नहीं। भाव खरीद भाव से ऊपर हो तो यह नहीं कि शेयर बुरा है; बस उतनी सुरक्षा नहीं। एक साथ सारा पैसा न लगाएँ।</div>
           <p>R/S का data रोज़ शाम एक बार नया होता है (Screener, NSE और Yahoo से)। List को <span class="ui">R/S</span> से sort भी कर सकते हैं।</p>
         </div>
       </div>
@@ -718,6 +721,9 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
         <div><dt>MACD</dt><dd>दो औसतों का फ़र्क; signal line को नीचे से ऊपर काटे तो तेज़ी का इशारा।</dd></div>
         <div><dt>DMA / EMA</dt><dd>Moving average: पिछले कुछ दिनों का औसत भाव (जैसे 50 DMA)।</dd></div>
         <div><dt>P/E, P/B</dt><dd>भाव ÷ प्रति शेयर कमाई; भाव ÷ प्रति शेयर book value।</dd></div>
+        <div><dt>आम P/E (usual P/E)</dt><dd>पिछले 3 साल में company का P/E ज़्यादातर कितना रहा (हर महीने के आख़िर का P/E, उनका बीच वाला)।</dd></div>
+        <div><dt>असली कीमत (fair value)</dt><dd>Company के कारोबार से निकाला गया एक शेयर का अंदाज़न मूल्य; बाज़ार का भाव इससे ऊपर-नीचे चलता है।</dd></div>
+        <div><dt>Margin of safety, खरीद भाव</dt><dd>असली कीमत में से छोड़ा गया सुरक्षा का हिस्सा (20%–35%); जो बचे वह खरीद भाव।</dd></div>
         <div><dt>ROCE</dt><dd>लगाई गई पूँजी पर company कितना कमाती है, %।</dd></div>
         <div><dt>Debt/Equity</dt><dd>कर्ज़ ÷ अपनी पूँजी। कम = सुरक्षित।</dd></div>
         <div><dt>Promoter, Pledge</dt><dd>Company के मालिक; pledge = उन्होंने अपने शेयर गिरवी रखे।</dd></div>
@@ -749,6 +755,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
         <div><h3>किसी शेयर के card में "data नहीं" लिखा है।</h3><p>BSE-only और trade-to-trade (BE, BZ) शेयरों का delivery data NSE नहीं देता, और जिस दिन शेयर में सौदा ही न हुआ हो उस दिन भी नहीं।</p></div>
         <div><h3>Promoter tab खाली क्यों है?</h3><p>Promoters के trades NSE की insider filings से आते हैं, और NSE यह data कभी-कभी महीनों तक नहीं देता। तब tab में लिखा आता है कि data किस तारीख़ तक का है। Delivery और deals वाले signal इससे नहीं रुकते।</p></div>
         <div><h3>बड़े पैसे की चाल का score 70 है, ख़रीद लूँ?</h3><p>नहीं, सिर्फ़ इसी से नहीं। Score बताता है कि delivery, deals और promoter एक ही तरफ़ इशारा कर रहे हैं। Track record देखें, chart और R/S देखें, stop-loss तय करें, और पहले Paper Trading में परखें।</p></div>
+        <div><h3>Long-term का खरीद भाव अभी के भाव से इतना नीचे क्यों?</h3><p>खरीद भाव असली कीमत से 20%–35% नीचे रखा जाता है, ताकि अंदाज़ा ग़लत निकले तब भी सुरक्षा रहे। असली कीमत sector के model और company के अपने आम P/E का बीच है; दोनों से भी company भाव से सस्ती न दिखे तो खरीद भाव नीचे ही रहेगा। R/S card में <span class="ui">Framework का पूरा हिसाब</span> दबाकर हर क़दम देखें।</p></div>
         <div><h3>Update install नहीं हो रहा।</h3><p>पहली बार Android "इस source से install" की अनुमति माँगता है; उसे चालू करके back दबाएँ। Phone में जगह कम हो तो थोड़ी खाली करें।</p></div>
         <div><h3>क्या app मेरे broker में order डालता है?</h3><p>नहीं। App कभी असली order नहीं भेजता। Order ticket copy करके आप ख़ुद broker app में डालते हैं।</p></div>
         <div><h3>Phone बदला तो watchlist?</h3><p>Login किया हो तो नए phone में उसी account से login करें, watchlist वापस। Login के बिना watchlist सिर्फ़ उसी phone में रहती है।</p></div>

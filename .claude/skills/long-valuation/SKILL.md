@@ -5,7 +5,7 @@ description: Intrinsic value of an NSE/BSE stock four ways: the app's sector val
 
 # /long-valuation (Intrinsic Value)
 
-Gives the R/S framework's intrinsic value and buy price, the fair value at the company's usual P/E, the Graham number (√(22.5 × TTM EPS × book value a share), only where the book value is known) and a DCF (the last three years' average free cash flow growing at the profit CAGR, 0 to 15%, fading to 5%, at a 12% discount, less debt), each against the price the R/S file valued it at. Change the DCF with --discount, --growth and --terminal. A DCF is very sensitive to these inputs; show them with its result.
+Gives the R/S framework's intrinsic value (its sector model's value met halfway by the company's usual P/E, after the penalties) and buy price, the fair value at the company's usual P/E, the Graham number (√(22.5 × TTM EPS × book value a share), only where the book value is known) and a DCF (the last three years' average free cash flow growing at the profit CAGR, 0 to 15%, fading to 5%, at a 12% discount, less debt), each against the price the R/S file valued it at. Change the DCF with --discount, --growth and --terminal. A DCF is very sensitive to these inputs; show them with its result.
 
 ## Run
 

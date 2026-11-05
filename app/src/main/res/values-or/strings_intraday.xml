@@ -24,6 +24,7 @@
     <string name="horizon_short_none">ଚାର୍ଟ ଡାଟା ନାହିଁ, ସ୍ୱଳ୍ପ ଅବଧି ଯୋଜନା ହୁଏ ନାହିଁ</string>
     <string name="horizon_long_plan">₹%1$s ବା ତା ତଳେ କିଣନ୍ତୁ (କିଣିବା ଦର) • ଲକ୍ଷ୍ୟ ₹%2$s (ଉଚିତ ମୂଲ୍ୟ, %3$s)</string>
     <string name="horizon_long_history">କମ୍ପାନୀର ନିଜ ସାଧାରଣ P/E ରେ ₹%1$s</string>
+    <string name="horizon_long_blend">ଉଚିତ ମୂଲ୍ୟ = ସେକ୍ଟର ମଡେଲ (₹%1$s) ଓ କମ୍ପାନୀର ସାଧାରଣ P/E (₹%2$s) ର ମଝିରେ, ପେନାଲ୍ଟି ଥିଲେ ତା ପରେ</string>
     <string name="horizon_long_weak">R/S ଦୁର୍ବଳ (Caution/Avoid): ଦୀର୍ଘ ଅବଧି ପାଇଁ ଭାବିଚିନ୍ତି</string>
     <string name="horizon_long_none">R/S ଡାଟା ନାହିଁ, ଦୀର୍ଘ ଅବଧି ଲକ୍ଷ୍ୟ ହୁଏ ନାହିଁ</string>
     <string name="menu_intraday">ଆଜିର ଇଣ୍ଟ୍ରାଡେ</string>

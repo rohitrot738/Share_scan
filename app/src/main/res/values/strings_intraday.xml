@@ -24,6 +24,7 @@
     <string name="horizon_short_none">Chart data नहीं, short-term plan नहीं बनता</string>
     <string name="horizon_long_plan">₹%1$s या उससे नीचे खरीदें (buy price) • Target ₹%2$s (fair value, %3$s)</string>
     <string name="horizon_long_history">Company के अपने usual P/E पर ₹%1$s</string>
+    <string name="horizon_long_blend">Fair value = sector model (₹%1$s) और company के usual P/E (₹%2$s) का बीच, penalty हो तो उसके बाद</string>
     <string name="horizon_long_weak">R/S कमज़ोर (Caution/Avoid): long-term के लिए सोच-समझकर</string>
     <string name="horizon_long_none">R/S data नहीं, long-term target नहीं बनता</string>
     <string name="menu_intraday">आज के Intraday</string>

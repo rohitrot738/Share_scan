@@ -63,6 +63,12 @@ class Cr360Framework private constructor(private val facts: Map<Fact, Double>) {
 
     /** The model's own value before the penalties (a low ROCE's cut is the model's). */
     val rawValue: Double? = facts[Fact.RAW_VALUE]
+
+    /** The company's own usual P/E on today's earnings; null where the model's value stands alone (or the blend's). */
+    val ownValue: Double? = facts[Fact.OWN_PE_VALUE]
+
+    /** The value the penalties cut: halfway between [rawValue] and [ownValue], or [rawValue] alone. */
+    val baseValue: Double? = rawValue?.let { raw -> ownValue?.let { (raw + it) / 2 } ?: raw }
     val buyPrice: Double? = facts[Fact.BUY_PRICE]
     val marginPct: Double? = facts[Fact.MARGIN_OF_SAFETY]
     val flags: Set<Flag> = bits(facts[Fact.FLAGS], Flag.entries) { it.bit }

@@ -24,6 +24,7 @@
     <string name="horizon_short_none">சார்ட் தரவு இல்லை, குறுகிய காலத் திட்டம் இல்லை</string>
     <string name="horizon_long_plan">₹%1$s அல்லது அதற்குக் கீழ் வாங்குங்கள் (வாங்கும் விலை) • இலக்கு ₹%2$s (நியாய மதிப்பு, %3$s)</string>
     <string name="horizon_long_history">நிறுவனத்தின் வழக்கமான P/E-ல் ₹%1$s</string>
+    <string name="horizon_long_blend">நியாய மதிப்பு = துறை மாடல் (₹%1$s), நிறுவனத்தின் வழக்கமான P/E (₹%2$s) இரண்டின் நடுவில், அபராதம் இருந்தால் அதன் பின்</string>
     <string name="horizon_long_weak">R/S பலவீனம் (Caution/Avoid): நீண்ட காலத்துக்கு யோசித்து</string>
     <string name="horizon_long_none">R/S தரவு இல்லை, நீண்ட கால இலக்கு இல்லை</string>
     <string name="menu_intraday">இன்றைய இன்ட்ராடே</string>

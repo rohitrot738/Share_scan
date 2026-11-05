@@ -345,7 +345,8 @@ def assess(stock: dict, price_rows: list[dict], price: float | None, sector: str
            general_iv: float | None, mos: float, today: date, sector_pb: float | None = None,
            own_pe: float | None = None, sector_pe: float | None = None) -> dict:
     """The framework's verdict on one stock: the model that valued it, its intrinsic value before and after the
-    penalties, the buy price under the margin of safety, the flags and the figures behind them."""
+    penalties, the buy price under the margin of safety, the flags and the figures behind them. A sector model's value
+    ("raw_iv") is averaged with the company's own usual P/E on its earnings ("own_iv") before the penalties."""
     model = SECTOR_MODEL.get(sector, GENERAL)
     financial = model == BANK
     detail: dict = {}
@@ -365,7 +366,12 @@ def assess(stock: dict, price_rows: list[dict], price: float | None, sector: str
     resigned = max((d for d in stock.get("auditor_resigned") or [] if d >= since), default=None)
     if used in (ASSET, CYCLICAL) and detail.get("roce_cut"):
         pbits |= P_ROCE
-    iv = raw * factor if raw else None
+    # A sector's model alone put most growers and cyclicals at buy prices far under anything they had traded at
+    # (TCS's PEG cap, a cyclical's debt with its cash left out): the company's own usual P/E on this year's believable
+    # earnings meets it halfway. The blend that stands in has that P/E in it already.
+    own = eps * own_pe if used != GENERAL and raw and eps and eps > 0 and own_pe and own_pe > 0 else None
+    base = (raw + own) / 2 if own else raw
+    iv = base * factor if base else None
     flags, screened = screen(stock, price_rows, price, financial)
     if model == CYCLICAL:
         flags |= CYCLICAL_WARNING
@@ -380,5 +386,5 @@ def assess(stock: dict, price_rows: list[dict], price: float | None, sector: str
     if buy and price and price < buy and sweep is not None and not flags & BLOCKING:
         flags |= BEST
     figures = {k: v for k, v in detail.items() if k != "iv"}  # the model's own value is raw_iv here
-    return {**figures, **screened, "model": used, "sector_model": model, "raw_iv": raw, "factor": factor,
+    return {**figures, **screened, "model": used, "sector_model": model, "raw_iv": raw, "own_iv": own, "factor": factor,
             "penalties": pbits, "iv": iv, "mos": mos, "buy": buy, "flags": flags, "sweep": sweep, "auditor": resigned}

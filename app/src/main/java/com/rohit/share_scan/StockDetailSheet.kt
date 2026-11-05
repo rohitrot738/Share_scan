@@ -230,8 +230,23 @@ class StockDetailSheet(
                     StockFormat.signedChange((fair / stock.price - 1.0) * 100.0),
                 ),
             )
-            facts[Cr360Book.Fact.HISTORY_FAIR_VALUE]?.takeIf { it > 0.0 }?.let {
-                lines += activity.getString(R.string.horizon_long_history, StockFormat.price(it))
+            val framework = Cr360Framework.of(facts)
+            // How far the price has to come to the buy price, or how far under it it already is.
+            framework?.fromBuy(stock.price)?.let { gap ->
+                lines += activity.getString(
+                    if (gap <= 0) R.string.fw_price_below else R.string.fw_price_above,
+                    StockFormat.price(stock.price),
+                    Cr360Format.number(abs(gap), 1),
+                )
+            }
+            val model = framework?.rawValue
+            val own = framework?.ownValue
+            if (model != null && own != null) {
+                lines += activity.getString(R.string.horizon_long_blend, StockFormat.price(model), StockFormat.price(own))
+            } else {
+                facts[Cr360Book.Fact.HISTORY_FAIR_VALUE]?.takeIf { it > 0.0 }?.let {
+                    lines += activity.getString(R.string.horizon_long_history, StockFormat.price(it))
+                }
             }
             if (cr360?.state == Cr360Book.State.CAUTION || cr360?.state == Cr360Book.State.AVOID) {
                 lines += activity.getString(R.string.horizon_long_weak)
