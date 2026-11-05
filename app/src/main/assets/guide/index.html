@@ -551,7 +551,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
         <div>
           <p>बड़े निवेशक एक दिन में भाव उछाले बिना शेयर जमा करते हैं, और operators कभी-कभी उसी दिन ख़रीद-बेचकर नकली volume बनाते हैं। चार्ट में यह साफ़ नहीं दिखता, पर NSE हर शाम हर शेयर का <b>delivery data</b> देता है: आज कितने शेयर का सौदा हुआ, और उनमें से कितने सच में किसी के demat में गए। App इसी से हर शाम चार signal बनाता है।</p>
           <h3>Data कब आता है</h3>
-          <p>NSE की file शाम को आती है; app की file शाम 7:15, रात 9:15 या 12:15 के बाद ताज़ा होती है। ऊपर लिखा रहता है किस दिन की शाम का data है। BSE-only और trade-to-trade (BE, BZ) शेयरों का delivery data नहीं होता।</p>
+          <p>NSE की file शाम को आती है; app की file शाम 7:15, रात 9:15 या 12:15 के बाद ताज़ा होती है। यह जाँच शनिवार-रविवार को भी होती है, क्योंकि NSE कभी-कभी तब भी खुलता है (Budget day, दिवाली का Muhurat trading)। ऊपर लिखा रहता है किस दिन की शाम का data है। BSE-only और trade-to-trade (BE, BZ) शेयरों का delivery data नहीं होता।</p>
           <h3>चार tabs</h3>
           <div class="table-box"><table>
             <tr><th>Tab</th><th>मतलब</th><th>नियम</th></tr>
@@ -565,7 +565,8 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
           <ol>
             <li><span class="ui">Menu</span> → <span class="ui">बड़े पैसे की चाल</span> खोलें।</li>
             <li><span class="ui">🟢 चुपचाप खरीद</span> tab में शेयर ताक़त के क्रम में हैं: सबसे ऊपर वह जिसकी आज की delivery अपने औसत से सबसे ज़्यादा गुना है।</li>
-            <li>किसी शेयर को दबाएँ: उसका detail खुलता है, जिसमें नीचे "💰 बड़े पैसे की चाल" card है।</li>
+            <li>किसी शेयर को दबाएँ: उसका detail खुलता है, जिसमें नीचे "💰 बड़े पैसे की चाल" card है। शेयर आपकी scan की list में न हो, तो app उसी समय उसका chart ले आता है (कुछ सेकंड)।</li>
+            <li>किसी row में <b>"🆕 सिर्फ़ N सत्र का data"</b> लिखा हो तो वह कुछ ही दिन पहले listed शेयर है। App का chart, score और trade plan कम से कम 21 सत्र के data से बनते हैं, इसलिए वह scan की list में नहीं आता; दबाने पर सिर्फ़ उसका बड़े पैसे की चाल वाला card खुलता है, ऊपर वजह के साथ। जैसे 4 Nov को Deals tab में EDELALTS (3 सत्र) और BONFIG (9 सत्र): नए IPO में bulk/block deals सबसे ज़्यादा होती हैं।</li>
             <li>Card में score (0–100) और उसके हिस्से देखें; हर हिस्सा दबाने पर पूरा हिसाब खुलता है। नीचे पिछले 20 सत्र का delivery % (bars) और volume (रेखा)।</li>
             <li><span class="ui">🔴 Churn / जाल</span> tab भी देखें: इनमें से कोई आपकी watchlist में हो तो सावधान।</li>
           </ol>
@@ -766,6 +767,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
         <div><h3>Paper order भरा नहीं।</h3><p>Limit, SL और SL-M orders तभी भरते हैं जब भाव वहाँ पहुँचे; दिन ख़त्म होने पर रद्द। बाज़ार बंद में दिया order अगली सुबह भरता है। Intraday order सिर्फ़ 9:15 से 15:15 तक।</p></div>
         <div><h3>बड़े पैसे की चाल में आज का data नहीं दिख रहा।</h3><p>NSE की delivery file शाम को आती है; app की file शाम 7:15 के बाद (कभी रात 12:15 के बाद) ताज़ा होती है। छुट्टी के दिन नया data नहीं होता। ऊपर लिखी तारीख़ देखें।</p></div>
         <div><h3>किसी शेयर के card में "data नहीं" लिखा है।</h3><p>BSE-only और trade-to-trade (BE, BZ) शेयरों का delivery data NSE नहीं देता, और जिस दिन शेयर में सौदा ही न हुआ हो उस दिन भी नहीं।</p></div>
+        <div><h3>बड़े पैसे की चाल का शेयर मेरी scan list में क्यों नहीं?</h3><p>दो वजहें होती हैं। (1) शेयर कुछ ही दिन पहले listed हुआ है: app को chart और score के लिए कम से कम 21 सत्र का data चाहिए। ऐसे शेयर पर list में "🆕 सिर्फ़ N सत्र का data" लिखा होता है, और दबाने पर उसका बड़े पैसे की चाल वाला card खुलता है। (2) Yahoo Finance पर उसका chart नहीं है (कई SME शेयरों का)। Full scan करने पर भी ये list में नहीं आते; बाक़ी शेयर दबाने पर app उनका chart उसी समय ले आता है।</p></div>
         <div><h3>Promoter tab खाली क्यों है?</h3><p>Promoters के trades NSE की insider filings से आते हैं, और NSE यह data कभी-कभी महीनों तक नहीं देता। तब tab में लिखा आता है कि data किस तारीख़ तक का है। Delivery और deals वाले signal इससे नहीं रुकते।</p></div>
         <div><h3>बड़े पैसे की चाल का score 70 है, ख़रीद लूँ?</h3><p>नहीं, सिर्फ़ इसी से नहीं। Score बताता है कि delivery, deals और promoter एक ही तरफ़ इशारा कर रहे हैं। Track record देखें, chart और R/S देखें, stop-loss तय करें, और पहले Paper Trading में परखें।</p></div>
         <div><h3>Long-term का खरीद भाव अभी के भाव से इतना नीचे क्यों?</h3><p>खरीद भाव असली कीमत से 20%–35% नीचे रखा जाता है, ताकि अंदाज़ा ग़लत निकले तब भी सुरक्षा रहे। असली कीमत sector के model और company के अपने आम P/E का बीच है; दोनों से भी company भाव से सस्ती न दिखे तो खरीद भाव नीचे ही रहेगा। R/S card में <span class="ui">Framework का पूरा हिसाब</span> दबाकर हर क़दम देखें।</p></div>

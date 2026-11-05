@@ -322,6 +322,20 @@ def test_build_takes_a_session_held_on_a_weekend(tmp_path, capsys):
     assert json.load(gzip.open(paths["store"], "rt"))["dates"] == ["2026-11-06", "2026-11-08"]
 
 
+def test_app_file_counts_a_new_listings_sessions():
+    # A share that first traded inside the store's window is a new listing: the app says how many sessions it has
+    # (the scan charts a share only from 21 sessions on). One there from the start carries no count.
+    store = empty_store()
+    for i in range(25):
+        rows = {"OLD": row()}
+        if i >= 20:
+            rows["NEW"] = row()
+        add_session(store, f"2026-10-{i + 1:02d}", rows)
+    app = app_file(store, {})
+    assert app["stocks"]["NEW"]["ns"] == 5
+    assert "ns" not in app["stocks"]["OLD"]
+
+
 def test_app_file_shape():
     store = empty_store()
     for i in range(25):

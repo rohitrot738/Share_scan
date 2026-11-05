@@ -53,7 +53,8 @@ def _r(v, digits=2):
 
 def app_file(store: dict, insider: dict[str, list], record: dict | None = None) -> dict:
     """The app's file: the latest session's date, the dates of its last 20 sessions, each signal's track record, and
-    every share traded that session with its flags, score and parts, the figures behind them and its 20 sessions."""
+    every share traded that session with its flags, score and parts, the figures behind them and its 20 sessions; a
+    new listing (first traded inside the store's window) also has its sessions since ("ns")."""
     i = len(store["dates"]) - 1
     start = max(0, i - SERIES_SESSIONS + 1)
     stocks = {}
@@ -75,6 +76,11 @@ def app_file(store: dict, insider: dict[str, list], record: dict | None = None) 
             "cc": deal.circular if deal else [],
             "pn": [round(promoter.rupees, 2), promoter.buys, promoter.sells] if promoter else None,
         }
+        first = next(k for k, c in enumerate(v["c"]) if c is not None)
+        if first > 0:
+            # A new listing: it first traded inside the store's window. The app says how many sessions it has had,
+            # since its scan charts a share only from 21 on.
+            stocks[symbol]["ns"] = i - first + 1
     session = store["dates"][i]
     # The newest promoter/insider filing up to the session: NSE's filings reach the R/S store only when NSE answers.
     filed = [r[0] for rows in insider.values() for r in rows if r and r[0] and r[0] <= session]

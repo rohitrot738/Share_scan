@@ -353,6 +353,33 @@ class MainActivity : AppCompatActivity() {
     }
 
     /** Opens the stock a notification named, once the list (or the watchlist's stocks outside it) holds it. */
+    /**
+     * A share tapped in बड़े पैसे की चाल: its detail when the list has it; else its chart is fetched now, the way the
+     * watchlist's extra stocks are, and opened. With no chart to be had (a new listing under the sessions the scan
+     * needs, or none on Yahoo) its बड़े पैसे की चाल card opens on its own, saying why.
+     */
+    private fun openBigMoneyShare(symbol: String) {
+        val state = scan.uiState.value
+        (state.results + state.watchExtras).firstOrNull { it.symbol == symbol && it.charted }?.let {
+            openChart(it)
+            return
+        }
+        if (state.bigMoney.of(symbol)?.tooNewToChart == true) {
+            BigMoneyShareSheet(this, state.bigMoney, symbol).show()
+            return
+        }
+        Toast.makeText(this, getString(R.string.big_money_share_loading, symbol), Toast.LENGTH_SHORT).show()
+        lifecycleScope.launch {
+            val row = withContext(Dispatchers.IO) {
+                val blank = ScanResult(symbol = symbol, price = 0.0, score = 0.0, rvol = 0.0, change5d = 0.0)
+                runCatching { NseScanner.refresh(listOf(blank)) }.getOrNull()?.firstOrNull()?.takeIf { it.charted }
+            }
+            lifecycle.withStarted {
+                if (row != null) openChart(row) else BigMoneyShareSheet(this@MainActivity, scan.uiState.value.bigMoney, symbol).show()
+            }
+        }
+    }
+
     private fun openPending(state: ScanUiState) {
         val symbol = pendingSymbol ?: return
         val stock = state.results.firstOrNull { it.symbol == symbol }
@@ -1261,7 +1288,7 @@ class MainActivity : AppCompatActivity() {
     /** बड़े पैसे की चाल, from the menu (whose ← comes back to it) or the evening digest's notification. */
     private fun openBigMoney(fromMenu: Boolean) {
         showMenuSheet {
-            BigMoneySheet(this, scan.uiState.value.bigMoney, { openFromNotification(it, false) }, if (fromMenu) ::openMenu else null).show()
+            BigMoneySheet(this, scan.uiState.value.bigMoney, ::openBigMoneyShare, if (fromMenu) ::openMenu else null).show()
         }
     }
 

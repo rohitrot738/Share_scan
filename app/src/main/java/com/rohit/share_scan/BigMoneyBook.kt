@@ -82,7 +82,12 @@ class BigMoneyBook(
         /** Clients who bought and sold the share within 5 sessions. */
         val circular: List<String>,
         val promoter: Promoter?,
+        /** A new listing's sessions so far (it first traded inside the store's window); null for one there all along. */
+        val sessions: Int? = null,
     ) {
+        /** Too few sessions for the scan's chart ([BreakoutSignals.MIN_SESSIONS]), so the share is not in its list. */
+        val tooNewToChart: Boolean get() = sessions != null && sessions < BreakoutSignals.MIN_SESSIONS
+
         /** Today's delivery over its average, the accumulation tab's order. */
         val deliveryRatio: Double? get() = if (delivery != null && deliveryAvg != null && deliveryAvg > 0) delivery / deliveryAvg else null
 
@@ -152,6 +157,7 @@ class BigMoneyBook(
                 deal = o.optJSONArray("dn")?.let { Deal(it.getLong(0), it.getDouble(1), it.getInt(2), it.getInt(3)) },
                 circular = o.optJSONArray("cc")?.strings().orEmpty(),
                 promoter = o.optJSONArray("pn")?.let { Promoter(it.getDouble(0), it.getInt(1), it.getInt(2)) },
+                sessions = o.long("ns")?.toInt(),
             )
         }
 

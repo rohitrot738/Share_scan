@@ -177,7 +177,9 @@ class BigMoneySheet(
         }
         card.helpTitle.text = title
         card.helpTitle.setTextColor(ContextCompat.getColor(activity, tone))
-        card.helpBody.text = body
+        // A share too new for the scan's chart is not in its list: said here, before a tap finds it missing.
+        val young = entry.sessions?.takeIf { entry.tooNewToChart }?.let { activity.getString(R.string.big_money_row_young, it) }
+        card.helpBody.text = if (young != null) body + "\n" + young else body
         card.helpBody.isVisible = true
         card.root.setOnClickListener { onSymbol(entry.symbol) }
     }
