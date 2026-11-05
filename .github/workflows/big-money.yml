@@ -13,10 +13,6 @@ on:
         description: 'Write the app file again from the store (after a change to the rules)'
         type: boolean
         default: false
-  # Temporary, removed before merging: a run from this branch, which workflow_dispatch cannot start until the file
-  # is on main.
-  push:
-    paths: ['.github/workflows/big-money.yml', 'bigmoney/**']
 permissions:
   contents: write
 concurrency:
@@ -42,7 +38,7 @@ jobs:
       - name: Build
         run: |
           set -o pipefail
-          python -m bigmoney.build ${{ (inputs.rebuild || github.event_name == 'push') && '--rebuild' || '' }} | tee build.log
+          python -m bigmoney.build ${{ inputs.rebuild && '--rebuild' || '' }} | tee build.log
       - name: Publish
         run: |
           if grep -q '^PUBLISH' build.log; then
