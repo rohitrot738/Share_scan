@@ -1,75 +1,70 @@
-IST now: 2026-11-05 15:06
-shot 01-list
-shot 10-deals
-💰 बड़े पैसे की चाल
-4 Nov शाम का NSE data · 3,133 शेयर
-🟢 चुपचाप खरीद
-🔴 Churn / जाल
-🤝 Deals
-👔 Promoter
-पिछले 30 सत्रों की bulk और block deals, सब clients का जोड़: खरीदे शेयर घटा बेचे शेयर। पहले net खरीद वाले, फिर net बिक्री वाले।
-🤝 Deals: लगातार net खरीद: data जमा हो रहा है (0 बार, कम से कम 30 चाहिए)
-🤝 Deals: लगातार net बिक्री: data जमा हो रहा है (0 बार, कम से कम 30 चाहिए)
-LOTUSDEV · net खरीद ₹339 Cr
-1.4 Cr शेयर · 1 दिन deals · लगातार नहीं
-EDELALTS · net खरीद ₹316 Cr
-18.8 L शेयर · 1 दिन deals · लगातार नहीं
-🆕 सिर्फ़ 3 सत्र का data, इसलिए अभी scan की list में नहीं
-BONFIG · net खरीद ₹148 Cr
-26.2 L शेयर · 1 दिन deals · लगातार नहीं
-⚠️ गोल-गोल सौदा (5 सत्र में खरीदा भी, बेचा भी): IRAGE BROKING SERVICES LLP
-🆕 सिर्फ़ 9 सत्र का data, इसलिए अभी scan की list में नहीं
-SMT · net खरीद ₹135 Cr
-36.2 L शेयर · 2 दिन deals · लगातार 2 दिन net खरीद
-⚠️ गोल-गोल सौदा (5 सत्र में खरीदा भी, बेचा भी): ALPHAGREP SECURITIES PRIVATE LIMITED, GRT STRATEGIC VENTURES LLP, JUMP TRADING FINANCIAL INDIA PRIVATE LIMITED, MICROCURVES TRADING PRIVATE LIMITED
-🆕 सिर्फ़ 9 सत्र का data, इसलिए अभी scan की list में नहीं
-shot 11-new-listing
-EDELALTS
-नया शेयर: NSE पर अभी सिर्फ़ 3 सत्र का data है। App का chart, score और trade plan कम से कम 21 सत्र के data से बनते हैं, इसलिए यह अभी scan की list में नहीं है। नीचे इसका बड़े पैसे की चाल का हिसाब है।
-3 सत्र का भाव: पहले दिन ₹1,727.80, अब ₹1,689.90 (−2.19%) · सबसे ऊँचा ₹1,727.80, सबसे नीचा ₹1,689.90
-💰 बड़े पैसे की चाल
-Score 0/100
-4 Nov शाम के NSE data से
-आज कोई signal नहीं
-Delivery spike ▾
-/ 30
-0
-Delivery का जमा होना ▾
-/ 20
-0
-Deals की net खरीद ▾
-/ 25
-0
-Promoters की net खरीद ▾
-/ 25
-0
-Churn ▾
-/ 30
-0
-Net बिक्री ▾
-/ 50
-0
-पिछले 20 सत्र: delivery % (bars) और volume (रेखा)
-shot 12-new-listing-more
-shot 13-fetching
-shot 14-fetched-detail
+IST now: 2026-11-05 15:55
+scan done after ~45s
+shot 20-list
+Share Scan
+v1.2
+SCAN 100% • 2,630 STOCKS
+#
+STOCK / COMPANY
+PRICE / आज
+5D CHG / RVOL
+SCORE
+#1
+ANANDRATHI
+NSE
+📈 Anand Rathi Wealth
+₹2,370.00
++3.22%
++4.41%
+RVOL 1.70×
+92.0
+#2
+TECHM
+NSE
+💻 Tech Mahindra
+₹1,822.70
++2.23%
++3.00%
+RVOL 0.79×
+89.0
+#3
+TATAELXSI
+NSE
+📺💻 Tata Elxsi
+never reached Chart नहीं
+shot 21-no-chart
+shot 22-list-end
+never reached Chart नहीं
+could not find text Chart नहीं
+shot 23-no-chart-tap
+shot 24-no-chart-result
 NSE · EQUITY
-LOTUSDEV
-₹228.10
-▼ 1.34% आज · ▼ 6.01% 5D · LIVE
-WEAK
-51.0 / 100
+BALKRISIND
+Balkrishna Industries · Automobile and Auto Components
+₹2,401.90
+▲ 7.05% आज · ▲ 14.41% 5D
+STRONG
+83.3 / 100
 जानकारी
-खबरें · 14
-क्या बनाती है
-किसी product पर दबाएँ: उसे बनाने वाली companies list में दिखेंगी
-Real estate
-चार्ट
-पिछले 60 सत्र · ▲ 36.00%
+खबरें · 35
+Deals (30 सत्र): कोई bulk/block deal नहीं
+Promoters (90 दिन): market में कोई खरीद-बिक्री नहीं
+⚠️ Promoters का data 30 Apr 2026 तक का ही है: NSE से नया data अभी नहीं मिल रहा, इसलिए यह tab और promoter वाले अंक अधूरे हैं।
+यह खरीदने-बेचने की सलाह नहीं है। Track record बीते साल का है; आगे भी वैसा ही हो, ज़रूरी नहीं। अपना stop-loss ज़रूर रखें।
+🏰 लंबी अवधि की checklist (moat) ▾
+9 में से 8 ✓: मज़बूत company
+R/S इतिहास ▾
+मुख्य आँकड़े ▾
 ये सिर्फ़ price-volume पर आधारित अनुमान हैं — निवेश सलाह नहीं।
 Groww
 Angel One
 Zerodha
 TradingView पर चार्ट
-shot 30-guide-faq
+pref background=galaxy
+never reached Chart नहीं मिला
+shot 26-cards-no-chart
+pref background=space_glass
+shot 30-guide-no-chart
+shot 31-guide-no-chart-more
+shot 32-guide-faq
 done
