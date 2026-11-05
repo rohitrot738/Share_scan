@@ -1,38 +1,10 @@
-IST now: 2026-11-05 06:31
+IST now: 2026-11-05 07:46
 shot 01-list
-shot 10-paper
-shot 12-holding
-RELIANCE · BUY 10 शेयर
-Delivery (CNC) · 4 नव॰, 10:02 से
-अभी
-अभी का भाव
-₹1,311.00 · 4 नव॰, 15:25
-फ़ायदा / नुकसान
-+₹110.00 (+0.85%)
-अभी की value
-₹13,110.00
-अभी बंद करें तो (charges के बाद)
-+₹65.65
-लेते समय
-शेयर
-BUY 10
-औसत भाव
-₹1,300.00
-लगाया पैसा
-₹13,000.00
-कब लिया
-4 नव॰, 10:02
-कितने दिन
-1 दिन से
-किसने चुना
-अपने चुने
-Stop-loss और target
-Stop-loss
-₹1,180.00 (−10% दूर) · लगा तो −⁠₹1,242.99
-Target
-₹1,450.00 (+10.6% दूर) · लगा तो +⁠₹1,454.21
-Breakeven (न फ़ायदा, न नुकसान)
-₹1,304.43
-इससे ऊपर बेचें, तभी charges के बाद फ़ायदा
-shot 13-holding-more
+shot 20-settings
+shot 21-settings-more
+shot 22-scan
+shot 23-scan-more
+shot 24-filters-switch
+pref background=galaxy
+shot 30-galaxy-settings
 done
