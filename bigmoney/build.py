@@ -83,11 +83,12 @@ def app_file(store: dict, insider: dict[str, list], record: dict | None = None) 
             "stocks": stocks}
 
 
-def _weekdays(start: date, end: date):
+def _days(start: date, end: date):
+    """Every day from `start` to `end`: NSE sometimes trades on a Saturday or Sunday (a Budget day, Diwali's Muhurat
+    session), and a day without a session has no file, which costs one request."""
     d = start
     while d <= end:
-        if d.weekday() < 5:
-            yield d
+        yield d
         d += timedelta(days=1)
 
 
@@ -110,7 +111,7 @@ def main(argv=None, fetch=fetch_delivery, deals=None, pause: float = PAUSE) -> i
         date.fromisoformat(store["dates"][-1]) + timedelta(days=1), today - timedelta(days=FIRST_DAYS))
 
     added, thin = [], []
-    for day in _weekdays(start, today):
+    for day in _days(start, today):
         text = fetch(day)
         if pause:
             time.sleep(pause)
