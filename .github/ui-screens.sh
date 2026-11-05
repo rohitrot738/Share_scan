@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
-# Temporary review helper. Before any scan: बड़े पैसे की चाल's shares the list lacks (a tap on a share Yahoo charts
-# fetches it; a new listing opens its own chart and card). Then a scan: every stock listed, today's move in each
-# layout, the "आज बदलाव" sort both ways and its filter. The app's Big Money file is this branch's. Removed before
-# merging.
+# Temporary review helper: a scan, then the shares it had no chart for at the end of the list (compact table and
+# Galaxy cards), a tap on one, the search finding one, and the guide's new part. The app's Big Money file is this
+# branch's. Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -159,7 +158,6 @@ sleep 20
 launch; sleep 10
 echo "IST now: $(TZ=Asia/Kolkata date '+%F %H:%M')" | tee -a "$LOG"
 
-shot 01-list 6
 
 SEARCH=compactSearch
 # Inside a sheet only upward drags: a downward one at the top would close the sheet.
@@ -207,33 +205,101 @@ find_text() {
   return 1
 }
 
-# Menu → बड़े पैसे की चाल → Deals: rows of new listings say how few sessions they have.
+# The no-chart rows' symbols on screen, top first (compact table: the line whose RVOL cell says "Chart नहीं").
+nochart_symbols() {
+  dump
+  python3 - <<'PY'
+import html, re
+xml = open('/tmp/ui.xml', encoding='utf-8').read()
+symbol = None
+for node in re.finditer(r'<node [^>]*>', xml):
+    n = node.group(0)
+    rid = re.search(r'resource-id="[^"]*:id/(\w+)"', n)
+    text = re.search(r' text="([^"]*)"', n)
+    text = html.unescape(text.group(1)) if text else ''
+    if rid and rid.group(1) == 'rowSymbol':
+        symbol = text
+    elif rid and rid.group(1) == 'rowRvol' and text == 'Chart नहीं' and symbol:
+        print(symbol)
+PY
+}
+# Flings the list down until text $1 shows, looking every $2 flings; up to $3 flings.
+fling_to() {
+  local k
+  for k in $(seq 1 "$3"); do
+    adb shell input swipe 540 1900 540 350 40
+    if (( k % $2 == 0 )); then sleep 1; center text "$1" > /dev/null && { echo "reached $1 after $k flings" | tee -a "$LOG"; return 0; }; fi
+  done
+  echo "never reached $1" | tee -a "$LOG"
+  return 1
+}
+
+# A scan, from the pill's panel: every listed share in the list, the ones Yahoo had no chart for last.
+home
+tap statusPill
+sleep 3
+tap startButton
+sleep 10
+adb shell input keyevent KEYCODE_BACK
+for i in $(seq 1 200); do
+  sleep 5
+  unstall
+  center text "100%" > /dev/null && break
+done
+echo "scan done after ~$((i * 5 + 10))s" | tee -a "$LOG"
+adb shell am start -n "$PKG/.MainActivity" > /dev/null
+shot 20-list 6
+all_texts | head -30 >> "$LOG"
+# Down the list to the shares without a chart.
+fling_to "Chart नहीं" 3 240
+shot 21-no-chart 3
+nochart_symbols | tee /tmp/nochart.txt | sed 's/^/no chart: /' >> "$LOG"
+# Its last screen: the end of the list.
+for k in $(seq 1 40); do adb shell input swipe 540 1900 540 350 40; done
+shot 22-list-end 3
+nochart_symbols | sed 's/^/at the end: /' >> "$LOG"
+# A tap on one: the app fetches its chart now, then its detail, its बड़े पैसे की चाल card, or a note.
+fling_to "Chart नहीं" 1 4 > /dev/null
+tap_text "Chart नहीं"
+sleep 1
+shot 23-no-chart-tap 0
+sleep 12
+shot 24-no-chart-result 2
+all_texts | head -25 >> "$LOG"
+home
+# The search finds one by its symbol.
+FIRST=$(head -1 /tmp/nochart.txt)
+if [ -n "$FIRST" ]; then
+  tap "$SEARCH"
+  sleep 2
+  adb shell input text "$FIRST"
+  sleep 3
+  hide_keyboard
+  shot 25-search-no-chart 2
+  home
+fi
+# The cards on Galaxy, at the end of the list.
+setpref background string galaxy
+relaunch 14
+fling_to "Chart नहीं मिला" 3 300
+shot 26-cards-no-chart 3
+setpref background string space_glass
+relaunch 12
+
+# The guide: the list's new part and the FAQ.
 home
 tap compactMenu
 sleep 2
-tap_text "बड़े पैसे की चाल"
-sleep 10
-tap_text "🤝 Deals"
-shot 10-deals 3
-all_texts | head -40 >> "$LOG"
-# A new listing: its chart so far and its card, saying why.
-tap_text "EDELALTS"
-shot 11-new-listing 4
-all_texts | head -30 >> "$LOG"
-swipe_up
-shot 12-new-listing-more 1
-adb shell input keyevent KEYCODE_BACK
-sleep 2
-# A share Yahoo charts, which no scan has read yet: fetched on the tap, then its detail.
-tap_text "LOTUSDEV"
+tap_text "शुरुआती गाइड"
+sleep 6
+tap_text "विषय-सूची"
 sleep 1
-shot 13-fetching 0
-sleep 12
-shot 14-fetched-detail 2
-all_texts | head -20 >> "$LOG"
-home
-
-# The guide's new FAQ.
+tap_text "Stocks की list पढ़ना"
+sleep 2
+find_text "बिना chart वाले शेयर"
+shot 30-guide-no-chart 2
+swipe_up
+shot 31-guide-no-chart-more 1
 home
 tap compactMenu
 sleep 2
@@ -243,6 +309,6 @@ tap_text "विषय-सूची"
 sleep 1
 tap_text "आम सवाल"
 sleep 2
-find_text "scan list में क्यों नहीं"
-shot 30-guide-faq 2
+find_text "list में कम शेयर"
+shot 32-guide-faq 2
 echo "done" | tee -a "$LOG"

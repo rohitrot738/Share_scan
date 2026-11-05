@@ -60,7 +60,6 @@
     <string name="item_rank_none">★</string>
     <string name="item_no_data">भाव अभी नहीं मिला</string>
     <string name="item_no_data_meta">अगले scan के साथ आएगा</string>
-    <string name="item_no_data_toast">%1$s का भाव अभी नहीं मिला — अगले scan के बाद details दिखेंगी</string>
     <string name="item_description_no_data">%1$s, watchlist में, भाव अभी नहीं मिला</string>
     <string name="tier_strong">STRONG</string>
     <string name="tier_watch">WATCH</string>

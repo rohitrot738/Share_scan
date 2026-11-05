@@ -54,7 +54,6 @@
     <string name="item_rank_none">★</string>
     <string name="item_no_data">ಇನ್ನೂ ಬೆಲೆ ಇಲ್ಲ</string>
     <string name="item_no_data_meta">ಮುಂದಿನ ಸ್ಕ್ಯಾನ್‌ನೊಂದಿಗೆ ಬರುತ್ತದೆ</string>
-    <string name="item_no_data_toast">%1$s ಗೆ ಇನ್ನೂ ಬೆಲೆ ಇಲ್ಲ — ವಿವರಗಳು ಮುಂದಿನ ಸ್ಕ್ಯಾನ್ ನಂತರ</string>
     <string name="item_description_no_data">%1$s, ವಾಚ್‌ಲಿಸ್ಟ್‌ನಲ್ಲಿ, ಇನ್ನೂ ಬೆಲೆ ಇಲ್ಲ</string>
     <string name="tier_strong">STRONG</string>
     <string name="tier_watch">WATCH</string>

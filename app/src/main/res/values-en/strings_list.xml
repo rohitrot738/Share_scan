@@ -27,4 +27,12 @@
     <string name="list_share_no_filters">No filters</string>
     <string name="list_share_line">%1$d. %2$s ₹%3$s • score %4$s • RVOL %5$s×</string>
     <string name="list_share_failed">No app found to share with</string>
+
+    <!-- A listed share the scan had no chart for (ScanOutput.unscanned). -->
+    <string name="item_no_chart">No chart found</string>
+    <string name="item_no_chart_meta">No price on Yahoo · tap to try again</string>
+    <string name="item_no_chart_new">🆕 New listing · %1$d sessions so far</string>
+    <string name="compact_no_chart">No chart</string>
+    <string name="item_description_no_chart">%1$s, no chart found</string>
+    <string name="item_no_chart_toast">No chart for %1$s on Yahoo — perhaps a new listing, or trading is halted</string>
 </resources>

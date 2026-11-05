@@ -54,7 +54,6 @@
     <string name="item_rank_none">★</string>
     <string name="item_no_data">भाव अजून मिळाला नाही</string>
     <string name="item_no_data_meta">पुढच्या स्कॅनसोबत येईल</string>
-    <string name="item_no_data_toast">%1$s चा भाव अजून मिळाला नाही — पुढच्या स्कॅननंतर तपशील दिसेल</string>
     <string name="item_description_no_data">%1$s, वॉचलिस्टमध्ये, भाव अजून मिळाला नाही</string>
     <string name="tier_strong">STRONG</string>
     <string name="tier_watch">WATCH</string>

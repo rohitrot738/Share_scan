@@ -352,11 +352,9 @@ class MainActivity : AppCompatActivity() {
         openPending(state)
     }
 
-    /** Opens the stock a notification named, once the list (or the watchlist's stocks outside it) holds it. */
     /**
-     * A share tapped in बड़े पैसे की चाल: its detail when the list has it; else its chart is fetched now, the way the
-     * watchlist's extra stocks are, and opened. With no chart to be had (a new listing under the sessions the scan
-     * needs, or none on Yahoo) its बड़े पैसे की चाल card opens on its own, saying why.
+     * A share tapped in बड़े पैसे की चाल: its detail when the list has it with a chart, else as a share without one
+     * ([openUncharted]), with its name and exchange when the scan listed it.
      */
     private fun openBigMoneyShare(symbol: String) {
         val state = scan.uiState.value
@@ -364,22 +362,42 @@ class MainActivity : AppCompatActivity() {
             openChart(it)
             return
         }
-        if (state.bigMoney.of(symbol)?.tooNewToChart == true) {
-            BigMoneyShareSheet(this, state.bigMoney, symbol).show()
+        openUncharted(
+            state.unscanned.firstOrNull { it.symbol == symbol }
+                ?: ScanResult(symbol = symbol, price = 0.0, score = 0.0, rvol = 0.0, change5d = 0.0),
+        )
+    }
+
+    /**
+     * A share the list has no chart for (one the scan listed but Yahoo did not chart, or a starred one not charted
+     * yet): its chart is fetched now, the way the watchlist's extra stocks are, and its detail opened. With no chart to
+     * be had (a new listing under the sessions the scan needs, or none on Yahoo) its बड़े पैसे की चाल card opens on
+     * its own, saying why; without one, a note says the chart is not on Yahoo.
+     */
+    private fun openUncharted(stock: ScanResult) {
+        val symbol = stock.symbol
+        val money = scan.uiState.value.bigMoney
+        if (money.of(symbol)?.tooNewToChart == true) {
+            BigMoneyShareSheet(this, money, symbol).show()
             return
         }
         Toast.makeText(this, getString(R.string.big_money_share_loading, symbol), Toast.LENGTH_SHORT).show()
         lifecycleScope.launch {
             val row = withContext(Dispatchers.IO) {
-                val blank = ScanResult(symbol = symbol, price = 0.0, score = 0.0, rvol = 0.0, change5d = 0.0)
-                runCatching { NseScanner.refresh(listOf(blank)) }.getOrNull()?.firstOrNull()?.takeIf { it.charted }
+                runCatching { NseScanner.refresh(listOf(stock)) }.getOrNull()?.firstOrNull()?.takeIf { it.charted }
             }
             lifecycle.withStarted {
-                if (row != null) openChart(row) else BigMoneyShareSheet(this@MainActivity, scan.uiState.value.bigMoney, symbol).show()
+                val book = scan.uiState.value.bigMoney
+                when {
+                    row != null -> openChart(row)
+                    book.of(symbol) != null -> BigMoneyShareSheet(this@MainActivity, book, symbol).show()
+                    else -> Toast.makeText(this@MainActivity, getString(R.string.item_no_chart_toast, symbol), Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
 
+    /** Opens the stock a notification named, once the list (or the watchlist's stocks outside it) holds it. */
     private fun openPending(state: ScanUiState) {
         val symbol = pendingSymbol ?: return
         val stock = state.results.firstOrNull { it.symbol == symbol }
@@ -496,7 +514,8 @@ class MainActivity : AppCompatActivity() {
                     getString(if (state.autoResults) R.string.status_auto_done_title else R.string.status_done_title),
                     getString(
                         if (state.narrowed) R.string.status_done_sectors_body else R.string.status_done_saved_body,
-                        state.visible.size,
+                        // The shares without a chart are in the list, but not among its candidates.
+                        state.visible.count { !it.unscanned },
                         whenScanned(state.savedAt),
                     ),
                     R.drawable.ic_check,
@@ -547,7 +566,7 @@ class MainActivity : AppCompatActivity() {
             ScanPhase.DONE -> if (state.stopped) {
                 getString(R.string.pill_stopped, state.percent, count(state.done), count(state.total)) to R.color.warn
             } else {
-                val stocks = count(if (state.total > 0) state.total else state.results.size)
+                val stocks = count(if (state.total > 0) state.total else state.results.size + state.unscanned.size)
                 when {
                     state.scanMode == ScanMode.SUPPORT -> getString(R.string.pill_support_done, stocks)
                     open && state.live && today -> getString(R.string.pill_live_done, stocks)
@@ -1148,7 +1167,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun openChart(stock: ScanResult, onNews: Boolean = false) {
         if (!stock.charted) {
-            Toast.makeText(this, getString(R.string.item_no_data_toast, stock.symbol), Toast.LENGTH_SHORT).show()
+            openUncharted(stock)
             return
         }
         detailSheet?.dismiss()

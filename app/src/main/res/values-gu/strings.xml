@@ -54,7 +54,6 @@
     <string name="item_rank_none">★</string>
     <string name="item_no_data">ભાવ હજી મળ્યો નથી</string>
     <string name="item_no_data_meta">આગલા સ્કેન સાથે આવશે</string>
-    <string name="item_no_data_toast">%1$s નો ભાવ હજી મળ્યો નથી — આગલા સ્કેન પછી વિગત દેખાશે</string>
     <string name="item_description_no_data">%1$s, વૉચલિસ્ટમાં, ભાવ હજી મળ્યો નથી</string>
     <string name="tier_strong">STRONG</string>
     <string name="tier_watch">WATCH</string>

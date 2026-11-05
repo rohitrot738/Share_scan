@@ -54,7 +54,6 @@
     <string name="item_rank_none">★</string>
     <string name="item_no_data">ଏପର୍ଯ୍ୟନ୍ତ ଦର ନାହିଁ</string>
     <string name="item_no_data_meta">ପରବର୍ତ୍ତୀ ସ୍କାନ ସହ ଆସିବ</string>
-    <string name="item_no_data_toast">%1$s ପାଇଁ ଏପର୍ଯ୍ୟନ୍ତ ଦର ନାହିଁ — ବିବରଣୀ ପରବର୍ତ୍ତୀ ସ୍କାନ ପରେ</string>
     <string name="item_description_no_data">%1$s, ୱାଚଲିଷ୍ଟରେ, ଏପର୍ଯ୍ୟନ୍ତ ଦର ନାହିଁ</string>
     <string name="tier_strong">STRONG</string>
     <string name="tier_watch">WATCH</string>

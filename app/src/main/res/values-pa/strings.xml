@@ -54,7 +54,6 @@
     <string name="item_rank_none">★</string>
     <string name="item_no_data">ਭਾਅ ਹਾਲੇ ਨਹੀਂ ਮਿਲਿਆ</string>
     <string name="item_no_data_meta">ਅਗਲੇ ਸਕੈਨ ਨਾਲ ਆਵੇਗਾ</string>
-    <string name="item_no_data_toast">%1$s ਦਾ ਭਾਅ ਹਾਲੇ ਨਹੀਂ ਮਿਲਿਆ — ਅਗਲੇ ਸਕੈਨ ਤੋਂ ਬਾਅਦ ਵੇਰਵਾ ਦਿਸੇਗਾ</string>
     <string name="item_description_no_data">%1$s, ਵਾਚਲਿਸਟ ਵਿੱਚ, ਭਾਅ ਹਾਲੇ ਨਹੀਂ ਮਿਲਿਆ</string>
     <string name="tier_strong">STRONG</string>
     <string name="tier_watch">WATCH</string>

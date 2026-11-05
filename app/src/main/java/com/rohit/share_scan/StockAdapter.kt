@@ -216,7 +216,7 @@ class StockAdapter(
 
         val ranked = item.rank != RankedStock.UNRANKED
         // A starred stock outside the filters or this scan has no place in the list: its circle shows a star.
-        ui.rank.text = if (ranked) item.rank.toString() else context.getString(R.string.item_rank_none)
+        ui.rank.text = if (ranked) item.rank.toString() else unrankedMark(context, item)
         ui.rank.setTextColor(color(tierColor))
 
         ui.symbol.text = stock.symbol
@@ -316,16 +316,17 @@ class StockAdapter(
                 .also { text -> ui.mistakeLine.text = text }
         }
 
-        // A starred stock no chart has come in for yet: its symbol, and a word that its prices are on their way.
+        // A starred stock no chart has come in for yet: its symbol, and a word that its prices are on their way. A
+        // listed share Yahoo had no chart for: its name and exchange, and why.
         val charted = stock.charted
         ui.rvol.isVisible = charted
         ui.tier.isVisible = charted
-        // Without a chart the exchange is not known either.
-        ui.exchange.isVisible = charted
+        // Without a chart the exchange is not known either, unless the scan listed the share.
+        ui.exchange.isVisible = charted || item.unscanned
         if (!charted) {
-            ui.change.setText(R.string.item_no_data)
+            ui.change.setText(if (item.unscanned) R.string.item_no_chart else R.string.item_no_data)
             ui.change.setTextColor(color(R.color.neutral))
-            ui.meta.setText(R.string.item_no_data_meta)
+            ui.meta.text = if (item.unscanned) noChartReason(context, stock) else context.getString(R.string.item_no_data_meta)
             ui.price.text = context.getString(R.string.stat_empty)
             ui.score.text = context.getString(R.string.stat_empty)
             ui.score.setTextColor(color(R.color.neutral))
@@ -341,7 +342,7 @@ class StockAdapter(
 
         ui.root.contentDescription = listOfNotNull(
             when {
-                !charted -> context.getString(R.string.item_description_no_data, stock.symbol)
+                !charted -> noDataDescription(context, item)
                 ranked -> context.getString(R.string.item_description, item.rank, stock.symbol, score)
                 else -> context.getString(R.string.item_description_unranked, stock.symbol, score)
             },
@@ -368,7 +369,7 @@ class StockAdapter(
         val context = ui.root.context
         fun color(id: Int) = ContextCompat.getColor(context, id)
         val ranked = item.rank != RankedStock.UNRANKED
-        ui.rowRank.text = if (ranked) context.getString(R.string.compact_rank, item.rank) else context.getString(R.string.item_rank_none)
+        ui.rowRank.text = if (ranked) context.getString(R.string.compact_rank, item.rank) else unrankedMark(context, item)
         ui.rowSymbol.text = stock.symbol
         val company = withProducts(ui.rowCompany, stock.symbol, StockSearch.shortName(stock.name).ifEmpty { stock.sector })
         // बड़े पैसे की चाल's mark leads the company line, where the line's end could cut it off.
@@ -392,7 +393,7 @@ class StockAdapter(
         }
         val score = StockFormat.score(stock.score)
         val charted = stock.charted
-        ui.rowExchange.isVisible = charted
+        ui.rowExchange.isVisible = charted || item.unscanned
         if (charted) {
             ui.rowPrice.text = MoveText.priceAndToday(context, stock, below = true)
             ui.rowChange.text = StockFormat.signedChange(stock.change5d)
@@ -406,7 +407,7 @@ class StockAdapter(
             ui.rowPrice.text = empty
             ui.rowChange.text = empty
             ui.rowChange.setTextColor(color(R.color.neutral))
-            ui.rowRvol.setText(R.string.compact_no_data)
+            ui.rowRvol.setText(if (item.unscanned) R.string.compact_no_chart else R.string.compact_no_data)
             ui.rowRvol.setTextColor(color(R.color.text_secondary))
             ui.rowScore.text = empty
             ui.rowScore.setTextColor(color(R.color.neutral))
@@ -423,7 +424,7 @@ class StockAdapter(
         )
         ui.root.contentDescription = listOfNotNull(
             when {
-                !charted -> context.getString(R.string.item_description_no_data, stock.symbol)
+                !charted -> noDataDescription(context, item)
                 ranked -> context.getString(R.string.item_description, item.rank, stock.symbol, score)
                 else -> context.getString(R.string.item_description_unranked, stock.symbol, score)
             },
@@ -446,10 +447,10 @@ class StockAdapter(
         val (tierLabel, tierColor, tierContainer) = tierColors(stock.score)
         val ranked = item.rank != RankedStock.UNRANKED
         val charted = stock.charted
-        ui.accRank.text = if (ranked) item.rank.toString() else context.getString(R.string.item_rank_none)
+        ui.accRank.text = if (ranked) item.rank.toString() else unrankedMark(context, item)
         dressRank(holder, ui.accRank, StockFormat.tier(stock.score), tierColor, tierContainer)
         ui.accSymbol.text = stock.symbol
-        bindExchange(ui.accExchange, stock.market, charted)
+        bindExchange(ui.accExchange, stock.market, charted || item.unscanned)
         ui.accStar.isVisible = item.starred
         val score = StockFormat.score(stock.score)
         ui.accPrice.text = if (charted) MoveText.priceAndToday(context, stock, below = false) else context.getString(R.string.stat_empty)
@@ -464,7 +465,11 @@ class StockAdapter(
         ui.accTier.backgroundTintList = ColorStateList.valueOf(color(tierContainer))
         ui.accScoreBar.color = color(tierColor)
         ui.accScoreBar.fraction = (stock.score / 100).toFloat()
-        ui.accChange.text = if (charted) MoveText.both(context, stock, arrows = false) else context.getString(R.string.stat_empty)
+        ui.accChange.text = when {
+            charted -> MoveText.both(context, stock, arrows = false)
+            item.unscanned -> context.getString(R.string.item_no_chart) + " · " + noChartReason(context, stock)
+            else -> context.getString(R.string.stat_empty)
+        }
         ui.accChange.setTextColor(color(R.color.neutral))
         bindMetrics(ui.accMetrics, stock)
         val setup = setupText(context, stock)
@@ -476,8 +481,9 @@ class StockAdapter(
         ui.accAlert.setText(if (item.starred) R.string.layout_action_alert_on else R.string.layout_action_alert)
         ui.accAlert.contentDescription =
             context.getString(if (item.starred) R.string.list_star_remove else R.string.list_star_add, stock.symbol)
-        ui.accChart.isEnabled = charted
-        ui.accDetails.isEnabled = charted
+        // A listed share without a chart still has its chart site, and its details fetch a chart now.
+        ui.accChart.isEnabled = charted || item.unscanned
+        ui.accDetails.isEnabled = charted || item.unscanned
         unfold(holder, ui, stock.symbol == expanded, animate = false)
         ui.root.contentDescription = description(context, item, score, charted)
     }
@@ -549,8 +555,8 @@ class StockAdapter(
         val (_, tierColor, _) = tierColors(stock.score)
         val ranked = item.rank != RankedStock.UNRANKED
         val charted = stock.charted
-        ui.bentoRank.text = if (ranked) context.getString(R.string.compact_rank, item.rank) else context.getString(R.string.item_rank_none)
-        bindExchange(ui.bentoExchange, stock.market, charted)
+        ui.bentoRank.text = if (ranked) context.getString(R.string.compact_rank, item.rank) else unrankedMark(context, item)
+        bindExchange(ui.bentoExchange, stock.market, charted || item.unscanned)
         ui.bentoStar.isVisible = item.starred
         ui.bentoSymbol.text = stock.symbol
         ui.bentoCompany.text = withProducts(ui.bentoCompany, stock.symbol, StockSearch.shortName(stock.name).ifEmpty { stock.sector })
@@ -563,7 +569,11 @@ class StockAdapter(
         ui.bentoLine.values = closes
         ui.bentoLine.color = color(if ((closes.lastOrNull() ?: 0.0) >= (closes.firstOrNull() ?: 0.0)) R.color.bull else R.color.bear)
         ui.bentoLine.isInvisible = closes.size < 2
-        ui.bentoPrice.text = if (charted) MoveText.priceAndToday(context, stock, below = true) else context.getString(R.string.stat_empty)
+        ui.bentoPrice.text = when {
+            charted -> MoveText.priceAndToday(context, stock, below = true)
+            item.unscanned -> context.getString(R.string.compact_no_chart)
+            else -> context.getString(R.string.stat_empty)
+        }
         ui.bentoChange.isVisible = charted
         ui.bentoChange.text = StockFormat.change(stock.change5d)
         ui.bentoChange.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
@@ -590,15 +600,19 @@ class StockAdapter(
         val (tierLabel, tierColor, tierContainer) = tierColors(stock.score)
         val ranked = item.rank != RankedStock.UNRANKED
         val charted = stock.charted
-        ui.swipeRank.text = if (ranked) item.rank.toString() else context.getString(R.string.item_rank_none)
+        ui.swipeRank.text = if (ranked) item.rank.toString() else unrankedMark(context, item)
         dressRank(holder, ui.swipeRank, StockFormat.tier(stock.score), tierColor, tierContainer)
         ui.swipeSymbol.text = stock.symbol
-        bindExchange(ui.swipeExchange, stock.market, charted)
+        bindExchange(ui.swipeExchange, stock.market, charted || item.unscanned)
         bindRankBadge(ui.swipeBadge, item.badge)
         ui.swipeStarMark.isVisible = item.starred
         ui.swipeCompany.text = withProducts(ui.swipeCompany, stock.symbol, nameAndSector(stock))
         ui.swipePrice.text = if (charted) context.getString(R.string.item_price, StockFormat.price(stock.price)) else context.getString(R.string.stat_empty)
-        ui.swipeChange.text = if (charted) MoveText.both(context, stock) else context.getString(R.string.item_no_data)
+        ui.swipeChange.text = when {
+            charted -> MoveText.both(context, stock)
+            item.unscanned -> context.getString(R.string.item_no_chart) + " · " + noChartReason(context, stock)
+            else -> context.getString(R.string.item_no_data)
+        }
         ui.swipeChange.setTextColor(color(R.color.neutral))
         bindMetrics(ui.swipeMetrics, stock)
         ui.swipeTier.setText(tierLabel)
@@ -618,8 +632,8 @@ class StockAdapter(
         ui.swipeStarLabel.setText(if (item.starred) R.string.layout_action_unwatch else R.string.layout_action_watchlist)
         ui.swipeStar.contentDescription =
             context.getString(if (item.starred) R.string.list_star_remove else R.string.list_star_add, stock.symbol)
-        ui.swipeChart.isEnabled = charted
-        ui.swipeChart.alpha = if (charted) 1f else 0.38f
+        ui.swipeChart.isEnabled = charted || item.unscanned
+        ui.swipeChart.alpha = if (ui.swipeChart.isEnabled) 1f else 0.38f
         ui.swipeCard.contentDescription = listOf(
             description(context, item, score, charted),
             context.getString(R.string.layout_swipe_hint, stock.symbol),
@@ -747,16 +761,33 @@ class StockAdapter(
         view.backgroundTintList = ColorStateList.valueOf(ContextCompat.getColor(context, exchange.container))
     }
 
+    /** The rank circle of a stock without one: a star for a starred stock, a dash for a listed share without a chart. */
+    private fun unrankedMark(context: Context, item: RankedStock): String =
+        context.getString(if (item.unscanned && !item.starred) R.string.stat_empty else R.string.item_rank_none)
+
+    /**
+     * Why a listed share has no chart: a new listing's sessions so far, from बड़े पैसे की चाल's file, or else no price
+     * on Yahoo (a tap tries again).
+     */
+    private fun noChartReason(context: Context, stock: ScanResult): String {
+        val sessions = bigMoney.of(stock.symbol)?.takeIf { it.tooNewToChart }?.sessions
+        return if (sessions != null) context.getString(R.string.item_no_chart_new, sessions) else context.getString(R.string.item_no_chart_meta)
+    }
+
+    /** What a screen reader says for a stock without a chart. */
+    private fun noDataDescription(context: Context, item: RankedStock): String =
+        context.getString(if (item.unscanned) R.string.item_description_no_chart else R.string.item_description_no_data, item.stock.symbol)
+
     /** What a screen reader says for a stock in the accordion, bento and swipe styles. */
     private fun description(context: Context, item: RankedStock, score: String, charted: Boolean): String {
         val stock = item.stock
         return listOfNotNull(
             when {
-                !charted -> context.getString(R.string.item_description_no_data, stock.symbol)
+                !charted -> noDataDescription(context, item)
                 item.rank != RankedStock.UNRANKED -> context.getString(R.string.item_description, item.rank, stock.symbol, score)
                 else -> context.getString(R.string.item_description_unranked, stock.symbol, score)
             },
-            if (charted) context.getString(MarketStyle.of(stock.market).description) else null,
+            if (charted || item.unscanned) context.getString(MarketStyle.of(stock.market).description) else null,
             if (charted) context.getString(R.string.item_price, StockFormat.price(stock.price)) else null,
             badgeDescription(context, item.badge),
             if (item.starred) context.getString(R.string.list_starred_description) else null,

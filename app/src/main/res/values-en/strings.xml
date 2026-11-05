@@ -54,7 +54,6 @@
     <string name="item_rank_none">★</string>
     <string name="item_no_data">No price yet</string>
     <string name="item_no_data_meta">Comes with the next scan</string>
-    <string name="item_no_data_toast">No price for %1$s yet — details show after the next scan</string>
     <string name="item_description_no_data">%1$s, on the watchlist, no price yet</string>
     <string name="tier_strong">STRONG</string>
     <string name="tier_watch">WATCH</string>

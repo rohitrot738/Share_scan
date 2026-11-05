@@ -120,6 +120,45 @@ class WatchlistSearchTest {
     }
 
     @Test
+    fun everyListedShareShowsAndTheOnesWithoutAChartComeLast() {
+        val halted = ScanResult("HALTED", 0.0, 0.0, 0.0, 0.0, name = "Halted Ltd", market = Market.BSE)
+        val young = ScanResult("NEWCO", 0.0, 0.0, 0.0, 0.0, name = "New Co Ltd", market = Market.NSE_SME, sector = "Retail")
+        val state = ScanUiState(results = results, unscanned = listOf(halted, young), filters = ScanFilters(limit = 0))
+        val none = RankedStock.UNRANKED
+        // The five charted shares by score, then the two Yahoo had no chart for, without a rank.
+        assertEquals(
+            listOf("TECHM" to 1, "TCS" to 2, "M&M" to 3, "TATAPOWER" to 4, "INFY" to 5, "HALTED" to none, "NEWCO" to none),
+            ranks(state.sortedResults),
+        )
+        assertEquals(listOf(false, false, false, false, false, true, true), state.sortedResults.map { it.unscanned })
+        assertEquals(7, state.visible.size)
+        // Whatever the order, they stay at the end.
+        for (sort in SortMode.values()) {
+            for (ascending in listOf(false, true)) {
+                val order = state.copy(sort = sort, ascending = ascending).sortedResults.map { it.stock.symbol }
+                assertEquals("$sort $ascending", listOf("HALTED", "NEWCO"), order.takeLast(2))
+            }
+        }
+        // The search finds them by symbol or company name.
+        assertEquals(listOf("NEWCO" to none), ranks(state.copy(query = "new co").sortedResults))
+        assertEquals(listOf("HALTED" to none), ranks(state.copy(query = "halt").sortedResults))
+        // A filter or a Top limit picks among the charted shares alone.
+        val priced = ScanFilters(limit = 0).with(Metric.PRICE, Bound(min = 1.0))
+        assertEquals(5, state.copy(filters = priced).visible.size)
+        assertTrue(state.copy(filters = priced, query = "new co").sortedResults.isEmpty())
+        assertEquals(3, state.copy(filters = ScanFilters(limit = 3)).visible.size)
+        assertTrue(state.withScanMode(ScanMode.SUPPORT).sortedResults.none { it.unscanned })
+        // Starred, one shows in the watchlist with its name, and with its star in the main list.
+        val watch = state.copy(watchlist = setOf("NEWCO"), watchlistOnly = true).sortedResults.single()
+        assertEquals("New Co Ltd", watch.stock.name)
+        assertTrue(watch.starred && watch.unscanned)
+        assertTrue(state.copy(watchlist = setOf("NEWCO")).sortedResults.last().starred)
+        // A share this scan did chart never shows twice.
+        val twice = state.copy(unscanned = listOf(halted, results[1].copy(price = 0.0)))
+        assertEquals(listOf("TECHM", "TCS", "M&M", "TATAPOWER", "INFY", "HALTED"), twice.sortedResults.map { it.stock.symbol })
+    }
+
+    @Test
     fun theSupportScanListsStocksOnALongFloor() {
         val long = SupportFloor(level = 380.0, ageSessions = 120, touches = 4, unbroken = true, window = 124)
         val young = long.copy(ageSessions = 30)
