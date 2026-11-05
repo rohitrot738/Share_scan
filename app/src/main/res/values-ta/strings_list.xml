@@ -34,5 +34,4 @@
     <string name="item_no_chart_new">🆕 புதிய பட்டியலீடு · இதுவரை %1$d அமர்வுகள்</string>
     <string name="compact_no_chart">சார்ட் இல்லை</string>
     <string name="item_description_no_chart">%1$s, சார்ட் கிடைக்கவில்லை</string>
-    <string name="item_no_chart_toast">Yahoo-வில் %1$s சார்ட் கிடைக்கவில்லை — புதிய பட்டியலீடாக இருக்கலாம், அல்லது வர்த்தகம் நிறுத்தப்பட்டிருக்கலாம்</string>
 </resources>

@@ -371,14 +371,14 @@ class MainActivity : AppCompatActivity() {
     /**
      * A share the list has no chart for (one the scan listed but Yahoo did not chart, or a starred one not charted
      * yet): its chart is fetched now, the way the watchlist's extra stocks are, and its detail opened. With no chart to
-     * be had (a new listing under the sessions the scan needs, or none on Yahoo) its बड़े पैसे की चाल card opens on
-     * its own, saying why; without one, a note says the chart is not on Yahoo.
+     * be had (a new listing under the sessions the scan needs, or none on Yahoo) the share's own sheet opens
+     * ([UnchartedShareSheet]): why, its बड़े पैसे की चाल card when it has one, and the buttons to other apps.
      */
     private fun openUncharted(stock: ScanResult) {
         val symbol = stock.symbol
         val money = scan.uiState.value.bigMoney
         if (money.of(symbol)?.tooNewToChart == true) {
-            BigMoneyShareSheet(this, money, symbol).show()
+            UnchartedShareSheet(this, money, stock, settings.chartSite).show()
             return
         }
         Toast.makeText(this, getString(R.string.big_money_share_loading, symbol), Toast.LENGTH_SHORT).show()
@@ -388,11 +388,9 @@ class MainActivity : AppCompatActivity() {
             }
             lifecycle.withStarted {
                 val book = scan.uiState.value.bigMoney
-                when {
-                    row != null -> openChart(row)
-                    book.of(symbol) != null -> BigMoneyShareSheet(this@MainActivity, book, symbol).show()
-                    else -> Toast.makeText(this@MainActivity, getString(R.string.item_no_chart_toast, symbol), Toast.LENGTH_LONG).show()
-                }
+                // Without a chart, the share's own sheet: why, its Big Money card if it has one, and the buttons that
+                // open it in a trading app or on the chart site.
+                if (row != null) openChart(row) else UnchartedShareSheet(this@MainActivity, book, stock, settings.chartSite).show()
             }
         }
     }

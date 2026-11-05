@@ -104,6 +104,7 @@
     <string name="big_money_row_young">🆕 କେବଳ %1$d ସେସନର ଡାଟା, ତେଣୁ ତାଲିକାରେ ଏବେ ସ୍କୋର ନାହିଁ</string>
     <string name="big_money_share_loading">%1$s ର ଚାର୍ଟ ଆଣୁଛୁ…</string>
     <string name="big_money_share_new">ନୂଆ ସେୟାର: NSE ରେ ଏବେ କେବଳ %1$d ସେସନର ଡାଟା ଅଛି। ଆପର ଚାର୍ଟ, ସ୍କୋର ଓ ଟ୍ରେଡ ପ୍ଲାନ ଅତି କମରେ %2$d ସେସନର ଡାଟାରୁ ହୁଏ, ତେଣୁ ତାଲିକାରେ ଏହା ସବୁଠୁ ତଳେ, ସ୍କୋର ବିନା ଅଛି। ତଳେ ଏହାର ବଡ଼ ଟଙ୍କାର ଚାଲର ହିସାବ ଅଛି।</string>
-    <string name="big_money_share_no_chart">Yahoo Finance ରେ ଏହାର ଚାର୍ଟ ମିଳିଲା ନାହିଁ, ତେଣୁ ଏହା ସ୍କାନ ତାଲିକାରେ ନାହିଁ। ତଳେ ଏହାର ବଡ଼ ଟଙ୍କାର ଚାଲର ହିସାବ ଅଛି।</string>
+    <string name="big_money_share_no_chart">Yahoo Finance ରେ ଏହାର ଚାର୍ଟ ମିଳିଲା ନାହିଁ, ତେଣୁ ତାଲିକାରେ ଏହା ସବୁଠୁ ତଳେ, ସ୍କୋର ବିନା ଅଛି। ତଳେ ଏହାର ବଡ଼ ଟଙ୍କାର ଚାଲର ହିସାବ ଅଛି।</string>
+    <string name="uncharted_share_reason">Yahoo Finance ରେ ଏହାର ଚାର୍ଟ ମିଳିଲା ନାହିଁ, ତେଣୁ ଆପ ଏହାର ସ୍କୋର କରିପାରିବ ନାହିଁ (ହୁଏତ ନୂଆ ଲିଷ୍ଟିଂ, କିମ୍ବା ଟ୍ରେଡିଂ ବନ୍ଦ)। ତଳ ବଟନରୁ ଏହାକୁ Groww, Angel One, Zerodha କିମ୍ବା ଚାର୍ଟ ସାଇଟରେ ଦେଖନ୍ତୁ।</string>
     <string name="big_money_share_prices">%1$d ସେସନର ଦର: ପ୍ରଥମ ଦିନ ₹%2$s, ଏବେ ₹%3$s (%4$s) · ସର୍ବାଧିକ ₹%5$s, ସର୍ବନିମ୍ନ ₹%6$s</string>
 </resources>

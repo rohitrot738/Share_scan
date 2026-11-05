@@ -104,6 +104,7 @@
     <string name="big_money_row_young">🆕 মাত্র %1$d সেশনের ডেটা, তাই তালিকায় এখনও স্কোর নেই</string>
     <string name="big_money_share_loading">%1$s-এর চার্ট আনা হচ্ছে…</string>
     <string name="big_money_share_new">নতুন শেয়ার: NSE-তে এখন মাত্র %1$d সেশনের ডেটা আছে। অ্যাপের চার্ট, স্কোর আর ট্রেড প্ল্যান অন্তত %2$d সেশনের ডেটা থেকে হয়, তাই তালিকায় এটি সবার নিচে, স্কোর ছাড়া। নিচে এর বড় টাকার চালের হিসাব।</string>
-    <string name="big_money_share_no_chart">Yahoo Finance-এ এর চার্ট পাওয়া যায়নি, তাই এটি স্ক্যানের তালিকায় নেই। নিচে এর বড় টাকার চালের হিসাব।</string>
+    <string name="big_money_share_no_chart">Yahoo Finance-এ এর চার্ট পাওয়া যায়নি, তাই তালিকায় এটি সবার নিচে, স্কোর ছাড়া। নিচে এর বড় টাকার চালের হিসাব।</string>
+    <string name="uncharted_share_reason">Yahoo Finance-এ এর চার্ট পাওয়া যায়নি, তাই অ্যাপ এর স্কোর বানাতে পারে না (হয়তো নতুন লিস্টিং, বা ট্রেডিং বন্ধ)। নিচের বোতাম দিয়ে Groww, Angel One, Zerodha বা চার্ট সাইটে দেখুন।</string>
     <string name="big_money_share_prices">%1$d সেশনের দাম: প্রথম দিন ₹%2$s, এখন ₹%3$s (%4$s) · সর্বোচ্চ ₹%5$s, সর্বনিম্ন ₹%6$s</string>
 </resources>

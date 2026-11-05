@@ -42,5 +42,4 @@
     <string name="item_no_chart_new">🆕 नया listing · अभी %1$d सत्र</string>
     <string name="compact_no_chart">Chart नहीं</string>
     <string name="item_description_no_chart">%1$s, chart नहीं मिला</string>
-    <string name="item_no_chart_toast">%1$s का chart Yahoo पर नहीं मिला — शायद नया listing है या trading रुकी है</string>
 </resources>

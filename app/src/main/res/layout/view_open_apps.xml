@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A share in a trading app or on the chart site of the Settings (OpenApps): Groww, Angel One and Zerodha, then the
+     chart. Used where a share has no detail sheet of its own (UnchartedShareSheet). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/openGroww"
+            style="@style/Widget.ShareScan.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="4dp"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:maxLines="1"
+            android:paddingHorizontal="4dp"
+            android:text="@string/broker_groww"
+            android:textAllCaps="false"
+            android:textSize="13sp"
+            app:cornerRadius="14dp"
+            app:iconGravity="textStart"
+            app:iconPadding="6dp"
+            app:iconSize="@dimen/broker_icon"
+            app:iconTint="@null" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/openAngelOne"
+            style="@style/Widget.ShareScan.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginHorizontal="4dp"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:maxLines="1"
+            android:paddingHorizontal="4dp"
+            android:text="@string/broker_angel_one"
+            android:textAllCaps="false"
+            android:textSize="13sp"
+            app:cornerRadius="14dp"
+            app:iconGravity="textStart"
+            app:iconPadding="6dp"
+            app:iconSize="@dimen/broker_icon"
+            app:iconTint="@null" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/openZerodha"
+            style="@style/Widget.ShareScan.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:maxLines="1"
+            android:paddingHorizontal="4dp"
+            android:text="@string/broker_zerodha"
+            android:textAllCaps="false"
+            android:textSize="13sp"
+            app:cornerRadius="14dp"
+            app:iconGravity="textStart"
+            app:iconPadding="6dp"
+            app:iconSize="@dimen/broker_icon"
+            app:iconTint="@null" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/openChart"
+        android:stateListAnimator="@animator/press_scale_soft"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="8dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="@string/detail_open_chart"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:cornerRadius="16dp"
+        app:icon="@drawable/ic_open_in_new"
+        app:iconGravity="textStart" />
+</LinearLayout>

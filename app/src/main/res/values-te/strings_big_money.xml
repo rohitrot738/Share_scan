@@ -104,6 +104,7 @@
     <string name="big_money_row_young">🆕 కేవలం %1$d సెషన్ల డేటా, అందుకే జాబితాలో ఇంకా స్కోర్ లేదు</string>
     <string name="big_money_share_loading">%1$s చార్ట్ తెస్తున్నాం…</string>
     <string name="big_money_share_new">కొత్త షేరు: NSEలో ఇప్పటికి కేవలం %1$d సెషన్ల డేటా ఉంది. యాప్ చార్ట్, స్కోర్, ట్రేడ్ ప్లాన్‌కు కనీసం %2$d సెషన్ల డేటా కావాలి, అందుకే జాబితాలో ఇది చివర, స్కోర్ లేకుండా ఉంది. కింద దీని పెద్ద డబ్బు కదలిక లెక్క ఉంది.</string>
-    <string name="big_money_share_no_chart">Yahoo Financeలో దీని చార్ట్ దొరకలేదు, అందుకే ఇది స్కాన్ జాబితాలో లేదు. కింద దీని పెద్ద డబ్బు కదలిక లెక్క ఉంది.</string>
+    <string name="big_money_share_no_chart">Yahoo Financeలో దీని చార్ట్ దొరకలేదు, అందుకే జాబితాలో ఇది చివర, స్కోర్ లేకుండా ఉంది. కింద దీని పెద్ద డబ్బు కదలిక లెక్క ఉంది.</string>
+    <string name="uncharted_share_reason">Yahoo Financeలో దీని చార్ట్ దొరకలేదు, అందుకే యాప్ దీని స్కోర్ చేయలేదు (బహుశా కొత్త లిస్టింగ్, లేదా ట్రేడింగ్ ఆగిపోయింది). కింది బటన్‌లతో దీన్ని Groww, Angel One, Zerodha లేదా చార్ట్ సైట్‌లో చూడండి.</string>
     <string name="big_money_share_prices">%1$d సెషన్ల ధర: మొదటి రోజు ₹%2$s, ఇప్పుడు ₹%3$s (%4$s) · గరిష్ఠం ₹%5$s, కనిష్ఠం ₹%6$s</string>
 </resources>

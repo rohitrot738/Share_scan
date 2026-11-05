@@ -34,5 +34,4 @@
     <string name="item_no_chart_new">🆕 নতুন লিস্টিং · এখন পর্যন্ত %1$d সেশন</string>
     <string name="compact_no_chart">চার্ট নেই</string>
     <string name="item_description_no_chart">%1$s, চার্ট পাওয়া যায়নি</string>
-    <string name="item_no_chart_toast">Yahoo-তে %1$s-এর চার্ট পাওয়া যায়নি — হয়তো নতুন লিস্টিং, বা ট্রেডিং বন্ধ</string>
 </resources>
