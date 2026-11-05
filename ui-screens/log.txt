@@ -1,109 +1,75 @@
-IST now: 2026-11-05 14:48
+IST now: 2026-11-05 15:06
 shot 01-list
-app was not in front
-app was not in front
-app was not in front
-app was not in front
-could not find id compactMenu
-could not find text बड़े पैसे की चाल
-could not find text 🤝 Deals
 shot 10-deals
-Share Scan
-v1.2
-SCAN 90% • 2,382/2,630
-#
-STOCK / COMPANY
-PRICE / आज
-5D CHG / RVOL
-SCORE
-बाज़ार स्कैन हो रहा है
-हर stock का score निकाला जा रहा है। इसमें कुछ मिनट लग सकते हैं — app खुला रहे तो स्क्रीन अपने-आप ऑन रहेगी, और app से बाहर जाएँ तो भी स्कैन notification के साथ चलता रहेगा।
-Filters
-★ Watchlist
-Score ↓
-आज बदलाव
-could not find text EDELALTS
+💰 बड़े पैसे की चाल
+4 Nov शाम का NSE data · 3,133 शेयर
+🟢 चुपचाप खरीद
+🔴 Churn / जाल
+🤝 Deals
+👔 Promoter
+पिछले 30 सत्रों की bulk और block deals, सब clients का जोड़: खरीदे शेयर घटा बेचे शेयर। पहले net खरीद वाले, फिर net बिक्री वाले।
+🤝 Deals: लगातार net खरीद: data जमा हो रहा है (0 बार, कम से कम 30 चाहिए)
+🤝 Deals: लगातार net बिक्री: data जमा हो रहा है (0 बार, कम से कम 30 चाहिए)
+LOTUSDEV · net खरीद ₹339 Cr
+1.4 Cr शेयर · 1 दिन deals · लगातार नहीं
+EDELALTS · net खरीद ₹316 Cr
+18.8 L शेयर · 1 दिन deals · लगातार नहीं
+🆕 सिर्फ़ 3 सत्र का data, इसलिए अभी scan की list में नहीं
+BONFIG · net खरीद ₹148 Cr
+26.2 L शेयर · 1 दिन deals · लगातार नहीं
+⚠️ गोल-गोल सौदा (5 सत्र में खरीदा भी, बेचा भी): IRAGE BROKING SERVICES LLP
+🆕 सिर्फ़ 9 सत्र का data, इसलिए अभी scan की list में नहीं
+SMT · net खरीद ₹135 Cr
+36.2 L शेयर · 2 दिन deals · लगातार 2 दिन net खरीद
+⚠️ गोल-गोल सौदा (5 सत्र में खरीदा भी, बेचा भी): ALPHAGREP SECURITIES PRIVATE LIMITED, GRT STRATEGIC VENTURES LLP, JUMP TRADING FINANCIAL INDIA PRIVATE LIMITED, MICROCURVES TRADING PRIVATE LIMITED
+🆕 सिर्फ़ 9 सत्र का data, इसलिए अभी scan की list में नहीं
 shot 11-new-listing
-Share Scan
-v1.2
-SCAN 90% • 2,382/2,630
-#
-STOCK / COMPANY
-PRICE / आज
-5D CHG / RVOL
-SCORE
-बाज़ार स्कैन हो रहा है
-हर stock का score निकाला जा रहा है। इसमें कुछ मिनट लग सकते हैं — app खुला रहे तो स्क्रीन अपने-आप ऑन रहेगी, और app से बाहर जाएँ तो भी स्कैन notification के साथ चलता रहेगा।
-Filters
-★ Watchlist
-Score ↓
-आज बदलाव
+EDELALTS
+नया शेयर: NSE पर अभी सिर्फ़ 3 सत्र का data है। App का chart, score और trade plan कम से कम 21 सत्र के data से बनते हैं, इसलिए यह अभी scan की list में नहीं है। नीचे इसका बड़े पैसे की चाल का हिसाब है।
+3 सत्र का भाव: पहले दिन ₹1,727.80, अब ₹1,689.90 (−2.19%) · सबसे ऊँचा ₹1,727.80, सबसे नीचा ₹1,689.90
+💰 बड़े पैसे की चाल
+Score 0/100
+4 Nov शाम के NSE data से
+आज कोई signal नहीं
+Delivery spike ▾
+/ 30
+0
+Delivery का जमा होना ▾
+/ 20
+0
+Deals की net खरीद ▾
+/ 25
+0
+Promoters की net खरीद ▾
+/ 25
+0
+Churn ▾
+/ 30
+0
+Net बिक्री ▾
+/ 50
+0
+पिछले 20 सत्र: delivery % (bars) और volume (रेखा)
 shot 12-new-listing-more
-could not find text LOTUSDEV
 shot 13-fetching
 shot 14-fetched-detail
-Thu, Nov 5
-Gmail
-Photos
-YouTube
-Phone
-Messages
-Chrome
-Share Scan
-app was not in front
-could not find id startButton
-scan done after ~115s
-shot 20-list
-Share Scan
-v1.2
-LIVE SCAN 100% • 2,630 STOCKS
-#
-STOCK / COMPANY
-PRICE / आज
-5D CHG / RVOL
-SCORE
-#1
-ANANDRATHI
-NSE
-📈 Anand Rathi Wealth
-₹2,385.50
-+3.90%
-+5.09%
-RVOL ≈1.87×
-92.5
-#2
-TECHM
-NSE
-💻 Tech Mahindra
-₹1,830.50
-+2.66%
-+3.44%
-RVOL ≈0.85×
-90.4
-#3
-TATAELXSI
-NSE
-📺💻 Tata Elxsi
-₹3,921.60
-+4.44%
-+3.09%
-RVOL ≈0.72×
-88.0
-#4
-PNB
-NSE
-🏦 Punjab National Bank
-₹126.73
-shot 21-gainers
-shot 22-losers
-shot 23-filter-today
-pref background=galaxy
-shot 24-cards
-could not find id sortToday
-shot 25-cards-gainers
-app was not in front
-app was not in front
-app was not in front
-app was not in front
+NSE · EQUITY
+LOTUSDEV
+₹228.10
+▼ 1.34% आज · ▼ 6.01% 5D · LIVE
+WEAK
+51.0 / 100
+जानकारी
+खबरें · 14
+क्या बनाती है
+किसी product पर दबाएँ: उसे बनाने वाली companies list में दिखेंगी
+Real estate
+चार्ट
+पिछले 60 सत्र · ▲ 36.00%
+ये सिर्फ़ price-volume पर आधारित अनुमान हैं — निवेश सलाह नहीं।
+Groww
+Angel One
+Zerodha
+TradingView पर चार्ट
 shot 30-guide-faq
 done
