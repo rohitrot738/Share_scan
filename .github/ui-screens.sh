@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-# Temporary review helper: बड़े पैसे की चाल (the Menu section and its tabs, the stock card, the list marks in both
-# layouts, the filter, the alerts switch and the guide part). Removed before merging.
+# Temporary review helper: chips and toggles in the flat look on Space Glass (Settings, Scan, Paper Trading, the trade
+# window, the stock detail, Big Money) and glass on Galaxy; the long-term line and the R/S calculation; a paper
+# position's full detail (from a seeded account: 10 RELIANCE bought at ₹1,300); the guide's new parts.
+# Removed before merging.
 set -uo pipefail
 PKG=com.rohit.share_scan
 OUT=ui-screens
@@ -130,13 +132,19 @@ open_stock() {
   local xy; xy=$(center row "$1") && adb shell input tap $xy || echo "could not find the line $1" | tee -a "$LOG"
 }
 
-cat > /tmp/scan.xml <<'XML'
-<?xml version='1.0' encoding='utf-8' standalone='yes' ?>
-<map>
-    <string name="theme">galaxy</string>
-    <string name="background">space_glass</string>
-</map>
-XML
+cat > /tmp/seed.json <<'JSON'
+{"next":2,"charges":15.420938,"at":1793763000000,"v":1,"start":1000000,"trades":[],"orders":[{"st":"FILLED","side":"BUY","d":"2026-11-04","src":"MANUAL","ch":15.420938,"trg":false,"fp":1300,"type":"MARKET","done":1793766720000,"seen":false,"p":"CNC","q":10,"s":"RELIANCE","at":1793766720000,"t":1450,"bse":false,"tk":"RELIANCE.NS","sl":1180,"id":1}],"positions":[{"d":"2026-11-04","src":"MANUAL","m":0,"wf":1793766900,"p":"CNC","q":10,"s":"RELIANCE","avg":1300,"at":1793766720000,"t":1450,"bse":false,"tk":"RELIANCE.NS","sl":1180,"ec":15.420938000000001}],"cash":986984.579062,"equity":[],"quotes":{"RELIANCE":[1350,1793786100]}}
+JSON
+python3 - <<'PY'
+from xml.sax.saxutils import escape
+book = open('/tmp/seed.json', encoding='utf-8').read().strip()
+open('/tmp/scan.xml', 'w', encoding='utf-8').write(
+    "<?xml version='1.0' encoding='utf-8' standalone='yes' ?>\n<map>\n"
+    '    <string name="theme">galaxy</string>\n'
+    '    <string name="background">space_glass</string>\n'
+    f'    <string name="paper_book">{escape(book, {chr(34): "&quot;"})}</string>\n'
+    "</map>\n")
+PY
 adb shell run-as "$PKG" mkdir -p shared_prefs
 adb push /tmp/scan.xml /data/local/tmp/scan.xml
 adb shell run-as "$PKG" cp /data/local/tmp/scan.xml shared_prefs/scan.xml
@@ -208,59 +216,121 @@ find_text() {
   return 1
 }
 
-# Menu → बड़े पैसे की चाल, each tab.
+# Fills the order form's stock: typing the whole symbol picks it; a tap on the title closes the suggestions.
+order_stock() {
+  tap orderStock
+  sleep 1
+  adb shell input text "$1"
+  sleep 3
+  hide_keyboard
+  tap orderTitle
+  sleep 8
+}
+
+# Paper Trading: the seeded RELIANCE holding, tapped open in full.
+home
+tap compactPaper
+shot 10-paper 10
+tap_exact "Delivery"
+shot 11-paper-delivery 3
+all_texts | head -40 >> "$LOG"
+tap_text "RELIANCE · BUY"
+shot 12-holding 4
+all_texts >> "$LOG"
+swipe_up
+shot 13-holding-more 1
+swipe_up
+shot 14-holding-end 1
+adb shell input keyevent KEYCODE_BACK
+sleep 2
+# The order form: BUY/SELL, MIS/CNC and the order types in the flat look.
+tap paperNewOrder
+sleep 3
+order_stock RELIANCE
+shot 15-order-flat 2
+hide_keyboard
+adb shell input keyevent KEYCODE_BACK
+sleep 2
+# Starting over: the capital chips in the dialog (left with Back).
+tap_exact "हिसाब"
+sleep 2
+find_text "Account फिर से शुरू करें" && tap_text "Account फिर से शुरू करें"
+shot 16-reset-chips 2
+adb shell input keyevent KEYCODE_BACK
+sleep 1
+
+# Menu → सेटिंग्स, स्कैन, भाषा और Font, बड़े पैसे की चाल.
 home
 tap compactMenu
 sleep 2
-shot 60-menu 2
-tap_text "बड़े पैसे की चाल"
-shot 61-bigmoney-acc 12
-all_texts | head -60 >> "$LOG"
-tap_text "Churn / जाल"
-shot 62-bigmoney-churn 2
-tap_text "🤝 Deals"
-shot 63-bigmoney-deals 2
-tap_text "👔 Promoter"
-shot 64-bigmoney-promoter 2
-all_texts | head -30 >> "$LOG"
-tap_text "चुपचाप खरीद"
-sleep 2
+tap_exact "सेटिंग्स"
+shot 20-settings 3
 swipe_up
-shot 65-bigmoney-acc-more 1
-
-# A share from the tab opens its detail; its card, a part opened, and the rest of it.
-tap_text "· delivery"
-sleep 8
-show_scroll detailBigMoney
-shot 66-card 2
-find_text "Delivery spike" && tap_text "Delivery spike"
-shot 67-card-part 2
-swipe_up
-shot 68-card-more 1
-swipe_up
-shot 69-card-end 1
-
-# Filters: only accumulating shares, in the compact table, then as cards.
+shot 21-settings-more 1
 home
-tap filterChip
-sleep 2
-find_text "सिर्फ़ चुपचाप खरीद" && tap_text "सिर्फ़ चुपचाप खरीद"
-shot 70-filters 2
-tap filterApply
-shot 71-list-accumulating 4
-setpref background string galaxy
-relaunch 12
-shot 72-cards-accumulating 2
-
-# The alerts switch in Menu → स्कैन.
-tap menuButton
+tap compactMenu
 sleep 2
 tap_exact "स्कैन"
+shot 22-scan 3
+home
+tap compactMenu
 sleep 2
-show_scroll settingBigMoneyAlerts
-shot 73-scan-alerts 2
+tap_text "भाषा और Font"
+shot 23-text 3
+home
+tap compactMenu
+sleep 2
+tap_text "बड़े पैसे की चाल"
+shot 24-bigmoney 10
 
-# The guide's new part.
+# A stock: the detail, the trade window (long-term line, sizing chips and toggles), the R/S calculation.
+home
+open_stock RELIANCE
+sleep 8
+shot 30-detail 1
+tap detailChartCard
+sleep 8
+shot 31-trade 1
+find_text "Long-term"
+shot 32-trade-long 1
+all_texts | grep -E 'Long-term|खरीद|buy price|Fair value|usual P/E' >> "$LOG"
+show_scroll sizeProduct
+shot 33-trade-size 1
+adb shell input keyevent KEYCODE_BACK
+sleep 2
+show_scroll detailCr360FrameworkOpen && tap detailCr360FrameworkOpen
+sleep 2
+shot 34-rs-calc 1
+swipe_up
+shot 35-rs-calc-more 1
+all_texts | grep -E 'P/E|बीच|खरीद भाव|Margin' >> "$LOG"
+
+# Galaxy: the same sheets keep their glass.
+setpref background string galaxy
+relaunch 12
+shot 40-galaxy-list 1
+tap menuButton
+sleep 2
+tap_text "Paper Trading"
+sleep 8
+tap_exact "Delivery"
+sleep 2
+tap_text "RELIANCE · BUY"
+shot 41-galaxy-holding 4
+adb shell input keyevent KEYCODE_BACK
+sleep 2
+tap paperNewOrder
+sleep 3
+order_stock RELIANCE
+shot 42-galaxy-order 2
+hide_keyboard
+home
+tap menuButton
+sleep 2
+tap_exact "सेटिंग्स"
+shot 43-galaxy-settings 3
+
+# The guide's new parts.
 home
 tap menuButton
 sleep 2
@@ -268,8 +338,16 @@ tap_text "शुरुआती गाइड"
 sleep 6
 tap_text "विषय-सूची"
 sleep 1
-tap_text "💰 बड़े पैसे की चाल"
-shot 74-guide-bigmoney 3
+tap_text "📝 Paper Trading"
+sleep 2
+find_text "खरीदे शेयर का पूरा हिसाब"
+shot 50-guide-paper 2
 swipe_up
-shot 75-guide-bigmoney-more 1
+shot 51-guide-paper-more 1
+tap_text "विषय-सूची"
+sleep 1
+tap_text "R/S: company कितनी मज़बूत"
+sleep 2
+find_text "उदाहरण: TCS"
+shot 52-guide-rs 2
 echo "done" | tee -a "$LOG"

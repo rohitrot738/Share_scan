@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- On a chip or toggle button already in the flat look (FlatStyle.kt), so keepFlat leaves it be. -->
+    <item name="flat_dressed" type="id" />
+</resources>

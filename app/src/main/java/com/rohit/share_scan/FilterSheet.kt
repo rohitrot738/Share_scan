@@ -54,6 +54,7 @@ class FilterSheet(
             sync()
         }
         if (flat) {
+            ui.root.keepFlat()
             ui.filterApply.wearFlatAction()
             listOfNotNull(ui.limitChips, bigMoneyGroup).plus(rows.values.map { it.metricPresets })
                 .flatMap { group -> (0 until group.childCount).map(group::getChildAt) }

@@ -194,6 +194,7 @@ internal fun AppCompatActivity.showSheet(
     }
     dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
     dialog.behavior.skipCollapsed = true
+    if (wearsFlat) root.keepFlat()
     bar.sheetClose.setOnClickListener { dialog.dismiss() }
     if (onBack != null) {
         val back = {

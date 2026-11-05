@@ -182,6 +182,35 @@ data class PaperTrade(
 /** A stock's last price on the account and the start of the candle it came from (epoch seconds). */
 data class PaperQuote(val price: Double, val at: Long)
 
+/**
+ * A held position read in full, for its detail: what it is worth now, the charges paid and still to pay, the price it
+ * breaks even at, what its stop-loss and target would leave after charges, and its orders ([PaperEngine.holding]).
+ */
+data class PaperHolding(
+    val position: PaperPosition,
+    /** The last price; the average while none has been read. */
+    val price: Double,
+    /** The start of the candle [price] came from (epoch seconds); null while there is none. */
+    val priceAt: Long?,
+    /** The shares at their average price, and at [price]. */
+    val invested: Double,
+    val value: Double,
+    /** Profit or loss at [price] before charges, in rupees and against [invested]. */
+    val pnl: Double,
+    val pnlPct: Double,
+    /** What closing it at [price] would cost. */
+    val exitCharges: Double,
+    /** Profit or loss were it closed at [price], after both sides' charges. */
+    val net: Double,
+    /** The price it closes at no profit and no loss, both sides' charges paid. */
+    val breakeven: Double,
+    /** What closing at the stop-loss or the target would leave after charges; null without one or without a price. */
+    val atStop: Double?,
+    val atTarget: Double?,
+    /** Its orders, newest first: those waiting, and those filled since it opened. */
+    val orders: List<PaperOrder>,
+)
+
 /** The whole paper account. */
 data class PaperBook(
     /** What it started with. */
@@ -347,6 +376,40 @@ object PaperEngine {
     /** What the account is worth now: cash, delivery shares at the last price, and intraday margin with its open P&L. */
     fun worth(book: PaperBook): Double =
         book.cash + holdingsValue(book) + book.positions.filter { it.product == Product.MIS }.sumOf { it.margin + it.pnl(price(book, it.symbol) ?: it.avg) }
+
+    /** [p] in full at the account's last price ([PaperHolding]). */
+    fun holding(book: PaperBook, p: PaperPosition): PaperHolding {
+        val quote = book.quotes[p.symbol]
+        val price = quote?.price ?: p.avg
+        val shares = abs(p.qty)
+        val exitSide = if (p.qty > 0) Side.SELL else Side.BUY
+        fun exitCharges(at: Double) = PaperCharges.of(p.product, exitSide, shares * at, p.bse).total
+        fun leaves(at: Double) = p.pnl(at) - p.entryCharges - exitCharges(at)
+        // The charges barely move with the price: two steps from the average find the breakeven to a fraction of a paisa.
+        val direction = if (p.qty > 0) 1 else -1
+        var breakeven = p.avg
+        repeat(2) { breakeven = p.avg + direction * (p.entryCharges + exitCharges(breakeven)) / shares }
+        val invested = shares * p.avg
+        val pnl = p.pnl(price)
+        return PaperHolding(
+            position = p,
+            price = price,
+            priceAt = quote?.at,
+            invested = invested,
+            value = shares * price,
+            pnl = pnl,
+            pnlPct = if (invested > 0.0) pnl / invested * 100.0 else 0.0,
+            exitCharges = exitCharges(price),
+            net = leaves(price),
+            breakeven = breakeven,
+            atStop = p.stop?.takeIf { quote != null }?.let(::leaves),
+            atTarget = p.target?.takeIf { quote != null }?.let(::leaves),
+            orders = book.orders.filter {
+                it.symbol == p.symbol && it.product == p.product &&
+                    (it.open || (it.status == PaperOrder.Status.FILLED && (it.doneAt ?: 0L) >= p.openedAt))
+            },
+        )
+    }
 
     /** What is wrong with [draft] at [now] with the stock at [ltp]; null when it can be placed. */
     fun check(book: PaperBook, draft: Draft, ltp: Double?, now: Long): Problem? {

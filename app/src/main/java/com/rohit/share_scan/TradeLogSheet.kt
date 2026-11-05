@@ -183,6 +183,7 @@ class TradeLogSheet(
             addView(label(R.string.log_rule_loss))
             addView(loss)
         }
+        if (activity.wearsFlat) box.keepFlat()
         MaterialAlertDialogBuilder(activity)
             .setTitle(R.string.log_settings)
             .setView(android.widget.ScrollView(activity).apply { addView(box) })

@@ -520,7 +520,18 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
             <li><b>Orders</b>: रुके orders (दबाकर रद्द), और पिछले orders: भरे, रद्द या समय ख़त्म, वजह के साथ।</li>
             <li><b>हिसाब</b>: कितने trades, जीते-हारे, जीत %, कुल नफ़ा-नुकसान (charges के बाद), profit factor, सबसे बड़ी गिरावट, और app के plan से लिए trades बनाम अपने चुने। यहीं <span class="ui">Account फिर से शुरू करें</span> (₹1 लाख से ₹1 करोड़)।</li>
           </ul>
-          <p>किसी खुले trade को दबाएँ: <span class="ui">अभी बंद करें</span>, stop-loss/target बदलें, या नया order। Section खुला हो तो भाव हर 30 सेकंड ताज़ा होते हैं; app बंद हो तब भी बाज़ार के समय हर 15 मिनट जाँच होती है और भरने, stop, target या square-off पर notification आता है।</p>
+          <h3>खरीदे शेयर का पूरा हिसाब</h3>
+          <p><b>Intraday</b> या <b>Delivery</b> tab में किसी खुले शेयर को दबाएँ। ऊपर एक नई sheet खुलती है, चार हिस्सों में:</p>
+          <ul>
+            <li><b>अभी</b>: अभी का भाव (किस समय का), फ़ायदा/नुकसान ₹ और % में, अभी की value, और अभी बंद करें तो charges काटकर कितना बचेगा।</li>
+            <li><b>लेते समय</b>: कितने शेयर, औसत भाव, लगाया पैसा (intraday में रुका margin), कब लिया, कितने दिन से (intraday में "15:15 पर अपने-आप square-off"), और किसने चुना (आप या app का plan)।</li>
+            <li><b>Stop-loss और target</b>: हर एक का भाव, अभी के भाव से कितने % दूर, और लगा तो charges के बाद कितना फ़ायदा या नुकसान। साथ में <b>breakeven</b>: वह भाव जिस पर बेचें तो न फ़ायदा, न नुकसान।</li>
+            <li><b>Charges</b>: लेते समय कितने दिए, और अभी बंद करें तो कितने और लगेंगे (अंदाज़ा)।</li>
+          </ul>
+          <p>नीचे उस शेयर के सारे orders (रुके और भरे), और चार बटन: <span class="ui">अभी बंद करें (Market)</span>, <span class="ui">Stop-loss / Target बदलें</span>, <span class="ui">इसी stock का नया order</span> और <span class="ui">Stock खोलें</span>। Sheet खुली रहे तो भाव ताज़ा होने पर अंक भी बदलते हैं; शेयर बिक जाए तो sheet अपने-आप बंद।</p>
+          <div class="callout tip"><b>उदाहरण</b>10 RELIANCE ₹1,300 पर delivery में लिए, stop-loss ₹1,180, target ₹1,450। लगाया पैसा ₹13,000, लेते समय charges ₹15.42। भाव ₹1,350 हुआ: फ़ायदा +₹500 (+3.85%), value ₹13,500। अभी बेचें तो charges ₹29.33 और लगेंगे, यानी हाथ में +₹455.25। Breakeven ₹1,304.43: इससे ऊपर बेचें तभी charges के बाद फ़ायदा। Stop (12.6% नीचे) लगा तो −₹1,242.99, target (7.4% ऊपर) लगा तो +₹1,454.21।</div>
+          <div class="callout warn"><b>ध्यान दें</b>"फ़ायदा/नुकसान" charges से पहले है; असली बचत "अभी बंद करें तो" वाली line है। बहुत छोटे फ़ायदे पर बेचने से पहले breakeven देखें, नहीं तो charges फ़ायदा खा जाते हैं।</div>
+          <p>Section खुला हो तो भाव हर 30 सेकंड ताज़ा होते हैं; app बंद हो तब भी बाज़ार के समय हर 15 मिनट जाँच होती है और भरने, stop, target या square-off पर notification आता है।</p>
           <div class="callout tip"><b>अच्छी आदत</b>कम से कम 3–4 हफ़्ते paper trade करें। "हिसाब" tab में profit factor 1 से ऊपर और सबसे बड़ी गिरावट छोटी रहे, तभी असली पैसे के बारे में सोचें।</div>
         </div>
         <div class="shots">
@@ -665,7 +676,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
             <li><b>सेटिंग्स</b>: update check, scan के दौरान screen ऑन, आसमान का animation, ग्लास मोड और उसके styles, products के icon, chart कहाँ खुले (TradingView, Chartink, Google Finance, Screener, Groww, Angel One, Zerodha), और डेटा: watchlist साफ़ करना, filters reset, NEW/▲▼ history साफ़।</li>
             <li><b>भाषा और Font</b>: 12 भाषाएँ (Hinglish, हिन्दी, English, বাংলা, ગુજરાતી, मराठी, తెలుగు, தமிழ், ಕನ್ನಡ, മലയാളം, ਪੰਜਾਬੀ, ଓଡ଼ିଆ) और 7 fonts।</li>
             <li><b>थीम</b>: 10 से ज़्यादा रंग (Galaxy, Nebula, Aurora, Midnight, Sunset, Ocean, Emerald, Mars, Royal Gold, Frost…)।</li>
-            <li><b>Background</b>: Galaxy (बड़े cards, आकाशगंगा) या Space Glass (compact table, नीचे तैरती bar)।</li>
+            <li><b>Background</b>: Galaxy (बड़े cards, आकाशगंगा) या Space Glass (compact table, नीचे तैरती bar)। Space Glass में हर जगह के chips (सेटिंग्स, Paper Trading, स्कैन, trade window, stock detail) और BUY/SELL, MIS/CNC जैसे बटन भी सादे outline वाले हो जाते हैं, थीम के रंग में; Galaxy में सब glass वाले।</li>
             <li><b>Layout</b>: Background वाला, Accordion (पतली line, दबाने पर खुलती), Bento grid (दो कतारों में tiles), Swipe cards (बाएँ खींचें तो ★ और Chart)।</li>
             <li><b>Update देखें</b>, <b>Score कैसे बनता है</b> (पूरी Help), <b>App शेयर करें</b>, <b>App के बारे में</b> (version, data कहाँ से, disclaimer, क्या नया है)।</li>
           </ul>
@@ -738,6 +749,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
         <div><dt>Market cap</dt><dd>Company की कुल बाज़ार value = भाव × कुल शेयर।</dd></div>
         <div><dt>Win rate, Profit factor</dt><dd>जीते trades का %; कुल जीत ÷ कुल हार (1 से ऊपर = फ़ायदे में)।</dd></div>
         <div><dt>Drawdown</dt><dd>सबसे ऊँचे स्तर से account की सबसे बड़ी गिरावट।</dd></div>
+        <div><dt>Breakeven</dt><dd>वह भाव जिस पर बेचें तो लेने-बेचने के charges मिलाकर न फ़ायदा, न नुकसान।</dd></div>
         <div><dt>STT</dt><dd>Securities Transaction Tax, सरकार का हर सौदे पर tax।</dd></div>
       </dl>
     </section>
@@ -756,6 +768,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
         <div><h3>Promoter tab खाली क्यों है?</h3><p>Promoters के trades NSE की insider filings से आते हैं, और NSE यह data कभी-कभी महीनों तक नहीं देता। तब tab में लिखा आता है कि data किस तारीख़ तक का है। Delivery और deals वाले signal इससे नहीं रुकते।</p></div>
         <div><h3>बड़े पैसे की चाल का score 70 है, ख़रीद लूँ?</h3><p>नहीं, सिर्फ़ इसी से नहीं। Score बताता है कि delivery, deals और promoter एक ही तरफ़ इशारा कर रहे हैं। Track record देखें, chart और R/S देखें, stop-loss तय करें, और पहले Paper Trading में परखें।</p></div>
         <div><h3>Long-term का खरीद भाव अभी के भाव से इतना नीचे क्यों?</h3><p>खरीद भाव असली कीमत से 20%–35% नीचे रखा जाता है, ताकि अंदाज़ा ग़लत निकले तब भी सुरक्षा रहे। असली कीमत sector के model और company के अपने आम P/E का बीच है; दोनों से भी company भाव से सस्ती न दिखे तो खरीद भाव नीचे ही रहेगा। R/S card में <span class="ui">Framework का पूरा हिसाब</span> दबाकर हर क़दम देखें।</p></div>
+        <div><h3>Paper Trading में फ़ायदा दिख रहा है, फिर भी बेचने पर कम क्यों मिला?</h3><p>शेयर की line पर दिखा फ़ायदा charges से पहले का है। शेयर दबाकर पूरा हिसाब खोलें: "अभी बंद करें तो (charges के बाद)" वाली line बताती है कि बेचने पर असल में कितना बचेगा, और breakeven बताता है कि किस भाव से ऊपर फ़ायदा शुरू होता है।</p></div>
         <div><h3>Update install नहीं हो रहा।</h3><p>पहली बार Android "इस source से install" की अनुमति माँगता है; उसे चालू करके back दबाएँ। Phone में जगह कम हो तो थोड़ी खाली करें।</p></div>
         <div><h3>क्या app मेरे broker में order डालता है?</h3><p>नहीं। App कभी असली order नहीं भेजता। Order ticket copy करके आप ख़ुद broker app में डालते हैं।</p></div>
         <div><h3>Phone बदला तो watchlist?</h3><p>Login किया हो तो नए phone में उसी account से login करें, watchlist वापस। Login के बिना watchlist सिर्फ़ उसी phone में रहती है।</p></div>

@@ -153,6 +153,7 @@ class StockDetailSheet(
 
         val height = (activity.resources.displayMetrics.heightPixels * 0.9f).toInt()
         dialog.setContentView(ui.root, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height))
+        if (activity.wearsFlat) ui.root.keepFlat()
         dialog.behavior.state = BottomSheetBehavior.STATE_EXPANDED
         dialog.behavior.skipCollapsed = true
         dialog.show()

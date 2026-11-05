@@ -245,6 +245,53 @@ class PaperTradingTest {
     }
 
     @Test
+    fun aHoldingReadsInFullWithItsChargesBreakevenLevelsAndOrders() {
+        var b = place(book(), draft(qty = 10, stop = 950.0, target = 1100.0), 1000.0, ms(wed, 10, 2))
+        // An order for another stock, and one for this stock's intraday side, are not this holding's.
+        b = place(b, draft(qty = 1).copy(symbol = "XYZ", ticker = "XYZ.NS"), 500.0, ms(wed, 10, 3))
+        b = place(b, draft(product = Product.MIS, qty = 1), 1000.0, ms(wed, 10, 4))
+        b = place(b, draft(side = Side.SELL, type = Type.LIMIT, price = 1200.0), 1000.0, ms(wed, 10, 5))
+        b = b.copy(quotes = b.quotes + ("ABC" to PaperQuote(1050.0, sec(wed, 11, 0))))
+        val p = PaperEngine.position(b, "ABC", Product.CNC)!!
+        val h = PaperEngine.holding(b, p)
+        val entry = PaperCharges.of(Product.CNC, Side.BUY, 10_000.0).total
+        assertEquals(entry, p.entryCharges, 1e-9)
+        assertEquals(1050.0, h.price, 1e-9)
+        assertEquals(sec(wed, 11, 0), h.priceAt)
+        assertEquals(10_000.0, h.invested, 1e-9)
+        assertEquals(10_500.0, h.value, 1e-9)
+        assertEquals(500.0, h.pnl, 1e-9)
+        assertEquals(5.0, h.pnlPct, 1e-9)
+        val exit = PaperCharges.of(Product.CNC, Side.SELL, 10_500.0).total
+        assertEquals(exit, h.exitCharges, 1e-9)
+        assertEquals(500.0 - entry - exit, h.net, 1e-9)
+        // Sold at the breakeven, the shares pay back their price and both sides' charges.
+        assertEquals(0.0, (h.breakeven - 1000.0) * 10 - entry - PaperCharges.of(Product.CNC, Side.SELL, h.breakeven * 10).total, 1e-3)
+        assertTrue(h.breakeven > 1000.0)
+        assertEquals(-500.0 - entry - PaperCharges.of(Product.CNC, Side.SELL, 9_500.0).total, h.atStop!!, 1e-9)
+        assertEquals(1000.0 - entry - PaperCharges.of(Product.CNC, Side.SELL, 11_000.0).total, h.atTarget!!, 1e-9)
+        // Its own orders, newest first: the waiting sell, then the buy that opened it.
+        assertEquals(listOf(Status.PENDING, Status.FILLED), h.orders.map { it.status })
+        assertTrue(h.orders.all { it.symbol == "ABC" && it.product == Product.CNC })
+    }
+
+    @Test
+    fun aShortHoldingGainsAsThePriceFallsAndOneWithoutAPriceIsAtItsAverage() {
+        var b = place(book(), draft(side = Side.SELL, product = Product.MIS, qty = 10), 1000.0, ms(wed, 10, 2))
+        val p = PaperEngine.position(b, "ABC", Product.MIS)!!
+        val unpriced = PaperEngine.holding(b.copy(quotes = emptyMap()), p)
+        assertEquals(1000.0, unpriced.price, 1e-9)
+        assertNull(unpriced.priceAt)
+        assertNull(unpriced.atStop)
+        b = b.copy(quotes = mapOf("ABC" to PaperQuote(980.0, sec(wed, 10, 30))))
+        val h = PaperEngine.holding(b, p)
+        assertEquals(200.0, h.pnl, 1e-9)
+        assertEquals(2.0, h.pnlPct, 1e-9)
+        assertEquals(PaperCharges.of(Product.MIS, Side.BUY, 9_800.0).total, h.exitCharges, 1e-9)
+        assertTrue(h.breakeven < 1000.0)
+    }
+
+    @Test
     fun statsCountWinsLossesAndTheProfitFactor() {
         fun trade(entry: Double, exit: Double) =
             PaperTrade(0, "ABC", Product.CNC, Side.BUY, 10, entry, exit, 0, 0, 0.0, null, PaperSource.MANUAL)
