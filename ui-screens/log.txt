@@ -1,53 +1,96 @@
-IST now: 2026-11-05 01:50
-scan done after ~45s
+IST now: 2026-11-05 06:10
+scan done after ~35s
 shot 01-list
-shot 60-menu
-shot 61-bigmoney-acc
-💰 बड़े पैसे की चाल
-4 Nov शाम का NSE data · 3,133 शेयर
-🟢 चुपचाप खरीद
-🔴 Churn / जाल
-🤝 Deals
-👔 Promoter
-आज delivery अपने 20 सत्र के औसत के 1.8 गुना से ज़्यादा, भाव ±2% के अंदर और 1 लाख से ज़्यादा शेयर: कोई भाव बढ़ाए बिना शेयर उठा रहा हो सकता है।
-🟢 चुपचाप खरीद (delivery spike): पिछले साल 733 बार; 10 सत्र बाद औसत −0.2% (सब शेयर −0.3%), 44% बार ऊपर
-GRMOVER · delivery 56.5% (औसत 23.8%, 2.37 गुना)
-भाव −0.49% · 11.5 L शेयर का सौदा · score 31
-PAISALO · delivery 68.7% (औसत 32.7%, 2.1 गुना)
-भाव +0.08% · 43.2 L शेयर का सौदा · score 31
-SSRETAIL · delivery 26.1% (औसत 12.5%, 2.09 गुना)
-भाव +1.63% · 4.1 L शेयर का सौदा · score 29
-BLUECLOUDS · delivery 87.6% (औसत 42.2%, 2.08 गुना)
-भाव −1.42% · 63.4 L शेयर का सौदा · score 27
-TATACHEM · delivery 53.7% (औसत 27%, 1.99 गुना)
-भाव −1.07% · 10.3 L शेयर का सौदा · score 23
-shot 62-bigmoney-churn
-shot 63-bigmoney-deals
-shot 64-bigmoney-promoter
-💰 बड़े पैसे की चाल
-4 Nov शाम का NSE data · 3,133 शेयर
-🟢 चुपचाप खरीद
-🔴 Churn / जाल
-🤝 Deals
-👔 Promoter
-पिछले 90 दिन में promoters ने market से कितने के शेयर खरीदे और बेचे (ESOP, gift और off-market नहीं गिने)। पहले खरीद वाले।
-👔 Promoters ने market से खरीदे: पिछले साल 350 बार; 10 सत्र बाद औसत +1% (सब शेयर −0.5%), 42% बार ऊपर
-👔 Promoters ने market में बेचे: पिछले साल 132 बार; 10 सत्र बाद औसत −3% (सब शेयर −1.5%), 30% बार ऊपर
-⚠️ Promoters का data 30 Apr 2026 तक का ही है: NSE से नया data अभी नहीं मिल रहा, इसलिए यह tab और promoter वाले अंक अधूरे हैं।
-आज इसमें कोई शेयर नहीं
-यह खरीदने-बेचने की सलाह नहीं है। Track record बीते साल का है; आगे भी वैसा ही हो, ज़रूरी नहीं। अपना stop-loss ज़रूर रखें।
-shot 65-bigmoney-acc-more
-shot 66-card
-shot 67-card-part
-shot 68-card-more
-shot 69-card-end
-shot 70-filters
-shot 71-list-accumulating
+shot 10-paper
+shot 11-paper-delivery
+📝 Paper Trading
+नकली पैसे, असली भाव: intraday और delivery की practice। कोई असली order नहीं जाता।
+Account की कुल value
+₹10,00,094.58
++₹94.58 (+0.01%) · शुरुआत ₹10,00,000.00
+Free नकद: ₹9,86,984.58
+Delivery शेयरों की value: ₹13,110.00
+खुले trades: +₹110.00
+अब तक charges: ₹15.42
+भाव 4 नव॰, 15:25 की candle तक · ↻ से ताज़ा करें
++ नया order
+↻ ताज़ा करें
+Intraday
+Delivery
+Orders
+हिसाब
+Delivery शेयर (holdings)
+RELIANCE · BUY 10 शेयर
+औसत ₹1,300.00 · अभी ₹1,311.00
+नफ़ा-नुकसान +₹110.00 (+0.85%)
+Stop-loss ₹1,180.00 · Target ₹1,450.00
+1 दिन से · value ₹13,110.00
+दबाएँ: पूरा हिसाब, बंद करें, stop-loss/target बदलें
+shot 12-holding
+RELIANCE · BUY 10 शेयर
+Delivery (CNC) · 4 नव॰, 10:02 से
+अभी
+अभी का भाव
+₹1,311.00 · 4 नव॰, 15:25
+फ़ायदा / नुकसान
++₹110.00 (+0.85%)
+अभी की value
+₹13,110.00
+अभी बंद करें तो (charges के बाद)
++₹65.65
+लेते समय
+शेयर
+BUY 10
+औसत भाव
+₹1,300.00
+लगाया पैसा
+₹13,000.00
+कब लिया
+4 नव॰, 10:02
+कितने दिन
+1 दिन से
+किसने चुना
+अपने चुने
+Stop-loss और target
+Stop-loss
+₹1,180.00 (−10% दूर) · लगा तो −₹1,242.99
+Target
+₹1,450.00 (+10.6% दूर) · लगा तो +₹1,454.21
+Breakeven (न फ़ायदा, न नुकसान)
+₹1,304.43
+इससे ऊपर बेचें, तभी charges के बाद फ़ायदा
+shot 13-holding-more
+shot 14-holding-end
+shot 15-order-flat
+shot 16-reset-chips
+shot 20-settings
+shot 21-settings-more
+shot 22-scan
+could not find text भाषा और Font
+shot 23-text
+shot 24-bigmoney
+shot 30-detail
+shot 31-trade
+shot 32-trade-long
+🌱 Long-term (1 से 5 साल)
+₹744.24 या उससे नीचे खरीदें (buy price) • Target ₹930.31 (fair value, −28.87%)
+भाव ₹1,307.90, खरीद भाव से 75.7% ऊपर
+Company के अपने usual P/E पर ₹1,362.76
+shot 33-trade-size
+shot 34-rs-calc
+shot 35-rs-calc-more
+• Margin of safety 20% (large cap) → खरीद भाव ₹930.31 × 0.8 = ₹744.24
+• भाव ₹1,307.90, खरीद भाव से 75.7% ऊपर
+• सबसे अच्छा मौका = भाव खरीद भाव से नीचे + weekly sweep + कोई रोक नहीं
 pref background=galaxy
-shot 72-cards-accumulating
-shot 73-scan-alerts
+shot 40-galaxy-list
+shot 41-galaxy-holding
+shot 42-galaxy-order
+app was not in front
+shot 43-galaxy-settings
 app was not in front
 app was not in front
-shot 74-guide-bigmoney
-shot 75-guide-bigmoney-more
+shot 50-guide-paper
+shot 51-guide-paper-more
+shot 52-guide-rs
 done
