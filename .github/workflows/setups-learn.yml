@@ -3,15 +3,20 @@ name: Learned setups
 # candles are scored at each past close with the app's own code, every trade plan is judged by what came after, and
 # the setups that won are kept while the ones that stopped winning are dropped. setups.json lives in the cr360-data
 # pre-release next to the 360CR files and is replaced on each run, so there is always one copy.
+# A push that changes the app's code or the learner only compiles the learner, so a file it now needs and the list
+# below lacks shows on that push rather than as a failed evening run.
 on:
   schedule:
     - cron: '41 12 * * 1-5'  # 18:11 IST, after the close
   workflow_dispatch:
+  push:
+    paths: ['app/src/main/java/**', 'learner/**', '.github/workflows/setups-learn.yml']
 permissions:
   contents: write
   actions: write
 concurrency:
-  group: setups-learn
+  # The evening runs one at a time; a push's compile check has its own group per branch.
+  group: setups-learn-${{ github.event_name == 'push' && github.ref || 'evening' }}
   cancel-in-progress: false
 jobs:
   learn:
@@ -36,24 +41,28 @@ jobs:
           S=app/src/main/java/com/rohit/share_scan
           files=""
           for f in BreakoutSignals NseScanner SupportFloor Indicators TradePlan TargetTimes StockFormat MarketClock RateGate \
-                   SectorBook ScanFilters BreakoutSetup SetupConditions PlanOutcome PlanTuner SetupMiner SetupBook; do
+                   SectorBook ScanFilters BreakoutSetup SetupConditions PlanOutcome PlanTuner SetupMiner SetupBook \
+                   Cr360Book Moat BigMoneyBook Products; do
             files="$files $S/$f.kt"
           done
           "$RUNNER_TEMP/kotlinc/bin/kotlinc" -jvm-target 17 -nowarn -cp "$RUNNER_TEMP/json.jar" -d out $files learner/Learn.kt
       - name: Fetch the setups in use
+        if: github.event_name != 'push'
         run: |
           gh release download "$TAG" -p setups.json || echo "No setups yet, so this run starts the book."
       - name: Learn
+        if: github.event_name != 'push'
         run: |
           java -Xmx4g -cp "out:$RUNNER_TEMP/json.jar:$RUNNER_TEMP/kotlinc/lib/kotlin-stdlib.jar" \
             com.rohit.share_scan.learner.LearnKt setups.json 90
       - name: Publish
+        if: github.event_name != 'push'
         run: |
           gh release upload "$TAG" setups.json --clobber
       - name: Keep the evening schedules on
         # GitHub turns a public repository's schedules off after 60 days without activity; each run turns them on
         # again, so the daily data keeps coming without anyone touching the repository.
-        if: always()
+        if: always() && github.event_name != 'push'
         run: |
           for workflow in setups-learn.yml cr360-cache.yml sector-data.yml; do
             gh workflow enable "$workflow" --repo "$GITHUB_REPOSITORY" || echo "Could not enable $workflow"
