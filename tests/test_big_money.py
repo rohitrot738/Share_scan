@@ -307,6 +307,21 @@ def test_build_adds_the_new_session(tmp_path, capsys):
     assert kept["dates"] == ["2026-11-03", "2026-11-04"]
 
 
+def test_build_takes_a_session_held_on_a_weekend(tmp_path, capsys):
+    # NSE sometimes trades on a Saturday or Sunday (a Budget day, Diwali's Muhurat session): its file is read like
+    # any other. A weekend with no file adds nothing.
+    store = empty_store()
+    add_session(store, "2026-11-06", {f"S{i}": row() for i in range(1600)})  # a Friday
+    asked = []
+    def fetch(day):
+        asked.append(day.isoformat())
+        return big_file("08-Nov-2026") if day.isoformat() == "2026-11-08" else None  # Sunday
+    code, paths = run(tmp_path, store, fetch=fetch, today="2026-11-08")
+    assert asked == ["2026-11-07", "2026-11-08"]
+    assert code == 0 and "PUBLISH" in capsys.readouterr().out
+    assert json.load(gzip.open(paths["store"], "rt"))["dates"] == ["2026-11-06", "2026-11-08"]
+
+
 def test_app_file_shape():
     store = empty_store()
     for i in range(25):

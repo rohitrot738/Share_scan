@@ -1,12 +1,14 @@
 name: Big money
-# बड़े पैसे की चाल: every weekday evening, NSE's delivery file and bulk/block deals go into the store, and the app's
+# बड़े पैसे की चाल: every evening, NSE's delivery file and bulk/block deals go into the store, and the app's
 # file (big-money.json.gz) is written next to the R/S files in the cr360-data pre-release (bigmoney/build.py). NSE's
 # file has no fixed hour, so the job tries three times; a session already in the store makes a run end at once.
+# It runs on Saturdays and Sundays too: NSE sometimes trades then (a Budget day, Diwali's Muhurat session), and a
+# weekend without a session ends in a few seconds with nothing new.
 on:
   schedule:
-    - cron: '45 13 * * 1-5'  # 19:15 IST
-    - cron: '45 15 * * 1-5'  # 21:15 IST
-    - cron: '45 18 * * 1-5'  # 00:15 IST, for a file NSE put out late
+    - cron: '45 13 * * *'  # 19:15 IST
+    - cron: '45 15 * * *'  # 21:15 IST
+    - cron: '45 18 * * *'  # 00:15 IST, for a file NSE put out late
   workflow_dispatch:
     inputs:
       rebuild:
