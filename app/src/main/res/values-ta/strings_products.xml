@@ -106,4 +106,5 @@
     <string name="detail_brands_title">பிராண்டுகள்</string>
     <string name="detail_brands_hint">%1$d பிராண்டுகள், நிறுவனத்தின் சொந்த இணையதளத்திலிருந்து</string>
     <string name="detail_brands_credit">பிராண்ட் படங்கள்: %1$s</string>
+    <string name="detail_open_brands">%1$d பிராண்டுகளைப் பார்க்க</string>
 </resources>

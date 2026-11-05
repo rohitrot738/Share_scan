@@ -106,4 +106,5 @@
     <string name="detail_brands_title">ब्रँड</string>
     <string name="detail_brands_hint">%1$d ब्रँड, कंपनीच्या स्वतःच्या वेबसाइटवरून</string>
     <string name="detail_brands_credit">ब्रँडची चित्रे: %1$s</string>
+    <string name="detail_open_brands">%1$d ब्रँड पहा</string>
 </resources>

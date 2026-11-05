@@ -104,9 +104,11 @@
     <string name="product_education">शिक्षा</string>
     <string name="product_staffing">Staffing / manpower</string>
 
-    <!-- The company's brands from its own website (StockDetailSheet.bindBrands). -->
+    <!-- The company's brands from its own website, in a window of their own (BrandSheet, StockDetailSheet.bindBrands). -->
     <string name="detail_brands_title">ब्रांड</string>
     <string name="detail_brands_hint">%1$d brands, company की अपनी website से</string>
     <string name="detail_brands_credit">Brand की तस्वीरें: %1$s</string>
+    <string name="detail_open_brands">%1$d brands देखें</string>
+    <string name="brands_window_title" translatable="false">%1$s · %2$s</string>
     <string name="detail_brands_group" translatable="false">%1$s · %2$d</string>
 </resources>

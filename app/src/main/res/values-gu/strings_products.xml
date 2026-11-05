@@ -106,4 +106,5 @@
     <string name="detail_brands_title">બ્રાન્ડ</string>
     <string name="detail_brands_hint">%1$d બ્રાન્ડ, કંપનીની પોતાની વેબસાઇટ પરથી</string>
     <string name="detail_brands_credit">બ્રાન્ડની તસવીરો: %1$s</string>
+    <string name="detail_open_brands">%1$d બ્રાન્ડ જુઓ</string>
 </resources>

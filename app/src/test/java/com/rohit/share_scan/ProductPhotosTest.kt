@@ -78,9 +78,11 @@ class ProductPhotosTest {
         val assets = listOf("src/main/assets", "app/src/main/assets").map(::File).first { it.exists() }
         val photos = ProductPhotos.parse(File(assets, "product-photos.json").readText(), File(assets, "brands.json").readText())
         val itc = photos.of("ITC")!!
-        assertEquals(listOf("food", "personalcare", "paper", "household"), itc.brands.map { it.product })
-        assertEquals(44, itc.brands.sumOf { it.brands.size })
-        val pictures = itc.brands.flatMap { group -> group.brands.map { it.picture } }
+        assertEquals(listOf("tobacco", "food", "personalcare", "paper", "household"), itc.brands.map { it.product })
+        assertEquals(59, itc.brands.sumOf { it.brands.size })
+        // The cigarette brands come by name alone (ITC's website shows no pictures of them); every other has one.
+        assertTrue(itc.brands[0].brands.all { it.picture == null })
+        val pictures = itc.brands.drop(1).flatMap { group -> group.brands.map { it.picture } }
         assertTrue(pictures.all { it != null })
         assertEquals(emptyList<String>(), pictures.filterNotNull().filterNot { File(assets, it).isFile })
         // The logo the app had for ITC stays.

@@ -181,8 +181,9 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <!-- The heading, after the company's logo once it comes in (ProductPhotos). -->
+                    <!-- The heading, after the company's logo once it comes in (ProductPhotos); with brands it opens them. -->
                     <LinearLayout
+                        android:id="@+id/detailProductsHeader"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
@@ -252,42 +253,29 @@
                         android:textSize="11sp"
                         android:visibility="gone" />
 
-                    <!-- The company's brands from its own website: a heading and a grid for each product they are
-                         (StockDetailSheet.bindBrands puts them before the credit line). -->
-                    <LinearLayout
-                        android:id="@+id/detailBrands"
+                    <!-- Opens the company's brands in a window of their own (BrandSheet); the section's heading opens it
+                         too. Shown only for a company whose brands the app carries. -->
+                    <TextView
+                        android:id="@+id/detailOpenBrands"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingHorizontal="20dp"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="18dp"
-                            android:text="@string/detail_brands_title"
-                            android:textColor="@color/text_primary"
-                            android:textSize="15sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/detailBrandsHint"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/detailBrandsCredit"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="8dp"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="11sp"
-                            android:visibility="gone" />
-                    </LinearLayout>
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_icon_tile"
+                        android:backgroundTint="@color/primary_container"
+                        android:drawablePadding="10dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:minHeight="48dp"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="10dp"
+                        android:textColor="@color/on_primary_container"
+                        android:textSize="13.5sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:drawableEndCompat="@drawable/ic_chevron_right"
+                        app:drawableStartCompat="@drawable/ic_brand"
+                        app:drawableTint="@color/on_primary_container" />
                 </LinearLayout>
 
                 <!-- Shown instead of the chart, plan and technical stats when the scan had no price structure. -->

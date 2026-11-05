@@ -31,8 +31,6 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.color.MaterialColors
-import com.google.android.material.imageview.ShapeableImageView
-import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.tabs.TabLayout
 import com.rohit.share_scan.Cr360Book.Fact
 import com.rohit.share_scan.databinding.ItemCr360HistoryChartBinding
@@ -331,68 +329,19 @@ class StockDetailSheet(
     }
 
     /**
-     * The company's brands from its own website ([ProductPhotos.Company.brands]): for each product they are, its name
-     * and the brands three to a row, each its picture over its name, in the order the website shows them.
+     * A company whose brands the app carries ([ProductPhotos.Company.brands]): a bar under its products, and the
+     * section's heading, open them in a window of their own ([BrandSheet]), as the chart opens the trade window.
      */
     private fun bindBrands() {
-        val groups = photos?.brands.orEmpty()
-        ui.detailBrands.isVisible = groups.isNotEmpty()
-        if (groups.isEmpty()) return
-        val dp = activity.resources.displayMetrics.density
-        ui.detailBrandsHint.text = activity.getString(R.string.detail_brands_hint, groups.sumOf { it.brands.size })
-        photos?.brandSource?.let { source ->
-            ui.detailBrandsCredit.text = activity.getString(R.string.detail_brands_credit, source)
-            ui.detailBrandsCredit.isVisible = true
-        }
-        val gap = (BRAND_GAP_DP * dp).roundToInt()
-        // The section's width less its sides, shared by the columns and the gaps between them.
-        val inner = activity.resources.displayMetrics.widthPixels - (2 * BRAND_SIDE_DP * dp).roundToInt()
-        val tileWidth = (inner - (BRAND_COLUMNS - 1) * gap) / BRAND_COLUMNS
-        val tileHeight = (tileWidth / BRAND_ASPECT).roundToInt()
-        val shape = ShapeAppearanceModel.builder().setAllCornerSizes(BRAND_CORNER_DP * dp).build()
-        var at = ui.detailBrands.indexOfChild(ui.detailBrandsCredit)
-        for (group in groups) {
-            val heading = TextView(activity).apply {
-                text = activity.getString(R.string.detail_brands_group, ProductLabels.chip(activity, group.product), group.brands.size)
-                setTextColor(ContextCompat.getColor(activity, R.color.text_primary))
-                textSize = 13f
-                setTypeface(typeface, Typeface.BOLD)
-            }
-            ui.detailBrands.addView(heading, at++, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = (14 * dp).roundToInt() })
-            for (row in group.brands.chunked(BRAND_COLUMNS)) {
-                val line = LinearLayout(activity).apply { orientation = LinearLayout.HORIZONTAL }
-                row.forEachIndexed { index, brand ->
-                    val tile = LinearLayout(activity).apply {
-                        orientation = LinearLayout.VERTICAL
-                        contentDescription = brand.name
-                    }
-                    val picture = ShapeableImageView(activity).apply {
-                        shapeAppearanceModel = shape
-                        scaleType = ImageView.ScaleType.CENTER_CROP
-                        importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
-                        setBackgroundColor(ContextCompat.getColor(activity, R.color.neutral_container))
-                    }
-                    tile.addView(picture, LinearLayout.LayoutParams(tileWidth, tileHeight))
-                    tile.addView(
-                        TextView(activity).apply {
-                            text = brand.name
-                            textSize = 10.5f
-                            maxLines = 1
-                            ellipsize = android.text.TextUtils.TruncateAt.END
-                            gravity = Gravity.CENTER
-                            importantForAccessibility = View.IMPORTANT_FOR_ACCESSIBILITY_NO
-                            setTextColor(ContextCompat.getColor(activity, R.color.text_secondary))
-                        },
-                        LinearLayout.LayoutParams(tileWidth, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = (3 * dp).roundToInt() },
-                    )
-                    brand.picture?.let { file ->
-                        AssetImages.load(activity, picture, file, tileWidth) { picture.background = null }
-                    }
-                    line.addView(tile, LinearLayout.LayoutParams(tileWidth, ViewGroup.LayoutParams.WRAP_CONTENT).apply { if (index > 0) marginStart = gap })
-                }
-                ui.detailBrands.addView(line, at++, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = gap })
-            }
-        }
+        val company = photos?.takeIf { it.brands.isNotEmpty() }
+        ui.detailOpenBrands.isVisible = company != null
+        if (company == null) return
+        ui.detailOpenBrands.text = activity.getString(R.string.detail_open_brands, company.brands.sumOf { it.brands.size })
+        val open = View.OnClickListener { BrandSheet(activity, stock.symbol, company).show() }
+        ui.detailOpenBrands.setOnClickListener(open)
+        ui.detailProductsHeader.setOnClickListener(open)
+        val ripple = TypedValue().also { activity.theme.resolveAttribute(android.R.attr.selectableItemBackground, it, true) }
+        ui.detailProductsHeader.setBackgroundResource(ripple.resourceId)
     }
 
     private fun bindChart() {
@@ -1952,13 +1901,6 @@ class StockDetailSheet(
     private fun percent(value: Double): String = String.format(Locale.US, "%.1f%%", abs(value))
 
     private companion object {
-        /** Brand pictures three to a row, as wide as they are tall times this (the websites' tiles). */
-        const val BRAND_COLUMNS = 3
-        const val BRAND_ASPECT = 1.58
-        const val BRAND_GAP_DP = 8
-        const val BRAND_CORNER_DP = 10f
-        /** The products section's side padding (sheet_stock_detail.xml). */
-        const val BRAND_SIDE_DP = 20
 
         /** Targets drawn on the chart; all of them are listed in the plan card. */
         const val CHART_TARGETS = 2

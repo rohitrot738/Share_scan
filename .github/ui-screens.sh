@@ -295,20 +295,25 @@ search_for Jewel compactSearch
 swipe_up
 shot 21-ranks-jewel 2
 home
-# ITC's detail: its products, then its brands.
+# ITC's detail: its products and the bar to its brands, which open in a window of their own.
 search_for ITC compactSearch
 xy=$(center row ITC) && adb shell input tap $xy
 sleep 5
-find_text "क्या बनाती है"
+find_text "brands देखें"
 shot 22-itc-products 2
-find_text "Packaged food ·"
-shot 23-itc-brands 2
+tap detailOpenBrands
+shot 23-itc-brands 4
+all_texts | sed -n '1,40p' >> "$LOG"
 swipe_up
-shot 24-itc-brands-more 2
+shot 24-itc-brands-food 2
 swipe_up
-shot 25-itc-brands-end 2
+shot 25-itc-brands-food-more 2
 swipe_up
-shot 26-itc-brands-last 2
-all_texts | sed -n '1,80p' >> "$LOG"
+shot 26-itc-brands-more 2
+swipe_up
+shot 27-itc-brands-end 2
+adb shell input keyevent KEYCODE_BACK
+sleep 2
+shot 28-back-to-detail 2
 home
 echo "done" | tee -a "$LOG"
