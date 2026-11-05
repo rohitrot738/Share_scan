@@ -12,7 +12,7 @@
       "Long-term का खरीद भाव अब ज़्यादा सही: sector वाले model की कीमत और company के अपने आम P/E वाली कीमत का बीच असली कीमत है (पहले अकेला model कई अच्छी companies, जैसे TCS, को उनके हर पुराने भाव से बहुत नीचे आँकता था)। TCS का खरीद भाव ₹1,300 से ₹1,948 हुआ",
       "Trade window के long-term लक्ष्य में अब यह भी लिखा है कि अभी का भाव खरीद भाव से कितने % ऊपर या नीचे है, और असली कीमत किन दो कीमतों का बीच है; R/S के \"Framework का पूरा हिसाब\" में दोनों कीमतें और उनका बीच",
       "Paper Trading में किसी खुले शेयर को दबाएँ तो उसका पूरा हिसाब: अभी का भाव, फ़ायदा-नुकसान, अभी बेचें तो charges के बाद कितना बचेगा, औसत भाव, लगाया पैसा, कब लिया, stop-loss और target लगें तो कितना, breakeven, charges और उस शेयर के सारे orders; वहीं से बंद करें, stop/target बदलें या नया order",
-      "Space Glass background पर अब हर जगह के chips (सेटिंग्स, Paper Trading, स्कैन, trade window, stock detail…) और BUY/SELL, MIS/CNC जैसे बटन भी home screen जैसे सादे outline वाले, थीम के रंग में",
+      "Space Glass background पर अब हर जगह के chips, सेटिंग्स और स्कैन के on/off switches, और BUY/SELL, MIS/CNC जैसे बटन भी home screen जैसे सादे outline वाले, थीम के रंग में (सेटिंग्स, Paper Trading, स्कैन, trade window, stock detail…)",
       "शुरुआती गाइड में long-term खरीद भाव का नया हिसाब (TCS का उदाहरण) और Paper Trading में शेयर का पूरा हिसाब, उदाहरण, breakeven और नए सवालों के साथ"
     ]
   },

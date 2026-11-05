@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Temporary review helper: chips and toggles in the flat look on Space Glass (Settings, Scan, Paper Trading, the trade
+# Temporary review helper: switches, chips and toggles in the flat look on Space Glass (Settings, Scan, Paper Trading, the trade
 # window, the stock detail, Big Money) and glass on Galaxy; the long-term line and the R/S calculation; a paper
 # position's full detail (from a seeded account: 10 RELIANCE bought at ₹1,300); the guide's new parts.
 # Removed before merging.
@@ -214,15 +214,31 @@ order_stock() {
   sleep 8
 }
 
-# Paper Trading: the seeded RELIANCE holding, tapped open in full (again, after keeping "−₹" on one line).
+# The switches on Space Glass: Settings, Scan and Filters; then Settings on Galaxy, which keeps the glass.
 home
-tap compactPaper
-shot 10-paper 10
-tap_exact "Delivery"
-sleep 3
-tap_text "RELIANCE · BUY"
-shot 12-holding 4
-all_texts >> "$LOG"
+tap compactMenu
+sleep 2
+tap_exact "सेटिंग्स"
+shot 20-settings 3
 swipe_up
-shot 13-holding-more 1
+shot 21-settings-more 1
+home
+tap compactMenu
+sleep 2
+tap_exact "स्कैन"
+shot 22-scan 3
+swipe_up
+shot 23-scan-more 1
+home
+tap filterChip
+sleep 2
+find_text "quality companies"
+shot 24-filters-switch 1
+home
+setpref background string galaxy
+relaunch 12
+tap menuButton
+sleep 2
+tap_exact "सेटिंग्स"
+shot 30-galaxy-settings 3
 echo "done" | tee -a "$LOG"
