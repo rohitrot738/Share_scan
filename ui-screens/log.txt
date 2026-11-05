@@ -1,0 +1,109 @@
+IST now: 2026-11-05 14:48
+shot 01-list
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+could not find id compactMenu
+could not find text बड़े पैसे की चाल
+could not find text 🤝 Deals
+shot 10-deals
+Share Scan
+v1.2
+SCAN 90% • 2,382/2,630
+#
+STOCK / COMPANY
+PRICE / आज
+5D CHG / RVOL
+SCORE
+बाज़ार स्कैन हो रहा है
+हर stock का score निकाला जा रहा है। इसमें कुछ मिनट लग सकते हैं — app खुला रहे तो स्क्रीन अपने-आप ऑन रहेगी, और app से बाहर जाएँ तो भी स्कैन notification के साथ चलता रहेगा।
+Filters
+★ Watchlist
+Score ↓
+आज बदलाव
+could not find text EDELALTS
+shot 11-new-listing
+Share Scan
+v1.2
+SCAN 90% • 2,382/2,630
+#
+STOCK / COMPANY
+PRICE / आज
+5D CHG / RVOL
+SCORE
+बाज़ार स्कैन हो रहा है
+हर stock का score निकाला जा रहा है। इसमें कुछ मिनट लग सकते हैं — app खुला रहे तो स्क्रीन अपने-आप ऑन रहेगी, और app से बाहर जाएँ तो भी स्कैन notification के साथ चलता रहेगा।
+Filters
+★ Watchlist
+Score ↓
+आज बदलाव
+shot 12-new-listing-more
+could not find text LOTUSDEV
+shot 13-fetching
+shot 14-fetched-detail
+Thu, Nov 5
+Gmail
+Photos
+YouTube
+Phone
+Messages
+Chrome
+Share Scan
+app was not in front
+could not find id startButton
+scan done after ~115s
+shot 20-list
+Share Scan
+v1.2
+LIVE SCAN 100% • 2,630 STOCKS
+#
+STOCK / COMPANY
+PRICE / आज
+5D CHG / RVOL
+SCORE
+#1
+ANANDRATHI
+NSE
+📈 Anand Rathi Wealth
+₹2,385.50
++3.90%
++5.09%
+RVOL ≈1.87×
+92.5
+#2
+TECHM
+NSE
+💻 Tech Mahindra
+₹1,830.50
++2.66%
++3.44%
+RVOL ≈0.85×
+90.4
+#3
+TATAELXSI
+NSE
+📺💻 Tata Elxsi
+₹3,921.60
++4.44%
++3.09%
+RVOL ≈0.72×
+88.0
+#4
+PNB
+NSE
+🏦 Punjab National Bank
+₹126.73
+shot 21-gainers
+shot 22-losers
+shot 23-filter-today
+pref background=galaxy
+shot 24-cards
+could not find id sortToday
+shot 25-cards-gainers
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+shot 30-guide-faq
+done
