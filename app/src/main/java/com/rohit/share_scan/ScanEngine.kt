@@ -289,7 +289,7 @@ object ScanEngine {
         val complete = !output.stopped
         val badges = if (complete) trackRanks(app, ranked, scope) else emptyMap()
         // A scan the user stopped is kept at once; its starred stocks outside it keep their last rows.
-        val extras = watchExtras(app, ranked, kept, chart = complete)
+        val extras = watchExtras(app, ranked, output.unscanned, kept, chart = complete)
         val saved = SavedScan(
             output.copy(results = ranked),
             System.currentTimeMillis(),
@@ -319,11 +319,18 @@ object ScanEngine {
     /**
      * Starred stocks [results] lack, as the [kept] scan last had them (a stock starred on another phone has no row
      * yet and is looked up on NSE), charted again when [chart] so the watchlist shows them with fresh prices. A
-     * chart that does not load leaves the old row; a stock never charted is left out.
+     * chart that does not load leaves the old row; a stock never charted is left out. A share this scan listed but
+     * found no chart for ([unscanned]) is not asked for again.
      */
-    private fun watchExtras(app: Context, results: List<ScanResult>, kept: SavedScan?, chart: Boolean): List<ScanResult> {
+    private fun watchExtras(
+        app: Context,
+        results: List<ScanResult>,
+        unscanned: List<ScanResult>,
+        kept: SavedScan?,
+        chart: Boolean,
+    ): List<ScanResult> {
         val watchlist = prefs(app).getStringSet(Prefs.WATCHLIST, null).orEmpty()
-        val covered = results.mapTo(HashSet()) { it.symbol }
+        val covered = (results + unscanned).mapTo(HashSet()) { it.symbol }
         val missing = watchlist.filter { it !in covered }
         if (missing.isEmpty()) return emptyList()
         val known = kept?.let { it.watchExtras + it.output.results }.orEmpty().associateBy { it.symbol }
@@ -336,12 +343,17 @@ object ScanEngine {
         return fresh.filter { it.price > 0.0 }
     }
 
-    /** [fresh]'s rows, then the rows of [old] it did not reach, best score first; stopped only when [old] was too. */
+    /**
+     * [fresh]'s rows, then the rows of [old] it did not reach, best score first; stopped only when [old] was too. The
+     * shares without a chart are both scans', less any that now has one.
+     */
     private fun merge(old: ScanOutput, fresh: ScanOutput): ScanOutput {
         val reached = fresh.results.mapTo(HashSet()) { it.symbol }
         val results = fresh.results + old.results.filter { it.symbol !in reached }
+        val charted = results.mapTo(HashSet()) { it.symbol }
         return fresh.copy(
             results = results,
+            unscanned = (fresh.unscanned + old.unscanned).distinctBy { it.symbol }.filter { it.symbol !in charted }.sortedBy { it.symbol },
             stopped = old.stopped,
             marketCapDate = fresh.marketCapDate ?: old.marketCapDate,
             benchmark = fresh.benchmark ?: old.benchmark,

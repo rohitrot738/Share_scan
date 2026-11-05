@@ -66,7 +66,7 @@ object StockFormat {
         Metric.PRICE -> "₹" + count(value.roundToInt())
         Metric.VOLUME -> shares(value)
         Metric.RVOL -> short(value) + "×"
-        Metric.CHANGE, Metric.VS_SMA50 -> (if (value > 0) "+" else "") + short(value) + "%"
+        Metric.CHANGE, Metric.TODAY, Metric.VS_SMA50 -> (if (value > 0) "+" else "") + short(value) + "%"
         Metric.FROM_HIGH, Metric.BASE_RANGE, Metric.SUPPORT_GAP -> short(value) + "%"
         Metric.SUPPORT_AGE -> months((value / SupportFloors.SESSIONS_PER_MONTH).roundToInt())
         Metric.SCORE, Metric.RSI -> short(value)

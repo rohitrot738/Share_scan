@@ -4,7 +4,7 @@
     <string name="compact_no_data">വിലയില്ല</string>
     <string name="compact_col_rank">#</string>
     <string name="compact_col_stock">ഓഹരി / കമ്പനി</string>
-    <string name="compact_col_price">വില</string>
+    <string name="compact_col_price">വില / ഇന്ന്</string>
     <string name="compact_col_change">5D മാറ്റം / RVOL</string>
     <string name="compact_col_score">സ്കോർ</string>
     <string name="compact_share">പങ്കിടുക</string>

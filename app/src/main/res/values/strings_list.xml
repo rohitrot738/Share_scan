@@ -35,4 +35,12 @@
     <!-- %1$d position, %2$s symbol, %3$s price, %4$s score, %5$s RVOL; ShareTextTest reads this line. -->
     <string name="list_share_line">%1$d. %2$s ₹%3$s • score %4$s • RVOL %5$s×</string>
     <string name="list_share_failed">शेयर करने के लिए कोई app नहीं मिला</string>
+
+    <!-- A listed share the scan had no chart for (ScanOutput.unscanned). -->
+    <string name="item_no_chart">Chart नहीं मिला</string>
+    <string name="item_no_chart_meta">Yahoo पर भाव नहीं · tap करके फिर देखें</string>
+    <string name="item_no_chart_new">🆕 नया listing · अभी %1$d सत्र</string>
+    <string name="compact_no_chart">Chart नहीं</string>
+    <string name="item_description_no_chart">%1$s, chart नहीं मिला</string>
+    <string name="item_no_chart_toast">%1$s का chart Yahoo पर नहीं मिला — शायद नया listing है या trading रुकी है</string>
 </resources>

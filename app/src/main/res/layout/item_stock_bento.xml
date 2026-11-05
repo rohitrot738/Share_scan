@@ -130,6 +130,7 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
+            <!-- The price, and today's move under it (MoveText.priceAndToday). -->
             <TextView
                 android:id="@+id/bentoPrice"
                 android:layout_width="0dp"
@@ -137,7 +138,7 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:fontFeatureSettings="tnum"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:textColor="@color/text_primary"
                 android:textSize="16sp"
                 android:textStyle="bold" />

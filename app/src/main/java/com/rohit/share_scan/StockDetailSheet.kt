@@ -178,9 +178,9 @@ class StockDetailSheet(
         ui.detailName.isVisible = name.isNotEmpty()
         ui.detailName.text = name
         ui.detailPrice.text = rupees(stock.price)
-        val change = activity.getString(R.string.item_change, StockFormat.change(stock.change5d))
-        ui.detailChange.text = if (stock.live) activity.getString(R.string.detail_live_change, change) else change
-        ui.detailChange.setTextColor(color(if (stock.change5d >= 0) R.color.bull else R.color.bear))
+        val change = MoveText.both(activity, stock)
+        // While the session trades: "… · LIVE" (the template with nothing in its place gives the suffix).
+        ui.detailChange.text = if (stock.live) android.text.SpannableStringBuilder(change).append(activity.getString(R.string.detail_live_change, "")) else change
 
         ui.detailTier.setText(tierLabel)
         ui.detailTier.setTextColor(color(tierColor))

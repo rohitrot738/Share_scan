@@ -7,6 +7,9 @@ object Prefs {
     /** [ScanFilters.encode] string. */
     const val FILTERS = "filters"
 
+    /** True once saved filters with the old top-100 default were moved to every stock ([ScanFilters.showAllOnce]). */
+    const val SHOW_ALL_DONE = "filters_show_all_done"
+
     /** String set of watchlisted NSE symbols. */
     const val WATCHLIST = "watchlist"
 

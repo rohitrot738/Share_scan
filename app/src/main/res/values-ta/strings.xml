@@ -32,6 +32,7 @@
     <string name="sort_score">ஸ்கோர்</string>
     <string name="sort_rvol">RVOL</string>
     <string name="sort_change">5D மாற்றம்</string>
+    <string name="sort_today">இன்று மாற்றம்</string>
     <string name="sort_price">விலை</string>
     <string name="sort_down">%1$s ↓</string>
     <string name="sort_up">%1$s ↑</string>
@@ -46,7 +47,6 @@
     <string name="empty_failed_title">முடிவுகள் இல்லை</string>
     <string name="empty_failed_body">மேலே உள்ள பொத்தானுடன் மீண்டும் ஸ்கேன் செய்யவும்.</string>
     <string name="item_price">₹%1$s</string>
-    <string name="item_change">%1$s · 5D</string>
     <string name="item_rvol">RVOL %1$s×</string>
     <string name="item_setup_high">🎯 அதிக வாய்ப்புள்ள பிரேக்அவுட் • வால்யூம் %1$s×</string>
     <string name="item_description">தரவரிசை %1$d, %2$s, ஸ்கோர் %3$s</string>
@@ -54,7 +54,6 @@
     <string name="item_rank_none">★</string>
     <string name="item_no_data">இன்னும் விலை இல்லை</string>
     <string name="item_no_data_meta">அடுத்த ஸ்கேனுடன் வரும்</string>
-    <string name="item_no_data_toast">%1$s க்கு இன்னும் விலை இல்லை — விவரங்கள் அடுத்த ஸ்கேனுக்குப் பிறகு</string>
     <string name="item_description_no_data">%1$s, வாட்ச்லிஸ்டில், இன்னும் விலை இல்லை</string>
     <string name="tier_strong">STRONG</string>
     <string name="tier_watch">WATCH</string>
@@ -80,6 +79,7 @@
     <string name="metric_turnover">டர்ன்ஓவர் (₹ வர்த்தகம்)</string>
     <string name="metric_rvol">RVOL</string>
     <string name="metric_change">5D மாற்றம்</string>
+    <string name="metric_today">இன்றைய மாற்றம்</string>
     <string name="metric_score">ஸ்கோர்</string>
     <string name="hint_market_cap">விலை × NSE வெளியிட்ட பங்குகள்</string>
     <string name="hint_market_cap_date">விலை × NSE வெளியிட்ட பங்குகள் (NSE தரவு: %1$s)</string>
@@ -92,4 +92,6 @@
     <string name="cap_mid">மிட் ₹5K–20K Cr</string>
     <string name="cap_large">லார்ஜ் ≥₹20K Cr</string>
     <string name="open_chart_failed">சார்ட்டைத் திறக்க உலாவி இல்லை</string>
+    <string name="move_today">%1$s இன்று</string>
+    <string name="move_5d">%1$s 5D</string>
 </resources>

@@ -32,6 +32,7 @@
     <string name="sort_score">സ്കോർ</string>
     <string name="sort_rvol">RVOL</string>
     <string name="sort_change">5D മാറ്റം</string>
+    <string name="sort_today">ഇന്നത്തെ മാറ്റം</string>
     <string name="sort_price">വില</string>
     <string name="sort_down">%1$s ↓</string>
     <string name="sort_up">%1$s ↑</string>
@@ -46,7 +47,6 @@
     <string name="empty_failed_title">ഫലങ്ങളില്ല</string>
     <string name="empty_failed_body">മുകളിലെ ബട്ടൺ കൊണ്ട് വീണ്ടും സ്കാൻ ചെയ്യുക.</string>
     <string name="item_price">₹%1$s</string>
-    <string name="item_change">%1$s · 5D</string>
     <string name="item_rvol">RVOL %1$s×</string>
     <string name="item_setup_high">🎯 ഉയർന്ന സാധ്യതയുള്ള ബ്രേക്ക്ഔട്ട് • വോള്യം %1$s×</string>
     <string name="item_description">റാങ്ക് %1$d, %2$s, സ്കോർ %3$s</string>
@@ -54,7 +54,6 @@
     <string name="item_rank_none">★</string>
     <string name="item_no_data">ഇതുവരെ വിലയില്ല</string>
     <string name="item_no_data_meta">അടുത്ത സ്കാനിനൊപ്പം വരും</string>
-    <string name="item_no_data_toast">%1$s ന് ഇതുവരെ വിലയില്ല — വിശദാംശങ്ങൾ അടുത്ത സ്കാനിന് ശേഷം</string>
     <string name="item_description_no_data">%1$s, വാച്ച്‌ലിസ്റ്റിൽ, ഇതുവരെ വിലയില്ല</string>
     <string name="tier_strong">STRONG</string>
     <string name="tier_watch">WATCH</string>
@@ -80,6 +79,7 @@
     <string name="metric_turnover">ടേണോവർ (₹ വ്യാപാരം)</string>
     <string name="metric_rvol">RVOL</string>
     <string name="metric_change">5D മാറ്റം</string>
+    <string name="metric_today">ഇന്നത്തെ മാറ്റം</string>
     <string name="metric_score">സ്കോർ</string>
     <string name="hint_market_cap">വില × NSE പുറത്തിറക്കിയ ഓഹരികൾ</string>
     <string name="hint_market_cap_date">വില × NSE പുറത്തിറക്കിയ ഓഹരികൾ (NSE ഡാറ്റ: %1$s)</string>
@@ -92,4 +92,6 @@
     <string name="cap_mid">മിഡ് ₹5K–20K Cr</string>
     <string name="cap_large">ലാർജ് ≥₹20K Cr</string>
     <string name="open_chart_failed">ചാർട്ട് തുറക്കാൻ ബ്രൗസർ കണ്ടെത്തിയില്ല</string>
+    <string name="move_today">%1$s ഇന്ന്</string>
+    <string name="move_5d">%1$s 5D</string>
 </resources>

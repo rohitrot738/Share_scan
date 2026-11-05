@@ -4,7 +4,7 @@
     <string name="compact_no_data">ଦର ନାହିଁ</string>
     <string name="compact_col_rank">#</string>
     <string name="compact_col_stock">ସେୟାର / କମ୍ପାନୀ</string>
-    <string name="compact_col_price">ଦର</string>
+    <string name="compact_col_price">ଦର / ଆଜି</string>
     <string name="compact_col_change">5D ପରିବର୍ତ୍ତନ / RVOL</string>
     <string name="compact_col_score">ସ୍କୋର</string>
     <string name="compact_share">ସେୟାର</string>

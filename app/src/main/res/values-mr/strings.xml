@@ -32,6 +32,7 @@
     <string name="sort_score">स्कोअर</string>
     <string name="sort_rvol">RVOL</string>
     <string name="sort_change">5D बदल</string>
+    <string name="sort_today">आजचा बदल</string>
     <string name="sort_price">भाव</string>
     <string name="sort_down">%1$s ↓</string>
     <string name="sort_up">%1$s ↑</string>
@@ -46,7 +47,6 @@
     <string name="empty_failed_title">निकाल मिळाले नाहीत</string>
     <string name="empty_failed_body">वरच्या बटणाने स्कॅन पुन्हा चालवा.</string>
     <string name="item_price">₹%1$s</string>
-    <string name="item_change">%1$s · 5D</string>
     <string name="item_rvol">RVOL %1$s×</string>
     <string name="item_setup_high">🎯 उच्च शक्यतेचा ब्रेकआउट • व्हॉल्यूम %1$s×</string>
     <string name="item_description">क्रमांक %1$d, %2$s, स्कोअर %3$s</string>
@@ -54,7 +54,6 @@
     <string name="item_rank_none">★</string>
     <string name="item_no_data">भाव अजून मिळाला नाही</string>
     <string name="item_no_data_meta">पुढच्या स्कॅनसोबत येईल</string>
-    <string name="item_no_data_toast">%1$s चा भाव अजून मिळाला नाही — पुढच्या स्कॅननंतर तपशील दिसेल</string>
     <string name="item_description_no_data">%1$s, वॉचलिस्टमध्ये, भाव अजून मिळाला नाही</string>
     <string name="tier_strong">STRONG</string>
     <string name="tier_watch">WATCH</string>
@@ -80,6 +79,7 @@
     <string name="metric_turnover">उलाढाल (₹ मध्ये)</string>
     <string name="metric_rvol">RVOL</string>
     <string name="metric_change">5D बदल</string>
+    <string name="metric_today">आजचा बदल</string>
     <string name="metric_score">स्कोअर</string>
     <string name="hint_market_cap">भाव × NSE वर जारी शेअर्स</string>
     <string name="hint_market_cap_date">भाव × NSE वर जारी शेअर्स (NSE डेटा: %1$s)</string>
@@ -92,4 +92,6 @@
     <string name="cap_mid">मिड ₹5K–20K Cr</string>
     <string name="cap_large">लार्ज ≥₹20K Cr</string>
     <string name="open_chart_failed">चार्ट उघडण्यासाठी कोणताही ब्राउझर मिळाला नाही</string>
+    <string name="move_today">%1$s आज</string>
+    <string name="move_5d">%1$s 5D</string>
 </resources>

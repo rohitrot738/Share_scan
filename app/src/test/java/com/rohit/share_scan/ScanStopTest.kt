@@ -4,6 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
@@ -65,5 +66,43 @@ class ScanStopTest {
         } finally {
             pool.shutdownNow()
         }
+    }
+
+    @Test(timeout = 10_000)
+    fun aShareWithoutAChartIsAskedOnceMore() {
+        val tries = ConcurrentHashMap<Int, AtomicInteger>()
+        val (rows, missed) = NseScanner.runWithRetry(Executors.newFixedThreadPool(4), { Executors.newFixedThreadPool(4) }, (1..30).toList(), { false }) { n ->
+            val attempt = tries.computeIfAbsent(n) { AtomicInteger() }.incrementAndGet()
+            when {
+                n % 10 == 0 -> null // no chart at all, as a share Yahoo does not carry
+                n % 7 == 0 && attempt == 1 -> null // a request that failed once, answered the second time
+                else -> n
+            }
+        }
+
+        assertEquals((1..30).filter { it % 10 != 0 }, rows.sorted())
+        assertEquals(listOf(10, 20, 30), missed.sorted())
+        assertEquals(2, tries.getValue(7).get())
+        assertEquals(2, tries.getValue(10).get())
+        assertEquals(1, tries.getValue(1).get())
+    }
+
+    @Test(timeout = 10_000)
+    fun aStoppedScanAsksNothingAgain() {
+        val stopped = AtomicBoolean(false)
+        val retried = AtomicBoolean(false)
+        val (rows, missed) = NseScanner.runWithRetry(
+            Executors.newSingleThreadExecutor(),
+            { retried.set(true); Executors.newSingleThreadExecutor() },
+            (1..5).toList(),
+            stopped::get,
+        ) { n ->
+            if (n == 5) stopped.set(true)
+            if (n % 2 == 0) null else n
+        }
+
+        assertEquals(listOf(1, 3, 5), rows)
+        assertEquals(listOf(2, 4), missed.sorted())
+        assertFalse(retried.get())
     }
 }

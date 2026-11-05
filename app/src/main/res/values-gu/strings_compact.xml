@@ -4,7 +4,7 @@
     <string name="compact_no_data">ભાવ નથી</string>
     <string name="compact_col_rank">#</string>
     <string name="compact_col_stock">શેર / કંપની</string>
-    <string name="compact_col_price">ભાવ</string>
+    <string name="compact_col_price">ભાવ / આજ</string>
     <string name="compact_col_change">5D ફેરફાર / RVOL</string>
     <string name="compact_col_score">સ્કોર</string>
     <string name="compact_share">શેર કરો</string>

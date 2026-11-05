@@ -27,4 +27,12 @@
     <string name="list_share_no_filters">வடிகட்டிகள் இல்லை</string>
     <string name="list_share_line">%1$d. %2$s ₹%3$s • ஸ்கோர் %4$s • RVOL %5$s×</string>
     <string name="list_share_failed">பகிர ஆப் இல்லை</string>
+
+    <!-- A listed share the scan had no chart for (ScanOutput.unscanned). -->
+    <string name="item_no_chart">சார்ட் கிடைக்கவில்லை</string>
+    <string name="item_no_chart_meta">Yahoo-வில் விலை இல்லை · மீண்டும் பார்க்க தட்டவும்</string>
+    <string name="item_no_chart_new">🆕 புதிய பட்டியலீடு · இதுவரை %1$d அமர்வுகள்</string>
+    <string name="compact_no_chart">சார்ட் இல்லை</string>
+    <string name="item_description_no_chart">%1$s, சார்ட் கிடைக்கவில்லை</string>
+    <string name="item_no_chart_toast">Yahoo-வில் %1$s சார்ட் கிடைக்கவில்லை — புதிய பட்டியலீடாக இருக்கலாம், அல்லது வர்த்தகம் நிறுத்தப்பட்டிருக்கலாம்</string>
 </resources>

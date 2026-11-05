@@ -27,7 +27,6 @@
     <string name="watch_today">आज</string>
     <string name="watch_added_waiting">जोड़ने का भाव अगले स्कैन से गिना जाएगा</string>
     <string name="watch_no_data">दाम अगले स्कैन के साथ आएँगे</string>
-    <string name="watch_change_5d">5D %1$s</string>
     <string name="watch_score">Score %1$s</string>
     <string name="watch_level_support">Support ₹%1$s</string>
     <string name="watch_level_stop">SL ₹%1$s</string>

@@ -10,6 +10,9 @@ enum class Metric(val key: String, val stops: List<Double>) {
     /** Five days mostly move a few percent, so stops run 1% apart within ±10% and widen beyond. */
     CHANGE("change", listOf(-20.0, -15.0) + (-10..10).map { it.toDouble() } + listOf(15.0, 20.0, 30.0, 50.0)),
 
+    /** Percent change since the session before: today's gainers and losers. */
+    TODAY("today", listOf(-20.0, -10.0, -5.0, -3.0, -2.0, -1.0, 0.0, 1.0, 2.0, 3.0, 5.0, 10.0, 20.0)),
+
     /** Percent below the 20-day high; negative values are breakouts above it. "≤ 3%" keeps stocks near resistance. */
     FROM_HIGH("high20", listOf(-10.0, -5.0, -2.0, 0.0, 1.0, 2.0, 3.0, 5.0, 8.0, 10.0, 15.0, 25.0)),
 
@@ -49,6 +52,7 @@ enum class Metric(val key: String, val stops: List<Double>) {
         TURNOVER -> stock.turnoverCr
         RVOL -> stock.rvol
         CHANGE -> stock.change5d
+        TODAY -> stock.change1d
         FROM_HIGH -> stock.belowHigh20Pct
         BASE_RANGE -> stock.rangePct(rangeWeeks)
         VS_SMA50 -> stock.vsSma50Pct
@@ -89,7 +93,7 @@ data class Bound(val min: Double? = null, val max: Double? = null) {
 
 data class ScanFilters(
     val bounds: Map<Metric, Bound> = emptyMap(),
-    /** How many of the best-scoring matches to show; 0 shows all of them. */
+    /** How many of the best-scoring matches to show; 0 (the default) shows all of them. */
     val limit: Int = DEFAULT_LIMIT,
     /** Industries to keep ([ScanResult.sector]); empty keeps every stock, with or without one. */
     val sectors: Set<String> = emptySet(),
@@ -149,7 +153,14 @@ data class ScanFilters(
     }
 
     companion object {
-        const val DEFAULT_LIMIT = 100
+        const val DEFAULT_LIMIT = 0
+
+        /** The default before every stock was shown; saved filters still carrying it are moved to all once. */
+        private const val OLD_DEFAULT_LIMIT = 100
+
+        /** [filters] showing every stock when they hold the old default of the best [OLD_DEFAULT_LIMIT]. */
+        fun showAllOnce(filters: ScanFilters): ScanFilters =
+            if (filters.limit == OLD_DEFAULT_LIMIT) filters.copy(limit = 0) else filters
         private const val SECTOR_SEPARATOR = "|"
         val LIMITS = listOf(25, 50, 100, 200, 0)
         val RANGE_WEEKS = 1..BreakoutSignals.MAX_RANGE_WEEKS

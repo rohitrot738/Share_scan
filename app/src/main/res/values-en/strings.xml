@@ -32,6 +32,7 @@
     <string name="sort_score">Score</string>
     <string name="sort_rvol">RVOL</string>
     <string name="sort_change">5D change</string>
+    <string name="sort_today">Today</string>
     <string name="sort_price">Price</string>
     <string name="sort_down">%1$s ↓</string>
     <string name="sort_up">%1$s ↑</string>
@@ -46,7 +47,6 @@
     <string name="empty_failed_title">No results</string>
     <string name="empty_failed_body">Run the scan again with the button above.</string>
     <string name="item_price">₹%1$s</string>
-    <string name="item_change">%1$s · 5D</string>
     <string name="item_rvol">RVOL %1$s×</string>
     <string name="item_setup_high">🎯 High-probability breakout • volume %1$s×</string>
     <string name="item_description">Rank %1$d, %2$s, score %3$s</string>
@@ -54,7 +54,6 @@
     <string name="item_rank_none">★</string>
     <string name="item_no_data">No price yet</string>
     <string name="item_no_data_meta">Comes with the next scan</string>
-    <string name="item_no_data_toast">No price for %1$s yet — details show after the next scan</string>
     <string name="item_description_no_data">%1$s, on the watchlist, no price yet</string>
     <string name="tier_strong">STRONG</string>
     <string name="tier_watch">WATCH</string>
@@ -80,6 +79,7 @@
     <string name="metric_turnover">Turnover (₹ traded)</string>
     <string name="metric_rvol">RVOL</string>
     <string name="metric_change">5D change</string>
+    <string name="metric_today">Today\'s change</string>
     <string name="metric_score">Score</string>
     <string name="hint_market_cap">Price × NSE issued shares</string>
     <string name="hint_market_cap_date">Price × NSE issued shares (NSE data: %1$s)</string>
@@ -92,4 +92,6 @@
     <string name="cap_mid">Mid ₹5K–20K Cr</string>
     <string name="cap_large">Large ≥₹20K Cr</string>
     <string name="open_chart_failed">No browser found to open the chart</string>
+    <string name="move_today">%1$s today</string>
+    <string name="move_5d">%1$s 5D</string>
 </resources>

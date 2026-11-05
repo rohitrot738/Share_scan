@@ -17,6 +17,7 @@ class ScanStoreTest {
         score = 81.25,
         rvol = 2.4,
         change5d = -1.5,
+        change1d = 0.75,
         volume = 1_234_567.0,
         marketCapCr = 399_000.0,
         structure = PriceStructure(
@@ -64,6 +65,10 @@ class ScanStoreTest {
                 marketCapDate = LocalDate.parse("2026-10-16"),
                 stopped = false,
                 benchmark = DailySeries(listOf(20_741L, 20_742L), listOf(23_000.0, 23_146.15)),
+                unscanned = listOf(
+                    ScanResult("NEWSME", 0.0, 0.0, 0.0, 0.0, name = "New Sme Ltd", market = Market.NSE_SME, sector = "Retail"),
+                    ScanResult("HALTED", 0.0, 0.0, 0.0, 0.0, name = "Halted Ltd", market = Market.BSE, bseCode = "500001"),
+                ),
             ),
             finishedAt = 1_792_377_000_000L,
             auto = true,
@@ -84,6 +89,8 @@ class ScanStoreTest {
         // Starred stocks outside the scan come back apart from its own rows.
         assertEquals(2, back.output.results.size)
         assertEquals(saved.watchExtras, back.watchExtras)
+        // The listed shares Yahoo had no chart for come back on their own, in their order.
+        assertEquals(saved.output.unscanned, back.output.unscanned)
         // NaN has no JSON form; it comes back as NaN all the same.
         val first = back.output.results[0]
         assertTrue(first.parts[1].value.isNaN())

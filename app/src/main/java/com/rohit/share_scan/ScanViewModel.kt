@@ -24,7 +24,17 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
     private val prefs = application.getSharedPreferences(Prefs.FILE, Context.MODE_PRIVATE)
     private val state = MutableStateFlow(
         ScanUiState(
-            filters = ScanFilters.decode(prefs.getString(Prefs.FILTERS, null)),
+            filters = ScanFilters.decode(prefs.getString(Prefs.FILTERS, null)).let { saved ->
+                // Every stock is shown now unless a limit is chosen: filters saved with the old top-100 default move
+                // to all, once.
+                if (prefs.getBoolean(Prefs.SHOW_ALL_DONE, false)) {
+                    saved
+                } else {
+                    ScanFilters.showAllOnce(saved).also {
+                        prefs.edit { putString(Prefs.FILTERS, it.encode()).putBoolean(Prefs.SHOW_ALL_DONE, true) }
+                    }
+                }
+            },
             supportFilters = prefs.getString(Prefs.SUPPORT_FILTERS, null)?.let(ScanFilters::decode)
                 ?: ScanFilters(limit = 0),
             watchlist = prefs.getStringSet(Prefs.WATCHLIST, null).orEmpty().toSet(),
@@ -88,6 +98,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun show(progress: ScanEngine.Progress, latest: SavedScan?, failure: ScanEngine.Failure?, reading: Boolean) {
         val results = latest?.output?.results.orEmpty()
+        val unscanned = latest?.output?.unscanned.orEmpty()
         val lastRun = failure?.takeIf { it.runId == progress.runId }
         val phase = when {
             progress.running -> if (progress.loading) ScanPhase.LOADING else ScanPhase.SCANNING
@@ -95,11 +106,12 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
             latest != null || lastRun != null -> ScanPhase.DONE
             else -> ScanPhase.IDLE
         }
-        // A scan run since the app started reports its own count; a kept scan from disk reports what it holds.
+        // A scan run since the app started reports its own count; a kept scan from disk reports what it holds, the
+        // shares without a chart among them.
         val (done, total) = if (progress.runId > 0 && (progress.running || progress.total > 0)) {
             progress.done to progress.total
         } else {
-            results.size to results.size
+            (results.size + unscanned.size).let { it to it }
         }
         state.update { current ->
             current.copy(
@@ -109,6 +121,7 @@ class ScanViewModel(application: Application) : AndroidViewModel(application) {
                 startedAt = progress.startedAt,
                 finishedAt = if (progress.running) 0L else progress.endedAt,
                 results = results,
+                unscanned = unscanned,
                 marketCapDate = latest?.output?.marketCapDate,
                 error = lastRun?.message,
                 rankBadges = latest?.badges.orEmpty(),

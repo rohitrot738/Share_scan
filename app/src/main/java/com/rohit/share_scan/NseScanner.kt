@@ -10,6 +10,8 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import java.util.concurrent.Callable
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -79,6 +81,9 @@ data class ScanResult(
     val score: Double,
     val rvol: Double,
     val change5d: Double,
+    /** Percent change from the session before (today's move, live while the market trades); null in a scan saved
+     *  before it was kept. */
+    val change1d: Double? = null,
     /** Shares traded in the latest session. */
     val volume: Double = 0.0,
     /** Null when NSE's share-count file was unavailable or did not list the symbol. */
@@ -157,6 +162,12 @@ data class ScanOutput(
     val stopped: Boolean = false,
     /** Nifty 50's daily closes, the yardstick for the track record; null when Yahoo had none. */
     val benchmark: DailySeries? = null,
+    /**
+     * The listed shares the scan checked but could not score, by symbol: Yahoo had no chart for them (a suspended or
+     * renamed share, one Yahoo does not carry) or fewer sessions than the score needs (a new listing). Each has its
+     * symbol, name, exchange and industry and no price ([ScanResult.charted] is false), so the list can still show it.
+     */
+    val unscanned: List<ScanResult> = emptyList(),
 ) {
     /** At least one price is from today's session, still trading. */
     val live: Boolean get() = results.any { it.live }
@@ -245,12 +256,18 @@ object NseScanner {
         val isinBySymbol = symbols.associate { it.symbol to it.isin }
         onProgress(0, symbols.size)
         val done = AtomicInteger(0)
+        // Progress counts each stock once, the first time it is asked for.
+        val counted = ConcurrentHashMap.newKeySet<String>()
         val pool = Executors.newFixedThreadPool(4)
         try {
             val issuedShares = pool.submit(Callable { runCatching { daily("shares") { loadIssuedShares(isStopped) ?: error("no share counts") } }.getOrNull() })
             val benchmark = pool.submit(Callable { runCatching { benchmark(isStopped) }.getOrNull() })
-            val scored = runStoppable(pool, symbols, isStopped) { listing ->
-                try { score(listing, isStopped, now) } finally { onProgress(done.incrementAndGet(), symbols.size) }
+            val (scored, missed) = runWithRetry(pool, { Executors.newFixedThreadPool(4) }, symbols, isStopped) { listing ->
+                try {
+                    score(listing, isStopped, now)
+                } finally {
+                    if (counted.add(listing.symbol)) onProgress(done.incrementAndGet(), symbols.size)
+                }
             }
             // After a stop the share counts and Nifty may not have arrived yet; rows then go without them.
             val shares = if (issuedShares.isDone) runCatching { issuedShares.get() }.getOrNull() else null
@@ -264,7 +281,20 @@ object NseScanner {
             // Fewer stocks checked than listed means a stop cut the scan short.
             val stopped = done.get() < symbols.size
             val nifty = if (benchmark.isDone) runCatching { benchmark.get() }.getOrNull() else null
-            return ScanOutput(results.sortedByDescending { it.score }, shares?.first, stopped, nifty)
+            val unscanned = missed.map { listing ->
+                ScanResult(
+                    symbol = listing.symbol,
+                    price = 0.0,
+                    score = 0.0,
+                    rvol = 0.0,
+                    change5d = 0.0,
+                    name = listing.name,
+                    market = listing.market,
+                    bseCode = listing.bseCode,
+                    sector = sectors.of(listing.isin),
+                )
+            }.sortedBy { it.symbol }
+            return ScanOutput(results.sortedByDescending { it.score }, shares?.first, stopped, nifty, unscanned)
         } finally {
             // Also interrupts the threads a stop left behind, such as one sleeping out Yahoo's limit, so they end now.
             pool.shutdownNow()
@@ -352,6 +382,32 @@ object NseScanner {
             }
         }
         return tasks.mapNotNull { task -> if (task.isDone) runCatching { task.get() }.getOrNull() else null }
+    }
+
+    /**
+     * [runStoppable] on [first], then once more, on a pool from [again], for the items [work] gave nothing for: Yahoo
+     * now and then fails a chart request it answers a moment later. Returns what [work] gave and the items still
+     * without it. After a stop nothing is asked again, and items a stop left unasked are in neither list.
+     */
+    internal fun <T, R : Any> runWithRetry(
+        first: ExecutorService,
+        again: () -> ExecutorService,
+        items: List<T>,
+        isStopped: () -> Boolean,
+        work: (T) -> R?,
+    ): Pair<List<R>, List<T>> {
+        val missed = ConcurrentLinkedQueue<T>()
+        val attempt = { item: T -> work(item).also { if (it == null && !isStopped()) missed += item } }
+        val found = runStoppable(first, items, isStopped, work = attempt)
+        if (missed.isEmpty() || isStopped()) return found to missed.toList()
+        val retry = missed.toList()
+        missed.clear()
+        val pool = again()
+        try {
+            return (found + runStoppable(pool, retry, isStopped, work = attempt)) to missed.toList()
+        } finally {
+            pool.shutdownNow()
+        }
     }
 
     /**
@@ -496,6 +552,7 @@ object NseScanner {
             score = signals.score,
             rvol = signals.rvol,
             change5d = signals.change5d,
+            change1d = signals.change1d,
             volume = signals.volume,
             structure = signals.structure,
             parts = signals.parts,

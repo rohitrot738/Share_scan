@@ -27,4 +27,12 @@
     <string name="list_share_no_filters">কোনো ফিল্টার নেই</string>
     <string name="list_share_line">%1$d. %2$s ₹%3$s • স্কোর %4$s • RVOL %5$s×</string>
     <string name="list_share_failed">শেয়ার করার জন্য কোনো অ্যাপ পাওয়া যায়নি</string>
+
+    <!-- A listed share the scan had no chart for (ScanOutput.unscanned). -->
+    <string name="item_no_chart">চার্ট পাওয়া যায়নি</string>
+    <string name="item_no_chart_meta">Yahoo-তে দাম নেই · আবার দেখতে ট্যাপ করুন</string>
+    <string name="item_no_chart_new">🆕 নতুন লিস্টিং · এখন পর্যন্ত %1$d সেশন</string>
+    <string name="compact_no_chart">চার্ট নেই</string>
+    <string name="item_description_no_chart">%1$s, চার্ট পাওয়া যায়নি</string>
+    <string name="item_no_chart_toast">Yahoo-তে %1$s-এর চার্ট পাওয়া যায়নি — হয়তো নতুন লিস্টিং, বা ট্রেডিং বন্ধ</string>
 </resources>

@@ -46,6 +46,10 @@ class ScanStore(private val file: File) {
                 out.write(stock(row).put(WATCH_EXTRA, 1).toString())
                 out.write("\n")
             }
+            for (row in scan.output.unscanned) {
+                out.write(stock(row).put(UNSCANNED, 1).toString())
+                out.write("\n")
+            }
         }
         // A rename swaps the new scan in whole, so a reader never sees half of it.
         if (!temp.renameTo(file)) {
@@ -63,13 +67,20 @@ class ScanStore(private val file: File) {
             if (head.optInt("v") != VERSION) return null
             val results = ArrayList<ScanResult>()
             val extras = ArrayList<ScanResult>()
+            val unscanned = ArrayList<ScanResult>()
             // Reading the JSON is most of the time a fresh start waits for the list (seconds on a phone), so batches
             // of lines are read on every core; their order stays.
             for (batch in iterator.asSequence().filter { it.isNotBlank() }.chunked(BATCH)) {
                 val rows = batch.parallelStream()
-                    .map { line -> JSONObject(line).let { (it.optInt(WATCH_EXTRA) == 1) to stock(it) } }
+                    .map { line -> JSONObject(line).let { kind(it) to stock(it) } }
                     .collect(Collectors.toList())
-                for ((extra, row) in rows) if (extra) extras += row else results += row
+                for ((kind, row) in rows) {
+                    when (kind) {
+                        WATCH_EXTRA -> extras += row
+                        UNSCANNED -> unscanned += row
+                        else -> results += row
+                    }
+                }
             }
             SavedScan(
                 output = ScanOutput(
@@ -77,6 +88,7 @@ class ScanStore(private val file: File) {
                     marketCapDate = head.optString("capDate").takeIf { it.isNotEmpty() }?.let(LocalDate::parse),
                     stopped = head.optBoolean("stopped"),
                     benchmark = head.optJSONObject("nifty")?.let(::series),
+                    unscanned = unscanned,
                 ),
                 finishedAt = head.optLong("at"),
                 auto = head.optBoolean("auto"),
@@ -104,6 +116,13 @@ class ScanStore(private val file: File) {
 
     fun clear() {
         file.delete()
+    }
+
+    /** Which list a stock line belongs to: [WATCH_EXTRA], [UNSCANNED], or null for the scan's own rows. */
+    private fun kind(line: JSONObject): String? = when {
+        line.optInt(WATCH_EXTRA) == 1 -> WATCH_EXTRA
+        line.optInt(UNSCANNED) == 1 -> UNSCANNED
+        else -> null
     }
 
     private fun header(scan: SavedScan) = JSONObject().apply {
@@ -141,6 +160,7 @@ class ScanStore(private val file: File) {
         put("sc", num(row.score))
         put("rv", num(row.rvol))
         put("c5", num(row.change5d))
+        row.change1d?.let { put("c1", num(it)) }
         put("vol", num(row.volume))
         row.marketCapCr?.let { put("mc", num(it)) }
         if (row.live) put("live", true)
@@ -198,6 +218,7 @@ class ScanStore(private val file: File) {
         score = json.double("sc"),
         rvol = json.double("rv"),
         change5d = json.double("c5"),
+        change1d = if (json.has("c1") && !json.isNull("c1")) json.double("c1") else null,
         volume = json.double("vol"),
         marketCapCr = if (json.isNull("mc")) null else json.double("mc"),
         structure = json.optJSONObject("st")?.let(::structure),
@@ -286,6 +307,9 @@ class ScanStore(private val file: File) {
 
         /** Marks a line of [SavedScan.watchExtras]; the other stock lines are the scan's own. */
         const val WATCH_EXTRA = "w"
+
+        /** Marks a line of [ScanOutput.unscanned]: a listed share the scan had no chart for. */
+        const val UNSCANNED = "u"
 
         /** Stock lines read together, on every core; a few hundred keep the text held at once small. */
         const val BATCH = 256
