@@ -101,4 +101,9 @@
     <string name="product_recycling">ಮರುಬಳಕೆ</string>
     <string name="product_education">ಶಿಕ್ಷಣ</string>
     <string name="product_staffing">ಸಿಬ್ಬಂದಿ ಸೇವೆ / ಮಾನವಶಕ್ತಿ</string>
+
+    <!-- The company's brands from its own website (StockDetailSheet.bindBrands). -->
+    <string name="detail_brands_title">ಬ್ರ್ಯಾಂಡ್‌ಗಳು</string>
+    <string name="detail_brands_hint">%1$d ಬ್ರ್ಯಾಂಡ್‌ಗಳು, ಕಂಪನಿಯ ಸ್ವಂತ ವೆಬ್‌ಸೈಟ್‌ನಿಂದ</string>
+    <string name="detail_brands_credit">ಬ್ರ್ಯಾಂಡ್ ಚಿತ್ರಗಳು: %1$s</string>
 </resources>

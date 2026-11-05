@@ -10,6 +10,7 @@ import android.text.Spanned
 import android.text.style.DynamicDrawableSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.ImageSpan
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -370,6 +371,8 @@ class StockAdapter(
         fun color(id: Int) = ContextCompat.getColor(context, id)
         val ranked = item.rank != RankedStock.UNRANKED
         ui.rowRank.text = if (ranked) context.getString(R.string.compact_rank, item.rank) else unrankedMark(context, item)
+        // "#1342" in the narrow rank column: a rank of four digits is set smaller, or its last digit would be cut.
+        ui.rowRank.setTextSize(TypedValue.COMPLEX_UNIT_SP, if (ranked && item.rank >= WIDE_RANK) WIDE_RANK_SP else RANK_SP)
         ui.rowSymbol.text = stock.symbol
         val company = withProducts(ui.rowCompany, stock.symbol, StockSearch.shortName(stock.name).ifEmpty { stock.sector })
         // बड़े पैसे की चाल's mark leads the company line, where the line's end could cut it off.
@@ -843,6 +846,11 @@ class StockAdapter(
     }
 
     private companion object {
+        /** A rank from here on has four digits. */
+        const val WIDE_RANK = 1000
+        const val RANK_SP = 13f
+        const val WIDE_RANK_SP = 10.5f
+
         /** The score's gap to a table line's edge, as the SCORE column name keeps (compactColumns). */
         const val SCORE_EDGE_DP = 8
 

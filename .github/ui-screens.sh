@@ -288,35 +288,27 @@ sed -n '3,400p' /tmp/unscanned.txt | sed 's/^/  /' >> "$LOG"
 adb shell am start -n "$PKG/.MainActivity" > /dev/null
 shot 20-list 6
 all_texts | head -12 >> "$LOG"
-# A search that matches charted jewellers and some without a chart: those come last.
+# The scan's own file, for its market caps.
+cp /tmp/last_scan.gz "$OUT/last_scan.gz"
+# Four-digit ranks in the compact table (DEEPA, MOTISONS) shown whole.
 search_for Jewel compactSearch
-shot 21-search-jewel 2
-all_texts | sed -n '1,80p' >> "$LOG"
 swipe_up
-shot 22-search-jewel-end 2
-# A tap on one without a chart: the app asks Yahoo now, then opens its detail, its Big Money card, or a note.
-NOCHART=$(all_texts | grep -x -E "$(sed -n '3,400p' /tmp/unscanned.txt | cut -d' ' -f1 | paste -sd'|')" | head -1)
-echo "tapping $NOCHART" | tee -a "$LOG"
-if [ -n "$NOCHART" ]; then
-  xy=$(center row "$NOCHART") && adb shell input tap $xy
-  sleep 1
-  shot 23-no-chart-tap 0
-  sleep 12
-  shot 24-no-chart-result 2
-  all_texts | head -20 >> "$LOG"
-fi
+shot 21-ranks-jewel 2
 home
-# A new listing of बड़े पैसे की चाल found by the search: its chart so far and its card.
-search_for EDELALTS compactSearch
-shot 25-search-edelalts 2
-xy=$(center row EDELALTS) && adb shell input tap $xy
-shot 26-edelalts-sheet 5
+# ITC's detail: its products, then its brands.
+search_for ITC compactSearch
+xy=$(center row ITC) && adb shell input tap $xy
+sleep 5
+find_text "क्या बनाती है"
+shot 22-itc-products 2
+find_text "Packaged food ·"
+shot 23-itc-brands 2
+swipe_up
+shot 24-itc-brands-more 2
+swipe_up
+shot 25-itc-brands-end 2
+swipe_up
+shot 26-itc-brands-last 2
+all_texts | sed -n '1,80p' >> "$LOG"
 home
-# The cards on Galaxy, the same search.
-setpref background string galaxy
-relaunch 14
-search_for Jewel searchButton
-shot 27-cards-jewel 2
-for k in 1 2 3; do adb shell input swipe 540 1500 540 600 400; sleep 1; done
-shot 28-cards-jewel-end 2
 echo "done" | tee -a "$LOG"

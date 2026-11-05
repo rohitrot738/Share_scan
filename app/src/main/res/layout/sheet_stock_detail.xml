@@ -251,6 +251,43 @@
                         android:textColor="@color/text_secondary"
                         android:textSize="11sp"
                         android:visibility="gone" />
+
+                    <!-- The company's brands from its own website: a heading and a grid for each product they are
+                         (StockDetailSheet.bindBrands puts them before the credit line). -->
+                    <LinearLayout
+                        android:id="@+id/detailBrands"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="20dp"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="18dp"
+                            android:text="@string/detail_brands_title"
+                            android:textColor="@color/text_primary"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/detailBrandsHint"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/detailBrandsCredit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp"
+                            android:visibility="gone" />
+                    </LinearLayout>
                 </LinearLayout>
 
                 <!-- Shown instead of the chart, plan and technical stats when the scan had no price structure. -->

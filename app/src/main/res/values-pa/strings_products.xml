@@ -101,4 +101,9 @@
     <string name="product_recycling">ਰੀਸਾਈਕਲਿੰਗ</string>
     <string name="product_education">ਸਿੱਖਿਆ</string>
     <string name="product_staffing">ਸਟਾਫਿੰਗ / ਮੈਨਪਾਵਰ</string>
+
+    <!-- The company's brands from its own website (StockDetailSheet.bindBrands). -->
+    <string name="detail_brands_title">ਬ੍ਰਾਂਡ</string>
+    <string name="detail_brands_hint">%1$d ਬ੍ਰਾਂਡ, ਕੰਪਨੀ ਦੀ ਆਪਣੀ ਵੈੱਬਸਾਈਟ ਤੋਂ</string>
+    <string name="detail_brands_credit">ਬ੍ਰਾਂਡ ਦੀਆਂ ਤਸਵੀਰਾਂ: %1$s</string>
 </resources>

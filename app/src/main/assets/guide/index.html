@@ -388,6 +388,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
             <li><b>लंबी अवधि की checklist (moat)</b>: ROCE, कर्ज़, ब्याज cover, मुनाफ़े के पीछे cash, लगातार मुनाफ़ा, margin, promoters, उनकी बिक्री, pledge और auditor। हर एक ✓, ✗ या – (आँकड़ा नहीं)।</li>
             <li><b>R/S इतिहास</b> और <b>मुख्य आँकड़े</b>: शीर्षक दबाकर खोलें/बंद करें (▾/▴)। इतिहास में हर quarter के नतीजे, FII/DII/promoter की हिस्सेदारी (▲ ख़रीदा, ▼ बेचा), सालाना cash flow और 3 साल का भाव।</li>
             <li><b>क्या बनाती है</b>: company के products, तस्वीरों के साथ। किसी product को दबाएँ तो उसे बनाने वाली सारी companies list में।</li>
+            <li><b>ब्रांड</b>: "क्या बनाती है" के ठीक नीचे, company के अपने brands की तस्वीरें, उसकी website से, हर product की अलग टोली में (जैसे 🍪 Packaged food · 29)। हर तस्वीर के नीचे brand का नाम, और सबसे नीचे लिखा है कि तस्वीरें कहाँ से हैं। अभी यह हिस्सा सिर्फ़ उन companies में दिखता है जिनके brands app में जुड़ चुके हैं।</li>
             <li>नीचे <span class="ui">Groww</span>, <span class="ui">Angel One</span>, <span class="ui">Zerodha</span>: symbol copy होता है और वह app खुलता है, वहाँ search में paste करें। <span class="ui">TradingView पर चार्ट</span> बड़ा chart खोलता है (Settings में दूसरी site चुन सकते हैं)।</li>
           </ul>
           <h3>खबरें tab</h3>
@@ -396,6 +397,14 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
             <li>फिर exchange की घोषणाएँ और ख़बरें, हर एक पर प्रकार (नतीजे, order, dividend…) और "प्री-मार्केट" या "लाइव"। दबाने पर पूरी ख़बर या PDF।</li>
           </ul>
           <div class="callout warn"><b>ख़बर अच्छी या बुरी?</b>App यह तय नहीं करता। ख़बर पढ़कर खुद समझें।</div>
+          <h3>ब्रांड कैसे देखें</h3>
+          <ol>
+            <li>🔍 में company का नाम लिखें, जैसे ITC, और उसकी line दबाएँ।</li>
+            <li>जानकारी tab में नीचे "क्या बनाती है" तक खिसकाएँ।</li>
+            <li>उसके नीचे "ब्रांड": पहले कुल गिनती, फिर हर टोली में तीन-तीन तस्वीरें।</li>
+          </ol>
+          <div class="callout tip"><b>उदाहरण: ITC</b>ITC को लोग अक्सर सिर्फ़ cigarette company समझते हैं। उसके ब्रांड हिस्से में 44 brands हैं: 🍪 Packaged food · 29 (Aashirvaad आटा, Sunfeast और Dark Fantasy biscuit, Bingo! chips, YiPPee! noodles, Yoga Bar…), 🧴 personal care · 8 (Fiama, Vivel, Engage, Savlon…), 📄 stationery · 2 (Classmate, Paperkraft) और 🧺 घरेलू सामान · 5 (Aim और Homelites माचिस, Mangaldeep अगरबत्ती…)। यानी रसोई से लेकर स्कूल बैग तक, कई चीज़ें एक ही company की।</div>
+          <div class="callout warn"><b>सावधानी</b>Brand जाना-पहचाना हो, इससे शेयर अच्छा नहीं हो जाता। किस कारोबार से company कितना कमाती है, यह brands की गिनती नहीं बताती (ITC की कमाई का बड़ा हिस्सा अब भी cigarettes से है)। ख़रीदने से पहले R/S, नतीजे और भाव का chart देखें।</div>
         </div>
         <div class="shots">
           <figure><img src="img/detail.jpg" alt="RELIANCE का detail: भाव, score की पट्टी, चार्ट पर entry, SL, targets और support, नीचे trade window खोलने की पट्टी" loading="lazy" width="360" height="800"><figcaption>Detail: चार्ट और Trade window की पट्टी</figcaption></figure>
@@ -773,6 +782,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
         <div><dt>Listing, नया listing</dt><dd>शेयर का पहली बार exchange पर कारोबार शुरू होना (जैसे IPO के बाद)। नए listed शेयर के पास कुछ ही दिनों का भाव होता है।</dd></div>
         <div><dt>सत्र (session)</dt><dd>एक कारोबारी दिन: बाज़ार खुलने से बंद होने तक। App का score कम से कम 21 सत्र के भाव से बनता है।</dd></div>
         <div><dt>Trading रुकना (suspension)</dt><dd>Exchange किसी शेयर का कारोबार रोक दे (जैसे नियम न मानने पर); तब न ख़रीद सकते हैं, न बेच सकते हैं।</dd></div>
+        <div><dt>Brand (ब्रांड)</dt><dd>वह नाम जिससे company अपना सामान बेचती है, जैसे ITC का Aashirvaad आटा। एक company के कई brands हो सकते हैं।</dd></div>
         <div><dt>Market cap</dt><dd>Company की कुल बाज़ार value = भाव × कुल शेयर।</dd></div>
         <div><dt>Win rate, Profit factor</dt><dd>जीते trades का %; कुल जीत ÷ कुल हार (1 से ऊपर = फ़ायदे में)।</dd></div>
         <div><dt>Drawdown</dt><dd>सबसे ऊँचे स्तर से account की सबसे बड़ी गिरावट।</dd></div>
@@ -797,6 +807,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
         <div><h3>बड़े पैसे की चाल का score 70 है, ख़रीद लूँ?</h3><p>नहीं, सिर्फ़ इसी से नहीं। Score बताता है कि delivery, deals और promoter एक ही तरफ़ इशारा कर रहे हैं। Track record देखें, chart और R/S देखें, stop-loss तय करें, और पहले Paper Trading में परखें।</p></div>
         <div><h3>Long-term का खरीद भाव अभी के भाव से इतना नीचे क्यों?</h3><p>खरीद भाव असली कीमत से 20%–35% नीचे रखा जाता है, ताकि अंदाज़ा ग़लत निकले तब भी सुरक्षा रहे। असली कीमत sector के model और company के अपने आम P/E का बीच है; दोनों से भी company भाव से सस्ती न दिखे तो खरीद भाव नीचे ही रहेगा। R/S card में <span class="ui">Framework का पूरा हिसाब</span> दबाकर हर क़दम देखें।</p></div>
         <div><h3>Paper Trading में फ़ायदा दिख रहा है, फिर भी बेचने पर कम क्यों मिला?</h3><p>शेयर की line पर दिखा फ़ायदा charges से पहले का है। शेयर दबाकर पूरा हिसाब खोलें: "अभी बंद करें तो (charges के बाद)" वाली line बताती है कि बेचने पर असल में कितना बचेगा, और breakeven बताता है कि किस भाव से ऊपर फ़ायदा शुरू होता है।</p></div>
+        <div><h3>किसी company के ब्रांड क्यों नहीं दिखते?</h3><p>Brands की तस्वीरें company की अपनी website से एक-एक करके जोड़ी जाती हैं। अभी ITC के 44 brands app में हैं; बाक़ी companies के अगले updates में जुड़ते जाएँगे। तब तक "क्या बनाती है" में उसके products दिखते हैं।</p></div>
         <div><h3>Update install नहीं हो रहा।</h3><p>पहली बार Android "इस source से install" की अनुमति माँगता है; उसे चालू करके back दबाएँ। Phone में जगह कम हो तो थोड़ी खाली करें।</p></div>
         <div><h3>क्या app मेरे broker में order डालता है?</h3><p>नहीं। App कभी असली order नहीं भेजता। Order ticket copy करके आप ख़ुद broker app में डालते हैं।</p></div>
         <div><h3>Phone बदला तो watchlist?</h3><p>Login किया हो तो नए phone में उसी account से login करें, watchlist वापस। Login के बिना watchlist सिर्फ़ उसी phone में रहती है।</p></div>

@@ -101,4 +101,9 @@
     <string name="product_recycling">रीसाइक्लिंग</string>
     <string name="product_education">शिक्षा</string>
     <string name="product_staffing">स्टाफ़िंग / मैनपावर</string>
+
+    <!-- The company's brands from its own website (StockDetailSheet.bindBrands). -->
+    <string name="detail_brands_title">ब्रांड</string>
+    <string name="detail_brands_hint">%1$d ब्रांड, कंपनी की अपनी वेबसाइट से</string>
+    <string name="detail_brands_credit">ब्रांड की तस्वीरें: %1$s</string>
 </resources>
