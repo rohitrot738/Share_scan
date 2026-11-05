@@ -529,7 +529,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
             <li><b>Charges</b>: लेते समय कितने दिए, और अभी बंद करें तो कितने और लगेंगे (अंदाज़ा)।</li>
           </ul>
           <p>नीचे उस शेयर के सारे orders (रुके और भरे), और चार बटन: <span class="ui">अभी बंद करें (Market)</span>, <span class="ui">Stop-loss / Target बदलें</span>, <span class="ui">इसी stock का नया order</span> और <span class="ui">Stock खोलें</span>। Sheet खुली रहे तो भाव ताज़ा होने पर अंक भी बदलते हैं; शेयर बिक जाए तो sheet अपने-आप बंद।</p>
-          <div class="callout tip"><b>उदाहरण</b>10 RELIANCE ₹1,300 पर delivery में लिए, stop-loss ₹1,180, target ₹1,450। लगाया पैसा ₹13,000, लेते समय charges ₹15.42। भाव ₹1,350 हुआ: फ़ायदा +₹500 (+3.85%), value ₹13,500। अभी बेचें तो charges ₹29.33 और लगेंगे, यानी हाथ में +₹455.25। Breakeven ₹1,304.43: इससे ऊपर बेचें तभी charges के बाद फ़ायदा। Stop (12.6% नीचे) लगा तो −₹1,242.99, target (7.4% ऊपर) लगा तो +₹1,454.21।</div>
+          <div class="callout tip"><b>उदाहरण</b>10 RELIANCE ₹1,300 पर delivery में लिए, stop-loss ₹1,180, target ₹1,450। लगाया पैसा ₹13,000, लेते समय charges ₹15.42। अगले दिन भाव ₹1,311 (तस्वीर वाला): फ़ायदा +₹110 (+0.85%), value ₹13,110। अभी बेचें तो charges ₹28.92 और लगेंगे, यानी हाथ में सिर्फ़ +₹65.65। Breakeven ₹1,304.43: इससे ऊपर बेचें तभी charges के बाद फ़ायदा। Stop (10% नीचे) लगा तो −₹1,242.99, target (10.6% ऊपर) लगा तो +₹1,454.21।</div>
           <div class="callout warn"><b>ध्यान दें</b>"फ़ायदा/नुकसान" charges से पहले है; असली बचत "अभी बंद करें तो" वाली line है। बहुत छोटे फ़ायदे पर बेचने से पहले breakeven देखें, नहीं तो charges फ़ायदा खा जाते हैं।</div>
           <p>Section खुला हो तो भाव हर 30 सेकंड ताज़ा होते हैं; app बंद हो तब भी बाज़ार के समय हर 15 मिनट जाँच होती है और भरने, stop, target या square-off पर notification आता है।</p>
           <div class="callout tip"><b>अच्छी आदत</b>कम से कम 3–4 हफ़्ते paper trade करें। "हिसाब" tab में profit factor 1 से ऊपर और सबसे बड़ी गिरावट छोटी रहे, तभी असली पैसे के बारे में सोचें।</div>
@@ -537,6 +537,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
         <div class="shots">
           <figure><img src="img/paper-home.jpg" alt="Paper Trading: ₹10,00,000 का account, नया order और ताज़ा करें बटन, चार tabs" loading="lazy" width="360" height="800"><figcaption>Paper Trading का account</figcaption></figure>
           <figure><img src="img/paper-order.jpg" alt="नया paper order: RELIANCE, BUY, Delivery, Market, 10 शेयर, stop-loss और target" loading="lazy" width="360" height="800"><figcaption>नया order भरना</figcaption></figure>
+          <figure><img src="img/paper-holding.jpg" alt="खरीदे शेयर का पूरा हिसाब: अभी का भाव, फ़ायदा, लेते समय, stop-loss और target, breakeven, charges" loading="lazy" width="360" height="800"><figcaption>शेयर दबाने पर पूरा हिसाब</figcaption></figure>
           <figure><img src="img/paper-orders.jpg" alt="Orders tab: अगली सुबह के लिए रुके दो orders" loading="lazy" width="360" height="800"><figcaption>Orders tab: रुके orders</figcaption></figure>
           <figure><img src="img/paper-refused.jpg" alt="बाज़ार बंद होने पर intraday order मना: नई intraday entry सिर्फ़ 9:15 से 15:15 तक" loading="lazy" width="360" height="800"><figcaption>गलत समय पर app साफ़ बताता है</figcaption></figure>
         </div>
