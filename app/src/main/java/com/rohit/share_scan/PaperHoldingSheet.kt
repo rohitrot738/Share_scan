@@ -122,8 +122,11 @@ class PaperHoldingSheet(
     private fun level(level: Double?, leaves: Double?, price: Double): String = when {
         level == null -> activity.getString(R.string.paper_detail_level_none)
         leaves == null -> PaperText.money(level)
-        else -> activity.getString(R.string.paper_detail_level, PaperText.money(level), Cr360Format.signed((level / price - 1.0) * 100.0, 1) + "%", PaperText.signed(leaves))
+        else -> activity.getString(R.string.paper_detail_level, PaperText.money(level), Cr360Format.signed((level / price - 1.0) * 100.0, 1) + "%", unbroken(PaperText.signed(leaves)))
     }
+
+    /** "−₹629.10" kept on one line: a word joiner stops the line breaking between the sign and the rupee. */
+    private fun unbroken(amount: String): String = amount.replace("₹", "\u2060₹")
 
     /** A card titled [title] whose [rows] are label–value lines. */
     private fun section(@StringRes title: Int, rows: LinearLayout.() -> Unit) {

@@ -155,19 +155,6 @@ sleep 20
 launch; sleep 10
 echo "IST now: $(TZ=Asia/Kolkata date '+%F %H:%M')" | tee -a "$LOG"
 
-# A scan, from the pill's panel.
-tap statusPill
-sleep 3
-tap startButton
-sleep 10
-adb shell input keyevent KEYCODE_BACK
-for i in $(seq 1 150); do
-  sleep 5
-  unstall
-  center text "100%" > /dev/null && break
-done
-echo "scan done after ~$((i * 5 + 10))s" | tee -a "$LOG"
-adb shell am start -n "$PKG/.MainActivity" > /dev/null
 shot 01-list 6
 
 SEARCH=compactSearch
@@ -227,127 +214,15 @@ order_stock() {
   sleep 8
 }
 
-# Paper Trading: the seeded RELIANCE holding, tapped open in full.
+# Paper Trading: the seeded RELIANCE holding, tapped open in full (again, after keeping "−₹" on one line).
 home
 tap compactPaper
 shot 10-paper 10
 tap_exact "Delivery"
-shot 11-paper-delivery 3
-all_texts | head -40 >> "$LOG"
+sleep 3
 tap_text "RELIANCE · BUY"
 shot 12-holding 4
 all_texts >> "$LOG"
 swipe_up
 shot 13-holding-more 1
-swipe_up
-shot 14-holding-end 1
-adb shell input keyevent KEYCODE_BACK
-sleep 2
-# The order form: BUY/SELL, MIS/CNC and the order types in the flat look.
-tap paperNewOrder
-sleep 3
-order_stock RELIANCE
-shot 15-order-flat 2
-hide_keyboard
-adb shell input keyevent KEYCODE_BACK
-sleep 2
-# Starting over: the capital chips in the dialog (left with Back).
-tap_exact "हिसाब"
-sleep 2
-find_text "Account फिर से शुरू करें" && tap_text "Account फिर से शुरू करें"
-shot 16-reset-chips 2
-adb shell input keyevent KEYCODE_BACK
-sleep 1
-
-# Menu → सेटिंग्स, स्कैन, भाषा और Font, बड़े पैसे की चाल.
-home
-tap compactMenu
-sleep 2
-tap_exact "सेटिंग्स"
-shot 20-settings 3
-swipe_up
-shot 21-settings-more 1
-home
-tap compactMenu
-sleep 2
-tap_exact "स्कैन"
-shot 22-scan 3
-home
-tap compactMenu
-sleep 2
-tap_text "भाषा और Font"
-shot 23-text 3
-home
-tap compactMenu
-sleep 2
-tap_text "बड़े पैसे की चाल"
-shot 24-bigmoney 10
-
-# A stock: the detail, the trade window (long-term line, sizing chips and toggles), the R/S calculation.
-home
-open_stock RELIANCE
-sleep 8
-shot 30-detail 1
-tap detailChartCard
-sleep 8
-shot 31-trade 1
-find_text "Long-term"
-shot 32-trade-long 1
-all_texts | grep -E 'Long-term|खरीद|buy price|Fair value|usual P/E' >> "$LOG"
-show_scroll sizeProduct
-shot 33-trade-size 1
-adb shell input keyevent KEYCODE_BACK
-sleep 2
-show_scroll detailCr360FrameworkOpen && tap detailCr360FrameworkOpen
-sleep 2
-shot 34-rs-calc 1
-swipe_up
-shot 35-rs-calc-more 1
-all_texts | grep -E 'P/E|बीच|खरीद भाव|Margin' >> "$LOG"
-
-# Galaxy: the same sheets keep their glass.
-setpref background string galaxy
-relaunch 12
-shot 40-galaxy-list 1
-tap menuButton
-sleep 2
-tap_text "Paper Trading"
-sleep 8
-tap_exact "Delivery"
-sleep 2
-tap_text "RELIANCE · BUY"
-shot 41-galaxy-holding 4
-adb shell input keyevent KEYCODE_BACK
-sleep 2
-tap paperNewOrder
-sleep 3
-order_stock RELIANCE
-shot 42-galaxy-order 2
-hide_keyboard
-home
-tap menuButton
-sleep 2
-tap_exact "सेटिंग्स"
-shot 43-galaxy-settings 3
-
-# The guide's new parts.
-home
-tap menuButton
-sleep 2
-tap_text "शुरुआती गाइड"
-sleep 6
-tap_text "विषय-सूची"
-sleep 1
-tap_text "📝 Paper Trading"
-sleep 2
-find_text "खरीदे शेयर का पूरा हिसाब"
-shot 50-guide-paper 2
-swipe_up
-shot 51-guide-paper-more 1
-tap_text "विषय-सूची"
-sleep 1
-tap_text "R/S: company कितनी मज़बूत"
-sleep 2
-find_text "उदाहरण: TCS"
-shot 52-guide-rs 2
 echo "done" | tee -a "$LOG"
