@@ -28,6 +28,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          pip install requests
           gh release download cr360-data -p big-money-store.json.gz -p big-money.json.gz -D /tmp/bm
           python - <<'PY'
           import gzip, json
