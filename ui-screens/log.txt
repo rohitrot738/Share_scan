@@ -1,36 +1,48 @@
-IST now: 2026-11-05 15:55
-scan done after ~45s
+IST now: 2026-11-05 16:20
+scan done after ~40s
+saved: 2603 charted, 27 without a chart
+without a chart by exchange: {'NSE': 27}
+  AGOL NSE Ashapuri Gold Ornament Limited
+  BCSSL NSE Bombay Coated and Special Steels Limited
+  BELDING NSE Belding India Limited
+  BLSPOLY NSE BLS Polymers Limited
+  BONDADA NSE Bondada Engineering Limited
+  BONFIG NSE Bonfiglioli Transmissions Limited
+  BRIGHTOUTD NSE Bright Outdoor Media Limited
+  EDELALTS NSE EAAA India Alternatives Limited
+  ENNATURE NSE Ennature Bio Pharma Limited
+  FUSIONCX NSE Fusion CX Limited
+  HDFIRE NSE HD Fire Protect Limited
+  IGLSPIRITS NSE IGL Spirits Limited
+  IIRM NSE IIRM Holdings India Limited
+  INDTONER NSE Indian Toners & Developers Limited
+  JPL NSE Jio Platforms Limited
+  KHAZANCHI NSE Khazanchi Jewellers Limited
+  MKJEWELS NSE M. K. Sons Fine Jewels Limited
+  NITYAS NSE Nityas Gems and Jewellery Limited
+  PARASHLTH NSE Paras Healthcare Limited
+  SFCTECH NSE SFC Environmental Technologies Limited
+  SHIVAM-RE1 NSE Shivam Autotech Ltd-RE
+  SMT NSE Sahajanand Medical Technologies Limited
+  SUDARSHAN NSE Sudarshan Pharma Industries Limited
+  TONBO NSE Tonbo Imaging India Limited
+  TRIVENIPT NSE Triveni Power Transmission Limited
+  VNL NSE Vishal Nirmiti Limited
+  ZETWERK NSE Zetwerk Manufacturing Businesses Limited
 shot 20-list
 Share Scan
 v1.2
 SCAN 100% • 2,630 STOCKS
 #
 STOCK / COMPANY
-PRICE / आज
+PRICE / TODAY
 5D CHG / RVOL
 SCORE
 #1
 ANANDRATHI
 NSE
 📈 Anand Rathi Wealth
-₹2,370.00
-+3.22%
-+4.41%
-RVOL 1.70×
-92.0
-#2
-TECHM
-NSE
-💻 Tech Mahindra
-₹1,822.70
-+2.23%
-+3.00%
-RVOL 0.79×
-89.0
-#3
-TATAELXSI
-NSE
-📺💻 Tata Elxsi
+a fling opened a sheet
 never reached Chart नहीं
 shot 21-no-chart
 shot 22-list-end
@@ -38,33 +50,51 @@ never reached Chart नहीं
 could not find text Chart नहीं
 shot 23-no-chart-tap
 shot 24-no-chart-result
-NSE · EQUITY
-BALKRISIND
-Balkrishna Industries · Automobile and Auto Components
-₹2,401.90
-▲ 7.05% आज · ▲ 14.41% 5D
-STRONG
-83.3 / 100
-जानकारी
-खबरें · 35
-Deals (30 सत्र): कोई bulk/block deal नहीं
-Promoters (90 दिन): market में कोई खरीद-बिक्री नहीं
-⚠️ Promoters का data 30 Apr 2026 तक का ही है: NSE से नया data अभी नहीं मिल रहा, इसलिए यह tab और promoter वाले अंक अधूरे हैं।
-यह खरीदने-बेचने की सलाह नहीं है। Track record बीते साल का है; आगे भी वैसा ही हो, ज़रूरी नहीं। अपना stop-loss ज़रूर रखें।
-🏰 लंबी अवधि की checklist (moat) ▾
-9 में से 8 ✓: मज़बूत company
-R/S इतिहास ▾
-मुख्य आँकड़े ▾
-ये सिर्फ़ price-volume पर आधारित अनुमान हैं — निवेश सलाह नहीं।
-Groww
-Angel One
-Zerodha
-TradingView पर चार्ट
+Share Scan
+v1.2
+SCAN 100% • 2,630 STOCKS
+#
+STOCK / COMPANY
+PRICE / TODAY
+5D CHG / RVOL
+SCORE
+#817
+DRAGARWQ
+NSE
+🏥 Dr Agarwals Eye Hospital
+₹5,395.50
+−0.51%
++1.81%
+RVOL 0.34×
+58.6
+#818
+KAMANWALA
+NSE
+🏗️🏘️ Kamanwala Housing Construction
+₹17.27
++4.04%
++7.27%
+RVOL 1.56×
+shot 25-search-no-chart
 pref background=galaxy
+a fling opened a sheet
+a fling opened a sheet
+a fling opened a sheet
+a fling opened a sheet
+a fling opened a sheet
+a fling opened a sheet
 never reached Chart नहीं मिला
 shot 26-cards-no-chart
 pref background=space_glass
+could not find text शुरुआती गाइड
+could not find text विषय-सूची
+could not find text Stocks की list पढ़ना
+never reached text बिना chart वाले शेयर
 shot 30-guide-no-chart
 shot 31-guide-no-chart-more
+could not find text शुरुआती गाइड
+could not find text विषय-सूची
+could not find text आम सवाल
+never reached text list में कम शेयर
 shot 32-guide-faq
 done
