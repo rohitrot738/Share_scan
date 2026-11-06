@@ -1,6 +1,13 @@
 [
   {
     "version": "",
+    "date": "2026-11-06",
+    "items": [
+      "App किसी गड़बड़ी से बंद हो जाए (\"Share Scan keeps stopping\"), तो अगली बार खोलने पर एक window उस गड़बड़ी का पूरा ब्योरा दिखाती है: \"भेजें\" या \"Copy करें\" से उसे developer तक पहुँचाएँ, ताकि ठीक वही जगह सुधारी जा सके"
+    ]
+  },
+  {
+    "version": "1.2.147",
     "date": "2026-11-05",
     "items": [
       "Stock detail में \"क्या बनाती है\" (या उसके नीचे \"🏷️ 59 brands देखें\") दबाएँ तो नई window में company के अपने brands की तस्वीरें, हर product की अलग टोली में, जैसे chart दबाने पर Trade window; शुरुआत ITC के 59 brands से (Gold Flake, Classic, Aashirvaad, Sunfeast, Bingo!, Fiama, Savlon, Classmate, Mangaldeep…), और ITC के products में अब packaged food और personal care भी",

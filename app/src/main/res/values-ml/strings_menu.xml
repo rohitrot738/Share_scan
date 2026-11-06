@@ -113,4 +113,11 @@
     <string name="share_app_subject">Share Scan — NSE • BSE പ്രീ-ബ്രേക്ക്ഔട്ട് സ്കാനർ</string>
     <string name="share_app_text">Share Scan — NSE, BSE ഓഹരികളെ ബ്രേക്ക്ഔട്ട് സെറ്റപ്പ്, ട്രെൻഡ്, വോള്യം എന്നിവ അടിസ്ഥാനമാക്കി റാങ്ക് ചെയ്യുന്ന Android ആപ്പ്.\nഡൗൺലോഡ്: %1$s</string>
     <string name="share_app_open">ആപ്പ് പങ്കിടുക</string>
+
+    <!-- A crash's error, offered on the next start (CrashLog). -->
+    <string name="crash_title">കഴിഞ്ഞ തവണ ആപ്പ് അടഞ്ഞുപോയി</string>
+    <string name="crash_body">ഒരു പിശക് കാരണം ആപ്പ് അടഞ്ഞുപോയി. താഴെയുള്ള പിശക് \"അയയ്ക്കുക\" അല്ലെങ്കിൽ \"പകർത്തുക\" വഴി ഡെവലപ്പർക്ക് നൽകുക: എന്താണ് തകർന്നതെന്ന് കൃത്യമായി അറിയാം.</string>
+    <string name="crash_send">അയയ്ക്കുക</string>
+    <string name="crash_copy">പകർത്തുക</string>
+    <string name="crash_copied">പിശക് പകർത്തി</string>
 </resources>

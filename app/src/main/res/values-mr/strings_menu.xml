@@ -113,4 +113,11 @@
     <string name="share_app_subject">Share Scan — NSE • BSE प्री-ब्रेकआउट स्कॅनर</string>
     <string name="share_app_text">Share Scan — NSE आणि BSE चे शेअर्स ब्रेकआउट सेटअप, कल आणि व्हॉल्यूमवर क्रमवार लावणारे Android ॲप.\nडाउनलोड: %1$s</string>
     <string name="share_app_open">ॲप शेअर करा</string>
+
+    <!-- A crash's error, offered on the next start (CrashLog). -->
+    <string name="crash_title">मागच्या वेळी ॲप बंद पडले होते</string>
+    <string name="crash_body">एका चुकीमुळे ॲप बंद पडले होते. खालची चूक \"पाठवा\" किंवा \"कॉपी करा\" ने डेव्हलपरला द्या: त्याने नेमके काय तुटले ते कळेल.</string>
+    <string name="crash_send">पाठवा</string>
+    <string name="crash_copy">कॉपी करा</string>
+    <string name="crash_copied">चूक कॉपी झाली</string>
 </resources>
