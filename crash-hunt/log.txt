@@ -1,0 +1,91 @@
+Performing Streamed Install
+Success
+pref background=space_glass
+pref live_scan=false
+closed a not-responding app
+scan done after ~30s
+ok after: v1.2.145 scan
+Performing Streamed Install
+Success
+ok after: v1.2.147 first launch after the update
+scan done after ~95s
+ok after: v1.2.147 scan
+could not find the line KHAZANCHI
+ok after: starring a no-chart share
+shot 30-watchlist
+ok after: watchlist with a no-chart share
+could not find text See 59 brands
+shot 31-brands
+shot 32-brands-end
+ok after: brands window
+never reached text Big Money
+ok after: Big Money
+could not find text Deals
+Share Scan
+Version 1.2.147
+सेक्टर की ताकत
+कौन सा sector आज सबसे मज़बूत है • दबाकर उसी के stocks देखें
+सेटिंग्स
+ग्लास मोड, आसमान, update check, चार्ट site और डेटा
+भाषा और Font
+अभी: Hinglish · Phone का font
+थीम
+अभी: Galaxy
+Background
+अभी: Space Glass
+Layout
+अभी: Background वाला
+Update देखें
+अभी v1.2.147 • GitHub पर नया version खोजें
+Score कैसे बनता है
+Breakout, trend, volume, badges और trade plan समझें
+App शेयर करें
+दोस्तों को download link भेजें
+App के बारे में
+Version, data source और disclaimer
+tapping 
+shot 33-bigmoney-share
+ok after: a Big Money share
+never reached text Beginner's guide
+shot m-Beginnersguide
+ok after: Menu: Beginner's guide
+never reached text Account
+shot m-Account
+ok after: Menu: Account
+shot m-Scan
+ok after: Menu: Scan
+shot m-PaperTrading
+ok after: Menu: Paper Trading
+never reached text Today's intraday
+shot m-Todaysintraday
+ok after: Menu: Today's intraday
+shot m-Tradelog
+ok after: Menu: Trade log
+shot m-Trackrecord
+ok after: Menu: Track record
+never reached text Sector strength
+shot m-Sectorstrength
+ok after: Menu: Sector strength
+never reached text Settings
+shot m-Settings
+ok after: Menu: Settings
+never reached text Language and font
+shot m-Languageandfont
+ok after: Menu: Language and font
+never reached text Theme
+shot m-Theme
+ok after: Menu: Theme
+shot m-Background
+ok after: Menu: Background
+shot m-Layout
+ok after: Menu: Layout
+never reached text Check for updates
+shot m-Checkforupdates
+ok after: Menu: Check for updates
+never reached text How the score is made
+shot m-Howthescoreismade
+ok after: Menu: How the score is made
+never reached text About the app
+shot m-Abouttheapp
+ok after: Menu: About the app
+done
