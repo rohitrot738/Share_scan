@@ -205,78 +205,79 @@ scan_now() {
   echo "scan done after ~$((i * 5 + 10))s" | tee -a "$LOG"
 }
 
-# v1.2.145, as the phone had it, with a scan kept.
+# Long-presses the line of the stock $1 (on the compact table), which stars it.
+star_row() { local xy; xy=$(center row "$1") && adb shell input swipe $xy $xy 900 || echo "could not find the line $1" | tee -a "$LOG"; sleep 2; }
+# Opens the Menu entry titled $1, scrolling to it, and looks at what it did.
+menu_entry() {
+  home
+  tap compactMenu
+  sleep 2
+  find_text "$1" > /dev/null && tap_text "$1"
+  sleep "${2:-6}"
+  shot "m-$(echo "$1" | tr -cd 'A-Za-z')" 1
+  crashes "Menu: $1"
+  home
+}
+
+# v1.2.145, as the phone had it, with a scan kept; then v1.2.147 over it.
 adb install -r old.apk | tee -a "$LOG"
 adb shell pm grant "$PKG" android.permission.POST_NOTIFICATIONS
 launch; sleep 8
 setpref background string space_glass
 setpref live_scan boolean false
 relaunch 12
-crashes "v1.2.145 first launch"
 scan_now
 crashes "v1.2.145 scan"
-shot 01-old-list 3
-
-# The update: v1.2.147 over it, data kept.
 adb install -r new.apk | tee -a "$LOG"
 relaunch 15
-shot 02-new-first 2
 crashes "v1.2.147 first launch after the update"
-all_texts | head -15 >> "$LOG"
-for k in 1 2 3 4 5; do adb shell input swipe 540 1500 540 600 300; sleep 1; done
-crashes "scroll"
 scan_now
-shot 03-new-scan 3
 crashes "v1.2.147 scan"
+
+# A share without a chart, starred; then the watchlist.
 search_for Jewel compactSearch
 swipe_up
-shot 04-jewel 2
-crashes "search with no-chart rows"
-xy=$(center row KHAZANCHI) && adb shell input tap $xy
-sleep 6
-shot 05-khazanchi 2
-crashes "no-chart sheet"
+star_row KHAZANCHI
+crashes "starring a no-chart share"
 home
+tap_text "Watchlist"
+sleep 5
+shot 30-watchlist 1
+crashes "watchlist with a no-chart share"
+home
+
+# ITC's brands window.
 search_for ITC compactSearch
 xy=$(center row ITC) && adb shell input tap $xy
 sleep 6
-shot 06-itc 2
-crashes "ITC detail"
-find_text "brands देखें"
-tap detailOpenBrands
-sleep 4
-shot 07-brands 2
+find_text "brands" > /dev/null
+tap_text "See 59 brands"
+sleep 5
+shot 31-brands 1
+for k in 1 2 3 4 5 6 7 8; do swipe_up; done
+shot 32-brands-end 1
 crashes "brands window"
-for k in 1 2 3 4 5 6; do swipe_up; done
-crashes "brands window scrolled"
-home
-tap compactMenu; sleep 2
-tap_text "बड़े पैसे की चाल"; sleep 10
-shot 08-bigmoney 2
-crashes "Big Money"
-home
-tap compactMenu; sleep 2
-tap_text "Paper Trading"; sleep 6
-crashes "Paper Trading"
 home
 
-# Each layout on Galaxy, with the no-chart rows on screen.
-for layout in auto accordion bento swipe; do
-  setpref background string galaxy
-  setpref list_layout string "$layout"
-  relaunch 14
-  shot "10-$layout" 2
-  crashes "Galaxy $layout list"
-  search_for Jewel searchButton
-  for k in 1 2 3 4; do adb shell input swipe 540 1500 540 600 300; sleep 1; done
-  shot "11-$layout-jewel" 2
-  crashes "Galaxy $layout no-chart rows"
-done
-# Hindi, then English.
-for lang in hi en; do
-  setpref language string "$lang"
-  relaunch 14
-  shot "20-$lang" 2
-  crashes "language $lang"
+# Big Money, a share in its Deals tab.
+home
+tap compactMenu; sleep 2
+find_text "Big Money" > /dev/null && tap_text "Big Money"
+sleep 10
+crashes "Big Money"
+tap_text "Deals"
+sleep 3
+all_texts | sed -n '1,40p' >> "$LOG"
+first=$(all_texts | grep -E '^[A-Z][A-Z0-9&-]{2,}$' | grep -v -E '^(NSE|BSE|SME|DEALS|BUY|SELL)$' | head -1)
+echo "tapping $first" | tee -a "$LOG"
+[ -n "$first" ] && tap_text "$first"
+sleep 12
+shot 33-bigmoney-share 1
+crashes "a Big Money share"
+home
+
+# Every other Menu entry.
+for entry in "Beginner's guide" "Account" "Scan" "Paper Trading" "Today's intraday" "Trade log" "Track record" "Sector strength" "Settings" "Language and font" "Theme" "Background" "Layout" "Check for updates" "How the score is made" "About the app"; do
+  menu_entry "$entry"
 done
 echo "done" | tee -a "$LOG"
