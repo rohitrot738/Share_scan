@@ -4,6 +4,8 @@ import android.Manifest
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
 import android.content.ActivityNotFoundException
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.res.ColorStateList
@@ -149,6 +151,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         ui = ActivityMainBinding.inflate(layoutInflater)
         setContentView(ui.root)
+        offerCrashReport()
         // Menu → Background picks the background and the layout with it: the Milky Way behind the cards, or Space
         // Glass's grid and price line behind the compact table. Either wears the theme's colours; the hidden view never
         // bakes or animates.
@@ -393,6 +396,30 @@ class MainActivity : AppCompatActivity() {
                 if (row != null) openChart(row) else UnchartedShareSheet(this@MainActivity, book, stock, settings.chartSite).show()
             }
         }
+    }
+
+    /**
+     * The error a crash left last time ([CrashLog]), offered once: sent or copied, it tells which line failed. Its
+     * first lines show in the window.
+     */
+    private fun offerCrashReport() {
+        val report = CrashLog.take(filesDir) ?: return
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.crash_title)
+            .setMessage(getString(R.string.crash_body) + "\n\n" + report.lines().take(CRASH_PREVIEW_LINES).joinToString("\n"))
+            .setPositiveButton(R.string.crash_send) { _, _ ->
+                val send = Intent(Intent.ACTION_SEND)
+                    .setType("text/plain")
+                    .putExtra(Intent.EXTRA_SUBJECT, getString(R.string.crash_subject))
+                    .putExtra(Intent.EXTRA_TEXT, report)
+                runCatching { startActivity(Intent.createChooser(send, getString(R.string.crash_send))) }
+            }
+            .setNeutralButton(R.string.crash_copy) { _, _ ->
+                getSystemService(ClipboardManager::class.java)?.setPrimaryClip(ClipData.newPlainText(getString(R.string.crash_subject), report))
+                Toast.makeText(this, R.string.crash_copied, Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton(R.string.sheet_close, null)
+            .show()
     }
 
     /** Opens the stock a notification named, once the list (or the watchlist's stocks outside it) holds it. */
@@ -1437,6 +1464,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private companion object {
+        /** The crash report's lines shown in its window; all of it is sent or copied. */
+        const val CRASH_PREVIEW_LINES = 8
+
         /** How often, in seconds, the hero's market line is brought up to date when no scan runs. */
         const val MARKET_REFRESH_S = 30
         val CLOCK: DateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm", Locale.US)

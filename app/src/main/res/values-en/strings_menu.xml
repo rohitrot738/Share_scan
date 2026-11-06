@@ -113,4 +113,11 @@
     <string name="share_app_subject">Share Scan — NSE • BSE pre-breakout scanner</string>
     <string name="share_app_text">Share Scan — an Android app that ranks NSE and BSE stocks on breakout setup, trend and volume.\nDownload: %1$s</string>
     <string name="share_app_open">Share the app</string>
+
+    <!-- A crash's error, offered on the next start (CrashLog). -->
+    <string name="crash_title">The app closed last time</string>
+    <string name="crash_body">The app was closed by an error. Send or copy the error below to the developer: it shows exactly what broke.</string>
+    <string name="crash_send">Send</string>
+    <string name="crash_copy">Copy</string>
+    <string name="crash_copied">Error copied</string>
 </resources>
