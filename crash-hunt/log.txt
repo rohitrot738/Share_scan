@@ -1,148 +1,351 @@
-IST: 2026-11-11 13:27 Wednesday
+IST: 2026-11-11 14:03 Wednesday
 Performing Streamed Install
 Success
-pref background=space_glass
 pref live_scan=true
 pref live_interval=15
 pref watch_alerts=true
 pref live_alerts=true
-ok after: launch in a live market
-closed a not-responding app
-could not find id startButton
-scan done after ~20s
-shot 01-live-list
-ok after: live scan
-Share Scan
-v1.2
-LIVE SCAN 100% • 2,633 STOCKS
-#
-STOCK / COMPANY
-PRICE / आज
-5D CHG / RVOL
-SCORE
-#1
-TANLA
-NSE
-💻🌐 Tanla Platforms
-₹698.80
-+7.74%
-+5.55%
-RVOL ≈4.67×
-91.6
-#2
-SOUTHBANK
-NSE
-🏦 The South Indian Bank
-₹60.96
-+3.89%
-+12.97%
-RVOL ≈1.31×
-shot 02-detail-0
+=== CRASH after: launch
+--------- beginning of crash
+11-11 08:33:05.142  1791  2367 F libc    : Fatal signal 4 (SIGILL), code 2 (ILL_ILLOPN), fault addr 0x74682d940573 in tid 2367 (BG Thread #3), pid 1791 (earchbox:search)
+11-11 08:33:06.718  3170  3170 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+11-11 08:33:06.718  3170  3170 F DEBUG   : Build fingerprint: 'google/sdk_gphone64_x86_64/emu64xa:14/UE1A.230829.050/12077443:userdebug/dev-keys'
+11-11 08:33:06.718  3170  3170 F DEBUG   : Revision: '0'
+11-11 08:33:06.718  3170  3170 F DEBUG   : ABI: 'x86_64'
+11-11 08:33:06.718  3170  3170 F DEBUG   : Timestamp: 2026-11-11 08:33:05.423236977+0000
+11-11 08:33:06.718  3170  3170 F DEBUG   : Process uptime: 13s
+11-11 08:33:06.718  3170  3170 F DEBUG   : Cmdline: com.google.android.googlequicksearchbox:search
+11-11 08:33:06.718  3170  3170 F DEBUG   : pid: 1791, tid: 2367, name: BG Thread #3  >>> com.google.android.googlequicksearchbox:search <<<
+11-11 08:33:06.718  3170  3170 F DEBUG   : uid: 10132
+11-11 08:33:06.718  3170  3170 F DEBUG   : signal 4 (SIGILL), code 2 (ILL_ILLOPN), fault addr 0x000074682d940573
+11-11 08:33:06.718  3170  3170 F DEBUG   :     rax 0000000000000000  rbx 0000000000000003  rcx b03fd19939895e25  rdx 0000000000000000
+11-11 08:33:06.718  3170  3170 F DEBUG   :     r8  ffffffffffffffff  r9  00007fff6957a0a0  r10 0000000000005268  r11 0000000000000217
+11-11 08:33:06.718  3170  3170 F DEBUG   :     r12 00007468177424aa  r13 00007468214be344  r14 00007469957322b0  r15 0000000000000000
+11-11 08:33:06.718  3170  3170 F DEBUG   :     rdi 00007468323d1f20  rsi 0000000000000000
+11-11 08:33:06.718  3170  3170 F DEBUG   :     rbp 00007468214be230  rsp 00007468214be080  rip 000074682d940573
+11-11 08:33:06.718  3170  3170 F DEBUG   : 34 total frames
+11-11 08:33:06.718  3170  3170 F DEBUG   : backtrace:
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #00 pc 00000000028a2573  /data/app/~~c19gLJRPrDD-RksyXc414A==/com.google.android.trichromelibrary_567263637-AWFG59aPPD4kq8CYDFZ0hA==/TrichromeLibrary.apk!libmonochrome_64.so (offset 0x89b000) (BuildId: 0808498ff97b3353fd7cdb68725c85232b4ce202)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #01 pc 00000000028a0377  /data/app/~~c19gLJRPrDD-RksyXc414A==/com.google.android.trichromelibrary_567263637-AWFG59aPPD4kq8CYDFZ0hA==/TrichromeLibrary.apk!libmonochrome_64.so (offset 0x89b000) (Java_J_N_M81WqFvs+87) (BuildId: 0808498ff97b3353fd7cdb68725c85232b4ce202)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #02 pc 0000000000391a4b  /apex/com.android.art/lib64/libart.so (art_quick_generic_jni_trampoline+219) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #03 pc 000000000036ec95  /apex/com.android.art/lib64/libart.so (nterp_helper+165) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #04 pc 00000000001824aa  /data/app/~~f44GXHTDBi2ZtIuhb7qSlw==/com.google.android.webview-fcpu5bleT7WVxQuhoCWG5g==/WebViewGoogle.apk (gP.d+210)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #05 pc 000000000036fa88  /apex/com.android.art/lib64/libart.so (nterp_helper+3736) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #06 pc 000000000018239e  /data/app/~~f44GXHTDBi2ZtIuhb7qSlw==/com.google.android.webview-fcpu5bleT7WVxQuhoCWG5g==/WebViewGoogle.apk (gP.b+38)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #07 pc 000000000036fa88  /apex/com.android.art/lib64/libart.so (nterp_helper+3736) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #08 pc 00000000000f05ee  /data/app/~~f44GXHTDBi2ZtIuhb7qSlw==/com.google.android.webview-fcpu5bleT7WVxQuhoCWG5g==/WebViewGoogle.apk (ta.<init>+18)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #09 pc 000000000036fa88  /apex/com.android.art/lib64/libart.so (nterp_helper+3736) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #10 pc 000000000026df8a  /data/app/~~f44GXHTDBi2ZtIuhb7qSlw==/com.google.android.webview-fcpu5bleT7WVxQuhoCWG5g==/WebViewGoogle.apk (com.android.webview.chromium.WebViewChromiumFactoryProvider.getCookieManager+26)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #11 pc 00000000007acc5a  /system/framework/x86_64/boot-framework.oat (android.webkit.CookieManager.getInstance+74) (BuildId: e4c2202f7e80276bcdbfa046249d896342205aa9)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #12 pc 000000000036ec95  /apex/com.android.art/lib64/libart.so (nterp_helper+165) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #13 pc 0000000000437b1a  /product/priv-app/Velvet/Velvet.apk (com.google.android.libraries.web.webview.i.a.a.a.invokeSuspend+10)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #14 pc 000000000036fa88  /apex/com.android.art/lib64/libart.so (nterp_helper+3736) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #15 pc 00000000000da95e  /product/priv-app/Velvet/Velvet.apk (i.c.b.a.a.resumeWith+26)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #16 pc 00000000003707e5  /apex/com.android.art/lib64/libart.so (nterp_helper+7157) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #17 pc 0000000000147c9c  /product/priv-app/Velvet/Velvet.apk (kotlinx.coroutines.bk.run+216)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #18 pc 00000000003707e5  /apex/com.android.art/lib64/libart.so (nterp_helper+7157) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #19 pc 0000000000504188  /product/priv-app/Velvet/Velvet.apk (com.google.apps.tiktok.coroutines.f.run+4)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #20 pc 00000000003707e5  /apex/com.android.art/lib64/libart.so (nterp_helper+7157) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #21 pc 00000000003bcef0  /product/priv-app/Velvet/Velvet.apk (com.google.android.libraries.i.ae.run+4)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #22 pc 00000000002f2a29  /system/framework/x86_64/boot.oat (java.util.concurrent.ThreadPoolExecutor.runWorker+857) (BuildId: c78b6b6270062f2e659e76e5f8dac6d757f47ca6)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #23 pc 00000000002ef4f4  /system/framework/x86_64/boot.oat (java.util.concurrent.ThreadPoolExecutor$Worker.run+68) (BuildId: c78b6b6270062f2e659e76e5f8dac6d757f47ca6)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #24 pc 000000000037084a  /apex/com.android.art/lib64/libart.so (nterp_helper+7258) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #25 pc 00000000003c058a  /product/priv-app/Velvet/Velvet.apk (com.google.android.libraries.i.k.run+14)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #26 pc 00000000003707e5  /apex/com.android.art/lib64/libart.so (nterp_helper+7157) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #27 pc 00000000003c0a5e  /product/priv-app/Velvet/Velvet.apk (com.google.android.libraries.i.p.run+46)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #28 pc 0000000000175324  /system/framework/x86_64/boot.oat (java.lang.Thread.run+84) (BuildId: c78b6b6270062f2e659e76e5f8dac6d757f47ca6)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #29 pc 00000000003784c4  /apex/com.android.art/lib64/libart.so (art_quick_invoke_stub+756) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #30 pc 00000000003c535c  /apex/com.android.art/lib64/libart.so (art::ArtMethod::Invoke(art::Thread*, unsigned int*, unsigned int, art::JValue*, char const*)+204) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #31 pc 0000000000853176  /apex/com.android.art/lib64/libart.so (art::Thread::CreateCallback(void*)+1510) (BuildId: b6dc79e02101ea00827a35a55ab6597a)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #32 pc 00000000000cd06a  /apex/com.android.runtime/lib64/bionic/libc.so (__pthread_start(void*)+58) (BuildId: fa337969c798946280caa45e2d71a2e7)
+11-11 08:33:06.718  3170  3170 F DEBUG   :       #33 pc 0000000000062d88  /apex/com.android.runtime/lib64/bionic/libc.so (__start_thread+56) (BuildId: fa337969c798946280caa45e2d71a2e7)
+11-11 08:33:38.140   518  2657 E RecoverySnapshotStorage: java.io.FileNotFoundException: /data/system/recoverablekeystore/snapshots/10131.xml: open failed: ENOENT (No such file or directory)
+11-11 08:33:38.140   518  2657 E RecoverySnapshotStorage: Caused by: android.system.ErrnoException: open failed: ENOENT (No such file or directory)
+11-11 08:33:38.143  1454  4908 W RecoverableKeyStoreGms: [WrappingKeyManager] InternalRecoveryServiceException during wrapping key generation [CONTEXT service_id=172 ]
+11-11 08:33:38.143  1454  4908 W RecoverableKeyStoreGms: android.security.keystore.recovery.InternalRecoveryServiceException: Failed to import secret key.
+11-11 08:33:38.143  1454  4908 W RecoverableKeyStoreGms: 	at android.security.keystore.recovery.RecoveryController.wrapUnexpectedServiceSpecificException(RecoveryController.java:783)
+11-11 08:33:38.143  1454  4908 W RecoverableKeyStoreGms: Caused by: android.os.ServiceSpecificException: Failed to import secret key. (code 22)
+11-11 08:33:38.143  1454  4908 W RecoverableKeyStoreGms: 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3071)
+11-11 08:33:38.143  1454  4908 W RecoverableKeyStoreGms: 	at android.os.Parcel.createException(Parcel.java:3041)
+11-11 08:33:38.143  1454  4908 W RecoverableKeyStoreGms: 	at android.os.Parcel.readException(Parcel.java:3024)
+11-11 08:33:38.143  1454  4908 W RecoverableKeyStoreGms: 	at android.os.Parcel.readException(Parcel.java:2966)
+11-11 08:33:38.156  1401  2687 W Conscrypt: Could not set socket write timeout: java.net.SocketException: Socket closed
+11-11 08:33:38.342  1631  2482 W ModernMediaScanner: android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: files._data (code 2067 SQLITE_CONSTRAINT_UNIQUE)
+11-11 08:33:38.343  1631  2482 W ModernMediaScanner: android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: files._data (code 2067 SQLITE_CONSTRAINT_UNIQUE)
+11-11 08:33:38.406  1401  4089 W NetworkScheduler: java.lang.IllegalArgumentException: Only the following extra parameter types are supported: Integer, Long, Double, String, Boolean, and nested Bundles with the same restrictions.
+11-11 08:33:38.502  1401  4065 I SemanticLocation: java.io.FileNotFoundException: /data/user/0/com.google.android.gms/files/model_bundle_metadata.pb: open failed: ENOENT (No such file or directory)
+11-11 08:33:38.502  1401  4065 I SemanticLocation: Caused by: android.system.ErrnoException: open failed: ENOENT (No such file or directory)
+11-11 08:33:38.565  1401  4065 I SemanticLocation: java.io.FileNotFoundException: /data/user/0/com.google.android.gms/files/model_bundle_metadata.pb: open failed: ENOENT (No such file or directory)
+11-11 08:33:38.565  1401  4065 I SemanticLocation: Caused by: android.system.ErrnoException: open failed: ENOENT (No such file or directory)
+11-11 08:33:38.852  1401  4089 W NetworkScheduler: java.lang.IllegalArgumentException: Only the following extra parameter types are supported: Integer, Long, Double, String, Boolean, and nested Bundles with the same restrictions.
+11-11 08:33:39.088  1454  3880 W Conscrypt: Could not set socket write timeout: java.net.SocketException: Socket closed
+11-11 08:33:39.116  1454  3880 W Conscrypt: Could not set socket write timeout: java.net.SocketException: Socket closed
+11-11 08:33:39.595   518  2661 E RecoverySnapshotStorage: java.io.FileNotFoundException: /data/system/recoverablekeystore/snapshots/10131.xml: open failed: ENOENT (No such file or directory)
+11-11 08:33:39.595   518  2661 E RecoverySnapshotStorage: Caused by: android.system.ErrnoException: open failed: ENOENT (No such file or directory)
+11-11 08:33:39.606  1454  4909 W RecoverableKeyStoreGms: [WrappingKeyManager] InternalRecoveryServiceException during wrapping key generation [CONTEXT service_id=172 ]
+11-11 08:33:39.606  1454  4909 W RecoverableKeyStoreGms: android.security.keystore.recovery.InternalRecoveryServiceException: Failed to import secret key.
+11-11 08:33:39.606  1454  4909 W RecoverableKeyStoreGms: 	at android.security.keystore.recovery.RecoveryController.wrapUnexpectedServiceSpecificException(RecoveryController.java:783)
+11-11 08:33:39.606  1454  4909 W RecoverableKeyStoreGms: Caused by: android.os.ServiceSpecificException: Failed to import secret key. (code 22)
+11-11 08:33:39.606  1454  4909 W RecoverableKeyStoreGms: 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3071)
+11-11 08:33:39.606  1454  4909 W RecoverableKeyStoreGms: 	at android.os.Parcel.createException(Parcel.java:3041)
+11-11 08:33:39.606  1454  4909 W RecoverableKeyStoreGms: 	at android.os.Parcel.readException(Parcel.java:3024)
+11-11 08:33:39.606  1454  4909 W RecoverableKeyStoreGms: 	at android.os.Parcel.readException(Parcel.java:2966)
+  window: Share Scan
+  window: v1.2.148
+  window: NSE • BSE pre-breakout scanner
+  window: Breakout स्कैन
+  window: Support स्कैन
+  window: ● बाज़ार खुला · AUTO हर 15 मिनट
+  window: स्कैन के लिए तैयार
+  window: Settings में चुने exchanges (NSE, SME, BSE) के सभी stocks को breakout setup, trend, volume, momentum और liquidity पर rank करके top candidates निकालता है।
+  window: SCAN
+  window: —
+  window: स्कैन हुए
+  window: —
+  window: Top score
+  window: —
+  window: Volume spikes
+  window: Top candidates
+  window: Filters
+  window: ★ Watchlist
+  window: सेक्टर
+  window: Score ↓
+  window: अभी कोई नतीजा नहीं
+  window: ऊपर का बटन दबाएँ — स्कैन पूरा होते ही top candidates score के हिसाब से यहाँ दिखेंगे।
+shot crash-window-a
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+could not find id statusPill
+scan done after ~1010s
+shot 10-list
+ok after: the user's scan
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+ok after: starring six
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+no line at 0
 ok after: detail 0
-could not find id detailOpenTrade
-shot 03-trade-0
-ok after: trade window 0
-shot 04-trade-0-more
-ok after: trade window 0 scrolled
-shot 02-detail-1
+never reached id detailOpenTrade
+shot 11-trade-0
+ok after: trade window 0 (intraday call, zones, odds)
+never reached id sizeMis
+ok after: trade window 0 as sizeMis
+never reached id sizePaper
+shot 12-order-0
+ok after: paper order sheet 0
+never reached id orderPlace
+shot 13-placed-0
+ok after: paper order placed 0
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+no line at 1
 ok after: detail 1
-could not find id detailOpenTrade
-shot 03-trade-1
-ok after: trade window 1
-shot 04-trade-1-more
-ok after: trade window 1 scrolled
-shot 02-detail-2
+never reached id detailOpenTrade
+shot 11-trade-1
+ok after: trade window 1 (intraday call, zones, odds)
+never reached id sizeCnc
+ok after: trade window 1 as sizeCnc
+never reached id sizePaper
+shot 12-order-1
+ok after: paper order sheet 1
+never reached id orderPlace
+shot 13-placed-1
+ok after: paper order placed 1
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+no line at 2
 ok after: detail 2
-could not find id detailOpenTrade
-shot 03-trade-2
-ok after: trade window 2
-shot 04-trade-2-more
-ok after: trade window 2 scrolled
-ok after: starring five
-shot 05-watchlist
-ok after: watchlist
-never reached text Today's intraday
-shot m-Todaysintraday
-ok after: Menu: Today's intraday (live)
-ok after: Menu: Today's intraday scrolled
-shot m-PaperTrading
-ok after: Menu: Paper Trading (live)
-ok after: Menu: Paper Trading scrolled
-never reached text Big Money
-shot m-BigMoney
-ok after: Menu: Big Money (live)
-ok after: Menu: Big Money scrolled
-never reached text Sector strength
-shot m-Sectorstrength
-ok after: Menu: Sector strength (live)
-ok after: Menu: Sector strength scrolled
-shot m-Trackrecord
-ok after: Menu: Track record (live)
+never reached id detailOpenTrade
+shot 11-trade-2
+ok after: trade window 2 (intraday call, zones, odds)
+never reached id sizeMis
+ok after: trade window 2 as sizeMis
+never reached id sizePaper
+shot 12-order-2
+ok after: paper order sheet 2
+never reached id orderPlace
+shot 13-placed-2
+ok after: paper order placed 2
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+could not find id compactMenu
+never reached text आज के Intraday
+shot 20-intraday
+ok after: today's intraday (live)
+shot 21-intraday-more
+ok after: today's intraday scrolled
+could not find text BUY
+ok after: an intraday pick's detail
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+could not find id compactMenu
+never reached text Paper Trading
+shot 30-paper
+ok after: paper trading, live refreshes
+could not find exactly Delivery
+ok after: paper tab Delivery
+could not find exactly Orders
+ok after: paper tab Orders
+could not find exactly हिसाब
+ok after: paper tab हिसाब
+could not find exactly Intraday
+ok after: paper tab Intraday
+shot 31-paper-tabs
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+could not find id compactMenu
+never reached text सेक्टर की ताकत
+shot m2-e10cc1
+ok after: Menu: सेक्टर की ताकत
+ok after: Menu: सेक्टर की ताकत scrolled
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+could not find id compactMenu
+never reached text बड़े पैसे की चाल
+shot m2-386bd9
+ok after: Menu: बड़े पैसे की चाल
+ok after: Menu: बड़े पैसे की चाल scrolled
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+could not find id compactMenu
+never reached text Track record
+shot m2-e51077
+ok after: Menu: Track record
 ok after: Menu: Track record scrolled
-shot 06-after-background
-ok after: background live scan (app open)
-ok after: background live scan (app closed)
-shot 07-back
+app was not in front
+app was not in front
+app was not in front
+app was not in front
+shot 40-after-auto-scan
+ok after: live mode's background full scan (app open)
+    NotificationRecord(0x029725c4: pkg=com.rohit.share_scan user=UserHandle{0} id=2147483647 tag=ranker_group importance=3 key=0|com.rohit.share_scan|2147483647|ranker_group|10192|ranker_group: Notification(channel=live_finds shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x710 color=0x00000000 groupKey=ranker_group vis=PRIVATE))
+      icon=Icon(typ=RESOURCE pkg=com.rohit.share_scan id=0x7f080164)
+    NotificationRecord(0x0c51cb73: pkg=com.rohit.share_scan user=UserHandle{0} id=1 tag=null importance=3 key=0|com.rohit.share_scan|1|null|10192: Notification(channel=live_finds shortcut=null contentView=null vibrate=null sound=null defaults=0x0 flags=0x10 color=0x00000000 vis=PRIVATE))
+      icon=Icon(typ=RESOURCE pkg=com.rohit.share_scan id=0x7f080164)
+                android.title=String (🚀 1 stocks का breakout)
+                android.text=String (MEESHO)
+                android.title=String (Serial console enabled)
+                android.text=String (Performance is impacted. To disable, check bootloader.)
+                android.title=String (Configure AT Translated Set 2 keyboard)
+                android.text=String (Tap to select language and layout)
+shot 41-notifications
+could not find text STRONG
+shot 42-from-notification
+ok after: a live alert tapped
+app was not in front
+app was not in front
+app was not in front
+ok after: background jobs, app closed
+shot 43-back
 ok after: back to the app
-ok after: three minutes open
-11-11 08:18:41.281   523   596 W InputManager-JNI: Input channel object 'b3ab978 com.rohit.share_scan/com.rohit.share_scan.MainActivity (client)' was disposed without first being removed with the input manager!
-11-11 08:18:41.281   523   551 W UsageStatsService: Unexpected activity event reported! (com.rohit.share_scan/com.rohit.share_scan.MainActivity event : 23 instanceId : 89077731)
-11-11 08:18:41.318  1052  1052 D CarrierSvcBindHelper: onHandleForceStop: [com.rohit.share_scan]
-11-11 08:18:41.398   523  1818 V ActivityManager: Got obituary of 4923:com.rohit.share_scan
-11-11 08:18:41.408   523  1821 V SplashScreenExceptionList: SplashScreen checking exception for package com.rohit.share_scan (target sdk:35) -> false
-11-11 08:18:41.410   523  1821 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.rohit.share_scan/.MainActivity} with LAUNCH_SINGLE_TOP from uid 0 (BAL_ALLOW_ALLOWLISTED_UID) result code=0
-11-11 08:18:41.417  2708  2914 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=3bc9571f-d649-49e8-a214-8540559216df, tags={ com.google.apps.tiktok.contrib.work.TikTokListenableWorker, TikTokWorker#com.android.dialer.timekeeper.impl.worker.TimeKeeperDbRefreshingWorker } ]
-11-11 08:18:41.418   840   873 V WindowManagerShell: Transition requested: android.os.BinderProxy@8a83511 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=10 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.rohit.share_scan/.MainActivity } baseActivity=ComponentInfo{com.rohit.share_scan/com.rohit.share_scan.MainActivity} topActivity=ComponentInfo{com.rohit.share_scan/com.rohit.share_scan.MainActivity} origActivity=null realActivity=ComponentInfo{com.rohit.share_scan/com.rohit.share_scan.MainActivity} numActivities=1 lastActiveTime=1326773 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@beff676} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{7881477 com.rohit.share_scan.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
-11-11 08:18:41.429   523   553 I ActivityManager: Start proc 12094:com.rohit.share_scan/u0a192 for next-top-activity {com.rohit.share_scan/com.rohit.share_scan.MainActivity}
-11-11 08:18:41.461   523   596 D CoreBackPreview: Window{aaa3b8e u0 Splash Screen com.rohit.share_scan}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@9728b45, mPriority=0, mIsAnimationCallback=false}
-11-11 08:18:41.585 12094 12094 I ohit.share_scan: Using CollectorTypeCC GC.
-11-11 08:18:41.589 12094 12094 W ohit.share_scan: Unexpected CPU variant for x86: x86_64.
-11-11 08:18:41.589 12094 12094 W ohit.share_scan: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
-11-11 08:18:41.590 12094 12094 E ohit.share_scan: Not starting debugger since process cannot load the jdwp agent.
-11-11 08:18:41.607   523   542 V WindowManager: Sent Transition #13 createdAt=11-11 08:18:41.404 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=10 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.rohit.share_scan/.MainActivity } baseActivity=ComponentInfo{com.rohit.share_scan/com.rohit.share_scan.MainActivity} topActivity=ComponentInfo{com.rohit.share_scan/com.rohit.share_scan.MainActivity} origActivity=null realActivity=ComponentInfo{com.rohit.share_scan/com.rohit.share_scan.MainActivity} numActivities=1 lastActiveTime=1326773 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{3b596c1 Task{dc8d42 #10 type=standard A=10192:com.rohit.share_scan}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{2862e66 com.rohit.share_scan.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
-11-11 08:18:41.607   523   542 V WindowManager:     info={id=13 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{3b596c1 Task{dc8d42 #10 type=standard A=10192:com.rohit.share_scan}}} m=OPEN f=NONE leash=Surface(name=Task=10)/@0x748b7cb sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{41ffb38 Task{ed16ab #1 type=home}}} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xb806adf sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
-11-11 08:18:41.801 12094 12094 D nativeloader: Configuring clns-6 for other apk /data/app/~~tY0rQ7pwX5jWJYp_YSIwbQ==/com.rohit.share_scan-z8Xbm16bJCdl04hmqJhMYw==/base.apk. target_sdk_version=35, uses_libraries=, library_path=/data/app/~~tY0rQ7pwX5jWJYp_YSIwbQ==/com.rohit.share_scan-z8Xbm16bJCdl04hmqJhMYw==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.rohit.share_scan
-11-11 08:18:41.817 12094 12094 V GraphicsEnvironment: ANGLE GameManagerService for com.rohit.share_scan: false
-11-11 08:18:41.817 12094 12094 V GraphicsEnvironment: com.rohit.share_scan is not listed in per-application setting
-11-11 08:18:41.827 12094 12094 D WM-WrkMgrInitializer: Initializing WorkManager with default configuration.
-11-11 08:18:41.829 12094 12094 D WM-PackageManagerHelper: Skipping component enablement for androidx.work.impl.background.systemjob.SystemJobService
-11-11 08:18:41.829 12094 12094 D WM-Schedulers: Created SystemJobScheduler and enabled SystemJobService
-11-11 08:18:41.929 12094 12094 W LayerDrawable: 	at com.rohit.share_scan.GlassStyleKt.wearChipGlass(GlassStyle.kt:153)
-11-11 08:18:41.929 12094 12094 W LayerDrawable: 	at com.rohit.share_scan.GlassStyleKt.wearChipGlass$default(GlassStyle.kt:144)
-11-11 08:18:41.929 12094 12094 W LayerDrawable: 	at com.rohit.share_scan.MainActivity.onCreate(MainActivity.kt:183)
-11-11 08:18:41.929 12094 12094 W LayerDrawable: 	at com.rohit.share_scan.GlassStyleKt.wearChipGlass(GlassStyle.kt:153)
-11-11 08:18:41.929 12094 12094 W LayerDrawable: 	at com.rohit.share_scan.GlassStyleKt.wearChipGlass$default(GlassStyle.kt:144)
-11-11 08:18:41.929 12094 12094 W LayerDrawable: 	at com.rohit.share_scan.MainActivity.onCreate(MainActivity.kt:183)
-11-11 08:18:41.961   523  2608 D CoreBackPreview: Window{903fc1c u0 com.rohit.share_scan/com.rohit.share_scan.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@da5f7ab, mPriority=0, mIsAnimationCallback=false}
-11-11 08:18:42.733 12094 12133 I ohit.share_scan: Waiting for a blocking GC Alloc
-11-11 08:18:42.734 12094 12132 I ohit.share_scan: Waiting for a blocking GC Alloc
-11-11 08:18:42.734 12094 12122 I ohit.share_scan: Waiting for a blocking GC Alloc
-11-11 08:18:42.735 12094 12137 I ohit.share_scan: Waiting for a blocking GC Alloc
-11-11 08:18:43.044   523   542 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +1s640ms
-11-11 08:18:43.115   523  1821 D CoreBackPreview: Window{aaa3b8e u0 Splash Screen com.rohit.share_scan EXITING}: Setting back callback null
-11-11 08:18:43.115   523  2608 W InputManager-JNI: Input channel object 'aaa3b8e Splash Screen com.rohit.share_scan (client)' was disposed without first being removed with the input manager!
-11-11 08:18:43.325 12094 12102 I ohit.share_scan: Background concurrent copying GC freed 3922371(108MB) AllocSpace objects, 56(19MB) LOS objects, 27% free, 64MB/88MB, paused 69us,13us total 600.991ms
-11-11 08:18:43.326 12094 12133 I ohit.share_scan: WaitForGcToComplete blocked Alloc on Background for 592.983ms
-11-11 08:18:43.326 12094 12133 I ohit.share_scan: Starting a blocking GC Alloc
-11-11 08:18:43.327 12094 12132 I ohit.share_scan: WaitForGcToComplete blocked Alloc on Background for 592.900ms
-11-11 08:18:43.327 12094 12132 I ohit.share_scan: Starting a blocking GC Alloc
-11-11 08:18:43.330 12094 12122 I ohit.share_scan: WaitForGcToComplete blocked Alloc on Background for 595.656ms
-11-11 08:18:43.330 12094 12122 I ohit.share_scan: Starting a blocking GC Alloc
-11-11 08:18:43.338 12094 12137 I ohit.share_scan: WaitForGcToComplete blocked Alloc on Background for 603.249ms
-11-11 08:18:43.338 12094 12137 I ohit.share_scan: Starting a blocking GC Alloc
-11-11 08:18:44.080   523  1818 I ImeTracker: com.rohit.share_scan:70c7859: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
-11-11 08:18:44.080   523  1818 I ImeTracker: com.rohit.share_scan:70c7859: onCancelled at PHASE_SERVER_SHOULD_HIDE
-11-11 08:18:44.109  1516  1516 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.rohit.share_scan fieldId=0 fieldName=null extras=null}, false)
-11-11 08:18:47.330 12094 12154 D ProfileInstaller: Skipping profile installation for com.rohit.share_scan
-11-11 08:18:57.302 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@584ee; boundsInParent: Rect(0, 0 - 89, 47); boundsInScreen: Rect(32, 2402 - 121, 2400); boundsInWindow: Rect(32, 2402 - 121, 2400); packageName: com.rohit.share_scan; className: android.widget.TextView; text: #14; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/rowRank; uniqueId: null; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
-11-11 08:18:57.304 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@59f35; boundsInParent: Rect(0, 0 - 331, 48); boundsInScreen: Rect(121, 2430 - 452, 2400); boundsInWindow: Rect(121, 2430 - 452, 2400); packageName: com.rohit.share_scan; className: android.widget.TextView; text: 🏦 Punjab National Bank; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/rowCompany; uniqueId: null; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
-11-11 08:18:57.305 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@5ae39; boundsInParent: Rect(0, 0 - 173, 41); boundsInScreen: Rect(733, 2431 - 906, 2400); boundsInWindow: Rect(733, 2431 - 906, 2400); packageName: com.rohit.share_scan; className: android.widget.TextView; text: RVOL ≈4.22×; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/rowRvol; uniqueId: null; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
-11-11 08:18:57.306 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@5bd3d; boundsInParent: Rect(0, 0 - 1048, 1); boundsInScreen: Rect(32, 2502 - 1080, 2400); boundsInWindow: Rect(32, 2502 - 1080, 2400); packageName: com.rohit.share_scan; className: android.view.View; text: null; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: null; uniqueId: null; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: false; visible: false; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
-11-11 08:18:57.309 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@1f87c; boundsInParent: Rect(0, 0 - 180, 126); boundsInScreen: Rect(1184, 2158 - 1022, 2284); boundsInWindow: Rect(1184, 2158 - 1022, 2284); packageName: com.rohit.share_scan; className: android.widget.RadioButton; text: RVOL; error: null; maxTextLength: -1; stateDescription: not checked; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/sortRvol; uniqueId: null; checkable: true; checked: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
-11-11 08:18:57.310 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@1fc3d; boundsInParent: Rect(0, 0 - 235, 126); boundsInScreen: Rect(1385, 2158 - 1022, 2284); boundsInWindow: Rect(1385, 2158 - 1022, 2284); packageName: com.rohit.share_scan; className: android.widget.RadioButton; text: 5D बदलाव; error: null; maxTextLength: -1; stateDescription: not checked; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/sortChange; uniqueId: null; checkable: true; checked: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
-11-11 08:18:57.310 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@1fffe; boundsInParent: Rect(0, 0 - 176, 126); boundsInScreen: Rect(1641, 2158 - 1022, 2284); boundsInWindow: Rect(1641, 2158 - 1022, 2284); packageName: com.rohit.share_scan; className: android.widget.RadioButton; text: Price; error: null; maxTextLength: -1; stateDescription: not checked; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/sortPrice; uniqueId: null; checkable: true; checked: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
-11-11 08:18:57.311 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@203bf; boundsInParent: Rect(0, 0 - 151, 126); boundsInScreen: Rect(1838, 2158 - 1022, 2284); boundsInWindow: Rect(1838, 2158 - 1022, 2284); packageName: com.rohit.share_scan; className: android.widget.RadioButton; text: R/S; error: null; maxTextLength: -1; stateDescription: not checked; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/sortCr360; uniqueId: null; checkable: true; checked: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
-11-11 08:18:57.311 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@20780; boundsInParent: Rect(0, 0 - 222, 126); boundsInScreen: Rect(2010, 2158 - 1022, 2284); boundsInWindow: Rect(2010, 2158 - 1022, 2284); packageName: com.rohit.share_scan; className: android.widget.Button; text: सेक्टर; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/sectorChip; uniqueId: null; checkable: false; checked: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
-11-11 08:18:57.311 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@20b41; boundsInParent: Rect(0, 0 - 205, 126); boundsInScreen: Rect(2253, 2158 - 1022, 2284); boundsInWindow: Rect(2253, 2158 - 1022, 2284); packageName: com.rohit.share_scan; className: android.widget.Button; text: शेयर; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: null; uniqueId: null; checkable: false; checked: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
-11-11 08:19:41.951 12094 12136 W ohit.share_scan: No such thread id for suspend: 29
+ok after: two minutes open
+11-11 09:43:37.687   518  2462 D CoreBackPreview: Window{c1cfc90 u0 com.rohit.share_scan/com.rohit.share_scan.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@34c79af, mPriority=0, mIsAnimationCallback=false}
+11-11 09:43:38.771 27096 27134 I ohit.share_scan: Waiting for a blocking GC Alloc
+11-11 09:43:38.771 27096 27132 I ohit.share_scan: Waiting for a blocking GC Alloc
+11-11 09:43:38.777 27096 27136 I ohit.share_scan: Waiting for a blocking GC Alloc
+11-11 09:43:38.789 27096 27142 I ohit.share_scan: Waiting for a blocking GC Alloc
+11-11 09:43:38.801   518   536 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +1s921ms
+11-11 09:43:38.827   518   786 W InputManager-JNI: Input channel object '48253fb Splash Screen com.rohit.share_scan (client)' was disposed without first being removed with the input manager!
+11-11 09:43:38.829   518  2462 D CoreBackPreview: Window{48253fb u0 Splash Screen com.rohit.share_scan EXITING}: Setting back callback null
+11-11 09:43:39.320 27096 27102 I ohit.share_scan: Background concurrent copying GC freed 4170821(114MB) AllocSpace objects, 58(20MB) LOS objects, 29% free, 57MB/81MB, paused 83us,10us total 561.830ms
+11-11 09:43:39.320 27096 27134 I ohit.share_scan: WaitForGcToComplete blocked Alloc on Background for 549.694ms
+11-11 09:43:39.321 27096 27134 I ohit.share_scan: Starting a blocking GC Alloc
+11-11 09:43:39.328 27096 27132 I ohit.share_scan: WaitForGcToComplete blocked Alloc on Background for 557.031ms
+11-11 09:43:39.331 27096 27132 I ohit.share_scan: Starting a blocking GC Alloc
+11-11 09:43:39.336 27096 27136 I ohit.share_scan: WaitForGcToComplete blocked Alloc on Background for 559.238ms
+11-11 09:43:39.336 27096 27136 I ohit.share_scan: Starting a blocking GC Alloc
+11-11 09:43:39.340 27096 27142 I ohit.share_scan: WaitForGcToComplete blocked Alloc on Background for 551.757ms
+11-11 09:43:39.340 27096 27142 I ohit.share_scan: Starting a blocking GC Alloc
+11-11 09:43:39.624   518   518 W JobScheduler: Job didn't exist in JobStore: e3fb60 #u0a192/61 com.rohit.share_scan/androidx.work.impl.background.systemjob.SystemJobService
+11-11 09:43:39.666 27096 27112 I WM-WorkerWrapper: Work [ id=1e6980ad-dedf-4e5d-9e6d-1192ec7eaacc, tags={ com.rohit.share_scan.LiveScanWorker } ] was cancelled
+11-11 09:43:39.666 27096 27112 I WM-WorkerWrapper: java.util.concurrent.CancellationException: Task was cancelled.
+11-11 09:43:39.666 27096 27112 I WM-WorkerWrapper: 	at androidx.work.impl.utils.futures.AbstractFuture.cancellationExceptionWithCause(AbstractFuture.java:1183)
+11-11 09:43:39.666 27096 27112 I WM-WorkerWrapper: 	at androidx.work.impl.utils.futures.AbstractFuture.getDoneValue(AbstractFuture.java:513)
+11-11 09:43:39.666 27096 27112 I WM-WorkerWrapper: 	at androidx.work.impl.utils.futures.AbstractFuture.get(AbstractFuture.java:474)
+11-11 09:43:39.666 27096 27112 I WM-WorkerWrapper: 	at androidx.work.impl.WorkerWrapper$2.run(WorkerWrapper.java:316)
+11-11 09:43:39.666 27096 27112 I WM-WorkerWrapper: 	at androidx.work.impl.utils.SerialExecutorImpl$Task.run(SerialExecutorImpl.java:96)
+11-11 09:43:39.666 27096 27112 I WM-WorkerWrapper: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-11 09:43:39.666 27096 27112 I WM-WorkerWrapper: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-11 09:43:39.666 27096 27112 I WM-WorkerWrapper: 	at java.lang.Thread.run(Thread.java:1012)
+11-11 09:43:39.671   518  2462 I ImeTracker: com.rohit.share_scan:86ed3b16: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+11-11 09:43:39.671   518  2462 I ImeTracker: com.rohit.share_scan:86ed3b16: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-11 09:43:39.674  1539  1539 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.rohit.share_scan fieldId=0 fieldName=null extras=null}, false)
+11-11 09:43:39.684   518  2462 D ConnectivityService: requestNetwork for uid/pid:10192/27096 activeRequest: null callbackRequest: 179 [NetworkRequest [ REQUEST id=180, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10192 RequestorUid: 10192 RequestorPkg: com.rohit.share_scan UnderlyingNetworks: Null] ]] callback flags: 0 order: 2147483647
+11-11 09:43:39.685   518   754 D WifiNetworkFactory: got request NetworkRequest [ REQUEST id=180, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10192 RequestorUid: 10192 RequestorPkg: com.rohit.share_scan UnderlyingNetworks: Null] ]
+11-11 09:43:39.685   518   754 D UntrustedWifiNetworkFactory: got request NetworkRequest [ REQUEST id=180, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10192 RequestorUid: 10192 RequestorPkg: com.rohit.share_scan UnderlyingNetworks: Null] ]
+11-11 09:43:39.685   518   754 D OemPaidWifiNetworkFactory: got request NetworkRequest [ REQUEST id=180, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10192 RequestorUid: 10192 RequestorPkg: com.rohit.share_scan UnderlyingNetworks: Null] ]
+11-11 09:43:39.685   518   754 D MultiInternetWifiNetworkFactory: got request NetworkRequest [ REQUEST id=180, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED&NOT_VCN_MANAGED Uid: 10192 RequestorUid: 10192 RequestorPkg: com.rohit.share_scan UnderlyingNetworks: Null] ]
+11-11 09:43:39.784   518  2462 W JobScheduler: Job didn't exist in JobStore: cc3cea #u0a192/62 com.rohit.share_scan/androidx.work.impl.background.systemjob.SystemJobService
+11-11 09:43:40.255 27096 27102 I ohit.share_scan: Background young concurrent copying GC freed 757650(21MB) AllocSpace objects, 11(440KB) LOS objects, 0% free, 108MB/108MB, paused 110us,12us total 762.330ms
+11-11 09:43:40.463 27096 27102 I ohit.share_scan: Background concurrent copying GC freed 1987869(57MB) AllocSpace objects, 33(14MB) LOS objects, 38% free, 37MB/61MB, paused 27us,12us total 204.115ms
+11-11 09:43:43.313 27096 27194 D ProfileInstaller: Skipping profile installation for com.rohit.share_scan
+11-11 09:43:43.499 27096 27102 I ohit.share_scan: Background concurrent copying GC freed 1199990(60MB) AllocSpace objects, 91(1756KB) LOS objects, 28% free, 59MB/83MB, paused 94us,15us total 1.064s
+11-11 09:43:44.249 27096 27102 I ohit.share_scan: NativeAlloc concurrent copying GC freed 903837(44MB) AllocSpace objects, 57(1092KB) LOS objects, 36% free, 41MB/65MB, paused 63us,14us total 216.588ms
+11-11 09:43:47.782 27096 27102 I ohit.share_scan: Background young concurrent copying GC freed 552871(21MB) AllocSpace objects, 160(3056KB) LOS objects, 33% free, 43MB/65MB, paused 27us,13us total 253.340ms
+11-11 09:43:50.065 27096 27102 I ohit.share_scan: Background concurrent copying GC freed 878004(33MB) AllocSpace objects, 247(4788KB) LOS objects, 33% free, 46MB/70MB, paused 54us,15us total 903.797ms
+11-11 09:43:51.138 27096 27102 I ohit.share_scan: Background young concurrent copying GC freed 691249(26MB) AllocSpace objects, 201(3892KB) LOS objects, 36% free, 41MB/65MB, paused 8.510ms,14us total 35.542ms
+11-11 09:43:57.163 27096 27102 I ohit.share_scan: Background young concurrent copying GC freed 518277(19MB) AllocSpace objects, 156(2996KB) LOS objects, 30% free, 45MB/65MB, paused 34us,15us total 110.772ms
+11-11 09:43:58.092 27096 27102 I ohit.share_scan: Background concurrent copying GC freed 621949(23MB) AllocSpace objects, 186(3620KB) LOS objects, 35% free, 42MB/66MB, paused 27us,14us total 192.906ms
+11-11 09:43:58.932 27096 27102 I ohit.share_scan: Background young concurrent copying GC freed 571722(22MB) AllocSpace objects, 170(3308KB) LOS objects, 36% free, 41MB/65MB, paused 6.332ms,13us total 26.123ms
+11-11 09:43:59.943 27096 27102 I ohit.share_scan: Background young concurrent copying GC freed 531331(20MB) AllocSpace objects, 156(3072KB) LOS objects, 30% free, 45MB/65MB, paused 67us,9us total 167.826ms
+11-11 09:44:00.834 27096 27102 I ohit.share_scan: Background concurrent copying GC freed 634366(24MB) AllocSpace objects, 184(3568KB) LOS objects, 35% free, 43MB/67MB, paused 39us,18us total 154.538ms
+11-11 09:44:02.912 27096 27102 I ohit.share_scan: Background young concurrent copying GC freed 578648(22MB) AllocSpace objects, 169(3244KB) LOS objects, 29% free, 46MB/66MB, paused 19.223ms,16us total 233.542ms
+11-11 09:44:05.059 27096 27102 I ohit.share_scan: Background concurrent copying GC freed 1216979(46MB) AllocSpace objects, 352(6844KB) LOS objects, 30% free, 54MB/78MB, paused 33us,18us total 1.407s
+11-11 09:44:06.650 27096 27102 I ohit.share_scan: Background young concurrent copying GC freed 807507(30MB) AllocSpace objects, 240(4656KB) LOS objects, 31% free, 51MB/75MB, paused 33us,19us total 460.491ms
+11-11 09:44:07.799 27096 27102 I ohit.share_scan: Background concurrent copying GC freed 831160(31MB) AllocSpace objects, 243(4652KB) LOS objects, 32% free, 50MB/74MB, paused 109us,16us total 345.258ms
+11-11 09:44:09.015 27096 27102 I ohit.share_scan: Background young concurrent copying GC freed 720386(27MB) AllocSpace objects, 211(4056KB) LOS objects, 33% free, 48MB/72MB, paused 44us,15us total 174.244ms
+11-11 09:44:10.255 27096 27102 I ohit.share_scan: Background concurrent copying GC freed 810304(30MB) AllocSpace objects, 238(4564KB) LOS objects, 34% free, 45MB/69MB, paused 64us,19us total 319.447ms
+11-11 09:44:11.199 27096 27102 I ohit.share_scan: Background young concurrent copying GC freed 580074(21MB) AllocSpace objects, 175(3356KB) LOS objects, 31% free, 47MB/69MB, paused 48us,15us total 123.780ms
+11-11 09:45:45.261 27096 27102 I ohit.share_scan: Background concurrent copying GC freed 592227(22MB) AllocSpace objects, 126(2456KB) LOS objects, 35% free, 44MB/68MB, paused 61us,11us total 113.171ms
+11-11 09:45:53.985 27096 27102 I ohit.share_scan: Background young concurrent copying GC freed 521184(21MB) AllocSpace objects, 119(2336KB) LOS objects, 34% free, 44MB/68MB, paused 9.218ms,10us total 34.809ms
+11-11 09:46:07.391 27096 27102 I ohit.share_scan: Background young concurrent copying GC freed 495863(20MB) AllocSpace objects, 105(2080KB) LOS objects, 31% free, 46MB/68MB, paused 81us,13us total 153.456ms
 done
