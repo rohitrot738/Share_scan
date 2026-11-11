@@ -1,9 +1,9 @@
-# Temporary: runs the released app on an emulator while the market trades, to find where it crashes. Removed before merging.
+# Temporary: runs the released app on an emulator while the market trades, to find where it crashes (second run: the trade window, paper orders, intraday picks, live alerts). Removed before merging.
 name: Crash hunt (live market)
 on:
   push:
     branches: [claude/fervent-turing-3b79hv]
-    paths: ['.github/crash-live.sh', '.github/workflows/crash-live.yml']
+    paths: ['.github/crash-live2.sh', '.github/workflows/crash-live.yml']
   workflow_dispatch:
 permissions:
   contents: write
@@ -35,7 +35,7 @@ jobs:
           arch: x86_64
           profile: pixel_6
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: bash .github/crash-live.sh
+          script: bash .github/crash-live2.sh
       - name: Commit the findings to the branch
         if: always()
         run: |
