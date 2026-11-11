@@ -1,0 +1,42 @@
+# Temporary: two real scans while the market trades, then the app's after-scan work on them (LiveHuntTest). Removed before merging.
+name: Live hunt (JVM)
+on:
+  push:
+    branches: [claude/fervent-turing-3b79hv]
+    paths: ['app/src/test/java/com/rohit/share_scan/LiveHuntTest.kt', '.github/workflows/live-hunt.yml']
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: live-hunt-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  hunt:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Live scans and after
+        env:
+          LIVE_HUNT: '1'
+        run: |
+          echo "IST: $(TZ=Asia/Kolkata date '+%F %H:%M %A')"
+          curl -sSL https://services.gradle.org/distributions/gradle-8.10.2-bin.zip -o gradle.zip
+          unzip -q gradle.zip -d "$RUNNER_TEMP"
+          "$RUNNER_TEMP/gradle-8.10.2/bin/gradle" :app:testDebugUnitTest --tests 'com.rohit.share_scan.LiveHuntTest' -i 2>&1 | grep -vE "^\s*$" | tail -150
+          test -f app/live-hunt/report.txt
+      - name: Commit the report
+        if: always()
+        run: |
+          mkdir -p crash-hunt
+          cp app/live-hunt/report.txt crash-hunt/live-hunt.txt 2>/dev/null || echo "no report" > crash-hunt/live-hunt.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add crash-hunt
+          git commit -m "Add live hunt report" || exit 0
+          git pull --rebase -X theirs origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
