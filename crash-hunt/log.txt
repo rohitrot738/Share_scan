@@ -1,0 +1,148 @@
+IST: 2026-11-11 13:27 Wednesday
+Performing Streamed Install
+Success
+pref background=space_glass
+pref live_scan=true
+pref live_interval=15
+pref watch_alerts=true
+pref live_alerts=true
+ok after: launch in a live market
+closed a not-responding app
+could not find id startButton
+scan done after ~20s
+shot 01-live-list
+ok after: live scan
+Share Scan
+v1.2
+LIVE SCAN 100% • 2,633 STOCKS
+#
+STOCK / COMPANY
+PRICE / आज
+5D CHG / RVOL
+SCORE
+#1
+TANLA
+NSE
+💻🌐 Tanla Platforms
+₹698.80
++7.74%
++5.55%
+RVOL ≈4.67×
+91.6
+#2
+SOUTHBANK
+NSE
+🏦 The South Indian Bank
+₹60.96
++3.89%
++12.97%
+RVOL ≈1.31×
+shot 02-detail-0
+ok after: detail 0
+could not find id detailOpenTrade
+shot 03-trade-0
+ok after: trade window 0
+shot 04-trade-0-more
+ok after: trade window 0 scrolled
+shot 02-detail-1
+ok after: detail 1
+could not find id detailOpenTrade
+shot 03-trade-1
+ok after: trade window 1
+shot 04-trade-1-more
+ok after: trade window 1 scrolled
+shot 02-detail-2
+ok after: detail 2
+could not find id detailOpenTrade
+shot 03-trade-2
+ok after: trade window 2
+shot 04-trade-2-more
+ok after: trade window 2 scrolled
+ok after: starring five
+shot 05-watchlist
+ok after: watchlist
+never reached text Today's intraday
+shot m-Todaysintraday
+ok after: Menu: Today's intraday (live)
+ok after: Menu: Today's intraday scrolled
+shot m-PaperTrading
+ok after: Menu: Paper Trading (live)
+ok after: Menu: Paper Trading scrolled
+never reached text Big Money
+shot m-BigMoney
+ok after: Menu: Big Money (live)
+ok after: Menu: Big Money scrolled
+never reached text Sector strength
+shot m-Sectorstrength
+ok after: Menu: Sector strength (live)
+ok after: Menu: Sector strength scrolled
+shot m-Trackrecord
+ok after: Menu: Track record (live)
+ok after: Menu: Track record scrolled
+shot 06-after-background
+ok after: background live scan (app open)
+ok after: background live scan (app closed)
+shot 07-back
+ok after: back to the app
+ok after: three minutes open
+11-11 08:18:41.281   523   596 W InputManager-JNI: Input channel object 'b3ab978 com.rohit.share_scan/com.rohit.share_scan.MainActivity (client)' was disposed without first being removed with the input manager!
+11-11 08:18:41.281   523   551 W UsageStatsService: Unexpected activity event reported! (com.rohit.share_scan/com.rohit.share_scan.MainActivity event : 23 instanceId : 89077731)
+11-11 08:18:41.318  1052  1052 D CarrierSvcBindHelper: onHandleForceStop: [com.rohit.share_scan]
+11-11 08:18:41.398   523  1818 V ActivityManager: Got obituary of 4923:com.rohit.share_scan
+11-11 08:18:41.408   523  1821 V SplashScreenExceptionList: SplashScreen checking exception for package com.rohit.share_scan (target sdk:35) -> false
+11-11 08:18:41.410   523  1821 I ActivityTaskManager: START u0 {flg=0x10000000 cmp=com.rohit.share_scan/.MainActivity} with LAUNCH_SINGLE_TOP from uid 0 (BAL_ALLOW_ALLOWLISTED_UID) result code=0
+11-11 08:18:41.417  2708  2914 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=3bc9571f-d649-49e8-a214-8540559216df, tags={ com.google.apps.tiktok.contrib.work.TikTokListenableWorker, TikTokWorker#com.android.dialer.timekeeper.impl.worker.TimeKeeperDbRefreshingWorker } ]
+11-11 08:18:41.418   840   873 V WindowManagerShell: Transition requested: android.os.BinderProxy@8a83511 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=10 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.rohit.share_scan/.MainActivity } baseActivity=ComponentInfo{com.rohit.share_scan/com.rohit.share_scan.MainActivity} topActivity=ComponentInfo{com.rohit.share_scan/com.rohit.share_scan.MainActivity} origActivity=null realActivity=ComponentInfo{com.rohit.share_scan/com.rohit.share_scan.MainActivity} numActivities=1 lastActiveTime=1326773 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@beff676} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{7881477 com.rohit.share_scan.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-11 08:18:41.429   523   553 I ActivityManager: Start proc 12094:com.rohit.share_scan/u0a192 for next-top-activity {com.rohit.share_scan/com.rohit.share_scan.MainActivity}
+11-11 08:18:41.461   523   596 D CoreBackPreview: Window{aaa3b8e u0 Splash Screen com.rohit.share_scan}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@9728b45, mPriority=0, mIsAnimationCallback=false}
+11-11 08:18:41.585 12094 12094 I ohit.share_scan: Using CollectorTypeCC GC.
+11-11 08:18:41.589 12094 12094 W ohit.share_scan: Unexpected CPU variant for x86: x86_64.
+11-11 08:18:41.589 12094 12094 W ohit.share_scan: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-11 08:18:41.590 12094 12094 E ohit.share_scan: Not starting debugger since process cannot load the jdwp agent.
+11-11 08:18:41.607   523   542 V WindowManager: Sent Transition #13 createdAt=11-11 08:18:41.404 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=10 displayId=0 isRunning=true baseIntent=Intent { flg=0x10000000 cmp=com.rohit.share_scan/.MainActivity } baseActivity=ComponentInfo{com.rohit.share_scan/com.rohit.share_scan.MainActivity} topActivity=ComponentInfo{com.rohit.share_scan/com.rohit.share_scan.MainActivity} origActivity=null realActivity=ComponentInfo{com.rohit.share_scan/com.rohit.share_scan.MainActivity} numActivities=1 lastActiveTime=1326773 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{3b596c1 Task{dc8d42 #10 type=standard A=10192:com.rohit.share_scan}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{2862e66 com.rohit.share_scan.MainActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-11 08:18:41.607   523   542 V WindowManager:     info={id=13 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{3b596c1 Task{dc8d42 #10 type=standard A=10192:com.rohit.share_scan}}} m=OPEN f=NONE leash=Surface(name=Task=10)/@0x748b7cb sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{41ffb38 Task{ed16ab #1 type=home}}} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0xb806adf sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-11 08:18:41.801 12094 12094 D nativeloader: Configuring clns-6 for other apk /data/app/~~tY0rQ7pwX5jWJYp_YSIwbQ==/com.rohit.share_scan-z8Xbm16bJCdl04hmqJhMYw==/base.apk. target_sdk_version=35, uses_libraries=, library_path=/data/app/~~tY0rQ7pwX5jWJYp_YSIwbQ==/com.rohit.share_scan-z8Xbm16bJCdl04hmqJhMYw==/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/com.rohit.share_scan
+11-11 08:18:41.817 12094 12094 V GraphicsEnvironment: ANGLE GameManagerService for com.rohit.share_scan: false
+11-11 08:18:41.817 12094 12094 V GraphicsEnvironment: com.rohit.share_scan is not listed in per-application setting
+11-11 08:18:41.827 12094 12094 D WM-WrkMgrInitializer: Initializing WorkManager with default configuration.
+11-11 08:18:41.829 12094 12094 D WM-PackageManagerHelper: Skipping component enablement for androidx.work.impl.background.systemjob.SystemJobService
+11-11 08:18:41.829 12094 12094 D WM-Schedulers: Created SystemJobScheduler and enabled SystemJobService
+11-11 08:18:41.929 12094 12094 W LayerDrawable: 	at com.rohit.share_scan.GlassStyleKt.wearChipGlass(GlassStyle.kt:153)
+11-11 08:18:41.929 12094 12094 W LayerDrawable: 	at com.rohit.share_scan.GlassStyleKt.wearChipGlass$default(GlassStyle.kt:144)
+11-11 08:18:41.929 12094 12094 W LayerDrawable: 	at com.rohit.share_scan.MainActivity.onCreate(MainActivity.kt:183)
+11-11 08:18:41.929 12094 12094 W LayerDrawable: 	at com.rohit.share_scan.GlassStyleKt.wearChipGlass(GlassStyle.kt:153)
+11-11 08:18:41.929 12094 12094 W LayerDrawable: 	at com.rohit.share_scan.GlassStyleKt.wearChipGlass$default(GlassStyle.kt:144)
+11-11 08:18:41.929 12094 12094 W LayerDrawable: 	at com.rohit.share_scan.MainActivity.onCreate(MainActivity.kt:183)
+11-11 08:18:41.961   523  2608 D CoreBackPreview: Window{903fc1c u0 com.rohit.share_scan/com.rohit.share_scan.MainActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@da5f7ab, mPriority=0, mIsAnimationCallback=false}
+11-11 08:18:42.733 12094 12133 I ohit.share_scan: Waiting for a blocking GC Alloc
+11-11 08:18:42.734 12094 12132 I ohit.share_scan: Waiting for a blocking GC Alloc
+11-11 08:18:42.734 12094 12122 I ohit.share_scan: Waiting for a blocking GC Alloc
+11-11 08:18:42.735 12094 12137 I ohit.share_scan: Waiting for a blocking GC Alloc
+11-11 08:18:43.044   523   542 I ActivityTaskManager: Displayed com.rohit.share_scan/.MainActivity for user 0: +1s640ms
+11-11 08:18:43.115   523  1821 D CoreBackPreview: Window{aaa3b8e u0 Splash Screen com.rohit.share_scan EXITING}: Setting back callback null
+11-11 08:18:43.115   523  2608 W InputManager-JNI: Input channel object 'aaa3b8e Splash Screen com.rohit.share_scan (client)' was disposed without first being removed with the input manager!
+11-11 08:18:43.325 12094 12102 I ohit.share_scan: Background concurrent copying GC freed 3922371(108MB) AllocSpace objects, 56(19MB) LOS objects, 27% free, 64MB/88MB, paused 69us,13us total 600.991ms
+11-11 08:18:43.326 12094 12133 I ohit.share_scan: WaitForGcToComplete blocked Alloc on Background for 592.983ms
+11-11 08:18:43.326 12094 12133 I ohit.share_scan: Starting a blocking GC Alloc
+11-11 08:18:43.327 12094 12132 I ohit.share_scan: WaitForGcToComplete blocked Alloc on Background for 592.900ms
+11-11 08:18:43.327 12094 12132 I ohit.share_scan: Starting a blocking GC Alloc
+11-11 08:18:43.330 12094 12122 I ohit.share_scan: WaitForGcToComplete blocked Alloc on Background for 595.656ms
+11-11 08:18:43.330 12094 12122 I ohit.share_scan: Starting a blocking GC Alloc
+11-11 08:18:43.338 12094 12137 I ohit.share_scan: WaitForGcToComplete blocked Alloc on Background for 603.249ms
+11-11 08:18:43.338 12094 12137 I ohit.share_scan: Starting a blocking GC Alloc
+11-11 08:18:44.080   523  1818 I ImeTracker: com.rohit.share_scan:70c7859: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+11-11 08:18:44.080   523  1818 I ImeTracker: com.rohit.share_scan:70c7859: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-11 08:18:44.109  1516  1516 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=com.rohit.share_scan fieldId=0 fieldName=null extras=null}, false)
+11-11 08:18:47.330 12094 12154 D ProfileInstaller: Skipping profile installation for com.rohit.share_scan
+11-11 08:18:57.302 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@584ee; boundsInParent: Rect(0, 0 - 89, 47); boundsInScreen: Rect(32, 2402 - 121, 2400); boundsInWindow: Rect(32, 2402 - 121, 2400); packageName: com.rohit.share_scan; className: android.widget.TextView; text: #14; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/rowRank; uniqueId: null; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
+11-11 08:18:57.304 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@59f35; boundsInParent: Rect(0, 0 - 331, 48); boundsInScreen: Rect(121, 2430 - 452, 2400); boundsInWindow: Rect(121, 2430 - 452, 2400); packageName: com.rohit.share_scan; className: android.widget.TextView; text: 🏦 Punjab National Bank; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/rowCompany; uniqueId: null; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
+11-11 08:18:57.305 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@5ae39; boundsInParent: Rect(0, 0 - 173, 41); boundsInScreen: Rect(733, 2431 - 906, 2400); boundsInWindow: Rect(733, 2431 - 906, 2400); packageName: com.rohit.share_scan; className: android.widget.TextView; text: RVOL ≈4.22×; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/rowRvol; uniqueId: null; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
+11-11 08:18:57.306 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@5bd3d; boundsInParent: Rect(0, 0 - 1048, 1); boundsInScreen: Rect(32, 2502 - 1080, 2400); boundsInWindow: Rect(32, 2502 - 1080, 2400); packageName: com.rohit.share_scan; className: android.view.View; text: null; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: null; uniqueId: null; checkable: false; checked: false; focusable: false; focused: false; selected: false; clickable: false; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: false; visible: false; actions: [AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
+11-11 08:18:57.309 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@1f87c; boundsInParent: Rect(0, 0 - 180, 126); boundsInScreen: Rect(1184, 2158 - 1022, 2284); boundsInWindow: Rect(1184, 2158 - 1022, 2284); packageName: com.rohit.share_scan; className: android.widget.RadioButton; text: RVOL; error: null; maxTextLength: -1; stateDescription: not checked; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/sortRvol; uniqueId: null; checkable: true; checked: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
+11-11 08:18:57.310 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@1fc3d; boundsInParent: Rect(0, 0 - 235, 126); boundsInScreen: Rect(1385, 2158 - 1022, 2284); boundsInWindow: Rect(1385, 2158 - 1022, 2284); packageName: com.rohit.share_scan; className: android.widget.RadioButton; text: 5D बदलाव; error: null; maxTextLength: -1; stateDescription: not checked; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/sortChange; uniqueId: null; checkable: true; checked: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
+11-11 08:18:57.310 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@1fffe; boundsInParent: Rect(0, 0 - 176, 126); boundsInScreen: Rect(1641, 2158 - 1022, 2284); boundsInWindow: Rect(1641, 2158 - 1022, 2284); packageName: com.rohit.share_scan; className: android.widget.RadioButton; text: Price; error: null; maxTextLength: -1; stateDescription: not checked; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/sortPrice; uniqueId: null; checkable: true; checked: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
+11-11 08:18:57.311 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@203bf; boundsInParent: Rect(0, 0 - 151, 126); boundsInScreen: Rect(1838, 2158 - 1022, 2284); boundsInWindow: Rect(1838, 2158 - 1022, 2284); packageName: com.rohit.share_scan; className: android.widget.RadioButton; text: R/S; error: null; maxTextLength: -1; stateDescription: not checked; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/sortCr360; uniqueId: null; checkable: true; checked: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
+11-11 08:18:57.311 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@20780; boundsInParent: Rect(0, 0 - 222, 126); boundsInScreen: Rect(2010, 2158 - 1022, 2284); boundsInWindow: Rect(2010, 2158 - 1022, 2284); packageName: com.rohit.share_scan; className: android.widget.Button; text: सेक्टर; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: com.rohit.share_scan:id/sectorChip; uniqueId: null; checkable: false; checked: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
+11-11 08:18:57.311 12157 12157 I AccessibilityNodeInfoDumper: Skipping invisible child: android.view.accessibility.AccessibilityNodeInfo@20b41; boundsInParent: Rect(0, 0 - 205, 126); boundsInScreen: Rect(2253, 2158 - 1022, 2284); boundsInWindow: Rect(2253, 2158 - 1022, 2284); packageName: com.rohit.share_scan; className: android.widget.Button; text: शेयर; error: null; maxTextLength: -1; stateDescription: null; contentDescription: null; tooltipText: null; containerTitle: null; viewIdResName: null; uniqueId: null; checkable: false; checked: false; focusable: true; focused: false; selected: false; clickable: true; longClickable: false; contextClickable: false; enabled: true; password: false; scrollable: false; importantForAccessibility: true; visible: false; actions: [AccessibilityAction: ACTION_FOCUS - null, AccessibilityAction: ACTION_SELECT - null, AccessibilityAction: ACTION_CLEAR_SELECTION - null, AccessibilityAction: ACTION_CLICK - null, AccessibilityAction: ACTION_ACCESSIBILITY_FOCUS - null, AccessibilityAction: ACTION_NEXT_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_PREVIOUS_AT_MOVEMENT_GRANULARITY - null, AccessibilityAction: ACTION_SET_SELECTION - null, AccessibilityAction: ACTION_SHOW_ON_SCREEN - null]; isTextSelectable: false
+11-11 08:19:41.951 12094 12136 W ohit.share_scan: No such thread id for suspend: 29
+done
