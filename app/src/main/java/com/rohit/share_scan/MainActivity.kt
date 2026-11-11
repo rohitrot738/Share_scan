@@ -399,11 +399,24 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * The error a crash left last time ([CrashLog]), offered once: sent or copied, it tells which line failed. Its
-     * first lines show in the window.
+     * The error a crash left last time ([CrashLog]), or else the end Android recorded that no error handler saw (a
+     * native crash, the app stuck: [ExitHistory]), offered once: sent or copied, it tells which line failed. Its first
+     * lines show in the window.
      */
     private fun offerCrashReport() {
-        val report = CrashLog.take(filesDir) ?: return
+        val app = applicationContext
+        lifecycleScope.launch {
+            val report = withContext(Dispatchers.IO) {
+                runCatching {
+                    CrashLog.take(app.filesDir)?.also { ExitHistory.markSeen(app) }
+                        ?: ExitHistory.report(app, BuildConfig.VERSION_NAME, "${Build.MANUFACTURER} ${Build.MODEL}")
+                }.getOrNull()
+            } ?: return@launch
+            lifecycle.withStarted { showCrashReport(report) }
+        }
+    }
+
+    private fun showCrashReport(report: String) {
         MaterialAlertDialogBuilder(this)
             .setTitle(R.string.crash_title)
             .setMessage(getString(R.string.crash_body) + "\n\n" + report.lines().take(CRASH_PREVIEW_LINES).joinToString("\n"))
