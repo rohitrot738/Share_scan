@@ -1,0 +1,33 @@
+device time: Wed Nov 18 05:30:00 UTC 2026
+=== v1.2.149 (released)
+Success
+v1.2.149 (released): scan running inside the job: 0.0 s CPU in 30 s = 0.0% (pid 4839)
+  timeout: Stopping job: #u0a192/2 com.rohit.share_scan/androidx.work.impl.background.systemjob.SystemJobService
+  job stopped by Android (timeout)
+    *APP* UID 10192 ProcessRecord{c668468 4839:com.rohit.share_scan/u0a192}
+      procStateMemTracker: best=1 (1=1 1.0x) / pending state=4 highest=1 1.0x
+      curProcState=15 mRepProcState=15 setProcState=15 lastStateTime=-5s23ms
+  --
+v1.2.149 (released): first minute after the job stopped: 0.4 s CPU in 60 s = 0.7% (pid 4839)
+v1.2.149 (released): second minute after the job stopped: 0.6 s CPU in 60 s = 1.1% (pid 4839)
+  log: 11-18 05:30:28.705  1396  3471 W NetworkScheduler: Immediate task was not started com.google.android.gms/.pay.gcmtask.PayGcmTaskService{u=0 tag="accountfreshener.oneoff" trigger=window{start=0s,end=1s,earliest=-3s,latest=-2s} requirements=[NET_ANY,PREFERRED_CHARGING] attributes=[] scheduled=-3s last_run=N/A exec_window_multiplier=1.0000 jid=N/A status=PENDING retries=0 client_lib=GMS_TASK_SCHEDULER-231818000}. Rescheduling immediate tasks can cause excessive battery drain.
+  log: 11-18 05:30:28.887  1396  3471 W NetworkScheduler: Immediate task was not started com.google.android.gms/.pay.gcmtask.PayGcmTaskService{u=0 tag="hceserviceinitoneoff.sync" trigger=window{start=0s,end=1s,earliest=-3s,latest=-2s} requirements=[NET_ANY,PREFERRED_CHARGING] attributes=[PERSISTED] scheduled=-3s last_run=N/A exec_window_multiplier=1.0000 jid=N/A status=PENDING retries=0 client_lib=GMS_TASK_SCHEDULER-231818000}. Rescheduling immediate tasks can cause excessive battery drain.
+  log: 11-18 05:30:41.327  4839  4859 I WM-WorkerWrapper: Work [ id=f45ac541-0949-44d8-8791-a0e78d91e2f6, tags={ com.rohit.share_scan.LiveScanWorker } ] was cancelled
+  log: 11-18 05:31:09.731  5601  5671 W NetworkScheduler: Immediate task was not started com.google.android.gms/.tapandpay.gcmtask.TapAndPayGcmTaskService{u=0 tag="hce.dynamic_aid_registration.oneoff" trigger=window{start=0s,end=1s,earliest=0s,latest=0s} requirements=[NET_ANY,PREFERRED_CHARGING] attributes=[] scheduled=0s last_run=N/A exec_window_multiplier=1.0000 jid=N/A status=PENDING retries=0 client_lib=GMS_TASK_SCHEDULER-231818000}. Rescheduling immediate tasks can cause excessive battery drain.
+  log: 11-18 05:31:54.468  4839  4860 I WM-WorkerWrapper: Work [ id=f45ac541-0949-44d8-8791-a0e78d91e2f6, tags={ com.rohit.share_scan.LiveScanWorker } ] was cancelled
+  log: 11-18 05:33:06.528  4839  4860 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=f45ac541-0949-44d8-8791-a0e78d91e2f6, tags={ com.rohit.share_scan.LiveScanWorker } ]
+=== branch build (the fix)
+Success
+  job:   JOB #u0a193/1: 184900f com.rohit.share_scan/androidx.work.impl.background.systemjob.SystemJobService
+branch build (the fix): scan running inside the job: 0.0 s CPU in 30 s = 0.1% (pid 6657)
+  timeout: Stopping job: #u0a193/1 com.rohit.share_scan/androidx.work.impl.background.systemjob.SystemJobService
+  job stopped by Android (timeout)
+    *APP* UID 10193 ProcessRecord{bf7dc12 6657:com.rohit.share_scan/u0a193}
+      procStateMemTracker: best=1 (1=1 1.0x) / pending state=4 highest=1 1.0x
+      curProcState=15 mRepProcState=15 setProcState=15 lastStateTime=-1s397ms
+  --
+branch build (the fix): first minute after the job stopped: 0.0 s CPU in 60 s = 0.0% (pid 6657)
+branch build (the fix): second minute after the job stopped: 0.0 s CPU in 60 s = 0.0% (pid 6657)
+  log: 11-18 05:35:44.830  6657  6712 I WM-WorkerWrapper: Work [ id=268e682d-6498-4c78-80bd-5da79a44a293, tags={ com.rohit.share_scan.LiveScanWorker } ] was cancelled
+  log: 11-18 05:35:48.451  6657  6707 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=268e682d-6498-4c78-80bd-5da79a44a293, tags={ com.rohit.share_scan.LiveScanWorker } ]
+done
