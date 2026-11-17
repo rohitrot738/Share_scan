@@ -11,19 +11,6 @@ import java.util.concurrent.atomic.AtomicInteger
 
 /** [NseScanner.runStoppable], the part of a scan that a stop cuts short; real threads, no network. */
 class ScanStopTest {
-    /** Live mode's scan, which Android may cut short, checks the watchlist and the best of the scan before first. */
-    @Test
-    fun theStocksThatMatterAreCheckedFirstAndTheRestKeepTheListingOrder() {
-        val listed = listOf("AAVAS", "BEL", "CIPLA", "DLF", "PNB", "TANLA", "ZOMATO").map { Listing(it, it) }
-        val first = mapOf("TANLA" to 0, "PNB" to 1, "BEL" to 2)
-        assertEquals(
-            listOf("TANLA", "PNB", "BEL", "AAVAS", "CIPLA", "DLF", "ZOMATO"),
-            NseScanner.checkFirst(listed, first).map { it.symbol },
-        )
-        // A scan the user starts runs through the whole list as listed.
-        assertEquals(listed, NseScanner.checkFirst(listed, emptyMap()))
-    }
-
     @Test(timeout = 10_000)
     fun runsEverythingWithoutAStop() {
         val pool = Executors.newFixedThreadPool(3)

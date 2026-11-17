@@ -44,15 +44,6 @@ class LiveScanWorker(context: Context, params: WorkerParameters) : Worker(contex
         return Result.success()
     }
 
-    /**
-     * Android ended the job early (its time, or the app's share of background time, is up). The scan ends with it and
-     * keeps what it got: left running, its work would count against an app idling in the background, and Android
-     * closes such an app for using too much CPU ("Closed by Android for using too much CPU or battery").
-     */
-    override fun onStopped() {
-        ScanEngine.cutLiveScan()
-    }
-
     private companion object {
         /** Android gives a background job about ten minutes; the scan stops short of that and keeps what it got. */
         const val BUDGET_MS = 8L * 60 * 1000

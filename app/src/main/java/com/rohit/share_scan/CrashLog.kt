@@ -26,7 +26,7 @@ object CrashLog {
     /** Android's version number by API level, for the report's first line. */
     private val ANDROID = mapOf(
         26 to "8.0", 27 to "8.1", 28 to "9", 29 to "10", 30 to "11", 31 to "12", 32 to "12L",
-        33 to "13", 34 to "14", 35 to "15", 36 to "16", 37 to "17",
+        33 to "13", 34 to "14", 35 to "15", 36 to "16",
     )
 
     /**
@@ -68,7 +68,6 @@ object CrashLog {
         memoryKb: Long,
         trace: String?,
         earlier: List<Pair<Exit, Long>> = emptyList(),
-        importance: Int = 0,
     ): String {
         val lines = mutableListOf(
             "Share Scan $version · Android ${ANDROID[api] ?: "?"} (API $api) · $device",
@@ -76,7 +75,6 @@ object CrashLog {
         )
         description?.trim()?.takeIf { it.isNotEmpty() }?.let { lines += "Android: $it" }
         if (memoryKb > 0) lines += "Memory: ${memoryKb / 1024} MB"
-        if (importance > 0) lines += "App was: ${state(importance)}"
         if (earlier.isNotEmpty()) {
             lines += "Earlier: " + earlier.joinToString("; ") { (kind, at) ->
                 "${kind.name} ${WHEN.format(Instant.ofEpochMilli(at).atZone(INDIA))}"
@@ -84,16 +82,6 @@ object CrashLog {
         }
         trace?.trim()?.takeIf { it.isNotEmpty() }?.let { lines += ""; lines += it }
         return lines.joinToString("\n").take(MAX_CHARS)
-    }
-
-    /** Android's importance of the process when it ended, in words (ActivityManager.RunningAppProcessInfo). */
-    fun state(importance: Int): String = when {
-        importance <= 100 -> "on the screen ($importance)"
-        importance <= 125 -> "running a foreground service ($importance)"
-        importance <= 230 -> "visible ($importance)"
-        importance <= 300 -> "running a background service or job ($importance)"
-        importance < 400 -> "in the background ($importance)"
-        else -> "in the background, idle ($importance)"
     }
 
     /**
