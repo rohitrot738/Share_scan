@@ -59,9 +59,20 @@ phase() {
   adb shell am start -W -n "$PKG/.MainActivity" > /dev/null; sleep 10
   adb shell input keyevent KEYCODE_HOME; sleep 5
   adb shell dumpsys jobscheduler | grep -E "JOB #.*$PKG" | head -5 | sed 's/^/  job: /' >> "$LOG"
-  for j in $(seq 0 40); do adb shell cmd jobscheduler run -f "$PKG" "$j" > /dev/null 2>&1; done
-  sleep 40
-  measure "$label: scan running inside the job" 30
+  local id; id=$(adb shell dumpsys jobscheduler | grep -oE "JOB #u0a[0-9]+/[0-9]+: [0-9a-f]+ $PKG" | head -1 | sed -E 's#.*/([0-9]+):.*#\1#')
+  echo "  live job id: $id" >> "$LOG"
+  adb shell cmd jobscheduler run -f "$PKG" "$id" > /dev/null 2>&1
+  # Waits until the scan is scoring stocks (the CPU-heavy part), not still fetching its lists.
+  local pid busy=0
+  for i in $(seq 1 40); do
+    pid=$(adb shell pidof "$PKG" | tr -d '\r')
+    [ -z "$pid" ] && { sleep 5; continue; }
+    local a b; a=$(ticks "$pid"); sleep 10; b=$(ticks "$pid")
+    [ -n "$a" ] && [ -n "$b" ] && echo "  sample $i: $(( b - a )) ticks in 10 s" >> "$LOG"
+    if [ -n "$a" ] && [ -n "$b" ] && [ $(( b - a )) -ge 150 ]; then busy=1; break; fi
+  done
+  echo "  scan busy: $busy" >> "$LOG"
+  measure "$label: scan running inside the job" 20
   adb shell cmd jobscheduler timeout -u 0 "$PKG" 2>&1 | head -3 | sed 's/^/  timeout: /' >> "$LOG"
   echo "  job stopped by Android (timeout)" >> "$LOG"
   sleep 5
