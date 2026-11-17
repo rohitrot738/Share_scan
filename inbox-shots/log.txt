@@ -1,0 +1,110 @@
+Performing Streamed Install
+Success
+=== a real scan, so a card can open its share
+tapped startButton
+scan done after ~40s
+=== sample alerts in the app's own words, three since the list was last opened
+=== a real crash, then a start: the window, kept in सूचनाएँ too
+  | पिछली बार app बंद हो गया था
+  | Copy करें
+  | बंद करें
+  | भेजें
+shot 01-crash-window
+=== the Menu, with the count of new ones
+tapped menuButton
+  | Share Scan
+  | Version 1.1.0
+  | शुरुआती गाइड
+  | App की हर चीज़ आसान भाषा में, कदम-दर-कदम, screenshots के साथ (हिन्दी)
+  | अकाउंट
+  | लॉगिन नहीं
+  | सूचनाएँ
+  | 3 नई सूचनाएँ • दबाकर देखें
+  | स्कैन
+  | NSE, SME, BSE • हर exchange में sectors on/off • live auto-scan
+  | Paper Trading
+  | नकली पैसे, असली भाव: intraday और delivery की practice
+  | आज के Intraday
+  | App खुद चुनता है: कौन BUY, कौन SELL
+shot 02-menu
+=== Menu → सूचनाएँ
+tapped सूचनाएँ
+  | 🔔 सूचनाएँ
+  | App ने जो भी बताया, पिछले 30 दिन का: phone से notification हट जाए तब भी यहाँ रहता है। किसी पर दबाएँ तो वही शेयर या हिस्सा खुलेगा।
+  | पिछली बार app बंद हो गया था
+  | ● नई · आज 18:30
+  | Share Scan 1.1.0 · Android 14 (API 34) · Google sdk_gphone64_x86_64
+  | Thread: main · 17 Nov 2026, 18:30 IST
+  | android.app.RemoteServiceException$CrashedByAdbException: shell-induced crash
+  | दबाएँ: पूरा ब्योरा, भेजें या Copy करें
+  | 🚀 1 stocks का breakout
+  | ● नई · आज 14:58
+  | TANLA · score 91.6 · ₹698.80 · breakout • volume 4.67× ✓
+  | 🎯 PNB target 1 पूरा
+  | ● नई · आज 13:42
+  | भाव ₹140.20, target ₹139.85 पर पहुँचा • entry से +4.6%
+  | 📰 SOUTHBANK: सामान्य सूचना
+  | आज 09:05
+  | Intimation under Regulation 30 of SEBI (LODR)
+  | 💰 16 नव शाम: 14 शेयरों में चुपचाप खरीद
+  | सोम 16 नव॰ 19:31
+  | सबसे ज़्यादा: TANLA, PNB, APOLLO · Menu → बड़े पैसे की चाल
+shot 03-inbox
+shot 04-inbox-more
+=== a card opens its share
+could not find TANLA · score
+  | Share Scan
+  | v1.1.0
+  | NSE • BSE pre-breakout scanner
+  | Breakout स्कैन
+  | Support स्कैन
+  | बाज़ार बंद · AUTO हर 30 मिनट
+  | स्कैन पूरा
+  | 2611 top candidates • आज 18:29 का scan
+  | दोबारा स्कैन करें
+  | Clear scan
+  | 2,633
+  | स्कैन हुए
+  | 89.8
+  | Top score
+  | 237
+  | Volume spikes
+shot 05-card-opens-share
+=== the Menu again: nothing new now
+tapped menuButton
+  | Share Scan
+  | Version 1.1.0
+  | शुरुआती गाइड
+  | App की हर चीज़ आसान भाषा में, कदम-दर-कदम, screenshots के साथ (हिन्दी)
+  | अकाउंट
+  | लॉगिन नहीं
+  | सूचनाएँ
+  | Alerts, खबरें और app की गड़बड़ी, सब एक जगह
+  | स्कैन
+  | NSE, SME, BSE • हर exchange में sectors on/off • live auto-scan
+  | Paper Trading
+  | नकली पैसे, असली भाव: intraday और delivery की practice
+  | आज के Intraday
+  | App खुद चुनता है: कौन BUY, कौन SELL
+shot 06-menu-seen
+=== the crash card opens the report again
+tapped menuButton
+tapped सूचनाएँ
+tapped पिछली बार app बंद हो गया था
+  | पिछली बार app बंद हो गया था
+  | Copy करें
+  | बंद करें
+  | भेजें
+shot 07-crash-again
+=== सब हटाएँ, asked first
+tapped menuButton
+tapped सूचनाएँ
+tapped सब हटाएँ
+shot 08-clear-ask
+tapped सब हटाएँ
+  | 🔔 सूचनाएँ
+  | App ने जो भी बताया, पिछले 30 दिन का: phone से notification हट जाए तब भी यहाँ रहता है। किसी पर दबाएँ तो वही शेयर या हिस्सा खुलेगा।
+  | अभी कोई सूचना नहीं
+  | Live scan के breakout और नए STRONG, watchlist के breakout, target और stop, watchlist की खबरें, बड़े पैसे की चाल और Paper Trading की हर सूचना यहाँ जमा होगी (जो alerts चालू हैं, उनकी)। App कभी गड़बड़ी से बंद हो जाए तो उसका ब्योरा भी यहीं मिलेगा।
+shot 09-empty
+done
