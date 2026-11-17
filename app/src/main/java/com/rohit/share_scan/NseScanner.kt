@@ -238,6 +238,7 @@ object NseScanner {
         scope: ScanSectors = ScanSectors(),
         isStopped: () -> Boolean = { false },
         now: () -> Long = System::currentTimeMillis,
+        first: Map<String, Int> = emptyMap(),
         onProgress: (Int, Int) -> Unit,
     ): ScanOutput {
         val main = if (includeNse) {
@@ -250,7 +251,7 @@ object NseScanner {
         if (isStopped()) return ScanOutput(emptyList(), null, stopped = true)
         val listed = combine(if (includeNse) main else emptyList(), sme, bse)
         if (listed.isEmpty()) throw ScanBlocked(ScanBlocked.Reason.NO_LISTS)
-        val symbols = listed.filter { scope.includes(it.market, sectors.of(it.isin)) }
+        val symbols = checkFirst(listed.filter { scope.includes(it.market, sectors.of(it.isin)) }, first)
         if (symbols.isEmpty()) throw ScanBlocked(ScanBlocked.Reason.NO_SECTOR_STOCKS)
         val nseSymbolByIsin = main.filter { it.isin.isNotEmpty() }.associate { it.isin to it.symbol }
         val isinBySymbol = symbols.associate { it.symbol to it.isin }
@@ -414,6 +415,13 @@ object NseScanner {
      * One list to scan from the chosen markets. BSE adds only the shares not already in [main] or [sme], so a stock
      * listed on both exchanges is scanned once, as NSE; with NSE's main board off, BSE brings its dual-listed shares.
      */
+    /**
+     * [listings] with the ones [first] ranks (lower first) ahead of the rest, which keep the listing's order: a scan cut
+     * short (live mode's, when Android ends its background job) has then checked the stocks that matter most.
+     */
+    internal fun checkFirst(listings: List<Listing>, first: Map<String, Int>): List<Listing> =
+        if (first.isEmpty()) listings else listings.sortedBy { first[it.symbol] ?: Int.MAX_VALUE }
+
     internal fun combine(main: List<Listing>, sme: List<Listing>, bse: List<Listing>): List<Listing> {
         val nse = main + sme
         return (nse + bseOnly(bse, nse)).distinctBy { it.symbol }

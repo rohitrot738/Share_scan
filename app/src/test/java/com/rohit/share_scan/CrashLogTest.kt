@@ -56,6 +56,28 @@ class CrashLogTest {
     }
 
     @Test
+    fun aCloseForCpuSaysWhereTheAppWasAndNamesAndroid17() {
+        val report = CrashLog.exitReport(
+            version = "1.2.149",
+            api = 37,
+            device = "samsung SM-S918B",
+            exit = CrashLog.Exit.RESOURCES,
+            atMillis = 1_793_948_400_000L,
+            description = "[EXCESSIVE CPU USAGE] excessive cpu 39170 during 300076 dur=1150268 limit=2",
+            memoryKb = 175_104L,
+            trace = null,
+            importance = 400,
+        )
+        val lines = report.lines()
+        assertEquals("Share Scan 1.2.149 · Android 17 (API 37) · samsung SM-S918B", lines[0])
+        assertEquals("Closed by Android for using too much CPU or battery · 6 Nov 2026, 12:30 IST", lines[1])
+        assertEquals("Memory: 171 MB", lines[3])
+        assertEquals("App was: in the background, idle (400)", lines[4])
+        assertEquals("on the screen (100)", CrashLog.state(100))
+        assertEquals("running a background service or job (300)", CrashLog.state(300))
+    }
+
+    @Test
     fun fromAnAnrDumpTheMainThreadAndTheThreadHoldingItsLock() {
         val dump = """
             ----- pid 4242 at 2026-11-11 13:42:01 -----

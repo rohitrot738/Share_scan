@@ -49,6 +49,7 @@ object ExitHistory {
             memoryKb = max(info.pss, info.rss),
             trace = trace,
             earlier = fresh.drop(1).take(EARLIER).map { (earlier, earlierKind) -> earlierKind to earlier.timestamp },
+            importance = info.importance,
         )
     }
 

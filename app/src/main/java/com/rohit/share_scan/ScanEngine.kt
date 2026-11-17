@@ -61,6 +61,9 @@ object ScanEngine {
     private val loaded = AtomicBoolean(false)
     private val loadDone = CountDownLatch(1)
     @Volatile private var stopSignal = AtomicBoolean(false)
+
+    /** Live mode's scan is to end now as if out of time ([cutLiveScan]), keeping the stocks it did not reach. */
+    @Volatile private var cutSignal = AtomicBoolean(false)
     private val lock = Any()
 
     /** Reads the kept scan in the background, once; the screen shows it as soon as it is in. */
@@ -117,8 +120,23 @@ object ScanEngine {
         } else {
             worker.execute { finished.countDown() }
         }
-        finished.await(budgetMs + WAIT_SLACK_MS, TimeUnit.MILLISECONDS)
+        if (!finished.await(budgetMs + WAIT_SLACK_MS, TimeUnit.MILLISECONDS)) {
+            // The job must not end with the scan still running: Android then counts its work as an app idling in the
+            // background and closes the app for using too much CPU. Out of time, it ends now and keeps what it got.
+            cutLiveScan()
+            finished.await(WIND_DOWN_MS, TimeUnit.MILLISECONDS)
+        }
         return latestFlow.value
+    }
+
+    /**
+     * Ends live mode's scan now, as if out of time: it keeps the stocks it scored and, for the rest, the scan before
+     * it. For when its background job is over (Android stopped it, or its time is up); a scan the user started, which
+     * a foreground service keeps going, is left alone.
+     */
+    fun cutLiveScan() {
+        val current = progressFlow.value
+        if (current.running && current.trigger == Trigger.AUTO) cutSignal.set(true)
     }
 
     /** Asks the running scan to stop; it keeps the stocks scored so far. */
@@ -211,6 +229,7 @@ object ScanEngine {
         val current = progressFlow.value
         if (current.running) return null
         stopSignal = AtomicBoolean(false)
+        cutSignal = AtomicBoolean(false)
         val runId = current.runId + 1
         progressFlow.value = Progress(
             running = true,
@@ -225,7 +244,10 @@ object ScanEngine {
 
     private fun run(app: Context, trigger: Trigger, runId: Int, budgetMs: Long) {
         val stop = stopSignal
+        val cut = cutSignal
         val started = SystemClock.elapsedRealtime()
+        // Live mode's scan may be cut short: the watchlist first, then the stocks best placed in the scan before.
+        val first = if (trigger == Trigger.AUTO) firstToCheck(app) else emptyMap()
         val settings = AppSettings(app)
         val markets = buildSet {
             if (settings.includeNse) add(Market.NSE)
@@ -233,10 +255,11 @@ object ScanEngine {
             if (settings.includeBse) add(Market.BSE)
         }
         val scope = settings.scanSectors.key(markets)
+        var books: Thread? = null
         val outcome = runCatching {
             runCatching { SectorRepository.refreshIfStale(app) }
             // The R/S file is fetched alongside: a scan never waits for it, and it is in long before the results show.
-            thread(name = "Cr360Refresh", isDaemon = true) {
+            books = thread(name = "Cr360Refresh", isDaemon = true) {
                 runCatching { Cr360Repository.refreshIfStale(app) }
                 runCatching { SetupRepository.refreshIfStale(app) }
             }
@@ -246,7 +269,8 @@ object ScanEngine {
                 includeBse = settings.includeBse,
                 sectors = SectorRepository.book(app),
                 scope = settings.scanSectors,
-                isStopped = { stop.get() || (budgetMs > 0 && SystemClock.elapsedRealtime() - started > budgetMs) },
+                isStopped = { stop.get() || cut.get() || (budgetMs > 0 && SystemClock.elapsedRealtime() - started > budgetMs) },
+                first = first,
             ) { finished, total ->
                 // Progress arrives from several pool threads, so keep the highest count seen; threads a stop left
                 // behind can still report after their scan settled, so only this run's own progress counts.
@@ -257,6 +281,8 @@ object ScanEngine {
             }
         }
         val output = outcome.getOrNull()
+        // Live mode's job ends when the scan does: the R/S refresh (a download and parse of its own) ends within it.
+        if (trigger == Trigger.AUTO) runCatching { books?.join(BOOKS_JOIN_MS) }
         try {
             if (output == null) {
                 failureFlow.value = Failure(runId, outcome.exceptionOrNull()?.message)
@@ -275,6 +301,14 @@ object ScanEngine {
                 }
             }
         }
+    }
+
+    /** Live mode's order: the watchlist, then the kept scan's stocks, best score first; the rest after. */
+    private fun firstToCheck(app: Context): Map<String, Int> {
+        val order = LinkedHashMap<String, Int>()
+        prefs(app).getStringSet(Prefs.WATCHLIST, null).orEmpty().forEach { order.putIfAbsent(it, order.size) }
+        latestFlow.value?.output?.results.orEmpty().forEach { order.putIfAbsent(it.symbol, order.size) }
+        return order
     }
 
     /** Keeps a finished scan of the stocks [scope] names and acts on it. */
@@ -409,6 +443,9 @@ object ScanEngine {
     private const val SCAN_FILE = "last_scan.gz"
     private const val JOURNAL_FILE = "track_record.json"
     private const val WAIT_SLACK_MS = 30_000L
+    /** How long a cut live scan is given to put its threads down and keep what it got. */
+    private const val WIND_DOWN_MS = 20_000L
+    private const val BOOKS_JOIN_MS = 30_000L
     private const val LOAD_WAIT_S = 20L
     private const val REFRESH_WAIT_MS = 120_000L
     /** How long a finished scan waits on the charts of starred stocks it did not cover. */
