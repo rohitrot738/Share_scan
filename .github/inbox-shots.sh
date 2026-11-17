@@ -44,8 +44,21 @@ else:
     sys.exit(1)
 PY
 }
-tap() { local xy; xy=$(center "$@") && adb shell input tap $xy && echo "tapped $2" >> "$LOG" || echo "could not find $2" | tee -a "$LOG"; }
+# The emulator's own apps stall at times ("Pixel Launcher isn't responding"): closed so the dialog leaves the screen.
+# Share Scan's own is written down first, as a finding.
+unstall() {
+  for k in 1 2 3; do
+    dump
+    grep -q "t responding" /tmp/ui.xml || return 0
+    grep -q "Share Scan isn" /tmp/ui.xml && echo "FINDING: Share Scan isn't responding" | tee -a "$LOG"
+    echo "closed a not-responding dialog" >> "$LOG"
+    local xy; xy=$(center text "Close app") && adb shell input tap $xy
+    sleep 3
+  done
+}
+tap() { unstall; local xy; xy=$(center "$@") && adb shell input tap $xy && echo "tapped $2" >> "$LOG" || echo "could not find $2" | tee -a "$LOG"; }
 texts() {
+  unstall
   dump
   python3 - <<'PY'
 import html, re
@@ -56,7 +69,7 @@ for m in re.finditer(r' text="([^"]*)"', xml):
         print("  | " + t.replace("\n", "\n  | "))
 PY
 }
-shot() { sleep 2; adb exec-out screencap -p > "$OUT/$1.png"; echo "shot $1" >> "$LOG"; }
+shot() { sleep 2; unstall; adb exec-out screencap -p > "$OUT/$1.png"; echo "shot $1" >> "$LOG"; }
 launch() { adb shell am force-stop "$PKG"; adb shell am start -W -n "$PKG/.MainActivity" > /dev/null; sleep "${1:-12}"; }
 step() { echo "=== $1" | tee -a "$LOG"; }
 crashes() { local c; c=$(adb logcat -b crash -d 2>&1 | grep -v '^--------- beginning'); [ -n "$c" ] && { echo "CRASH BUFFER:" >> "$LOG"; echo "$c" | head -40 >> "$LOG"; }; adb logcat -b crash -c; }
@@ -66,12 +79,16 @@ back_home() { for k in 1 2 3; do adb shell input keyevent KEYCODE_BACK; sleep 2;
 
 adb install -r app-debug.apk | tee -a "$LOG"
 adb shell pm grant "$PKG" android.permission.POST_NOTIFICATIONS
+# A fresh emulator is busy for a while after it boots.
+sleep 40
+unstall
 launch 15
 
 step "a real scan, so a card can open its share"
 tap id startButton
 for i in $(seq 1 120); do
   sleep 10
+  unstall
   if center text "दोबारा स्कैन करें" > /dev/null; then echo "scan done after ~$((i * 10))s" >> "$LOG"; break; fi
 done
 adb logcat -b crash -c
