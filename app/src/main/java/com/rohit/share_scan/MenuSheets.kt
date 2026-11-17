@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.ColorUtils
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.chip.Chip
@@ -37,6 +38,9 @@ import com.rohit.share_scan.databinding.SheetMenuBinding
 import com.rohit.share_scan.databinding.SheetSettingsBinding
 import com.rohit.share_scan.databinding.SheetThemeBinding
 import com.rohit.share_scan.databinding.SheetTopBarBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 import kotlin.math.roundToInt
@@ -216,13 +220,13 @@ class MenuSheet(
     private val settings: AppSettings,
     private val onPick: (Entry) -> Unit,
 ) {
-    enum class Entry { GUIDE, ACCOUNT, USAGE, SCAN, PAPER, INTRADAY, BIG_MONEY, TRADE_LOG, TRACK_RECORD, SECTORS, SETTINGS, TEXT, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
+    enum class Entry { GUIDE, ACCOUNT, USAGE, NOTIFICATIONS, SCAN, PAPER, INTRADAY, BIG_MONEY, TRADE_LOG, TRACK_RECORD, SECTORS, SETTINGS, TEXT, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
 
     fun show(): BottomSheetDialog {
         val ui = SheetMenuBinding.inflate(activity.layoutInflater)
         ui.menuVersion.text = activity.getString(R.string.menu_version, version)
         lateinit var dialog: BottomSheetDialog
-        fun add(entry: Entry, @DrawableRes icon: Int, @StringRes title: Int, body: String) {
+        fun add(entry: Entry, @DrawableRes icon: Int, @StringRes title: Int, body: String): ItemMenuBinding {
             val row = ItemMenuBinding.inflate(activity.layoutInflater, ui.menuItems, true)
             row.menuIcon.setImageResource(icon)
             row.menuTitle.setText(title)
@@ -231,6 +235,7 @@ class MenuSheet(
                 dialog.dismiss()
                 onPick(entry)
             }
+            return row
         }
         add(Entry.GUIDE, R.drawable.ic_guide, R.string.menu_guide, activity.getString(R.string.menu_guide_body))
         val account = AccountManager.summary(activity) ?: activity.getString(R.string.menu_account_signed_out)
@@ -238,6 +243,16 @@ class MenuSheet(
         // Only the app's maker, signed in with their GitHub account, sees how many phones use it.
         if (UsageCounter.isOwner(activity)) {
             add(Entry.USAGE, R.drawable.ic_trending_up, R.string.menu_usage, activity.getString(R.string.menu_usage_body))
+        }
+        // How many came since the list was last opened, once the kept list is read.
+        val inbox = add(Entry.NOTIFICATIONS, R.drawable.ic_notifications, R.string.menu_inbox, activity.getString(R.string.menu_inbox_body))
+        val app = activity.applicationContext
+        activity.lifecycleScope.launch {
+            val unread = withContext(Dispatchers.IO) { NotificationInbox.unread(app) }
+            if (unread > 0) {
+                inbox.menuBody.text = activity.getString(R.string.menu_inbox_new, unread)
+                inbox.menuBody.setTextColor(ContextCompat.getColor(activity, R.color.bull))
+            }
         }
         add(Entry.SCAN, R.drawable.ic_radar, R.string.menu_scan, activity.getString(R.string.menu_scan_body))
         add(Entry.PAPER, R.drawable.ic_paper_trade, R.string.menu_paper, activity.getString(R.string.menu_paper_body))

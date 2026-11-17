@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu → सूचनाएँ (NotificationSheet): what the app told the user, kept in the app. -->
+<resources>
+    <string name="menu_inbox">Notifications</string>
+    <string name="menu_inbox_body">Alerts, news and app errors, all in one place</string>
+    <string name="menu_inbox_new">%1$d new • tap to see</string>
+    <string name="inbox_title">🔔 Notifications</string>
+    <string name="inbox_subtitle">Everything the app told you over the last 30 days: it stays here even after the notification is gone from the phone. Tap one to open that share or section.</string>
+    <string name="inbox_empty_title">No notifications yet</string>
+    <string name="inbox_empty_body">Live scan breakouts and new STRONGs, the watchlist breakouts, targets and stops, watchlist news, Big Money and Paper Trading all collect here (for the alerts that are on). If the app ever closes on an error, its report is here too.</string>
+    <string name="inbox_new">● New</string>
+    <string name="inbox_crash_hint">Tap: the full report, to send or copy</string>
+    <string name="inbox_clear">Clear all</string>
+    <string name="inbox_clear_title">Clear all notifications?</string>
+    <string name="inbox_clear_body">This list will be emptied. New notifications will keep collecting here.</string>
+</resources>

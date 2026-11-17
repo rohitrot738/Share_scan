@@ -113,12 +113,13 @@ object Notifier {
             Intent(Intent.ACTION_VIEW, item.url.toUri()).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
         )
+        val title = context.getString(R.string.notify_news_alert, item.symbol, context.getString(NewsLabels.label(item.kind)))
         post(
             context,
             id,
             NotificationCompat.Builder(context, CHANNEL_NEWS)
                 .setSmallIcon(R.drawable.ic_trending_up)
-                .setContentTitle(context.getString(R.string.notify_news_alert, item.symbol, context.getString(NewsLabels.label(item.kind))))
+                .setContentTitle(title)
                 .setContentText(item.title)
                 .setSubText(StockSearch.shortName(name).ifEmpty { item.source })
                 .setStyle(NotificationCompat.BigTextStyle().bigText(item.title))
@@ -128,6 +129,7 @@ object Notifier {
                 .setContentIntent(open(context, item.symbol, id, news = true))
                 .addAction(0, context.getString(R.string.notify_news_read), read)
                 .setAutoCancel(true),
+            NotificationLog.Entry(System.currentTimeMillis(), NotificationLog.Kind.NEWS, title, item.title, item.symbol, NotificationLog.Opens.NEWS),
         )
     }
 
@@ -139,17 +141,19 @@ object Notifier {
         val context = Languages.localized(base)
         if (byStock.isEmpty()) return
         val style = NotificationCompat.InboxStyle()
-        byStock.take(MAX_LINES).forEach { (symbol, news) ->
+        val digestLines = byStock.take(MAX_LINES).map { (symbol, news) ->
             val top = news.first()
-            style.addLine(context.getString(R.string.notify_news_digest_line, symbol, context.getString(NewsLabels.label(top.kind)), top.title))
+            context.getString(R.string.notify_news_digest_line, symbol, context.getString(NewsLabels.label(top.kind)), top.title)
         }
+        digestLines.forEach(style::addLine)
         val more = byStock.size - MAX_LINES
         if (more > 0) style.setSummaryText(context.getString(R.string.notify_live_more, more))
         val (firstSymbol, firstNews) = byStock.first()
         val lead = firstNews.first()
+        val digestTitle = context.getString(R.string.notify_news_digest, byStock.size)
         val builder = NotificationCompat.Builder(context, CHANNEL_NEWS)
             .setSmallIcon(R.drawable.ic_trending_up)
-            .setContentTitle(context.getString(R.string.notify_news_digest, byStock.size))
+            .setContentTitle(digestTitle)
             .setContentText(
                 context.getString(R.string.notify_news_digest_line, firstSymbol, context.getString(NewsLabels.label(lead.kind)), lead.title),
             )
@@ -161,7 +165,8 @@ object Notifier {
                 builder.addAction(0, symbol, open(context, symbol, DIGEST_ACTION_BASE + index, news = true))
             }
         }
-        post(context, ID_NEWS_DIGEST, builder)
+        val all = digestLines + listOfNotNull(if (more > 0) context.getString(R.string.notify_live_more, more) else null)
+        post(context, ID_NEWS_DIGEST, builder, NotificationLog.Entry(System.currentTimeMillis(), NotificationLog.Kind.NEWS, digestTitle, all.joinToString("\n"), firstSymbol, NotificationLog.Opens.NEWS))
     }
 
     /** One notification for everything a live scan found, best first. */
@@ -200,7 +205,8 @@ object Notifier {
                 builder.addAction(0, find.symbol, open(context, find.symbol, LIVE_ACTION_BASE + index))
             }
         }
-        post(context, ID_LIVE, builder)
+        val all = lines + listOfNotNull(if (more > 0) context.getString(R.string.notify_live_more, more) else null)
+        post(context, ID_LIVE, builder, NotificationLog.Entry(System.currentTimeMillis(), NotificationLog.Kind.LIVE, title, all.joinToString("\n"), finds.first().symbol))
     }
 
     /** A watchlisted stock's alert. */
@@ -245,6 +251,7 @@ object Notifier {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(open(context, event.symbol, id))
                 .setAutoCancel(true),
+            NotificationLog.Entry(System.currentTimeMillis(), NotificationLog.Kind.WATCH, title, body, event.symbol),
         )
     }
 
@@ -271,6 +278,7 @@ object Notifier {
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(open(context, trades.singleOrNull()?.symbol, ID_SQUARE_OFF))
                 .setAutoCancel(true),
+            NotificationLog.Entry(System.currentTimeMillis(), NotificationLog.Kind.SQUARE_OFF, title, body, trades.singleOrNull()?.symbol),
         )
     }
 
@@ -392,17 +400,19 @@ object Notifier {
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             .putExtra(EXTRA_PAPER, true)
         val tap = PendingIntent.getActivity(context, ID_PAPER, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        val title = if (lines.size == 1) context.getString(R.string.paper_title) else context.getString(R.string.notify_paper_title, lines.size)
         post(
             context,
             ID_PAPER,
             NotificationCompat.Builder(context, CHANNEL_WATCH)
                 .setSmallIcon(R.drawable.ic_notifications_small)
-                .setContentTitle(if (lines.size == 1) context.getString(R.string.paper_title) else context.getString(R.string.notify_paper_title, lines.size))
+                .setContentTitle(title)
                 .setContentText(lines.first())
                 .setStyle(NotificationCompat.BigTextStyle().bigText(body))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(tap)
                 .setAutoCancel(true),
+            NotificationLog.Entry(System.currentTimeMillis(), NotificationLog.Kind.PAPER, title, lines.joinToString("\n"), null, NotificationLog.Opens.PAPER),
         )
     }
 
@@ -411,16 +421,18 @@ object Notifier {
         if (signals.isEmpty()) return
         val context = Languages.localized(base)
         val id = ID_BIG_MONEY_BASE + (symbol.hashCode() and 0xFFFF)
+        val title = context.getString(R.string.big_money_notify_watch_title, symbol)
         post(
             context,
             id,
             NotificationCompat.Builder(context, CHANNEL_BIG_MONEY)
                 .setSmallIcon(R.drawable.ic_notifications_small)
-                .setContentTitle(context.getString(R.string.big_money_notify_watch_title, symbol))
+                .setContentTitle(title)
                 .setContentText(signals.first())
                 .setStyle(NotificationCompat.BigTextStyle().bigText(signals.joinToString("\n")))
                 .setContentIntent(open(context, symbol, id))
                 .setAutoCancel(true),
+            NotificationLog.Entry(System.currentTimeMillis(), NotificationLog.Kind.BIG_MONEY, title, signals.joinToString("\n"), symbol),
         )
     }
 
@@ -432,15 +444,18 @@ object Notifier {
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
             .putExtra(EXTRA_BIG_MONEY, true)
         val tap = PendingIntent.getActivity(context, ID_BIG_MONEY, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        val title = context.getString(R.string.big_money_notify_digest_title, session, count)
+        val body = context.getString(R.string.big_money_notify_digest_body, top.joinToString(", "))
         post(
             context,
             ID_BIG_MONEY,
             NotificationCompat.Builder(context, CHANNEL_BIG_MONEY)
                 .setSmallIcon(R.drawable.ic_notifications_small)
-                .setContentTitle(context.getString(R.string.big_money_notify_digest_title, session, count))
-                .setContentText(context.getString(R.string.big_money_notify_digest_body, top.joinToString(", ")))
+                .setContentTitle(title)
+                .setContentText(body)
                 .setContentIntent(tap)
                 .setAutoCancel(true),
+            NotificationLog.Entry(System.currentTimeMillis(), NotificationLog.Kind.BIG_MONEY, title, body, null, NotificationLog.Opens.BIG_MONEY),
         )
     }
 
@@ -463,7 +478,12 @@ object Notifier {
         )
     }
 
-    private fun post(context: Context, id: Int, builder: NotificationCompat.Builder) {
+    /**
+     * Shows the alert, and keeps it in Menu → सूचनाएँ ([NotificationInbox]) as [entry], whether or not Android may show
+     * it.
+     */
+    private fun post(context: Context, id: Int, builder: NotificationCompat.Builder, entry: NotificationLog.Entry? = null) {
+        entry?.let { NotificationInbox.record(context, it) }
         if (!canPost(context)) return
         createChannels(context)
         try {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu → सूचनाएँ (NotificationSheet): what the app told the user, kept in the app. -->
+<resources>
+    <string name="menu_inbox">నోటిఫికేషన్‌లు</string>
+    <string name="menu_inbox_body">అలర్ట్‌లు, వార్తలు, యాప్ లోపం, అన్నీ ఒకే చోట</string>
+    <string name="menu_inbox_new">%1$d కొత్త నోటిఫికేషన్‌లు • చూడటానికి నొక్కండి</string>
+    <string name="inbox_title">🔔 నోటిఫికేషన్‌లు</string>
+    <string name="inbox_subtitle">గత 30 రోజుల్లో యాప్ చెప్పినవన్నీ: ఫోన్ నుంచి నోటిఫికేషన్ పోయినా ఇక్కడ ఉంటుంది. దేనినైనా నొక్కితే ఆ షేర్ లేదా భాగం తెరుచుకుంటుంది.</string>
+    <string name="inbox_empty_title">ఇంకా నోటిఫికేషన్‌లు ఏవీ లేవు</string>
+    <string name="inbox_empty_body">లైవ్ స్కాన్ బ్రేక్‌అవుట్‌లు, కొత్త STRONG, వాచ్‌లిస్ట్ బ్రేక్‌అవుట్, టార్గెట్, స్టాప్, వాచ్‌లిస్ట్ వార్తలు, పెద్ద డబ్బు కదలిక, పేపర్ ట్రేడింగ్ ప్రతి నోటిఫికేషన్ ఇక్కడ చేరుతుంది (ఆన్‌లో ఉన్న అలర్ట్‌లవి). యాప్ ఎప్పుడైనా లోపంతో మూతపడితే దాని వివరాలు కూడా ఇక్కడే దొరుకుతాయి.</string>
+    <string name="inbox_new">● కొత్తది</string>
+    <string name="inbox_crash_hint">నొక్కండి: పూర్తి వివరాలు, పంపండి లేదా కాపీ చేయండి</string>
+    <string name="inbox_clear">అన్నీ తొలగించండి</string>
+    <string name="inbox_clear_title">అన్ని నోటిఫికేషన్‌లను తొలగించాలా?</string>
+    <string name="inbox_clear_body">ఇక్కడి జాబితా ఖాళీ అవుతుంది. కొత్త నోటిఫికేషన్‌లు ఇకపైనా ఇక్కడ చేరుతూనే ఉంటాయి.</string>
+</resources>

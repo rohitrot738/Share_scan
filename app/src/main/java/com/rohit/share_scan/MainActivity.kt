@@ -399,11 +399,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * The error a crash left last time ([CrashLog]), offered once: sent or copied, it tells which line failed. Its
-     * first lines show in the window.
+     * The error a crash left last time ([CrashLog]), or else the end Android recorded that no error handler saw (a
+     * native crash, the app stuck: [ExitHistory]), offered once: sent or copied, it tells which line failed. Its first
+     * lines show in the window.
      */
     private fun offerCrashReport() {
-        val report = CrashLog.take(filesDir) ?: return
+        val app = applicationContext
+        val title = getString(R.string.crash_title)
+        lifecycleScope.launch {
+            val report = withContext(Dispatchers.IO) {
+                runCatching {
+                    val found = CrashLog.take(app.filesDir)?.also { ExitHistory.markSeen(app) }
+                        ?: ExitHistory.report(app, BuildConfig.VERSION_NAME, "${Build.MANUFACTURER} ${Build.MODEL}")
+                    // Kept in Menu → सूचनाएँ too, to send again after the window is closed.
+                    found?.also {
+                        val entry = NotificationLog.Entry(System.currentTimeMillis(), NotificationLog.Kind.CRASH, title, it, null, NotificationLog.Opens.CRASH)
+                        NotificationInbox.record(app, entry)
+                    }
+                }.getOrNull()
+            } ?: return@launch
+            lifecycle.withStarted { showCrashReport(report) }
+        }
+    }
+
+    private fun showCrashReport(report: String) {
         MaterialAlertDialogBuilder(this)
             .setTitle(R.string.crash_title)
             .setMessage(getString(R.string.crash_body) + "\n\n" + report.lines().take(CRASH_PREVIEW_LINES).joinToString("\n"))
@@ -1283,6 +1302,7 @@ class MainActivity : AppCompatActivity() {
             MenuSheet.Entry.GUIDE -> showMenuSheet { GuideSheet(this, ::openMenu).show() }
             MenuSheet.Entry.ACCOUNT -> showMenuSheet { AccountSheet(this, ::openMenu).show() }
             MenuSheet.Entry.USAGE -> showMenuSheet { UsageSheet(this, ::openMenu).show() }
+            MenuSheet.Entry.NOTIFICATIONS -> showMenuSheet { NotificationSheet(this, ::openInboxEntry, ::openMenu).show() }
             MenuSheet.Entry.SCAN -> showMenuSheet {
                 ScanSheet(this, settings, SectorRepository.book(this), scanActions, ::openMenu).show()
             }
@@ -1316,6 +1336,18 @@ class MainActivity : AppCompatActivity() {
             MenuSheet.Entry.ABOUT -> showMenuSheet {
                 AboutSheet(this, updates.installedName, updates.installedCode, ::shareApp, ::openReleases, ::openMenu).show()
             }
+        }
+    }
+
+    /** What a tap on an entry of Menu → सूचनाएँ opens: as its notification would have, or a crash's report again. */
+    private fun openInboxEntry(entry: NotificationLog.Entry) {
+        when (entry.opens) {
+            NotificationLog.Opens.STOCK -> entry.symbol?.let { openFromNotification(it, news = false) }
+            NotificationLog.Opens.NEWS -> entry.symbol?.let { openFromNotification(it, news = true) }
+            NotificationLog.Opens.PAPER -> openPaper(fromMenu = false)
+            NotificationLog.Opens.BIG_MONEY -> openBigMoney(fromMenu = false)
+            NotificationLog.Opens.CRASH -> showCrashReport(entry.text)
+            NotificationLog.Opens.NOTHING -> Unit
         }
     }
 
