@@ -1,0 +1,39 @@
+device time: Wed Nov 18 05:30:00 UTC 2026
+=== v1.2.149 (released)
+Success
+  job:   JOB #u0a192/1: 9f94062 com.rohit.share_scan/androidx.work.impl.background.systemjob.SystemJobService
+  live job id: 1
+  sample 1: 233 ticks in 10 s
+  scan busy: 1
+v1.2.149 (released): scan running inside the job: 4.2 s CPU in 20 s = 21.0% (pid 4438)
+  timeout: Stopping job: #u0a192/1 com.rohit.share_scan/androidx.work.impl.background.systemjob.SystemJobService
+  job stopped by Android (timeout)
+    *APP* UID 10192 ProcessRecord{ae4a8fc 4438:com.rohit.share_scan/u0a192}
+      procStateMemTracker: best=1 (1=1 1.0x, 2=1 1.0x) / pending state=4 highest=1 1.0x
+      curProcState=15 mRepProcState=15 setProcState=15 lastStateTime=-2s415ms
+  --
+v1.2.149 (released): first minute after the job stopped: 0.0 s CPU in 60 s = 0.0% (pid 4438)
+v1.2.149 (released): second minute after the job stopped: 0.0 s CPU in 60 s = 0.0% (pid 4438)
+  log: 11-17 15:20:03.382   521  1665 E ShortcutService: Ignoring excessive intent tag.
+  log: 11-17 15:20:03.769   521  1665 E ShortcutService: Ignoring excessive intent tag.
+  log: 11-18 05:31:19.298  4438  4560 I WM-WorkerWrapper: Work [ id=1e5bc096-afb7-42fc-8266-1d195b78683b, tags={ com.rohit.share_scan.LiveScanWorker } ] was cancelled
+  log: 11-18 05:31:21.959  4438  4560 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=1e5bc096-afb7-42fc-8266-1d195b78683b, tags={ com.rohit.share_scan.LiveScanWorker } ]
+  log: 11-18 05:31:37.375  5540  5650 W NetworkScheduler: Immediate task was not started com.google.android.gms/.tapandpay.gcmtask.TapAndPayGcmTaskService{u=0 tag="hce.dynamic_aid_registration.oneoff" trigger=window{start=0s,end=1s,earliest=0s,latest=0s} requirements=[NET_ANY,PREFERRED_CHARGING] attributes=[] scheduled=0s last_run=N/A exec_window_multiplier=1.0000 jid=N/A status=PENDING retries=0 client_lib=GMS_TASK_SCHEDULER-231818000}. Rescheduling immediate tasks can cause excessive battery drain.
+=== branch build (the fix)
+Success
+  job:   JOB #u0a193/1: 86b92d5 com.rohit.share_scan/androidx.work.impl.background.systemjob.SystemJobService
+  live job id: 1
+  sample 1: 1102 ticks in 10 s
+  scan busy: 1
+branch build (the fix): scan running inside the job: 8.8 s CPU in 20 s = 44.2% (pid 6555)
+  timeout: Stopping job: #u0a193/1 com.rohit.share_scan/androidx.work.impl.background.systemjob.SystemJobService
+  job stopped by Android (timeout)
+    *APP* UID 10193 ProcessRecord{69220ce 6555:com.rohit.share_scan/u0a193}
+      procStateMemTracker: best=1 (1=1 1.0x) / pending state=4 highest=1 1.0x
+      curProcState=15 mRepProcState=15 setProcState=15 lastStateTime=-587ms
+  --
+branch build (the fix): first minute after the job stopped: 0.0 s CPU in 60 s = 0.0% (pid 6555)
+branch build (the fix): second minute after the job stopped: 0.0 s CPU in 60 s = 0.0% (pid 6555)
+  log: 11-18 05:34:30.707  6555  6609 I WM-WorkerWrapper: Work [ id=c036e489-96bf-4c51-a896-698521d62f90, tags={ com.rohit.share_scan.LiveScanWorker } ] was cancelled
+  log: 11-18 05:34:35.125  6555  6609 I WM-WorkerWrapper: Worker result SUCCESS for Work [ id=c036e489-96bf-4c51-a896-698521d62f90, tags={ com.rohit.share_scan.LiveScanWorker } ]
+done
