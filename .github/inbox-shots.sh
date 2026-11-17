@@ -150,7 +150,8 @@ shot 04-inbox-more
 crashes
 
 step "a card opens its share"
-adb shell input swipe 540 700 540 1800 500; sleep 2
+back_home
+inbox
 tap text "TANLA · score"; sleep 8
 texts | head -16 >> "$LOG"; shot 05-card-opens-share
 crashes
