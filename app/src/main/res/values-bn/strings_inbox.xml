@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu → सूचनाएँ (NotificationSheet): what the app told the user, kept in the app. -->
+<resources>
+    <string name="menu_inbox">বিজ্ঞপ্তি</string>
+    <string name="menu_inbox_body">অ্যালার্ট, খবর আর অ্যাপের ত্রুটি, সব এক জায়গায়</string>
+    <string name="menu_inbox_new">%1$dটি নতুন বিজ্ঞপ্তি • দেখতে চাপুন</string>
+    <string name="inbox_title">🔔 বিজ্ঞপ্তি</string>
+    <string name="inbox_subtitle">গত ৩০ দিনে অ্যাপ যা জানিয়েছে: ফোন থেকে বিজ্ঞপ্তি সরে গেলেও এখানে থাকে। কোনোটিতে চাপলে সেই শেয়ার বা অংশ খুলবে।</string>
+    <string name="inbox_empty_title">এখনও কোনো বিজ্ঞপ্তি নেই</string>
+    <string name="inbox_empty_body">লাইভ স্ক্যানের ব্রেকআউট ও নতুন STRONG, ওয়াচলিস্টের ব্রেকআউট, টার্গেট ও স্টপ, ওয়াচলিস্টের খবর, বড় টাকার চাল আর পেপার ট্রেডিং-এর প্রতিটি বিজ্ঞপ্তি এখানে জমা হবে (যে অ্যালার্ট চালু আছে তার)। অ্যাপ কখনো ত্রুটিতে বন্ধ হলে তার বিবরণও এখানে পাবেন।</string>
+    <string name="inbox_new">● নতুন</string>
+    <string name="inbox_crash_hint">চাপুন: পুরো বিবরণ, পাঠান বা কপি করুন</string>
+    <string name="inbox_clear">সব মুছুন</string>
+    <string name="inbox_clear_title">সব বিজ্ঞপ্তি মুছে দেবেন?</string>
+    <string name="inbox_clear_body">এখানের তালিকা খালি হয়ে যাবে। নতুন বিজ্ঞপ্তি এরপরও এখানে জমা হতে থাকবে।</string>
+</resources>

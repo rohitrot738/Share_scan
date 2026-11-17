@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu → सूचनाएँ (NotificationSheet): what the app told the user, kept in the app. -->
+<resources>
+    <string name="menu_inbox">सूचनाएँ</string>
+    <string name="menu_inbox_body">Alerts, खबरें और app की गड़बड़ी, सब एक जगह</string>
+    <string name="menu_inbox_new">%1$d नई सूचनाएँ • दबाकर देखें</string>
+    <string name="inbox_title">🔔 सूचनाएँ</string>
+    <string name="inbox_subtitle">App ने जो भी बताया, पिछले 30 दिन का: phone से notification हट जाए तब भी यहाँ रहता है। किसी पर दबाएँ तो वही शेयर या हिस्सा खुलेगा।</string>
+    <string name="inbox_empty_title">अभी कोई सूचना नहीं</string>
+    <string name="inbox_empty_body">Live scan के breakout और नए STRONG, watchlist के breakout, target और stop, watchlist की खबरें, बड़े पैसे की चाल और Paper Trading की हर सूचना यहाँ जमा होगी (जो alerts चालू हैं, उनकी)। App कभी गड़बड़ी से बंद हो जाए तो उसका ब्योरा भी यहीं मिलेगा।</string>
+    <string name="inbox_new">● नई</string>
+    <string name="inbox_crash_hint">दबाएँ: पूरा ब्योरा, भेजें या Copy करें</string>
+    <string name="inbox_clear">सब हटाएँ</string>
+    <string name="inbox_clear_title">सारी सूचनाएँ हटा दें?</string>
+    <string name="inbox_clear_body">यहाँ की list खाली हो जाएगी। नई सूचनाएँ आगे भी यहाँ जमा होती रहेंगी।</string>
+</resources>

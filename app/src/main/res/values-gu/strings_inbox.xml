@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menu → सूचनाएँ (NotificationSheet): what the app told the user, kept in the app. -->
+<resources>
+    <string name="menu_inbox">સૂચનાઓ</string>
+    <string name="menu_inbox_body">એલર્ટ, સમાચાર અને એપની ભૂલ, બધું એક જગ્યાએ</string>
+    <string name="menu_inbox_new">%1$d નવી સૂચનાઓ • જોવા દબાવો</string>
+    <string name="inbox_title">🔔 સૂચનાઓ</string>
+    <string name="inbox_subtitle">છેલ્લા 30 દિવસમાં એપે જે કહ્યું તે બધું: ફોનમાંથી સૂચના હટી જાય તો પણ અહીં રહે છે. કોઈ પર દબાવો તો તે શેર કે ભાગ ખુલશે.</string>
+    <string name="inbox_empty_title">હજી કોઈ સૂચના નથી</string>
+    <string name="inbox_empty_body">લાઇવ સ્કેનના બ્રેકઆઉટ અને નવા STRONG, વૉચલિસ્ટના બ્રેકઆઉટ, ટાર્ગેટ અને સ્ટોપ, વૉચલિસ્ટના સમાચાર, મોટા પૈસાની ચાલ અને પેપર ટ્રેડિંગની દરેક સૂચના અહીં જમા થશે (જે એલર્ટ ચાલુ છે તેની). એપ ક્યારેય ભૂલથી બંધ થાય તો તેની વિગત પણ અહીં મળશે.</string>
+    <string name="inbox_new">● નવી</string>
+    <string name="inbox_crash_hint">દબાવો: આખી વિગત, મોકલો કે કૉપિ કરો</string>
+    <string name="inbox_clear">બધું હટાવો</string>
+    <string name="inbox_clear_title">બધી સૂચનાઓ હટાવી દઈએ?</string>
+    <string name="inbox_clear_body">અહીંની યાદી ખાલી થઈ જશે. નવી સૂચનાઓ આગળ પણ અહીં જમા થતી રહેશે.</string>
+</resources>

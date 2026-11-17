@@ -405,11 +405,17 @@ class MainActivity : AppCompatActivity() {
      */
     private fun offerCrashReport() {
         val app = applicationContext
+        val title = getString(R.string.crash_title)
         lifecycleScope.launch {
             val report = withContext(Dispatchers.IO) {
                 runCatching {
-                    CrashLog.take(app.filesDir)?.also { ExitHistory.markSeen(app) }
+                    val found = CrashLog.take(app.filesDir)?.also { ExitHistory.markSeen(app) }
                         ?: ExitHistory.report(app, BuildConfig.VERSION_NAME, "${Build.MANUFACTURER} ${Build.MODEL}")
+                    // Kept in Menu → सूचनाएँ too, to send again after the window is closed.
+                    found?.also {
+                        val entry = NotificationLog.Entry(System.currentTimeMillis(), NotificationLog.Kind.CRASH, title, it, null, NotificationLog.Opens.CRASH)
+                        NotificationInbox.record(app, entry)
+                    }
                 }.getOrNull()
             } ?: return@launch
             lifecycle.withStarted { showCrashReport(report) }
@@ -1296,6 +1302,7 @@ class MainActivity : AppCompatActivity() {
             MenuSheet.Entry.GUIDE -> showMenuSheet { GuideSheet(this, ::openMenu).show() }
             MenuSheet.Entry.ACCOUNT -> showMenuSheet { AccountSheet(this, ::openMenu).show() }
             MenuSheet.Entry.USAGE -> showMenuSheet { UsageSheet(this, ::openMenu).show() }
+            MenuSheet.Entry.NOTIFICATIONS -> showMenuSheet { NotificationSheet(this, ::openInboxEntry, ::openMenu).show() }
             MenuSheet.Entry.SCAN -> showMenuSheet {
                 ScanSheet(this, settings, SectorRepository.book(this), scanActions, ::openMenu).show()
             }
@@ -1329,6 +1336,18 @@ class MainActivity : AppCompatActivity() {
             MenuSheet.Entry.ABOUT -> showMenuSheet {
                 AboutSheet(this, updates.installedName, updates.installedCode, ::shareApp, ::openReleases, ::openMenu).show()
             }
+        }
+    }
+
+    /** What a tap on an entry of Menu → सूचनाएँ opens: as its notification would have, or a crash's report again. */
+    private fun openInboxEntry(entry: NotificationLog.Entry) {
+        when (entry.opens) {
+            NotificationLog.Opens.STOCK -> entry.symbol?.let { openFromNotification(it, news = false) }
+            NotificationLog.Opens.NEWS -> entry.symbol?.let { openFromNotification(it, news = true) }
+            NotificationLog.Opens.PAPER -> openPaper(fromMenu = false)
+            NotificationLog.Opens.BIG_MONEY -> openBigMoney(fromMenu = false)
+            NotificationLog.Opens.CRASH -> showCrashReport(entry.text)
+            NotificationLog.Opens.NOTHING -> Unit
         }
     }
 
