@@ -1,8 +1,9 @@
 Performing Streamed Install
 Success
+closed a not-responding dialog
 === a real scan, so a card can open its share
 tapped startButton
-scan done after ~40s
+scan done after ~70s
 === sample alerts in the app's own words, three since the list was last opened
 === a real crash, then a start: the window, kept in सूचनाएँ too
   | पिछली बार app बंद हो गया था
@@ -32,9 +33,9 @@ tapped सूचनाएँ
   | 🔔 सूचनाएँ
   | App ने जो भी बताया, पिछले 30 दिन का: phone से notification हट जाए तब भी यहाँ रहता है। किसी पर दबाएँ तो वही शेयर या हिस्सा खुलेगा।
   | पिछली बार app बंद हो गया था
-  | ● नई · आज 18:30
+  | ● नई · आज 18:45
   | Share Scan 1.1.0 · Android 14 (API 34) · Google sdk_gphone64_x86_64
-  | Thread: main · 17 Nov 2026, 18:30 IST
+  | Thread: main · 17 Nov 2026, 18:45 IST
   | android.app.RemoteServiceException$CrashedByAdbException: shell-induced crash
   | दबाएँ: पूरा ब्योरा, भेजें या Copy करें
   | 🚀 1 stocks का breakout
@@ -52,23 +53,25 @@ tapped सूचनाएँ
 shot 03-inbox
 shot 04-inbox-more
 === a card opens its share
-could not find TANLA · score
-  | Share Scan
-  | v1.1.0
-  | NSE • BSE pre-breakout scanner
-  | Breakout स्कैन
-  | Support स्कैन
-  | बाज़ार बंद · AUTO हर 30 मिनट
-  | स्कैन पूरा
-  | 2611 top candidates • आज 18:29 का scan
-  | दोबारा स्कैन करें
-  | Clear scan
-  | 2,633
-  | स्कैन हुए
-  | 89.8
-  | Top score
-  | 237
-  | Volume spikes
+tapped menuButton
+tapped सूचनाएँ
+tapped TANLA · score
+  | NSE · EQUITY
+  | TANLA
+  | Tanla Platforms · Information Technology
+  | ₹711.00
+  | ▲ 1.40% आज · ▲ 9.62% 5D
+  | WATCH
+  | 72.9 / 100
+  | जानकारी
+  | खबरें · 87
+  | क्या बनाती है
+  | किसी product पर दबाएँ: उसे बनाने वाली companies list में दिखेंगी
+  | Software / IT
+  | Internet / online
+  | चार्ट
+  | पिछले 60 सत्र · ▲ 24.13%
+  | ये सिर्फ़ price-volume पर आधारित अनुमान हैं — निवेश सलाह नहीं।
 shot 05-card-opens-share
 === the Menu again: nothing new now
 tapped menuButton
