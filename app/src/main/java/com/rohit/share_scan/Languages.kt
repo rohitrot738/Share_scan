@@ -18,16 +18,7 @@ import java.util.Locale
 enum class AppLanguage(val tag: String, val nativeName: String) {
     HINGLISH("hi-Latn", "Hinglish"),
     HINDI("hi", "हिन्दी"),
-    ENGLISH("en", "English"),
-    BENGALI("bn", "বাংলা"),
-    GUJARATI("gu", "ગુજરાતી"),
-    MARATHI("mr", "मराठी"),
-    TELUGU("te", "తెలుగు"),
-    TAMIL("ta", "தமிழ்"),
-    KANNADA("kn", "ಕನ್ನಡ"),
-    MALAYALAM("ml", "മലയാളം"),
-    PUNJABI("pa", "ਪੰਜਾਬੀ"),
-    ODIA("or", "ଓଡ଼ିଆ");
+    ENGLISH("en", "English");
 
     /** The locale dates and month names are written in: Hindi's for Hinglish, the language's own in India for the rest. */
     val dateLocale: Locale
@@ -72,7 +63,12 @@ object Languages {
      */
     fun settle(context: Context) {
         val prefs = prefs(context)
-        if (prefs.contains(Prefs.LANGUAGE)) return
+        val kept = prefs.getString(Prefs.LANGUAGE, null)
+        if (kept != null) {
+            // A language the app no longer has (until v1.2.149 it also spoke nine more): back to Hinglish.
+            if (AppLanguage.fromTag(kept) == null) pick(context, AppLanguage.DEFAULT)
+            return
+        }
         val set = AppLanguage.of(AppCompatDelegate.getApplicationLocales()[0])
         if (set != null) {
             prefs.edit { putString(Prefs.LANGUAGE, set.tag) }
