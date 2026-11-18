@@ -61,7 +61,12 @@ shot() { sleep 2; unstall; adb exec-out screencap -p > "$OUT/$1.png"; echo "shot
 step() { echo "=== $1" | tee -a "$LOG"; }
 locales() { echo "  app locales: $(adb shell cmd locale get-app-locales "$PKG" 2>&1 | tr -d '\r')" >> "$LOG"; }
 crashes() { local c; c=$(adb logcat -b crash -d 2>&1 | grep -v '^--------- beginning'); [ -n "$c" ] && { echo "CRASH:" >> "$LOG"; echo "$c" | head -30 >> "$LOG"; }; adb logcat -b crash -c; }
-menu() { tap id compactMenu > /dev/null 2>&1 || tap id menuButton; sleep 3; }
+# Back at the top of the list (the header with the Menu button in view), then the Menu.
+menu() {
+  for k in 1 2 3; do adb shell input swipe 540 700 540 1900 300; sleep 1; done
+  if center id compactMenu > /dev/null; then tap id compactMenu; else tap id menuButton; fi
+  sleep 3
+}
 language_sheet() {
   menu
   for k in 1 2 3 4 5 6; do
