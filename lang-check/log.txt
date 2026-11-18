@@ -1,0 +1,81 @@
+Performing Streamed Install
+Success
+=== first start
+  app locales: Locales for com.rohit.share_scan for user 0 are [hi-Latn]
+=== the app set to Bengali, as a user of a removed language is
+  app locales: Locales for com.rohit.share_scan for user 0 are [bn]
+=== a start after the update: Hinglish expected
+  app locales: Locales for com.rohit.share_scan for user 0 are [hi-Latn]
+  pref:     <string name="language">hi-Latn</string>
+shot 01-after-update
+=== Menu → भाषा और Font: three languages
+could not find compactMenu
+could not find भाषा और Font
+  | 2,632
+  | स्कैन हुए
+  | 90.4
+  | Top score
+  | 220
+  | Volume spikes
+  | Top candidates
+  | 2,632
+  | टैप करें → details
+  | Filters
+  | ★ Watchlist
+  | सेक्टर
+  | Score ↓
+  | 3
+  | 🔥 INOX India · Capital Goods
+  | ▲ 9.15% आज · ▲ 9.17% 5D
+  | 🔴 जाल · MCap ₹18,855 Cr · Vol 16.9 L · R/S 61
+  | Support ₹1,395.20 · 6+ महीने · 2 बार
+  | ₹2,073.80
+  | RVOL ≈19.84×
+  | STRONG
+  | 85.8
+  | 4
+  | GAIL
+shot 02-languages
+=== हिन्दी picked
+could not find हिन्दी
+  app locales: Locales for com.rohit.share_scan for user 0 are [hi-Latn]
+  | 2,632
+  | स्कैन हुए
+  | 90.4
+  | Top score
+  | 220
+  | Volume spikes
+  | Top candidates
+  | 2,632
+  | टैप करें → details
+  | Filters
+shot 03-hindi
+=== English picked
+could not find compactMenu
+could not find भाषा और फ़ॉन्ट
+could not find English
+  app locales: Locales for com.rohit.share_scan for user 0 are [hi-Latn]
+  | 2,632
+  | स्कैन हुए
+  | 90.4
+  | Top score
+  | 220
+  | Volume spikes
+  | Top candidates
+  | 2,632
+  | टैप करें → details
+  | Filters
+shot 04-english
+=== back to Hinglish
+could not find compactMenu
+could not find Language and font
+could not find Hinglish
+  app locales: Locales for com.rohit.share_scan for user 0 are [hi-Latn]
+  | 2,632
+  | स्कैन हुए
+  | 90.4
+  | Top score
+  | 220
+  | Volume spikes
+shot 05-hinglish
+done
