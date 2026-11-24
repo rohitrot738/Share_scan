@@ -146,6 +146,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/detail_tab_news" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_tab_orderflow" />
     </com.google.android.material.tabs.TabLayout>
 
     <View
@@ -678,6 +683,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="12dp" />
+            </LinearLayout>
+
+            <!-- Order Flow belongs to the currently opened NSE stock, never to a global symbol scanner. -->
+            <LinearLayout
+                android:id="@+id/detailOrderFlowSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/detailOrderFlow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:orientation="vertical"
                     android:paddingHorizontal="12dp" />
             </LinearLayout>
