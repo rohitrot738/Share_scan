@@ -1336,7 +1336,9 @@ class StockDetailSheet(
 
     /** जानकारी, खबरें and this NSE stock's own Footprint; reselecting a tab returns to its top. */
     private fun bindTabs() {
-        ui.detailTabs.getTabAt(TAB_ORDER_FLOW)?.view?.isVisible = stock.market == Market.NSE
+        if (stock.market != Market.NSE && ui.detailTabs.tabCount > TAB_ORDER_FLOW) {
+            ui.detailTabs.removeTabAt(TAB_ORDER_FLOW)
+        }
         ui.detailTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) = showTab(tab.position)
             override fun onTabUnselected(tab: TabLayout.Tab) = Unit
