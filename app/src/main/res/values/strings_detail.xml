@@ -79,6 +79,12 @@
     <string name="detail_stat_sma_above">भाव ऊपर ▲ %1$s</string>
     <string name="detail_stat_sma_below">भाव नीचे ▼ %1$s</string>
 
+    <string name="detail_tab_orderflow">Order Flow</string>
+    <string name="orderflow_stock_title">%1$s · Order Flow</string>
+    <string name="orderflow_stock_feed_unavailable">इस NSE शेयर का वास्तविक live executed-trade feed अभी app में configured नहीं है। इसलिए live Bid × Ask, Delta या Footprint उपलब्ध नहीं है। CSV में इसी symbol के licensed executed trades import करने पर उसका Footprint यहाँ दिखेगा।</string>
+    <string name="orderflow_stock_csv_missing">इम्पोर्ट की गई file में %1$s के trades नहीं मिले। दूसरे शेयरों का data यहाँ नहीं दिखाया जाएगा।</string>
+    <string name="orderflow_stock_imported">Source: %1$s · %2$d one-minute bars · केवल %1$s में दिए गए executed trades</string>
+    <string name="orderflow_stock_timeframe">Timeframe: 1 minute (CSV aggregation). 5m और live NSE feed अभी उपलब्ध नहीं हैं।</string>
     <string name="detail_open_chart">TradingView पर चार्ट</string>
     <string name="detail_disclaimer">ये सिर्फ़ price-volume पर आधारित अनुमान हैं — निवेश सलाह नहीं।</string>
 </resources>
