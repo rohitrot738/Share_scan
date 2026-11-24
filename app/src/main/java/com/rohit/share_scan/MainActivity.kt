@@ -130,6 +130,25 @@ class MainActivity : AppCompatActivity() {
     private var sectorSheet: BottomSheetDialog? = null
     private var watchlistSheet: BottomSheetDialog? = null
     private var clearDialog: AlertDialog? = null
+    private var orderFlowDataset: OrderFlowDataset? = null
+    private val orderFlowPicker = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
+        if (uri != null) lifecycleScope.launch {
+            val loaded = runCatching {
+                withContext(Dispatchers.IO) {
+                    contentResolver.openInputStream(uri)?.bufferedReader()?.use { reader ->
+                        val source = uri.lastPathSegment?.substringAfterLast(':') ?: "CSV"
+                        OrderFlowCsv.decode(reader, source)
+                    } ?: error("Could not open the selected CSV file")
+                }
+            }
+            loaded.onSuccess {
+                orderFlowDataset = it
+                openOrderFlow(fromMenu = true)
+            }.onFailure {
+                Toast.makeText(this@MainActivity, getString(R.string.orderflow_import_error, it.message ?: "Invalid CSV"), Toast.LENGTH_LONG).show()
+            }
+        }
+    }
     private val notifyPermission = registerForActivityResult(ActivityResultContracts.RequestPermission()) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -1309,6 +1328,7 @@ class MainActivity : AppCompatActivity() {
             MenuSheet.Entry.INTRADAY -> showMenuSheet {
                 IntradaySheet(this, scan.uiState.value.results, { openChart(it) }, ::openMenu).show()
             }
+            MenuSheet.Entry.ORDER_FLOW -> openOrderFlow(fromMenu = true)
             MenuSheet.Entry.PAPER -> openPaper(fromMenu = true)
             MenuSheet.Entry.BIG_MONEY -> openBigMoney(fromMenu = true)
             MenuSheet.Entry.TRADE_LOG -> showMenuSheet {
@@ -1367,6 +1387,17 @@ class MainActivity : AppCompatActivity() {
     private fun openBigMoney(fromMenu: Boolean) {
         showMenuSheet {
             BigMoneySheet(this, scan.uiState.value.bigMoney, ::openBigMoneyShare, if (fromMenu) ::openMenu else null).show()
+        }
+    }
+
+    private fun openOrderFlow(fromMenu: Boolean) {
+        showMenuSheet {
+            OrderFlowSheet(
+                this,
+                orderFlowDataset,
+                { orderFlowPicker.launch(arrayOf("text/*", "application/csv", "application/vnd.ms-excel")) },
+                if (fromMenu) ::openMenu else null,
+            ).show()
         }
     }
 
