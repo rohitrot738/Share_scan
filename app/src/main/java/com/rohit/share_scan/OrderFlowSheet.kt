@@ -65,7 +65,8 @@ internal class OrderFlowSheet(
     private fun renderFootprint(content: LinearLayout) {
         val data = dataset ?: return
         val symbols = data.symbols
-        if (selectedSymbol == null || selectedSymbol !in symbols) selectedSymbol = symbols.firstOrNull()
+        val currentSymbol = selectedSymbol
+        if (currentSymbol == null || currentSymbol !in symbols) selectedSymbol = symbols.firstOrNull()
         val picker = HorizontalScrollView(activity).apply { isHorizontalScrollBarEnabled = false }
         val choices = row()
         symbols.take(80).forEach { symbol ->
