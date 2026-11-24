@@ -58,7 +58,7 @@ import kotlin.math.roundToInt
  * chart opens the trade window ([openTrade]) with the targets by horizon and the [TradePlan].
  * Sections whose data the scan did not provide (no [PriceStructure], no score parts) stay hidden.
  */
-class StockDetailSheet(
+class StockDetailSheet internal constructor(
     private val activity: AppCompatActivity,
     private val stock: ScanResult,
     private val chartSite: ChartSite = ChartSite.TRADINGVIEW,
@@ -76,6 +76,12 @@ class StockDetailSheet(
     private val setups: SetupBook = SetupBook.EMPTY,
     /** Opens on the खबरें tab (from a 📰 mark or a news notification) rather than on जानकारी. */
     private val openOnNews: Boolean = false,
+    /** Opens directly on this stock's own Footprint tab. */
+    private val openOnOrderFlow: Boolean = false,
+    /** Imported normalized executed trades; only this stock's symbol is read on this sheet. */
+    private val orderFlowDataset: OrderFlowDataset? = null,
+    /** Opens the CSV picker; importing returns to this same stock's Order Flow tab. */
+    private val onImportOrderFlow: (() -> Unit)? = null,
     /** What the company makes ([ProductBook.of]), the main one first. */
     private val products: List<String> = emptyList(),
     /** Its logo, its website's picture and its products' photos, carried in the app; null when none were found. */
@@ -110,6 +116,7 @@ class StockDetailSheet(
     fun show(): BottomSheetDialog {
         bindHeader()
         bindTabs()
+        bindOrderFlow()
         bindHorizons()
         bindProducts()
         bindChart()
@@ -1327,20 +1334,79 @@ class StockDetailSheet(
         parent.addView(noteView(if (deal) R.string.cr360_trades_deals_note else R.string.cr360_trades_insider_note))
     }
 
-    /** जानकारी or खबरें; picking the tab already open goes back to its top. */
+    /** जानकारी, खबरें and this NSE stock's own Footprint; reselecting a tab returns to its top. */
     private fun bindTabs() {
+        if (stock.market != Market.NSE && ui.detailTabs.tabCount > TAB_ORDER_FLOW) {
+            ui.detailTabs.removeTabAt(TAB_ORDER_FLOW)
+        }
         ui.detailTabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) = showTab(news = tab.position == TAB_NEWS)
+            override fun onTabSelected(tab: TabLayout.Tab) = showTab(tab.position)
             override fun onTabUnselected(tab: TabLayout.Tab) = Unit
             override fun onTabReselected(tab: TabLayout.Tab) = ui.detailScroll.smoothScrollTo(0, 0)
         })
-        if (openOnNews) ui.detailTabs.getTabAt(TAB_NEWS)?.select() else showTab(news = false)
+        when {
+            openOnOrderFlow && stock.market == Market.NSE -> ui.detailTabs.getTabAt(TAB_ORDER_FLOW)?.select()
+            openOnNews -> ui.detailTabs.getTabAt(TAB_NEWS)?.select()
+            else -> showTab(TAB_OVERVIEW)
+        }
     }
 
-    private fun showTab(news: Boolean) {
-        ui.detailOverview.isVisible = !news
-        ui.detailNewsSection.isVisible = news
+    private fun showTab(position: Int) {
+        ui.detailOverview.isVisible = position == TAB_OVERVIEW
+        ui.detailNewsSection.isVisible = position == TAB_NEWS
+        ui.detailOrderFlowSection.isVisible = position == TAB_ORDER_FLOW && stock.market == Market.NSE
         ui.detailScroll.scrollTo(0, 0)
+    }
+
+    /** Shows only this stock's imported executed trades; absent licensed feed data is stated, never synthesized. */
+    private fun bindOrderFlow() {
+        val content = ui.detailOrderFlow
+        content.removeAllViews()
+        val density = activity.resources.displayMetrics.density
+        fun dp(value: Int) = (value * density).roundToInt()
+        fun line(value: String, size: Float = 13f, bold: Boolean = false) {
+            content.addView(TextView(activity).apply {
+                text = value
+                textSize = size
+                setTextColor(color(R.color.text_primary))
+                if (bold) setTypeface(typeface, Typeface.BOLD)
+                setPadding(dp(8), dp(8), dp(8), dp(8))
+            }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT))
+        }
+
+        line(activity.getString(R.string.orderflow_stock_title, stock.symbol), 18f, true)
+        val bars = orderFlowDataset?.barsBySymbol?.get(stock.symbol.uppercase(Locale.US)).orEmpty()
+        val latest = bars.lastOrNull()
+        if (latest == null) {
+            line(activity.getString(R.string.orderflow_stock_feed_unavailable), 13f)
+            if (orderFlowDataset != null) {
+                line(activity.getString(R.string.orderflow_stock_csv_missing, stock.symbol), 12f)
+            }
+        } else {
+            line(activity.getString(R.string.orderflow_stock_imported, orderFlowDataset?.sourceName.orEmpty(), bars.size), 12f)
+            line(activity.getString(
+                R.string.orderflow_chart_summary,
+                latest.delta,
+                String.format(Locale.US, "%+.1f%%", latest.deltaPercent),
+                latest.totalVolume,
+                latest.poc?.stripTrailingZeros()?.toPlainString() ?: "—",
+            ), 14f, true)
+            content.addView(FootprintCanvasView(activity).apply {
+                setBars(bars)
+                contentDescription = activity.getString(R.string.orderflow_chart_note)
+            }, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp(310)))
+            line(activity.getString(R.string.orderflow_chart_note), 12f)
+        }
+        line(activity.getString(R.string.orderflow_stock_timeframe), 12f)
+        val import = com.google.android.material.button.MaterialButton(activity).apply {
+            text = activity.getString(R.string.orderflow_import)
+            isAllCaps = false
+            setOnClickListener { onImportOrderFlow?.invoke() }
+            isVisible = onImportOrderFlow != null
+        }
+        content.addView(import, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply {
+            setMargins(dp(12), dp(8), dp(12), dp(12))
+        })
     }
 
     /** The stock's news: its exchange filings and newspapers' articles ([NewsRepository]), newest first. */
@@ -1888,5 +1954,7 @@ class StockDetailSheet(
 
         /** The खबरें tab's place; जानकारी is first. */
         const val TAB_NEWS = 1
+        const val TAB_ORDER_FLOW = 2
+        const val TAB_OVERVIEW = 0
     }
 }

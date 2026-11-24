@@ -131,6 +131,8 @@ class MainActivity : AppCompatActivity() {
     private var watchlistSheet: BottomSheetDialog? = null
     private var clearDialog: AlertDialog? = null
     private var orderFlowDataset: OrderFlowDataset? = null
+    /** Stock to reopen on its own Order Flow tab after a CSV import launched from its detail sheet. */
+    private var pendingOrderFlowStock: ScanResult? = null
     private val orderFlowPicker = registerForActivityResult(ActivityResultContracts.OpenDocument()) { uri ->
         if (uri != null) lifecycleScope.launch {
             val loaded = runCatching {
@@ -143,8 +145,11 @@ class MainActivity : AppCompatActivity() {
             }
             loaded.onSuccess {
                 orderFlowDataset = it
-                openOrderFlow(fromMenu = true)
+                val stock = pendingOrderFlowStock
+                pendingOrderFlowStock = null
+                if (stock != null) openChart(stock, onOrderFlow = true) else openOrderFlow(fromMenu = true)
             }.onFailure {
+                pendingOrderFlowStock = null
                 Toast.makeText(this@MainActivity, getString(R.string.orderflow_import_error, it.message ?: "Invalid CSV"), Toast.LENGTH_LONG).show()
             }
         }
@@ -1228,7 +1233,7 @@ class MainActivity : AppCompatActivity() {
      * Opens the stock's detail sheet, on its जानकारी tab or ([onNews]) its खबरें tab; its button leads on to the chart
      * site picked in Settings.
      */
-    private fun openChart(stock: ScanResult, onNews: Boolean = false) {
+    private fun openChart(stock: ScanResult, onNews: Boolean = false, onOrderFlow: Boolean = false) {
         if (!stock.charted) {
             openUncharted(stock)
             return
@@ -1249,6 +1254,12 @@ class MainActivity : AppCompatActivity() {
             photos = state.photos.of(stock.symbol),
             setups = state.setups,
             openOnNews = onNews,
+            openOnOrderFlow = onOrderFlow,
+            orderFlowDataset = orderFlowDataset,
+            onImportOrderFlow = {
+                pendingOrderFlowStock = stock
+                orderFlowPicker.launch(arrayOf("text/*", "application/csv", "application/vnd.ms-excel"))
+            },
             onProduct = ::pickProduct,
         ).show()
     }

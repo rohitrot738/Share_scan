@@ -69,6 +69,12 @@
     <string name="detail_stat_sma50">SMA 50</string>
     <string name="detail_stat_sma_above">भाव ऊपर ▲ %1$s</string>
     <string name="detail_stat_sma_below">भाव नीचे ▼ %1$s</string>
+    <string name="detail_tab_orderflow">ऑर्डर फ्लो</string>
+    <string name="orderflow_stock_title">%1$s · ऑर्डर फ्लो</string>
+    <string name="orderflow_stock_feed_unavailable">इस NSE शेयर का वास्तविक लाइव executed-trade feed अभी ऐप में सेट नहीं है। इसलिए लाइव Bid × Ask, Delta या Footprint उपलब्ध नहीं है। इसी शेयर के licensed executed trades की CSV इम्पोर्ट करने पर उसका Footprint यहाँ दिखेगा।</string>
+    <string name="orderflow_stock_csv_missing">इम्पोर्ट की गई फ़ाइल में %1$s के ट्रेड नहीं मिले। दूसरे शेयरों का डेटा यहाँ नहीं दिखेगा।</string>
+    <string name="orderflow_stock_imported">स्रोत: %1$s · %2$d एक-मिनट बार · सिर्फ़ उसी फ़ाइल के executed trades</string>
+    <string name="orderflow_stock_timeframe">Timeframe: 1 मिनट (CSV aggregation)। 5m और NSE live feed अभी उपलब्ध नहीं हैं।</string>
     <string name="detail_open_chart">TradingView पर चार्ट</string>
     <string name="detail_disclaimer">ये सिर्फ़ भाव और वॉल्यूम पर आधारित अनुमान हैं — निवेश सलाह नहीं।</string>
 </resources>

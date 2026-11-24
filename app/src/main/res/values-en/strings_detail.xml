@@ -69,6 +69,12 @@
     <string name="detail_stat_sma50">SMA 50</string>
     <string name="detail_stat_sma_above">Price above ▲ %1$s</string>
     <string name="detail_stat_sma_below">Price below ▼ %1$s</string>
+    <string name="detail_tab_orderflow">Order Flow</string>
+    <string name="orderflow_stock_title">%1$s · Order Flow</string>
+    <string name="orderflow_stock_feed_unavailable">The real live executed-trade feed for this NSE stock is not configured in the app. Live Bid × Ask, Delta and Footprint are therefore unavailable. Import licensed executed trades for this symbol in CSV to see its footprint here.</string>
+    <string name="orderflow_stock_csv_missing">No trades for %1$s were found in the imported file. Data from other symbols will not be shown here.</string>
+    <string name="orderflow_stock_imported">Source: %1$s · %2$d one-minute bars · based only on executed trades in that file</string>
+    <string name="orderflow_stock_timeframe">Timeframe: 1 minute (CSV aggregation). 5m and live NSE feed are not available yet.</string>
     <string name="detail_open_chart">Chart on TradingView</string>
     <string name="detail_disclaimer">These are estimates from price and volume alone — not investment advice.</string>
 </resources>
