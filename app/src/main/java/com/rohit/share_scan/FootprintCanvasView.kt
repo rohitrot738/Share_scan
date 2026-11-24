@@ -44,8 +44,8 @@ internal class FootprintCanvasView(context: Context) : View(context) {
         val footer = 38f
         val columnWidth = ((width - left - 8f) / visible.size).coerceAtLeast(36f)
         val rowHeight = ((height - top - footer) / prices.size).coerceAtLeast(24f)
-        small.textSize = 17f
-        text.textSize = 16f
+        small.textSize = 9f * resources.displayMetrics.scaledDensity
+        text.textSize = 9.5f * resources.displayMetrics.scaledDensity
         text.textAlign = Paint.Align.CENTER
         small.textAlign = Paint.Align.RIGHT
 
