@@ -33,6 +33,17 @@ Detect the preparation phase before a fast bullish move across NSE/BSE instead o
 
 Important: OHLCV cannot reveal the true exchange order book or actual hidden/bulk orders. The current bulk/order-flow modules are evidence-based proxies. This version deliberately uses no broker credentials or live market-depth connection; it runs entirely from public market-data sources.
 
+## Footprint Chart and Order Flow Scanner
+
+Open **Menu → Footprint और Order Flow** in the Android app. The screen imports a vendor-normalized CSV of executed trades and builds:
+- bid × ask executed volume at each price level (1-minute bars)
+- bar delta, delta percentage and point of control (POC)
+- a scanner ranking the symbols present in the imported file by the latest bar's absolute delta percentage
+
+Required CSV columns: `symbol,timestamp,price,quantity,aggressor`; optional: `trade_id`. Timestamps must include a timezone, quantities must be positive whole numbers, and aggressor must explicitly be `buy` or `sell`.
+
+**Important:** the Android screen does not yet connect to NSE's live order/trade feed and does not scan every NSE symbol. It processes only the imported file. Do not treat the scanner as an all-market live feed. OHLCV-only data is not used to fabricate bid/ask volume or aggressor side. A licensed data source and validated feed adapter are still required for live NSE coverage.
+
 ## Live NSE/BSE pipeline
 
 `live_scan.py` now provides a two-stage full-market scan designed for 1–2 week swing candidates.

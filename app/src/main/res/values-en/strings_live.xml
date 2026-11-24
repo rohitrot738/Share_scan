@@ -103,4 +103,22 @@
     <string name="scan_market_some">%1$d/%2$d sectors • %3$s stocks</string>
     <string name="scan_sector_note">Sector: NSE\'s/BSE\'s classification • list of %1$s • a new list comes by itself every week</string>
     <string name="scan_sector_note_missing">No sector list yet — all stocks will count as \"Other\"</string>
+
+    <string name="menu_orderflow">Footprint &amp; Order Flow</string>
+    <string name="menu_orderflow_body">Imported executed trades • bid × ask volume, delta, POC and symbol ranking</string>
+    <string name="orderflow_title">Footprint &amp; Order Flow</string>
+    <string name="orderflow_subtitle">Executed trades with explicit buy/sell aggressor only • live NSE feed is not connected yet</string>
+    <string name="orderflow_import">Import normalized CSV</string>
+    <string name="orderflow_tab_footprint">Footprint Chart</string>
+    <string name="orderflow_tab_scanner">Order Flow Scanner</string>
+    <string name="orderflow_feed_unavailable">The real NSE live order/trade feed is not configured. No live or fabricated market data is shown. Import a normalized executed-trade CSV from your licensed vendor.</string>
+    <string name="orderflow_loaded">File: %1$s • %2$d symbols • %3$d unique trades</string>
+    <string name="orderflow_empty_title">No trade data loaded yet</string>
+    <string name="orderflow_empty_body">Each trade must include symbol, timezone-aware timestamp, price, whole-number quantity and an explicit aggressor (buy/sell). OHLCV cannot produce a true bid/ask footprint.</string>
+    <string name="orderflow_no_trades">No trades found for this symbol.</string>
+    <string name="orderflow_chart_summary">Latest 1-minute bar • Delta %1$d (%2$s) • Volume %3$d • POC %4$s</string>
+    <string name="orderflow_chart_note">Each cell shows Bid volume × Ask volume. The yellow outline marks that bar\'s POC. The chart shows the latest 5 one-minute bars in the imported file.</string>
+    <string name="orderflow_scanner_source">Ranking covers only symbols in the imported file and their latest 1-minute bar; it is not a live scan of all NSE shares.</string>
+    <string name="orderflow_import_error">CSV import failed: %1$s</string>
+
 </resources>

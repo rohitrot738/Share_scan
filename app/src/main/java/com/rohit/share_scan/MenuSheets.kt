@@ -220,7 +220,7 @@ class MenuSheet(
     private val settings: AppSettings,
     private val onPick: (Entry) -> Unit,
 ) {
-    enum class Entry { GUIDE, ACCOUNT, USAGE, NOTIFICATIONS, SCAN, PAPER, INTRADAY, BIG_MONEY, TRADE_LOG, TRACK_RECORD, SECTORS, SETTINGS, TEXT, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
+    enum class Entry { GUIDE, ACCOUNT, USAGE, NOTIFICATIONS, SCAN, PAPER, INTRADAY, ORDER_FLOW, BIG_MONEY, TRADE_LOG, TRACK_RECORD, SECTORS, SETTINGS, TEXT, THEME, BACKGROUND, LAYOUT, UPDATE, HELP, SHARE, ABOUT }
 
     fun show(): BottomSheetDialog {
         val ui = SheetMenuBinding.inflate(activity.layoutInflater)
@@ -257,6 +257,7 @@ class MenuSheet(
         add(Entry.SCAN, R.drawable.ic_radar, R.string.menu_scan, activity.getString(R.string.menu_scan_body))
         add(Entry.PAPER, R.drawable.ic_paper_trade, R.string.menu_paper, activity.getString(R.string.menu_paper_body))
         add(Entry.INTRADAY, R.drawable.ic_trending_up, R.string.menu_intraday, activity.getString(R.string.menu_intraday_body))
+        add(Entry.ORDER_FLOW, R.drawable.ic_trending_up, R.string.menu_orderflow, activity.getString(R.string.menu_orderflow_body))
         add(Entry.BIG_MONEY, R.drawable.ic_big_money, R.string.menu_big_money, activity.getString(R.string.menu_big_money_body))
         add(Entry.TRADE_LOG, R.drawable.ic_edit, R.string.menu_trade_log, activity.getString(R.string.menu_trade_log_body))
         add(Entry.TRACK_RECORD, R.drawable.ic_history, R.string.menu_track_record, activity.getString(R.string.menu_track_record_body))

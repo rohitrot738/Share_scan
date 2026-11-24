@@ -103,4 +103,22 @@
     <string name="scan_market_some">%1$d/%2$d सेक्टर • %3$s शेयर</string>
     <string name="scan_sector_note">सेक्टर: NSE/BSE का वर्गीकरण • सूची %1$s की • हर हफ़्ते नई सूची अपने-आप आती है</string>
     <string name="scan_sector_note_missing">सेक्टर सूची अभी नहीं है — सभी शेयर \"अन्य\" में गिने जाएँगे</string>
+
+    <string name="menu_orderflow">फुटप्रिंट और ऑर्डर फ्लो</string>
+    <string name="menu_orderflow_body">इम्पोर्ट किए गए ट्रेड • Bid × Ask वॉल्यूम, Delta, POC और शेयरों की रैंकिंग</string>
+    <string name="orderflow_title">फुटप्रिंट और ऑर्डर फ्लो</string>
+    <string name="orderflow_subtitle">सिर्फ़ स्पष्ट Buy/Sell aggressor वाले executed trades • अभी NSE का लाइव feed जुड़ा नहीं है</string>
+    <string name="orderflow_import">Normalized CSV इम्पोर्ट करें</string>
+    <string name="orderflow_tab_footprint">फुटप्रिंट चार्ट</string>
+    <string name="orderflow_tab_scanner">ऑर्डर फ्लो स्कैनर</string>
+    <string name="orderflow_feed_unavailable">NSE का वास्तविक लाइव order/trade feed अभी सेट नहीं है। कोई लाइव या नकली market data नहीं दिखाया जा रहा। अपने licensed vendor की normalized executed-trade CSV इम्पोर्ट करें।</string>
+    <string name="orderflow_loaded">फ़ाइल: %1$s • %2$d शेयर • %3$d unique trades</string>
+    <string name="orderflow_empty_title">अभी कोई trade data लोड नहीं है</string>
+    <string name="orderflow_empty_body">हर trade में symbol, timezone वाला timestamp, price, पूरी संख्या में quantity और स्पष्ट aggressor (buy/sell) होना चाहिए। OHLCV से असली bid/ask footprint नहीं बनता।</string>
+    <string name="orderflow_no_trades">इस शेयर का कोई trade नहीं मिला।</string>
+    <string name="orderflow_chart_summary">आख़िरी 1-minute bar • Delta %1$d (%2$s) • Volume %3$d • POC %4$s</string>
+    <string name="orderflow_chart_note">हर cell में Bid volume × Ask volume है। पीली outline उस bar का POC है। imported file के आख़िरी 5 one-minute bars दिखते हैं।</string>
+    <string name="orderflow_scanner_source">रैंकिंग सिर्फ़ इम्पोर्ट की गई file के शेयरों और उनके आख़िरी 1-minute bar की है; यह सभी NSE शेयरों का live scan नहीं है।</string>
+    <string name="orderflow_import_error">CSV इम्पोर्ट नहीं हुई: %1$s</string>
+
 </resources>
