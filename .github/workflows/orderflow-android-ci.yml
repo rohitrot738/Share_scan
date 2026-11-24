@@ -2,6 +2,14 @@ name: Order Flow Android CI
 
 on:
   workflow_dispatch:
+  push:
+    branches: [feature/android-orderflow-footprint-ui-v1]
+    paths:
+      - 'app/**'
+      - 'build.gradle.kts'
+      - 'settings.gradle.kts'
+      - 'gradle.properties'
+      - '.github/workflows/orderflow-android-ci.yml'
   pull_request:
     paths:
       - 'app/**'
