@@ -117,7 +117,7 @@
     <string name="orderflow_empty_body">Each trade must include symbol, timezone-aware timestamp, price, whole-number quantity and an explicit aggressor (buy/sell). OHLCV cannot produce a true bid/ask footprint.</string>
     <string name="orderflow_no_trades">No trades found for this symbol.</string>
     <string name="orderflow_chart_summary">Latest 1-minute bar • Delta %1$d (%2$s) • Volume %3$d • POC %4$s</string>
-    <string name="orderflow_chart_note">Each cell shows Bid volume × Ask volume. The yellow outline marks that bar's POC. The chart shows the latest 7 one-minute bars in the imported file.</string>
+    <string name="orderflow_chart_note">Each cell shows Bid volume × Ask volume. The yellow outline marks that bar's POC. The chart shows the latest 5 one-minute bars in the imported file.</string>
     <string name="orderflow_scanner_source">Ranking covers only symbols in the imported file and their latest 1-minute bar; it is not a live scan of all NSE shares.</string>
     <string name="orderflow_import_error">CSV import failed: %1$s</string>
 
