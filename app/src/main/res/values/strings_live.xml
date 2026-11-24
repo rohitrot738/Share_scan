@@ -135,7 +135,7 @@
     <string name="orderflow_empty_body">Import में हर trade का symbol, timezone वाला timestamp, price, whole-number quantity और स्पष्ट aggressor (buy/sell) होना ज़रूरी है। OHLCV से असली bid/ask footprint नहीं बनता।</string>
     <string name="orderflow_no_trades">इस symbol का कोई trade नहीं मिला।</string>
     <string name="orderflow_chart_summary">Latest 1-minute bar • Delta %1$d (%2$s) • Volume %3$d • POC %4$s</string>
-    <string name="orderflow_chart_note">हर cell में Bid volume × Ask volume है। पीली outline उस bar का POC है। यह imported file के आख़िरी 7 one-minute bars दिखाता है।</string>
+    <string name="orderflow_chart_note">हर cell में Bid volume × Ask volume है। पीली outline उस bar का POC है। यह imported file के आख़िरी 5 one-minute bars दिखाता है।</string>
     <string name="orderflow_scanner_source">Ranking केवल import की गई file के symbols और उनके latest 1-minute bar पर है; यह सभी NSE shares का live scan नहीं है।</string>
     <string name="orderflow_import_error">CSV import नहीं हुआ: %1$s</string>
 
