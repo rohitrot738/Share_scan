@@ -24,7 +24,7 @@ internal class FootprintCanvasView(context: Context) : View(context) {
     private val timeFormat = DateTimeFormatter.ofPattern("HH:mm").withZone(ZoneId.systemDefault())
 
     fun setBars(value: List<OrderFlowBar>) {
-        bars = value.takeLast(7)
+        bars = value.takeLast(5)
         invalidate()
     }
 
@@ -39,13 +39,13 @@ internal class FootprintCanvasView(context: Context) : View(context) {
         }
         val prices = visible.flatMap { it.levels.keys }.distinct().sortedDescending().take(14)
         if (prices.isEmpty()) return
-        val left = 104f
+        val left = 86f
         val top = 34f
         val footer = 38f
         val columnWidth = ((width - left - 8f) / visible.size).coerceAtLeast(36f)
         val rowHeight = ((height - top - footer) / prices.size).coerceAtLeast(24f)
-        small.textSize = 19f
-        text.textSize = 19f
+        small.textSize = 17f
+        text.textSize = 16f
         text.textAlign = Paint.Align.CENTER
         small.textAlign = Paint.Align.RIGHT
 
