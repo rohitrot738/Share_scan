@@ -58,7 +58,7 @@ import kotlin.math.roundToInt
  * chart opens the trade window ([openTrade]) with the targets by horizon and the [TradePlan].
  * Sections whose data the scan did not provide (no [PriceStructure], no score parts) stay hidden.
  */
-class StockDetailSheet(
+class StockDetailSheet internal constructor(
     private val activity: AppCompatActivity,
     private val stock: ScanResult,
     private val chartSite: ChartSite = ChartSite.TRADINGVIEW,
