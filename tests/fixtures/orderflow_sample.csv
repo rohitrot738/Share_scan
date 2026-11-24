@@ -1,0 +1,4 @@
+symbol,timestamp,price,quantity,aggressor,trade_id
+ABC,2026-01-01T09:15:01+05:30,100.05,25,buy,T1
+ABC,2026-01-01T09:15:02+05:30,100.05,10,sell,T2
+ABC,2026-01-01T09:15:03+05:30,100.10,40,buy,T3
