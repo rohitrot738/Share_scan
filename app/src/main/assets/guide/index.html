@@ -196,6 +196,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
         <li><a href="#log">Trade log और risk guard</a></li>
         <li><a href="#watchlist">Watchlist</a></li>
         <li><a href="#alerts">Alerts, notifications और सूचनाएँ</a></li>
+        <li><a href="#orderflow">Footprint और Order Flow</a></li>
         <li><a href="#menu">Menu की हर चीज़</a></li>
         <li><a href="#routine">रोज़ का आसान तरीका</a></li>
         <li><a href="#glossary">शब्दकोश</a></li>
@@ -710,8 +711,23 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
     </section>
 
     <!-- 15 -->
+    <section class="lesson" id="orderflow">
+      <div class="lesson-head"><span class="n">15</span><div><h2>Footprint और Order Flow</h2><p><span class="ui">Menu</span> → <span class="ui">Footprint और Order Flow</span>: हर price level पर executed Buy और Sell volume पढ़ें।</p></div></div>
+      <div class="cols">
+        <div>
+          <ol>
+            <li>Menu खोलें और <span class="ui">Footprint और Order Flow</span> चुनें।</li>
+            <li><span class="ui">Normalized CSV import करें</span> दबाकर अपने licensed market-data vendor की trade file चुनें। ज़रूरी columns हैं: <code>symbol,timestamp,price,quantity,aggressor</code>; <code>trade_id</code> optional है। Timestamp में timezone होना चाहिए और aggressor साफ़ तौर पर <code>buy</code> या <code>sell</code> होना चाहिए।</li>
+            <li><span class="ui">Footprint Chart</span> में symbol चुनें। हर price row पर <b>Bid volume × Ask volume</b> दिखता है; पीली outline उस minute का POC (सबसे ज़्यादा traded volume वाला price) है। Delta = Ask volume − Bid volume।</li>
+            <li><span class="ui">Order Flow Scanner</span> में imported file के symbols उनके आख़िरी 1-minute bar के Delta% के आधार पर rank होते हैं। यह ranking सिर्फ़ file में मौजूद shares की है।</li>
+          </ol>
+          <div class="callout warn"><b>बहुत ज़रूरी सीमा</b>अभी app का NSE live order/trade feed configured नहीं है। इसलिए यह screen live NSE data नहीं दिखाती; केवल आपके import किए गए normalized executed trades पर काम करती है। OHLCV candle से असली bid/ask volume, aggressor side या hidden orders पता नहीं चलते। गलत या अनुमानित buy/sell side वाली file import न करें।</div>
+        </div>
+      </div>
+    </section>
+
     <section class="lesson" id="menu">
-      <div class="lesson-head"><span class="n">15</span><div><h2>Menu की हर चीज़</h2><p>ऊपर दाएँ ≡ बटन।</p></div></div>
+      <div class="lesson-head"><span class="n">16</span><div><h2>Menu की हर चीज़</h2><p>ऊपर दाएँ ≡ बटन।</p></div></div>
       <div class="cols has-shot">
         <div>
           <ul>
@@ -721,6 +737,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
             <li><b>स्कैन</b>: कौन से exchanges (NSE, NSE SME, BSE) और हर एक के कौन से sectors; auto-scan और उसका समय; alerts; Background में चलने दें।</li>
             <li><b>Paper Trading</b>: भाग 10।</li>
             <li><b>आज के Intraday</b>: भाग 9।</li>
+            <li><b>Footprint और Order Flow</b>: licensed vendor की normalized trade CSV import करके bid × ask footprint, Delta, POC और imported symbols की ranking देखें। अभी live NSE feed नहीं जुड़ा है।</li>
             <li><b>बड़े पैसे की चाल</b>: भाग 11।</li>
             <li><b>Trade log</b>: भाग 12।</li>
             <li><b>Track record</b>: हर दिन के top 10 STRONG picks 1, 5 और 10 दिन बाद कितने चले, Nifty 50 के मुकाबले। इससे पता चलता है score कितना काम कर रहा है।</li>
@@ -742,7 +759,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
 
     <!-- 16 -->
     <section class="lesson" id="routine">
-      <div class="lesson-head"><span class="n">16</span><div><h2>रोज़ का आसान तरीका</h2><p>शुरुआत करने वाले के लिए एक सीधा रोज़ का क्रम।</p></div></div>
+      <div class="lesson-head"><span class="n">17</span><div><h2>रोज़ का आसान तरीका</h2><p>शुरुआत करने वाले के लिए एक सीधा रोज़ का क्रम।</p></div></div>
       <div class="routine">
         <div><span class="t">8:00–9:15</span><p>Watchlist की ख़बरें देखें। Events (नतीजे, dividend) की तारीख़ें नोट करें।</p></div>
         <div><span class="t">9:15–9:30</span><p>कुछ न करें। Opening range बनने दें; पहले 15 मिनट सबसे ज़्यादा उछाल वाले होते हैं।</p></div>
@@ -756,7 +773,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
 
     <!-- 17 -->
     <section class="lesson" id="glossary">
-      <div class="lesson-head"><span class="n">17</span><div><h2>शब्दकोश</h2><p>App में आने वाले शब्द, आसान भाषा में।</p></div></div>
+      <div class="lesson-head"><span class="n">18</span><div><h2>शब्दकोश</h2><p>App में आने वाले शब्द, आसान भाषा में।</p></div></div>
       <dl class="terms">
         <div><dt>Breakout</dt><dd>भाव का किसी पुराने ऊँचे स्तर (जैसे 20 दिन का high) के ऊपर निकलना।</dd></div>
         <div><dt>Support (सहारा)</dt><dd>वह भाव जहाँ बार-बार गिरकर भी stock रुक जाता है, जैसे फ़र्श।</dd></div>
@@ -815,7 +832,7 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; color: var
 
     <!-- 18 -->
     <section class="lesson" id="faq">
-      <div class="lesson-head"><span class="n">18</span><div><h2>आम सवाल</h2><p>जो बातें अक्सर पूछी जाती हैं।</p></div></div>
+      <div class="lesson-head"><span class="n">19</span><div><h2>आम सवाल</h2><p>जो बातें अक्सर पूछी जाती हैं।</p></div></div>
       <div class="faq">
         <div><h3>Scan बहुत धीमा है या रुक जाता है।</h3><p>Internet देखें। BSE और SME भी चालू हों तो scan लंबा होता है; <span class="ui">Menu</span> → <span class="ui">स्कैन</span> में सिर्फ़ NSE रखें। Screen बंद होने पर भी scan notification के साथ चलता है।</p></div>
         <div><h3>"कोई stock match नहीं हुआ" लिखा आता है।</h3><p>Filters बहुत कड़े हैं। <span class="ui">Filters</span> → <span class="ui">Reset</span> करें, या sector filter हटाएँ।</p></div>
