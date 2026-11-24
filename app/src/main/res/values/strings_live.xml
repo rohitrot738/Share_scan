@@ -121,4 +121,22 @@
     <string name="scan_market_some">%1$d/%2$d sectors • %3$s stocks</string>
     <string name="scan_sector_note">Sector: NSE/BSE की classification • list %1$s की • हर हफ़्ते नई list अपने-आप आती है</string>
     <string name="scan_sector_note_missing">Sector list अभी नहीं है — सभी stocks "अन्य" में गिने जाएँगे</string>
+
+    <string name="menu_orderflow">Footprint और Order Flow</string>
+    <string name="menu_orderflow_body">Imported executed trades • bid × ask volume, delta, POC और symbol ranking</string>
+    <string name="orderflow_title">Footprint और Order Flow</string>
+    <string name="orderflow_subtitle">सिर्फ़ स्पष्ट buy/sell aggressor वाले executed trades • अभी live NSE feed जुड़ा नहीं है</string>
+    <string name="orderflow_import">Normalized CSV import करें</string>
+    <string name="orderflow_tab_footprint">Footprint Chart</string>
+    <string name="orderflow_tab_scanner">Order Flow Scanner</string>
+    <string name="orderflow_feed_unavailable">NSE का वास्तविक live order/trade feed अभी configured नहीं है। कोई live या नकली market data नहीं दिखाया जा रहा। अपने licensed vendor से normalized executed-trade CSV import करें।</string>
+    <string name="orderflow_loaded">फ़ाइल: %1$s • %2$d symbols • %3$d unique trades</string>
+    <string name="orderflow_empty_title">अभी कोई trade data लोड नहीं है</string>
+    <string name="orderflow_empty_body">Import में हर trade का symbol, timezone वाला timestamp, price, whole-number quantity और स्पष्ट aggressor (buy/sell) होना ज़रूरी है। OHLCV से असली bid/ask footprint नहीं बनता।</string>
+    <string name="orderflow_no_trades">इस symbol का कोई trade नहीं मिला।</string>
+    <string name="orderflow_chart_summary">Latest 1-minute bar • Delta %1$d (%2$s) • Volume %3$d • POC %4$s</string>
+    <string name="orderflow_chart_note">हर cell में Bid volume × Ask volume है। पीली outline उस bar का POC है। यह imported file के आख़िरी 7 one-minute bars दिखाता है।</string>
+    <string name="orderflow_scanner_source">Ranking केवल import की गई file के symbols और उनके latest 1-minute bar पर है; यह सभी NSE shares का live scan नहीं है।</string>
+    <string name="orderflow_import_error">CSV import नहीं हुआ: %1$s</string>
+
 </resources>
