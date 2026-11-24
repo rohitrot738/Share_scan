@@ -1,6 +1,13 @@
 [
   {
     "version": "",
+    "date": "2026-11-24",
+    "items": [
+      "Menu में Footprint और Order Flow: licensed vendor की normalized executed-trade CSV import करके price-wise Bid × Ask volume, Delta, POC और imported symbols की ranking देखें। NSE का live feed अभी configured नहीं है; app live data या OHLCV से बनाया हुआ नकली order flow नहीं दिखाती।"
+    ]
+  },
+  {
+    "version": "1.2.149",
     "date": "2026-11-18",
     "items": [
       "App की भाषाएँ अब तीन: Hinglish, हिन्दी और English (Menu → भाषा और Font)। बाकी 9 भाषाएँ (বাংলা, ગુજરાતી, मराठी, తెలుగు, தமிழ், ಕನ್ನಡ, മലയാളം, ਪੰਜਾਬੀ, ଓଡ଼ିଆ) हटा दी गईं; जिनकी app इनमें से किसी में थी, वह update के बाद अपने-आप Hinglish में खुलेगी"
